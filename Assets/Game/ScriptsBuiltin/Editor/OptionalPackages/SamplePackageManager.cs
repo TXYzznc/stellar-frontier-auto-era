@@ -446,6 +446,7 @@ namespace AiFriendlyFrame.Editor.Samples
                 foreach (SamplePayloadMapping payload in package.Manifest.payloads)
                 {
                     DeleteEmptyDirectories(ResolveProjectPath(payload.destination));
+                    DeleteEmptySampleParentDirectory(payload.destination);
                 }
                 AssetDatabase.Refresh();
                 message = $"已移除 {package.Manifest.displayName}。";
@@ -816,6 +817,19 @@ namespace AiFriendlyFrame.Editor.Samples
                 Directory.Delete(root, false);
                 DeleteFolderMetaFile(root);
             }
+        }
+
+        private static void DeleteEmptySampleParentDirectory(string destination)
+        {
+            string normalizedDestination = destination.Replace('\\', '/').TrimEnd('/');
+            int sampleDirectoryIndex = normalizedDestination.LastIndexOf("/Sample/", StringComparison.Ordinal);
+            if (sampleDirectoryIndex < 0)
+            {
+                return;
+            }
+
+            string sampleRoot = normalizedDestination.Substring(0, sampleDirectoryIndex + "/Sample".Length);
+            DeleteEmptyDirectories(ResolveProjectPath(sampleRoot));
         }
 
         private static void DeleteFolderMetaFile(string directory)

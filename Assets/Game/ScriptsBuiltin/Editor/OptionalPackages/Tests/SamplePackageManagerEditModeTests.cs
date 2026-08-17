@@ -90,6 +90,10 @@ namespace AiFriendlyFrame.Editor.Samples.Tests
             Assert.IsTrue(SamplePackageManager.TryUninstall(_package, false, out string uninstallMessage), uninstallMessage);
             Assert.IsFalse(SamplePackageManager.IsInstalled(_package));
             Assert.IsFalse(File.Exists(markerPath));
+
+            string sampleRoot = Path.Combine(ProjectRoot, "Assets", "Sample");
+            Assert.IsFalse(Directory.Exists(sampleRoot));
+            Assert.IsFalse(File.Exists(sampleRoot + ".meta"));
         }
 
         [Test]
