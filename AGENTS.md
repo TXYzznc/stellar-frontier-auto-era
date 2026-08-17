@@ -69,6 +69,8 @@ Claude Code 的等价入口为 [.claude/CLAUDE.md](./.claude/CLAUDE.md)。
 - 通用扩展：`Assets/Game/Scripts/`。
 - 代码结构查询优先使用 codebase-memory；不可用时用最小范围 `rg`。
 - 修改 Unity 代码前先读 [.claude/conventions.md](./.claude/conventions.md)。
+- Editor Play Mode 内的小范围 C# 方法体迭代可使用 FSR；配置、适用范围和验收见 [Docs/Development/FastScriptReload.md](./Docs/Development/FastScriptReload.md)。结构变更、泛型、字段/序列化、程序集和依赖变更必须停止 Play Mode 后按普通 Unity 编译流程验证。
+- FSR 只用于 Editor Play Mode 开发效率；不启用 `LiveScriptReload_IncludeInBuild_Enabled`，不将其当作已发布 Player 的热更新方案，也不额外安装第二份 FSR。
 - 不在高频循环制造 GC 分配。
 - ScriptableObject 是配置载体，不是运行时数据库。
 - 输入必须经过框架输入抽象。

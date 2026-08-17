@@ -23,7 +23,7 @@
 使用 Unity Hub 的 **Unity 2022.3.62f3c1** 打开项目。首次导入时请保持网络可用，等待 Package Manager 解析依赖、资源导入和程序集编译完成。
 
 ```powershell
-git clone git@github.com:TXYzznc/AI-Friendly-Project.git
+git clone --recurse-submodules git@github.com:TXYzznc/AI-Friendly-Project.git
 ```
 
 ### 2. 从 Launch 场景运行
@@ -43,6 +43,10 @@ git clone git@github.com:TXYzznc/AI-Friendly-Project.git
 - **Load from bytes**：按项目资源策略决定文本或二进制加载。
 
 每次新增表或流程后，都应同时检查源文件、生成代码、输出资源和 `AppConfigs` 的加载列表。
+
+## 编辑器 Play Mode 热重载
+
+项目内置本地 UPM 形式的 Fast Script Reload（FSR），用于在 Unity Editor 的 Play Mode 中迭代已有 C# 方法体而不退出运行会话。首次使用、日常流程、回调、限制与排查见 [FSR 开发指南](Docs/Development/FastScriptReload.md)。FSR 不用于已发布 Player 的热更新，也不替代 HybridCLR。
 
 ## 核心用法
 

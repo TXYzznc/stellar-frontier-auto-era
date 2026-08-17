@@ -43,6 +43,8 @@
 - 不使用 `GameObject.Find`、`SendMessage` 或无约束 `Resources.Load`。
 - ScriptableObject 只作为配置载体。
 - 业务 DLL、HybridCLR 输出和内容索引不得进入框架基线。
+- Editor Play Mode 内的小范围 C# 方法体迭代可使用 FSR；配置、适用范围和验收见 [Docs/Development/FastScriptReload.md](../Docs/Development/FastScriptReload.md)。字段/序列化、泛型、程序集、依赖和其他结构变更必须停止 Play Mode 后按普通 Unity 编译流程验证。
+- FSR 仅用于 Editor Play Mode；不启用 `LiveScriptReload_IncludeInBuild_Enabled`，不把它作为已发布 Player 的热更新方案，也不额外安装第二份 FSR。
 
 ## SKILL 治理
 
