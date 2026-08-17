@@ -49,6 +49,22 @@ class FrameworkPurityAuditTests(unittest.TestCase):
     def test_clean_minimal_framework_passes(self):
         self.assertEqual([], audit_module.audit(self.make_root()))
 
+    def test_ignored_ai_usage_events_are_allowed(self):
+        root = self.make_root()
+        events = root / ".ai/usage/events.jsonl"
+        events.parent.mkdir(parents=True)
+        events.write_text('{"schema_version": 1}\n', encoding="utf-8")
+
+        self.assertEqual([], audit_module.audit(root))
+
+    def test_openspec_archives_are_allowed(self):
+        root = self.make_root()
+        archive = root / "openspec/changes/archive/2026-08-13-completed-change"
+        archive.mkdir(parents=True)
+        (archive / "proposal.md").write_text("# Completed change\n", encoding="utf-8")
+
+        self.assertEqual([], audit_module.audit(root))
+
     def test_unapproved_skill_is_rejected(self):
         root = self.make_root()
         path = root / ".claude/skills/domain-specific-skill"

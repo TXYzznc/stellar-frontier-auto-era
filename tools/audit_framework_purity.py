@@ -128,14 +128,12 @@ ALLOWED_AGENTS = {
 
 FORBIDDEN_PATHS = {
     ".agents",
-    ".ai/usage/events.jsonl",
     "Assets/Game/HotfixDlls",
     "Assets/Game/Material",
     "Assets/HybridCLRData",
     "CompressImageTool",
     "OutPackages",
     "artifacts",
-    "openspec/changes/archive",
     "tools/ai_index",
     "tools/playtest",
 }
