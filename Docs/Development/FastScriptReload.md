@@ -5,7 +5,7 @@ FSR 用于缩短 **Unity Editor 的 Play Mode** 中修改 C# 代码后的等待�
 ## 包与适用范围
 
 - UPM 依赖固定为 `file:../LocalPackages/FastScriptReload/Assets`，不要再从 Git URL 或 Asset Store 额外安装第二份 FSR。
-- FSR 源码以 `LocalPackages/FastScriptReload` Git submodule 固定在提交 `51140b71d9e5df1de231b33ec20ee089b18bebec`。克隆项目时使用 `git clone --recurse-submodules`；已克隆的项目执行 `git submodule update --init --recursive`。
+- FSR 源码以 `LocalPackages/FastScriptReload` Git submodule 固定在项目维护的 fork `TXYzznc/FastScriptReload` 提交 `5ef1a8b8566cc8c18326ef80300fc55bad81062c`。该提交使用官方 `Lib.Harmony.Thin 2.4.2` 及固定依赖，并使 2021+ Roslyn 文件名与程序集名一致，以兼容 Unity 2022.3/Burst。版本、来源、许可证和 SHA-256 见 `LocalPackages/FastScriptReload/Assets/Plugins/Harmony/HarmonyThinDependencies.md`。克隆项目时使用 `git clone --recurse-submodules`；已克隆的项目执行 `git submodule sync --recursive` 后再执行 `git submodule update --init --recursive`。
 - `FastScriptReload.Editor` 仅在 Editor 中编译；运行时程序集还受 `UNITY_EDITOR || LiveScriptReload_IncludeInBuild_Enabled` 约束。不要定义后一个符号，因此 FSR 不会进入发布构建。
 - 每位开发者都要在本机的 Unity Preferences 中完成一次下述配置；这些 Preferences 属于本机设置，不会随 Git 同步。
 
