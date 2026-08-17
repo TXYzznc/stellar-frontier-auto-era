@@ -4,6 +4,8 @@
 
 框架基线不包含任何特定游戏的角色、地图、数值、任务、音效、演示资源或产品规格。可选教学内容通过独立安装包提供，安装与卸载不会改变框架基线。
 
+当前仓库实例已用于开发“星际拓荒：自动纪元”。开始产品开发前请先阅读[项目开发基线](Docs/Development/ProjectBaseline.md)，其中统一说明正式设计来源、第一版范围、任务表只读权限、OpenSpec 门禁和框架/产品代码边界。
+
 ## 包含的能力
 
 | 领域 | 已具备的内容 | 项目需要自行补充的内容 |
@@ -52,7 +54,7 @@ git clone --recurse-submodules git@github.com:TXYzznc/AI-Friendly-Project.git
 
 ### 新增业务流程
 
-1. 在 `Assets/Game/Scripts/Procedures/` 创建一个继承 `ProcedureBase` 的流程。
+1. 在 `Assets/Game/Scripts/AutoEra/` 下按业务领域创建继承 `ProcedureBase` 的项目流程，并使用 `AutoEra.*` 命名空间。
 2. 在 `AppConfigs.asset` 的 Procedures 中注册它。
 3. 从现有流程使用 `ChangeState<TProcedure>()` 进入新流程。
 4. 将登录、选角、主界面、关卡、战斗等项目逻辑放在项目层 Procedure 中，不改写通用启动语义。
@@ -61,7 +63,7 @@ git clone --recurse-submodules git@github.com:TXYzznc/AI-Friendly-Project.git
 
 ### 新增数据表、配置与语言
 
-1. 将 Excel 源文件分别放入 `GameData/DataTables/`、`GameData/Configs/` 或 `GameData/Languages/` 下的项目命名空间。
+1. 将 Excel 源文件分别放入 `GameData/DataTables/`、`GameData/Configs/` 或 `GameData/Languages/` 下的业务分类目录；单一产品不重复套 `AutoEra` 目录层。
 2. 使用 **App Configs** 面板或 `Game Framework/GameTools/Refresh All Excels【刷新所有数据表】` 生成输出文件与 DataTable 代码。
 3. 将生成结果登记到 `AppConfigs.asset`。
 4. 通过 `GF.DataTable`、`GF.Config` 和 `GF.Localization` 在运行时访问。

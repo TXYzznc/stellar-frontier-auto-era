@@ -5,6 +5,10 @@ Unity 2022.3.62f3 + GF_X 的领域无关项目框架。当前基线不包含业�
 
 Claude Code 的等价入口为 [.claude/CLAUDE.md](./.claude/CLAUDE.md)。
 
+本仓库实例已经进入“星际拓荒：自动纪元”产品开发阶段。正式设计来源、
+第一版范围、任务表权限和框架/产品代码边界统一从
+[项目开发基线](./Docs/Development/ProjectBaseline.md)进入。
+
 ## AI 使用统计首次激活（每个新会话优先执行）
 
 在本会话第一次处理用户任务前，先只读执行 `python tools/log_tool_usage.py doctor --editor codex --json`。
@@ -66,7 +70,7 @@ Claude Code 的等价入口为 [.claude/CLAUDE.md](./.claude/CLAUDE.md)。
 - 平台：Windows 10。
 - Unity：2022.3.62f3；所有实现、工作流与参考资料均以 Unity 2022.3 API 为准。
 - 框架核心：`Assets/Game/ScriptsBuiltin/`。
-- 通用扩展：`Assets/Game/Scripts/`。
+- 通用扩展与项目接入：`Assets/Game/Scripts/`；自动纪元产品代码只能进入`Assets/Game/Scripts/AutoEra/`并使用`AutoEra.*`命名空间。
 - 代码结构查询优先使用 codebase-memory；不可用时用最小范围 `rg`。
 - 修改 Unity 代码前先读 [.claude/conventions.md](./.claude/conventions.md)。
 - Editor Play Mode 内的小范围 C# 方法体迭代可使用 FSR；配置、适用范围和验收见 [Docs/Development/FastScriptReload.md](./Docs/Development/FastScriptReload.md)。结构变更、泛型、字段/序列化、程序集和依赖变更必须停止 Play Mode 后按普通 Unity 编译流程验证。

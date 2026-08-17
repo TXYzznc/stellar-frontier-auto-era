@@ -3,6 +3,10 @@
 本仓库是 Unity 2022.3.62f3 + GF_X 的领域无关项目框架。框架基线不包含
 业务代码、内容资产、产品规格、演示场景、示例数据或教学样例。
 
+本仓库实例已经进入“星际拓荒：自动纪元”产品开发阶段。正式设计来源、
+第一版范围、任务表权限和框架/产品代码边界统一从
+[项目开发基线](../Docs/Development/ProjectBaseline.md)进入。
+
 ## AI 使用统计首次激活（每个新会话优先执行）
 
 在本会话第一次处理用户任务前，先只读执行 `python tools/log_tool_usage.py doctor --editor claude-code --json`。
@@ -36,7 +40,7 @@
 
 - 代码落地必须按 Unity 2022.3.62f3 校验。
 - `Assets/Game/ScriptsBuiltin/` 是框架核心；不得混入产品代码。
-- `Assets/Game/Scripts/` 只存领域无关扩展和项目接入边界。
+- `Assets/Game/Scripts/` 保存领域无关扩展和项目接入边界；自动纪元产品代码只能进入`Assets/Game/Scripts/AutoEra/`并使用`AutoEra.*`命名空间。
 - 输入经过框架输入抽象。
 - 配置路径和资源索引由具体项目声明，不在框架 prompt 中硬编码。
 - 不在高频循环制造 GC 分配。
