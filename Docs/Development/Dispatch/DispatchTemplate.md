@@ -119,3 +119,6 @@
 - 验收失败且修复会扩大OpenSpec范围。
 
 发生以上情况时停止相关工作，保留现场并回传制作人窗口，不自行扩大授权。
+
+暂停级别、S0～S2抢占、检查点和恢复门禁统一遵守
+[`PauseAndRecovery.md`](./PauseAndRecovery.md)。
