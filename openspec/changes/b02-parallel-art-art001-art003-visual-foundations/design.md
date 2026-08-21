@@ -100,3 +100,4 @@ ART-003 在同一测试区对 Terrain、模块化、手工布景和混合方式�
 - Terrain、模块化、手工布景与混合路线必须复用上述同一对象变换、净空、相机和灯光条件；本样片用于验证路线，不等同于正式第一版地图设计。
 - 四路线同范围轻试制支持继续采用混合方案：Terrain负责连续地表与缓坡，模块化负责道路边缘、工程平台和资源点硬边，Editor生成负责无身份背景装饰，手工布景负责焦点与最终修整。ArtResource未安装ProBuilder，本次模块化试制使用Unity原生网格原型，不为样片新增包依赖。
 - 混合样片生成108个无玩法身份装饰实例，自动净空断言为0违规；保存重开、人工标记保留、未选区域手动移动保留和选区重生成均已通过。日间与夜间Far／Mid／Near证据已生成，性能证据仍等待8092切换到Bypass后进行Play Mode只读采样。
+- 混合日间样片已在High Fidelity、4×MSAA、URP-HighFidelity和GTX 1650环境完成三次Play Mode瞬时采样：291个GameObject、223个MeshRenderer、306,187三角形、790 batches／draw calls、15 SetPass、390个阴影投射计数，未发生动态／静态／实例化批处理。瞬时frameTime约0.5106ms，但该Editor计数不作为最终Player预算；当前明确风险是Primitive多Renderer与阴影提交结构，正式资产必须通过合并、实例化、LOD和阴影分级后重新Profile。
