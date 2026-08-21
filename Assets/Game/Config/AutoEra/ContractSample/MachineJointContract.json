@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "assetId": "mch_contract_sample",
+  "prefab": "Assets/Game/Prefabs/AutoEra/ContractSample/MCH_ContractSample.prefab",
+  "coordinateSystem": {
+    "unit": "meter",
+    "up": "+Y",
+    "forward": "+Z"
+  },
+  "joints": [
+    {
+      "stableId": "arm_yaw",
+      "objectPath": "MCH_VisualRoot/Joint_ArmYaw",
+      "axis": [0, 1, 0],
+      "minimumDegrees": -120.0,
+      "maximumDegrees": 120.0,
+      "defaultDegrees": 0.0,
+      "safeDegrees": 0.0
+    },
+    {
+      "stableId": "arm_pitch",
+      "objectPath": "MCH_VisualRoot/Joint_ArmYaw/Joint_ArmPitch",
+      "axis": [1, 0, 0],
+      "minimumDegrees": -15.0,
+      "maximumDegrees": 75.0,
+      "defaultDegrees": 0.0,
+      "safeDegrees": -10.0
+    }
+  ],
+  "anchors": [
+    "MCH_Anchors/Socket_Effector_Left",
+    "MCH_Anchors/Socket_Effector_Right",
+    "MCH_Anchors/WorkPoint_Main",
+    "MCH_Anchors/LoadPoint_Main",
+    "MCH_Anchors/SelectionAnchor_Machine",
+    "MCH_Anchors/SafePose_Arm",
+    "MCH_VisualRoot/Joint_ArmYaw/Joint_ArmPitch/Socket_Effector_Main",
+    "MCH_VisualRoot/Joint_ArmYaw/Joint_ArmPitch/Socket_Effector_Main/VFX_Work_Main"
+  ]
+}
