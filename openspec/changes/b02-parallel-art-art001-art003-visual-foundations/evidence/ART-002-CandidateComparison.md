@@ -16,11 +16,14 @@
 - B的青绿、青紫与珊瑚色强化异星辨识，但与警告／损坏状态色存在更高竞争风险。
 - C的石墨灰、安全黄与冷青精密光在俯视下功能可读、模块复用和程序动作适配最好，但自然生命力较弱。
 
-当前建议是以A为综合色彩／材质基线，吸收B的局部异星资源高彩与C的机器功能分区／安全标识。该建议尚未冻结，等待用户根据截图和Unity场景确认。
+用户已确认以A为综合色彩／材质基线，吸收B的局部异星资源高彩与C的机器功能分区／安全标识。正式融合场景为`ArtResource/Assets/Art/LookDev/Baseline/ART002_VisualBaseline_Fused.unity`，完整规则由美术工程`Docs/ArtPipeline/ART-002-VisualBaseline.md`冻结。
+
+最终基线同时生成Far／Mid／Near三张1920×1080截图：`ArtResource/Assets/Art/LookDev/Evidence/Candidates/ART002_Final_FusedBaseline_*.png`。第一轮检查发现异星青绿误复用于普通树冠，随后将普通植被恢复为A的自然绿，并把青绿／洋红严格限制到资源点邻近生态后重新生成。
 
 ## 技术检查
 
 - 三组场景和9张截图均已生成并被Unity导入。
+- 正式融合场景、17个基线材质和3张最终截图均已生成并被Unity导入。
 - 构建后自动恢复`ART002_LookDev_Base`，场景无未保存修改。
 - Unity Console：0 Warning、0 Error。
 - `ArtResource`仍无Git仓库，候选源资产暂不具备仓库级回滚能力；这是既有风险，不影响本轮视觉评审。
