@@ -9,6 +9,7 @@
   文件／工具占用和阻塞，不记录任务表意义上的完成状态。
 - `DispatchTemplate.md`：方案探索派发单的固定字段、启动检查、修改权限、锁与回传模板。
 - `PauseAndRecovery.md`：局部／批次／项目暂停、S0～S2抢占、现场保护和恢复门禁。
+- `RoleRouting.md`：工作窗口、方案／实施Agent职责和项目级专项策划路由。
 - `Active/<派发ID>.md`：OpenSpec建立前的独立方案探索派发单。派发ID优先使用预定的
   OpenSpec change ID，并遵守批次号、并行领域和任务编号命名规范。
 - 专业窗口完成方案讨论、用户确认决策摘要并创建OpenSpec后，派发单移动到
