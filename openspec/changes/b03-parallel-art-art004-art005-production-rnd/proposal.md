@@ -1,0 +1,31 @@
+## Why
+
+ART-001～003 已冻结跨项目交付合同、视觉基线与混合场景路线，但正式 3D 资源仍缺少可重复量产的模块、材质、LOD 与程序化表现规范。现在需要用代表性工坊和机器纵向样机建立可验证的生产合同，避免批量资源在轮廓、预算、关节、地形适应或状态反馈上产生系统性返工。
+
+## What Changes
+
+- 对应任务表原始任务 `ART-004`、`ART-005`，建立第三执行批次的并行美术生产研发提案。
+- 建立以 `1m` 基础网格和 `2m/4m/8m` 常用跨距为核心的模块化工坊生产路线，明确模块库、功能接口、混合材质、细节层级、资产等级、LOD 与暂定性能预算门。
+- 建立轮式机器、机械臂、可替换效应器、参数化滑动门和参数化传送带的统一程序化表现合同，明确结构、Pivot、轴向、限制、锚点、净空、状态阶段、运动原语、安全中断和反馈职责。
+- 制作代表性纵向样机并以固定机位截图、短动图／视频和基础性能读数验证近中远可读性、地形适应、重定位、作业、装卸、中断及三层状态反馈。
+- 不制作正式批量资源，不实现 Motion Core／Editor、AutoEra Adapter 或玩法逻辑，不改变导航、碰撞、存档和生产状态的权威边界。
+- `ART-006` UI 视觉路线由独立 OpenSpec／2D 工作流承载，本变更只保留与机器世界内状态反馈有关的共享接口。
+
+## Capabilities
+
+### New Capabilities
+
+- `modular-art-production`: 模块化工坊／处理站的网格、模块库、材质复用、细节层级、资产等级、LOD、地形适配和量产验证要求。
+- `procedural-machine-presentation`: 轮式机器与建筑机构的程序化表现分层、运动原语、环境感知、状态阶段、安全中断、锚点净空和样机验收要求。
+
+### Modified Capabilities
+
+无。
+
+## Impact
+
+- 主要影响独立美术项目 `D:\unity\UnityProject\ArtResource` 中的 Blender／Unity 美术源、模块库、LookDev／样机场景、材质、贴图、Prefab、配置与验收证据。
+- 主工程只负责后续 Motion Core、AutoEra Adapter、玩法状态接入及导航／碰撞权威；本变更不修改主工程产品代码或框架核心。
+- 继续遵守已归档的 `art-resource-delivery-contract`、`visual-direction-baseline` 与 `authored-environment-generation` 能力，不重新开放其冻结结论。
+- `第一版开发任务表.xlsx` 永久保持 AI 只读；任务状态、实际工时和依赖只由用户更新。
+- 所有 Git 提交由 `AutoEra｜Git集成`窗口精确暂存并使用中文提交信息；只提交，不推送。
