@@ -98,6 +98,31 @@ namespace UGF.EditorTools
             }
         }
 
+        public static void RegisterDataTableCodeGenerationProfile(DataTableCodeGenerationProfile profile)
+        {
+            string error = null;
+            if (profile == null || !profile.IsValid(out error))
+            {
+                throw new ArgumentException($"Invalid data table code generation profile: {error}", nameof(profile));
+            }
+
+            DataTableCodeGenerationProfile existing = DataTableCodeGenerationProfiles.FirstOrDefault(candidate =>
+                string.Equals(candidate.SourceRelativePath, profile.SourceRelativePath, StringComparison.OrdinalIgnoreCase));
+            if (existing == null)
+            {
+                DataTableCodeGenerationProfiles.Add(profile);
+                return;
+            }
+
+            if (string.Equals(existing.CodeOutputRoot, profile.CodeOutputRoot, StringComparison.OrdinalIgnoreCase)
+                && string.Equals(existing.Namespace, profile.Namespace, StringComparison.Ordinal))
+            {
+                return;
+            }
+
+            throw new ArgumentException($"Conflicting data table code generation profile for source path '{profile.SourceRelativePath}'.", nameof(profile));
+        }
+
         public static bool TryGetDataTableCodeGenerationProfile(string dataTableRelativePath, out DataTableCodeGenerationProfile profile)
         {
             string normalizedPath = NormalizeRelativePath(dataTableRelativePath);

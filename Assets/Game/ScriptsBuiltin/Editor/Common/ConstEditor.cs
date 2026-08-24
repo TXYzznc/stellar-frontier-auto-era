@@ -58,6 +58,9 @@ namespace UGF.EditorTools
         public static string ToolsPath = UtilityBuiltin.AssetsPath.GetCombinePath(Directory.GetParent(Application.dataPath).FullName, "Tools");
         public static string AIDataPath => UtilityBuiltin.AssetsPath.GetCombinePath(Directory.GetParent(Application.dataPath).FullName, "GameData/AIData");
         public static string AIDataTablePath => UtilityBuiltin.AssetsPath.GetCombinePath(AIDataPath, "DataTables");
+        public static string AIDataConfigPath => UtilityBuiltin.AssetsPath.GetCombinePath(AIDataPath, "Configs");
+        public static string AIDataLanguagePath => UtilityBuiltin.AssetsPath.GetCombinePath(AIDataPath, "Languages");
+        public static string AIDataGenerationProfilePath => UtilityBuiltin.AssetsPath.GetCombinePath(AIDataPath, "GenerationProfiles.json");
         public static string AIDataReportPath => UtilityBuiltin.AssetsPath.GetCombinePath(AIDataPath, "Reports");
         public static string DiagnosticReportPath => UtilityBuiltin.AssetsPath.GetCombinePath(Directory.GetParent(Application.dataPath).FullName, "GameData/Diagnostics/Reports");
         public const string DataTablePath = "Assets/Game/DataTable";

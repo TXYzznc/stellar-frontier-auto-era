@@ -10,7 +10,7 @@
 - [x] 2.1 先为现有 Core 表的默认代码输出和运行时加载建立回归测试，锁定未配置 Profile 时的兼容行为（P0-006）
 - [x] 2.2 实现领域无关的项目生成 Profile、路径校验和命名空间模板支持，使匹配规则可以配置源路径、代码输出根与 namespace，且不硬编码 AutoEra（P0-006）
 - [x] 2.3 为 DataTable 运行时类型解析增加唯一 namespaced `DataRowBase` 回退，并测试零匹配、唯一匹配和短类名歧义（P0-006）
-- [ ] 2.4 建立Editor-only `GameData/AIData/GenerationProfiles.json`加载与校验，使`Foundation/`产品表代码进入`Assets/Game/Scripts/AutoEra/DataTable/`并使用`AutoEra.DataTable` namespace；不写入AppConfigs、不新增asmdef（P0-006）
+- [x] 2.4 建立Editor-only `GameData/AIData/GenerationProfiles.json`加载与校验，使`Foundation/`产品表代码进入`Assets/Game/Scripts/AutoEra/DataTable/`并使用`AutoEra.DataTable` namespace；不写入AppConfigs、不新增asmdef（P0-006）
 - [ ] 2.5 实现三类共享AI中间层契约、业务路径镜像、规范化逻辑内容指纹、硬冲突门禁、临时构建、备份／事务替换、失败回滚和结构化报告（P0-006）
 - [ ] 2.6 将现有DataTable JSON导出／校验／Reverse／Import接入共享安全管线，保持Core兼容并移除按时间戳继续覆盖的行为（P0-006）
 - [ ] 2.7 为Config和Language实现等价JSON适配、Schema校验、Reverse、同步检查和正式生成入口（P0-006）
