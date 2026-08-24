@@ -127,6 +127,20 @@ namespace AutoEra.Tests.Editor
             Assert.That(report.errors, Has.Some.Contains("differs from the JSON export baseline"));
         }
 
+        [Test]
+        public void DataTableReverseGate_ReportsAndRejectsChangedSourceFingerprint()
+        {
+            var manifest = new AIDataTableManifest { sourceFingerprint = "exported" };
+            var report = new AIDataTableReportItem();
+
+            bool accepted = AIGameDataTableGenerator.ValidateSourceFingerprint(manifest, "changed", report);
+
+            Assert.That(accepted, Is.False);
+            Assert.That(report.sourceFingerprint, Is.EqualTo("exported"));
+            Assert.That(report.currentFingerprint, Is.EqualTo("changed"));
+            Assert.That(report.errors, Has.Some.Contains("differs from the JSON export baseline"));
+        }
+
         private static class First
         {
             public sealed class DuplicateRow : DataRowBase { public override int Id => 1; }

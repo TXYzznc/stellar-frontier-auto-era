@@ -322,6 +322,9 @@ namespace UGF.EditorTools
 
                         manifest.rows.Add(CreateDataRow(row, cells, manifest.columns));
                     }
+
+                    manifest.sourceFingerprint = AIDataSyncPipeline.ComputeLogicalFingerprint(
+                        BuildTableRows(manifest, item, normalizeCustomJson: true));
                 }
             }
             finally
@@ -343,9 +346,17 @@ namespace UGF.EditorTools
             }
 
             string excelFile = GameDataGenerator.GameDataExcelRelative2FullPath(GameDataType.DataTable, relativePath);
-            if (File.Exists(excelFile) && File.GetLastWriteTimeUtc(excelFile) > File.GetLastWriteTimeUtc(jsonFile))
+            if (syncExcel && File.Exists(excelFile))
             {
-                item.warnings.Add($"Excel is newer than AI json. Import will still use json: {excelFile}");
+                if (!TryCreateManifestFromExcel(excelFile, item, out var currentManifest))
+                {
+                    return false;
+                }
+
+                if (!ValidateSourceFingerprint(manifest, currentManifest.sourceFingerprint, item))
+                {
+                    return false;
+                }
             }
 
             string outputTxtFile;
@@ -404,6 +415,12 @@ namespace UGF.EditorTools
             }
 
             relativePath = GetManifestRelativePath(manifest, jsonFile);
+            if (!AIDataSyncPipeline.TryNormalizeRelativePath(relativePath, out relativePath, out string pathError))
+            {
+                item.errors.Add($"DataTable relative path is invalid: {pathError}");
+                return false;
+            }
+
             item.tableName = relativePath;
             if (!ValidateManifest(manifest, jsonFile, item))
             {
@@ -412,6 +429,28 @@ namespace UGF.EditorTools
 
             rows = BuildTableRows(manifest, item, normalizeCustomJson: true);
             return item.errors.Count == 0;
+        }
+
+        public static bool ValidateSourceFingerprint(AIDataTableManifest manifest, string currentFingerprint, AIDataTableReportItem item)
+        {
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+
+            var syncReport = new AIDataSyncReportItem();
+            bool valid = AIDataSyncPipeline.ValidateBaseline(
+                new AIDataSyncManifest { sourceFingerprint = manifest?.sourceFingerprint },
+                currentFingerprint,
+                syncReport);
+            item.sourceFingerprint = syncReport.baselineFingerprint;
+            item.currentFingerprint = syncReport.currentFingerprint;
+            if (!valid)
+            {
+                item.errors.AddRange(syncReport.errors);
+            }
+
+            return valid;
         }
 
         private static void RefreshManifestAfterExcelSync(string jsonFile, AIDataTableManifest manifest, string excelFile, AIDataTableReportItem item)
@@ -423,6 +462,10 @@ namespace UGF.EditorTools
 
             manifest.sourceExcel = ToProjectRelativePath(excelFile);
             manifest.sourceExcelLastWriteUtc = File.GetLastWriteTimeUtc(excelFile).ToString("O");
+            if (TryCreateManifestFromExcel(excelFile, item, out var refreshedManifest))
+            {
+                manifest.sourceFingerprint = refreshedManifest.sourceFingerprint;
+            }
             manifest.generatedAtUtc = DateTime.UtcNow.ToString("O");
             File.WriteAllText(jsonFile, JsonConvert.SerializeObject(manifest, Formatting.Indented), Utf8NoBom);
             File.SetLastWriteTimeUtc(jsonFile, DateTime.UtcNow);
@@ -1203,6 +1246,7 @@ namespace UGF.EditorTools
         public string relativePath;
         public string sourceExcel;
         public string sourceExcelLastWriteUtc;
+        public string sourceFingerprint;
         public string generatedAtUtc;
         public string tableComment;
         public List<AIDataColumn> columns = new List<AIDataColumn>();
@@ -1278,6 +1322,8 @@ namespace UGF.EditorTools
         public string jsonFile;
         public string outputFile;
         public string backupFile;
+        public string sourceFingerprint;
+        public string currentFingerprint;
         public int changedCellCount;
         public int changedRowCount;
         public int oldRowCount;
