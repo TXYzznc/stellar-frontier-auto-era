@@ -126,18 +126,19 @@ ART-006专项结论；双方直接相互同步，不请求制作人代写。完�
   经用户重新确认后的方案修订；不得借此扩大到其他主仓库路径。
 - ART-004/005 的源资源实施仍只发生在 `ArtResource`；Unity 8091、Blender、场景、`.blend`、
   共享材质和资源目录锁由主美与2D窗口按实际文件点对点协调。
-- ART-004任务2.1放行主美窗口对`ArtResource/ArtSource/ART004_ModularWorkshop/`和
-  `ArtResource/Assets/Art/Authoring/ART004_ModularWorkshop/`的排他写入；只允许该任务的
-  Blender源与Unity可用源，不得扩展到共享材质、其他场景或ART-006目录。
+- ART-004任务2.1已验收并结束原目录锁。任务2.2继续放行主美窗口对
+  `ArtResource/ArtSource/ART004_ModularWorkshop/`和
+  `ArtResource/Assets/Art/Authoring/ART004_ModularWorkshop/`的排他写入；只允许新增门、入口平台、
+  管线接口、操作面板、状态灯和少量围栏，不得扩展到共享材质、LOD、ART-005、ART-006或其他场景。
 - ART-006 继续由2D窗口维护专项方案；不写入上述 ART-004/005 OpenSpec。
 - 主仓库 Git 暂存与提交仍只交 `AutoEra｜Git集成`窗口。
 
 ### 高冲突单文件锁
 
-- `ArtResource/ArtSource/ART004_ModularWorkshop/`：主美（3D）持有任务2.1排他目录锁，完成
-  2.1验收或明确释放时结束。
-- `ArtResource/Assets/Art/Authoring/ART004_ModularWorkshop/`：主美（3D）持有任务2.1排他
-  目录锁，完成2.1验收或明确释放时结束。
+- `ArtResource/ArtSource/ART004_ModularWorkshop/`：主美（3D）持有任务2.2排他目录锁，完成
+  2.2验收或明确释放时结束。
+- `ArtResource/Assets/Art/Authoring/ART004_ModularWorkshop/`：主美（3D）持有任务2.2排他
+  目录锁，完成2.2验收或明确释放时结束。
 - 共享材质、其他场景、`.blend`和ART-006源文件仍未授权，使用前另行点对点登记。
 
 ### 只读范围
@@ -155,8 +156,8 @@ ART-006专项结论；双方直接相互同步，不请求制作人代写。完�
 
 | 工具 | 实例／端口／文件 | 当前占用者 | 释放条件 |
 |---|---|---|---|
-| 美术工程Unity | `ArtResource`／8091 | 条件放行主美任务2.1；当前未占用 | 主美取得2D窗口确认并核验目标项目后独占一段时段，完成操作立即释放 |
-| Blender／外部绘图工程 | `ArtSource/ART004_ModularWorkshop/` | 主美任务2.1目录锁 | 每个源文件仍保持单一窗口持有，任务2.1验收或明确释放时结束 |
+| 美术工程Unity | `ArtResource`／8091 | 条件放行主美任务2.2；当前未占用 | 主美取得2D窗口确认并核验目标项目后独占一段时段，完成操作立即释放 |
+| Blender／外部绘图工程 | `ArtSource/ART004_ModularWorkshop/` | 主美任务2.2目录锁 | 每个源文件仍保持单一窗口持有，任务2.2验收或明确释放时结束 |
 
 ### Git集成
 
