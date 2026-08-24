@@ -68,7 +68,9 @@ def relative(path: Path, root: Path) -> str:
 
 
 def read_csharp_code(path: Path) -> str:
-    text = path.read_text(encoding="utf-8", errors="replace")
+    # Unity/Windows tooling may emit UTF-8 BOM. Decode it away so a namespace
+    # declaration at byte zero still matches the anchored declaration pattern.
+    text = path.read_text(encoding="utf-8-sig", errors="replace")
     return CSHARP_NON_CODE.sub(" ", text)
 
 

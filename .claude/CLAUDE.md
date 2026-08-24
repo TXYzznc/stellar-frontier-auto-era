@@ -37,6 +37,12 @@
 多 agent 只在用户明确要求委派或并行时启用；否则主对话按 agent prompt
 等价执行。协作规则见 [AGENTS.md](./AGENTS.md)。
 
+长期专业窗口采用高自治协作：派发边界内自主讨论、实施、验证和增量归档，用户决定由提问窗口
+直接记录并同步受影响窗口。普通进度和分段完成不通知制作人；所有Git暂存与提交交给
+`AutoEra｜Git集成`窗口。制作人只处理异常、冲突、范围／依赖变化和整个派发批次验收。
+正式合同见[多窗口任务派发](../Docs/Development/Dispatch/README.md)与
+[Git集成工作流](../Docs/Development/Dispatch/GitIntegration.md)。
+
 ## Unity/GF_X 约束
 
 - 代码落地必须按 Unity 2022.3.62f3 校验。
