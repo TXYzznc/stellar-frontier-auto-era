@@ -29,6 +29,25 @@ namespace UGF.EditorTools
 
     public static class AILanguageAdapter
     {
+        public static bool TryExportExcelToJson(string excelFile, out string jsonFile, out List<string> errors)
+        {
+            jsonFile = null;
+            if (!TryCreateManifestFromExcel(excelFile, out var manifest, out errors))
+            {
+                return false;
+            }
+
+            if (!AIDataSyncPipeline.TryResolveAIJsonPath(AIDataKind.Language, manifest.relativePath, out jsonFile, out string pathError))
+            {
+                errors.Add($"Language JSON output path is invalid: {pathError}");
+                return false;
+            }
+
+            Directory.CreateDirectory(Path.GetDirectoryName(jsonFile));
+            File.WriteAllText(jsonFile, JsonConvert.SerializeObject(manifest, Formatting.Indented), new System.Text.UTF8Encoding(false));
+            return true;
+        }
+
         public static bool TryCreateManifestFromExcel(string excelFile, out AILanguageManifest manifest, out List<string> errors)
         {
             manifest = null;

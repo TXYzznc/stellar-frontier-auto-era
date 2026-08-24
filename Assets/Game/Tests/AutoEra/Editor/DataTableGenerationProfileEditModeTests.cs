@@ -183,6 +183,14 @@ namespace AutoEra.Tests.Editor
         }
 
         [Test]
+        public void SyncPipeline_ResolvesJsonOutputsOnlyInsideMatchingAiDataRoots()
+        {
+            Assert.That(AIDataSyncPipeline.TryResolveAIJsonPath(AIDataKind.Config, "Foundation/WorldSettings", out var configPath, out _), Is.True);
+            Assert.That(configPath.Replace('\\', '/'), Does.Contain("GameData/AIData/Configs/Foundation/WorldSettings.json"));
+            Assert.That(AIDataSyncPipeline.TryResolveAIJsonPath(AIDataKind.Language, "../escape", out _, out _), Is.False);
+        }
+
+        [Test]
         public void SyncPipeline_RollsBackEarlierReplacementWhenLaterReplacementFails()
         {
             string root = System.IO.Path.Combine(System.IO.Directory.GetParent(UnityEngine.Application.dataPath).FullName, "Temp", "AutoEraSyncPipelineTests", Guid.NewGuid().ToString("N"));

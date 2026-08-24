@@ -63,13 +63,22 @@ namespace UGF.EditorTools
 
         public static bool TryResolveGameDataPath(AIDataKind kind, string relativePath, string extension, out string fullPath, out string error)
         {
+            return TryResolvePath(GetExcelRoot(kind), relativePath, extension, out fullPath, out error);
+        }
+
+        public static bool TryResolveAIJsonPath(AIDataKind kind, string relativePath, out string fullPath, out string error)
+        {
+            return TryResolvePath(GetJsonRoot(kind), relativePath, ".json", out fullPath, out error);
+        }
+
+        private static bool TryResolvePath(string root, string relativePath, string extension, out string fullPath, out string error)
+        {
             fullPath = null;
             if (!TryNormalizeRelativePath(relativePath, out string normalized, out error))
             {
                 return false;
             }
 
-            string root = GetExcelRoot(kind);
             string candidate = Path.GetFullPath(Path.Combine(root, normalized + extension));
             string normalizedRoot = Path.GetFullPath(root).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
             if (!candidate.StartsWith(normalizedRoot, StringComparison.OrdinalIgnoreCase))
