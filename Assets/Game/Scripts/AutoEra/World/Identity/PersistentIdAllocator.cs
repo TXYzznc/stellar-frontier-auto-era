@@ -40,9 +40,14 @@
         /// </summary>
         public bool TryRestore(PersistentId id)
         {
-            if (!id.IsValid || _isExhausted)
+            if (!id.IsValid)
             {
                 return false;
+            }
+
+            if (_isExhausted)
+            {
+                return true;
             }
 
             if (id.Value < _nextValue)
