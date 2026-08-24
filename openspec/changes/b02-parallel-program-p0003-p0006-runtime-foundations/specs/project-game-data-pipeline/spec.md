@@ -11,6 +11,53 @@
 - **WHEN** Profile 缺失或源表不匹配任何项目规则
 - **THEN** Core 表继续使用变更前的输出位置、类型名和运行时加载行为
 
+### Requirement: AI只编辑三类JSON中间层
+AI MUST NOT直接创建或修改任何GameData xlsx。DataTable、Config和Language MUST都提供结构化JSON
+导出、只读校验、安全反向生成、同步检查和正式生成入口。xlsx MUST继续作为人工维护的正式数据源，
+JSON MUST作为AI专用中间层；两者不得通过时间戳静默决定覆盖方向。
+
+#### Scenario: AI修改已有项目数据
+- **WHEN** AI需要修改一个已有DataTable、Config或Language
+- **THEN** 工具先从当前xlsx导出JSON，AI只修改JSON，工具校验并安全回写xlsx后再生成运行时文件
+
+#### Scenario: AI创建新项目数据
+- **WHEN** AI创建合法JSON且目标xlsx不存在
+- **THEN** 工具可以首次生成xlsx和运行时生成物，AI过程不直接写入xlsx
+
+### Requirement: JSON与xlsx按业务路径镜像
+三类JSON与xlsx MUST使用相同业务相对路径镜像。当前项目基础数据 MUST使用`Foundation/`类别，
+MUST NOT在GameData类型根下增加`AutoEra/`目录层。路径解析 MUST拒绝绝对路径、父目录穿越和跨
+DataTable／Config／Language根写入。
+
+#### Scenario: 解析项目中间层路径
+- **WHEN** 工具处理`GameData/AIData/DataTables/Foundation/WorldSettings.json`
+- **THEN** 其正式xlsx只能解析为`GameData/DataTables/Foundation/WorldSettings.xlsx`
+
+#### Scenario: JSON声明越界路径
+- **WHEN** JSON相对路径包含`..`、绝对路径或指向其他GameData类型根
+- **THEN** 校验硬失败且不创建、覆盖或删除任何正式文件
+
+### Requirement: Reverse具有并发冲突保护
+导出JSON时工具 MUST记录xlsx规范化单元格逻辑内容指纹。Reverse已有xlsx前 MUST重新计算当前
+指纹；不匹配时 MUST硬失败且不得修改xlsx或生成物。第一版 MUST NOT提供AI可调用的强制覆盖参数。
+
+#### Scenario: 人工在AI编辑期间修改xlsx
+- **WHEN** JSON导出后人工修改xlsx，随后请求Reverse
+- **THEN** 工具报告基线与当前指纹冲突，保留双方文件并要求重新导出JSON
+
+#### Scenario: Office容器元数据变化但逻辑单元格未变
+- **WHEN** xlsx仅发生不影响规范化单元格内容的容器元数据变化
+- **THEN** 逻辑内容指纹保持一致，不产生无意义冲突
+
+### Requirement: 正式写入事务化并可回滚
+工具 MUST在临时位置完成Schema、字段、重复ID／Key、类型、引用和生成器校验，再替换正式xlsx及
+相关生成物。替换前 MUST在`Temp`建立备份；任一步失败 MUST恢复原文件并输出包含类型、相对路径、
+指纹、变更行／单元格、错误和回滚结果的结构化报告。备份 MUST NOT进入版本控制。
+
+#### Scenario: 生成过程中注入失败
+- **WHEN** 临时验证通过但正式生成物替换阶段失败
+- **THEN** xlsx和已有生成物恢复到操作前状态，报告标记回滚结果且工程不保留半更新文件
+
 ### Requirement: 命名空间数据行类型解析唯一
 运行时 DataTable 加载 MUST 支持命名空间中的 `DataRowBase` 类型，同时保持现有全局类型兼容。短类名回退搜索 MUST 只接受唯一匹配；没有匹配或存在多个匹配时 MUST 明确失败，不能选择第一个类型。
 

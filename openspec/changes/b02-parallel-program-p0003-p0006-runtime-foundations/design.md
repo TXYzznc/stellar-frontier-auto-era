@@ -55,15 +55,36 @@ Procedure 由现有 `HotfixEntry` 以无参构造创建，因此组合根不依�
 
 选择整数毫秒而不是 `double` 秒，是为了消除边界容差和长期浮点漂移；不采用逐固定 Tick 的离线重播，是为了给后续事件跳跃结算保留单一路径。
 
-### 5. 项目数据沿现有工具链生成，但输出边界可配置
+### 5. xlsx是正式GameData，JSON是AI专用安全中间层
 
-项目 GameData 使用 `AutoEra/` 业务子路径组织；P0-006 只创建验证 DataTable、Config、Language 贯通所需的最小真实配置，不提前建立 P0-011 的完整对象表。`AppConfigs` 登记运行时要加载的相对资源名，预加载失败沿现有诊断路径明确阻断启动。
+项目GameData沿用现有类型根目录，并按相同业务相对路径镜像JSON和xlsx。当前最小接入数据使用
+`Foundation/`业务类别；除产品代码外不增加`AutoEra/`目录层。AI只能创建或修改
+`GameData/AIData/{DataTables,Configs,Languages}/**/*.json`及Editor-only生成Profile，不能直接
+创建或修改任何xlsx。人工继续以xlsx为正式数据源；人工修改后由工具重新导出JSON，AI修改JSON
+后再由工具安全反向生成xlsx，随后沿现有链生成TXT、bytes和C#。
 
-现有生成器把代码固定写入 `Assets/Game/Scripts/DataTable/` 且生成全局类型，和产品边界冲突。生成工具增加可选、领域无关的项目生成 Profile：按源相对路径匹配规则指定代码输出根和 C# namespace；无匹配规则时保持 Core 表现不变。本项目规则把产品表输出到 `Assets/Game/Scripts/AutoEra/DataTable/` 并生成 `AutoEra.DataTable` 类型。Profile 属于 Editor 生成输入，不是运行时数据库，生成器实现中不得硬编码 `AutoEra`。
+三类JSON适配器共享同一同步管线，但各自负责Schema和领域校验。导出JSON时记录xlsx规范化
+单元格逻辑内容指纹；Reverse前重新计算，若现有xlsx与导出基线不一致则硬失败，不能按时间戳
+或AI可传参数强制覆盖。新表只有在目标xlsx不存在时才能从合法JSON首次创建。所有路径先规范化
+并限制在对应GameData根下，拒绝绝对路径、`..`和跨类型写入。
 
-运行时 DataTable 类型解析先保持现有完整名/全局短名路径；若未找到，再按短类名搜索唯一的 `DataRowBase` 派生类型。零个或多个匹配都明确失败，避免命名空间支持导致类型误绑。字段格式、重复 ID、非法枚举/引用和生成 Profile 越界必须在生成、导入或启动验证阶段给出表名、行和字段上下文。
+正式替换前，工具在临时位置构建表格和生成输入，完成Schema、必填字段、重复ID／Key、类型、
+引用和生成器校验。通过后使用`Temp`备份事务性替换正式xlsx及相关生成物；任一步失败都恢复原
+文件并记录结构化报告。报告包含类型、相对路径、前后指纹、变更行／单元格、警告、错误和回滚
+结果。第一版不提供强制覆盖入口；冲突只能通过重新从xlsx导出JSON解决。
 
-选择通用 Profile 而不是 AutoEra 专用后处理器，是为了保证自动刷新、手动生成和 CI 使用同一路径；不接受全局命名空间例外，因为它会破坏第一批次的产品边界。
+现有生成器把代码固定写入`Assets/Game/Scripts/DataTable/`且生成全局类型，和产品代码边界冲突。
+生成工具保留可选、领域无关的Profile，根据源相对路径指定代码输出根和C# namespace；无匹配时
+Core行为不变。Profile由Editor-only `GameData/AIData/GenerationProfiles.json`承载，不进入运行时
+`AppConfigs`，不依赖Hotfix初始化代码或新增asmdef。本项目Profile把`Foundation/`产品表代码输出
+到`Assets/Game/Scripts/AutoEra/DataTable/`并生成`AutoEra.DataTable`类型，框架实现不硬编码产品名。
+
+运行时DataTable类型解析先保持现有完整名／全局短名路径；若未找到，再按短类名搜索唯一的
+`DataRowBase`派生类型。零个或多个匹配都明确失败。`AppConfigs`只登记运行时要加载的DataTable、
+Config、Language相对资源名和Procedure，不承载Editor生成Profile或充当运行时数据库。
+
+选择共享同步管线加三类适配器，是为了复用冲突、事务和报告机制，同时保留三种Excel格式各自的
+校验规则；不把所有逻辑继续堆入现有DataTable类，也不建立产品专用生成器。
 
 ## Risks / Trade-offs
 
@@ -73,13 +94,15 @@ Procedure 由现有 `HotfixEntry` 以无参构造创建，因此组合根不依�
 - [64 位 ID 恢复时 next 值错误造成碰撞] → 恢复注册统一更新高水位并拒绝重复；保存契约保留下一序号，加载测试覆盖乱序恢复。
 - [整数毫秒由浮点帧时间换算仍可能产生累计误差] → 使用双精度余数累积、只提交整数部分，并用分帧方式不同但总时长相同的测试比较结果。
 - [生成器通用改动影响 Core 表] → Profile 缺失时必须保持原有输出；为 Core 与 namespaced 产品表分别建立生成和加载回归测试。
+- [人工xlsx与AI JSON并发修改造成覆盖] → 记录规范化逻辑内容指纹，Reverse不匹配时硬失败且不提供AI强制覆盖。
+- [跨xlsx和生成物写入中途失败造成半更新] → 临时构建、替换前备份、失败回滚并验证三类注入失败路径。
 - [当前本地 UTC 可被修改] → 按已确认范围只处理时间倒退为零并保留 Provider 替换点，不在独立游戏阶段提前实现复杂防作弊。
 
 ## Migration Plan
 
 1. 记录任务表实施前哈希和当前工作树，实施期间持续只读保护工作簿。
 2. 先以测试锁定现有 Core 数据生成与加载行为，再加入可选生成 Profile 和命名空间类型解析。
-3. 创建最小项目数据输入、生成物与 AppConfigs 登记，验证通用预加载链。
+3. 建立三类AI JSON适配与共享安全同步管线，配置Editor-only Profile；由JSON经工具生成最小xlsx和生成物，再登记AppConfigs并验证通用预加载链。
 4. 实现永久 ID、注册表、世界时钟、UTC Provider、TimeUtil 和两级上下文的纯 C# 测试。
 5. 实现产品 Procedure、场景协调器及主菜单/空世界场景，完成重复进出验证。
 6. 通过普通 Unity 编译、EditMode/PlayMode 测试、数据诊断、项目边界与框架纯度审计；FSR 不替代结构编译。

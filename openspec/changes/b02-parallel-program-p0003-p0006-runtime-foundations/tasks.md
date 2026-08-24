@@ -2,17 +2,20 @@
 
 ## 1. 只读保护与实施基线
 
-- [ ] 1.1 记录 `第一版开发任务表.xlsx` 的实施前 SHA-256、当前 Git 状态和 Unity 编辑器编译/PlayMode 状态，确认工作簿保持只读（P0-003～P0-006）
-- [ ] 1.2 复核 AppConfigs、现有 Procedure 链、GameData 生成器、场景资源和 `Assets/Game/Scripts/AutoEra/` 边界，确认不新增 asmdef、DI 包或发布热更新配置（P0-003、P0-006）
+- [x] 1.1 记录 `第一版开发任务表.xlsx` 的实施前 SHA-256、当前 Git 状态和 Unity 编辑器编译/PlayMode 状态，确认工作簿保持只读（P0-003～P0-006）
+- [x] 1.2 复核 AppConfigs、现有 Procedure 链、GameData 生成器、场景资源和 `Assets/Game/Scripts/AutoEra/` 边界，确认不新增 asmdef、DI 包或发布热更新配置（P0-003、P0-006）
 
 ## 2. 项目 GameData 生成与加载边界
 
-- [ ] 2.1 先为现有 Core 表的默认代码输出和运行时加载建立回归测试，锁定未配置 Profile 时的兼容行为（P0-006）
-- [ ] 2.2 实现领域无关的项目生成 Profile、路径校验和命名空间模板支持，使匹配规则可以配置源路径、代码输出根与 namespace，且不硬编码 AutoEra（P0-006）
-- [ ] 2.3 为 DataTable 运行时类型解析增加唯一 namespaced `DataRowBase` 回退，并测试零匹配、唯一匹配和短类名歧义（P0-006）
-- [ ] 2.4 配置自动纪元生成规则，使产品表代码进入 `Assets/Game/Scripts/AutoEra/DataTable/` 并使用 `AutoEra.DataTable` namespace（P0-006）
-- [ ] 2.5 建立仅服务于启动、场景和世界时间贯通的最小 DataTable、Config、Language 输入，使用现有生成器产生可再生数据与代码，不提前建立 P0-011 完整对象配置（P0-005、P0-006）
-- [ ] 2.6 在 AppConfigs 登记项目 DataTable、Config、Language，并实现缺字段、重复 ID、非法值、非法引用和 Profile 越界的可定位验证（P0-006）
+- [x] 2.1 先为现有 Core 表的默认代码输出和运行时加载建立回归测试，锁定未配置 Profile 时的兼容行为（P0-006）
+- [x] 2.2 实现领域无关的项目生成 Profile、路径校验和命名空间模板支持，使匹配规则可以配置源路径、代码输出根与 namespace，且不硬编码 AutoEra（P0-006）
+- [x] 2.3 为 DataTable 运行时类型解析增加唯一 namespaced `DataRowBase` 回退，并测试零匹配、唯一匹配和短类名歧义（P0-006）
+- [ ] 2.4 建立Editor-only `GameData/AIData/GenerationProfiles.json`加载与校验，使`Foundation/`产品表代码进入`Assets/Game/Scripts/AutoEra/DataTable/`并使用`AutoEra.DataTable` namespace；不写入AppConfigs、不新增asmdef（P0-006）
+- [ ] 2.5 实现三类共享AI中间层契约、业务路径镜像、规范化逻辑内容指纹、硬冲突门禁、临时构建、备份／事务替换、失败回滚和结构化报告（P0-006）
+- [ ] 2.6 将现有DataTable JSON导出／校验／Reverse／Import接入共享安全管线，保持Core兼容并移除按时间戳继续覆盖的行为（P0-006）
+- [ ] 2.7 为Config和Language实现等价JSON适配、Schema校验、Reverse、同步检查和正式生成入口（P0-006）
+- [ ] 2.8 仅在`GameData/AIData/{DataTables,Configs,Languages}/Foundation/`创建服务于启动、场景和世界时间贯通的最小JSON，由工具首次生成xlsx、TXT／bytes／C#；AI不得直接写xlsx，不提前建立P0-011完整对象配置（P0-005、P0-006）
+- [ ] 2.9 在AppConfigs登记工具生成的项目DataTable、Config、Language，并实现缺字段、重复ID／Key、非法值、非法引用和Profile／路径越界的可定位验证（P0-006）
 
 ## 3. 应用上下文与世界会话
 
@@ -45,7 +48,7 @@
 
 ## 7. 集成验证与交付
 
-- [ ] 7.1 运行 DataTable 生成/加载回归、永久 ID、注册表、时间、UTC 和生命周期 EditMode 测试，确认全部通过（P0-003～P0-006）
+- [ ] 7.1 运行三类JSON／xlsx往返、并发冲突、新表创建、路径越界、注入失败回滚、Core兼容，以及永久ID、注册表、时间、UTC和生命周期EditMode测试，确认全部通过（P0-003～P0-006）
 - [ ] 7.2 退出 Play Mode 后执行普通 Unity 刷新与完整编译，确认无编译错误；结构、字段、场景和生成器变更不得用 FSR 验证代替（P0-003～P0-006）
 - [ ] 7.3 从 `Launch` 执行 PlayMode 冒烟测试，连续两次进入/退出空世界，确认 AppConfigs 只选择一个启动入口、三类项目数据可读且无残留订阅/会话（P0-003～P0-006）
 - [ ] 7.4 运行 `python tools/audit_framework_purity.py`、`python tools/audit_project_boundaries.py` 和相关 Python 测试，确认通用生成器改动不含产品硬编码且生成代码满足产品边界（P0-003、P0-006）

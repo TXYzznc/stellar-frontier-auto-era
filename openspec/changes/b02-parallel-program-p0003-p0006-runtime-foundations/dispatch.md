@@ -36,10 +36,11 @@
 
 - `Assets/Game/Scripts/AutoEra/`
 - `Assets/Game/Tests/AutoEra/`
-- `GameData/DataTables/AutoEra/`
-- `GameData/Configs/AutoEra/`
-- `GameData/Languages/AutoEra/`
-- 对应生成输出：`Assets/Game/DataTable/AutoEra/`、`Assets/Game/Config/AutoEra/`及对应Language输出
+- `GameData/AIData/DataTables/Foundation/`
+- `GameData/AIData/Configs/Foundation/`
+- `GameData/AIData/Languages/Foundation/`
+- `GameData/AIData/GenerationProfiles.json`
+- 工具生成目标：`GameData/{DataTables,Configs,Languages}/Foundation/`及对应`Assets/Game/{DataTable,Config,Language}/Foundation/`输出；AI不得直接创建或修改这些xlsx
 - `Assets/Game/ScriptableAssets/Core/AppConfigs.asset`
 - `Assets/Game/Scene/`中本change新增的主菜单与第一版空世界场景及其`.meta`
 - `Assets/Game/Scripts/Extension/DataTableExtension.cs`
@@ -56,6 +57,22 @@
 
 该授权不扩展到`Assets/Game/ScriptsBuiltin/`中的任何其他文件；如发现需要第四个文件，必须暂停并
 重新取得用户对精确路径的授权。
+
+### 方案修订后待用户新增授权的框架文件
+
+以下文件尚未授权修改；只有用户明确确认精确路径后，客户端才可继续第2段：
+
+- `Assets/Game/ScriptsBuiltin/Editor/AIGameDataTableGenerator.cs`
+- `Assets/Game/ScriptsBuiltin/Editor/AppConfigsInspector.cs`
+- `Assets/Game/ScriptsBuiltin/Editor/Common/ConstEditor.cs`
+- `Assets/Game/ScriptsBuiltin/Editor/Diagnostics/GFDiagnosticRunner.cs`
+- 新增 `Assets/Game/ScriptsBuiltin/Editor/AIData/AIGameDataContracts.cs`
+- 新增 `Assets/Game/ScriptsBuiltin/Editor/AIData/AIGameDataSyncPipeline.cs`
+- 新增 `Assets/Game/ScriptsBuiltin/Editor/AIData/AIConfigAdapter.cs`
+- 新增 `Assets/Game/ScriptsBuiltin/Editor/AIData/AILanguageAdapter.cs`
+- 上述新增`AIData`目录、四个新文件及Unity生成的对应`.meta`文件
+
+新增文件保持领域无关，不包含`AutoEra`值；产品输出规则只存在于项目JSON Profile。
 
 ### 必须在预检后精确登记的高冲突范围
 
