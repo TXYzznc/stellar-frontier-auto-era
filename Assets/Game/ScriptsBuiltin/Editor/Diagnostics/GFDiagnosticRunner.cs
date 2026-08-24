@@ -38,6 +38,8 @@ namespace UGF.EditorTools
             RunCheck(report, "Build settings", CheckBuildSettings);
             RunCheck(report, "Resource rules", CheckResourceRules);
             RunCheck(report, "AI DataTable json", CheckAIDataTableJson);
+            RunCheck(report, "AI Config json", CheckAIConfigJson);
+            RunCheck(report, "AI Language json", CheckAILanguageJson);
             RunRegisteredScenarios(report);
             RunCheck(report, "Editor snapshot", CheckSnapshot);
 
@@ -381,6 +383,60 @@ namespace UGF.EditorTools
             }
 
         }
+
+        private static void CheckAIConfigJson(GFDiagnosticReportItem item)
+        {
+            CheckAIJsonDirectory(item, ConstEditor.AIDataConfigPath, "config", ValidateAIConfigJson);
+        }
+
+        private static void CheckAILanguageJson(GFDiagnosticReportItem item)
+        {
+            CheckAIJsonDirectory(item, ConstEditor.AIDataLanguagePath, "language", ValidateAILanguageJson);
+        }
+
+        private static void CheckAIJsonDirectory(GFDiagnosticReportItem item, string rootDirectory, string kind, AIJsonValidator validator)
+        {
+            if (!Directory.Exists(rootDirectory))
+            {
+                item.Detail("state", $"No {kind} input directory; valid for an empty framework baseline.");
+                return;
+            }
+
+            var jsonFiles = Directory.GetFiles(rootDirectory, "*.json", SearchOption.AllDirectories)
+                .OrderBy(file => file, StringComparer.OrdinalIgnoreCase)
+                .ToList();
+            item.Detail("jsonCount", jsonFiles.Count);
+            if (jsonFiles.Count <= 0)
+            {
+                item.Detail("state", $"No {kind} input files; valid for an empty framework baseline.");
+                return;
+            }
+
+            foreach (string jsonFile in jsonFiles)
+            {
+                if (validator(File.ReadAllText(jsonFile), out List<string> errors))
+                {
+                    continue;
+                }
+
+                foreach (string error in errors)
+                {
+                    item.Fail($"{jsonFile}: {error}");
+                }
+            }
+        }
+
+        private static bool ValidateAIConfigJson(string json, out List<string> errors)
+        {
+            return AIConfigAdapter.TryParseManifest(json, out _, out errors);
+        }
+
+        private static bool ValidateAILanguageJson(string json, out List<string> errors)
+        {
+            return AILanguageAdapter.TryParseManifest(json, out _, out errors);
+        }
+
+        private delegate bool AIJsonValidator(string json, out List<string> errors);
 
         private static void CheckSnapshot(GFDiagnosticReportItem item)
         {
