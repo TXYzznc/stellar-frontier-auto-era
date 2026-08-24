@@ -8,7 +8,7 @@
 
 | 派发ID | 覆盖任务 | 专业窗口 | 协作状态 | 暂停级别／严重度 | 文件／目录占用 | Unity／外部工具占用 | 阻塞与交接说明 |
 |---|---|---|---|---|---|---|---|
-| `b02-parallel-program-p0003-p0006-runtime-foundations` | `P0-003`～`P0-006` | 程序（客户端）；测试后续验收 | 实施中 | — | `Assets/Game/Scripts/AutoEra/`、`Assets/Game/Tests/AutoEra/`、`GameData/{DataTables,Configs,Languages}/AutoEra/`、对应生成输出、`Assets/Game/ScriptableAssets/Core/AppConfigs.asset`、`Assets/Game/Scene/`内本change新增场景、`Assets/Game/Scripts/Extension/DataTableExtension.cs`；另限时授权3个生成器核心文件 | 主工程8090由客户端占用 | 第1段已提交`74b60cb`并验证；Git索引已释放，待放行第2段 |
+| `b02-parallel-program-p0003-p0006-runtime-foundations` | `P0-003`～`P0-006` | 程序（客户端）；测试后续验收 | 实施中 | — | `Assets/Game/Scripts/AutoEra/`、`Assets/Game/Tests/AutoEra/`、`GameData/{DataTables,Configs,Languages}/AutoEra/`、对应生成输出、`Assets/Game/ScriptableAssets/Core/AppConfigs.asset`、`Assets/Game/Scene/`内本change新增场景、`Assets/Game/Scripts/Extension/DataTableExtension.cs`；另限时授权3个生成器核心文件 | 主工程8090由客户端占用 | 第1段已提交`74b60cb`并验证；第2段已放行，Git索引空闲 |
 | `b03-parallel-art-art004-art006-production-rnd` | `ART-004`～`ART-006` | 主美（3D）主责；美术（2D）专项协作 | 方案讨论 | — | 当前只读，无写锁 | 美术工程8091及DCC均未占用 | 先与用户收敛生产路线，不创建OpenSpec、不开始试制 |
 
 ## 共享工具与Git占用
