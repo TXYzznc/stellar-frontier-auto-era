@@ -153,6 +153,38 @@ namespace AutoEra.Tests.Editor
             Assert.That(languageErrors, Has.Some.Contains("Duplicate language key"));
         }
 
+        [Test]
+        public void SyncPipeline_RollsBackEarlierReplacementWhenLaterReplacementFails()
+        {
+            string root = System.IO.Path.Combine(System.IO.Directory.GetParent(UnityEngine.Application.dataPath).FullName, "Temp", "AutoEraSyncPipelineTests", Guid.NewGuid().ToString("N"));
+            string source = System.IO.Path.Combine(root, "source.txt");
+            string destination = System.IO.Path.Combine(root, "destination.txt");
+            System.IO.Directory.CreateDirectory(root);
+            System.IO.File.WriteAllText(source, "new");
+            System.IO.File.WriteAllText(destination, "old");
+
+            try
+            {
+                var report = new AIDataSyncReportItem();
+                bool replaced = AIDataSyncPipeline.ReplaceFilesTransactionally(new List<AIDataFileReplacement>
+                {
+                    new AIDataFileReplacement { sourceFile = source, destinationFile = destination },
+                    new AIDataFileReplacement { sourceFile = System.IO.Path.Combine(root, "missing.txt"), destinationFile = System.IO.Path.Combine(root, "later.txt") },
+                }, report);
+
+                Assert.That(replaced, Is.False);
+                Assert.That(report.rollbackSucceeded, Is.True);
+                Assert.That(System.IO.File.ReadAllText(destination), Is.EqualTo("old"));
+            }
+            finally
+            {
+                if (System.IO.Directory.Exists(root))
+                {
+                    System.IO.Directory.Delete(root, true);
+                }
+            }
+        }
+
         private static class First
         {
             public sealed class DuplicateRow : DataRowBase { public override int Id => 1; }
