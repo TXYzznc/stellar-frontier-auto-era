@@ -119,6 +119,20 @@ ART-006专项结论；双方直接相互同步，不请求制作人代写。完�
 
 ## 6. 修改权限与占用
 
+### 2026-08-24夜间临时监督与决策授权
+
+- 用户授权制作人窗口在2026-08-24夜间以用户同等决策权监督ART-004/005纵向切片，并可直接
+  决定不改变已确认大方向的制作细节；授权在2026-08-25用户查看结果时自动恢复为正常权限，
+  用户提前撤销时立即终止。
+- 制作人可直接决定模块局部比例、结构拆分、Pivot／轴向、参数默认值、文件组织、临时材质参数、
+  贴图生成提示、验证机位、迭代取舍和证据补拍；主美无需为这些细节暂停等待用户。
+- 不得代用户改变明亮风格化中模方向、1m网格与2m/4m/8m跨距、混合材质路线、程序化动作主路线、
+  状态色语义、玩法权威边界、任务表范围或OpenSpec能力边界。出现这些情况必须暂停并等待用户。
+- 今晚优先级固定为：工坊入口＋滑动门＋传送带＋轮式机器＋机械臂／效应器。允许反复迭代，
+  并允许使用已授权绘图工具制作本纵向切片专属贴图；禁止覆盖ART-002/003冻结资源。
+- 主美在`ArtResource/Docs/ArtPipeline/Evidence/b03-parallel-art-art004-art005-production-rnd/`
+  持续记录夜间决策、完成内容、失败迭代、截图／视频和待用户复核项；明早由制作人向用户汇总。
+
 ### 可写范围
 
 - 主美窗口获准写入主仓库精确目录
@@ -130,6 +144,18 @@ ART-006专项结论；双方直接相互同步，不请求制作人代写。完�
   `ArtResource/ArtSource/ART004_ModularWorkshop/`和
   `ArtResource/Assets/Art/Authoring/ART004_ModularWorkshop/`的排他写入；只允许新增门、入口平台、
   管线接口、操作面板、状态灯和少量围栏，不得扩展到共享材质、LOD、ART-005、ART-006或其他场景。
+- 夜间纵向切片新增放行以下ArtResource专属目录，主美（3D）持有至2026-08-25用户复核或明确释放：
+  `ArtSource/ART004_ART005_SharedMaterials/`、
+  `Assets/Art/Authoring/ART004_ART005_SharedMaterials/`、
+  `ArtSource/ART005_BuildingMechanisms/`、
+  `Assets/Art/Authoring/ART005_BuildingMechanisms/`、
+  `ArtSource/ART005_ProceduralMachine/`、
+  `Assets/Art/Authoring/ART005_ProceduralMachine/`、
+  `Assets/Art/Evidence/ART004_ART005_VerticalSlice/`。
+- 夜间验证场仅放行
+  `Assets/Art/LookDev/ART004_ART005/ART004_FunctionalKit_Validation.unity`、
+  `ART004_TerrainAdaptation_Validation.unity`、`ART005_BuildingMechanisms_Validation.unity`和
+  `ART005_ProceduralMachine_Validation.unity`及各自`.meta`；现有TestLab、ART-002/003和其他验证场只读。
 - ART-006 继续由2D窗口维护专项方案；不写入上述 ART-004/005 OpenSpec。
 - 主仓库 Git 暂存与提交仍只交 `AutoEra｜Git集成`窗口。
 
@@ -139,7 +165,9 @@ ART-006专项结论；双方直接相互同步，不请求制作人代写。完�
   2.2验收或明确释放时结束。
 - `ArtResource/Assets/Art/Authoring/ART004_ModularWorkshop/`：主美（3D）持有任务2.2排他
   目录锁，完成2.2验收或明确释放时结束。
-- 共享材质、其他场景、`.blend`和ART-006源文件仍未授权，使用前另行点对点登记。
+- 上述夜间新增目录与四个独立验证场由主美（3D）排他持有；共享命名只表示ART-004/005纵向切片
+  内部复用，不允许写入ART-002/003冻结的`Assets/Art/LookDev/Shared/`。
+- ART-006源文件、主工程、任务表和未列出的ArtResource路径仍未授权。
 
 ### 只读范围
 
@@ -156,8 +184,9 @@ ART-006专项结论；双方直接相互同步，不请求制作人代写。完�
 
 | 工具 | 实例／端口／文件 | 当前占用者 | 释放条件 |
 |---|---|---|---|
-| 美术工程Unity | `ArtResource`／8091 | 条件放行主美任务2.2；当前未占用 | 主美取得2D窗口确认并核验目标项目后独占一段时段，完成操作立即释放 |
-| Blender／外部绘图工程 | `ArtSource/ART004_ModularWorkshop/` | 主美任务2.2目录锁 | 每个源文件仍保持单一窗口持有，任务2.2验收或明确释放时结束 |
+| 美术工程Unity | `ArtResource`／8091 | 主美夜间独占；已与2D确认 | 每个操作前核验目标项目；2026-08-25用户复核、主美明确释放或异常暂停时结束 |
+| Blender／外部绘图工程 | 已列ART-004/005专属源目录 | 主美夜间排他持有 | 每个源文件仍保持单一窗口持有；2026-08-25用户复核或明确释放时结束 |
+| 绘图工具 | 仅纵向切片专属贴图 | 主美按需使用 | 输出必须进入已授权共享材质源并记录提示／来源，不覆盖冻结资源 |
 
 ### Git集成
 
@@ -897,5 +926,18 @@ ArtResource 8091、DCC、文件写锁或Git索引。
   最终操作上。
 
 当前仍需继续确认非异常确认弹窗的首次焦点、再次打开是否保留上次焦点，以及开发控制台异常的去重策略。
+本检查点只冻结方案输入，不授权UI制作、Unity操作、Prefab／代码修改或OpenSpec创建；未占用
+ArtResource 8091、DCC、文件写锁或Git索引。
+
+### 2026-08-24：ART-006危险确认焦点与原位反馈
+
+以下`ART-006`结论已经用户确认，用于统一危险确认弹窗的首次焦点及确认后的状态回传：
+
+- 正常与异常确认弹窗的首次焦点均落在左侧中性“取消”按钮；不默认聚焦`Danger`最终操作，也不记忆
+  上次焦点。
+- 危险操作被确认后关闭弹窗，回到触发按钮或卡片原位显示执行中、成功或失败反馈；不得保留弹窗阻塞
+  后续查看与操作，也不使用脱离来源的全局`Toast`替代原位反馈。
+
+当前仍需继续确认原位执行中状态的取消规则、成功反馈持续时间、失败时的重试／恢复入口与焦点回落。
 本检查点只冻结方案输入，不授权UI制作、Unity操作、Prefab／代码修改或OpenSpec创建；未占用
 ArtResource 8091、DCC、文件写锁或Git索引。
