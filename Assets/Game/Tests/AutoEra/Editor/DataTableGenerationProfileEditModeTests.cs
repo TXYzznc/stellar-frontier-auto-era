@@ -169,6 +169,20 @@ namespace AutoEra.Tests.Editor
         }
 
         [Test]
+        public void LanguageAdapter_ReadsExistingOfficialWorkbookWithoutWritingIt()
+        {
+            string projectRoot = System.IO.Directory.GetParent(UnityEngine.Application.dataPath).FullName;
+            string excelFile = System.IO.Path.Combine(projectRoot, "GameData", "Languages", "English.xlsx");
+
+            bool loaded = AILanguageAdapter.TryCreateManifestFromExcel(excelFile, out var manifest, out var errors);
+
+            Assert.That(loaded, Is.True, string.Join(" | ", errors));
+            Assert.That(manifest.relativePath, Is.EqualTo("English"));
+            Assert.That(manifest.sourceFingerprint, Is.Not.Empty);
+            Assert.That(manifest.entries.Exists(entry => entry.key == "Framework.Ready" && entry.value == "Ready"), Is.True);
+        }
+
+        [Test]
         public void SyncPipeline_RollsBackEarlierReplacementWhenLaterReplacementFails()
         {
             string root = System.IO.Path.Combine(System.IO.Directory.GetParent(UnityEngine.Application.dataPath).FullName, "Temp", "AutoEraSyncPipelineTests", Guid.NewGuid().ToString("N"));
