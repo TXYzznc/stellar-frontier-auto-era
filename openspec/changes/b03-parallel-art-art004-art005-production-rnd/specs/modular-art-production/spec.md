@@ -62,4 +62,3 @@ The sample SHALL record triangles, Renderers, draw calls, SetPass calls, shadow 
 #### Scenario: Temporary budget gate is reviewed
 - **WHEN** the representative workshop and environment are profiled
 - **THEN** the evidence records conditions, observed values, pass or watch status, bottlenecks, and the trigger for revising the gate
-

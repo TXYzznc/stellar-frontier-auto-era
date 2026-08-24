@@ -87,4 +87,3 @@ The vertical slice SHALL include one wheeled machine, one sliding door, and one 
 #### Scenario: Prototype is submitted for acceptance
 - **WHEN** ART-005 review begins
 - **THEN** every required case has a reproducible visual result, expected behavior, measured baseline where applicable, and recorded unresolved risk
-
