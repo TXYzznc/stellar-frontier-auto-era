@@ -8,7 +8,7 @@
 
 | 派发ID | 覆盖任务 | 专业窗口 | 协作状态 | 暂停级别／严重度 | 文件／目录占用 | Unity／外部工具占用 | 阻塞与交接说明 |
 |---|---|---|---|---|---|---|---|
-| `b02-parallel-program-p0003-p0006-runtime-foundations` | `P0-003`～`P0-006` | 程序（客户端）；测试后续验收 | 实施中 | — | 既有精确写锁继续保留；后续段使用`GameData/AIData/{DataTables,Configs,Languages}/Foundation/`、Editor-only Profile及用户已精确授权的框架文件 | 主工程8090仍由客户端保留，未进PlayMode | 第5段已提交`830540c`并通过14/14 EditMode测试；继续下一实施段 |
+| `b02-parallel-program-p0003-p0006-runtime-foundations` | `P0-003`～`P0-006` | 程序（客户端）；测试后续验收 | 实施中 | — | 既有精确写锁继续保留；后续段使用`GameData/AIData/{DataTables,Configs,Languages}/Foundation/`、Editor-only Profile及用户已精确授权的框架文件 | 主工程8090仍由客户端保留，未进PlayMode | 第6段已提交`6dea3ce`并通过15/15 EditMode测试；继续下一实施段 |
 | `b03-parallel-art-art004-art006-production-rnd` | `ART-004`～`ART-006` | 主美（3D）主责；美术（2D）专项协作 | 方案讨论 | — | 当前只读，无写锁 | 美术工程8091及DCC均未占用 | 先与用户收敛生产路线，不创建OpenSpec、不开始试制 |
 
 ## 共享工具与Git占用
@@ -17,7 +17,7 @@
 |---|---|---|---|---|
 | 主工程Unity `8090` | 程序（客户端） | 占用 | 2026-08-24 10:54:09 +08:00 | 完成程序验证并明确交接后释放给测试窗口 |
 | 美术工程Unity `8091` | 无 | 空闲 | — | 使用前由制作人登记 |
-| Git索引／提交 | 程序（客户端）／`b02-parallel-program-p0003-p0006-runtime-foundations` | 第6段一次性短锁 | 2026-08-24 | 仅限已回传的4个显式文件；提交完成或失败后立即释放并回传结果 |
+| Git索引／提交 | 无 | 空闲 | — | 暂存和提交前临时登记，提交后立即释放 |
 
 任务完成状态、实际工时、依赖和备注以用户维护的
 `Docs/GameDesign/05-开发计划/第一版开发任务表.xlsx`为准。
