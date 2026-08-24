@@ -154,6 +154,21 @@ namespace AutoEra.Tests.Editor
         }
 
         [Test]
+        public void ConfigAndLanguageAdapters_BuildExistingExcelLayoutsFromValidJson()
+        {
+            const string configJson = "{\"schemaVersion\":1,\"kind\":\"GF_X.Config.AI\",\"relativePath\":\"Foundation/WorldSettings\",\"entries\":[{\"key\":\"DayLength\",\"comment\":\"world milliseconds\",\"value\":\"1440000\"}]}";
+            const string languageJson = "{\"schemaVersion\":1,\"kind\":\"GF_X.Language.AI\",\"relativePath\":\"Foundation/English\",\"entries\":[{\"key\":\"Start\",\"value\":\"Start\"}]}";
+
+            Assert.That(AIConfigAdapter.TryBuildExcelRows(configJson, out _, out var configRows, out var configErrors), Is.True, string.Join(" | ", configErrors));
+            Assert.That(configRows[1], Is.EqualTo(new[] { "#", "Key", "备注", "Value" }));
+            Assert.That(configRows[2], Is.EqualTo(new[] { string.Empty, "DayLength", "world milliseconds", "1440000" }));
+
+            Assert.That(AILanguageAdapter.TryBuildExcelRows(languageJson, out _, out var languageRows, out var languageErrors), Is.True, string.Join(" | ", languageErrors));
+            Assert.That(languageRows, Has.Count.EqualTo(1));
+            Assert.That(languageRows[0], Is.EqualTo(new[] { string.Empty, "Start", "Start" }));
+        }
+
+        [Test]
         public void SyncPipeline_RollsBackEarlierReplacementWhenLaterReplacementFails()
         {
             string root = System.IO.Path.Combine(System.IO.Directory.GetParent(UnityEngine.Application.dataPath).FullName, "Temp", "AutoEraSyncPipelineTests", Guid.NewGuid().ToString("N"));

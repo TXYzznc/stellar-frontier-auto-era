@@ -27,6 +27,23 @@ namespace UGF.EditorTools
 
     public static class AILanguageAdapter
     {
+        public static bool TryBuildExcelRows(string json, out AILanguageManifest manifest, out List<string[]> rows, out List<string> errors)
+        {
+            rows = null;
+            if (!TryParseManifest(json, out manifest, out errors))
+            {
+                return false;
+            }
+
+            rows = new List<string[]>();
+            foreach (AILanguageEntry entry in manifest.entries)
+            {
+                rows.Add(new[] { string.Empty, entry.key, entry.value ?? string.Empty });
+            }
+
+            return true;
+        }
+
         public static bool TryParseManifest(string json, out AILanguageManifest manifest, out List<string> errors)
         {
             manifest = null;
