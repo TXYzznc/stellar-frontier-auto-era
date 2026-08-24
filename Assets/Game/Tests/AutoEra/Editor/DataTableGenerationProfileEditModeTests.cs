@@ -141,6 +141,18 @@ namespace AutoEra.Tests.Editor
             Assert.That(report.errors, Has.Some.Contains("differs from the JSON export baseline"));
         }
 
+        [Test]
+        public void ConfigAndLanguageAdapters_RejectDuplicateKeysAndPathTraversal()
+        {
+            const string configJson = "{\"schemaVersion\":1,\"kind\":\"GF_X.Config.AI\",\"relativePath\":\"Foundation/../Core\",\"entries\":[{\"key\":\"DayLength\",\"value\":\"1440000\"}]}";
+            const string languageJson = "{\"schemaVersion\":1,\"kind\":\"GF_X.Language.AI\",\"relativePath\":\"Foundation/English\",\"entries\":[{\"key\":\"Start\",\"value\":\"Start\"},{\"key\":\"Start\",\"value\":\"Begin\"}]}";
+
+            Assert.That(AIConfigAdapter.TryParseManifest(configJson, out _, out var configErrors), Is.False);
+            Assert.That(configErrors, Has.Some.Contains("relative path is invalid"));
+            Assert.That(AILanguageAdapter.TryParseManifest(languageJson, out _, out var languageErrors), Is.False);
+            Assert.That(languageErrors, Has.Some.Contains("Duplicate language key"));
+        }
+
         private static class First
         {
             public sealed class DuplicateRow : DataRowBase { public override int Id => 1; }
