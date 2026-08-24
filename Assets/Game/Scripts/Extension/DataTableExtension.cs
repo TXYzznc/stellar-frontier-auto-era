@@ -38,7 +38,7 @@ public static class DataTableExtension
 
         string dataRowClassName = System.IO.Path.GetFileName(splitNames[0]);
 
-        Type dataRowType = Utility.Assembly.GetType(dataRowClassName);
+        Type dataRowType = ResolveDataRowType(dataRowClassName, Utility.Assembly.GetTypes());
         if (dataRowType == null)
         {
             Log.Warning("Can not get data row type with class name '{0}'.", dataRowClassName);
@@ -62,6 +62,38 @@ public static class DataTableExtension
         string assetName = UtilityBuiltin.AssetsPath.GetDataTablePath(tableFileName, useBytes);
         GFTrace.Info("DataTable", "Read.Begin", null, GFTrace.Data("name", dataTableName, "asset", assetName, "rowType", dataRowType.Name, "abTestGroup", abTestGroupName ?? string.Empty));
         dataTable.ReadData(assetName, userData);
+    }
+
+    /// <summary>
+    /// Resolves a generated data-row type without allowing a short class name to bind to an
+    /// arbitrary namespace. Existing directly-resolvable types retain their original behavior;
+    /// the fallback accepts exactly one DataRowBase-derived short-name match.
+    /// </summary>
+    public static Type ResolveDataRowType(string dataRowClassName, System.Collections.Generic.IEnumerable<Type> candidateTypes)
+    {
+        Type directMatch = Utility.Assembly.GetType(dataRowClassName);
+        if (directMatch != null && typeof(DataRowBase).IsAssignableFrom(directMatch))
+        {
+            return directMatch;
+        }
+
+        Type[] matches = candidateTypes == null
+            ? Array.Empty<Type>()
+            : candidateTypes.Where(type => type != null
+                && typeof(DataRowBase).IsAssignableFrom(type)
+                && string.Equals(type.Name, dataRowClassName, StringComparison.Ordinal)).ToArray();
+        if (matches.Length == 1)
+        {
+            return matches[0];
+        }
+
+        if (matches.Length > 1)
+        {
+            Log.Error("Data row type '{0}' is ambiguous across {1} DataRowBase types.", dataRowClassName, matches.Length);
+            GFTrace.Failure("DataTable", "Load.RowTypeAmbiguous", null, GFTrace.Data("rowType", dataRowClassName, "matches", matches.Length.ToString()));
+        }
+
+        return null;
     }
 
     /// <summary>

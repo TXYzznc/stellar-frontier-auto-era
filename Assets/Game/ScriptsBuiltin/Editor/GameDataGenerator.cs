@@ -22,12 +22,146 @@ namespace UGF.EditorTools
     public class GameDataGenerator
     {
         /// <summary>
+        /// A project-configured output rule for generated data-row code. The generator itself
+        /// deliberately has no product knowledge: projects register their own relative input
+        /// prefix, output root, and C# namespace.
+        /// </summary>
+        public sealed class DataTableCodeGenerationProfile
+        {
+            public DataTableCodeGenerationProfile(string sourceRelativePath, string codeOutputRoot, string @namespace)
+            {
+                SourceRelativePath = NormalizeRelativePath(sourceRelativePath);
+                CodeOutputRoot = NormalizeAssetPath(codeOutputRoot);
+                Namespace = @namespace?.Trim();
+            }
+
+            public string SourceRelativePath { get; }
+            public string CodeOutputRoot { get; }
+            public string Namespace { get; }
+
+            internal bool IsValid(out string error)
+            {
+                if (string.IsNullOrEmpty(SourceRelativePath))
+                {
+                    error = "The source relative path is required.";
+                    return false;
+                }
+
+                if (string.IsNullOrEmpty(CodeOutputRoot))
+                {
+                    error = "The code output root must be an Assets-relative path.";
+                    return false;
+                }
+
+                if (!IsValidNamespace(Namespace))
+                {
+                    error = "The C# namespace is invalid.";
+                    return false;
+                }
+
+                error = null;
+                return true;
+            }
+        }
+
+        /// <summary>
         /// Excel下拉列表总限制255个字符
         /// </summary>
         const int MAX_CHAR_LENGTH = 255;
         const string GeneratedNewLine = "\n";
         private static readonly UTF8Encoding Utf8NoBom = new UTF8Encoding(false);
+        private static readonly List<DataTableCodeGenerationProfile> DataTableCodeGenerationProfiles = new List<DataTableCodeGenerationProfile>();
         static IList<KeyValuePair<int, string>> m_DataTableVarTypes = null;
+
+        public static void SetDataTableCodeGenerationProfiles(IEnumerable<DataTableCodeGenerationProfile> profiles)
+        {
+            DataTableCodeGenerationProfiles.Clear();
+            if (profiles == null)
+            {
+                return;
+            }
+
+            foreach (DataTableCodeGenerationProfile profile in profiles)
+            {
+                string error = null;
+                if (profile == null || !profile.IsValid(out error))
+                {
+                    throw new ArgumentException($"Invalid data table code generation profile: {error}", nameof(profiles));
+                }
+
+                if (DataTableCodeGenerationProfiles.Any(existing => string.Equals(existing.SourceRelativePath, profile.SourceRelativePath, StringComparison.OrdinalIgnoreCase)))
+                {
+                    throw new ArgumentException($"Duplicate data table code generation source path: '{profile.SourceRelativePath}'.", nameof(profiles));
+                }
+
+                DataTableCodeGenerationProfiles.Add(profile);
+            }
+        }
+
+        public static bool TryGetDataTableCodeGenerationProfile(string dataTableRelativePath, out DataTableCodeGenerationProfile profile)
+        {
+            string normalizedPath = NormalizeRelativePath(dataTableRelativePath);
+            profile = DataTableCodeGenerationProfiles
+                .Where(candidate => IsPathWithin(normalizedPath, candidate.SourceRelativePath))
+                .OrderByDescending(candidate => candidate.SourceRelativePath.Length)
+                .FirstOrDefault();
+            return profile != null;
+        }
+
+        public static string GetDataTableCodeOutputRelativePath(string dataTableRelativePath, DataTableCodeGenerationProfile profile)
+        {
+            if (profile == null)
+            {
+                throw new ArgumentNullException(nameof(profile));
+            }
+
+            string normalizedPath = NormalizeRelativePath(dataTableRelativePath);
+            if (!IsPathWithin(normalizedPath, profile.SourceRelativePath))
+            {
+                throw new ArgumentException($"'{dataTableRelativePath}' is outside profile source path '{profile.SourceRelativePath}'.", nameof(dataTableRelativePath));
+            }
+
+            if (string.Equals(normalizedPath, profile.SourceRelativePath, StringComparison.OrdinalIgnoreCase))
+            {
+                return string.Empty;
+            }
+
+            return normalizedPath.Substring(profile.SourceRelativePath.Length + 1);
+        }
+
+        private static string NormalizeRelativePath(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                return string.Empty;
+            }
+
+            string normalized = path.Replace('\\', '/').Trim('/');
+            if (normalized.Contains("..") || Path.IsPathRooted(normalized))
+            {
+                return string.Empty;
+            }
+
+            return normalized;
+        }
+
+        private static string NormalizeAssetPath(string path)
+        {
+            string normalized = NormalizeRelativePath(path);
+            return normalized.StartsWith("Assets/", StringComparison.Ordinal) ? normalized : string.Empty;
+        }
+
+        private static bool IsPathWithin(string path, string prefix)
+        {
+            return string.Equals(path, prefix, StringComparison.OrdinalIgnoreCase)
+                || path.StartsWith(prefix + "/", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static bool IsValidNamespace(string value)
+        {
+            return !string.IsNullOrWhiteSpace(value)
+                && value.Split('.').All(segment => Regex.IsMatch(segment, "^[A-Za-z_][A-Za-z0-9_]*$"));
+        }
         [InitializeOnLoadMethod]
         static void InitEPPlusLicense()
         {

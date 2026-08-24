@@ -64,8 +64,19 @@ namespace GameFramework.Editor.DataTableTools
             string tbFileName = UtilityBuiltin.AssetsPath.GetCombinePath(outputDir, outputName + outputExt);
             var dataTableName = GameDataGenerator.GetGameDataRelativeName(tbFileName, ConstEditor.DataTablePath);
 
-            string csharpCodeFileName = Utility.Path.GetRegularPath(Path.Combine(ConstEditor.DataTableCodePath, dataTableName + ".cs"));
-            if (!dataTableProcessor.GenerateCodeFile(csharpCodeFileName, Encoding.UTF8))
+            string codeOutputRoot = ConstEditor.DataTableCodePath;
+            string codeRelativePath = dataTableName;
+            string namespaceName = null;
+            if (GameDataGenerator.TryGetDataTableCodeGenerationProfile(dataTableName, out GameDataGenerator.DataTableCodeGenerationProfile profile))
+            {
+                codeOutputRoot = profile.CodeOutputRoot;
+                codeRelativePath = GameDataGenerator.GetDataTableCodeOutputRelativePath(dataTableName, profile);
+                namespaceName = profile.Namespace;
+            }
+
+            string csharpCodeFileName = Utility.Path.GetRegularPath(Path.Combine(codeOutputRoot, codeRelativePath + ".cs"));
+            string dataTableClassName = Path.GetFileNameWithoutExtension(dataTableFile).Split('_')[0];
+            if (!dataTableProcessor.GenerateCodeFile(csharpCodeFileName, Encoding.UTF8, new DataTableCodeGenerationContext(dataTableClassName, namespaceName)))
             {
                 GFBuiltin.LogError(Utility.Text.Format("生成{0}数据表结构代码失败:{1}", dataTableName, csharpCodeFileName));
             }
@@ -73,7 +84,8 @@ namespace GameFramework.Editor.DataTableTools
 
         private static void DataTableCodeGenerator(DataTableProcessor dataTableProcessor, StringBuilder codeContent, object userData)
         {
-            string dataTableClassName = Path.GetFileNameWithoutExtension((string)userData);
+            var context = userData as DataTableCodeGenerationContext;
+            string dataTableClassName = context.DataTableClassName;
 
             // codeContent.Replace("__DATA_TABLE_CREATE_TIME__", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
             //codeContent.Replace("__DATA_TABLE_NAME_SPACE__", "StarForce");
@@ -82,7 +94,21 @@ namespace GameFramework.Editor.DataTableTools
             codeContent.Replace("__DATA_TABLE_ID_COMMENT__", dataTableProcessor.GetComment(dataTableProcessor.IdColumn));
             codeContent.Replace("__DATA_TABLE_PROPERTIES__", GenerateDataTableProperties(dataTableProcessor));
             codeContent.Replace("__DATA_TABLE_PARSER__", GenerateDataTableParser(dataTableProcessor));
+            codeContent.Replace("__DATA_TABLE_NAMESPACE_BEGIN__", string.IsNullOrEmpty(context?.Namespace) ? string.Empty : $"namespace {context.Namespace}\n{{");
+            codeContent.Replace("__DATA_TABLE_NAMESPACE_END__", string.IsNullOrEmpty(context?.Namespace) ? string.Empty : "}");
             //codeContent.Replace("__DATA_TABLE_PROPERTY_ARRAY__", GenerateDataTablePropertyArray(dataTableProcessor));
+        }
+
+        private sealed class DataTableCodeGenerationContext
+        {
+            public DataTableCodeGenerationContext(string dataTableClassName, string @namespace)
+            {
+                DataTableClassName = dataTableClassName;
+                Namespace = @namespace;
+            }
+
+            public string DataTableClassName { get; }
+            public string Namespace { get; }
         }
 
         private static string GenerateDataTableProperties(DataTableProcessor dataTableProcessor)
