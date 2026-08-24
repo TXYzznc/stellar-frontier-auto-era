@@ -58,9 +58,10 @@
 该授权不扩展到`Assets/Game/ScriptsBuiltin/`中的任何其他文件；如发现需要第四个文件，必须暂停并
 重新取得用户对精确路径的授权。
 
-### 方案修订后待用户新增授权的框架文件
+### 方案修订后用户新增授权的框架文件
 
-以下文件尚未授权修改；只有用户明确确认精确路径后，客户端才可继续第2段：
+用户于2026-08-24明确确认允许本change修改／新增以下精确路径，用于实现已确认的
+三类JSON中间层、安全同步管线和Editor-only生成Profile：
 
 - `Assets/Game/ScriptsBuiltin/Editor/AIGameDataTableGenerator.cs`
 - `Assets/Game/ScriptsBuiltin/Editor/AppConfigsInspector.cs`
@@ -73,6 +74,7 @@
 - 上述新增`AIData`目录、四个新文件及Unity生成的对应`.meta`文件
 
 新增文件保持领域无关，不包含`AutoEra`值；产品输出规则只存在于项目JSON Profile。
+该新增授权不扩展到此清单之外的其他`Assets/Game/ScriptsBuiltin/`文件。
 
 ### 必须在预检后精确登记的高冲突范围
 

@@ -8,7 +8,7 @@
 
 | 派发ID | 覆盖任务 | 专业窗口 | 协作状态 | 暂停级别／严重度 | 文件／目录占用 | Unity／外部工具占用 | 阻塞与交接说明 |
 |---|---|---|---|---|---|---|---|
-| `b02-parallel-program-p0003-p0006-runtime-foundations` | `P0-003`～`P0-006` | 程序（客户端）；测试后续验收 | 暂停 | 局部／设计冲突 | 第1段既有范围继续保留；第2段拟改为`GameData/AIData/{DataTables,Configs,Languages}/Foundation/`及Editor-only Profile；新增框架文件待用户精确授权 | 主工程8090仍由客户端保留，未进PlayMode | 四轮JSON中间层方案已确认并修订OpenSpec；等待用户授权新增`ScriptsBuiltin`文件后恢复 |
+| `b02-parallel-program-p0003-p0006-runtime-foundations` | `P0-003`～`P0-006` | 程序（客户端）；测试后续验收 | 实施中 | — | 第1段既有范围继续保留；第2段使用`GameData/AIData/{DataTables,Configs,Languages}/Foundation/`、Editor-only Profile及用户已精确授权的框架文件 | 主工程8090仍由客户端保留，未进PlayMode | 四轮JSON中间层方案和新增框架文件授权均已确认；客户端从第2段恢复实施 |
 | `b03-parallel-art-art004-art006-production-rnd` | `ART-004`～`ART-006` | 主美（3D）主责；美术（2D）专项协作 | 方案讨论 | — | 当前只读，无写锁 | 美术工程8091及DCC均未占用 | 先与用户收敛生产路线，不创建OpenSpec、不开始试制 |
 
 ## 共享工具与Git占用
