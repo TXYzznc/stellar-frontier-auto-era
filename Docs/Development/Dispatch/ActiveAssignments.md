@@ -4,18 +4,18 @@
 >
 > 性质：非任务表，只记录当前专业窗口协作阶段与资源占用
 >
-> 当前状态：第三执行批次方案探索中
+> 当前状态：第三执行批次程序实施与美术方案探索并行
 
 | 派发ID | 覆盖任务 | 专业窗口 | 协作状态 | 暂停级别／严重度 | 文件／目录占用 | Unity／外部工具占用 | 阻塞与交接说明 |
 |---|---|---|---|---|---|---|---|
-| `b02-parallel-program-p0003-p0006-runtime-foundations` | `P0-003`～`P0-006` | 程序（客户端）；测试后续验收 | 可实施 | — | 预检只读；精确写锁待客户端回传 | 主工程8090预留给客户端，尚未驱动 | 既有OpenSpec有效；先完成实施前检查，再登记精确写锁 |
+| `b02-parallel-program-p0003-p0006-runtime-foundations` | `P0-003`～`P0-006` | 程序（客户端）；测试后续验收 | 实施中 | — | `Assets/Game/Scripts/AutoEra/`、`Assets/Game/Tests/AutoEra/`、`GameData/{DataTables,Configs,Languages}/AutoEra/`、对应生成输出、`Assets/Game/ScriptableAssets/Core/AppConfigs.asset`、`Assets/Game/Scene/`内本change新增场景、`Assets/Game/Scripts/Extension/DataTableExtension.cs`；另限时授权3个生成器核心文件 | 主工程8090由客户端占用 | 任务表7项状态已核验；程序按分段计划实施，提交前申请Git索引短锁 |
 | `b03-parallel-art-art004-art006-production-rnd` | `ART-004`～`ART-006` | 主美（3D）主责；美术（2D）专项协作 | 方案讨论 | — | 当前只读，无写锁 | 美术工程8091及DCC均未占用 | 先与用户收敛生产路线，不创建OpenSpec、不开始试制 |
 
 ## 共享工具与Git占用
 
 | 共享资源 | 当前占用者 | 状态 | 取得时间 | 释放条件／交接说明 |
 |---|---|---|---|---|
-| 主工程Unity `8090` | 无 | 空闲 | — | 使用前由制作人登记 |
+| 主工程Unity `8090` | 程序（客户端） | 占用 | 2026-08-24 10:54:09 +08:00 | 完成程序验证并明确交接后释放给测试窗口 |
 | 美术工程Unity `8091` | 无 | 空闲 | — | 使用前由制作人登记 |
 | Git索引／提交 | 无 | 空闲 | — | 暂存和提交前临时登记，提交后立即释放 |
 

@@ -11,7 +11,7 @@
 | 原始任务ID | `P0-003`、`P0-004`、`P0-005`、`P0-006` |
 | 实施窗口 | `AutoEra｜程序（客户端）` |
 | 验证窗口 | `AutoEra｜测试`；实现完成并释放8090后接手 |
-| 协作状态 | `可实施` |
+| 协作状态 | `实施中` |
 | 制作人入口 | `AutoEra｜制作人` |
 
 ## 2. 实施基线
@@ -32,12 +32,30 @@
 
 ## 4. 修改权限与占用
 
-### 预授权写入范围
+### 已登记写入范围
 
 - `Assets/Game/Scripts/AutoEra/`
-- `Assets/Game/Tests/`中本change新增或明确归属于AutoEra的测试范围
-- `GameData/`中本change所需的最小项目DataTable／Config／Language输入
+- `Assets/Game/Tests/AutoEra/`
+- `GameData/DataTables/AutoEra/`
+- `GameData/Configs/AutoEra/`
+- `GameData/Languages/AutoEra/`
+- 对应生成输出：`Assets/Game/DataTable/AutoEra/`、`Assets/Game/Config/AutoEra/`及对应Language输出
+- `Assets/Game/ScriptableAssets/Core/AppConfigs.asset`
+- `Assets/Game/Scene/`中本change新增的主菜单与第一版空世界场景及其`.meta`
+- `Assets/Game/Scripts/Extension/DataTableExtension.cs`
 - OpenSpec现有`tasks.md`、本change验证证据和与实施直接对应的项目开发文档
+
+### 用户单次授权的框架核心文件
+
+用户于2026-08-24明确允许本change修改以下三个文件，仅限完成P0-006所需的通用生成器
+配置化和类型解析兼容工作：
+
+- `Assets/Game/ScriptsBuiltin/Editor/GameDataGenerator.cs`
+- `Assets/Game/ScriptsBuiltin/Editor/DataTableGenerator/DataTableGenerator.cs`
+- `Assets/Game/ScriptsBuiltin/Editor/DataTableGenerator/DataTableCodeTemplate/DataTableCodeTemplate.txt`
+
+该授权不扩展到`Assets/Game/ScriptsBuiltin/`中的任何其他文件；如发现需要第四个文件，必须暂停并
+重新取得用户对精确路径的授权。
 
 ### 必须在预检后精确登记的高冲突范围
 
@@ -49,15 +67,14 @@
 ### 只读／禁止修改
 
 - `Docs/GameDesign/05-开发计划/第一版开发任务表.xlsx`永久只读。
-- `Assets/Game/ScriptsBuiltin/`默认禁止修改；若P0-006通用生成器实际位于框架核心且无法通过
-  项目层扩展完成，必须暂停并取得用户对精确文件的单独授权。
+- 除上一节明确列出的三个文件外，`Assets/Game/ScriptsBuiltin/`继续禁止修改。
 - 不修改asmdef、HybridCLR、Obfuz、FSR或发布热更新策略。
 
 ### 工具与Git锁
 
 | 资源 | 当前状态 | 规则 |
 |---|---|---|
-| 主工程Unity 8090 | 预留给客户端实施；实际驱动前再次核验 | 客户端释放后测试窗口才能接手 |
+| 主工程Unity 8090 | 已核验并授予客户端实施占用 | 客户端释放后测试窗口才能接手 |
 | Git索引／提交 | 未授予长期占用 | 每个分段提交前向制作人取得短期锁，显式暂存范围路径，提交后立即释放 |
 
 所有窗口只提交、不推送。禁止`git add -A`、`git add .`或把用户任务表修改带入提交。
