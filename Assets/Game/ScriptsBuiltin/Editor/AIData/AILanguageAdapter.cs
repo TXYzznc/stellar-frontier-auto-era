@@ -29,6 +29,69 @@ namespace UGF.EditorTools
 
     public static class AILanguageAdapter
     {
+        public static bool TryReverseJsonToExcel(string jsonFile, out List<string> errors)
+        {
+            errors = new List<string>();
+            if (string.IsNullOrWhiteSpace(jsonFile) || !File.Exists(jsonFile))
+            {
+                errors.Add($"Language JSON does not exist: {jsonFile}");
+                return false;
+            }
+
+            string json = File.ReadAllText(jsonFile);
+            if (!TryBuildExcelRows(json, out var manifest, out var rows, out errors))
+            {
+                return false;
+            }
+
+            if (!AIDataSyncPipeline.TryResolveGameDataPath(AIDataKind.Language, manifest.relativePath, ".xlsx", out string excelFile, out string pathError))
+            {
+                errors.Add($"Language xlsx output path is invalid: {pathError}");
+                return false;
+            }
+
+            if (File.Exists(excelFile) && !TryValidateExistingFingerprint(excelFile, manifest, errors))
+            {
+                return false;
+            }
+
+            if (!AIDataSyncPipeline.TryBuildTemporaryExcel(rows, out string temporaryFile, out string buildError))
+            {
+                errors.Add($"Could not build temporary language xlsx: {buildError}");
+                return false;
+            }
+
+            try
+            {
+                var report = new AIDataSyncReportItem();
+                bool replaced = AIDataSyncPipeline.ReplaceFilesTransactionally(new[]
+                {
+                    new AIDataFileReplacement { sourceFile = temporaryFile, destinationFile = excelFile },
+                }, report);
+                errors.AddRange(report.errors);
+                if (!replaced)
+                {
+                    return false;
+                }
+
+                if (!TryCreateManifestFromExcel(excelFile, out AILanguageManifest refreshedManifest, out List<string> refreshErrors))
+                {
+                    errors.AddRange(refreshErrors);
+                    return false;
+                }
+
+                File.WriteAllText(jsonFile, JsonConvert.SerializeObject(refreshedManifest, Formatting.Indented), new System.Text.UTF8Encoding(false));
+                return true;
+            }
+            finally
+            {
+                if (File.Exists(temporaryFile))
+                {
+                    File.Delete(temporaryFile);
+                }
+            }
+        }
+
         public static bool TryExportExcelToJson(string excelFile, out string jsonFile, out List<string> errors)
         {
             jsonFile = null;
@@ -191,6 +254,21 @@ namespace UGF.EditorTools
         private static string GetCellText(ExcelWorksheet sheet, int row, int column)
         {
             return (sheet.GetValue(row, column)?.ToString() ?? string.Empty).Replace("\r\n", "\n").Replace("\r", "\n");
+        }
+
+        private static bool TryValidateExistingFingerprint(string excelFile, AILanguageManifest manifest, List<string> errors)
+        {
+            if (!TryCreateManifestFromExcel(excelFile, out var current, out var readErrors))
+            {
+                errors.AddRange(readErrors);
+                return false;
+            }
+
+            var report = new AIDataSyncReportItem();
+            bool valid = AIDataSyncPipeline.ValidateBaseline(
+                new AIDataSyncManifest { sourceFingerprint = manifest.sourceFingerprint }, current.sourceFingerprint, report);
+            errors.AddRange(report.errors);
+            return valid;
         }
     }
 }

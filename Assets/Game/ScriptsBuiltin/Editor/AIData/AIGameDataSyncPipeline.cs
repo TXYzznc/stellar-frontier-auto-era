@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using OfficeOpenXml;
 using UnityEngine;
 
 namespace UGF.EditorTools
@@ -228,6 +229,47 @@ namespace UGF.EditorTools
                         report.warnings.Add($"Could not remove temporary backup directory: {cleanupException.Message}");
                     }
                 }
+            }
+        }
+
+        public static bool TryBuildTemporaryExcel(IList<string[]> rows, out string temporaryFile, out string error)
+        {
+            temporaryFile = null;
+            error = null;
+            try
+            {
+                string projectRoot = Directory.GetParent(Application.dataPath).FullName;
+                string stagingDirectory = Path.Combine(projectRoot, "Temp", "AIDataSyncStaging");
+                Directory.CreateDirectory(stagingDirectory);
+                temporaryFile = Path.Combine(stagingDirectory, Guid.NewGuid().ToString("N") + ".xlsx");
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using (var package = new ExcelPackage(new FileInfo(temporaryFile)))
+                {
+                    var sheet = package.Workbook.Worksheets.Add("Sheet 1");
+                    for (int row = 0; rows != null && row < rows.Count; row++)
+                    {
+                        string[] cells = rows[row] ?? Array.Empty<string>();
+                        for (int column = 0; column < cells.Length; column++)
+                        {
+                            sheet.SetValue(row + 1, column + 1, cells[column] ?? string.Empty);
+                        }
+                    }
+
+                    package.Save();
+                }
+
+                return true;
+            }
+            catch (Exception exception)
+            {
+                error = exception.Message;
+                if (!string.IsNullOrWhiteSpace(temporaryFile) && File.Exists(temporaryFile))
+                {
+                    File.Delete(temporaryFile);
+                }
+
+                temporaryFile = null;
+                return false;
             }
         }
 

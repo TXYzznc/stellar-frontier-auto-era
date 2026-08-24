@@ -191,6 +191,17 @@ namespace AutoEra.Tests.Editor
         }
 
         [Test]
+        public void ConfigAndLanguageReverse_RejectMissingJsonBeforeAnyWorkbookOperation()
+        {
+            string missingJson = System.IO.Path.Combine(System.IO.Directory.GetParent(UnityEngine.Application.dataPath).FullName, "Temp", "missing-ai-data.json");
+
+            Assert.That(AIConfigAdapter.TryReverseJsonToExcel(missingJson, out var configErrors), Is.False);
+            Assert.That(configErrors, Has.Some.Contains("Config JSON does not exist"));
+            Assert.That(AILanguageAdapter.TryReverseJsonToExcel(missingJson, out var languageErrors), Is.False);
+            Assert.That(languageErrors, Has.Some.Contains("Language JSON does not exist"));
+        }
+
+        [Test]
         public void SyncPipeline_RollsBackEarlierReplacementWhenLaterReplacementFails()
         {
             string root = System.IO.Path.Combine(System.IO.Directory.GetParent(UnityEngine.Application.dataPath).FullName, "Temp", "AutoEraSyncPipelineTests", Guid.NewGuid().ToString("N"));
