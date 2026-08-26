@@ -26,6 +26,7 @@
 | `producer` | `AutoEra｜制作人` | `stellar-frontier-auto-era` |
 | `git-integration` | `AutoEra｜Git集成` | `stellar-frontier-auto-era` |
 | `art-3d` | `AutoEra｜主美（3D）` | `ArtResource`，并可访问Blender |
+| `art-concept-3d` | `AutoEra｜3D原画` | `ArtResource`，只进行前置视觉设计，不占用Unity／Blender |
 | `art-2d` | `AutoEra｜美术（2D）` | 按任务使用主项目、美术项目或无仓库窗口 |
 | `client` | `AutoEra｜程序（客户端）` | `stellar-frontier-auto-era` |
 | `backend` | `AutoEra｜程序（后端）` | `stellar-frontier-auto-era`，后续可迁移到独立服务仓库 |
@@ -103,7 +104,7 @@ Git提交请求必须使用`GitIntegration.md`规定的合同。集成窗口成�
 | Unity项目 | 固定端口 | 使用窗口 | 路由要求 |
 |---|---:|---|---|
 | `stellar-frontier-auto-era` | `8090` | 客户端、测试；制作人只读核验时临时使用 | 优先使用cwd／项目名路由，跨项目时显式指定`--port=8090`或目标名 |
-| `ArtResource` | `8091` | 主美（3D）、必要的2D／TA资源验证 | 跨项目时显式指定`--port=8091`或目标名 |
+| `ArtResource` | `8091` | 主美（3D）、必要的2D／TA资源验证；3D原画不使用 | 跨项目时显式指定`--port=8091`或目标名 |
 
 端口固定不取消工具独占。同一Unity实例在同一时段仍只能由一个窗口驱动；相关窗口点对点
 确认交接，不要求制作人逐次登记。每次重要操作前应使用Unity Skills `health`或
@@ -114,7 +115,7 @@ Git提交请求必须使用`GitIntegration.md`规定的合同。集成窗口成�
 - 未经用户明确要求，制作人不自动创建新的用户可见窗口；只向已注册窗口自动派发。
 - 用户明确要求创建窗口后，制作人应创建长期本地项目任务。需要共享当前Unity和工作区的
   窗口使用保存项目的本地环境，不使用隔离worktree来驱动已打开的Unity。
-- `ArtResource`必须先由用户添加为Codex保存项目，才能自动创建以该目录为根的主美窗口。
+- `ArtResource`必须先由用户添加为Codex保存项目，才能自动创建以该目录为根的主美或3D原画窗口。
 - 方案选择、视觉评审、用户验收和权限扩张继续等待用户决定，不自动代替用户批准。
 - 自动发送失败、窗口正在处理不相关任务、注册表失效或目标项目不匹配时，制作人记录原因
   并降级为手动派发；不得把任务发送到“看起来相近”的其他项目窗口。
