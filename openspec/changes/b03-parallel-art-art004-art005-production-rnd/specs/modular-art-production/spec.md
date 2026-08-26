@@ -1,5 +1,16 @@
 ## ADDED Requirements
 
+### Requirement: Modular assets pass pre-modeling visual gates
+Every object in a modular-art production batch SHALL receive an axonometric view before modeling. After user approval, objects selected by the user SHALL receive structure-consistent front, side, and top views with type-appropriate technical annotations; objects explicitly exempted from three-view production MUST instead receive dimensions, grounding, orientation, material regions, and necessary structural notes. Each object MUST receive explicit user approval for Blender, AI 3D, or hybrid production before modeling starts.
+
+#### Scenario: Batch is ready to begin modeling
+- **WHEN** an artist requests permission to model any object in the batch
+- **THEN** the complete batch inventory, approved axonometric view, user-selected documentation branch, approved production drawing or simplified notes, and approved per-asset modeling route are recorded
+
+#### Scenario: Structural change is discovered during modeling
+- **WHEN** a proposed change affects silhouette, proportion, structure, module relationships, or movable parts
+- **THEN** modeling stops for that object and the changed axonometric design returns to user approval before production resumes
+
 ### Requirement: Modular buildings use the approved grid and spans
 The art production workflow SHALL use a `1m` base grid and `2m`, `4m`, and `8m` standard spans for the first modular workshop or processing-station family. Modules MUST align without per-building mesh surgery.
 

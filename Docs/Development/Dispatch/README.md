@@ -12,6 +12,8 @@
 - `RoleRouting.md`：工作窗口职责、优先使用的Agent职责／SKILL和项目级专项策划路由。
 - `WindowAutomation.md`：固定窗口注册、制作人自动派发、状态监控和失效降级规则。
 - `GitIntegration.md`：专业窗口到专门Git集成窗口的请求、复核、提交、退回和异常升级合同。
+- `../3DArtProductionWorkflow.md`：所有3D资产在Blender／AI 3D建模前必须遵守的批次清单、轴测图、
+  三视图／简化说明、逐资产路线审批和返修回退门禁。
 - `WindowRegistry.example.json`：本机窗口注册表结构示例；实际注册表写入被Git忽略的
   `.ai/dispatch/window-registry.local.json`。
 - `Active/<派发ID>.md`：OpenSpec建立前的独立方案探索派发单。派发ID优先使用预定的
@@ -67,6 +69,8 @@
 5. 专业窗口与用户直接讨论具体实现或生产方案，并按每累计两轮至少一次的规则自行增量归档。
 6. 用户确认后，负责窗口自行创建和填写OpenSpec artifacts；影响其他职能时直接同步对应窗口。
 7. 专业窗口在派发边界内自主实施和验证；Unity／DCC由相关窗口点对点交接。
+   3D资产必须额外遵守`../3DArtProductionWorkflow.md`，前置出图和用户路线审批未完成时不得驱动
+   Blender或AI 3D建模工具。
 8. 每个独立工作单元完成后，专业窗口向Git集成窗口发送精确提交请求；合格即提交，只提交不推送。
 9. 普通进度、单项决定、测试通过、归档和提交不通知制作人；异常按强制升级清单处理。
 10. 测试窗口默认只诊断和报告，缺陷直接交回原实现窗口修复。

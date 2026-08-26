@@ -1,5 +1,16 @@
 ## ADDED Requirements
 
+### Requirement: Procedural assets pass pre-modeling visual gates
+Every procedural machine or mechanism in the production batch SHALL receive an approved axonometric design before modeling. The user SHALL select whether each object requires structure-consistent orthographic views or simplified production notes, and SHALL explicitly approve Blender, AI 3D, or hybrid production per asset. Orthographic documentation for movable assets MUST identify part separation, axes, travel, limits, sockets, work points, and clearance responsibilities.
+
+#### Scenario: Machine modeling is authorized
+- **WHEN** the artist is ready to create the machine mesh
+- **THEN** the approved axonometric design, user-selected documentation branch, required technical annotations, and user-approved modeling route exist before any DCC or AI 3D operation begins
+
+#### Scenario: Only technical topology changes
+- **WHEN** topology, UVs, or LODs change without affecting approved appearance, dimensions, pivots, motion limits, anchors, or interfaces
+- **THEN** the artist records the technical change and MAY continue without reopening user visual approval
+
 ### Requirement: Movable assets implement the six-layer presentation contract
 Every representative movable asset SHALL declare movable structure, motion primitives, environment-sensing inputs, state phases, presentation sequencing, and detail feedback. Art assets MUST provide structure and presentation parameters while runtime gameplay remains authoritative for state, traversal, solving, interruption, and control.
 
