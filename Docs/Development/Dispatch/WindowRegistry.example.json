@@ -1,7 +1,8 @@
 {
   "schemaVersion": 1,
   "project": "stellar-frontier-auto-era",
-  "dispatchMode": "producer-auto",
+  "dispatchMode": "persistent-queue",
+  "taskQueueFile": ".ai/dispatch/task-queue.local.json",
   "windows": {
     "producer": {
       "title": "AutoEra｜制作人",
