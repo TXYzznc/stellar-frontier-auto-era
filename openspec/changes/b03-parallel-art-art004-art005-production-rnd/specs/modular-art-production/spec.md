@@ -11,6 +11,21 @@ Every object in a modular-art production batch SHALL receive an axonometric view
 - **WHEN** a proposed change affects silhouette, proportion, structure, module relationships, or movable parts
 - **THEN** modeling stops for that object and the changed axonometric design returns to user approval before production resumes
 
+### Requirement: Completed modular models pass independent functional and support review
+Before submitting a completed modular model, the art lead SHALL independently verify it against all declared functional requirements, approved visual references, technical documentation, assembly relationships, and mechanism contracts. Ordinary findings MUST be corrected within the art window and MUST NOT require per-asset producer review. Unless an approved task package or technical contract explicitly requires levitation, flight, magnetic suspension, holographic presentation, or equivalent behavior, every visible object and part MUST have a credible support, connection, attachment, embedding, or contact relationship. Unsupported floating objects, detached loose parts, visible unintended gaps, and transform-, hierarchy-, origin-, or export-axis-induced drift SHALL be hard acceptance failures.
+
+#### Scenario: Modular model is ready for user review
+- **WHEN** the art lead completes the pre-submission structural review
+- **THEN** every required function maps to valid model structure, every visible part has an approved support or attachment relationship, ordinary defects have already been corrected, and no producer approval was requested for that routine self-review
+
+#### Scenario: Unapproved floating part is found
+- **WHEN** a visible part has no credible support or attachment and no explicit suspension exception exists
+- **THEN** the model fails immediately and returns to source-position, hierarchy, origin, or export correction before any user acceptance evidence is submitted
+
+#### Scenario: Preview-only camera or camera anchor is reviewed
+- **WHEN** a camera or `CameraAnchor` exists only to frame screenshots, videos, or look-development evidence and is not declared as a runtime gameplay, camera-system, program-interface, or deterministic-capture dependency
+- **THEN** its exact transform and orientation do not gate model or asset acceptance, while the resulting evidence must still be readable
+
 ### Requirement: Modular buildings use the approved grid and spans
 The art production workflow SHALL use a `1m` base grid and `2m`, `4m`, and `8m` standard spans for the first modular workshop or processing-station family. Modules MUST align without per-building mesh surgery.
 
@@ -39,8 +54,15 @@ Structural and functional parts SHALL use separate primary Trim Sheet responsibi
 - **WHEN** an entrance, panel, interface, or high-value facade requires additional detail
 - **THEN** the artist first uses the shared structural or functional material system and adds only a scoped decal, mask, or justified secondary sheet
 
+### Requirement: Complete assets default to one Unity main material with functional maps
+Each complete modular asset SHALL default to one Unity main material and MAY use BaseColor, Normal, Metallic/Smoothness or packed Mask, AO, and Emission Mask textures. Status lights, screens, and energy windows SHOULD use regions in the same material's Emission Mask, with color and intensity controlled by Unity parameters or program state. A separate material SHALL be allowed only for transparent or semi-transparent surfaces or a genuinely independent dynamic asset, and every exception MUST record its responsibility and rationale. Shared Trim Sheets and material templates MAY be reused across many assets; the rule constrains per-asset material responsibilities and does not require unique material copies. Blender SHALL own UVs, material-region authoring, and texture baking, while Unity SHALL own the final Shader and runtime feedback.
+
+#### Scenario: Modular asset is prepared for Unity
+- **WHEN** its material delivery is reviewed
+- **THEN** it has one main material by default, a declared functional-map set, Emission Mask semantics where needed, and documented justification for every transparent or independent-dynamic material exception
+
 ### Requirement: Asset tiers constrain texture and material cost
-Assets SHALL be classified as hero, standard, or background. Initial standalone texture targets SHALL be `2K`, `1K`, and `512` respectively when shared materials are insufficient, and material-slot limits SHALL be `4`, `2`, and `1` respectively unless measured evidence approves an exception.
+Assets SHALL be classified as hero, standard, or background. Initial standalone texture targets SHALL be `2K`, `1K`, and `512` respectively when shared materials are insufficient. Asset tier MUST NOT by itself authorize extra material slots; the one-main-material default and its transparent or independent-dynamic exceptions SHALL apply to every tier.
 
 #### Scenario: Asset is prepared for review
 - **WHEN** a representative asset is submitted
