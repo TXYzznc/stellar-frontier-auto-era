@@ -12,6 +12,8 @@ using UnityEngine;
 public sealed class ResourceExportPanel : IToolHubPanel
 {
     private const string SettingsPath = "Assets/Game/ScriptsBuiltin/Editor/MigratedToolbox/ResourceExportSettings.asset";
+    private const string LocalDeliveryFolderName = "LocalDeliveries";
+    private const string LocalDeliveryPackageName = "IgnoredRequiredAssets.unitypackage";
     private const float RowHeight = 22f;
 
     private ResourceExportSettings _settings;
@@ -19,6 +21,47 @@ public sealed class ResourceExportPanel : IToolHubPanel
     private bool _includeDependencies = true;
     private bool _includeAllScripts;
     private bool _mergeSelectedGroups;
+
+    [MenuItem("Tools/Unity开发工具箱/导出已选资源组到本地交付目录")]
+    public static void ExportSelectedGroupsToLocalDeliveries()
+    {
+        var panel = new ResourceExportPanel
+        {
+            _settings = LoadSettings(),
+            _includeDependencies = false
+        };
+
+        if (panel._settings == null)
+        {
+            Debug.LogError($"[ResourceExport] 找不到资源导出配置: {SettingsPath}");
+            return;
+        }
+
+        var groups = panel._settings.groups
+            .Where(group => group != null && group.selected)
+            .Where(group => !string.IsNullOrWhiteSpace(group.name) && GetValidPaths(group).Count > 0)
+            .ToList();
+
+        if (groups.Count == 0)
+        {
+            Debug.LogError("[ResourceExport] 没有可导出的已选资源组。");
+            return;
+        }
+
+        string outputFolder = Path.Combine(GetProjectRoot(), LocalDeliveryFolderName);
+        Directory.CreateDirectory(outputFolder);
+        string outputPath = Path.Combine(outputFolder, LocalDeliveryPackageName);
+        string[] paths = groups
+            .SelectMany(GetValidPaths)
+            .Distinct(StringComparer.Ordinal)
+            .ToArray();
+
+        if (panel.ExportPackage(paths, outputPath))
+        {
+            Debug.Log($"[ResourceExport] 本地迁移包已更新: {outputPath}");
+            EditorUtility.RevealInFinder(outputPath);
+        }
+    }
 
     public void OnEnable()
     {
@@ -337,7 +380,7 @@ public sealed class ResourceExportPanel : IToolHubPanel
 
     private ResourceExportSettings LoadOrCreateSettings()
     {
-        var asset = AssetDatabase.LoadAssetAtPath<ResourceExportSettings>(SettingsPath);
+        var asset = LoadSettings();
         if (asset != null)
             return asset;
 
@@ -346,6 +389,11 @@ public sealed class ResourceExportPanel : IToolHubPanel
         AssetDatabase.CreateAsset(asset, SettingsPath);
         AssetDatabase.SaveAssets();
         return asset;
+    }
+
+    private static ResourceExportSettings LoadSettings()
+    {
+        return AssetDatabase.LoadAssetAtPath<ResourceExportSettings>(SettingsPath);
     }
 
     private void CreateSettingsAsset()
