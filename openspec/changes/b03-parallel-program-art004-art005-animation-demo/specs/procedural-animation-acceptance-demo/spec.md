@@ -41,4 +41,3 @@ The demo SHALL operate on dedicated scene instances and SHALL restore their reco
 #### Scenario: Demo is played twice
 - **WHEN** the full seven-segment sequence completes, resets, and completes again
 - **THEN** transforms, mechanism states, camera framing, and overlay behavior show no cumulative drift and source assets remain unchanged
-
