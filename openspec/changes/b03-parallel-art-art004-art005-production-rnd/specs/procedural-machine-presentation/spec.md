@@ -11,6 +11,24 @@ Every procedural machine or mechanism in the production batch SHALL receive an a
 - **WHEN** topology, UVs, or LODs change without affecting approved appearance, dimensions, pivots, motion limits, anchors, or interfaces
 - **THEN** the artist records the technical change and MAY continue without reopening user visual approval
 
+### Requirement: Completed procedural models pass independent functional and support review
+Before submitting a completed machine or mechanism model, the art lead SHALL independently verify that its structure supports every declared function, approved visual reference, technical design, assembly relationship, motion primitive, joint, interface, and safety contract. Routine findings MUST be corrected within the art window and MUST NOT require per-asset producer review. Unless an approved task package or technical contract explicitly requires levitation, flight, magnetic suspension, holographic presentation, or equivalent behavior, every visible component MUST have a credible support, connection, attachment, embedding, or contact relationship. Unsupported floating components, detached loose parts, unintended gaps, and transform-, hierarchy-, origin-, or export-axis-induced drift SHALL be hard acceptance failures.
+
+#### Scenario: Procedural model is ready for integration evidence
+- **WHEN** the art lead completes the pre-submission structural review
+- **THEN** every required function has valid model structure, movable and replaceable parts are correctly connected, ordinary defects have already been corrected, and no producer approval was requested for that routine self-review
+
+#### Scenario: Machine component appears detached without an approved exception
+- **WHEN** a visible component floats away from its intended parent, support, socket, rail, chassis, or contact surface
+- **THEN** the asset fails immediately and returns to source transform, hierarchy, origin, pivot, or export correction before motion or user acceptance evidence is produced
+
+### Requirement: Complete procedural assets default to one Unity main material with functional maps
+Each complete machine or mechanism asset SHALL default to one Unity main material and MAY use BaseColor, Normal, Metallic/Smoothness or packed Mask, AO, and Emission Mask textures. Status lights, screens, energy windows, and equivalent feedback regions SHOULD share that material through Emission Mask regions, with color and intensity controlled by Unity parameters or program state. A separate material SHALL be allowed only for transparent or semi-transparent surfaces or a genuinely independent dynamic asset, with an explicit recorded responsibility. Blender SHALL own UVs, material-region authoring, and texture baking; Unity SHALL own the final Shader, material parameters, and runtime feedback.
+
+#### Scenario: G06 material candidate is prepared
+- **WHEN** the replacement carrier enters material review
+- **THEN** its geometry and approved runtime-preview hierarchy remain unchanged, the complete carrier uses one main material by default, functional maps and emission semantics are declared, and every additional material has a valid transparency or independent-dynamic justification
+
 ### Requirement: Movable assets implement the six-layer presentation contract
 Every representative movable asset SHALL declare movable structure, motion primitives, environment-sensing inputs, state phases, presentation sequencing, and detail feedback. Art assets MUST provide structure and presentation parameters while runtime gameplay remains authoritative for state, traversal, solving, interruption, and control.
 
@@ -98,3 +116,14 @@ The vertical slice SHALL include one wheeled machine, one sliding door, and one 
 #### Scenario: Prototype is submitted for acceptance
 - **WHEN** ART-005 review begins
 - **THEN** every required case has a reproducible visual result, expected behavior, measured baseline where applicable, and recorded unresolved risk
+
+### Requirement: G06 may use an isolated reversible Play Mode acceptance preview
+After the G06 replacement candidate passes static structure and material-import self-review, its independent validation scene MAY contain a dedicated demonstration instance and Play-Mode-only controller. The controller SHALL drive only the approved four-wheel steer and roll pivots plus `CargoDoorMotionPivot`, SHALL automatically play ordered acceptance segments, and SHALL support `Space` pause/resume, left/right segment navigation, and `R` reset. Stopping playback, disabling the controller, resetting, or leaving Play Mode MUST restore the authored bind pose. The preview MUST NOT modify V17/V18 source FBX files, gameplay authority, navigation, collision, save data, deprecated validation objects, or other assets.
+
+#### Scenario: G06 preview is stopped or reset
+- **WHEN** playback stops, the controller is disabled, `R` is pressed, or Play Mode exits
+- **THEN** all controlled wheel and cargo-door pivots return to their recorded bind transforms with no cumulative drift or source-asset modification
+
+#### Scenario: G06 preview evidence is reviewed
+- **WHEN** the isolated G06 preview passes its local acceptance checks
+- **THEN** the result is recorded only as ART-005 single-asset validation evidence and does not satisfy any dependency, segment, camera, overlay, or completion requirement of `b03-parallel-program-art004-art005-animation-demo`

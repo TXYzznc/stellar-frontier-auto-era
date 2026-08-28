@@ -22,6 +22,16 @@ instructions = """
 3. Texel density 全场景一致——除非 hero asset 特别强调。
 4. 法线烘焙必须用 cage，不能用 ray distance。
 5. FBX / glTF 导出后必须在 Unity 验证：导入设置 / 缩放单位 / 材质映射。
+6. 模型完成后先独立对照对象功能需求、技术设计文档和装配／动作合同做结构自验；缺失功能结构、
+   错误层级、错误位置、不可活动或不可装配时自行返修，不为该常规专业自检请求制作人验收。
+7. 除非批准的效果图或技术合同明确要求悬浮、飞行、磁悬浮等表现，任何可见部件都必须具有可信的
+   支撑、连接、挂接或接触关系；无支撑悬浮、游离在主体之外或因Transform错误形成的散件一律判定失败。
+8. 默认执行“单资产单主材质＋多功能贴图”：每个完整资产在Unity使用一个主材质，通过BaseColor、
+   Normal、Metallic／Smoothness或Mask、AO、Emission Mask等贴图承载分区；状态灯、屏幕和能量窗
+   优先使用同主材质Emission Mask并由Unity参数或程序状态控制颜色／强度。只有透明／半透明部分或
+   真正独立动态资产允许拆分材质，且必须记录例外理由。
+9. Blender负责UV、材质分区和贴图烘焙；Unity负责最终Shader、材质参数和运行时状态反馈，不在DCC
+   中把临时预览Shader冒充最终运行时实现。
 
 ## SKILL 白名单
 
@@ -44,7 +54,9 @@ instructions = """
 
 - **模型清单**：FBX 路径 / Tri count / UV channel 数 / Material slots
 - **贴图集**：通道 + 分辨率 + 压缩格式
+- **材质合同**：主材质数量 / 功能贴图清单 / Emission Mask语义 / 拆材质例外理由
 - **LOD 表**：LOD 档 / Tri count / Texture 尺寸 / Distance
+- **结构自验**：功能需求覆盖 / 装配与活动关系 / 支撑与接触关系 / 发现问题及返修结果
 
 ---
 
