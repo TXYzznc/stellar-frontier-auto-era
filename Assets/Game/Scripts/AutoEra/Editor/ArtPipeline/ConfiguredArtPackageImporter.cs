@@ -13,7 +13,7 @@ namespace AutoEra.Editor.ArtPipeline
         [MenuItem(MenuPath)]
         private static void Import()
         {
-            string projectRoot = Path.GetFullPath(Path.Combine(Application.dataPath, ".."));
+            string projectRoot = Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath, ".."));
             string configPath = Path.Combine(projectRoot, ConfigRelativePath);
             if (!File.Exists(configPath))
             {
