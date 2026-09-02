@@ -49,6 +49,8 @@ namespace AutoEra.Motion
             {
                 if (node == null || string.IsNullOrWhiteSpace(node.StableId) || !ids.Add(node.StableId))
                 { error = "MotionGraphAsset has an invalid or duplicate node ID."; return false; }
+                if (!Enum.IsDefined(typeof(MotionNodeKind), node.Kind) || !MotionGraphComposition.IsSupported(node.Kind))
+                { error = "MotionGraphAsset has an unsupported node kind."; return false; }
             }
             foreach (MotionConnectionDefinition connection in _connections)
             {
