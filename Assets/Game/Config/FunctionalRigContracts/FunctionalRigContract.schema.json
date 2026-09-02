@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "autoera/functional-rig-contract/v1",
+  "title": "FunctionalRigContract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "contractId",
+    "assetFamilyId",
+    "contractVersion",
+    "coordinateConvention",
+    "overallBounds",
+    "joints",
+    "anchors",
+    "clearanceVolumes",
+    "collisionEnvelopes",
+    "visualSlots",
+    "compatibility"
+  ],
+  "properties": {
+    "schemaVersion": { "type": "integer", "const": 1 },
+    "contractId": { "$ref": "#/$defs/stableId" },
+    "assetFamilyId": { "$ref": "#/$defs/stableId" },
+    "contractVersion": { "type": "string", "minLength": 1 },
+    "contentFingerprint": { "type": "string" },
+    "coordinateConvention": { "$ref": "#/$defs/coordinateConvention" },
+    "overallBounds": { "$ref": "#/$defs/bounds" },
+    "joints": { "type": "array", "items": { "$ref": "#/$defs/joint" } },
+    "anchors": { "type": "array", "items": { "$ref": "#/$defs/anchor" } },
+    "clearanceVolumes": { "type": "array", "items": { "$ref": "#/$defs/volume" } },
+    "collisionEnvelopes": { "type": "array", "items": { "$ref": "#/$defs/volume" } },
+    "visualSlots": { "type": "array", "items": { "$ref": "#/$defs/visualSlot" } },
+    "compatibility": { "$ref": "#/$defs/compatibility" }
+  },
+  "$defs": {
+    "stableId": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "vector3": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y", "z"],
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "z": { "type": "number" }
+      }
+    },
+    "pose": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["position", "eulerDegrees"],
+      "properties": {
+        "position": { "$ref": "#/$defs/vector3" },
+        "eulerDegrees": { "$ref": "#/$defs/vector3" }
+      }
+    },
+    "coordinateConvention": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unit", "upAxis", "forwardAxis", "handedness"],
+      "properties": {
+        "unit": { "const": "meter" },
+        "upAxis": { "const": "+Y" },
+        "forwardAxis": { "const": "+Z" },
+        "handedness": { "const": "left" }
+      }
+    },
+    "bounds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["center", "size"],
+      "properties": {
+        "center": { "$ref": "#/$defs/vector3" },
+        "size": { "$ref": "#/$defs/vector3" }
+      }
+    },
+    "joint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stableId", "parentStableId", "objectPath", "channel", "localAxis", "minimumValue", "maximumValue", "bindPose", "safePose"],
+      "properties": {
+        "stableId": { "$ref": "#/$defs/stableId" },
+        "parentStableId": { "type": "string" },
+        "objectPath": { "type": "string", "minLength": 1 },
+        "channel": { "$ref": "#/$defs/stableId" },
+        "localAxis": { "$ref": "#/$defs/vector3" },
+        "minimumValue": { "type": "number" },
+        "maximumValue": { "type": "number" },
+        "bindPose": { "$ref": "#/$defs/pose" },
+        "safePose": { "$ref": "#/$defs/pose" }
+      }
+    },
+    "anchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stableId", "kind", "parentStableId", "localPose"],
+      "properties": {
+        "stableId": { "$ref": "#/$defs/stableId" },
+        "kind": { "$ref": "#/$defs/stableId" },
+        "parentStableId": { "type": "string" },
+        "localPose": { "$ref": "#/$defs/pose" }
+      }
+    },
+    "volume": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stableId", "kind", "parentStableId", "localPose", "size"],
+      "properties": {
+        "stableId": { "$ref": "#/$defs/stableId" },
+        "kind": { "$ref": "#/$defs/stableId" },
+        "parentStableId": { "type": "string" },
+        "localPose": { "$ref": "#/$defs/pose" },
+        "size": { "$ref": "#/$defs/vector3" }
+      }
+    },
+    "visualSlot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stableId", "parentStableId", "objectPath", "expectedBounds"],
+      "properties": {
+        "stableId": { "$ref": "#/$defs/stableId" },
+        "parentStableId": { "type": "string" },
+        "objectPath": { "type": "string", "minLength": 1 },
+        "expectedBounds": { "$ref": "#/$defs/bounds" }
+      }
+    },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimumConsumerSchemaVersion", "maximumConsumerSchemaVersion", "visualReplacementCompatibilityId"],
+      "properties": {
+        "minimumConsumerSchemaVersion": { "type": "integer", "minimum": 1 },
+        "maximumConsumerSchemaVersion": { "type": "integer", "minimum": 1 },
+        "visualReplacementCompatibilityId": { "$ref": "#/$defs/stableId" }
+      }
+    }
+  }
+}

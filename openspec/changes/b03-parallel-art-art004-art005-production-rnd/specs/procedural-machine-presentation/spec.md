@@ -1,5 +1,12 @@
 ## ADDED Requirements
 
+### Requirement: Functional contract precedes movable-model production
+Before any movable or key-assembly mesh is created, an accepted program-built basic-geometry prototype and matching versioned `FunctionalRigContract` SHALL exist. Visual delivery SHALL replace only declared visual-slot contents and SHALL NOT move logical roots, joints, anchors, limits, or clearances without a newer accepted contract.
+
+#### Scenario: A movable asset is ready for DCC production
+- **WHEN** the artist receives approved visual direction and a production route
+- **THEN** the matching accepted `FunctionalRigContract` is also present before any DCC or AI 3D modeling begins
+
 ### Requirement: Procedural assets pass pre-modeling visual gates
 Every procedural machine or mechanism in the production batch SHALL receive an approved axonometric design before modeling. The user SHALL select whether each object requires structure-consistent orthographic views or simplified production notes, and SHALL explicitly approve Blender, AI 3D, or hybrid production per asset. Orthographic documentation for movable assets MUST identify part separation, axes, travel, limits, sockets, work points, and clearance responsibilities.
 
