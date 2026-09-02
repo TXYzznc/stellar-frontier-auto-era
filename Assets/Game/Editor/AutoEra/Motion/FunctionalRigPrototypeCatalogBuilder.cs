@@ -19,7 +19,7 @@ namespace AutoEra.Editor.Motion
 
         private static void BuildFamily(string familyId)
         {
-            GameObject root = new GameObject("FPR_" + familyId);
+            GameObject root = new GameObject(GetPrototypeObjectName(familyId));
             try
             {
                 Transform logic = Child(root.transform, "LogicRoot");
@@ -44,30 +44,20 @@ namespace AutoEra.Editor.Motion
             Material material = GetOrCreateMaterial(familyId, GetFamilyColor(familyId));
             foreach (MeshRenderer renderer in root.GetComponentsInChildren<MeshRenderer>(true)) renderer.sharedMaterial = material;
 
-            Transform slot = FindFirstVisualSlot(root.transform);
-            if (slot == null) return;
-            GameObject label = new GameObject("Label_" + familyId);
-            label.transform.SetParent(slot, false);
-            label.transform.localPosition = new Vector3(0f, 1.55f, 0f);
-            label.transform.localRotation = Quaternion.Euler(65f, 0f, 0f);
-            var text = label.AddComponent<TextMesh>();
-            text.text = familyId.Replace('_', ' ').ToUpperInvariant();
-            text.anchor = TextAnchor.MiddleCenter;
-            text.alignment = TextAlignment.Center;
-            text.characterSize = 0.12f;
-            text.fontSize = 28;
-            text.color = Color.white;
-            text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         }
 
-        private static Transform FindFirstVisualSlot(Transform root)
+        private static string GetPrototypeObjectName(string familyId)
         {
-            foreach (FunctionalRigPrototypeStableId identity in root.GetComponentsInChildren<FunctionalRigPrototypeStableId>(true))
+            switch (familyId)
             {
-                if (identity.StableId.StartsWith("visual-slot:")) return identity.transform;
+                case "wheeled_carrier": return "原型_轮式载体";
+                case "four_wheel_module": return "原型_四轮机构";
+                case "multi_joint_arm": return "原型_多关节机械臂";
+                case "replaceable_effector": return "原型_可替换效应器";
+                case "sliding_door": return "原型_滑动门";
+                case "conveyor": return "原型_传送带";
+                default: return familyId;
             }
-
-            return null;
         }
 
         private static Material GetOrCreateMaterial(string familyId, Color color)
