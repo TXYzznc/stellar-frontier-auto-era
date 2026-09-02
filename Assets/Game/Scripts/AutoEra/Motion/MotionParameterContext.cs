@@ -20,6 +20,7 @@ namespace AutoEra.Motion
         public void SetVector3(string id, Vector3 value) => _vectors[id] = value;
         public void SetQuaternion(string id, Quaternion value) => _rotations[id] = value;
         public bool TryGetBoolean(string id, out bool value) => _booleans.TryGetValue(id, out value);
+        public bool TryGetInteger(string id, out int value) => _integers.TryGetValue(id, out value);
         public bool TryGetFloat(string id, out float value) => _floats.TryGetValue(id, out value);
     }
 }
