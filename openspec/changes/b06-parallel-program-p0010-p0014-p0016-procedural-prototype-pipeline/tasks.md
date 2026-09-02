@@ -28,7 +28,7 @@
 
 ## 3. P0-015 动作预览、校验与工具包
 
-- [ ] 3.1 实现MotionRig、MotionGraph、参数上下文、阶段曲线和中断策略的Inspector配置与错误定位
+- [x] 3.1 实现MotionRig、MotionGraph、参数上下文、阶段曲线和中断策略的Inspector配置与错误定位
 - [ ] 3.2 实现EditMode／PlayMode预览、关节范围与锚点Gizmo、正例／负例参数注入及一键恢复绑定态
 - [ ] 3.3 实现合同版本、Rig绑定、参数类型、连接、通道冲突、非法范围和视觉替换兼容的静态校验入口
 - [ ] 3.4 建立版本化Motion Core／Editor工具包清单和固定GUID发布流程，明确排除GF_X、AutoEra Adapter、玩法代码和美术资源
