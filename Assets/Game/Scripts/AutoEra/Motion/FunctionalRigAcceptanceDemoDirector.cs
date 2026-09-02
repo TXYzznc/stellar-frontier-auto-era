@@ -6,6 +6,7 @@ namespace AutoEra.Motion
     public sealed class FunctionalRigAcceptanceDemoDirector : MonoBehaviour
     {
         [SerializeField] private Transform _fourWheelRig;
+        [SerializeField] private Transform _carrierRig;
         [SerializeField] private Transform _armRig;
         [SerializeField] private Transform _effectorRig;
         [SerializeField] private Transform _doorRig;
@@ -17,10 +18,44 @@ namespace AutoEra.Motion
         private Vector3 _doorBindPosition;
         private Vector3 _conveyorBindPosition;
         private float _elapsed;
+        private readonly Transform[] _animatedJoints = new Transform[15];
+        private readonly Vector3[] _jointBindPositions = new Vector3[15];
+        private readonly Quaternion[] _jointBindRotations = new Quaternion[15];
+        private int _animatedJointCount;
+        private Transform _carrierChassis;
+        private Transform _fourWheelSteer;
+        private Transform _fourWheelRoll;
+        private Transform _armYaw;
+        private Transform _armShoulder;
+        private Transform _armExtend;
+        private Transform _armWrist;
+        private Transform _effectorSocket;
+        private Transform _effectorLock;
+        private Transform _effectorHold;
+        private Transform _leftDoorLeaf;
+        private Transform _rightDoorLeaf;
+        private Transform _driveRoller;
+        private Transform _tailRoller;
+        private Transform _belt;
 
         private void Awake()
         {
             CaptureBindPose();
+            _carrierChassis = FindJoint(_carrierRig, "chassis");
+            _fourWheelSteer = FindJoint(_fourWheelRig, "steer");
+            _fourWheelRoll = FindJoint(_fourWheelRig, "roll");
+            _armYaw = FindJoint(_armRig, "yaw");
+            _armShoulder = FindJoint(_armRig, "shoulder");
+            _armExtend = FindJoint(_armRig, "extend");
+            _armWrist = FindJoint(_armRig, "wrist");
+            _effectorSocket = FindJoint(_effectorRig, "socket");
+            _effectorLock = FindJoint(_effectorRig, "lock");
+            _effectorHold = FindJoint(_effectorRig, "safety_hold");
+            _leftDoorLeaf = FindJoint(_doorRig, "left_leaf");
+            _rightDoorLeaf = FindJoint(_doorRig, "right_leaf");
+            _driveRoller = FindJoint(_conveyorRig, "drive_roller");
+            _tailRoller = FindJoint(_conveyorRig, "tail_roller");
+            _belt = FindJoint(_conveyorRig, "belt");
         }
 
         private void Update()
@@ -28,41 +63,40 @@ namespace AutoEra.Motion
             _elapsed += Time.deltaTime;
             float cycle = Mathf.Repeat(_elapsed / 6f, 1f);
 
-            if (_fourWheelRig != null)
-            {
-                FourWheelPresentationState wheel = FourWheelPresentation.Evaluate(25f, FourWheelSteeringMode.CounterSteer, 1f, _elapsed);
-                _fourWheelRig.localRotation = _fourWheelBindRotation * Quaternion.Euler(0f, wheel.FrontLeft * 0.2f, 0f);
-            }
+            if (_carrierChassis != null) _carrierChassis.localRotation = Quaternion.Euler(0f, Mathf.Sin(_elapsed) * 8f, 0f);
+            FourWheelPresentationState wheel = FourWheelPresentation.Evaluate(25f, FourWheelSteeringMode.CounterSteer, 1f, _elapsed);
+            if (_fourWheelSteer != null) _fourWheelSteer.localRotation = Quaternion.Euler(0f, wheel.FrontLeft, 0f);
+            if (_fourWheelRoll != null) _fourWheelRoll.localRotation = Quaternion.Euler(wheel.WheelRotationDegrees, 0f, 0f);
 
-            if (_armRig != null)
-            {
-                ArmPresentationSolution arm = ArmPresentationSolver.Solve(new Vector3(Mathf.Sin(_elapsed) * 1.5f, 0.5f, 2f), 2f, 2f);
-                _armRig.localRotation = _armBindRotation * Quaternion.Euler(arm.PitchDegrees * 0.15f, arm.YawDegrees * 0.15f, 0f);
-            }
+            ArmPresentationSolution arm = ArmPresentationSolver.Solve(new Vector3(Mathf.Sin(_elapsed) * 1.5f, 0.5f, 2f), 2f, 2f);
+            if (_armYaw != null) _armYaw.localRotation = Quaternion.Euler(0f, arm.YawDegrees, 0f);
+            if (_armShoulder != null) _armShoulder.localRotation = Quaternion.Euler(arm.PitchDegrees, 0f, 0f);
+            if (_armExtend != null) _armExtend.localPosition = new Vector3(0f, 0f, 1.1f + arm.Extension);
+            if (_armWrist != null) _armWrist.localRotation = Quaternion.Euler(0f, 0f, Mathf.Sin(_elapsed) * 35f);
 
-            if (_effectorRig != null)
-            {
-                float offset = Mathf.Sin(_elapsed * 2f) * 0.2f;
-                _effectorRig.localPosition = _effectorBindPosition + new Vector3(0f, offset, 0f);
-            }
+            float effectorPhase = Mathf.Repeat(_elapsed / 4f, 1f);
+            if (_effectorSocket != null) _effectorSocket.localPosition = new Vector3(0f, 0f, 0.45f + effectorPhase * 0.35f);
+            if (_effectorLock != null) _effectorLock.localRotation = Quaternion.Euler(0f, 0f, effectorPhase * 90f);
+            if (_effectorHold != null) _effectorHold.localPosition = new Vector3(0f, effectorPhase > 0.8f ? -0.2f : 0f, 0.3f);
 
-            if (_doorRig != null)
-            {
-                SlidingDoorPresentationState door = SlidingDoorPresentation.Evaluate(
-                    SlidingDoorPresentationMode.DoublePanel, cycle < 0.5f, false, cycle < 0.5f ? cycle * 2f : (cycle - 0.5f) * 2f);
-                _doorRig.localPosition = _doorBindPosition + new Vector3(door.FirstPanelOpen * 0.25f, 0f, 0f);
-            }
+            SlidingDoorPresentationState door = SlidingDoorPresentation.Evaluate(SlidingDoorPresentationMode.DoublePanel, cycle < 0.5f, false, cycle < 0.5f ? cycle * 2f : (cycle - 0.5f) * 2f);
+            if (_leftDoorLeaf != null) _leftDoorLeaf.localPosition = new Vector3(-1.15f - door.FirstPanelOpen * 1.2f, 0f, 0f);
+            if (_rightDoorLeaf != null) _rightDoorLeaf.localPosition = new Vector3(1.15f + door.SecondPanelOpen * 1.2f, 0f, 0f);
 
-            if (_conveyorRig != null)
-            {
-                ConveyorPresentationState conveyor = ConveyorPresentation.Advance(0f, 1f, 1f, false, _elapsed);
-                _conveyorRig.localPosition = _conveyorBindPosition + new Vector3(conveyor.UvOffset * 0.15f, 0f, 0f);
-            }
+            ConveyorPresentationState conveyor = ConveyorPresentation.Advance(0f, 1f, 1f, false, _elapsed);
+            if (_driveRoller != null) _driveRoller.localRotation = Quaternion.Euler(_elapsed * 240f, 0f, 0f);
+            if (_tailRoller != null) _tailRoller.localRotation = Quaternion.Euler(_elapsed * 240f, 0f, 0f);
+            if (_belt != null) _belt.localPosition = new Vector3(0f, 0.3f, conveyor.UvOffset * 0.35f);
         }
 
         private void OnDisable()
         {
             RestoreBindPose();
+            for (int index = 0; index < _animatedJointCount; index++)
+            {
+                _animatedJoints[index].localPosition = _jointBindPositions[index];
+                _animatedJoints[index].localRotation = _jointBindRotations[index];
+            }
         }
 
         private void CaptureBindPose()
@@ -81,6 +115,21 @@ namespace AutoEra.Motion
             if (_effectorRig != null) _effectorRig.localPosition = _effectorBindPosition;
             if (_doorRig != null) _doorRig.localPosition = _doorBindPosition;
             if (_conveyorRig != null) _conveyorRig.localPosition = _conveyorBindPosition;
+        }
+
+        private Transform FindJoint(Transform rigRoot, string stableId)
+        {
+            if (rigRoot == null) return null;
+            Transform joint = rigRoot.Find("VisualRoot/Joint_" + stableId);
+            if (joint != null && _animatedJointCount < _animatedJoints.Length)
+            {
+                _animatedJoints[_animatedJointCount] = joint;
+                _jointBindPositions[_animatedJointCount] = joint.localPosition;
+                _jointBindRotations[_animatedJointCount] = joint.localRotation;
+                _animatedJointCount++;
+            }
+
+            return joint;
         }
     }
 }
