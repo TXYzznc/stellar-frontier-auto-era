@@ -18,11 +18,14 @@ namespace AutoEra.Motion
         private Vector3 _doorBindPosition;
         private Vector3 _conveyorBindPosition;
         private float _elapsed;
-        private readonly Transform[] _animatedJoints = new Transform[15];
-        private readonly Vector3[] _jointBindPositions = new Vector3[15];
-        private readonly Quaternion[] _jointBindRotations = new Quaternion[15];
+        private readonly Transform[] _animatedJoints = new Transform[32];
+        private readonly Vector3[] _jointBindPositions = new Vector3[32];
+        private readonly Quaternion[] _jointBindRotations = new Quaternion[32];
         private int _animatedJointCount;
         private Transform _carrierChassis;
+        private readonly Transform[] _carrierSteering = new Transform[4];
+        private readonly Transform[] _carrierSuspension = new Transform[4];
+        private readonly Transform[] _carrierRoll = new Transform[4];
         private Transform _fourWheelSteer;
         private Transform _fourWheelRoll;
         private Transform _armYaw;
@@ -42,6 +45,10 @@ namespace AutoEra.Motion
         {
             CaptureBindPose();
             _carrierChassis = FindJoint(_carrierRig, "chassis");
+            BindCarrierWheel(0, "front_left");
+            BindCarrierWheel(1, "front_right");
+            BindCarrierWheel(2, "rear_left");
+            BindCarrierWheel(3, "rear_right");
             _fourWheelSteer = FindJoint(_fourWheelRig, "steer");
             _fourWheelRoll = FindJoint(_fourWheelRig, "roll");
             _armYaw = FindJoint(_armRig, "yaw");
@@ -63,7 +70,22 @@ namespace AutoEra.Motion
             _elapsed += Time.deltaTime;
             float cycle = Mathf.Repeat(_elapsed / 6f, 1f);
 
-            if (_carrierChassis != null) _carrierChassis.localRotation = Quaternion.Euler(0f, Mathf.Sin(_elapsed) * 8f, 0f);
+            FourWheelKinematicsState carrierWheels = FourWheelPresentation.EvaluateKinematics(new FourWheelKinematicsInput
+            {
+                SteeringDegrees = 25f,
+                SteeringMode = FourWheelSteeringMode.CounterSteer,
+                TravelDistanceMeters = _elapsed,
+                WheelRadiusMeters = 0.7f,
+                FrontLeftSuspensionMeters = Mathf.Sin(_elapsed * 1.2f) * -0.08f,
+                FrontRightSuspensionMeters = Mathf.Sin(_elapsed * 1.2f + 0.7f) * -0.08f,
+                RearLeftSuspensionMeters = Mathf.Sin(_elapsed * 1.2f + 1.4f) * -0.08f,
+                RearRightSuspensionMeters = Mathf.Sin(_elapsed * 1.2f + 2.1f) * -0.08f
+            });
+            ApplyCarrierWheel(0, carrierWheels.FrontLeft);
+            ApplyCarrierWheel(1, carrierWheels.FrontRight);
+            ApplyCarrierWheel(2, carrierWheels.RearLeft);
+            ApplyCarrierWheel(3, carrierWheels.RearRight);
+
             FourWheelPresentationState wheel = FourWheelPresentation.Evaluate(25f, FourWheelSteeringMode.CounterSteer, 1f, _elapsed);
             if (_fourWheelSteer != null) _fourWheelSteer.localRotation = Quaternion.Euler(0f, wheel.FrontLeft, 0f);
             if (_fourWheelRoll != null) _fourWheelRoll.localRotation = Quaternion.Euler(wheel.WheelRotationDegrees, 0f, 0f);
@@ -130,6 +152,25 @@ namespace AutoEra.Motion
             }
 
             return joint;
+        }
+
+        private void BindCarrierWheel(int index, string prefix)
+        {
+            _carrierSteering[index] = FindJoint(_carrierRig, prefix + "_steer");
+            _carrierSuspension[index] = FindJoint(_carrierRig, prefix + "_suspension");
+            _carrierRoll[index] = FindJoint(_carrierRig, prefix + "_roll");
+        }
+
+        private void ApplyCarrierWheel(int index, WheelPresentationState wheel)
+        {
+            Transform steering = _carrierSteering[index];
+            if (steering != null) steering.localRotation = Quaternion.Euler(0f, wheel.SteeringDegrees, 0f);
+
+            Transform suspension = _carrierSuspension[index];
+            if (suspension != null) suspension.localPosition = new Vector3(0f, wheel.SuspensionMeters, 0f);
+
+            Transform roll = _carrierRoll[index];
+            if (roll != null) roll.localRotation = Quaternion.Euler(wheel.RollDegrees, 0f, 0f);
         }
     }
 }

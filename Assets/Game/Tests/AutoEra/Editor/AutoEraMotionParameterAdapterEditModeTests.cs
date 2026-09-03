@@ -36,5 +36,29 @@ namespace AutoEra.Tests.Editor
             Assert.That(typeof(AutoEraMotionParameterAdapter).GetFields(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)
                 .Any(field => typeof(MotionExecutor).IsAssignableFrom(field.FieldType) || typeof(Transform).IsAssignableFrom(field.FieldType)), Is.False);
         }
+
+        [Test]
+        public void Adapter_ConsumesCurrentInstructionProjectionWithoutQueueControl()
+        {
+            var context = new MotionParameterContext();
+            var adapter = new AutoEraMotionParameterAdapter(context);
+            var projection = new AutoEraMotionInstructionProjection(
+                "instruction-17",
+                "task-3",
+                AutoEraMotionActionType.SawCut,
+                AutoEraMotionActionPhase.SafeClosure,
+                true,
+                0.6f,
+                1,
+                new Pose(new Vector3(3f, 0f, 2f), Quaternion.identity));
+
+            adapter.ApplyCurrentInstructionProjection(projection);
+
+            Assert.That(context.TryGetInteger("activeActionType", out int type) && type == (int)AutoEraMotionActionType.SawCut, Is.True);
+            Assert.That(context.TryGetInteger("activeActionPhase", out int phase) && phase == (int)AutoEraMotionActionPhase.SafeClosure, Is.True);
+            Assert.That(context.TryGetBoolean("interrupted", out bool interrupted) && interrupted, Is.True);
+            Assert.That(context.TryGetFloat("normalizedProgress", out float progress) && progress == 0.6f, Is.True);
+            Assert.That(typeof(AutoEraMotionParameterAdapter).GetMethods().Any(method => method.Name.Contains("Queue") || method.Name.Contains("Schedule")), Is.False);
+        }
     }
 }
