@@ -35,6 +35,13 @@ The AutoEra Adapter SHALL translate product state into strong motion parameters 
 - **WHEN** the Adapter observes the authoritative state transition
 - **THEN** it updates typed parameters and interruption state, and the executor applies the graph's declared safe response
 
+### Requirement: Motion consumes an instruction projection without scheduling instructions
+Motion Core SHALL consume only the active action's strongly typed presentation projection supplied by the AutoEra Adapter. It MUST NOT inspect an algorithm graph, dequeue instructions, assign priority, reject a task, or determine a task result. Queueing, five-level priority, safety-point handoff, and terminal task results remain in the product task and effector-queue authority; Motion Core only presents the current authoritative phase and performs its configured safe closure.
+
+#### Scenario: A higher-priority effector instruction reaches a safe handoff point
+- **WHEN** product authority replaces the active action projection after its declared safe handoff
+- **THEN** the Adapter updates the active typed parameters and interruption state, and the MotionExecutor transitions from the measured pose without independently selecting or scheduling another instruction
+
 ### Requirement: Motion evaluation is deterministic and allocation controlled
 Given the same contract version, graph version, initial pose, parameter sequence, and fixed time steps, Motion Core SHALL produce equivalent states and poses. Runtime hot paths MUST NOT create sustained managed allocations, per-joint Update components, or unbounded coroutine and tween sequences.
 

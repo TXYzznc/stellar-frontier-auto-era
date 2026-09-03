@@ -42,6 +42,13 @@ The fixed acceptance scene SHALL exercise the wheeled carrier, wheel structures,
 - **WHEN** the program team declares `P0-016` representative integration ready
 - **THEN** movement, steering, target work, safe interruption, power-loss recovery, effector exchange, door occupancy handling, conveyor blocking, repeated playback, pooling, and scene re-entry have reproducible evidence
 
+### Requirement: Representative actions move their declared functional joints
+The acceptance scene and test panel SHALL demonstrate representative actions through their declared joints rather than by translating or oscillating a `RigRoot`. The wheeled carrier SHALL expose independent steering, suspension and rolling on four wheel chains; the arm SHALL expose base yaw and its four configured limited joints; water spray, saw, drill, door and conveyor SHALL visibly drive their respective nozzle, rail/feed/spindle, press/rotor, leaf and roller/belt joints. Each capability SHALL expose bind, running, safe interruption or invalid state, and recovery evidence.
+
+#### Scenario: A user reviews a representative action
+- **WHEN** the user starts, interrupts and resets that capability from the fixed panel or acceptance scene
+- **THEN** the declared joints visibly perform the configured movement, no action is simulated by moving the entire rig root, and reset restores the accepted bind pose
+
 ### Requirement: Formal visual replacement reruns the same acceptance suite
 After art replaces blockout geometry, the same contract validation, motion regression, and visual demonstration SHALL run without moving functional Pivots, anchors, limits, or logic roots. The replacement SHALL not be accepted solely from static renders.
 
