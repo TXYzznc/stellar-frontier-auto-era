@@ -26,6 +26,8 @@
     工具、编译、渲染和短时跨窗口协调在同一回合内等待并定期报告进度；仅派发完成或真实阻塞时结束。
 12. 每个窗口只保留一个Active任务。新独立任务进入持久Pending队列，按优先级＋同级FIFO等待；
     完成收尾后自动领取下一项。只有`TaskQueue.md`列出的合法抢占事件可在安全检查点切换Active。
+13. 专业窗口在每个已冻结独立工作单元开始前执行快速执行候选检查；满足`RapidExecution.md`门槛时，
+    直接写入`rapid-executor`队列，不经过制作人。原窗口继续其它安全工作并保留专业签收责任。
 
 推荐固定标题：
 
@@ -33,6 +35,7 @@
 |---|---|---|
 | `producer` | `AutoEra｜制作人` | `stellar-frontier-auto-era` |
 | `git-integration` | `AutoEra｜Git集成` | `stellar-frontier-auto-era` |
+| `rapid-executor` | `AutoEra｜快速执行` | `stellar-frontier-auto-era`；固定`gpt-5.3-codex-spark`、`medium` |
 | `art-3d` | `AutoEra｜主美（3D）` | `ArtResource`，并可访问Blender |
 | `art-concept-3d` | `AutoEra｜3D原画` | `ArtResource`，只进行前置视觉设计，不占用Unity／Blender |
 | `art-2d` | `AutoEra｜美术（2D）` | 按任务使用主项目、美术项目或无仓库窗口 |
@@ -134,6 +137,9 @@ Git提交请求必须使用`GitIntegration.md`规定的合同。集成窗口成�
   窗口使用保存项目的本地环境，不使用隔离worktree来驱动已打开的Unity。
 - `ArtResource`必须先由用户添加为Codex保存项目，才能自动创建以该目录为根的主美或3D原画窗口。
 - 方案选择、视觉评审、用户验收和权限扩张继续等待用户决定，不自动代替用户批准。
+- 快速执行窗口只领取满足`RapidExecution.md`门槛的执行包；任务所属负责人保留专业验收责任。
+- 快速执行路由默认由任务所属专业窗口触发。制作人只处理范围、优先级、共享资源或跨职能冲突，
+  不作为普通快速执行包的中转站；不存在后台自动推断任务内容的中央扫描器。
 - 自动发送失败、窗口正在处理不相关任务、注册表失效或目标项目不匹配时，制作人记录原因
   并降级为手动派发；不得把任务发送到“看起来相近”的其他项目窗口。
 - 状态监控只用于收集完成、阻塞和待决信息，不以轮询结果自动修改任务表。

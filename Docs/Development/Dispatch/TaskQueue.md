@@ -13,7 +13,7 @@
 初始化示例：
 
 ```powershell
-python tools/window_task_queue.py init --roles producer git-integration art-3d art-concept-3d art-2d client backend design qa
+python tools/window_task_queue.py init --roles producer git-integration rapid-executor art-3d art-concept-3d art-2d client backend design qa
 ```
 
 ## 普通入队不抢占
@@ -32,6 +32,15 @@ python tools/window_task_queue.py enqueue `
 - `pending`按数字优先级从小到大排序；同优先级按`enqueuedSeq`执行，未指定优先级默认为50。
 - 下发方发现目标窗口正在运行时，只写队列，不调用窗口消息接口发送任务正文。
 - 若目标窗口空闲且没有`active`，可`claim`后用一条启动消息唤醒；运行中的窗口不接收普通派发消息。
+
+## 快速执行候选的直接入队
+
+- 原专业窗口是快速执行候选检查和拆包的第一责任人，不等待制作人扫描任务。
+- 已冻结的独立工作单元满足`RapidExecution.md`六项门槛时，原窗口直接向`rapid-executor`入队；
+  `source`记录原职能或OpenSpec ID，`summary`必须写明允许／禁止范围、自动门禁、完成回传和失败回退。
+- 快速执行空闲时才发送启动消息；已有Active时仅入队，不能用消息抢占。
+- 原窗口不得把未冻结决策、最终专业验收或整个大型Active任务整体转移给快速执行。
+- 派出后原窗口继续当前Active内其它不依赖结果的工作；只有确实依赖快速执行结果时才可等待。
 
 ## 窗口领取与收尾
 
