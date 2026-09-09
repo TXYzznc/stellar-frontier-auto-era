@@ -19,7 +19,7 @@ namespace AutoEra.Editor.Motion
 
         private static void BuildFamily(string familyId)
         {
-            GameObject root = new GameObject("FPR_" + familyId);
+            GameObject root = new GameObject(GetPrototypeObjectName(familyId));
             try
             {
                 Transform logic = Child(root.transform, "LogicRoot");
@@ -44,30 +44,25 @@ namespace AutoEra.Editor.Motion
             Material material = GetOrCreateMaterial(familyId, GetFamilyColor(familyId));
             foreach (MeshRenderer renderer in root.GetComponentsInChildren<MeshRenderer>(true)) renderer.sharedMaterial = material;
 
-            Transform slot = FindFirstVisualSlot(root.transform);
-            if (slot == null) return;
-            GameObject label = new GameObject("Label_" + familyId);
-            label.transform.SetParent(slot, false);
-            label.transform.localPosition = new Vector3(0f, 1.55f, 0f);
-            label.transform.localRotation = Quaternion.Euler(65f, 0f, 0f);
-            var text = label.AddComponent<TextMesh>();
-            text.text = familyId.Replace('_', ' ').ToUpperInvariant();
-            text.anchor = TextAnchor.MiddleCenter;
-            text.alignment = TextAlignment.Center;
-            text.characterSize = 0.12f;
-            text.fontSize = 28;
-            text.color = Color.white;
-            text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         }
 
-        private static Transform FindFirstVisualSlot(Transform root)
+        private static string GetPrototypeObjectName(string familyId)
         {
-            foreach (FunctionalRigPrototypeStableId identity in root.GetComponentsInChildren<FunctionalRigPrototypeStableId>(true))
+            switch (familyId)
             {
-                if (identity.StableId.StartsWith("visual-slot:")) return identity.transform;
+                case "wheeled_carrier": return "原型_轮式载体";
+                case "four_wheel_module": return "原型_四轮机构";
+                case "multi_joint_arm": return "原型_多关节机械臂";
+                case "replaceable_effector": return "原型_可替换效应器";
+                case "sliding_door": return "原型_滑动门";
+                case "conveyor": return "原型_传送带";
+                case "water_sprayer": return "原型_水枪效应器";
+                case "rotary_saw": return "原型_旋转锯盘效应器";
+                case "rotary_drill": return "原型_旋转钻头效应器";
+                case "cargo_bay": return "原型_货舱";
+                case "fixed_rotary_carrier": return "原型_固定旋转载体";
+                default: return familyId;
             }
-
-            return null;
         }
 
         private static Material GetOrCreateMaterial(string familyId, Color color)
@@ -94,6 +89,11 @@ namespace AutoEra.Editor.Motion
                 case "multi_joint_arm": return new Color(0.93f, 0.52f, 0.20f);
                 case "replaceable_effector": return new Color(0.72f, 0.34f, 0.76f);
                 case "sliding_door": return new Color(0.92f, 0.74f, 0.22f);
+                case "water_sprayer": return new Color(0.18f, 0.58f, 0.90f);
+                case "rotary_saw": return new Color(0.88f, 0.30f, 0.20f);
+                case "rotary_drill": return new Color(0.42f, 0.42f, 0.48f);
+                case "cargo_bay": return new Color(0.58f, 0.36f, 0.20f);
+                case "fixed_rotary_carrier": return new Color(0.24f, 0.62f, 0.55f);
                 default: return new Color(0.22f, 0.70f, 0.70f);
             }
         }

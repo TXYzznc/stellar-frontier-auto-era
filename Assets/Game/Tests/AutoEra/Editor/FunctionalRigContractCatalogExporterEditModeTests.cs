@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using AutoEra.Motion;
 using NUnit.Framework;
 using System.Text.RegularExpressions;
 
@@ -13,10 +14,12 @@ namespace AutoEra.Tests.Editor
             Type exporterType = FindExporterType();
             MethodInfo buildManifest = exporterType.GetMethod("BuildManifestJson", BindingFlags.Public | BindingFlags.Static);
             string json = (string)buildManifest.Invoke(null, null);
-            Assert.That(Regex.Matches(json, "\\\"assetFamilyId\\\"").Count, Is.EqualTo(6));
-            Assert.That(Regex.Matches(json, "\\\"contractVersion\\\":\\\"1.0.0\\\"").Count, Is.EqualTo(6));
+            int familyCount = FunctionalRigPrototypeCatalog.AssetFamilyIds.Length;
+            Assert.That(Regex.Matches(json, "\\\"assetFamilyId\\\"").Count, Is.EqualTo(familyCount));
+            Assert.That(Regex.Matches(json, "\\\"contractVersion\\\":\\\"1.1.0\\\"").Count, Is.EqualTo(familyCount - 1));
+            Assert.That(Regex.Matches(json, "\\{[^{}]*\\\"assetFamilyId\\\":\\\"multi_joint_arm\\\"[^{}]*\\\"contractVersion\\\":\\\"1.2.0\\\"[^{}]*\\}").Count, Is.EqualTo(1));
             MatchCollection fingerprints = Regex.Matches(json, "\\\"contentFingerprint\\\":\\\"([0-9a-f]{64})\\\"");
-            Assert.That(fingerprints.Count, Is.EqualTo(6));
+            Assert.That(fingerprints.Count, Is.EqualTo(familyCount));
             foreach (Match fingerprint in fingerprints)
             {
                 Assert.That(fingerprint.Groups[1].Value, Has.Length.EqualTo(64));

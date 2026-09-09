@@ -1,6 +1,8 @@
 ﻿using AutoEra.Motion;
 using NUnit.Framework;
 
+using UnityEngine;
+
 namespace AutoEra.Tests.Editor
 {
     public sealed class FourWheelPresentationEditModeTests

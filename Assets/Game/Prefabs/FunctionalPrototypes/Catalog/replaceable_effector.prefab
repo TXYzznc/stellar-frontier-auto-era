@@ -126,8 +126,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: geometry:tool_head
 --- !u!1 &1607175989594482491
 GameObject:
@@ -223,8 +223,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: geometry:mount_body
 --- !u!1 &1618130019793288188
 GameObject:
@@ -302,8 +302,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: joint:socket
 --- !u!1 &2874050063648753405
 GameObject:
@@ -349,8 +349,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: joint:safety_hold
 --- !u!1 &3044131725480598765
 GameObject:
@@ -394,8 +394,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: clearance:keepout_effector
 --- !u!1 &3638107409414224968
 GameObject:
@@ -494,8 +494,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: collision:collision_mount
 --- !u!65 &8622723833843515966
 BoxCollider:
@@ -561,8 +561,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: visual-slot:mount_body
 --- !u!1 &4490717048199462710
 GameObject:
@@ -574,6 +574,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3964054301956983101}
   - component: {fileID: 3829759436846191095}
+  - component: {fileID: 7969938889460680589}
   m_Layer: 0
   m_Name: replaceable_effector
   m_TagString: Untagged
@@ -609,12 +610,66 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 978cd9298c094fc4aa9f24111a77ad3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _logicRoot: {fileID: 270369404306003820}
   _rigRoot: {fileID: 4107626249445451892}
   _visualRoot: {fileID: 6510301052648270055}
   _authorityCollisionRoot: {fileID: 9131509481765435753}
+--- !u!114 &7969938889460680589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4490717048199462710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1d5d9dc023da624e98ea2f976d73699, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  _jointBindings:
+  - _stableId: mount
+    _jointTransform: {fileID: 1777700391600963968}
+    _channel: 0
+    _localAxis: {x: 0, y: 1, z: 0}
+    _minimumValue: -30
+    _maximumValue: 30
+    _bindLocalPosition: {x: 0, y: 0.9, z: 0}
+    _bindLocalEulerDegrees: {x: 0, y: 0, z: 0}
+    _safeLocalPosition: {x: 0, y: 0.9, z: 0}
+    _safeLocalEulerDegrees: {x: 0, y: 0, z: 0}
+  - _stableId: socket
+    _jointTransform: {fileID: 1680014134595168994}
+    _channel: 1
+    _localAxis: {x: 0, y: 0, z: 1}
+    _minimumValue: 0
+    _maximumValue: 0.35
+    _bindLocalPosition: {x: 0, y: 0, z: 0.45}
+    _bindLocalEulerDegrees: {x: 0, y: 0, z: 0}
+    _safeLocalPosition: {x: 0, y: 0, z: 0.45}
+    _safeLocalEulerDegrees: {x: 0, y: 0, z: 0}
+  - _stableId: lock
+    _jointTransform: {fileID: 6568902914690344442}
+    _channel: 0
+    _localAxis: {x: 0, y: 0, z: 1}
+    _minimumValue: 0
+    _maximumValue: 90
+    _bindLocalPosition: {x: 0, y: 0, z: 0.35}
+    _bindLocalEulerDegrees: {x: 0, y: 0, z: 0}
+    _safeLocalPosition: {x: 0, y: 0, z: 0.35}
+    _safeLocalEulerDegrees: {x: 0, y: 0, z: 0}
+  - _stableId: safety_hold
+    _jointTransform: {fileID: 7726272478005155194}
+    _channel: 1
+    _localAxis: {x: 0, y: 1, z: 0}
+    _minimumValue: -0.2
+    _maximumValue: 0
+    _bindLocalPosition: {x: 0, y: 0, z: 0.3}
+    _bindLocalEulerDegrees: {x: 0, y: 0, z: 0}
+    _safeLocalPosition: {x: 0, y: 0, z: 0.3}
+    _safeLocalEulerDegrees: {x: 0, y: 0, z: 0}
+  _contractId: replaceable_effector_prototype
 --- !u!1 &6101874174537021418
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,8 +712,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: anchor:effector_socket
 --- !u!1 &6402421783967801459
 GameObject:
@@ -703,8 +758,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: joint:lock
 --- !u!1 &6560034023793025029
 GameObject:
@@ -749,8 +804,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: visual-slot:socket_ring
 --- !u!1 &6740441458280134877
 GameObject:
@@ -829,8 +884,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: joint:mount
 --- !u!1 &8297436146824396025
 GameObject:
@@ -926,8 +981,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: geometry:socket_ring
 --- !u!1 &8307742186277214159
 GameObject:
@@ -972,8 +1027,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: visual-slot:tool_head
 --- !u!1 &8579904634599116371
 GameObject:
@@ -1017,6 +1072,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: anchor:safe_hold

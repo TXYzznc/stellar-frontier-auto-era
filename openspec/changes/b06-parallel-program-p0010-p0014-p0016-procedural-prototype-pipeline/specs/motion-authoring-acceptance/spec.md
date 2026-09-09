@@ -35,6 +35,13 @@ The development test panel SHALL expose each completed motion capability through
 - **WHEN** the corresponding panel action is triggered repeatedly
 - **THEN** the same expected behavior is observable and every reset returns to the same baseline
 
+### Requirement: Unified motion preview authors formal reusable compositions
+Motion Editor SHALL provide one Editor-only preview tool that accepts a selected MotionRig object, lists compatible named MotionGraphAsset actions, and provides play, pause, reset, safe interruption and recovery. Authors SHALL be able to assemble a temporary sequence using the supported composition nodes and save it as a formal reusable MotionGraphAsset. The saved asset SHALL contain only stable action references, typed parameters and graph composition; it MUST NOT contain scene objects, Transform references, arbitrary scripts, gameplay task data or a prior execution state.
+
+#### Scenario: An author saves a preview sequence
+- **WHEN** the author combines compatible named actions and chooses save
+- **THEN** the tool writes a statically valid reusable MotionGraphAsset, while runtime task and effector instructions remain the sole authority for whether that graph is later triggered
+
 ### Requirement: Vertical slice validates shared motion rather than bespoke demos
 The fixed acceptance scene SHALL exercise the wheeled carrier, wheel structures, arm, effectors, sliding door, and conveyor through shared Motion Core assets and declared Adapters or test contexts. Object-specific preview scripts MUST NOT substitute for shared executor, lifecycle, channel, and interruption behavior.
 

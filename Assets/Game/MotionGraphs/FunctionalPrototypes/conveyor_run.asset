@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4601968ee1e000146a634dc327a552ce, type: 3}
+  m_Name: "\u4F20\u9001\u5E26_\u8FD0\u884C"
+  m_EditorClassIdentifier:
+  _schemaVersion: 1
+  _graphId: conveyor_run
+  _graphVersion: 1.0.0
+  _targetContractId: conveyor_prototype
+  _parameters: []
+  _nodes:
+  - _stableId: preview_drive_roller
+    _kind: 4
+    _targetJointId: drive_roller
+    _parameterId:
+  - _stableId: preview_tail_roller
+    _kind: 4
+    _targetJointId: tail_roller
+    _parameterId:
+  - _stableId: preview_upper_idler_front
+    _kind: 4
+    _targetJointId: upper_idler_front
+    _parameterId:
+  - _stableId: preview_upper_idler_rear
+    _kind: 4
+    _targetJointId: upper_idler_rear
+    _parameterId:
+  - _stableId: preview_lower_idler_front
+    _kind: 4
+    _targetJointId: lower_idler_front
+    _parameterId:
+  - _stableId: preview_lower_idler_rear
+    _kind: 4
+    _targetJointId: lower_idler_rear
+    _parameterId:
+  _connections: []
+  _referencedActions: []

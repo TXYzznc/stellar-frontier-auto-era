@@ -94,8 +94,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: geometry:left_panel
 --- !u!1 &561494275160654597
 GameObject:
@@ -191,8 +191,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: geometry:right_panel
 --- !u!1 &875939622537928101
 GameObject:
@@ -236,8 +236,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: anchor:passage_center
 --- !u!1 &1000049837443378002
 GameObject:
@@ -249,6 +249,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5793531879833942548}
   - component: {fileID: 1597992007880501679}
+  - component: {fileID: 2280850219030450240}
   m_Layer: 0
   m_Name: sliding_door
   m_TagString: Untagged
@@ -284,12 +285,56 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 978cd9298c094fc4aa9f24111a77ad3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _logicRoot: {fileID: 242980214404530402}
   _rigRoot: {fileID: 8779975259518493683}
   _visualRoot: {fileID: 69119821303784714}
   _authorityCollisionRoot: {fileID: 2045736311087214301}
+--- !u!114 &2280850219030450240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000049837443378002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1d5d9dc023da624e98ea2f976d73699, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  _jointBindings:
+  - _stableId: frame
+    _jointTransform: {fileID: 3873191945434755095}
+    _channel: 0
+    _localAxis: {x: 0, y: 1, z: 0}
+    _minimumValue: 0
+    _maximumValue: 0
+    _bindLocalPosition: {x: 0, y: 1.5, z: 0}
+    _bindLocalEulerDegrees: {x: 0, y: 0, z: 0}
+    _safeLocalPosition: {x: 0, y: 1.5, z: 0}
+    _safeLocalEulerDegrees: {x: 0, y: 0, z: 0}
+  - _stableId: left_leaf
+    _jointTransform: {fileID: 6713017753899321796}
+    _channel: 1
+    _localAxis: {x: -1, y: 0, z: 0}
+    _minimumValue: 0
+    _maximumValue: 1.2
+    _bindLocalPosition: {x: -1.15, y: 0, z: 0}
+    _bindLocalEulerDegrees: {x: 0, y: 0, z: 0}
+    _safeLocalPosition: {x: -1.15, y: 0, z: 0}
+    _safeLocalEulerDegrees: {x: 0, y: 0, z: 0}
+  - _stableId: right_leaf
+    _jointTransform: {fileID: 6798827622012412678}
+    _channel: 1
+    _localAxis: {x: 1, y: 0, z: 0}
+    _minimumValue: 0
+    _maximumValue: 1.2
+    _bindLocalPosition: {x: 1.15, y: 0, z: 0}
+    _bindLocalEulerDegrees: {x: 0, y: 0, z: 0}
+    _safeLocalPosition: {x: 1.15, y: 0, z: 0}
+    _safeLocalEulerDegrees: {x: 0, y: 0, z: 0}
+  _contractId: sliding_door_prototype
 --- !u!1 &1281004335431971220
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,8 +377,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: clearance:safety_zone
 --- !u!1 &1962695423440638980
 GameObject:
@@ -410,8 +455,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: joint:right_leaf
 --- !u!1 &2999300575675609692
 GameObject:
@@ -507,8 +552,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: geometry:frame_top
 --- !u!1 &3096714165389200424
 GameObject:
@@ -607,8 +652,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: visual-slot:left_panel
 --- !u!1 &3695331082721422194
 GameObject:
@@ -653,8 +698,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: visual-slot:frame_top
 --- !u!1 &4878830448120471354
 GameObject:
@@ -731,8 +776,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: collision:collision_frame
 --- !u!65 &1871933113631974751
 BoxCollider:
@@ -829,8 +874,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: joint:left_leaf
 --- !u!1 &8116985627420447558
 GameObject:
@@ -879,8 +924,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: joint:frame
 --- !u!1 &8382568412298682833
 GameObject:
@@ -925,6 +970,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: visual-slot:right_panel

@@ -35,5 +35,25 @@ namespace AutoEra.Tests.Editor
             }
             finally { Object.DestroyImmediate(graph); }
         }
+
+        [Test]
+        public void Graph_RequiresItsDeclaredContractFamilyWhenPreviewing()
+        {
+            GameObject root = new GameObject("rig");
+            MotionGraphAsset graph = ScriptableObject.CreateInstance<MotionGraphAsset>();
+            try
+            {
+                MotionRig rig = root.AddComponent<MotionRig>();
+                rig.Configure(new[] { new MotionJointBinding("joint", root.transform, MotionJointChannel.Rotation, Vector3.up, -1f, 1f, Vector3.zero, Vector3.zero, Vector3.zero, Vector3.zero) }, "water_sprayer_prototype");
+                graph.Configure(1, "saw_cut", "1.0.0", null, new[] { new MotionNodeDefinition("joint", MotionNodeKind.Rotate, "joint", null) }, null, "rotary_saw_prototype");
+
+                Assert.That(graph.IsCompatibleWith(rig), Is.False);
+            }
+            finally
+            {
+                Object.DestroyImmediate(graph);
+                Object.DestroyImmediate(root);
+            }
+        }
     }
 }

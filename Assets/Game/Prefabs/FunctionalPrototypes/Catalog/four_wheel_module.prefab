@@ -94,8 +94,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: geometry:mount_frame
 --- !u!1 &1459416319009610494
 GameObject:
@@ -140,8 +140,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: joint:steer
 --- !u!1 &1564607658817550639
 GameObject:
@@ -218,8 +218,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: visual-slot:mount_frame
 --- !u!1 &1903831041625053952
 GameObject:
@@ -266,8 +266,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: joint:mount
 --- !u!1 &2369467914716298302
 GameObject:
@@ -366,8 +366,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: joint:suspension
 --- !u!1 &3681188022495431488
 GameObject:
@@ -379,6 +379,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2396747197907753991}
   - component: {fileID: 4686223305051178350}
+  - component: {fileID: 1373216934946978984}
   m_Layer: 0
   m_Name: four_wheel_module
   m_TagString: Untagged
@@ -414,12 +415,76 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 978cd9298c094fc4aa9f24111a77ad3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _logicRoot: {fileID: 4262719597264722461}
   _rigRoot: {fileID: 4483683596792517649}
   _visualRoot: {fileID: 4444892994861340120}
   _authorityCollisionRoot: {fileID: 905000376901818291}
+--- !u!114 &1373216934946978984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3681188022495431488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1d5d9dc023da624e98ea2f976d73699, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  _jointBindings:
+  - _stableId: mount
+    _jointTransform: {fileID: 6247293916408408049}
+    _channel: 0
+    _localAxis: {x: 0, y: 1, z: 0}
+    _minimumValue: -10
+    _maximumValue: 10
+    _bindLocalPosition: {x: 0, y: 0.9, z: 0}
+    _bindLocalEulerDegrees: {x: 0, y: 0, z: 0}
+    _safeLocalPosition: {x: 0, y: 0.9, z: 0}
+    _safeLocalEulerDegrees: {x: 0, y: 0, z: 0}
+  - _stableId: steer
+    _jointTransform: {fileID: 2535375717819126394}
+    _channel: 0
+    _localAxis: {x: 0, y: 1, z: 0}
+    _minimumValue: -45
+    _maximumValue: 45
+    _bindLocalPosition: {x: 0, y: 0, z: 0}
+    _bindLocalEulerDegrees: {x: 0, y: 0, z: 0}
+    _safeLocalPosition: {x: 0, y: 0, z: 0}
+    _safeLocalEulerDegrees: {x: 0, y: 0, z: 0}
+  - _stableId: suspension
+    _jointTransform: {fileID: 8129252796753283523}
+    _channel: 1
+    _localAxis: {x: 0, y: 1, z: 0}
+    _minimumValue: -0.45
+    _maximumValue: 0.2
+    _bindLocalPosition: {x: 0, y: 0, z: 0}
+    _bindLocalEulerDegrees: {x: 0, y: 0, z: 0}
+    _safeLocalPosition: {x: 0, y: 0, z: 0}
+    _safeLocalEulerDegrees: {x: 0, y: 0, z: 0}
+  - _stableId: roll
+    _jointTransform: {fileID: 8786872841418222667}
+    _channel: 0
+    _localAxis: {x: 1, y: 0, z: 0}
+    _minimumValue: -3600
+    _maximumValue: 3600
+    _bindLocalPosition: {x: 0, y: 0, z: 0}
+    _bindLocalEulerDegrees: {x: 0, y: 0, z: 0}
+    _safeLocalPosition: {x: 0, y: 0, z: 0}
+    _safeLocalEulerDegrees: {x: 0, y: 0, z: 0}
+  - _stableId: contact
+    _jointTransform: {fileID: 5739058740938893364}
+    _channel: 1
+    _localAxis: {x: 0, y: 1, z: 0}
+    _minimumValue: -0.2
+    _maximumValue: 0.2
+    _bindLocalPosition: {x: 0, y: -0.75, z: 0}
+    _bindLocalEulerDegrees: {x: 0, y: 0, z: 0}
+    _safeLocalPosition: {x: 0, y: -0.75, z: 0}
+    _safeLocalEulerDegrees: {x: 0, y: 0, z: 0}
+  _contractId: four_wheel_module_prototype
 --- !u!1 &6103818636594257777
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,8 +529,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: joint:roll
 --- !u!1 &6119763555425651365
 GameObject:
@@ -510,8 +575,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: joint:contact
 --- !u!1 &6766826724406440659
 GameObject:
@@ -586,8 +651,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: anchor:ground_contact
 --- !u!1 &7625916784093322109
 GameObject:
@@ -664,8 +729,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: visual-slot:wheel
 --- !u!1 &8080617182991246595
 GameObject:
@@ -710,8 +775,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: collision:collision_module
 --- !u!65 &8914037378289563942
 BoxCollider:
@@ -828,8 +893,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: geometry:wheel
 --- !u!1 &8627374430347875607
 GameObject:
@@ -873,6 +938,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceed7f652a81f1645947b0f4e4d70718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _stableId: clearance:keepout_wheel

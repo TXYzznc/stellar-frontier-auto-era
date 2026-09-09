@@ -49,6 +49,7 @@ namespace AutoEra.Editor.Motion
             BuildClearanceVolumes(contract.ClearanceVolumes, joints, hierarchy.RigRoot, existing);
             BuildCollisionEnvelopes(contract.CollisionEnvelopes, hierarchy.AuthorityCollisionRoot, existing);
             BuildVisualSlots(contract.VisualSlots, joints, hierarchy.VisualRoot, existing);
+            ConfigureMotionRig(contract, hierarchy, joints);
             RemoveStaleGeneratedObjects(existing, contract);
         }
 
@@ -136,7 +137,39 @@ namespace AutoEra.Editor.Motion
                 geometry.localPosition = ToVector3(definition.ExpectedBounds.Center);
                 geometry.localRotation = Quaternion.identity;
                 geometry.localScale = ToVector3(definition.ExpectedBounds.Size);
+                ConfigurePrototypeShape(geometry, definition.StableId);
             }
+        }
+
+        private static void ConfigureMotionRig(FunctionalRigContract contract, FunctionalRigPrototypeHierarchy hierarchy, Dictionary<string, Transform> joints)
+        {
+            MotionRig rig = hierarchy.GetComponent<MotionRig>();
+            if (rig == null)
+            {
+                rig = hierarchy.gameObject.AddComponent<MotionRig>();
+            }
+
+            var bindings = new MotionJointBinding[contract.Joints.Length];
+            for (int index = 0; index < contract.Joints.Length; index++)
+            {
+                FunctionalRigJoint definition = contract.Joints[index];
+                MotionJointChannel channel = string.Equals(definition.Channel, "translation", StringComparison.OrdinalIgnoreCase)
+                    ? MotionJointChannel.Translation
+                    : MotionJointChannel.Rotation;
+                bindings[index] = new MotionJointBinding(
+                    definition.StableId,
+                    joints[definition.StableId],
+                    channel,
+                    ToVector3(definition.LocalAxis),
+                    definition.MinimumValue,
+                    definition.MaximumValue,
+                    ToVector3(definition.BindPose.Position),
+                    ToVector3(definition.BindPose.EulerDegrees),
+                    ToVector3(definition.SafePose.Position),
+                    ToVector3(definition.SafePose.EulerDegrees));
+            }
+
+            rig.Configure(bindings, contract.ContractId);
         }
 
         private static Transform EnsureGeneratedGeometry(Transform parent, string stableId, string objectName, Dictionary<string, Transform> existing)
@@ -161,6 +194,40 @@ namespace AutoEra.Editor.Motion
             AddStableId(geometry, stableId);
             existing.Add(stableId, geometry);
             return geometry;
+        }
+
+        private static void ConfigurePrototypeShape(Transform geometry, string visualSlotId)
+        {
+            bool isRoller = visualSlotId.IndexOf("roller", StringComparison.OrdinalIgnoreCase) >= 0;
+            bool isSupportColumn = string.Equals(visualSlotId, "support_column", StringComparison.Ordinal);
+            if (!isRoller && !isSupportColumn)
+            {
+                return;
+            }
+
+            MeshFilter targetFilter = geometry.GetComponent<MeshFilter>();
+            MeshRenderer targetRenderer = geometry.GetComponent<MeshRenderer>();
+            GameObject template = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            try
+            {
+                MeshFilter sourceFilter = template.GetComponent<MeshFilter>();
+                targetFilter.sharedMesh = sourceFilter.sharedMesh;
+                if (targetRenderer != null) targetRenderer.sharedMaterials = template.GetComponent<MeshRenderer>().sharedMaterials;
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(template);
+            }
+
+            Vector3 size = geometry.localScale;
+            if (isRoller)
+            {
+                geometry.localRotation = Quaternion.Euler(0f, 0f, 90f);
+                geometry.localScale = new Vector3(size.y, size.x * 0.5f, size.z);
+                return;
+            }
+
+            geometry.localScale = new Vector3(size.x, size.y * 0.5f, size.z);
         }
 
         private static Transform EnsureGeneratedChild(Transform parent, string stableId, string objectName, Dictionary<string, Transform> existing)

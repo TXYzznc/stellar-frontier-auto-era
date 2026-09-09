@@ -13,18 +13,22 @@ namespace AutoEra.Motion
         [SerializeField] private int _schemaVersion = 1;
         [SerializeField] private string _graphId;
         [SerializeField] private string _graphVersion = "1.0.0";
+        [SerializeField] private string _targetContractId;
         [SerializeField] private MotionParameterDefinition[] _parameters = Array.Empty<MotionParameterDefinition>();
         [SerializeField] private MotionNodeDefinition[] _nodes = Array.Empty<MotionNodeDefinition>();
         [SerializeField] private MotionConnectionDefinition[] _connections = Array.Empty<MotionConnectionDefinition>();
+        [SerializeField] private MotionGraphAsset[] _referencedActions = Array.Empty<MotionGraphAsset>();
 
         public int SchemaVersion => _schemaVersion;
         public string GraphId => _graphId;
         public string GraphVersion => _graphVersion;
+        public string TargetContractId => _targetContractId;
         public IReadOnlyList<MotionParameterDefinition> Parameters => _parameters;
         public IReadOnlyList<MotionNodeDefinition> Nodes => _nodes;
         public IReadOnlyList<MotionConnectionDefinition> Connections => _connections;
+        public IReadOnlyList<MotionGraphAsset> ReferencedActions => _referencedActions;
 
-        public void Configure(int schemaVersion, string graphId, string graphVersion, MotionParameterDefinition[] parameters, MotionNodeDefinition[] nodes, MotionConnectionDefinition[] connections)
+        public void Configure(int schemaVersion, string graphId, string graphVersion, MotionParameterDefinition[] parameters, MotionNodeDefinition[] nodes, MotionConnectionDefinition[] connections, string targetContractId = null)
         {
             _schemaVersion = schemaVersion;
             _graphId = graphId;
@@ -32,6 +36,35 @@ namespace AutoEra.Motion
             _parameters = parameters ?? Array.Empty<MotionParameterDefinition>();
             _nodes = nodes ?? Array.Empty<MotionNodeDefinition>();
             _connections = connections ?? Array.Empty<MotionConnectionDefinition>();
+            _targetContractId = targetContractId ?? string.Empty;
+        }
+
+        public void ConfigureReferences(MotionGraphAsset[] referencedActions)
+        {
+            _referencedActions = referencedActions ?? Array.Empty<MotionGraphAsset>();
+        }
+
+        public bool IsCompatibleWith(MotionRig rig)
+        {
+            return IsCompatibleWith(rig, new HashSet<MotionGraphAsset>());
+        }
+
+        private bool IsCompatibleWith(MotionRig rig, HashSet<MotionGraphAsset> visited)
+        {
+            if (rig == null || !TryValidate(out _) || !visited.Add(this)) return false;
+            if (!string.IsNullOrEmpty(_targetContractId) && !string.Equals(_targetContractId, rig.ContractId, StringComparison.Ordinal)) return false;
+            foreach (MotionNodeDefinition node in _nodes)
+            {
+                if (MotionGraphComposition.IsPrimitiveNode(node.Kind) && !string.IsNullOrWhiteSpace(node.TargetJointId) && !rig.TryGetBinding(node.TargetJointId, out _)) return false;
+            }
+
+            foreach (MotionGraphAsset action in _referencedActions)
+            {
+                if (action == null || !action.IsCompatibleWith(rig, visited)) return false;
+            }
+
+            visited.Remove(this);
+            return true;
         }
 
         public bool TryValidate(out string error)

@@ -17,14 +17,17 @@ namespace AutoEra.Motion
     public sealed class MotionRig : MonoBehaviour
     {
         [SerializeField] private MotionJointBinding[] _jointBindings = Array.Empty<MotionJointBinding>();
+        [SerializeField] private string _contractId;
 
         private readonly Dictionary<string, MotionJointBinding> _bindingsByStableId = new Dictionary<string, MotionJointBinding>(StringComparer.Ordinal);
 
         public IReadOnlyList<MotionJointBinding> JointBindings => _jointBindings;
+        public string ContractId => _contractId;
 
-        public void Configure(MotionJointBinding[] jointBindings)
+        public void Configure(MotionJointBinding[] jointBindings, string contractId = null)
         {
             _jointBindings = jointBindings ?? Array.Empty<MotionJointBinding>();
+            _contractId = contractId ?? string.Empty;
             RebuildLookup();
         }
 
