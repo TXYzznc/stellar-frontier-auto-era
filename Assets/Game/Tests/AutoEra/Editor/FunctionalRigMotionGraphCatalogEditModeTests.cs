@@ -8,48 +8,59 @@ namespace AutoEra.Tests.Editor
 {
     public sealed class FunctionalRigMotionGraphCatalogEditModeTests
     {
-        private const string GraphFolder = "Assets/Game/MotionGraphs/FunctionalPrototypes/";
-        private const string PrefabFolder = "Assets/Game/Prefabs/FunctionalPrototypes/Catalog/";
+        private const string GraphFolder = "Assets/Game/MotionGraphs/Entity/";
 
-        [TestCase("carrier_drive", "wheeled_carrier")]
-        [TestCase("carrier_crab", "wheeled_carrier")]
-        [TestCase("wheel_module_steer_roll", "four_wheel_module")]
-        [TestCase("arm_work_envelope", "multi_joint_arm")]
-        [TestCase("water_aim_spray", "water_sprayer")]
-        [TestCase("saw_cut_cycle", "rotary_saw")]
-        [TestCase("drill_mine_cycle", "rotary_drill")]
-        [TestCase("sliding_door_open", "sliding_door")]
-        [TestCase("conveyor_run", "conveyor")]
-        [TestCase("effector_ui_swap", "replaceable_effector")]
-        [TestCase("fixed_rotary_scan", "fixed_rotary_carrier")]
-        [TestCase("cargo_transfer_open", "cargo_bay")]
-        public void CatalogGraph_IsCompatibleOnlyWithItsDeclaredPrototype(string graphId, string familyId)
+        [TestCase("carrier_drive", "Assets/Game/Prefabs/Entity/Machines/Carriers/WheeledCarrier.prefab")]
+        [TestCase("carrier_crab", "Assets/Game/Prefabs/Entity/Machines/Carriers/WheeledCarrier.prefab")]
+        [TestCase("wheel_module_steer_roll", "Assets/Game/Prefabs/Entity/Machines/Modules/WheelModule.prefab")]
+        [TestCase("arm_work_envelope", "Assets/Game/Prefabs/Entity/Machines/Effectors/MultiJointArm.prefab")]
+        [TestCase("water_aim_spray", "Assets/Game/Prefabs/Entity/Machines/Effectors/WaterCannon.prefab")]
+        [TestCase("saw_cut_cycle", "Assets/Game/Prefabs/Entity/Machines/Effectors/RotarySaw.prefab")]
+        [TestCase("drill_mine_cycle", "Assets/Game/Prefabs/Entity/Machines/Effectors/RotaryDrill.prefab")]
+        [TestCase("sliding_door_open", "Assets/Game/Prefabs/Entity/Buildings/Mechanisms/SlidingDoors/SlidingDoor_D24.prefab")]
+        [TestCase("conveyor_run", "Assets/Game/Prefabs/Entity/Buildings/Logistics/Conveyor.prefab")]
+        [TestCase("fixed_rotary_scan", "Assets/Game/Prefabs/Entity/Machines/Carriers/FixedRotaryCarrier.prefab")]
+        [TestCase("cargo_transfer_open", "Assets/Game/Prefabs/Entity/Machines/Modules/CargoPod.prefab")]
+        public void CatalogGraph_IsCompatibleWithItsDeclaredFormalEntity(string graphId, string prefabPath)
         {
             MotionGraphAsset graph = AssetDatabase.LoadAssetAtPath<MotionGraphAsset>(GraphFolder + graphId + ".asset");
-            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabFolder + familyId + ".prefab");
+            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
 
             Assert.That(graph, Is.Not.Null, graphId);
-            Assert.That(prefab, Is.Not.Null, familyId);
+            Assert.That(prefab, Is.Not.Null, prefabPath);
             MotionRig rig = prefab.GetComponent<MotionRig>();
-            Assert.That(rig, Is.Not.Null, familyId);
+            Assert.That(rig, Is.Not.Null, prefabPath);
             Assert.That(graph.TargetContractId, Is.EqualTo(rig.ContractId));
             Assert.That(graph.IsCompatibleWith(rig), Is.True);
         }
 
         [Test]
-        public void EveryFunctionalPrototypeFamily_HasAtLeastOneCompatiblePreviewGraph()
+        public void EveryFormalEntityMotionGraph_HasACompatibleFormalEntity()
         {
             MotionGraphAsset[] graphs = AssetDatabase.FindAssets("t:MotionGraphAsset", new[] { GraphFolder.TrimEnd('/') })
                 .Select(guid => AssetDatabase.LoadAssetAtPath<MotionGraphAsset>(AssetDatabase.GUIDToAssetPath(guid)))
                 .Where(graph => graph != null)
                 .ToArray();
 
-            foreach (string familyId in FunctionalRigPrototypeCatalog.AssetFamilyIds)
+            foreach (string prefabPath in new[]
             {
-                GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabFolder + familyId + ".prefab");
+                "Assets/Game/Prefabs/Entity/Machines/Carriers/WheeledCarrier.prefab",
+                "Assets/Game/Prefabs/Entity/Machines/Modules/WheelModule.prefab",
+                "Assets/Game/Prefabs/Entity/Machines/Effectors/MultiJointArm.prefab",
+                "Assets/Game/Prefabs/Entity/Machines/Effectors/WaterCannon.prefab",
+                "Assets/Game/Prefabs/Entity/Machines/Effectors/RotarySaw.prefab",
+                "Assets/Game/Prefabs/Entity/Machines/Effectors/RotaryDrill.prefab",
+                "Assets/Game/Prefabs/Entity/Machines/Modules/CargoPod.prefab",
+                "Assets/Game/Prefabs/Entity/Machines/Carriers/FixedRotaryCarrier.prefab",
+                "Assets/Game/Prefabs/Entity/Buildings/Logistics/Conveyor.prefab",
+                "Assets/Game/Prefabs/Entity/Buildings/Mechanisms/SlidingDoors/SlidingDoor_D24.prefab",
+                "Assets/Game/Prefabs/Entity/Buildings/Mechanisms/SlidingDoors/SlidingDoor_D40.prefab"
+            })
+            {
+                GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
                 MotionRig rig = prefab == null ? null : prefab.GetComponent<MotionRig>();
-                Assert.That(rig, Is.Not.Null, familyId);
-                Assert.That(graphs.Any(graph => graph.IsCompatibleWith(rig)), Is.True, familyId + " requires a compatible preview graph.");
+                Assert.That(rig, Is.Not.Null, prefabPath);
+                Assert.That(graphs.Any(graph => graph.IsCompatibleWith(rig)), Is.True, prefabPath + " requires a compatible preview graph.");
             }
         }
     }

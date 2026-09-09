@@ -9,14 +9,18 @@ namespace AutoEra.Motion
         [SerializeField] private Transform _rightDoor;
         [SerializeField] private Transform _transferTray;
         [SerializeField] private Transform _loadVisual;
+        [SerializeField] private float _doorTravel = 0.45f;
+        [SerializeField] private float _trayTravel = 0.75f;
         private Vector3 _leftBind;
         private Vector3 _rightBind;
         private Vector3 _trayBind;
         private MaterialPropertyBlock _propertyBlock;
 
-        public void Configure(Transform leftDoor, Transform rightDoor, Transform transferTray, Transform loadVisual)
+        public void Configure(Transform leftDoor, Transform rightDoor, Transform transferTray, Transform loadVisual, float doorTravel = 0.45f, float trayTravel = 0.75f)
         {
             _leftDoor = leftDoor; _rightDoor = rightDoor; _transferTray = transferTray; _loadVisual = loadVisual;
+            _doorTravel = Mathf.Max(0f, doorTravel);
+            _trayTravel = Mathf.Max(0f, trayTravel);
             _leftBind = leftDoor == null ? Vector3.zero : leftDoor.localPosition;
             _rightBind = rightDoor == null ? Vector3.zero : rightDoor.localPosition;
             _trayBind = transferTray == null ? Vector3.zero : transferTray.localPosition;
@@ -32,9 +36,9 @@ namespace AutoEra.Motion
         {
             float fill = Mathf.Clamp01(normalizedFill);
             float progress = Mathf.Clamp01(transferProgress);
-            if (_leftDoor != null) _leftDoor.localPosition = _leftBind + Vector3.left * (progress * 0.75f);
-            if (_rightDoor != null) _rightDoor.localPosition = _rightBind + Vector3.right * (progress * 0.75f);
-            if (_transferTray != null) _transferTray.localPosition = _trayBind + Vector3.forward * (progress * 0.75f);
+            if (_leftDoor != null) _leftDoor.localPosition = _leftBind + Vector3.left * (progress * _doorTravel);
+            if (_rightDoor != null) _rightDoor.localPosition = _rightBind + Vector3.right * (progress * _doorTravel);
+            if (_transferTray != null) _transferTray.localPosition = _trayBind + Vector3.forward * (progress * _trayTravel);
             if (_loadVisual == null) return;
             _loadVisual.localScale = new Vector3(2.15f, Mathf.Max(0.03f, fill * 1.45f), 2.15f);
             _loadVisual.localPosition = new Vector3(0f, -0.62f + _loadVisual.localScale.y * 0.5f, 0f);

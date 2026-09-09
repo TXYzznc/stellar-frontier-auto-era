@@ -22,7 +22,7 @@ public class UITable : DataRowBase
 {
 	private int m_Id = 0;
 	/// <summary>
-    /// 
+    ///
     /// </summary>
     public override int Id
     {

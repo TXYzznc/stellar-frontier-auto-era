@@ -1,5 +1,4 @@
 using AutoEra.Motion;
-using AutoEra.Motion;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
@@ -9,9 +8,9 @@ namespace AutoEra.Tests.Editor
     public sealed class FunctionalRigVisualCandidateEditModeTests
     {
         [Test]
-        public void VisualCandidateVariant_PreservesFunctionalHierarchyAndContractBinding()
+        public void FormalEntityVariant_PreservesFunctionalHierarchyAndContractBinding()
         {
-            const string candidatePath = "Assets/Game/Prefabs/FunctionalPrototypes/Catalog/wheeled_carrier_visual_candidate.prefab";
+            const string candidatePath = "Assets/Game/Prefabs/Entity/Machines/Carriers/WheeledCarrier.prefab";
             GameObject candidate = AssetDatabase.LoadAssetAtPath<GameObject>(candidatePath);
             Assert.That(candidate, Is.Not.Null);
 

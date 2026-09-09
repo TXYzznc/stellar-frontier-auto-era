@@ -99,6 +99,8 @@ namespace AutoEra.Tests.Editor
             Assert.That(presentation.InitialFocus, Is.EqualTo(AutoEraConfirmationInitialFocus.Cancel));
             Assert.That(missing.ErrorTitle, Is.EqualTo("确认描述配置缺失"));
             StringAssert.Contains("affectedTaskCount", missing.BuildConsoleDiagnostic());
+            StringAssert.StartsWith("确认描述配置缺失：rules.disable\n", missing.ErrorDetail);
+            Assert.That(missing.ErrorDetail.Split('\n').Length, Is.EqualTo(2));
 
             var resourceMissingWithoutParameter = AutoEraConfirmationDescriptionResolution.Missing("rules.disable", string.Empty);
             Assert.That(resourceMissingWithoutParameter.IsValid, Is.False);
@@ -118,6 +120,32 @@ namespace AutoEra.Tests.Editor
             tracker.Begin();
             Assert.That(tracker.Advance(1.2f), Is.True);
             Assert.That(tracker.IsCompleted, Is.True);
+        }
+
+        [Test]
+        public void HoldToConfirmView_OnlyRaisesConfirmationAfterTheFullHold()
+        {
+            var gameObject = new UnityEngine.GameObject("hold-to-confirm");
+            try
+            {
+                var view = gameObject.AddComponent<AutoEra.UI.AutoEraHoldToConfirmView>();
+                int confirmations = 0;
+                view.Confirmed += () => confirmations++;
+
+                view.BeginHold();
+                view.AdvanceForPreview(1.19f);
+                Assert.That(confirmations, Is.EqualTo(0));
+                view.CancelHold();
+                Assert.That(view.Progress, Is.EqualTo(0f));
+
+                view.BeginHold();
+                view.AdvanceForPreview(1.2f);
+                Assert.That(confirmations, Is.EqualTo(1));
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(gameObject);
+            }
         }
     }
 }

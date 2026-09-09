@@ -22,7 +22,7 @@ public class LanguagesTable : DataRowBase
 {
 	private int m_Id = 0;
 	/// <summary>
-    /// 
+    ///
     /// </summary>
     public override int Id
     {
@@ -30,7 +30,7 @@ public class LanguagesTable : DataRowBase
     }
 
         /// <summary>
-        /// Framework fallback language
+        /// 多语言文件名
         /// </summary>
         public string LanguageKey
         {
@@ -39,7 +39,7 @@ public class LanguagesTable : DataRowBase
         }
 
         /// <summary>
-        /// 
+        /// 多语言资源名(相对路径)
         /// </summary>
         public string AssetName
         {
@@ -48,7 +48,7 @@ public class LanguagesTable : DataRowBase
         }
 
         /// <summary>
-        /// 
+        /// 用于显示的语言名
         /// </summary>
         public string LanguageDisplay
         {
@@ -57,7 +57,7 @@ public class LanguagesTable : DataRowBase
         }
 
         /// <summary>
-        /// 
+        /// 语言图标
         /// </summary>
         public string LanguageIcon
         {

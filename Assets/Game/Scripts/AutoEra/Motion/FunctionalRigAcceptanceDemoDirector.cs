@@ -187,7 +187,7 @@ namespace AutoEra.Motion
             {
                 foreach (Transform candidate in rigRoot.GetComponentsInChildren<Transform>(true))
                 {
-                    if (candidate.name == "Joint_" + stableId)
+                    if (candidate.name == stableId || candidate.name == "Joint_" + stableId)
                     {
                         joint = candidate;
                         break;

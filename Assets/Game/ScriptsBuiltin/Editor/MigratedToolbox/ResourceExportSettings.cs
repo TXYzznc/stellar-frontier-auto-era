@@ -18,6 +18,7 @@ public sealed class ResourceExportSettings : ScriptableObject
     {
         public string name = "新资源组";
         public bool selected = true;
+        public bool generatedFromGitIgnore;
         public List<string> assetPaths = new();
     }
 }

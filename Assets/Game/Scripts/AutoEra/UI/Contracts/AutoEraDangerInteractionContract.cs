@@ -56,12 +56,12 @@ namespace AutoEra.UI.Contracts
         {
             if (string.IsNullOrEmpty(DescriptionKey))
             {
-                return "描述索引缺失";
+                return MissingConfigurationTitle + "\n描述索引缺失";
             }
 
             return string.IsNullOrEmpty(MissingParameter)
-                ? string.Format("描述索引：{0}", DescriptionKey)
-                : string.Format("描述索引：{0}；缺失参数：{1}", DescriptionKey, MissingParameter);
+                ? string.Format("{0}：{1}", MissingConfigurationTitle, DescriptionKey)
+                : string.Format("{0}：{1}\n缺失参数：{2}", MissingConfigurationTitle, DescriptionKey, MissingParameter);
         }
     }
 

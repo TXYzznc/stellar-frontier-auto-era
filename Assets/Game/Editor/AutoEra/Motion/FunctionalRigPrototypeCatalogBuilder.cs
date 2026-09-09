@@ -6,13 +6,13 @@ namespace AutoEra.Editor.Motion
 {
     internal static class FunctionalRigPrototypeCatalogBuilder
     {
-        private const string Folder = "Assets/Game/Prefabs/FunctionalPrototypes/Catalog";
-        private const string MaterialFolder = "Assets/Game/Materials/FunctionalPrototypes";
+        private const string Folder = "Assets/Game/Prefabs/Development/MotionRig/Catalog";
+        private const string MaterialFolder = "Assets/Game/Materials/Development/MotionRig";
 
-        [MenuItem("AutoEra/Functional Prototypes/Build Representative Catalog")]
+        [MenuItem("AutoEra/Development/MotionRig/Build Contract Proxy Catalog")]
         private static void BuildCatalog()
         {
-            if (!AssetDatabase.IsValidFolder(Folder)) AssetDatabase.CreateFolder("Assets/Game/Prefabs/FunctionalPrototypes", "Catalog");
+            EnsureFolder(Folder);
             foreach (string familyId in FunctionalRigPrototypeCatalog.AssetFamilyIds) BuildFamily(familyId);
             AssetDatabase.SaveAssets();
         }
@@ -44,7 +44,7 @@ namespace AutoEra.Editor.Motion
 
         private static void ApplyPresentationIdentity(GameObject root, string familyId)
         {
-            if (!AssetDatabase.IsValidFolder(MaterialFolder)) AssetDatabase.CreateFolder("Assets/Game/Materials", "FunctionalPrototypes");
+            EnsureFolder(MaterialFolder);
             Material material = GetOrCreateMaterial(familyId, GetFamilyColor(familyId));
             foreach (MeshRenderer renderer in root.GetComponentsInChildren<MeshRenderer>(true)) renderer.sharedMaterial = material;
 
@@ -196,7 +196,7 @@ namespace AutoEra.Editor.Motion
 
             CargoBayPreview preview = root.GetComponent<CargoBayPreview>();
             if (preview == null) preview = root.AddComponent<CargoBayPreview>();
-            preview.Configure(FindJoint(visualRoot, "left_door"), FindJoint(visualRoot, "right_door"), tray, load);
+            preview.Configure(FindJoint(visualRoot, "left_door"), FindJoint(visualRoot, "right_door"), tray, load, 0.75f, 0.75f);
         }
 
         private static Transform FindJoint(Transform visualRoot, string stableId)
@@ -242,6 +242,18 @@ namespace AutoEra.Editor.Motion
 
             material.color = color;
             return material;
+        }
+
+        private static void EnsureFolder(string folderPath)
+        {
+            string[] parts = folderPath.Split('/');
+            string current = parts[0];
+            for (int index = 1; index < parts.Length; index++)
+            {
+                string next = current + "/" + parts[index];
+                if (!AssetDatabase.IsValidFolder(next)) AssetDatabase.CreateFolder(current, parts[index]);
+                current = next;
+            }
         }
 
         private static Color GetFamilyColor(string familyId)

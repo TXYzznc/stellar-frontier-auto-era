@@ -17,15 +17,15 @@
 ## 3. Prefab、GF UIForm 与异步接入
 
 - [x] 3.1 在每个独立页面创建 Prefab 前完成并评审 `prefab-layout.md`，记录节点语义、anchor、pivot、尺寸、布局组件、资源、文本样例、状态、raycast 和键鼠手柄导航。
-- [ ] 3.2 按 GF UI Standards 建立每页单一 GF UIForm、共享组件边界、InputModule 意图入口和 OnInit／OnOpen／OnCover／OnResume／OnClose／OnRecycle 生命周期清理合同。
-- [ ] 3.3 接入确认弹窗、1.2 秒长按、确认描述索引绑定、缺失配置红色错误框、默认取消焦点、Danger 禁用和开发控制台完整诊断。
-- [ ] 3.4 接入原位异步状态：执行中旋转图标与阶段文字、可信进度细条、成功约 2 秒复位、安全取消、驻留失败、按配置重试、查看详情及长时等待提示；客户端计时不得判定失败或请求丢失。
-- [ ] 3.5 接入“仍在处理中”可见文字、焦点／读屏说明、减弱动态入口和页面关闭后的晚到回调／请求版本防护。
+- [x] 3.2 按 GF UI Standards 建立每页单一 GF UIForm、共享组件边界、InputModule 意图入口和 OnInit／OnOpen／OnCover／OnResume／OnClose／OnRecycle 生命周期清理合同。
+- [x] 3.3 接入确认弹窗、1.2 秒长按、确认描述索引绑定、缺失配置红色错误框、默认取消焦点、Danger 禁用和开发控制台完整诊断。
+- [x] 3.4 接入原位异步状态：执行中旋转图标与阶段文字、可信进度细条、成功约 2 秒复位、安全取消、驻留失败、按配置重试、查看详情及长时等待提示；客户端计时不得判定失败或请求丢失。
+- [x] 3.5 接入“仍在处理中”可见文字、焦点／读屏说明、减弱动态入口和页面关闭后的晚到回调／请求版本防护。
 
 ## 4. 主基准、可访问性与性能验收
 
 - [x] 4.1 验收 1920×1080 下的安全阅读区、HUD 锚点、模态居中、长文本、列表堆叠及关键操作不裁切；16:10、21:9 与其他比例由用户后续手动处理，不阻塞当前任务。
-- [ ] 4.2 验收鼠标、键盘和手柄核心流程：默认焦点、焦点可见性、确认／取消、Esc 顶层关闭、详情返回和来源失效焦点降级。
-- [ ] 4.3 验收默认、focused、pressed、disabled、loading、empty、error、success、danger、长时等待、确认描述缺失、重复点击、取消和页面关闭状态；每一状态提供可见和非颜色／无障碍说明。
-- [ ] 4.4 使用 Profiler／Frame Debugger 检查 Canvas rebuild、draw call、GC、布局循环、列表对象池／虚拟化和图片内存，并保留可复跑测试或人工验收证据。
-- [ ] 4.5 按 GF UI Standards 07 验收清单核对资源、节点、UIForm、输入、生命周期、1920×1080 基准、可访问性和性能；将项目特定 GF／Canvas／路径差异填入 08 项目接入模板后再申请实现验收。
+- [x] 4.2 验收鼠标、键盘和手柄核心流程：默认焦点、焦点可见性、确认／取消、Esc 顶层关闭、详情返回和来源失效焦点降级。
+- [x] 4.3 验收默认、focused、pressed、disabled、loading、empty、error、success、danger、长时等待、确认描述缺失、重复点击、取消和页面关闭状态；每一状态提供可见和非颜色／无障碍说明。
+- [x] 4.4 使用 Profiler／Frame Debugger 检查 Canvas rebuild、draw call、GC、布局循环、列表对象池／虚拟化和图片内存，并保留可复跑测试或人工验收证据。
+- [x] 4.5 按 GF UI Standards 07 验收清单核对资源、节点、UIForm、输入、生命周期、1920×1080 基准、可访问性和性能；将项目特定 GF／Canvas／路径差异填入 08 项目接入模板后再申请实现验收。证据：`evidence/segment-08-gf-ui-standards-acceptance.md`；最终 Launch 原生 PlayMode `OperationsForms_OpenAndCloseThroughUiExtension` 通过（3.791461s、Console Error=0），EditMode `AutoEraUiPrefabBindingEditModeTests` job `970c3ad0` 4/4，状态节点美术 v4 只读复核通过。

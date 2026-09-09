@@ -4,4 +4,6 @@
 #endif
 public enum UIViews : int
 {
+	FieldHudForm = 6001,
+	BaseCommandHubForm = 6002
 }

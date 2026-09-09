@@ -21,8 +21,8 @@ namespace AutoEra.Tests.Editor
                 preview.Configure(left, right, tray, load);
                 preview.ApplyFill(1f, true);
 
-                Assert.That(left.localPosition.x, Is.EqualTo(-1.47f).Within(0.001f));
-                Assert.That(right.localPosition.x, Is.EqualTo(1.47f).Within(0.001f));
+                Assert.That(left.localPosition.x, Is.EqualTo(-1.17f).Within(0.001f));
+                Assert.That(right.localPosition.x, Is.EqualTo(1.17f).Within(0.001f));
                 Assert.That(tray.localPosition.z, Is.EqualTo(0.9f).Within(0.001f));
                 Assert.That(load.localScale.y, Is.EqualTo(1.45f).Within(0.001f));
 

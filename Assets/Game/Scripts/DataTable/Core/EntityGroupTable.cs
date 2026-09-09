@@ -22,7 +22,7 @@ public class EntityGroupTable : DataRowBase
 {
 	private int m_Id = 0;
 	/// <summary>
-    /// 
+    ///
     /// </summary>
     public override int Id
     {
@@ -30,7 +30,7 @@ public class EntityGroupTable : DataRowBase
     }
 
         /// <summary>
-        /// Framework default entity groups
+        ///
         /// </summary>
         public string Name
         {
@@ -39,7 +39,7 @@ public class EntityGroupTable : DataRowBase
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public float ReleaseInterval
         {
@@ -48,7 +48,7 @@ public class EntityGroupTable : DataRowBase
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public int Capacity
         {
@@ -57,7 +57,7 @@ public class EntityGroupTable : DataRowBase
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public float ExpireTime
         {
@@ -66,7 +66,7 @@ public class EntityGroupTable : DataRowBase
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public int Priority
         {

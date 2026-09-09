@@ -8,9 +8,9 @@ namespace AutoEra.Editor.Motion
     /// <summary>Regenerates named preview actions from the contract families. These assets are preview/runtime candidates, never task instructions.</summary>
     internal static class FunctionalRigMotionGraphCatalogBuilder
     {
-        private const string Folder = "Assets/Game/MotionGraphs/FunctionalPrototypes";
+        private const string Folder = "Assets/Game/MotionGraphs/Entity";
 
-        [MenuItem("AutoEra/Motion/Build Functional Prototype Action Catalog")]
+        [MenuItem("AutoEra/Motion/Build Formal Entity Action Catalog")]
         private static void BuildCatalog()
         {
             EnsureFolder("Assets/Game/MotionGraphs");
@@ -41,7 +41,6 @@ namespace AutoEra.Editor.Motion
                 Rotate("drive_roller", MotionNodeKind.ContinuousRotate), Rotate("tail_roller", MotionNodeKind.ContinuousRotate),
                 Rotate("upper_idler_front", MotionNodeKind.ContinuousRotate), Rotate("upper_idler_rear", MotionNodeKind.ContinuousRotate),
                 Rotate("lower_idler_front", MotionNodeKind.ContinuousRotate), Rotate("lower_idler_rear", MotionNodeKind.ContinuousRotate)));
-            Build("可替换效应器_界面替换过渡", "effector_ui_swap", "replaceable_effector_prototype", Nodes());
             Build("固定旋转载体_巡扫", "fixed_rotary_scan", "fixed_rotary_carrier_prototype", Nodes(
                 Rotate("yaw_pivot", MotionNodeKind.ContinuousRotate)));
             Build("货舱_传输开门", "cargo_transfer_open", "cargo_bay_prototype", Nodes(

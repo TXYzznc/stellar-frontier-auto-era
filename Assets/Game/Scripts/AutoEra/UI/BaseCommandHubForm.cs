@@ -1,5 +1,8 @@
 ﻿using AutoEra.UI.Contracts;
+using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace AutoEra.UI
 {
@@ -9,6 +12,9 @@ namespace AutoEra.UI
         [SerializeField] private AutoEraHubPage _page;
         [SerializeField] private GameObject _pageRoot;
         [SerializeField] private GameObject _activeNavigationVisual;
+        [SerializeField] private TMP_Text _navigationLabel;
+        [SerializeField] private Color _activeLabelColor = Color.white;
+        [SerializeField] private Color _inactiveLabelColor = Color.white;
 
         public AutoEraHubPage Page => _page;
 
@@ -23,6 +29,11 @@ namespace AutoEra.UI
             {
                 _activeNavigationVisual.SetActive(active);
             }
+
+            if (_navigationLabel != null)
+            {
+                _navigationLabel.color = active ? _activeLabelColor : _inactiveLabelColor;
+            }
         }
     }
 
@@ -33,6 +44,8 @@ namespace AutoEra.UI
         [SerializeField] private AutoEraHubPageBinding[] _pageBindings;
         [SerializeField] private AutoEraUiOperationVisualBinding[] _operationBindings;
         [SerializeField] private GameObject _rulesImpactOverlay;
+        [SerializeField] private AutoEraDangerConfirmationView _dangerConfirmationView;
+        [SerializeField] private Selectable _defaultFocus;
 
         private AutoEraHubPageSelection _pageSelection;
 
@@ -43,6 +56,12 @@ namespace AutoEra.UI
             _pageSelection = new AutoEraHubPageSelection(_initialPage);
             ApplyPageSelection();
             SetRulesImpactVisible(false);
+            BindOperationActionHandlers();
+            AutoEraReduceMotionEntry.ReducedMotionChanged += HandleReducedMotionChanged;
+            if (_defaultFocus != null && _defaultFocus.isActiveAndEnabled && EventSystem.current != null)
+            {
+                EventSystem.current.SetSelectedGameObject(_defaultFocus.gameObject);
+            }
         }
 
         public void SelectPage(int page)
@@ -66,6 +85,14 @@ namespace AutoEra.UI
             if (_rulesImpactOverlay != null)
             {
                 _rulesImpactOverlay.SetActive(visible);
+            }
+        }
+
+        public void ShowDangerConfirmation(AutoEraConfirmationDescriptionResolution description)
+        {
+            if (_dangerConfirmationView != null)
+            {
+                _dangerConfirmationView.Show(description);
             }
         }
 
@@ -93,6 +120,21 @@ namespace AutoEra.UI
             return false;
         }
 
+        protected override void OnAutoEraClose(bool isShutdown)
+        {
+            AutoEraReduceMotionEntry.ReducedMotionChanged -= HandleReducedMotionChanged;
+        }
+
+        protected override void OnAutoEraRecycle()
+        {
+            AutoEraReduceMotionEntry.ReducedMotionChanged -= HandleReducedMotionChanged;
+        }
+
+        protected override bool OnBeforeFormIntent(AutoEraUiIntent intent)
+        {
+            return _dangerConfirmationView != null && _dangerConfirmationView.TryHandleIntent(intent);
+        }
+
         protected override void OnOperationPresentationChanged(AutoEraUiOperationSnapshot snapshot, AutoEraUiOperationPresentation presentation)
         {
             if (_operationBindings == null)
@@ -105,7 +147,7 @@ namespace AutoEra.UI
                 AutoEraUiOperationVisualBinding binding = _operationBindings[index];
                 if (binding != null && binding.SourceId == snapshot.SourceId)
                 {
-                    binding.Apply(presentation);
+                    binding.Apply(snapshot, presentation);
                 }
             }
         }
@@ -124,6 +166,35 @@ namespace AutoEra.UI
                 {
                     binding.Apply(binding.Page == ActivePage);
                 }
+            }
+        }
+
+        private void BindOperationActionHandlers()
+        {
+            if (_operationBindings == null)
+            {
+                return;
+            }
+
+            for (int index = 0; index < _operationBindings.Length; index++)
+            {
+                if (_operationBindings[index] != null)
+                {
+                    _operationBindings[index].SetActionHandler(RaiseOperationActionRequest);
+                }
+            }
+        }
+
+        private void HandleReducedMotionChanged(bool enabled)
+        {
+            if (_operationBindings == null)
+            {
+                return;
+            }
+
+            for (int index = 0; index < _operationBindings.Length; index++)
+            {
+                _operationBindings[index]?.RefreshMotionPreference();
             }
         }
     }

@@ -21,6 +21,9 @@ public sealed class ResourceExportPanel : IToolHubPanel
     private bool _includeDependencies = true;
     private bool _includeAllScripts;
     private bool _mergeSelectedGroups;
+    private ResourceExportHistoryStore _historyStore;
+    private string _selectedBaselineId;
+    private ResourceExportChangeSet _lastChangeSet;
 
     [MenuItem("Tools/Unity开发工具箱/导出已选资源组到本地交付目录")]
     public static void ExportSelectedGroupsToLocalDeliveries()
@@ -28,7 +31,8 @@ public sealed class ResourceExportPanel : IToolHubPanel
         var panel = new ResourceExportPanel
         {
             _settings = LoadSettings(),
-            _includeDependencies = false
+            _includeDependencies = false,
+            _historyStore = new ResourceExportHistoryStore(GetProjectRoot())
         };
 
         if (panel._settings == null)
@@ -58,6 +62,7 @@ public sealed class ResourceExportPanel : IToolHubPanel
 
         if (panel.ExportPackage(paths, outputPath))
         {
+            panel.RecordSuccessfulExport(outputPath, paths);
             Debug.Log($"[ResourceExport] 本地迁移包已更新: {outputPath}");
             EditorUtility.RevealInFinder(outputPath);
         }
@@ -66,6 +71,7 @@ public sealed class ResourceExportPanel : IToolHubPanel
     public void OnEnable()
     {
         _settings = LoadOrCreateSettings();
+        _historyStore = new ResourceExportHistoryStore(GetProjectRoot());
     }
 
     public void OnDisable()
@@ -122,6 +128,12 @@ public sealed class ResourceExportPanel : IToolHubPanel
             if (GUILayout.Button("新建配置", EditorStyles.toolbarButton, GUILayout.Width(70f)))
                 CreateSettingsAsset();
 
+            if (GUILayout.Button("同步 Git 忽略资源", EditorStyles.toolbarButton, GUILayout.Width(116f)))
+                SynchronizeGitIgnoreGroup();
+
+            if (GUILayout.Button("对比变更", EditorStyles.toolbarButton, GUILayout.Width(70f)))
+                CompareSelectedGroups();
+
             if (GUILayout.Button("定位", EditorStyles.toolbarButton, GUILayout.Width(48f)))
             {
                 Selection.activeObject = _settings;
@@ -175,8 +187,12 @@ public sealed class ResourceExportPanel : IToolHubPanel
             using (new EditorGUILayout.HorizontalScope())
             {
                 group.selected = EditorGUILayout.Toggle(group.selected, GUILayout.Width(18f));
-                group.name = EditorGUILayout.TextField(group.name, GUILayout.MinWidth(150f));
+                using (new EditorGUI.DisabledScope(group.generatedFromGitIgnore))
+                    group.name = EditorGUILayout.TextField(group.name, GUILayout.MinWidth(150f));
                 EditorGUILayout.LabelField($"{group.assetPaths.Count} 个路径", EditorStyles.miniLabel, GUILayout.Width(70f));
+
+                if (group.generatedFromGitIgnore && GUILayout.Button("刷新忽略资源", GUILayout.Width(92f)))
+                    SynchronizeGitIgnoreGroup();
 
                 if (GUILayout.Button("添加路径", GUILayout.Width(70f)))
                     group.assetPaths.Add(string.Empty);
@@ -197,6 +213,9 @@ public sealed class ResourceExportPanel : IToolHubPanel
 
             if (string.IsNullOrWhiteSpace(group.name))
                 EditorGUILayout.HelpBox("资源组名称不能为空。", MessageType.Warning);
+
+            if (group.generatedFromGitIgnore)
+                EditorGUILayout.HelpBox("此组由项目根 .gitignore 自动生成；Unity 会在导出时自行携带必要的 .meta。", MessageType.None);
 
             for (int pathIndex = 0; pathIndex < group.assetPaths.Count; pathIndex++)
                 DrawPathRow(group, pathIndex);
@@ -254,6 +273,8 @@ public sealed class ResourceExportPanel : IToolHubPanel
                 MessageType.None
             );
         }
+
+        DrawChangeComparison();
     }
 
     private void DrawFooter()
@@ -267,6 +288,12 @@ public sealed class ResourceExportPanel : IToolHubPanel
             {
                 if (GUILayout.Button(_mergeSelectedGroups ? "导出合并包" : "导出选中资源组", GUILayout.Height(RowHeight)))
                     ExportSelectedGroups();
+
+                using (new EditorGUI.DisabledScope(_lastChangeSet == null || !_lastChangeSet.ExportablePaths.Any()))
+                {
+                    if (GUILayout.Button("导出变更包", GUILayout.Height(RowHeight)))
+                        ExportChangedPackage();
+                }
             }
         }
     }
@@ -306,8 +333,9 @@ public sealed class ResourceExportPanel : IToolHubPanel
         if (string.IsNullOrEmpty(outputPath))
             return;
 
-        var paths = groups.SelectMany(GetValidPaths).Distinct(StringComparer.Ordinal).ToArray();
-        ExportPackage(paths, outputPath);
+        string[] paths = CollectExportPaths(groups);
+        if (ExportPackage(paths, outputPath))
+            RecordSuccessfulExport(outputPath, paths);
     }
 
     private void ExportSeparately(List<ResourceExportSettings.ResourceGroup> groups)
@@ -324,8 +352,12 @@ public sealed class ResourceExportPanel : IToolHubPanel
             if (File.Exists(outputPath) && !EditorUtility.DisplayDialog("覆盖文件", $"文件已存在：\n{outputPath}\n是否覆盖？", "覆盖", "取消"))
                 continue;
 
-            if (ExportPackage(GetValidPaths(group).ToArray(), outputPath))
+            string[] paths = CollectExportPaths(new[] { group });
+            if (ExportPackage(paths, outputPath))
+            {
                 exported++;
+                RecordSuccessfulExport(outputPath, paths);
+            }
         }
 
         EditorUtility.DisplayDialog("导出完成", $"成功导出 {exported}/{groups.Count} 个资源包。\n{outputFolder}", "确定");
@@ -353,6 +385,177 @@ public sealed class ResourceExportPanel : IToolHubPanel
             EditorUtility.DisplayDialog("导出失败", exception.Message, "确定");
             return false;
         }
+    }
+
+    private void SynchronizeGitIgnoreGroup()
+    {
+        List<string> ignoredAssetPaths;
+        try
+        {
+            ignoredAssetPaths = GitIgnoreAssetGroupCollector.CollectIgnoredAssetPaths(GetProjectRoot());
+        }
+        catch (Exception exception)
+        {
+            Debug.LogError($"[ResourceExport] 读取 .gitignore 失败：{exception}");
+            EditorUtility.DisplayDialog("同步失败", "无法读取项目根 .gitignore，请查看 Console。", "确定");
+            return;
+        }
+
+        ResourceExportSettings.ResourceGroup group = _settings.groups.FirstOrDefault(item => item != null && item.generatedFromGitIgnore);
+        Undo.RecordObject(_settings, "同步 Git 忽略资源组");
+        if (group == null)
+        {
+            group = new ResourceExportSettings.ResourceGroup
+            {
+                name = GitIgnoreAssetGroupCollector.GeneratedGroupName,
+                generatedFromGitIgnore = true
+            };
+            _settings.groups.Add(group);
+        }
+
+        group.name = GitIgnoreAssetGroupCollector.GeneratedGroupName;
+        group.selected = true;
+        group.assetPaths.Clear();
+        group.assetPaths.AddRange(ignoredAssetPaths);
+        SaveSettings();
+        _lastChangeSet = null;
+        Debug.Log($"[ResourceExport] Git 忽略资源组已同步：{ignoredAssetPaths.Count} 个 Assets 资源。");
+    }
+
+    private void DrawChangeComparison()
+    {
+        EditorGUILayout.LabelField("对比变更", EditorStyles.boldLabel);
+        using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
+        {
+            List<ResourceExportSnapshot> snapshots = _historyStore?.LoadSnapshots() ?? new List<ResourceExportSnapshot>();
+            if (snapshots.Count == 0)
+            {
+                EditorGUILayout.HelpBox("尚无成功导出历史。先完成一次普通导出，之后可用其作为默认基线。", MessageType.Info);
+                return;
+            }
+
+            string[] labels = snapshots.Select(snapshot => $"{snapshot.displayName} ({snapshot.createdUtc})").ToArray();
+            int selectedIndex = Mathf.Max(0, snapshots.FindIndex(snapshot => snapshot.id == _selectedBaselineId));
+            selectedIndex = EditorGUILayout.Popup("比较基线", selectedIndex, labels);
+            _selectedBaselineId = snapshots[selectedIndex].id;
+            EditorGUILayout.HelpBox("比较内容以资源文件 SHA-256 为准。新增和修改可导出；删除项会写入同步清单。", MessageType.None);
+
+            if (_lastChangeSet != null)
+                EditorGUILayout.LabelField($"新增 {_lastChangeSet.added.Count}，修改 {_lastChangeSet.modified.Count}，删除 {_lastChangeSet.deleted.Count}", EditorStyles.miniLabel);
+        }
+    }
+
+    private void CompareSelectedGroups()
+    {
+        List<ResourceExportSettings.ResourceGroup> groups = GetSelectedValidGroups();
+        if (groups.Count == 0)
+        {
+            EditorUtility.DisplayDialog("无法对比", "请先选择至少一个含有效资源的资源组。", "确定");
+            return;
+        }
+
+        List<ResourceExportSnapshot> snapshots = _historyStore.LoadSnapshots();
+        if (snapshots.Count == 0)
+        {
+            EditorUtility.DisplayDialog("尚无基线", "先完成一次普通导出，系统会记录本地历史基线。", "确定");
+            return;
+        }
+
+        ResourceExportSnapshot baseline = snapshots.FirstOrDefault(snapshot => snapshot.id == _selectedBaselineId) ?? snapshots[0];
+        _selectedBaselineId = baseline.id;
+        _lastChangeSet = _historyStore.Compare(baseline, CollectExportPaths(groups));
+        EditorUtility.DisplayDialog(
+            "对比完成",
+            $"基线：{baseline.displayName}\n新增：{_lastChangeSet.added.Count}\n修改：{_lastChangeSet.modified.Count}\n删除：{_lastChangeSet.deleted.Count}",
+            "确定"
+        );
+    }
+
+    private void ExportChangedPackage()
+    {
+        List<ResourceExportSettings.ResourceGroup> groups = GetSelectedValidGroups();
+        if (groups.Count == 0 || _lastChangeSet == null)
+            return;
+
+        string outputPath = EditorUtility.SaveFilePanel("导出变更资源包", GetProjectRoot(), "ResourceChanges", "unitypackage");
+        if (string.IsNullOrEmpty(outputPath))
+            return;
+
+        string[] changedPaths = _lastChangeSet.ExportablePaths.ToArray();
+        if (changedPaths.Length == 0)
+        {
+            EditorUtility.DisplayDialog("没有可导出变更", "当前比较结果不含新增或修改资源。", "确定");
+            return;
+        }
+
+        string[] currentPaths = CollectExportPaths(groups);
+        if (!ExportPackage(changedPaths, outputPath))
+            return;
+
+        WriteDeletedAssetManifest(outputPath, _lastChangeSet.deleted);
+        RecordSuccessfulExport(outputPath, currentPaths);
+        _lastChangeSet = null;
+    }
+
+    private List<ResourceExportSettings.ResourceGroup> GetSelectedValidGroups()
+    {
+        return _settings.groups
+            .Where(group => group != null && group.selected)
+            .Where(group => !string.IsNullOrWhiteSpace(group.name) && GetValidPaths(group).Count > 0)
+            .ToList();
+    }
+
+    private string[] CollectExportPaths(IEnumerable<ResourceExportSettings.ResourceGroup> groups)
+    {
+        IEnumerable<string> roots = groups.SelectMany(GetValidPaths).Distinct(StringComparer.Ordinal);
+        IEnumerable<string> paths = ExpandAssetPaths(roots);
+        if (_includeDependencies)
+            paths = paths.Concat(AssetDatabase.GetDependencies(paths.ToArray(), true));
+        if (_includeAllScripts)
+            paths = paths.Concat(FindAllScriptPaths());
+
+        return paths
+            .Where(path => !string.IsNullOrEmpty(path) && path.StartsWith("Assets/", StringComparison.Ordinal))
+            .Where(path => !AssetDatabase.IsValidFolder(path))
+            .Distinct(StringComparer.Ordinal)
+            .OrderBy(path => path, StringComparer.Ordinal)
+            .ToArray();
+    }
+
+    private static IEnumerable<string> ExpandAssetPaths(IEnumerable<string> roots)
+    {
+        foreach (string path in roots)
+        {
+            if (!AssetDatabase.IsValidFolder(path))
+            {
+                yield return path;
+                continue;
+            }
+
+            foreach (string guid in AssetDatabase.FindAssets(string.Empty, new[] { path }))
+            {
+                string childPath = AssetDatabase.GUIDToAssetPath(guid);
+                if (!string.IsNullOrEmpty(childPath) && !AssetDatabase.IsValidFolder(childPath))
+                    yield return childPath;
+            }
+        }
+    }
+
+    private void RecordSuccessfulExport(string outputPath, IEnumerable<string> completePaths)
+    {
+        ResourceExportSnapshot snapshot = _historyStore.SaveSnapshot(Path.GetFileName(outputPath), completePaths);
+        _selectedBaselineId = snapshot.id;
+        Debug.Log($"[ResourceExport] 已记录导出基线：{snapshot.displayName}（{snapshot.entries.Count} 个资源）。");
+    }
+
+    private static void WriteDeletedAssetManifest(string outputPath, List<string> deletedPaths)
+    {
+        if (deletedPaths.Count == 0)
+            return;
+
+        string manifestPath = Path.ChangeExtension(outputPath, ".deleted-assets.txt");
+        File.WriteAllLines(manifestPath, deletedPaths);
+        Debug.Log($"[ResourceExport] 已写入删除清单：{manifestPath}");
     }
 
     private static List<string> GetValidPaths(ResourceExportSettings.ResourceGroup group)

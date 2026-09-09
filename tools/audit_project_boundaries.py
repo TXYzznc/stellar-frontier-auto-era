@@ -27,7 +27,7 @@ RESOURCE_ROOTS = (
     Path("Assets/Game/Audio"),
     Path("Assets/Game/Config"),
     Path("Assets/Game/DataTable"),
-    Path("Assets/Game/Font"),
+    Path("Assets/Game/Fonts"),
     Path("Assets/Game/Language"),
     Path("Assets/Game/Materials"),
     Path("Assets/Game/Models"),
@@ -89,6 +89,16 @@ def audit(root: Path) -> list[Finding]:
     product_root = root / PRODUCT_ROOT
     scripts_root = root / SCRIPTS_ROOT
     builtin_root = root / BUILTIN_ROOT
+
+    legacy_font_root = root / "Assets/Game/Font"
+    if legacy_font_root.exists():
+        findings.append(
+            Finding(
+                "legacy-resource-root",
+                "Assets/Game/Font",
+                "use Assets/Game/Fonts; migrate assets through AssetDatabase while preserving GUIDs",
+            )
+        )
 
     if not product_root.is_dir():
         findings.append(

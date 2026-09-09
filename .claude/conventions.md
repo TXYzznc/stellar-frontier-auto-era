@@ -13,6 +13,7 @@
 
 - `Animations/`：动画片段、Animator Controller 和 Avatar Mask。
 - `Audio/`：音乐、音效和混音资源。
+- `Fonts/`：字体源文件、TMP Font Asset 与字体材质；统一使用复数，禁止新增旧目录 `Font/`。
 - `Materials/`：材质资源；统一使用复数，禁止新增旧目录 `Material/`。
 - `Models/`：模型源资产。
 - `Prefabs/Core/`：框架通用 Prefab。

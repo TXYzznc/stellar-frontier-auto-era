@@ -22,7 +22,7 @@ public class SoundGroupTable : DataRowBase
 {
 	private int m_Id = 0;
 	/// <summary>
-    /// 
+    ///
     /// </summary>
     public override int Id
     {
@@ -30,7 +30,7 @@ public class SoundGroupTable : DataRowBase
     }
 
         /// <summary>
-        /// Framework default sound groups
+        ///
         /// </summary>
         public string Name
         {
@@ -39,7 +39,7 @@ public class SoundGroupTable : DataRowBase
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public int SoundAgentCount
         {
@@ -48,7 +48,7 @@ public class SoundGroupTable : DataRowBase
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool AvoidBeingReplacedBySamePriority
         {
@@ -57,7 +57,7 @@ public class SoundGroupTable : DataRowBase
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Mute
         {
@@ -66,7 +66,7 @@ public class SoundGroupTable : DataRowBase
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public float Volume
         {

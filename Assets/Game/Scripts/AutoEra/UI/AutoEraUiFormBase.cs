@@ -1,5 +1,10 @@
 ﻿using AutoEra.UI.Contracts;
 
+using System;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
 namespace AutoEra.UI
 {
     public enum AutoEraUiIntent
@@ -17,14 +22,35 @@ namespace AutoEra.UI
     public abstract class AutoEraUiFormBase : UIFormBase
     {
         private readonly AutoEraUiRequestVersionGate _requestVersionGate = new AutoEraUiRequestVersionGate();
+        private GameObject _openTriggerFocus;
 
-        protected long CurrentFormVersion => _requestVersionGate.FormVersion;
+        /// <summary>Raised for a state-gated UI action; the authoritative operation owner decides the outcome.</summary>
+        public event Action<AutoEraUiOperationActionRequest> OperationActionRequested;
+
+        public long CurrentFormVersion => _requestVersionGate.FormVersion;
 
         protected override void OnOpen(object userData)
         {
+            _openTriggerFocus = EventSystem.current == null ? null : EventSystem.current.currentSelectedGameObject;
             base.OnOpen(userData);
             _requestVersionGate.Open();
+            AutoEraUiRuntime.RegisterForm(this);
             OnAutoEraOpen();
+        }
+
+        protected override void OnInit(object userData)
+        {
+            base.OnInit(userData);
+            CanvasScaler scaler = gameObject.GetComponent<CanvasScaler>();
+            if (scaler == null)
+            {
+                scaler = gameObject.AddComponent<CanvasScaler>();
+            }
+
+            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            scaler.referenceResolution = new Vector2(1920f, 1080f);
+            scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
+            scaler.matchWidthOrHeight = 0.5f;
         }
 
         protected override void OnCover()
@@ -48,15 +74,19 @@ namespace AutoEra.UI
         protected override void OnClose(bool isShutdown, object userData)
         {
             _requestVersionGate.Close();
+            AutoEraUiRuntime.UnregisterForm(this);
             OnAutoEraClose(isShutdown);
             base.OnClose(isShutdown, userData);
+            RestoreOpenTriggerFocus();
         }
 
         protected override void OnRecycle()
         {
             _requestVersionGate.Close();
+            AutoEraUiRuntime.UnregisterForm(this);
             OnAutoEraRecycle();
             base.OnRecycle();
+            RestoreOpenTriggerFocus();
         }
 
         public long BeginOperationRequest()
@@ -77,6 +107,11 @@ namespace AutoEra.UI
 
         public bool TryHandleIntent(AutoEraUiIntent intent)
         {
+            if (OnBeforeFormIntent(intent))
+            {
+                return true;
+            }
+
             if (intent == AutoEraUiIntent.Cancel)
             {
                 return TryCloseFromInputModule();
@@ -91,7 +126,23 @@ namespace AutoEra.UI
         protected virtual void OnAutoEraPause() { }
         protected virtual void OnAutoEraClose(bool isShutdown) { }
         protected virtual void OnAutoEraRecycle() { }
+        protected virtual bool OnBeforeFormIntent(AutoEraUiIntent intent) { return false; }
         protected virtual bool OnAutoEraIntent(AutoEraUiIntent intent) { return false; }
         protected abstract void OnOperationPresentationChanged(AutoEraUiOperationSnapshot snapshot, AutoEraUiOperationPresentation presentation);
+
+        protected void RaiseOperationActionRequest(AutoEraUiOperationActionRequest request)
+        {
+            OperationActionRequested?.Invoke(request);
+        }
+
+        private void RestoreOpenTriggerFocus()
+        {
+            if (_openTriggerFocus != null && _openTriggerFocus.activeInHierarchy && EventSystem.current != null)
+            {
+                EventSystem.current.SetSelectedGameObject(_openTriggerFocus);
+            }
+
+            _openTriggerFocus = null;
+        }
     }
 }
