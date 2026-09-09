@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "kind": "GF_X.DataTable.AI",
+  "tableName": "UITable",
+  "relativePath": "Core/UITable",
+  "sourceExcel": "GameData/DataTables/Core/UITable.xlsx",
+  "sourceExcelLastWriteUtc": "2026-09-04T14:56:34.5324681Z",
+  "sourceFingerprint": "B4FAFCF75F918CD275F77CFA1DCFB06771F65263619ACE177C2AE0F6F6FF1641",
+  "generatedAtUtc": "2026-09-04T14:56:35.0489678Z",
+  "tableComment": "UI table",
+  "columns": [
+    {
+      "index": 1,
+      "key": "Note1",
+      "name": "#",
+      "type": "#",
+      "comment": "#",
+      "role": "comment"
+    },
+    {
+      "index": 2,
+      "key": "Id",
+      "name": "Id",
+      "type": "int",
+      "comment": "",
+      "role": "id"
+    },
+    {
+      "index": 3,
+      "key": "Note3",
+      "name": "",
+      "type": "",
+      "comment": "Note",
+      "role": "comment"
+    },
+    {
+      "index": 4,
+      "key": "SortOrder",
+      "name": "SortOrder",
+      "type": "int",
+      "comment": "Display order relative to group",
+      "role": "data"
+    },
+    {
+      "index": 5,
+      "key": "UIPrefab",
+      "name": "UIPrefab",
+      "type": "string",
+      "comment": "UI prefab name",
+      "role": "data"
+    },
+    {
+      "index": 6,
+      "key": "PauseCoveredUI",
+      "name": "PauseCoveredUI",
+      "type": "bool",
+      "comment": "Hide covered UI in the same group",
+      "role": "data"
+    },
+    {
+      "index": 7,
+      "key": "UIGroupId",
+      "name": "UIGroupId",
+      "type": "int",
+      "comment": "UI group id",
+      "role": "data"
+    },
+    {
+      "index": 8,
+      "key": "EscapeClose",
+      "name": "EscapeClose",
+      "type": "bool",
+      "comment": "Allow close by back input",
+      "role": "data"
+    }
+  ],
+  "rows": [
+    {
+      "row": 5,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6001",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/FieldHudForm",
+        "PauseCoveredUI": "false",
+        "UIGroupId": "1",
+        "EscapeClose": "false"
+      },
+      "notes": {
+        "Note3": "ART-006 field HUD"
+      },
+      "_cells": [
+        "",
+        "6001",
+        "ART-006 field HUD",
+        "0",
+        "Operations/FieldHudForm",
+        "false",
+        "1",
+        "false"
+      ]
+    },
+    {
+      "row": 6,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6002",
+        "SortOrder": "100",
+        "UIPrefab": "Operations/BaseCommandHubForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "ART-006 base command hub"
+      },
+      "_cells": [
+        "",
+        "6002",
+        "ART-006 base command hub",
+        "100",
+        "Operations/BaseCommandHubForm",
+        "true",
+        "1",
+        "true"
+      ]
+    }
+  ]
+}

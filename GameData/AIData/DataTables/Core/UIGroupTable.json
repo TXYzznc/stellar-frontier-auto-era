@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "kind": "GF_X.DataTable.AI",
+  "tableName": "UIGroupTable",
+  "relativePath": "Core/UIGroupTable",
+  "sourceExcel": "GameData/DataTables/Core/UIGroupTable.xlsx",
+  "sourceExcelLastWriteUtc": "2026-08-03T03:48:04.6639836Z",
+  "sourceFingerprint": "168C69D20460C1DB2C22F5C6BBC0B728F143EF0A9C5F812FF9F6F360699CFA26",
+  "generatedAtUtc": "2026-09-04T08:41:50.7305063Z",
+  "tableComment": "UIGroup",
+  "columns": [
+    {
+      "index": 1,
+      "key": "Note1",
+      "name": "#",
+      "type": "#",
+      "comment": "#",
+      "role": "comment"
+    },
+    {
+      "index": 2,
+      "key": "Id",
+      "name": "ID",
+      "type": "int",
+      "comment": "",
+      "role": "id"
+    },
+    {
+      "index": 3,
+      "key": "Note3",
+      "name": "",
+      "type": "",
+      "comment": "备注",
+      "role": "comment"
+    },
+    {
+      "index": 4,
+      "key": "Name",
+      "name": "Name",
+      "type": "string",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 5,
+      "key": "Depth",
+      "name": "Depth",
+      "type": "int",
+      "comment": "每个组的起始Order,用于控制显示顺序",
+      "role": "data"
+    }
+  ],
+  "rows": [
+    {
+      "row": 5,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "1",
+        "Name": "Default",
+        "Depth": "1"
+      },
+      "notes": {
+        "Note3": "Default interface"
+      },
+      "_cells": [
+        "",
+        "1",
+        "Default interface",
+        "Default",
+        "1"
+      ]
+    },
+    {
+      "row": 6,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "2",
+        "Name": "Dialog",
+        "Depth": "200"
+      },
+      "notes": {
+        "Note3": "Dialog interface"
+      },
+      "_cells": [
+        "",
+        "2",
+        "Dialog interface",
+        "Dialog",
+        "200"
+      ]
+    },
+    {
+      "row": 7,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "3",
+        "Name": "Overlay",
+        "Depth": "500"
+      },
+      "notes": {
+        "Note3": "Overlay interface"
+      },
+      "_cells": [
+        "",
+        "3",
+        "Overlay interface",
+        "Overlay",
+        "500"
+      ]
+    }
+  ]
+}
