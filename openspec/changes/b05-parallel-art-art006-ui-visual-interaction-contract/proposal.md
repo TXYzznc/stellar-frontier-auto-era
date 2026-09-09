@@ -16,7 +16,7 @@ ART-006 已完成 UI 视觉方向、信息层级、危险操作、异步反馈�
 
 - `art006-ui-visual-language`: 定义 ART-006 的视觉 Token、字体字号、图标、面板与共享 UI Kit 边界。
 - `art006-ui-interaction-state-contract`: 定义对象优先导航、危险操作、确认描述、异步／长时等待、焦点与可访问性状态。
-- `art006-ui-page-delivery-contract`: 定义三张代表样张、页面规格、资源／切片、Prefab 布局、GF 接入和多比例验收的交付合同。
+- `art006-ui-page-delivery-contract`: 定义三张代表样张、页面规格、资源／切片、Prefab 布局、GF 接入和 1920×1080 当前阶段验收的交付合同；其他比例由用户后续处理。
 
 ### Modified Capabilities
 
