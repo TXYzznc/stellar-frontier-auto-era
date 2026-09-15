@@ -26,14 +26,14 @@ escalate_to: main
 4. Mocap 数据 import 必须先 clean：脚部滑动 / 抖动 / NaN frame。
 5. 动画重定向必须用 Humanoid Avatar——除非角色非人形。
 
-## SKILL 白名单
+## 推荐 SKILL（非限制）
 
 | SKILL | 何时用 |
 |---|---|
 | `animation-systems` | 状态机 / Blend tree / Inverse Kinematics / 程序化动画 |
 | `rigging` | 骨骼 / IK / FK / 控制器 |
 
-白名单外 SKILL → **立即 escalate_to: main**（由主对话决定是否调用 find-skills 后再委派）。
+推荐清单不限制能力：可按任务选用其他可用 SKILL，不因清单外技能而升级或停工；仍遵守授权、写入范围和资源安全边界。
 
 ## 何时交回主 agent
 

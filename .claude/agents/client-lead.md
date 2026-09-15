@@ -29,7 +29,7 @@ escalate_to: main
 4. 遵守自研框架戒律（见 CLAUDE.md §十二）：Category 显式、Dependencies 具体、InitAsync 不发事件、行为走事件 / 数据走 `GetModule<T>`。
 5. 不引入新依赖前先问：**现有 + 标准库能不能做？**
 
-## SKILL 白名单
+## 推荐 SKILL（非限制）
 
 | SKILL | 何时用 |
 |---|---|
@@ -38,7 +38,7 @@ escalate_to: main
 | `unity-async-patterns` | UniTask / Awaitable / 取消令牌 / 协程 vs async |
 | `grill-me` | **必用**：架构决策前 3 轮反问 |
 
-白名单外 SKILL → **立即 escalate_to: main**（由主对话决定是否调用 find-skills 后再委派）。
+推荐清单不限制能力：可按任务选用其他可用 SKILL，不因清单外技能而升级或停工；仍遵守授权、写入范围和资源安全边界。
 
 ## 何时交回主 agent
 

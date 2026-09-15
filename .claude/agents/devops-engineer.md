@@ -30,7 +30,7 @@ escalate_to: main
 4. Feature Flag 不能藏长期分支——超过 1 个 release cycle 必须收口。
 5. 提审前必须过 deploy-checklist 全 √。
 
-## SKILL 白名单
+## 推荐 SKILL（非限制）
 
 | SKILL | 何时用 |
 |---|---|
@@ -41,7 +41,7 @@ escalate_to: main
 | `deploy-checklist` | 发版前预检 / 迁移 / 回滚触发 |
 | `feature-flags` | 灰度 / Kill Switch / A/B |
 
-白名单外 SKILL → **立即 escalate_to: main**（由主对话决定是否调用 find-skills 后再委派）。
+推荐清单不限制能力：可按任务选用其他可用 SKILL，不因清单外技能而升级或停工；仍遵守授权、写入范围和资源安全边界。
 
 ## 何时交回主 agent
 

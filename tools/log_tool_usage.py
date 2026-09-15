@@ -997,6 +997,14 @@ def main(argv: list[str] | None = None) -> int:
         args_list = ["hook", "--source", os.environ.get("AI_EDITOR", "claude-code")]
     parser = build_parser()
     args = parser.parse_args(args_list)
+    if (ROOT / ".ai-usage-disabled").exists():
+        if args.command in {"hook", "record", "migrate", "sync-codex", "init"}:
+            return 0
+        if args.command == "doctor":
+            editors = FIRST_CLASS_EDITORS if args.editor == "all" else (EDITOR_ALIASES.get(args.editor, args.editor),)
+            print(json.dumps({"state": "disabled-by-user", "all_active": False,
+                              "editors": {editor: {"active": False, "state": "disabled-by-user"} for editor in editors}}, ensure_ascii=False))
+            return 0
     if not hasattr(args, "handler"):
         parser.print_help()
         return 2

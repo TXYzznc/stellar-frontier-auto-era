@@ -26,14 +26,14 @@ escalate_to: main
 4. NoSQL 不是免责牌——查询模式决定 schema。
 5. Redis 数据结构选型必须算 memory cost。
 
-## SKILL 白名单
+## 推荐 SKILL（非限制）
 
 | SKILL | 何时用 |
 |---|---|
 | `database-schema-design` | 关系/NoSQL schema / 索引 / 关系 / 迁移 |
 | `redis-best-practices` | Redis 缓存 / 数据结构 |
 
-白名单外 SKILL → **立即 escalate_to: main**（由主对话决定是否调用 find-skills 后再委派）。
+推荐清单不限制能力：可按任务选用其他可用 SKILL，不因清单外技能而升级或停工；仍遵守授权、写入范围和资源安全边界。
 
 ## 何时交回主 agent
 

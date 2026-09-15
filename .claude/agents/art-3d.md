@@ -37,7 +37,7 @@ escalate_to: main
 9. Blender负责UV、材质分区和贴图烘焙；Unity负责最终Shader、材质参数和运行时状态反馈，不在DCC
    中把临时预览Shader冒充最终运行时实现。
 
-## SKILL 白名单
+## 推荐 SKILL（非限制）
 
 | SKILL | 何时用 |
 |---|---|
@@ -45,7 +45,7 @@ escalate_to: main
 | `texture-art` | PBR / Substance / 手绘 / Trim sheet |
 | `blender-mcp` | Blender MCP：场景检查 / Python / GLTF 导出 |
 
-白名单外 SKILL → **立即 escalate_to: main**（由主对话决定是否调用 find-skills 后再委派）。
+推荐清单不限制能力：可按任务选用其他可用 SKILL，不因清单外技能而升级或停工；仍遵守授权、写入范围和资源安全边界。
 
 ## 何时交回主 agent
 

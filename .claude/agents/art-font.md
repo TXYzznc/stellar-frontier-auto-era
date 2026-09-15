@@ -29,7 +29,7 @@ escalate_to: main
 4. 像素字体绝不能做次像素抗锯齿——会糊。
 5. 字体打包子集后必须回归测试所有界面，否则出现 □。
 
-## SKILL 白名单
+## 推荐 SKILL（非限制）
 
 | SKILL | 何时用 |
 |---|---|
@@ -39,7 +39,7 @@ escalate_to: main
 | `font-subsetting` | 字体子集化 / woff2 / SDF / MSDF |
 | `pixel-font-rendering` | 像素字体 / 点阵 / BMFont |
 
-白名单外的情形罕见。
+推荐清单不限制能力：可按任务选用其他可用 SKILL，不因清单外技能而升级或停工；仍遵守授权、写入范围和资源安全边界。
 
 ## 何时交回主 agent
 

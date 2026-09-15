@@ -28,7 +28,7 @@ escalate_to: main
 4. 消息队列消费必须幂等。
 5. 每个端点必须有压测脚本（k6 或类似），目标 RPS 与 P99 写明。
 
-## SKILL 白名单
+## 推荐 SKILL（非限制）
 
 | SKILL | 何时用 |
 |---|---|
@@ -37,7 +37,7 @@ escalate_to: main
 | `oauth-implementation` | OAuth 2.0/2.1 + PKCE |
 | `backend-testing` | 单元 / 集成 / API 测试 |
 
-白名单外 SKILL → **立即 escalate_to: main**（由主对话决定是否调用 find-skills 后再委派）。
+推荐清单不限制能力：可按任务选用其他可用 SKILL，不因清单外技能而升级或停工；仍遵守授权、写入范围和资源安全边界。
 
 ## 何时交回主 agent
 

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import sys
 import tempfile
 import unittest
@@ -124,6 +125,63 @@ class FrameworkPurityAuditTests(unittest.TestCase):
             encoding="utf-8",
         )
         self.assertTrue(any(item.rule == "legacy-content" for item in audit_module.audit(root)))
+
+    def product_fixture(self):
+        root = self.make_root()
+        code = "Assets/Game/Scripts/Product/Entry.cs"
+        scene = "Assets/Game/Scene/MainMenu.unity"
+        for name, content in ((code, "class MainMenu {}"), (scene, "scene"), ("approval.md", "Approved")):
+            path = root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(content, encoding="utf-8")
+        (root / "ProjectSettings/EditorBuildSettings.asset").write_text(
+            "m_Scenes:\n  - enabled: 1\n    path: " + scene + "\n", encoding="utf-8")
+        profile = {"schemaVersion": 1, "source": "approval.md", "rule": "sample launch identifier",
+                   "mainMenuFiles": [code, "ProjectSettings/EditorBuildSettings.asset"], "enabledScenes": [scene]}
+        (root / "profile.json").write_text(json.dumps(profile), encoding="utf-8")
+        return root, profile, code
+
+    def test_product_profile_is_explicit_and_strict_mode_stays_strict(self):
+        root, _, _ = self.product_fixture()
+        self.assertTrue(any(f.rule == "build-settings" for f in audit_module.audit(root)))
+        self.assertTrue(any(f.rule == "legacy-content" for f in audit_module.audit(root)))
+        profile = audit_module.load_product_profile(root, "profile.json")
+        self.assertEqual([], audit_module.audit(root, profile))
+
+    def test_exception_does_not_hide_samplescene_or_other_patterns(self):
+        root, profile, code = self.product_fixture()
+        (root / code).write_text("MainMenu SampleScene BusinessEntity", encoding="utf-8")
+        findings = audit_module.audit(root, profile)
+        self.assertTrue(any(f.detail == "sample launch identifier" for f in findings))
+        self.assertTrue(any(f.detail == "business runtime type" for f in findings))
+
+    def test_unlisted_file_and_scene_still_fail(self):
+        root, profile, _ = self.product_fixture()
+        (root / "Assets/Game/Scripts/Other.cs").write_text("MainMenu", encoding="utf-8")
+        with (root / "ProjectSettings/EditorBuildSettings.asset").open("a", encoding="utf-8") as stream:
+            stream.write("  - enabled: 1\n    path: Assets/Game/Scene/Other.unity\n")
+        findings = audit_module.audit(root, profile)
+        self.assertTrue(any(f.path.endswith("Other.cs") for f in findings))
+        self.assertTrue(any(f.rule == "build-settings" for f in findings))
+
+    def test_framework_core_cannot_be_allowlisted(self):
+        root, profile, _ = self.product_fixture()
+        core = root / "Assets/Game/ScriptsBuiltin/Core.cs"
+        core.parent.mkdir(parents=True)
+        core.write_text("MainMenu", encoding="utf-8")
+        self.assertTrue(any(f.path.endswith("Core.cs") for f in audit_module.audit(root, profile)))
+        profile["mainMenuFiles"].append("Assets/Game/ScriptsBuiltin/Core.cs")
+        (root / "profile.json").write_text(json.dumps(profile), encoding="utf-8")
+        with self.assertRaises(ValueError): audit_module.load_product_profile(root, "profile.json")
+
+    def test_invalid_and_escaping_profiles_fail_closed(self):
+        root, profile, _ = self.product_fixture()
+        for path in ("../profile.json", "/profile.json", "missing.json", "./profile.json"):
+            with self.assertRaises(ValueError): audit_module.load_product_profile(root, path)
+        for bad in ({}, {**profile, "rule": "all"}, {**profile, "mainMenuFiles": ["../outside.cs"]},
+                    {**profile, "enabledScenes": ["Assets/Game/Scene/Missing.unity"]}):
+            (root / "profile.json").write_text(json.dumps(bad), encoding="utf-8")
+            with self.assertRaises(ValueError): audit_module.load_product_profile(root, "profile.json")
 
 
 if __name__ == "__main__":

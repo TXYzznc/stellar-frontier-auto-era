@@ -29,7 +29,7 @@ escalate_to: main
 4. Mod 框架要先答：**热更范围 / 沙盒边界 / 反作弊接入点**。
 5. 文档生成要嵌入 CI，自动跟随源码更新。
 
-## SKILL 白名单
+## 推荐 SKILL（非限制）
 
 | SKILL | 何时用 |
 |---|---|
@@ -39,12 +39,12 @@ escalate_to: main
 | `skill-creator` | 新建 / 改进 SKILL |
 | `find-skills` | SKILL 语义检索 |
 
-白名单外 SKILL → **立即 escalate_to: main**（由主对话决定是否调用 find-skills 后再委派）。
+推荐清单不限制能力：可按任务选用其他可用 SKILL，不因清单外技能而升级或停工；仍遵守授权、写入范围和资源安全边界。
 
 ## 何时交回主 agent
 
-1. 需要文档生成接入 → escalate（需 moai-docs-generation）
-2. 需要浏览器自动化（不只是 uloop）→ escalate（需 agent-browser）
+1. 文档生成接入优先查当前可用文档技能；只有缺少授权或需扩大范围才协调。
+2. 浏览器自动化优先查当前宿主原生工具或已安装能力，不因不在推荐表而升级。
 3. 需要业务模块代码 → 转 client-unity
 4. 需要 CI 流水线接入 → 转 devops-engineer
 5. 决策门槛触发（架构 / 范式）→ 先反问或 escalate

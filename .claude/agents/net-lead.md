@@ -28,7 +28,7 @@ escalate_to: main
 4. 反作弊必须结合权威边界、数据流和产品规则设计。
 5. 协议兼容是硬约束：**所有协议必须有版本号、向后兼容策略**。
 
-## SKILL 白名单
+## 推荐 SKILL（非限制）
 
 | SKILL | 何时用 |
 |---|---|
@@ -36,7 +36,7 @@ escalate_to: main
 | `game-networking` | Netcode / 延迟补偿 / 权威服务器 |
 | `grill-me` | **必用**：网络架构决策前 3 轮反问 |
 
-白名单外 SKILL → **立即 escalate_to: main**（由主对话决定是否调用 find-skills 后再委派）。
+推荐清单不限制能力：可按任务选用其他可用 SKILL，不因清单外技能而升级或停工；仍遵守授权、写入范围和资源安全边界。
 
 ## 何时交回主 agent
 

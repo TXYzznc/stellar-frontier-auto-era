@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import sys
 from dataclasses import dataclass
@@ -127,7 +128,6 @@ ALLOWED_AGENTS = {
 }
 
 FORBIDDEN_PATHS = {
-    ".agents",
     "Assets/Game/HotfixDlls",
     "Assets/Game/Material",
     "Assets/HybridCLRData",
@@ -221,11 +221,48 @@ def iter_text_files(root: Path):
                 yield path
 
 
-def audit(root: Path) -> list[Finding]:
+def load_product_profile(root: Path, profile_path: str) -> dict:
+    def checked(value: str) -> str:
+        if not isinstance(value, str) or not value or "\\" in value or ":" in value:
+            raise ValueError("profile paths must be canonical repository-relative paths")
+        path = Path(value)
+        if path.is_absolute() or any(p in (".", "..") for p in value.split("/")) or path.as_posix() != value:
+            raise ValueError("invalid profile path: " + value)
+        target = (root / path).resolve()
+        if not target.is_relative_to(root.resolve()) or not target.is_file():
+            raise ValueError("profile path missing or outside repository: " + value)
+        return value
+
+    path = checked(profile_path)
+    data = json.loads((root / path).read_text(encoding="utf-8"))
+    if not isinstance(data, dict) or set(data) != {"schemaVersion", "source", "rule", "mainMenuFiles", "enabledScenes"}:
+        raise ValueError("invalid product profile schema")
+    if type(data["schemaVersion"]) is not int or data["schemaVersion"] != 1 or data["rule"] != "sample launch identifier":
+        raise ValueError("unsupported product profile version/rule")
+    checked(data["source"])
+    for field in ("mainMenuFiles", "enabledScenes"):
+        values = data[field]
+        if not isinstance(values, list) or any(not isinstance(v, str) for v in values) or len(set(values)) != len(values):
+            raise ValueError("invalid or duplicate profile list: " + field)
+        for value in values:
+            checked(value)
+            if field == "enabledScenes":
+                if not value.startswith("Assets/Game/Scene/") or not value.endswith(".unity"):
+                    raise ValueError("scene must be under the scene type root")
+            elif not (value.startswith("Assets/Game/Scripts/") or value == "ProjectSettings/EditorBuildSettings.asset"):
+                raise ValueError("MainMenu exception cannot waive framework core or documentation: " + value)
+    return data
+
+
+def audit(root: Path, product_profile: dict | None = None) -> list[Finding]:
     findings: list[Finding] = []
     skills_root = root / ".claude" / "skills"
     agents_root = root / ".claude" / "agents"
     codex_agents_root = root / ".codex" / "agents"
+    # 标准发现入口仅允许链接到唯一技能源，不允许第二份独立内容。
+    discovery = root / ".agents" / "skills"
+    if discovery.exists() and discovery.resolve() != skills_root.resolve():
+        findings.append(Finding("skill-discovery", ".agents/skills", "must link to .claude/skills"))
 
     for forbidden in sorted(FORBIDDEN_PATHS):
         path = root / forbidden
@@ -354,6 +391,10 @@ def audit(root: Path) -> list[Finding]:
         except (OSError, UnicodeError):
             continue
         for label, pattern in PROHIBITED_PATTERNS.items():
+            if (product_profile is not None and label == "sample launch identifier"
+                    and relative(path, root) in product_profile["mainMenuFiles"]):
+                # Exception is token-specific: SampleScene and all other rules still apply.
+                pattern = re.compile(r"SampleScene", re.IGNORECASE)
             match = pattern.search(text)
             if match:
                 findings.append(Finding("legacy-content", relative(path, root), label))
@@ -368,6 +409,7 @@ def audit(root: Path) -> list[Finding]:
             path.strip()
             for path in enabled_scenes
             if path.strip() != "Assets/Game/Scene/Launch.unity"
+            and (product_profile is None or path.strip() not in product_profile["enabledScenes"])
         ]
         if unsupported_scenes:
             findings.append(
@@ -385,10 +427,18 @@ def audit(root: Path) -> list[Finding]:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parent.parent)
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--strict-framework", action="store_true", help="Explicitly keep all framework restrictions (default).")
+    mode.add_argument("--product-profile", help="Explicit repository-relative product authorization profile.")
     args = parser.parse_args(argv)
     root = args.root.resolve()
 
-    findings = audit(root)
+    try:
+        profile = load_product_profile(root, args.product_profile) if args.product_profile else None
+    except (ValueError, OSError, UnicodeError) as exc:
+        print(f"[FAIL] invalid product profile: {exc}")
+        return 2
+    findings = audit(root, profile)
     if findings:
         print(f"[FAIL] framework purity audit found {len(findings)} issue(s)")
         for item in findings:

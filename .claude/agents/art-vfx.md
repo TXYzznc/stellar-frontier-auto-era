@@ -26,14 +26,14 @@ escalate_to: main
 4. 颜色不要超过 3 种主色 + 1 种强调色。
 5. Loop / One-shot / Trail 三类特效配方不同，不要混。
 
-## SKILL 白名单
+## 推荐 SKILL（非限制）
 
 | SKILL | 何时用 |
 |---|---|
 | `vfx-realtime` | 粒子 / Niagara / VFX Graph / juice |
 | `shader-effects` | 发光/泛光/扭曲/暗角/扫描线/故障（美术配方层） |
 
-白名单外 SKILL → **立即 escalate_to: main**（由主对话决定是否调用 find-skills 后再委派）。
+推荐清单不限制能力：可按任务选用其他可用 SKILL，不因清单外技能而升级或停工；仍遵守授权、写入范围和资源安全边界。
 
 ## 何时交回主 agent
 

@@ -1,8 +1,10 @@
-# Agent ↔ SKILL 白名单
+# Agent ↔ SKILL 推荐清单
 
 `.claude/agents/*.md` 是 agent 配置的唯一来源，`.codex/agents/*.toml`
-由 `python tools/sync-agents.py` 生成。agent 只能调用本表及其
-frontmatter 中登记的 SKILL；需要其它能力时必须交回主对话。
+由 `python tools/sync-agents.py` 生成。本表及 frontmatter 的 skills 都是推荐，不是权限白名单。
+所有角色（包括长期窗口与子Agent）可以按任务选用其他已提供的 SKILL，无需因此请求批准。
+技能选择不扩大任务授权、可写路径、框架核心权限或共享工具占用。未安装能力先检查可用替代，
+不擅自安装软件或启动独立任务。原生能力与插件能力均按当前实际接口使用。
 
 ## 保留门槛
 
@@ -14,7 +16,7 @@ frontmatter 中登记的 SKILL；需要其它能力时必须交回主对话。
 4. 输入、输出和路径必须从任务上下文或配置获得；
 5. 删除 SKILL 时必须同步清理 agent frontmatter、本文和索引。
 
-## 白名单
+## 推荐清单
 
 | Agent | Tier | SKILL |
 |---|---|---|
@@ -36,15 +38,20 @@ frontmatter 中登记的 SKILL；需要其它能力时必须交回主对话。
 | `qa-engineer` | impl | `testing-strategies`, `backend-testing`, `crash-analytics`, `k6` |
 | `tools-engineer` | impl | `unity-editor-scripting`, `unity-skills`, `uloop-execute-dynamic-code`, `skill-creator`, `find-skills` |
 
+## 补充能力推荐
+
+测试角色在 Unity 项目中优先使用当前已提供的 Unity 测试、Console、Debug、验证技能；
+工具角色优先使用当前宿主的 skill-creator；出图优先使用原生 imagegen。
+这些推荐不要求新装同名工具，也不改变每项能力本身的使用条件。
+
 ## 通用交回规则
 
-以下任一条件触发时，agent 必须停止并交回主对话：
+只有缺少下列条件会使下一步无法安全执行时，才请求相应负责人裁决：
 
-- 需要白名单外 SKILL；
-- 出现跨职能决策；
-- 缺少 MCP、权限或必要输入；
-- 任务超出职责边界；
-- 三轮内无法收敛；
-- 触发设计、架构、重构或大型变更门槛。
+- 缺少必要权限、输入或存在无法安全解决的资源冲突；
+- 需要扩大任务范围、改变公共合同或作出未授权的跨职能决策；
+- 重大不可逆决策或框架核心修改缺少明确授权。
 
-主对话负责按需组合能力，不通过扩张常驻白名单来覆盖具体项目需求。
+缺少某个 MCP、达到讨论轮数或需要其他技能本身不是停工条件。先查可用替代并继续已授权的
+安全工作；确需外部动作时实际发送请求、记录阻塞和完成信号，不把本窗口文字当作通知成功。
+本文件的框架技能源库存检查仅维护分发内容，不限制角色调用宿主或插件提供的其他技能。

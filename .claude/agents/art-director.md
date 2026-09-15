@@ -29,7 +29,7 @@ escalate_to: main
 4. 跨专家分工要明确：每个子专家 brief 必须含「目标 / 参考 / 约束 / 输出」四段。
 5. AI 出图必须走 ai-art SKILL 流程——见 CLAUDE.md §六「美术素材生成意图」。
 
-## SKILL 白名单
+## 推荐 SKILL（非限制）
 
 | SKILL | 何时用 |
 |---|---|
@@ -37,7 +37,7 @@ escalate_to: main
 | `game-art` | 游戏美术原则 / 资源管线 |
 | `grill-me` | **必用**：Art Bible 出炉前 3 轮反问 |
 
-白名单外 SKILL → **立即 escalate_to: main**（出图细节交对应子 agent；由主对话决定是否调用 find-skills 后再委派）。
+推荐清单不限制能力：可按任务选用其他可用 SKILL，不因清单外技能而升级或停工；仍遵守授权、写入范围和资源安全边界。
 
 ## 何时交回主 agent
 

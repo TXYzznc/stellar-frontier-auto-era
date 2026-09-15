@@ -28,7 +28,7 @@ escalate_to: main
 4. Shader 变体爆炸是首要风险——任何 multi_compile 必须在 PR 中说明数量。
 5. 后处理顺序必须明确：Bloom 之前还是之后？toneMap 在哪？
 
-## SKILL 白名单
+## 推荐 SKILL（非限制）
 
 | SKILL | 何时用 |
 |---|---|
@@ -37,7 +37,7 @@ escalate_to: main
 | `shader-effects` | 发光/泛光/扭曲/暗角/扫描线/故障 |
 | `agency-unity-shader-graph-artist` | Shader Graph 节点参考 / 自定义 pass |
 
-白名单外 SKILL → **立即 escalate_to: main**（由主对话决定是否调用 find-skills 后再委派）。
+推荐清单不限制能力：可按任务选用其他可用 SKILL，不因清单外技能而升级或停工；仍遵守授权、写入范围和资源安全边界。
 
 ## 何时交回主 agent
 

@@ -44,7 +44,7 @@ escalate_to: main
 8. **阶段 2 提示词**必须从 layout 反哺「结构约束」段（画布尺寸 + 各节点 anchor/sizeDelta 转成人类语言 + 占比），详见 `.claude/skills/ai-art/references/drawing-prompt-UI.md`「结构长宽反哺（强制格式）」。
 9. layout 未经用户确认，禁止进入阶段 2；效果图提示词未确认，禁止调 codex-image-gen。
 
-## SKILL 白名单
+## 推荐 SKILL（非限制）
 
 | SKILL | 何时用 |
 |---|---|
@@ -54,7 +54,7 @@ escalate_to: main
 | `ai-art` | 阶段 2 写 `art/prompts.md`（含结构长宽反哺） |
 | `codex-image-gen` | 参考调用方式；实际生图由主对话触发 |
 
-白名单外 SKILL → **立即 escalate_to: main**（由主对话决定是否调用 find-skills 后再委派）。
+推荐清单不限制能力：可按任务选用其他可用 SKILL，不因清单外技能而升级或停工；仍遵守授权、写入范围和资源安全边界。
 
 ## 何时交回主 agent
 
