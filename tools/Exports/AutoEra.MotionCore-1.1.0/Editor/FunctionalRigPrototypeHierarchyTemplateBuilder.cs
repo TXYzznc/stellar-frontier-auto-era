@@ -10,10 +10,10 @@ namespace AutoEra.Editor.Motion
     /// </summary>
     internal static class FunctionalRigPrototypeHierarchyTemplateBuilder
     {
-        private const string PrefabFolderPath = "Assets/Game/Prefabs/FunctionalPrototypes";
+        private const string PrefabFolderPath = "Assets/Game/Prefabs/Development/MotionRig";
         private const string PrefabPath = PrefabFolderPath + "/FunctionalRigHierarchyTemplate.prefab";
 
-        [MenuItem("AutoEra/Functional Prototypes/Create Hierarchy Template")]
+        [MenuItem("AutoEra/Development/MotionRig/Create Hierarchy Template")]
         private static void CreateHierarchyTemplate()
         {
             if (AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath) != null)
@@ -24,7 +24,12 @@ namespace AutoEra.Editor.Motion
 
             if (!AssetDatabase.IsValidFolder(PrefabFolderPath))
             {
-                AssetDatabase.CreateFolder("Assets/Game/Prefabs", "FunctionalPrototypes");
+                if (!AssetDatabase.IsValidFolder("Assets/Game/Prefabs/Development"))
+                {
+                    AssetDatabase.CreateFolder("Assets/Game/Prefabs", "Development");
+                }
+
+                AssetDatabase.CreateFolder("Assets/Game/Prefabs/Development", "MotionRig");
             }
 
             GameObject root = new GameObject("FPR_HierarchyTemplate");
