@@ -71,6 +71,39 @@ class WindowTaskQueueTests(unittest.TestCase):
         )
         self.assertEqual(resumed["nextActive"]["taskId"], "NORMAL")
 
+    def test_block_yields_and_is_not_automatically_resumed(self):
+        self.enqueue("WAIT", 0)
+        self.run_queue("claim", "--role", "art-concept-3d")
+        self.enqueue("READY", 10)
+        result = self.run_queue("block", "--role", "art-concept-3d", "--task-id", "WAIT",
+                                "--reason", "external decision", "--checkpoint", "saved",
+                                "--resume-when", "decision received", "--claim-next")
+        self.assertEqual(result["nextActive"]["taskId"], "READY")
+        result = self.run_queue("complete", "--role", "art-concept-3d", "--task-id", "READY", "--claim-next")
+        self.assertIsNone(result["nextActive"])
+        self.assertIsNone(self.run_queue("claim", "--role", "art-concept-3d")["active"])
+        result = self.run_queue("unblock", "--role", "art-concept-3d", "--task-id", "WAIT",
+                                "--evidence", "decision recorded", "--claim-next")
+        self.assertEqual(result["active"]["taskId"], "WAIT")
+
+    def test_unblock_never_preempts_active(self):
+        self.enqueue("WAIT")
+        self.run_queue("claim", "--role", "art-concept-3d")
+        self.enqueue("READY")
+        self.run_queue("block", "--role", "art-concept-3d", "--task-id", "WAIT",
+                       "--reason", "dependency", "--checkpoint", "saved", "--resume-when", "ready", "--claim-next")
+        result = self.run_queue("unblock", "--role", "art-concept-3d", "--task-id", "WAIT",
+                                "--evidence", "ready", "--claim-next")
+        self.assertEqual(result["active"]["taskId"], "READY")
+
+    def test_block_requires_checkpoint_and_correct_active(self):
+        self.enqueue("A")
+        self.run_queue("claim", "--role", "art-concept-3d")
+        for task_id, checkpoint in [("A", ""), ("OTHER", "saved")]:
+            self.run_queue("block", "--role", "art-concept-3d", "--task-id", task_id,
+                           "--reason", "dependency", "--checkpoint", checkpoint, "--resume-when", "ready", ok=False)
+        self.assertEqual(self.run_queue("status", "--role", "art-concept-3d")["state"]["active"]["taskId"], "A")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -96,8 +96,10 @@ def find_task(state: dict, task_id: str):
 
 
 def select_next(state: dict):
-    if state["suspended"]:
-        task = state["suspended"].pop()
+    ready_index = next((i for i in range(len(state["suspended"]) - 1, -1, -1)
+                        if state["suspended"][i].get("state") != "blocked"), None)
+    if ready_index is not None:
+        task = state["suspended"].pop(ready_index)
         task["state"] = "active"
         task["resumedAt"] = utc_now()
         return task
@@ -225,6 +227,42 @@ def command_preempt(args):
     mutate(args, action)
 
 
+def command_block(args):
+    if not all(value.strip() for value in (args.reason, args.checkpoint, args.resume_when)):
+        raise RuntimeError("block requires reason, checkpoint and resume-when")
+
+    def action(data):
+        state = role_state(data, args.role)
+        task = state["active"]
+        if not task or task["taskId"] != args.task_id:
+            raise RuntimeError(f"task is not active for role {args.role}: {args.task_id}")
+        task.update(state="blocked", blockedAt=utc_now(), blockReason=args.reason,
+                    checkpoint=args.checkpoint, resumeWhen=args.resume_when)
+        state["suspended"].append(task)
+        state["active"] = select_next(state) if args.claim_next else None
+        return {"ok": True, "blocked": task, "nextActive": state["active"]}
+
+    mutate(args, action)
+
+
+def command_unblock(args):
+    if not args.evidence.strip():
+        raise RuntimeError("unblock requires evidence")
+
+    def action(data):
+        state = role_state(data, args.role)
+        task = next((task for task in state["suspended"]
+                     if task["taskId"] == args.task_id and task.get("state") == "blocked"), None)
+        if task is None:
+            raise RuntimeError(f"task is not blocked for role {args.role}: {args.task_id}")
+        task.update(state="suspended", unblockedAt=utc_now(), unblockEvidence=args.evidence)
+        if args.claim_next and not state["active"]:
+            state["active"] = select_next(state)
+        return {"ok": True, "unblocked": task, "active": state["active"]}
+
+    mutate(args, action)
+
+
 def command_status(args):
     queue_path = Path(args.queue_file).resolve()
     project = args.project or queue_path.parents[2].name
@@ -273,6 +311,22 @@ def build_parser() -> argparse.ArgumentParser:
     preempt_parser.add_argument("--checkpoint", required=True)
     preempt_parser.add_argument("--approved-by", required=True)
     preempt_parser.set_defaults(func=command_preempt)
+
+    block_parser = subparsers.add_parser("block")
+    block_parser.add_argument("--role", required=True)
+    block_parser.add_argument("--task-id", required=True)
+    block_parser.add_argument("--reason", required=True)
+    block_parser.add_argument("--checkpoint", required=True)
+    block_parser.add_argument("--resume-when", required=True)
+    block_parser.add_argument("--claim-next", action="store_true")
+    block_parser.set_defaults(func=command_block)
+
+    unblock_parser = subparsers.add_parser("unblock")
+    unblock_parser.add_argument("--role", required=True)
+    unblock_parser.add_argument("--task-id", required=True)
+    unblock_parser.add_argument("--evidence", required=True)
+    unblock_parser.add_argument("--claim-next", action="store_true")
+    unblock_parser.set_defaults(func=command_unblock)
 
     status_parser = subparsers.add_parser("status")
     status_parser.add_argument("--role")
