@@ -1,0 +1,26 @@
+#	ComponentDefinitions															
+#	Id		ModelId	NameKey	Level	Kind	AddedCapacity	ComputeCapacity	LogicCapacity	HasBehavior	PurchasePrice	RecyclePrice	IdlePower	WorkingPower	Availability	Prefab
+#	int		int	string	int	string	int	int	int	bool	int	int	double	double	string	string
+#	Stable row identifier		ModelId	NameKey	Level	Kind	AddedCapacity	ComputeCapacity	LogicCapacity	HasBehavior	PurchasePrice	RecyclePrice	IdlePower	WorkingPower	Availability	Prefab
+	20011		2001	Component.Core	1	Core	0	50	40	false	700	560	0.3	3	PendingResource	
+	21011		2101	Component.ObjectSensor	1	Sensor	0	0	0	false	400	320	0.2	2	PendingResource	
+	21021		2102	Component.SoilSensor	1	Sensor	0	0	0	false	500	400	0.2	2	PendingResource	
+	21031		2103	Component.ExplorationScanner	1	Sensor	0	0	0	false	800	640	0.5	5	PendingResource	
+	21041		2104	Component.CommReceiver	1	Sensor	0	0	0	false	700	560	0.3	3	PendingResource	
+	22011		2201	Component.Arm	1	Effector	0	0	0	true	700	560	0.5	5	Ready	Machines/MultiJointArm
+	22021		2202	Component.Water	1	Effector	0	0	0	true	600	480	0.5	5	Ready	Machines/WaterCannon
+	22031		2203	Component.Saw	1	Effector	0	0	0	true	700	560	0.7	7	Ready	Machines/RotarySaw
+	22041		2204	Component.Drill	1	Effector	0	0	0	true	800	640	0.8	8	Ready	Machines/RotaryDrill
+	22051		2205	Component.CommTransmitter	1	Effector	0	0	0	false	700	560	0.4	4	PendingResource	
+	22061		2206	Component.Cargo	1	Effector	30	0	0	false	400	320	0	0	Ready	Machines/CargoPod
+	22062		2206	Component.Cargo	2	Effector	36	0	0	false	400	320	0	0	Ready	Machines/CargoPod
+	20012		2001	Component.Core	2	Core	0	75	50	false	700	560	0.4	4	PendingResource	
+	21012		2101	Component.ObjectSensor	2	Sensor	0	0	0	false	400	320	0.2	2	PendingResource	
+	21022		2102	Component.SoilSensor	2	Sensor	0	0	0	false	500	400	0.2	2	PendingResource	
+	21032		2103	Component.ExplorationScanner	2	Sensor	0	0	0	false	800	640	0.5	5	PendingResource	
+	21042		2104	Component.CommReceiver	2	Sensor	0	0	0	false	700	560	0.3	3	PendingResource	
+	22012		2201	Component.Arm	2	Effector	0	0	0	true	700	560	0.6	6	Ready	Machines/MultiJointArm
+	22022		2202	Component.Water	2	Effector	0	0	0	true	600	480	0.6	6	Ready	Machines/WaterCannon
+	22032		2203	Component.Saw	2	Effector	0	0	0	true	700	560	0.8	8.4	Ready	Machines/RotarySaw
+	22042		2204	Component.Drill	2	Effector	0	0	0	true	800	640	1	9.6	Ready	Machines/RotaryDrill
+	22052		2205	Component.CommTransmitter	2	Effector	0	0	0	false	700	560	0.5	4.8	PendingResource	

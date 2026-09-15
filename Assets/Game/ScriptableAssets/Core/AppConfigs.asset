@@ -19,10 +19,21 @@ MonoBehaviour:
   - Core/SoundGroupTable
   - Core/UIGroupTable
   - Core/UITable
-  mConfigs: []
+  - Foundation/StartupMessages
+  - Machines/MachineDefinitions
+  - Machines/ComponentDefinitions
+  - Catalog/FirstVersionObjects
+  - Sensors/SensorDefinitions
+  mConfigs:
+  - Foundation/Runtime
   mLanguages:
   - English
+  - Foundation/Startup
+  - Machines/Hardware
   mProcedures:
   - PreloadProcedure
   - FrameworkReadyProcedure
   - ChangeSceneProcedure
+  - AutoEra.Procedures.AutoEraStartupProcedure
+  - AutoEra.Procedures.AutoEraMainMenuProcedure
+  - AutoEra.Procedures.AutoEraWorldProcedure

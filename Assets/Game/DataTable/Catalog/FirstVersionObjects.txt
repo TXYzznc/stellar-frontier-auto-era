@@ -1,0 +1,44 @@
+#	Resource coverage metadata; ResourceState is art delivery only, never gameplay/configuration readiness. Name is catalog annotation, not runtime localized UI.						
+#	Id		Category	Name	DefinitionModelId	ResourceState	Prefab
+#	int		string	string	int	string	string
+#	Catalog identity		Category	Name	DefinitionModelId	ResourceState	Prefab
+	30001		Resource	金币	0	DataOnly	
+	30002		Resource	木材	0	PendingResource	
+	30003		Resource	矿石	0	PendingResource	
+	30004		Resource	水	0	PendingResource	
+	30005		Resource	生物质	0	PendingResource	
+	30006		Energy	电能	0	DataOnly	
+	30007		Seed	银穗麦种	0	PendingResource	
+	30008		Seed	赤芯芒种	0	PendingResource	
+	30009		Crop	银穗麦	0	PendingResource	
+	30010		Crop	赤芯芒	0	PendingResource	
+	30011		Bundle	银穗麦种子包	0	DataOnly	
+	30012		Bundle	赤芯芒种子包	0	DataOnly	
+	30013		Bundle	人工林作业礼包	0	DataOnly	
+	30014		Bundle	矿山作业礼包	0	DataOnly	
+	30015		Bundle	基础矿石补给包	0	DataOnly	
+	30016		Building	基础仓库	0	DevelopmentProxy	InitialRegion/Warehouse
+	30017		Building	基础制造工坊	0	PendingResource	
+	30018		Building	生物质发电机	0	DevelopmentProxy	InitialRegion/Generator
+	30019		Building	太阳能发电器	0	DevelopmentProxy	InitialRegion/SolarArray
+	30020		Building	基础蓄电池	0	PendingResource	
+	30021		Building	岸边水泵	0	PendingResource	
+	30022		Building	传送带	0	Ready	Buildings/Conveyor
+	30023		ResourcePoint	农田	0	DevelopmentProxy	InitialRegion/Farmland
+	30024		ResourcePoint	人工林	0	DevelopmentProxy	InitialRegion/Forest
+	30025		ResourcePoint	地表矿脉	0	DevelopmentProxy	InitialRegion/MineralVein
+	30026		ResourcePoint	浅层水域	0	DevelopmentProxy	InitialRegion/Water
+	30027		Carrier	通用轮式载体	1001	Ready	Machines/WheeledCarrier
+	30028		Carrier	固定旋转载体	1002	Ready	Machines/FixedRotaryCarrier
+	30029		Core	基础计算核心	2001	PendingResource	
+	30030		Sensor	对象状态传感器	2101	PendingResource	
+	30031		Sensor	基础土壤传感器	2102	PendingResource	
+	30032		Sensor	基础探索扫描器	2103	PendingResource	
+	30033		Sensor	远程通信接收器	2104	PendingResource	
+	30034		Effector	机械臂	2201	Ready	Machines/MultiJointArm
+	30035		Effector	水枪	2202	Ready	Machines/WaterCannon
+	30036		Effector	切割效应器	2203	Ready	Machines/RotarySaw
+	30037		Effector	钻探效应器	2204	Ready	Machines/RotaryDrill
+	30038		Effector	远程通信发射器	2205	PendingResource	
+	30039		Effector	货舱	2206	Ready	Machines/CargoPod
+	30040		Bundle	应急生物质包	0	DataOnly	
