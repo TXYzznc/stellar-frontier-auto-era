@@ -1,4 +1,4 @@
-﻿using AutoEra.Motion;
+using AutoEra.Motion;
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEditor;
@@ -10,16 +10,16 @@ namespace AutoEra.Tests.Editor
     {
         private static readonly KeyValuePair<string, string>[] FormalPreviewPrefabByFamily =
         {
-            new KeyValuePair<string, string>("wheeled_carrier", "Assets/Game/Prefabs/Entity/Machines/Carriers/WheeledCarrier.prefab"),
-            new KeyValuePair<string, string>("four_wheel_module", "Assets/Game/Prefabs/Entity/Machines/Modules/WheelModule.prefab"),
-            new KeyValuePair<string, string>("multi_joint_arm", "Assets/Game/Prefabs/Entity/Machines/Effectors/MultiJointArm.prefab"),
-            new KeyValuePair<string, string>("sliding_door", "Assets/Game/Prefabs/Entity/Buildings/Mechanisms/SlidingDoors/SlidingDoor_D24.prefab"),
-            new KeyValuePair<string, string>("conveyor", "Assets/Game/Prefabs/Entity/Buildings/Logistics/Conveyor.prefab"),
-            new KeyValuePair<string, string>("water_sprayer", "Assets/Game/Prefabs/Entity/Machines/Effectors/WaterCannon.prefab"),
-            new KeyValuePair<string, string>("rotary_saw", "Assets/Game/Prefabs/Entity/Machines/Effectors/RotarySaw.prefab"),
-            new KeyValuePair<string, string>("rotary_drill", "Assets/Game/Prefabs/Entity/Machines/Effectors/RotaryDrill.prefab"),
-            new KeyValuePair<string, string>("cargo_bay", "Assets/Game/Prefabs/Entity/Machines/Modules/CargoPod.prefab"),
-            new KeyValuePair<string, string>("fixed_rotary_carrier", "Assets/Game/Prefabs/Entity/Machines/Carriers/FixedRotaryCarrier.prefab")
+            new KeyValuePair<string, string>("wheeled_carrier", "Assets/Game/Prefabs/Entity/Machines/WheeledCarrier.prefab"),
+            new KeyValuePair<string, string>("four_wheel_module", "Assets/Game/Prefabs/Entity/Machines/WheelModule.prefab"),
+            new KeyValuePair<string, string>("multi_joint_arm", "Assets/Game/Prefabs/Entity/Machines/MultiJointArm.prefab"),
+            new KeyValuePair<string, string>("sliding_door", "Assets/Game/Prefabs/Entity/Buildings/SlidingDoor_D24.prefab"),
+            new KeyValuePair<string, string>("conveyor", "Assets/Game/Prefabs/Entity/Buildings/Conveyor.prefab"),
+            new KeyValuePair<string, string>("water_sprayer", "Assets/Game/Prefabs/Entity/Machines/WaterCannon.prefab"),
+            new KeyValuePair<string, string>("rotary_saw", "Assets/Game/Prefabs/Entity/Machines/RotarySaw.prefab"),
+            new KeyValuePair<string, string>("rotary_drill", "Assets/Game/Prefabs/Entity/Machines/RotaryDrill.prefab"),
+            new KeyValuePair<string, string>("cargo_bay", "Assets/Game/Prefabs/Entity/Machines/CargoPod.prefab"),
+            new KeyValuePair<string, string>("fixed_rotary_carrier", "Assets/Game/Prefabs/Entity/Machines/FixedRotaryCarrier.prefab")
         };
 
         [Test]

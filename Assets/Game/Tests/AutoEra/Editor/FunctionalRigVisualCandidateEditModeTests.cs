@@ -10,7 +10,7 @@ namespace AutoEra.Tests.Editor
         [Test]
         public void FormalEntityVariant_PreservesFunctionalHierarchyAndContractBinding()
         {
-            const string candidatePath = "Assets/Game/Prefabs/Entity/Machines/Carriers/WheeledCarrier.prefab";
+            const string candidatePath = "Assets/Game/Prefabs/Entity/Machines/WheeledCarrier.prefab";
             GameObject candidate = AssetDatabase.LoadAssetAtPath<GameObject>(candidatePath);
             Assert.That(candidate, Is.Not.Null);
 

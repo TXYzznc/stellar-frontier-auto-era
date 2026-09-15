@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using AutoEra.Motion;
 using NUnit.Framework;
 using UnityEditor;
@@ -14,16 +14,16 @@ namespace AutoEra.Tests.Editor
 
         private static readonly KeyValuePair<string, string>[] ExpectedInstances =
         {
-            new KeyValuePair<string, string>("演示_轮式载体", "Assets/Game/Prefabs/Entity/Machines/Carriers/WheeledCarrier.prefab"),
-            new KeyValuePair<string, string>("演示_四轮机构", "Assets/Game/Prefabs/Entity/Machines/Modules/WheelModule.prefab"),
-            new KeyValuePair<string, string>("演示_多关节机械臂", "Assets/Game/Prefabs/Entity/Machines/Effectors/MultiJointArm.prefab"),
-            new KeyValuePair<string, string>("演示_滑动门", "Assets/Game/Prefabs/Entity/Buildings/Mechanisms/SlidingDoors/SlidingDoor_D24.prefab"),
-            new KeyValuePair<string, string>("演示_传送带", "Assets/Game/Prefabs/Entity/Buildings/Logistics/Conveyor.prefab"),
-            new KeyValuePair<string, string>("演示_水枪效应器", "Assets/Game/Prefabs/Entity/Machines/Effectors/WaterCannon.prefab"),
-            new KeyValuePair<string, string>("演示_旋转锯盘效应器", "Assets/Game/Prefabs/Entity/Machines/Effectors/RotarySaw.prefab"),
-            new KeyValuePair<string, string>("演示_旋转钻头效应器", "Assets/Game/Prefabs/Entity/Machines/Effectors/RotaryDrill.prefab"),
-            new KeyValuePair<string, string>("演示_货舱", "Assets/Game/Prefabs/Entity/Machines/Modules/CargoPod.prefab"),
-            new KeyValuePair<string, string>("演示_固定旋转载体", "Assets/Game/Prefabs/Entity/Machines/Carriers/FixedRotaryCarrier.prefab")
+            new KeyValuePair<string, string>("演示_轮式载体", "Assets/Game/Prefabs/Entity/Machines/WheeledCarrier.prefab"),
+            new KeyValuePair<string, string>("演示_四轮机构", "Assets/Game/Prefabs/Entity/Machines/WheelModule.prefab"),
+            new KeyValuePair<string, string>("演示_多关节机械臂", "Assets/Game/Prefabs/Entity/Machines/MultiJointArm.prefab"),
+            new KeyValuePair<string, string>("演示_滑动门", "Assets/Game/Prefabs/Entity/Buildings/SlidingDoor_D24.prefab"),
+            new KeyValuePair<string, string>("演示_传送带", "Assets/Game/Prefabs/Entity/Buildings/Conveyor.prefab"),
+            new KeyValuePair<string, string>("演示_水枪效应器", "Assets/Game/Prefabs/Entity/Machines/WaterCannon.prefab"),
+            new KeyValuePair<string, string>("演示_旋转锯盘效应器", "Assets/Game/Prefabs/Entity/Machines/RotarySaw.prefab"),
+            new KeyValuePair<string, string>("演示_旋转钻头效应器", "Assets/Game/Prefabs/Entity/Machines/RotaryDrill.prefab"),
+            new KeyValuePair<string, string>("演示_货舱", "Assets/Game/Prefabs/Entity/Machines/CargoPod.prefab"),
+            new KeyValuePair<string, string>("演示_固定旋转载体", "Assets/Game/Prefabs/Entity/Machines/FixedRotaryCarrier.prefab")
         };
 
         [Test]

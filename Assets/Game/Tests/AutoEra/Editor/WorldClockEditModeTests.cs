@@ -6,6 +6,44 @@ namespace AutoEra.Tests.Editor
     public sealed class WorldClockEditModeTests
     {
         [Test]
+        public void DifferentPartitionsAndDirectAdvance_AgreeAcrossDayNightBoundaries()
+        {
+            var rules = new WorldDayNightRules(1440000, 960000);
+            foreach (long duration in new long[] { 959999, 960000, 1440000, 2880125 })
+            {
+                var direct = new WorldClock();
+                var partitioned = new WorldClock();
+                Assert.That(direct.TryAdvanceTo(duration), Is.True);
+                long seconds = duration / 1000;
+                for (int i = 0; i < seconds; i++)
+                {
+                    Assert.That(partitioned.TryAdvanceRealtimeSeconds(.125), Is.True);
+                    Assert.That(partitioned.TryAdvanceRealtimeSeconds(.375), Is.True);
+                    Assert.That(partitioned.TryAdvanceRealtimeSeconds(.5), Is.True);
+                }
+                Assert.That(partitioned.TryAdvanceMilliseconds(duration % 1000), Is.True);
+                Assert.That(partitioned.WorldMilliseconds, Is.EqualTo(direct.WorldMilliseconds));
+                Assert.That(rules.GetPhase(partitioned.WorldMilliseconds), Is.EqualTo(rules.GetPhase(direct.WorldMilliseconds)));
+            }
+        }
+
+        [Test]
+        public void DevelopmentMultiplier_RejectsInvalidInputsWithoutMutation()
+        {
+            var clock = new WorldClock(10);
+            Assert.That(clock.TryAdvanceDevelopmentRealtimeSeconds(.25, 2), Is.True);
+            Assert.That(clock.WorldMilliseconds, Is.EqualTo(510));
+            Assert.That(clock.TryAdvanceDevelopmentRealtimeSeconds(1, 0), Is.True);
+            foreach (double invalid in new[] { -1d, double.NaN, double.PositiveInfinity })
+            {
+                Assert.That(clock.TryAdvanceDevelopmentRealtimeSeconds(1, invalid), Is.False);
+                Assert.That(clock.TryAdvanceDevelopmentRealtimeSeconds(invalid, 0), Is.False);
+            }
+            Assert.That(clock.TryAdvanceDevelopmentRealtimeSeconds(double.MaxValue, 2), Is.False);
+            Assert.That(clock.WorldMilliseconds, Is.EqualTo(510));
+            Assert.That(clock.FractionalMilliseconds, Is.Zero);
+        }
+        [Test]
         public void RealtimeFramePartitions_ProduceTheSameWholeMilliseconds()
         {
             var wholeSecond = new WorldClock();
