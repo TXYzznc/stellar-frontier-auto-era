@@ -1,0 +1,17 @@
+{
+  "_comment": "AutoEra 图片上传本地预处理代理配置。改完只需重启代理进程生效。",
+  "listen_host": "127.0.0.1",
+  "listen_port": 15722,
+  "upstream": "http://127.0.0.1:15721",
+  "max_edge": 1280,
+  "quality": 85,
+  "min_quality": 62,
+  "max_bytes": 350000,
+  "min_bytes": 150000,
+  "min_edge": 640,
+  "cache_entries": 64,
+  "log_file": "logs/img_proxy.log",
+  "guard_codex_config": "C:/Users/WIN10/.codex/config.toml",
+  "guard_target_base_url": "http://127.0.0.1:15722/v1",
+  "guard_interval": 3
+}
