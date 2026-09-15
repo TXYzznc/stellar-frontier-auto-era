@@ -17,6 +17,7 @@ namespace AutoEra.World
             IdAllocator = idAllocator ?? throw new ArgumentNullException(nameof(idAllocator));
             ObjectRegistry = objectRegistry ?? throw new ArgumentNullException(nameof(objectRegistry));
             Clock = clock ?? throw new ArgumentNullException(nameof(clock));
+            Machines = new AutoEra.Machines.MachineRoster(IdAllocator, ObjectRegistry);
         }
 
         public PersistentIdAllocator IdAllocator { get; }
@@ -24,6 +25,7 @@ namespace AutoEra.World
         public PersistentObjectRegistry ObjectRegistry { get; }
 
         public WorldClock Clock { get; }
+        public AutoEra.Machines.MachineRoster Machines { get; }
 
         public bool IsActive => !_isDisposed;
 
@@ -35,6 +37,7 @@ namespace AutoEra.World
             }
 
             _isDisposed = true;
+            Machines.Dispose();
             ObjectRegistry.Clear();
         }
     }

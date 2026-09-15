@@ -17,6 +17,48 @@ namespace UGF.EditorTools
         static bool isInitialized = false;
         static AppConfigs appConfigs = null;
         static readonly List<FileSystemWatcher> excelWatchers = new List<FileSystemWatcher>();
+        private static readonly object EventGate = new object();
+        private static readonly Dictionary<string,string> CommittedVersions = new Dictionary<string,string>(StringComparer.OrdinalIgnoreCase);
+
+        public static void RecordCommittedVersion(string path, string fingerprint)
+        {
+            if (!string.Equals(Path.GetExtension(path), ".xlsx", StringComparison.OrdinalIgnoreCase)) return;
+            lock (EventGate) CommittedVersions[Path.GetFullPath(path)] = fingerprint;
+        }
+
+        public static bool IsCommittedVersion(string path, string fingerprint)
+        {
+            lock (EventGate) return CommittedVersions.TryGetValue(Path.GetFullPath(path),out var recorded) && recorded == fingerprint;
+        }
+
+        private static IList<string> Drain(IList<string> pending)
+        {
+            string[] snapshot;
+            lock (EventGate) { snapshot = new List<string>(pending).ToArray(); pending.Clear(); }
+            var result = new List<string>();
+            foreach (string path in snapshot)
+            {
+                try
+                {
+                    if (!File.Exists(path))
+                    {
+                        Debug.Log("[GameData][Watch] Source deleted; no stale output regeneration: " + path);
+                        continue;
+                    }
+                    if (IsCommittedVersion(path, AIDataSyncPipeline.ComputeFileFingerprint(path))) continue;
+                    if (!result.Contains(path)) result.Add(path);
+                }
+                catch (IOException) { lock (EventGate) pending.Add(path); }
+            }
+            return result;
+        }
+
+        private static void DisposeWatchers()
+        {
+            foreach (var watcher in excelWatchers) watcher.Dispose();
+            excelWatchers.Clear();
+            EditorApplication.update -= OnUpdate;
+        }
         [InitializeOnLoadMethod]
         private static void Init()
         {
@@ -28,19 +70,21 @@ namespace UGF.EditorTools
             EditorApplication.update -= OnUpdate;
             EditorApplication.update += OnUpdate;
             excelWatchers.Clear();
+            AssemblyReloadEvents.beforeAssemblyReload -= DisposeWatchers;
+            AssemblyReloadEvents.beforeAssemblyReload += DisposeWatchers;
             AddExcelWatcher(CreateExcelWatcher(
                 ConstEditor.DataTableExcelPath,
-                NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName,
+                NotifyFilters.LastWrite | NotifyFilters.FileName,
                 OnDataTableChanged,
                 "DataTable"));
             AddExcelWatcher(CreateExcelWatcher(
                 ConstEditor.ConfigExcelPath,
-                NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName,
+                NotifyFilters.LastWrite | NotifyFilters.FileName,
                 OnConfigChanged,
                 "Config"));
             AddExcelWatcher(CreateExcelWatcher(
                 ConstEditor.LanguageExcelPath,
-                NotifyFilters.LastAccess | NotifyFilters.LastWrite,
+                NotifyFilters.LastWrite | NotifyFilters.FileName,
                 OnLanguageChanged,
                 "Language"));
             appConfigs = AppConfigs.GetInstanceEditor();
@@ -79,6 +123,8 @@ namespace UGF.EditorTools
             };
             watcher.Changed += handler;
             watcher.Deleted += handler;
+            watcher.Created += handler;
+            watcher.Renamed += (sender,args) => handler(sender,args);
             return watcher;
         }
         static void InitGlobalCulture()
@@ -90,10 +136,13 @@ namespace UGF.EditorTools
         {
             if (!isInitialized) return;
 
-            if (tableFileChangedList.Count > 0)
+            var tableChanges = Drain(tableFileChangedList);
+            var configChanges = Drain(configFileChangedList);
+            var languageChanges = Drain(languageFileChangedList);
+            if (tableChanges.Count > 0)
             {
-                var changedFiles = GetMainExcelFiles(GameDataType.DataTable, appConfigs.DataTables, tableFileChangedList);
-                GameDataGenerator.RefreshAllDataTable(changedFiles);
+                var changedFiles = GetMainExcelFiles(GameDataType.DataTable, appConfigs.DataTables, tableChanges);
+                if (changedFiles.Count > 0) GameDataGenerator.RefreshAllDataTable(changedFiles);
                 if (changedFiles.Contains(ConstEditor.UITableExcelFullPath))
                 {
                     GameDataGenerator.GenerateUIFormNamesScript();
@@ -109,27 +158,24 @@ namespace UGF.EditorTools
                 {
                     GFBuiltin.Log($"-----------------自动刷新DataTable:{item}-----------------");
                 }
-                tableFileChangedList.Clear();
             }
-            if (configFileChangedList.Count > 0)
+            if (configChanges.Count > 0)
             {
-                var changedFiles = GetMainExcelFiles(GameDataType.Config, appConfigs.Configs, configFileChangedList);
-                GameDataGenerator.RefreshAllConfig(changedFiles);
+                var changedFiles = GetMainExcelFiles(GameDataType.Config, appConfigs.Configs, configChanges);
+                if (changedFiles.Count > 0) GameDataGenerator.RefreshAllConfig(changedFiles);
                 foreach (var item in changedFiles)
                 {
                     GFBuiltin.Log($"-----------------自动刷新Config:{item}-----------------");
                 }
-                configFileChangedList.Clear();
             }
-            if (languageFileChangedList.Count > 0)
+            if (languageChanges.Count > 0)
             {
-                var changedFiles = GetMainExcelFiles(GameDataType.Language, appConfigs.Languages, languageFileChangedList);
-                GameDataGenerator.RefreshAllLanguage(changedFiles);
+                var changedFiles = GetMainExcelFiles(GameDataType.Language, appConfigs.Languages, languageChanges);
+                if (changedFiles.Count > 0) GameDataGenerator.RefreshAllLanguage(changedFiles);
                 foreach (var item in changedFiles)
                 {
                     GFBuiltin.Log($"-----------------自动刷新Language:{item}-----------------");
                 }
-                languageFileChangedList.Clear();
             }
         }
         /// <summary>
@@ -165,7 +211,7 @@ namespace UGF.EditorTools
             var fName = Path.GetFileNameWithoutExtension(e.Name);
             if (!fName.StartsWith("~$"))
             {
-                configFileChangedList.Add(e.FullPath);
+                lock (EventGate) configFileChangedList.Add(e.FullPath);
             }
         }
         private static void OnDataTableChanged(object sender, FileSystemEventArgs e)
@@ -173,7 +219,7 @@ namespace UGF.EditorTools
             var fName = Path.GetFileNameWithoutExtension(e.Name);
             if (!fName.StartsWith("~$"))
             {
-                tableFileChangedList.Add(e.FullPath);
+                lock (EventGate) tableFileChangedList.Add(e.FullPath);
             }
         }
 
@@ -182,7 +228,7 @@ namespace UGF.EditorTools
             var fName = Path.GetFileNameWithoutExtension(e.Name);
             if (!fName.StartsWith("~$"))
             {
-                languageFileChangedList.Add(e.FullPath);
+                lock (EventGate) languageFileChangedList.Add(e.FullPath);
             }
         }
     }

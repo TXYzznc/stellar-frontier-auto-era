@@ -238,10 +238,7 @@ namespace UGF.EditorTools
 
             EditorUtility.ClearProgressBar();
 
-            if (writeGeneratedFiles)
-            {
-                RefreshSpecialGeneratedScripts(importedRelativePaths);
-            }
+            // Special generated scripts are committed inside each controlled table transaction.
 
             report.RefreshSummary();
             return report;
@@ -340,12 +337,14 @@ namespace UGF.EditorTools
 
         private static bool TryImportAIJson(string jsonFile, bool syncExcel, bool writeGeneratedFiles, AIDataTableReportItem item, out string relativePath)
         {
+            string jsonBaseline = AIDataSyncPipeline.ComputeFileFingerprint(jsonFile);
             if (!TryBuildRowsFromAIJson(jsonFile, item, out relativePath, out var rows, out var manifest))
             {
                 return false;
             }
 
             string excelFile = GameDataGenerator.GameDataExcelRelative2FullPath(GameDataType.DataTable, relativePath);
+            string excelBaseline = AIDataSyncPipeline.ComputeFileFingerprint(excelFile);
             if (syncExcel && File.Exists(excelFile))
             {
                 if (!TryCreateManifestFromExcel(excelFile, item, out var currentManifest))
@@ -359,40 +358,108 @@ namespace UGF.EditorTools
                 }
             }
 
-            string outputTxtFile;
-            if (writeGeneratedFiles)
+            string stage = Path.Combine(GetValidateTempPath(), Guid.NewGuid().ToString("N"));
+            Directory.CreateDirectory(stage);
+            string temporaryExcel = null;
+            try
             {
-                outputTxtFile = GameDataGenerator.GetGameDataExcelOutputFile(GameDataType.DataTable, excelFile);
-                EnsureFileDirectory(outputTxtFile);
-                File.WriteAllText(outputTxtFile, RowsToText(rows), Utf8NoBom);
-                item.outputFile = outputTxtFile;
+                string text = Path.Combine(stage, Path.GetFileName(relativePath) + ".txt");
+                File.WriteAllText(text, RowsToText(rows), Utf8NoBom);
+                var processor = DataTableGenerator.CreateDataTableProcessor(text);
+                if (!DataTableGenerator.CheckRawData(processor, text))
+                { item.errors.Add("Raw table validation failed."); return false; }
+                // Text-mode loading still requires every typed cell to be parseable.
+                // Validate with the existing serializer in Temp; publish bytes only when configured.
+                string binary = Path.ChangeExtension(text, ".bytes");
+                if (!processor.GenerateDataFile(binary))
+                { item.errors.Add("Typed table value validation failed."); return false; }
+                if (!syncExcel && !writeGeneratedFiles) return true;
+                var replacements = new List<AIDataFileReplacement>();
+                var dependencies = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                var appConfig = AppConfigs.GetInstanceEditor();
+                if (writeGeneratedFiles)
+                {
+                    string output = GameDataGenerator.GetGameDataExcelOutputFile(GameDataType.DataTable, excelFile);
+                    replacements.Add(PrepareReplacement(text, output));
+                    if (appConfig != null && appConfig.LoadFromBytes)
+                    {
+                        var replacement = PrepareReplacement(binary, Path.ChangeExtension(output, ".bytes"));
+                        replacements.Add(replacement);
+                    }
+                    if (ShouldGenerateCode(relativePath, appConfig))
+                    {
+                        string code = Path.Combine(stage, "row.cs");
+                        var replacement = PrepareReplacement(code, DataTableGenerator.GetCodeOutputFile(relativePath));
+                        if (!DataTableGenerator.GenerateCodeFile(processor, relativePath, code)) throw new InvalidOperationException("Code generation failed.");
+                        replacements.Add(replacement);
+                    }
+                    item.outputFile = output;
+                }
+                // Stage workbook even for special-script generation; no formal workbook is changed yet.
+                if (!AIDataSyncPipeline.TryBuildTemporaryExcel(rows, out temporaryExcel, out string error)) throw new InvalidOperationException(error);
+                if (syncExcel)
+                {
+                    replacements.Add(new AIDataFileReplacement { sourceFile = temporaryExcel, destinationFile = excelFile, expectedDestinationFingerprint = excelBaseline });
+                    manifest.sourceFingerprint = AIDataSyncPipeline.ComputeLogicalFingerprint(rows);
+                    manifest.sourceExcel = ToProjectRelativePath(excelFile);
+                    string stagedJson = Path.Combine(stage, "manifest.json");
+                    File.WriteAllText(stagedJson, JsonConvert.SerializeObject(manifest, Formatting.Indented), Utf8NoBom);
+                    replacements.Add(new AIDataFileReplacement { sourceFile = stagedJson, destinationFile = jsonFile, expectedDestinationFingerprint = jsonBaseline });
+                }
+                else
+                {
+                    dependencies.Add(jsonFile, jsonBaseline);
+                    dependencies.Add(excelFile, excelBaseline);
+                }
+                if (writeGeneratedFiles) StageSpecialScripts(relativePath, temporaryExcel, stage, replacements, dependencies);
+                var report = new AIDataSyncReportItem();
+                bool success = AIDataSyncPipeline.ReplaceFilesTransactionally(replacements, report, dependencies);
+                item.errors.AddRange(report.errors);
+                item.warnings.AddRange(report.warnings);
+                return success;
             }
-            else
+            finally
             {
-                outputTxtFile = UtilityBuiltin.AssetsPath.GetCombinePath(GetValidateTempPath(), relativePath + ".txt");
-                EnsureFileDirectory(outputTxtFile);
-                File.WriteAllText(outputTxtFile, RowsToText(rows), Utf8NoBom);
-                item.outputFile = outputTxtFile;
+                if (temporaryExcel != null && File.Exists(temporaryExcel)) File.Delete(temporaryExcel);
+                Directory.Delete(stage, true);
             }
+        }
 
-            if (!TryValidateAndGenerateDataTable(outputTxtFile, relativePath, writeGeneratedFiles, item))
-            {
-                return false;
-            }
+        private static AIDataFileReplacement PrepareReplacement(string source, string destination)
+        {
+            return new AIDataFileReplacement { sourceFile = source, destinationFile = destination,
+                expectedDestinationFingerprint = AIDataSyncPipeline.ComputeFileFingerprint(destination) };
+        }
 
-            if (syncExcel)
+        private static void StageSpecialScripts(string relative, string workbook, string stage,
+            List<AIDataFileReplacement> replacements, Dictionary<string, string> dependencies)
+        {
+            if (relative == "Core/UITable")
             {
-                WriteExcelFileWithBackup(excelFile, relativePath, rows, item);
-                RefreshManifestAfterExcelSync(jsonFile, manifest, excelFile, item);
-                item.sourceFile = excelFile;
+                string code = Path.Combine(stage, "UIViews.cs");
+                var replacement = PrepareReplacement(code, ConstEditor.UIViewScriptFile);
+                GameDataGenerator.GenerateUIFormNamesScript(workbook, code);
+                replacements.Add(replacement);
             }
-
-            if (!writeGeneratedFiles && File.Exists(outputTxtFile))
+            if (relative != "Core/EntityGroupTable" && relative != "Core/UIGroupTable" && relative != "Core/SoundGroupTable") return;
+            foreach (string name in new[] { ConstEditor.EntityGroupTableExcel, ConstEditor.UIGroupTableExcel, ConstEditor.SoundGroupTableExcel })
             {
-                File.Delete(outputTxtFile);
+                string snapshot = Path.Combine(stage, name);
+                EnsureFileDirectory(snapshot);
+                string source = Path.Combine(ConstEditor.DataTableExcelPath, name);
+                if (Path.ChangeExtension(name, null).Replace('\\', '/') == relative) File.Copy(workbook, snapshot);
+                else
+                {
+                    string baseline = AIDataSyncPipeline.ComputeFileFingerprint(source);
+                    File.Copy(source, snapshot);
+                    if (AIDataSyncPipeline.ComputeFileFingerprint(snapshot) != baseline) throw new IOException("Group dependency changed during snapshot.");
+                    dependencies.Add(source, baseline);
+                }
             }
-
-            return true;
+            string groupCode = Path.Combine(stage, "groups.cs");
+            var groupReplacement = PrepareReplacement(groupCode, ConstEditor.ConstGroupScriptFileFullName);
+            GameDataGenerator.GenerateGroupEnumScript(stage, groupCode);
+            replacements.Add(groupReplacement);
         }
 
         private static bool TryBuildRowsFromAIJson(string jsonFile, AIDataTableReportItem item, out string relativePath, out List<string[]> rows, out AIDataTableManifest manifest)
@@ -475,12 +542,12 @@ namespace UGF.EditorTools
         {
             if (manifest.schemaVersion != SchemaVersion)
             {
-                item.warnings.Add($"Schema version is {manifest.schemaVersion}, expected {SchemaVersion}.");
+                item.errors.Add($"Schema version is {manifest.schemaVersion}, expected {SchemaVersion}.");
             }
 
             if (!string.Equals(manifest.kind, ManifestKind, StringComparison.Ordinal))
             {
-                item.warnings.Add($"Manifest kind is '{manifest.kind}', expected '{ManifestKind}'.");
+                item.errors.Add($"Manifest kind is '{manifest.kind}', expected '{ManifestKind}'.");
             }
 
             if (manifest.columns == null || manifest.columns.Count == 0)
@@ -525,7 +592,7 @@ namespace UGF.EditorTools
                 item.errors.Add("DataTable must keep the Id column at Excel column 2.");
             }
 
-            var ids = new HashSet<string>(StringComparer.Ordinal);
+            var ids = new HashSet<int>();
             foreach (var row in manifest.rows)
             {
                 if (row == null || !row.enabled)
@@ -540,7 +607,12 @@ namespace UGF.EditorTools
                     continue;
                 }
 
-                if (!ids.Add(id))
+                if (!int.TryParse(id, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out int numericId))
+                {
+                    item.errors.Add($"Invalid integer Id '{id}'. Json={jsonFile}, Row={row.row}");
+                    continue;
+                }
+                if (!ids.Add(numericId))
                 {
                     item.errors.Add($"Duplicate Id '{id}'. Json={jsonFile}, Row={row.row}");
                 }

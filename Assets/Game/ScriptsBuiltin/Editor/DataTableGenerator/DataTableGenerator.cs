@@ -54,9 +54,6 @@ namespace GameFramework.Editor.DataTableTools
         }
         public static void GenerateCodeFile(DataTableProcessor dataTableProcessor, string dataTableFile)
         {
-            dataTableProcessor.SetCodeTemplate(ConstEditor.DataTableCodeTemplate, Encoding.UTF8);
-            dataTableProcessor.SetCodeGenerator(DataTableCodeGenerator);
-
             var outputDir = Path.GetDirectoryName(dataTableFile);
             var outputName = Path.GetFileNameWithoutExtension(dataTableFile);
             outputName = outputName.Split('_')[0];
@@ -64,22 +61,32 @@ namespace GameFramework.Editor.DataTableTools
             string tbFileName = UtilityBuiltin.AssetsPath.GetCombinePath(outputDir, outputName + outputExt);
             var dataTableName = GameDataGenerator.GetGameDataRelativeName(tbFileName, ConstEditor.DataTablePath);
 
+            string csharpCodeFileName = GetCodeOutputFile(dataTableName);
+            if (!GenerateCodeFile(dataTableProcessor, dataTableName, csharpCodeFileName))
+                GFBuiltin.LogError(Utility.Text.Format("生成{0}数据表结构代码失败:{1}", dataTableName, csharpCodeFileName));
+        }
+
+        public static string GetCodeOutputFile(string dataTableName)
+        {
+            if (!AIDataSyncPipeline.TryNormalizeRelativePath(dataTableName,out dataTableName,out string error)) throw new ArgumentException(error);
             string codeOutputRoot = ConstEditor.DataTableCodePath;
             string codeRelativePath = dataTableName;
-            string namespaceName = null;
             if (GameDataGenerator.TryGetDataTableCodeGenerationProfile(dataTableName, out GameDataGenerator.DataTableCodeGenerationProfile profile))
             {
                 codeOutputRoot = profile.CodeOutputRoot;
                 codeRelativePath = GameDataGenerator.GetDataTableCodeOutputRelativePath(dataTableName, profile);
-                namespaceName = profile.Namespace;
             }
 
-            string csharpCodeFileName = Utility.Path.GetRegularPath(Path.Combine(codeOutputRoot, codeRelativePath + ".cs"));
-            string dataTableClassName = Path.GetFileNameWithoutExtension(dataTableFile).Split('_')[0];
-            if (!dataTableProcessor.GenerateCodeFile(csharpCodeFileName, Encoding.UTF8, new DataTableCodeGenerationContext(dataTableClassName, namespaceName)))
-            {
-                GFBuiltin.LogError(Utility.Text.Format("生成{0}数据表结构代码失败:{1}", dataTableName, csharpCodeFileName));
-            }
+            return Utility.Path.GetRegularPath(Path.Combine(codeOutputRoot, codeRelativePath + ".cs"));
+        }
+
+        public static bool GenerateCodeFile(DataTableProcessor processor, string logicalTableName, string outputFile)
+        {
+            processor.SetCodeTemplate(ConstEditor.DataTableCodeTemplate, Encoding.UTF8);
+            processor.SetCodeGenerator(DataTableCodeGenerator);
+            string namespaceName = GameDataGenerator.TryGetDataTableCodeGenerationProfile(logicalTableName, out var profile) ? profile.Namespace : null;
+            string className = Path.GetFileNameWithoutExtension(logicalTableName).Split('_')[0];
+            return processor.GenerateCodeFile(outputFile, Encoding.UTF8, new DataTableCodeGenerationContext(className, namespaceName));
         }
 
         private static void DataTableCodeGenerator(DataTableProcessor dataTableProcessor, StringBuilder codeContent, object userData)

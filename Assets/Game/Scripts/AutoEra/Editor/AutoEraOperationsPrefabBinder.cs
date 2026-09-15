@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using TMPro;
 using AutoEra.UI;
 using UnityEditor;
@@ -13,7 +13,7 @@ namespace AutoEra.Editor
     {
         private const string HubPrefabPath = "Assets/Game/Prefabs/UI/Operations/BaseCommandHubForm.prefab";
         private const string HudPrefabPath = "Assets/Game/Prefabs/UI/Operations/FieldHudForm.prefab";
-        private const string OperationsFontAssetPath = "Assets/Game/Fonts/UI/Operations/AlibabaPuHuiTi-3-85-Bold SDF.asset";
+        private const string OperationsFontAssetPath = "Assets/Game/Fonts/UI/SIMHEI SDF.asset";
         private static readonly AutoEraHubPage[] Pages =
         {
             AutoEraHubPage.Overview,

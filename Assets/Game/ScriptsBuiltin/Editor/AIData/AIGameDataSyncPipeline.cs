@@ -146,7 +146,8 @@ namespace UGF.EditorTools
             return true;
         }
 
-        public static bool ReplaceFilesTransactionally(IList<AIDataFileReplacement> replacements, AIDataSyncReportItem report)
+        public static bool ReplaceFilesTransactionally(IList<AIDataFileReplacement> replacements, AIDataSyncReportItem report,
+            IDictionary<string, string> readDependencies = null, Action<string, bool> writeCheckpoint = null)
         {
             if (replacements == null || replacements.Count == 0)
             {
@@ -157,8 +158,43 @@ namespace UGF.EditorTools
             string projectRoot = Directory.GetParent(Application.dataPath).FullName;
             string backupRoot = Path.Combine(projectRoot, "Temp", "AIDataSyncBackups", Guid.NewGuid().ToString("N"));
             var completed = new List<AIDataFileReplacement>();
+            var lockedTargets = new Dictionary<AIDataFileReplacement, FileStream>();
+            var existedTargets = new HashSet<AIDataFileReplacement>();
+            var readLocks = new List<FileStream>();
+            bool preserveBackups = false;
             try
             {
+                if (readDependencies != null)
+                {
+                    foreach (var dependency in readDependencies)
+                    {
+                        if (dependency.Value == string.Empty)
+                        {
+                            if (File.Exists(dependency.Key)) throw new IOException("Read dependency appeared after staging: " + dependency.Key);
+                            continue;
+                        }
+                        var input = new FileStream(dependency.Key, FileMode.Open, FileAccess.Read, FileShare.Read);
+                        readLocks.Add(input);
+                        using (var hash = SHA256.Create())
+                            if (BitConverter.ToString(hash.ComputeHash(input)).Replace("-", string.Empty) != dependency.Value)
+                                throw new IOException("Read dependency changed after staging: " + dependency.Key);
+                    }
+                }
+                var destinations = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                foreach (AIDataFileReplacement replacement in replacements)
+                {
+                    if (replacement == null || string.IsNullOrWhiteSpace(replacement.sourceFile) ||
+                        string.IsNullOrWhiteSpace(replacement.destinationFile) || !File.Exists(replacement.sourceFile))
+                        throw new InvalidOperationException("Every staged replacement must exist before committing.");
+                    if (!destinations.Add(Path.GetFullPath(replacement.destinationFile)))
+                        throw new InvalidOperationException("Duplicate transaction destination.");
+                    if (string.Equals(Path.GetFullPath(replacement.sourceFile), Path.GetFullPath(replacement.destinationFile), StringComparison.OrdinalIgnoreCase))
+                        throw new InvalidOperationException("Staged source must differ from destination.");
+                    replacement.backupFile = null;
+                    if (replacement.expectedDestinationFingerprint != null &&
+                        replacement.expectedDestinationFingerprint != ComputeFileFingerprint(replacement.destinationFile))
+                        throw new IOException("Destination changed after staging: " + replacement.destinationFile);
+                }
                 foreach (AIDataFileReplacement replacement in replacements)
                 {
                     if (replacement == null || string.IsNullOrWhiteSpace(replacement.sourceFile) || string.IsNullOrWhiteSpace(replacement.destinationFile))
@@ -173,19 +209,43 @@ namespace UGF.EditorTools
 
                     string destinationDirectory = Path.GetDirectoryName(replacement.destinationFile);
                     Directory.CreateDirectory(destinationDirectory);
-                    if (File.Exists(replacement.destinationFile))
+                    bool existed = File.Exists(replacement.destinationFile);
+                    var target = new FileStream(replacement.destinationFile, existed ? FileMode.Open : FileMode.CreateNew,
+                        FileAccess.ReadWrite, FileShare.None);
+                    lockedTargets.Add(replacement, target);
+                    if (existed) existedTargets.Add(replacement);
+                    if (replacement.expectedDestinationFingerprint != null)
+                    {
+                        string actual;
+                        using (var hash = SHA256.Create())
+                            actual = existed ? BitConverter.ToString(hash.ComputeHash(target)).Replace("-", string.Empty) : string.Empty;
+                        target.Position = 0;
+                        if (actual != replacement.expectedDestinationFingerprint)
+                            throw new IOException("Destination changed before exclusive commit: " + replacement.destinationFile);
+                    }
+                    if (existed)
                     {
                         string backupFile = Path.Combine(backupRoot, completed.Count.ToString("D4") + ".bak");
                         Directory.CreateDirectory(backupRoot);
-                        File.Copy(replacement.destinationFile, backupFile, true);
+                        using (var backup = File.Create(backupFile)) target.CopyTo(backup);
+                        target.Position = 0;
                         replacement.backupFile = backupFile;
                     }
 
-                    File.Copy(replacement.sourceFile, replacement.destinationFile, true);
                     completed.Add(replacement);
+                    using (var source = File.OpenRead(replacement.sourceFile))
+                    {
+                        target.SetLength(0);
+                        // Scoped fault-injection seam for transaction tests; no global mutable hook.
+                        writeCheckpoint?.Invoke(replacement.destinationFile, false);
+                        source.CopyTo(target);
+                        target.Flush(true);
+                    }
                 }
 
                 report.rollbackSucceeded = true;
+                foreach (var replacement in replacements)
+                    DataTableUpdater.RecordCommittedVersion(replacement.destinationFile, ComputeFileFingerprint(replacement.sourceFile));
                 return true;
             }
             catch (Exception exception)
@@ -197,28 +257,47 @@ namespace UGF.EditorTools
                     try
                     {
                         AIDataFileReplacement replacement = completed[i];
+                        writeCheckpoint?.Invoke(replacement.destinationFile, true);
                         if (string.IsNullOrWhiteSpace(replacement.backupFile))
                         {
+                            lockedTargets[replacement].Dispose();
                             File.Delete(replacement.destinationFile);
                         }
                         else
                         {
-                            File.Copy(replacement.backupFile, replacement.destinationFile, true);
+                            var target = lockedTargets[replacement];
+                            target.Position = 0;
+                            target.SetLength(0);
+                            using (var backup = File.OpenRead(replacement.backupFile)) backup.CopyTo(target);
+                            target.Flush(true);
                         }
                     }
                     catch (Exception rollbackException)
                     {
                         rollbackSucceeded = false;
+                        preserveBackups = true;
                         report.errors.Add($"Rollback failed: {rollbackException.Message}");
                     }
                 }
 
                 report.rollbackSucceeded = rollbackSucceeded;
+                if (preserveBackups)
+                    report.errors.Add("Recovery backups retained at: " + backupRoot);
                 return false;
             }
             finally
             {
-                if (Directory.Exists(backupRoot))
+                foreach (var input in readLocks) input.Dispose();
+                foreach (var pair in lockedTargets)
+                {
+                    pair.Value.Dispose();
+                    if (!completed.Contains(pair.Key) && !existedTargets.Contains(pair.Key))
+                    {
+                        try { File.Delete(pair.Key.destinationFile); }
+                        catch (Exception cleanupException) { report.warnings.Add(cleanupException.Message); }
+                    }
+                }
+                if (!preserveBackups && Directory.Exists(backupRoot))
                 {
                     try
                     {
@@ -230,6 +309,15 @@ namespace UGF.EditorTools
                     }
                 }
             }
+        }
+
+        // Empty string represents a missing file, not an empty existing file.
+        public static string ComputeFileFingerprint(string path)
+        {
+            if (!File.Exists(path)) return string.Empty;
+            using (var hash = SHA256.Create())
+            using (var stream = File.OpenRead(path))
+                return BitConverter.ToString(hash.ComputeHash(stream)).Replace("-", string.Empty);
         }
 
         public static bool TryBuildTemporaryExcel(IList<string[]> rows, out string temporaryFile, out string error)
@@ -273,6 +361,20 @@ namespace UGF.EditorTools
             }
         }
 
+        public static string ComputeWorksheetFingerprint(IList<string[]> rows)
+        {
+            int width = 0;
+            foreach (var row in rows) width = Math.Max(width, row?.Length ?? 0);
+            var rectangular = new List<string[]>();
+            foreach (var row in rows)
+            {
+                var cells = new string[width];
+                if (row != null) Array.Copy(row, cells, row.Length);
+                rectangular.Add(cells);
+            }
+            return ComputeLogicalFingerprint(rectangular);
+        }
+
         private static void WriteInt32(Stream stream, int value)
         {
             byte[] bytes = BitConverter.GetBytes(value);
@@ -284,6 +386,7 @@ namespace UGF.EditorTools
     {
         public string sourceFile;
         public string destinationFile;
+        public string expectedDestinationFingerprint;
         internal string backupFile;
     }
 }

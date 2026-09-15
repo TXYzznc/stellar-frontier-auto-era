@@ -328,7 +328,11 @@ namespace UGF.EditorTools
         /// </summary>
         public static void GenerateGroupEnumScript()
         {
-            var excelDir = ConstEditor.DataTableExcelPath;
+            GenerateGroupEnumScript(ConstEditor.DataTableExcelPath, ConstEditor.ConstGroupScriptFileFullName);
+        }
+
+        public static void GenerateGroupEnumScript(string excelDir, string outFileName)
+        {
             if (!Directory.Exists(excelDir))
             {
                 Debug.LogErrorFormat("Excel DataTable directory is not exists:{0}", excelDir);
@@ -389,7 +393,6 @@ namespace UGF.EditorTools
             }
             sBuilder.AppendLine("}");
 
-            var outFileName = ConstEditor.ConstGroupScriptFileFullName;
             try
             {
                 File.WriteAllText(outFileName, NormalizeGeneratedText(sBuilder.ToString()), Utf8NoBom);
@@ -406,13 +409,17 @@ namespace UGF.EditorTools
         /// </summary>
         public static void GenerateUIFormNamesScript()
         {
-            var excelDir = ConstEditor.DataTableExcelPath;
+            GenerateUIFormNamesScript(UtilityBuiltin.AssetsPath.GetCombinePath(ConstEditor.DataTableExcelPath, ConstEditor.UITableExcel), ConstEditor.UIViewScriptFile);
+        }
+
+        public static void GenerateUIFormNamesScript(string excelFileName, string outputFile)
+        {
+            var excelDir = Path.GetDirectoryName(excelFileName);
             if (!Directory.Exists(excelDir))
             {
                 Debug.LogError($"生成UIView代码失败! 不存在文件夹:{excelDir}");
                 return;
             }
-            var excelFileName = UtilityBuiltin.AssetsPath.GetCombinePath(excelDir, ConstEditor.UITableExcel);
             if (!File.Exists(excelFileName))
             {
                 Debug.LogError($"{excelFileName} 文件不存在!");
@@ -449,8 +456,8 @@ namespace UGF.EditorTools
                 curIndex++;
             }
             sBuilder.AppendLine("}");
-            File.WriteAllText(ConstEditor.UIViewScriptFile, NormalizeGeneratedText(sBuilder.ToString()), Utf8NoBom);
-            Debug.LogFormat("-------------------成功生成:{0}-----------------", ConstEditor.UIViewScriptFile);
+            File.WriteAllText(outputFile, NormalizeGeneratedText(sBuilder.ToString()), Utf8NoBom);
+            Debug.LogFormat("-------------------成功生成:{0}-----------------", outputFile);
         }
         /// <summary>
         /// 多语言Excel导出资源
@@ -765,6 +772,7 @@ namespace UGF.EditorTools
 
         public static void RefreshAllDataTable(IList<string> fullPathFiles = null)
         {
+            if (fullPathFiles != null && fullPathFiles.Count == 0) return;
             try
             {
                 var appConfig = AppConfigs.GetInstanceEditor();
@@ -778,6 +786,7 @@ namespace UGF.EditorTools
                     excelFiles = GetGameDataExcelWithABFiles(GameDataType.DataTable, fullPathFiles);
                 }
 
+                var generatedTables = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 int totalExcelCount = excelFiles.Count;
                 for (int i = 0; i < totalExcelCount; i++)
                 {
@@ -799,6 +808,7 @@ namespace UGF.EditorTools
                                 }
                                 DataTableGenerator.GenerateDataFile(dataTableProcessor, outputPath);
                             }
+                            generatedTables.Add(GetGameDataExcelRelativePath(GameDataType.DataTable, excelFileName));
                         }
                     }
                     catch (System.Exception e)
@@ -816,6 +826,7 @@ namespace UGF.EditorTools
                 for (int i = 0; i < dataTbCount; i++)
                 {
                     var dataTableName = appConfig.DataTables[i];
+                    if (!generatedTables.Contains(dataTableName)) continue;
                     string tbTxtFile = UtilityBuiltin.AssetsPath.GetCombinePath(outputDir, dataTableName + outputExtension);
                     EditorUtility.DisplayProgressBar($"进度:({i}/{dataTbCount})", $"生成DataTable代码:{dataTableName}", i / (float)dataTbCount);
                     if (!File.Exists(tbTxtFile))
@@ -855,8 +866,12 @@ namespace UGF.EditorTools
 
         private static bool ExportConfig2BytesFile(string configFile)
         {
+            return ExportConfig2BytesFile(configFile, Path.ChangeExtension(configFile, ".bytes"));
+        }
+
+        public static bool ExportConfig2BytesFile(string configFile, string bytesFileName)
+        {
             if (!File.Exists(configFile)) return false;
-            string bytesFileName = Path.ChangeExtension(configFile, ".bytes");
 
             try
             {

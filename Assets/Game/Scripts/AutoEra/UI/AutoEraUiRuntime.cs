@@ -9,8 +9,18 @@ namespace AutoEra.UI
 
         private readonly AutoEraUiIntentRouter _router = new AutoEraUiIntentRouter();
         private AutoEraUiIntentInputAdapter _inputAdapter;
+        private AutoEra.Machines.MachineRoster _machines;
+        private BaseCommandHubForm _hub;
+
+        public static void BindMachineRoster(AutoEra.Machines.MachineRoster roster)
+        {
+            if (s_instance == null && roster == null) return;
+            var runtime = EnsureInstance(); runtime._machines = roster;
+            if (runtime._hub != null) runtime._hub.BindMachines(roster);
+        }
 
         public AutoEraUiIntentInputAdapter InputAdapter => _inputAdapter;
+        public static bool BlocksWorldInput => s_instance != null && s_instance._router.BlocksWorldInput;
 
         private void Awake()
         {
@@ -45,7 +55,8 @@ namespace AutoEra.UI
 
         public static void RegisterForm(AutoEraUiFormBase form)
         {
-            EnsureInstance()._router.Register(form);
+            var runtime = EnsureInstance(); runtime._router.Register(form);
+            if (form is BaseCommandHubForm hub) { runtime._hub = hub; hub.BindMachines(runtime._machines); }
         }
 
         public static void UnregisterForm(AutoEraUiFormBase form)
@@ -53,6 +64,7 @@ namespace AutoEra.UI
             if (s_instance != null)
             {
                 s_instance._router.Unregister(form);
+                if (ReferenceEquals(s_instance._hub, form)) { s_instance._hub.BindMachines(null); s_instance._hub = null; }
             }
         }
 

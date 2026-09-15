@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using AutoEra.Motion;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -21,17 +21,17 @@ namespace AutoEra.Editor.Motion
                 return;
             }
 
-            Transform carrier = Ensure("Assets/Game/Prefabs/Entity/Machines/Carriers/WheeledCarrier.prefab", "演示_轮式载体", new Vector3(-7f, 0f, 0f));
-            Transform wheel = Ensure("Assets/Game/Prefabs/Entity/Machines/Modules/WheelModule.prefab", "演示_四轮机构", new Vector3(-3f, 0f, -3f));
-            Transform arm = Ensure("Assets/Game/Prefabs/Entity/Machines/Effectors/MultiJointArm.prefab", "演示_多关节机械臂", new Vector3(0f, 0f, 0f));
+            Transform carrier = Ensure("Assets/Game/Prefabs/Entity/Machines/WheeledCarrier.prefab", "演示_轮式载体", new Vector3(-7f, 0f, 0f));
+            Transform wheel = Ensure("Assets/Game/Prefabs/Entity/Machines/WheelModule.prefab", "演示_四轮机构", new Vector3(-3f, 0f, -3f));
+            Transform arm = Ensure("Assets/Game/Prefabs/Entity/Machines/MultiJointArm.prefab", "演示_多关节机械臂", new Vector3(0f, 0f, 0f));
             Remove("演示_可替换效应器");
-            Transform door = Ensure("Assets/Game/Prefabs/Entity/Buildings/Mechanisms/SlidingDoors/SlidingDoor_D24.prefab", "演示_滑动门", new Vector3(7f, 0f, 1f));
-            Transform conveyor = Ensure("Assets/Game/Prefabs/Entity/Buildings/Logistics/Conveyor.prefab", "演示_传送带", new Vector3(10f, 0f, -3f));
-            Transform water = Ensure("Assets/Game/Prefabs/Entity/Machines/Effectors/WaterCannon.prefab", "演示_水枪效应器", new Vector3(-7f, 0f, 6f));
-            Transform saw = Ensure("Assets/Game/Prefabs/Entity/Machines/Effectors/RotarySaw.prefab", "演示_旋转锯盘效应器", new Vector3(-2f, 0f, 6f));
-            Transform drill = Ensure("Assets/Game/Prefabs/Entity/Machines/Effectors/RotaryDrill.prefab", "演示_旋转钻头效应器", new Vector3(3f, 0f, 6f));
-            Transform cargo = Ensure("Assets/Game/Prefabs/Entity/Machines/Modules/CargoPod.prefab", "演示_货舱", new Vector3(8f, 0f, 6f));
-            Transform fixedRotary = Ensure("Assets/Game/Prefabs/Entity/Machines/Carriers/FixedRotaryCarrier.prefab", "演示_固定旋转载体", new Vector3(-11f, 0f, 6f));
+            Transform door = Ensure("Assets/Game/Prefabs/Entity/Buildings/SlidingDoor_D24.prefab", "演示_滑动门", new Vector3(7f, 0f, 1f));
+            Transform conveyor = Ensure("Assets/Game/Prefabs/Entity/Buildings/Conveyor.prefab", "演示_传送带", new Vector3(10f, 0f, -3f));
+            Transform water = Ensure("Assets/Game/Prefabs/Entity/Machines/WaterCannon.prefab", "演示_水枪效应器", new Vector3(-7f, 0f, 6f));
+            Transform saw = Ensure("Assets/Game/Prefabs/Entity/Machines/RotarySaw.prefab", "演示_旋转锯盘效应器", new Vector3(-2f, 0f, 6f));
+            Transform drill = Ensure("Assets/Game/Prefabs/Entity/Machines/RotaryDrill.prefab", "演示_旋转钻头效应器", new Vector3(3f, 0f, 6f));
+            Transform cargo = Ensure("Assets/Game/Prefabs/Entity/Machines/CargoPod.prefab", "演示_货舱", new Vector3(8f, 0f, 6f));
+            Transform fixedRotary = Ensure("Assets/Game/Prefabs/Entity/Machines/FixedRotaryCarrier.prefab", "演示_固定旋转载体", new Vector3(-11f, 0f, 6f));
             BindFormalPresentationPreview(conveyor, water, saw, drill, cargo);
 
             FunctionalRigAcceptanceDemoDirector director = Object.FindObjectOfType<FunctionalRigAcceptanceDemoDirector>();

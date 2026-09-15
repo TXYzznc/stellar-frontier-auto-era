@@ -48,6 +48,25 @@ namespace AutoEra.UI
         [SerializeField] private Selectable _defaultFocus;
 
         private AutoEraHubPageSelection _pageSelection;
+        [SerializeField] private TMP_Text _machineRosterSummary;
+        private AutoEra.Machines.MachineRoster _machines;
+        public void BindMachines(AutoEra.Machines.MachineRoster roster)
+        {
+            if (_machines != null) { _machines.Changed -= RefreshMachines; _machines.Disposed -= OnMachinesDisposed; }
+            _machines = roster;
+            if (_machines != null) { _machines.Changed += RefreshMachines; _machines.Disposed += OnMachinesDisposed; }
+            RefreshMachines();
+        }
+        private void OnMachinesDisposed(AutoEra.Machines.MachineRoster roster) => BindMachines(null);
+        private void RefreshMachines()
+        {
+            if (_machineRosterSummary == null) return;
+            int total = 0, connected = 0, running = 0;
+            if (_machines != null && _machines.IsActive)
+                foreach (var machine in _machines.Machines) { total++; if(machine.Connected) connected++; if(machine.CanRun) running++; }
+            _machineRosterSummary.richText = false;
+            _machineRosterSummary.SetText(_machines == null ? "机器运行数据尚未绑定" : "机器：" + total + " · 已连接：" + connected + " · 可运行：" + running);
+        }
 
         public AutoEraHubPage ActivePage => _pageSelection == null ? _initialPage : _pageSelection.ActivePage;
 
@@ -122,11 +141,13 @@ namespace AutoEra.UI
 
         protected override void OnAutoEraClose(bool isShutdown)
         {
+            BindMachines(null);
             AutoEraReduceMotionEntry.ReducedMotionChanged -= HandleReducedMotionChanged;
         }
 
         protected override void OnAutoEraRecycle()
         {
+            BindMachines(null);
             AutoEraReduceMotionEntry.ReducedMotionChanged -= HandleReducedMotionChanged;
         }
 

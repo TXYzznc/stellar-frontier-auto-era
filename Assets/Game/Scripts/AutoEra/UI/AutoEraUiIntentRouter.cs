@@ -6,6 +6,15 @@ namespace AutoEra.UI
     public sealed class AutoEraUiIntentRouter
     {
         private readonly List<AutoEraUiFormBase> _forms = new List<AutoEraUiFormBase>();
+        public bool BlocksWorldInput
+        {
+            get
+            {
+                foreach (AutoEraUiFormBase form in _forms)
+                    if (form != null && form.gameObject.activeInHierarchy && (!(form is FieldHudForm hud) || hud.BlocksWorldInput)) return true;
+                return false;
+            }
+        }
 
         public void Register(AutoEraUiFormBase form)
         {

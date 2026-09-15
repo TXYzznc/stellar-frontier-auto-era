@@ -38,6 +38,7 @@ namespace UGF.EditorTools
                 return false;
             }
 
+            string jsonBaseline = AIDataSyncPipeline.ComputeFileFingerprint(jsonFile);
             string json = File.ReadAllText(jsonFile);
             if (!TryBuildExcelRows(json, out var manifest, out var rows, out errors))
             {
@@ -50,6 +51,7 @@ namespace UGF.EditorTools
                 return false;
             }
 
+            string excelBaseline = AIDataSyncPipeline.ComputeFileFingerprint(excelFile);
             if (File.Exists(excelFile) && !TryValidateExistingFingerprint(excelFile, manifest, errors))
             {
                 return false;
@@ -61,30 +63,48 @@ namespace UGF.EditorTools
                 return false;
             }
 
+            string temporaryJson = temporaryFile + ".json";
+            string output = GameDataGenerator.GetGameDataExcelOutputFile(GameDataType.Language, excelFile);
+            string stagedOutput = temporaryFile + ".output" + Path.GetExtension(output);
+            string outputBaseline = AIDataSyncPipeline.ComputeFileFingerprint(output);
+            string bytesOutput = Path.ChangeExtension(output, ".bytes");
+            string bytesBaseline = AIDataSyncPipeline.ComputeFileFingerprint(bytesOutput);
+            bool useBytes = AppConfigs.GetInstanceEditor()?.LoadFromBytes == true;
             try
             {
+                if (!GameDataGenerator.ExportLanguageExcel(temporaryFile, stagedOutput, useBytes))
+                    throw new InvalidOperationException("Language generation failed.");
+                // The generated workbook is still staged. Commit its logical fingerprint
+                // together with it, never in a separate post-commit JSON write.
+                manifest.sourceFingerprint = AIDataSyncPipeline.ComputeWorksheetFingerprint(rows);
+                File.WriteAllText(temporaryJson, JsonConvert.SerializeObject(manifest, Formatting.Indented), new System.Text.UTF8Encoding(false));
                 var report = new AIDataSyncReportItem();
-                bool replaced = AIDataSyncPipeline.ReplaceFilesTransactionally(new[]
+                var replacements = new List<AIDataFileReplacement>
                 {
-                    new AIDataFileReplacement { sourceFile = temporaryFile, destinationFile = excelFile },
-                }, report);
+                    new AIDataFileReplacement { sourceFile = temporaryFile, destinationFile = excelFile, expectedDestinationFingerprint = excelBaseline },
+                    new AIDataFileReplacement { sourceFile = temporaryJson, destinationFile = jsonFile, expectedDestinationFingerprint = jsonBaseline },
+                    new AIDataFileReplacement { sourceFile = stagedOutput, destinationFile = output, expectedDestinationFingerprint = outputBaseline },
+                };
+                if (useBytes) replacements.Add(new AIDataFileReplacement { sourceFile = Path.ChangeExtension(stagedOutput, ".bytes"), destinationFile = bytesOutput, expectedDestinationFingerprint = bytesBaseline });
+                bool replaced = AIDataSyncPipeline.ReplaceFilesTransactionally(replacements, report);
                 errors.AddRange(report.errors);
                 if (!replaced)
                 {
                     return false;
                 }
 
-                if (!TryCreateManifestFromExcel(excelFile, out AILanguageManifest refreshedManifest, out List<string> refreshErrors))
-                {
-                    errors.AddRange(refreshErrors);
-                    return false;
-                }
-
-                File.WriteAllText(jsonFile, JsonConvert.SerializeObject(refreshedManifest, Formatting.Indented), new System.Text.UTF8Encoding(false));
                 return true;
+            }
+            catch (Exception exception)
+            {
+                errors.Add(exception.Message);
+                return false;
             }
             finally
             {
+                if (File.Exists(stagedOutput)) File.Delete(stagedOutput);
+                if (File.Exists(Path.ChangeExtension(stagedOutput, ".bytes"))) File.Delete(Path.ChangeExtension(stagedOutput, ".bytes"));
+                if (File.Exists(temporaryJson)) File.Delete(temporaryJson);
                 if (File.Exists(temporaryFile))
                 {
                     File.Delete(temporaryFile);

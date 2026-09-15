@@ -24,6 +24,8 @@ namespace AutoEra.Application
         public AutoEraWorldSessionFactory WorldSessionFactory { get; }
 
         public AutoEraWorldSession ActiveWorldSession { get; private set; }
+        public AutoEraSceneFlow SceneFlow { get; } = new AutoEraSceneFlow();
+        public string WorldEntryError { get; set; }
 
         public bool IsDisposed => _isDisposed;
 
@@ -60,6 +62,7 @@ namespace AutoEra.Application
 
             _isDisposed = true;
             ReleaseActiveWorldSession();
+            SceneFlow.Dispose();
         }
     }
 }
