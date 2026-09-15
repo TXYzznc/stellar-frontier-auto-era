@@ -4,7 +4,26 @@
 >
 > 性质：非任务表，只记录当前专业窗口协作阶段与资源占用
 >
-> 当前状态：第三执行批次程序实施与G06 Material Maker材质试点并行
+> 当前状态：2026-09-10 用户确认上一阶段结束，启动B10；下方旧批次表仅为历史，不能作为工具占用依据。
+
+## B10 当前派发
+
+依据：`Active/b10-interactive-world-and-static-art.md` 与同名OpenSpec。原画审核链：制作人检查报告→用户裁决。
+
+| 角色 | 当前派发 | 初始工具边界 |
+|---|---|---|
+| 客户端 | b10-client-initial-region | 先只读基线核对，实施后8090按需与QA交接 |
+| 主美（3D）2号 | b10-static-art-contracts-and-production | 先合同，暂不DCC/Unity |
+| 3D原画2号 | b10-concept-input-readiness | 仅参考与输入核对，暂不出图 |
+| 美术（2D）2号 | b10-ui-incremental-fields | 先缺项清单，暂不Unity |
+| 测试 | b10-initial-region-independent-validation | 先用例；与客户端交接后才驱动8090 |
+| 快速执行 | b10-baseline-path-audit | 静态扫描，禁止Unity/DCC |
+| Git集成 | 无 | 手动触发，不自动入队 |
+
+登记时未替任何角色预占Unity/DCC。旧art-3d/art-concept Active按用户完成确认收口；
+新窗口ID已更新本机注册表。实际运行以窗口和队列新鲜状态为准。
+
+## 历史批次快照（以下含旧时间/占用，不再生效）
 
 | 派发ID | 覆盖任务 | 专业窗口 | 协作状态 | 暂停级别／严重度 | 文件／目录占用 | Unity／外部工具占用 | 阻塞与交接说明 |
 |---|---|---|---|---|---|---|---|

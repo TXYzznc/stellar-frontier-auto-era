@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "taskId": "b10-baseline-path-audit",
+  "role": "rapid-executor",
+  "date": "2026-09-10",
+  "scope": "formal resource and evidence path static scan",
+  "entries": [
+    {"path":"Assets/Game/Prefabs/Entity","kind":"unity-directory","exists":true,"metaExists":true,"assetCount":11,"missingAssetMetaCount":0},
+    {"path":"Assets/Game/Prefabs/UI/Operations","kind":"unity-directory","exists":true,"metaExists":true,"assetCount":2,"missingAssetMetaCount":0},
+    {"path":"Assets/Game/Config/MotionContracts/B08","kind":"unity-directory","exists":true,"metaExists":true,"assetCount":11,"missingAssetMetaCount":0},
+    {"path":"Assets/Game/MotionGraphs/Entity","kind":"unity-directory","exists":true,"metaExists":true,"assetCount":11,"missingAssetMetaCount":0}
+  ],
+  "changes": [
+    {"change":"b02-parallel-program-p0003-p0006-runtime-foundations","tasksPath":"openspec/changes/b02-parallel-program-p0003-p0006-runtime-foundations/tasks.md","checked":16,"unchecked":17,"evidencePath":"openspec/changes/b02-parallel-program-p0003-p0006-runtime-foundations/evidence","evidenceExists":true,"evidenceFileCount":22},
+    {"change":"b05-parallel-art-art006-ui-visual-interaction-contract","tasksPath":"openspec/changes/b05-parallel-art-art006-ui-visual-interaction-contract/tasks.md","checked":20,"unchecked":0,"evidencePath":"openspec/changes/b05-parallel-art-art006-ui-visual-interaction-contract/evidence","evidenceExists":true,"evidenceFileCount":6},
+    {"change":"b06-parallel-program-p0010-p0014-p0016-procedural-prototype-pipeline","tasksPath":"openspec/changes/b06-parallel-program-p0010-p0014-p0016-procedural-prototype-pipeline/tasks.md","checked":42,"unchecked":0,"evidencePath":"openspec/changes/b06-parallel-program-p0010-p0014-p0016-procedural-prototype-pipeline/evidence","evidenceExists":true,"evidenceFileCount":60},
+    {"change":"b08-parallel-art-art012-art014-art017-art018-art019-motion-ready-highpoly","tasksPath":"openspec/changes/b08-parallel-art-art012-art014-art017-art018-art019-motion-ready-highpoly/tasks.md","checked":0,"unchecked":37,"evidencePath":"openspec/changes/b08-parallel-art-art012-art014-art017-art018-art019-motion-ready-highpoly/evidence","evidenceExists":false,"evidenceFileCount":0},
+    {"change":"b09-program-formal-asset-retirement-handoff","tasksPath":"openspec/changes/b09-program-formal-asset-retirement-handoff/tasks.md","checked":13,"unchecked":1,"evidencePath":"openspec/changes/b09-program-formal-asset-retirement-handoff/evidence","evidenceExists":true,"evidenceFileCount":13}
+  ],
+  "automaticGate": {"jsonParseable":true,"existsMetaMatchesDisk":true,"taskStatsMatchText":true},
+  "findings": ["b08 evidence directory is missing"],
+  "unityRun": false,
+  "gitTouched": false,
+  "sourceModified": false
+}

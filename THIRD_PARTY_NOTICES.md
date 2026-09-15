@@ -13,7 +13,6 @@ other assets included in or restored by this project.
 | UnityGameFramework | MIT | `Assets/Plugins/UnityGameFramework/LICENSE` and `LICENSE.md`; copyright (c) Jiang Yin. |
 | UniTask | MIT | `Assets/Plugins/UniTask/package.json`; copyright and full terms are supplied by Cysharp. |
 | DOTween | Third-party terms | `Assets/Plugins/DOTween/readme.txt` and the [DOTween license page](http://dotween.demigiant.com/license.php). |
-| Liberation Sans font distributed with TextMesh Pro | SIL Open Font License 1.1 | `Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt`. |
 | Unity Package Manager dependencies | Their respective terms | `Packages/manifest.json` and `Packages/packages-lock.json` identify each package and source. |
 
 ## GF_X MIT notice

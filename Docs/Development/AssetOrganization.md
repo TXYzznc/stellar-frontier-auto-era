@@ -25,22 +25,19 @@
 
 ## 字体
 
-唯一字体根目录是 `Assets/Game/Fonts/`。当前 UI 字体结构如下：
+唯一字体根目录是 `Assets/Game/Fonts/`，且全项目只允许存在一套字体资源：
 
 | 路径 | 用途 |
 | --- | --- |
-| `Fonts/UI/Source/` | TTF/OTF 源字体；TMP Font Asset 必须引用这里的源字体 GUID。 |
-| `Fonts/UI/Fallback/` | CJK 等回退 TMP Font Asset。 |
-| `Fonts/UI/Launch/` | Launch 场景专用 TMP Font Asset 与标题材质。 |
-| `Fonts/UI/Operations/` | 基地运营 UI 的 TMP Font Asset。 |
+| `Fonts/UI/SIMHEI.TTF` | 唯一 TTF 源字体，供旧版 `UnityEngine.UI.Text` 使用。 |
+| `Fonts/UI/SIMHEI SDF.asset` | 唯一 TMP Font Asset，供所有 `TMP_Text` 使用。 |
 
-同一字体文件不得在两个路径以不同 GUID 重复保存。不同用途的 TMP SDF Font
-Asset 即使源字体相同，也可以并存：它们的字形图集、回退链或材质配置可能不同，
-必须以用途区分路径和名称，不能按文件名擅自删除。
+不得新增其他 TTF/OTF、TMP Font Asset 或字体材质。所有 `Text` 与 `TMP_Text`
+（含 Prefab、场景、代码硬编码路径和 `TMP Settings` 默认字体）必须引用上述两个
+资源；删除任何字体前必须确认无残留 GUID 引用与 Missing Reference。
 
-新增字体前应先扫描 `Fonts/` 内同内容源文件、既有 TMP 资产和 GUID 引用；
-需要新增时必须写入上述用途目录。修改字体引用后，至少完成 Missing Reference
-扫描、普通编译、相关 UI 或场景打开验证以及 Console Error=0。
+新增字体属于例外决策，需先取得明确授权。修改字体引用后，至少完成 Missing
+Reference 扫描、普通编译、相关 UI 或场景打开验证以及 Console Error=0。
 
 ## Prefab 与开发资源
 

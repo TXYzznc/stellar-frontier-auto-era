@@ -13,14 +13,14 @@
 - [x] 2.4 建立Editor-only `GameData/AIData/GenerationProfiles.json`加载与校验，使`Foundation/`产品表代码进入`Assets/Game/Scripts/AutoEra/DataTable/`并使用`AutoEra.DataTable` namespace；不写入AppConfigs、不新增asmdef（P0-006）
 - [x] 2.5 实现三类共享AI中间层契约、业务路径镜像、规范化逻辑内容指纹、硬冲突门禁、临时构建、备份／事务替换、失败回滚和结构化报告（P0-006）
 - [x] 2.6 将现有DataTable JSON导出／校验／Reverse／Import接入共享安全管线，保持Core兼容并移除按时间戳继续覆盖的行为（P0-006）
-- [ ] 2.7 为Config和Language实现等价JSON适配、Schema校验、Reverse、同步检查和正式生成入口（P0-006）
-- [ ] 2.8 仅在`GameData/AIData/{DataTables,Configs,Languages}/Foundation/`创建服务于启动、场景和世界时间贯通的最小JSON，由工具首次生成xlsx、TXT／bytes／C#；AI不得直接写xlsx，不提前建立P0-011完整对象配置（P0-005、P0-006）
-- [ ] 2.9 在AppConfigs登记工具生成的项目DataTable、Config、Language，并实现缺字段、重复ID／Key、非法值、非法引用和Profile／路径越界的可定位验证（P0-006）
+- [x] 2.7 为Config和Language实现等价JSON适配、Schema校验、Reverse、同步检查和正式生成入口（P0-006；segment-24，重复Reverse与指纹门禁）
+- [x] 2.8 仅在`GameData/AIData/{DataTables,Configs,Languages}/Foundation/`创建服务于启动、场景和世界时间贯通的最小JSON，由工具首次生成xlsx、TXT／bytes／C#；AI不得直接写xlsx，不提前建立P0-011完整对象配置（P0-005、P0-006；segment-24/25，实际GF读取）
+- [x] 2.9 在AppConfigs登记工具生成的项目DataTable、Config、Language，并实现缺字段、重复ID／Key、非法值、非法引用和Profile／路径越界的可定位验证（P0-006；segment-24/25，32项数据门禁及4项运行配置验证）
 
 ## 3. 应用上下文与世界会话
 
 - [x] 3.1 在 `Assets/Game/Scripts/AutoEra/` 下按实际职责建立运行时目录和 `AutoEra.*` 类型，定义应用上下文、世界会话、会话工厂和释放契约（P0-003～P0-005）
-- [ ] 3.2 实现轻量组合根，以构造函数装配纯 C# 服务，并为 Procedure FSM 建立唯一、受控的流程上下文数据槽；不得新增通用 Service Locator（P0-003）
+- [x] 3.2 实现轻量组合根，以构造函数装配纯 C# 服务，并为 Procedure FSM 建立唯一、受控的流程上下文数据槽；不得新增通用 Service Locator（P0-003，segment-22；QA 875eb4f3、cfa6ab2b）
 - [x] 3.3 实现世界会话的创建、活动状态、重复创建保护和幂等释放，并测试返回主菜单、切换会话和关闭时无残留（P0-003～P0-005）
 
 ## 4. 永久实例 ID 与对象注册表
@@ -32,24 +32,24 @@
 
 ## 5. 确定性世界时间与现实 UTC
 
-- [ ] 5.1 实现整数毫秒世界时钟、双精度在线余量累积、直接推进、负值/倒退/溢出保护和开发倍率输入边界（P0-005）
-- [ ] 5.2 从已校验项目配置读取新世界初始时刻、1,440,000 毫秒昼夜周期和 960,000 毫秒日照窗口，并测试全部边界（P0-005、P0-006）
+- [x] 5.1 实现整数毫秒世界时钟、双精度在线余量累积、直接推进、负值/倒退/溢出保护和开发倍率输入边界（P0-005；segment-23）
+- [x] 5.2 从已校验项目配置读取新世界初始时刻、1,440,000 毫秒昼夜周期和 960,000 毫秒日照窗口，并测试全部边界（P0-005、P0-006；segment-23）
 - [x] 5.3 实现同刻比较键及按阶段、永久 ID、事件序号的稳定比较，使用不同插入顺序验证结果一致（P0-004、P0-005）
 - [x] 5.4 定义 `IUtcTimeProvider`，实现本地 UTC Provider，并实现无状态 `TimeUtil` 的换算与离线时长计算；测试固定时间、时区无关和时间倒退归零（P0-005）
-- [ ] 5.5 验证不同在线帧切分和等量直接推进得到相同世界毫秒与昼夜阶段，普通 UI 状态不参与世界时间倍率（P0-005）
+- [x] 5.5 验证不同在线帧切分和等量直接推进得到相同世界毫秒与昼夜阶段，普通 UI 状态不参与世界时间倍率（P0-005；segment-23，实际GF管理UI联动）
 
 ## 6. 业务 Procedure 与场景流转
 
-- [ ] 6.1 实现唯一 `AutoEraStartupProcedure`、`AutoEraMainMenuProcedure` 和 `AutoEraWorldProcedure`，并在 AppConfigs 中登记完整类型名且只保留一个业务启动标记（P0-003）
-- [ ] 6.2 实现产品场景切换协调器，封装 GF.Scene 的加载、卸载、进度、失败、代次失效和订阅释放，不修改通用 `ChangeSceneProcedure`（P0-003）
-- [ ] 6.3 创建最小主菜单场景和第一版空世界场景，场景名从项目配置读取，保持业务逻辑和产品状态不写入 `ScriptsBuiltin`（P0-003、P0-006）
-- [ ] 6.4 贯通 `Launch → Preload → AutoEraStartupProcedure → AutoEraMainMenuProcedure → AutoEraWorldProcedure`，验证世界创建、返回主菜单和再次进入（P0-003）
-- [ ] 6.5 覆盖数据缺失、场景加载失败、加载期间退出、框架重启和过期回调，确认半初始化会话被释放且诊断可定位（P0-003、P0-006）
+- [x] 6.1 实现唯一 `AutoEraStartupProcedure`、`AutoEraMainMenuProcedure` 和 `AutoEraWorldProcedure`，并在 AppConfigs 中登记完整类型名且只保留一个业务启动标记（P0-003，segment-22；实际Launch进入唯一产品入口）
+- [x] 6.2 实现产品场景切换协调器，封装 GF.Scene 的加载、卸载、进度、失败、代次失效和订阅释放，不修改通用 `ChangeSceneProcedure`（P0-003；AutoEraSceneFlow复核及segment-25真实取消/重启）
+- [x] 6.3 创建最小主菜单场景和第一版空世界场景，场景名从项目配置读取，保持业务逻辑和产品状态不写入 `ScriptsBuiltin`（P0-003、P0-006；B10授权初始区域承接世界场景，segment-22）
+- [x] 6.4 贯通 `Launch → Preload → AutoEraStartupProcedure → AutoEraMainMenuProcedure → AutoEraWorldProcedure`，验证世界创建、返回主菜单和再次进入（P0-003；QA3093292a对应NUnit XML两轮实跑通过，segment-22）
+- [x] 6.5 覆盖数据缺失、场景加载失败、加载期间退出、框架重启和过期回调，确认半初始化会话被释放且诊断可定位（P0-003、P0-006；segment-25，Runtime4/4及Startup6/6）
 
 ## 7. 集成验证与交付
 
-- [ ] 7.1 运行三类JSON／xlsx往返、并发冲突、新表创建、路径越界、注入失败回滚、Core兼容，以及永久ID、注册表、时间、UTC和生命周期EditMode测试，确认全部通过（P0-003～P0-006）
-- [ ] 7.2 退出 Play Mode 后执行普通 Unity 刷新与完整编译，确认无编译错误；结构、字段、场景和生成器变更不得用 FSR 验证代替（P0-003～P0-006）
-- [ ] 7.3 从 `Launch` 执行 PlayMode 冒烟测试，连续两次进入/退出空世界，确认 AppConfigs 只选择一个启动入口、三类项目数据可读且无残留订阅/会话（P0-003～P0-006）
-- [ ] 7.4 运行 `python tools/audit_framework_purity.py`、`python tools/audit_project_boundaries.py` 和相关 Python 测试，确认通用生成器改动不含产品硬编码且生成代码满足产品边界（P0-003、P0-006）
-- [ ] 7.5 严格校验本 OpenSpec，重新计算任务表 SHA-256 并确认与步骤 1.1 一致；汇总建议状态、实际工时和问题供用户手动更新任务表（P0-003～P0-006）
+- [x] 7.1 运行三类JSON／xlsx往返、并发冲突、新表创建、路径越界、注入失败回滚、Core兼容，以及永久ID、注册表、时间、UTC和生命周期EditMode测试，确认全部通过（P0-003～P0-006；segment-23～25逐轮证据，最后类型补验8d439b14 32/32）
+- [x] 7.2 退出 Play Mode 后执行普通 Unity 刷新与完整编译，确认无编译错误；结构、字段、场景和生成器变更不得用 FSR 验证代替（P0-003～P0-006；QA最后普通刷新、新鲜Console四类异常计数0）
+- [x] 7.3 从 `Launch` 执行 PlayMode 冒烟测试，连续两次进入/退出空世界，确认 AppConfigs 只选择一个启动入口、三类项目数据可读且无残留订阅/会话（P0-003～P0-006；segment-25，53004793 XML）
+- [x] 7.4 运行 `python tools/audit_framework_purity.py`、`python tools/audit_project_boundaries.py` 和相关 Python 测试，确认通用生成器改动不含产品硬编码且生成代码满足产品边界（P0-003、P0-006；2026-09-10产品profile审计与边界通过，Python14+7通过）
+- [x] 7.5 严格校验本 OpenSpec，记录本次执行前后任务表 SHA-256 并核查本窗口未写入；用户后续维护造成的历史哈希差异单独留痕，不要求恢复步骤1.1的旧版本，不凭哈希变化推断修改责任；汇总建议状态、实际工时和问题供用户维护任务表（P0-003～P0-006；B10 client-foundation-completion记录本次相同哈希、墙钟口径/建议及未覆盖项，不虚构历史人工工时）
