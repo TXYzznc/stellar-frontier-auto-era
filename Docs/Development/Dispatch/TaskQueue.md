@@ -56,6 +56,11 @@
 - 本机队列：`.ai/dispatch/task-queue.local.json`，被Git忽略，但在项目重启和窗口上下文恢复后保留。
 - 管理工具：`python tools/window_task_queue.py`。
 - 每个职能独立维护`active`、`pending`、`suspended`和`completed`。
+- 结果生命周期：`.ai/dispatch/task-lifecycle.local.json`，由 `python tools/task_lifecycle.py` 维护。
+  - `result-ready` 登记待验收，`accept` 制作人验收通过，`rework` 退回返修。
+  - `cancel` 用于用户或制作人决定任务不再执行：写成 `Cancelled`，清空验收人并保留取消原因。
+    `Cancelled` 属于终态，守护器不得据此唤醒窗口，也不得计入 `completed`。
+  - 取消只解除执行义务，不产生完成或验收结论；重新执行必须重新入队并获得新的派发授权。
 - 写入采用锁文件与原子替换；禁止人工同时编辑队列JSON。
 
 初始化示例：

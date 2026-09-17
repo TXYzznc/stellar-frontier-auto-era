@@ -31,6 +31,9 @@ namespace AutoEra.Input
         private Material _placementMaterial;
         public RegionPlacementPreview Placement => _placement;
 
+        /// <summary>Read-only manifest of the active bindings; the settings page displays from here.</summary>
+        public RegionInputBindingSet Bindings { get; } = RegionInputBindingSet.CreateDefault();
+
         public void BeginPlacement(Vector2 size, System.Action<Vector2,float> confirmed)
         {
             EndPlacement();
@@ -71,7 +74,7 @@ namespace AutoEra.Input
             UpdateFieldAccess(AutoEraUiRuntime.BlocksWorldInput);
             return true;
         }
-        private void Awake() { if (_source == null) _source = new DesktopSource(); }
+        private void Awake() { if (_source == null) _source = new DesktopSource(Bindings); }
 
         private void Update()
         {
@@ -154,20 +157,41 @@ namespace AutoEra.Input
 
         private sealed class DesktopSource : IRegionInputSource
         {
+            private readonly RegionInputBindingSet _bindings;
+
+            public DesktopSource(RegionInputBindingSet bindings)
+            {
+                _bindings = bindings ?? throw new System.ArgumentNullException(nameof(bindings));
+            }
+
             public RegionInputFrame Read()
             {
+                int horizontal = (Held(RegionInputAction.PanRight) ? 1 : 0) - (Held(RegionInputAction.PanLeft) ? 1 : 0);
+                int vertical = (Held(RegionInputAction.PanForward) ? 1 : 0) - (Held(RegionInputAction.PanBack) ? 1 : 0);
+                bool orbit = Held(RegionInputAction.Orbit);
                 return new RegionInputFrame
                 {
-                    Pan = new Vector2((UnityEngine.Input.GetKey(KeyCode.D) ? 1 : 0) - (UnityEngine.Input.GetKey(KeyCode.A) ? 1 : 0),
-                        (UnityEngine.Input.GetKey(KeyCode.W) ? 1 : 0) - (UnityEngine.Input.GetKey(KeyCode.S) ? 1 : 0)),
-                    Orbit = UnityEngine.Input.GetMouseButton(1) ? new Vector2(UnityEngine.Input.GetAxisRaw("Mouse X"), UnityEngine.Input.GetAxisRaw("Mouse Y")) : Vector2.zero,
+                    Pan = new Vector2(horizontal, vertical),
+                    Orbit = orbit ? new Vector2(UnityEngine.Input.GetAxisRaw("Mouse X"), UnityEngine.Input.GetAxisRaw("Mouse Y")) : Vector2.zero,
                     Pointer = UnityEngine.Input.mousePosition,
                     Zoom = UnityEngine.Input.mouseScrollDelta.y,
-                    Select = UnityEngine.Input.GetMouseButtonDown(0),
-                    Focus = UnityEngine.Input.GetKeyDown(KeyCode.F),
-                    Rotate = UnityEngine.Input.GetKeyDown(KeyCode.R),
-                    Cancel = UnityEngine.Input.GetKeyDown(KeyCode.Escape)
+                    Select = Pressed(RegionInputAction.Select),
+                    Focus = Pressed(RegionInputAction.Focus),
+                    Rotate = Pressed(RegionInputAction.Rotate),
+                    Cancel = Pressed(RegionInputAction.Cancel)
                 };
+            }
+
+            private bool Held(RegionInputAction action)
+            {
+                return _bindings.TryGet(action, out RegionInputBinding binding) && binding.Trigger == RegionInputTrigger.Hold
+                    && UnityEngine.Input.GetKey(binding.Key);
+            }
+
+            private bool Pressed(RegionInputAction action)
+            {
+                return _bindings.TryGet(action, out RegionInputBinding binding) && binding.Trigger == RegionInputTrigger.Press
+                    && UnityEngine.Input.GetKeyDown(binding.Key);
             }
         }
     }

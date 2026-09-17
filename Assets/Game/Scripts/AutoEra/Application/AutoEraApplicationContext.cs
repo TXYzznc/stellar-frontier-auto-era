@@ -1,4 +1,5 @@
 ﻿using System;
+using AutoEra.Events;
 using AutoEra.World;
 using AutoEra.World.Time;
 
@@ -13,15 +14,18 @@ namespace AutoEra.Application
     {
         private bool _isDisposed;
 
-        public AutoEraApplicationContext(IUtcTimeProvider utcTimeProvider, AutoEraWorldSessionFactory worldSessionFactory)
+        public AutoEraApplicationContext(IUtcTimeProvider utcTimeProvider, AutoEraWorldSessionFactory worldSessionFactory,
+            IEventPublisher eventPublisher = null)
         {
             UtcTimeProvider = utcTimeProvider ?? throw new ArgumentNullException(nameof(utcTimeProvider));
             WorldSessionFactory = worldSessionFactory ?? throw new ArgumentNullException(nameof(worldSessionFactory));
+            EventPublisher = eventPublisher;
         }
 
         public IUtcTimeProvider UtcTimeProvider { get; }
 
         public AutoEraWorldSessionFactory WorldSessionFactory { get; }
+        public IEventPublisher EventPublisher { get; }
 
         public AutoEraWorldSession ActiveWorldSession { get; private set; }
         public AutoEraSceneFlow SceneFlow { get; } = new AutoEraSceneFlow();
@@ -37,7 +41,7 @@ namespace AutoEra.Application
                 return false;
             }
 
-            session = WorldSessionFactory.Create(initialWorldMilliseconds);
+            session = WorldSessionFactory.Create(initialWorldMilliseconds, EventPublisher);
             ActiveWorldSession = session;
             return true;
         }

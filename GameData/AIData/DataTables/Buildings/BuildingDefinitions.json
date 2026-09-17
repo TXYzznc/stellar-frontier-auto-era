@@ -1,0 +1,334 @@
+{
+  "schemaVersion": 1,
+  "kind": "GF_X.DataTable.AI",
+  "tableName": "BuildingDefinitions",
+  "relativePath": "Buildings/BuildingDefinitions",
+  "sourceExcel": "GameData/DataTables/Buildings/BuildingDefinitions.xlsx",
+  "sourceExcelLastWriteUtc": null,
+  "sourceFingerprint": null,
+  "generatedAtUtc": null,
+  "tableComment": "Building definitions with construction time, capacity, power consumption and economic data",
+  "columns": [
+    {
+      "index": 1,
+      "key": "Note",
+      "name": "#",
+      "type": "#",
+      "comment": "#",
+      "role": "comment"
+    },
+    {
+      "index": 2,
+      "key": "Id",
+      "name": "Id",
+      "type": "int",
+      "comment": "Stable row identifier",
+      "role": "id"
+    },
+    {
+      "index": 3,
+      "key": "Note3",
+      "name": "",
+      "type": "",
+      "comment": "",
+      "role": "comment"
+    },
+    {
+      "index": 4,
+      "key": "ModelId",
+      "name": "ModelId",
+      "type": "int",
+      "comment": "Building model ID",
+      "role": "data"
+    },
+    {
+      "index": 5,
+      "key": "NameKey",
+      "name": "NameKey",
+      "type": "string",
+      "comment": "Localization key",
+      "role": "data"
+    },
+    {
+      "index": 6,
+      "key": "ConstructionTimeSeconds",
+      "name": "ConstructionTimeSeconds",
+      "type": "int",
+      "comment": "Auto construction time in seconds",
+      "role": "data"
+    },
+    {
+      "index": 7,
+      "key": "StorageCapacity",
+      "name": "StorageCapacity",
+      "type": "int",
+      "comment": "Physical item storage capacity",
+      "role": "data"
+    },
+    {
+      "index": 8,
+      "key": "OutputCacheSlots",
+      "name": "OutputCacheSlots",
+      "type": "int",
+      "comment": "Output cache slots for workshop",
+      "role": "data"
+    },
+    {
+      "index": 9,
+      "key": "RatedPower",
+      "name": "RatedPower",
+      "type": "double",
+      "comment": "Rated power output for generators",
+      "role": "data"
+    },
+    {
+      "index": 10,
+      "key": "EnergyCapacity",
+      "name": "EnergyCapacity",
+      "type": "double",
+      "comment": "Battery energy storage capacity",
+      "role": "data"
+    },
+    {
+      "index": 11,
+      "key": "ProductionRate",
+      "name": "ProductionRate",
+      "type": "string",
+      "comment": "Production rate description",
+      "role": "data"
+    },
+    {
+      "index": 12,
+      "key": "MaximumIntegrity",
+      "name": "MaximumIntegrity",
+      "type": "double",
+      "comment": "Structure integrity limit",
+      "role": "data"
+    },
+    {
+      "index": 13,
+      "key": "ConstructionPrice",
+      "name": "ConstructionPrice",
+      "type": "int",
+      "comment": "Construction cost in coins",
+      "role": "data"
+    },
+    {
+      "index": 14,
+      "key": "RecyclePrice",
+      "name": "RecyclePrice",
+      "type": "int",
+      "comment": "Recycle value",
+      "role": "data"
+    },
+    {
+      "index": 15,
+      "key": "IdlePower",
+      "name": "IdlePower",
+      "type": "double",
+      "comment": "Idle power consumption",
+      "role": "data"
+    },
+    {
+      "index": 16,
+      "key": "WorkingPower",
+      "name": "WorkingPower",
+      "type": "double",
+      "comment": "Working power consumption",
+      "role": "data"
+    },
+    {
+      "index": 17,
+      "key": "Availability",
+      "name": "Availability",
+      "type": "string",
+      "comment": "Resource availability state",
+      "role": "data"
+    },
+    {
+      "index": 18,
+      "key": "Prefab",
+      "name": "Prefab",
+      "type": "string",
+      "comment": "Prefab relative path",
+      "role": "data"
+    }
+  ],
+  "rows": [
+    {
+      "row": 5,
+      "enabled": true,
+      "comment": "Warehouse",
+      "values": {
+        "Id": "50011",
+        "ModelId": "5001",
+        "NameKey": "Building.Warehouse",
+        "ConstructionTimeSeconds": "0",
+        "StorageCapacity": "120",
+        "OutputCacheSlots": "0",
+        "RatedPower": "0",
+        "EnergyCapacity": "0",
+        "ProductionRate": "",
+        "MaximumIntegrity": "100",
+        "ConstructionPrice": "0",
+        "RecyclePrice": "0",
+        "IdlePower": "0.5",
+        "WorkingPower": "2",
+        "Availability": "Ready",
+        "Prefab": "InitialRegion/Warehouse"
+      },
+      "notes": {},
+      "_cells": []
+    },
+    {
+      "row": 6,
+      "enabled": true,
+      "comment": "Workshop",
+      "values": {
+        "Id": "50021",
+        "ModelId": "5002",
+        "NameKey": "Building.Workshop",
+        "ConstructionTimeSeconds": "180",
+        "StorageCapacity": "0",
+        "OutputCacheSlots": "2",
+        "RatedPower": "0",
+        "EnergyCapacity": "0",
+        "ProductionRate": "",
+        "MaximumIntegrity": "100",
+        "ConstructionPrice": "1500",
+        "RecyclePrice": "1200",
+        "IdlePower": "1",
+        "WorkingPower": "10",
+        "Availability": "PendingResource",
+        "Prefab": ""
+      },
+      "notes": {},
+      "_cells": []
+    },
+    {
+      "row": 7,
+      "enabled": true,
+      "comment": "BiomassGenerator",
+      "values": {
+        "Id": "50031",
+        "ModelId": "5003",
+        "NameKey": "Building.BiomassGenerator",
+        "ConstructionTimeSeconds": "240",
+        "StorageCapacity": "0",
+        "OutputCacheSlots": "0",
+        "RatedPower": "60",
+        "EnergyCapacity": "0",
+        "ProductionRate": "1 biomass = 60 energy",
+        "MaximumIntegrity": "100",
+        "ConstructionPrice": "2000",
+        "RecyclePrice": "1600",
+        "IdlePower": "0.5",
+        "WorkingPower": "0",
+        "Availability": "Ready",
+        "Prefab": "InitialRegion/Generator"
+      },
+      "notes": {},
+      "_cells": []
+    },
+    {
+      "row": 8,
+      "enabled": true,
+      "comment": "SolarGenerator",
+      "values": {
+        "Id": "50041",
+        "ModelId": "5004",
+        "NameKey": "Building.SolarGenerator",
+        "ConstructionTimeSeconds": "0",
+        "StorageCapacity": "0",
+        "OutputCacheSlots": "0",
+        "RatedPower": "15",
+        "EnergyCapacity": "0",
+        "ProductionRate": "Daytime only",
+        "MaximumIntegrity": "100",
+        "ConstructionPrice": "0",
+        "RecyclePrice": "0",
+        "IdlePower": "0",
+        "WorkingPower": "0",
+        "Availability": "Ready",
+        "Prefab": "InitialRegion/SolarArray"
+      },
+      "notes": {},
+      "_cells": []
+    },
+    {
+      "row": 9,
+      "enabled": true,
+      "comment": "Battery",
+      "values": {
+        "Id": "50051",
+        "ModelId": "5005",
+        "NameKey": "Building.Battery",
+        "ConstructionTimeSeconds": "120",
+        "StorageCapacity": "0",
+        "OutputCacheSlots": "0",
+        "RatedPower": "0",
+        "EnergyCapacity": "240",
+        "ProductionRate": "",
+        "MaximumIntegrity": "100",
+        "ConstructionPrice": "1200",
+        "RecyclePrice": "960",
+        "IdlePower": "0.1",
+        "WorkingPower": "0.1",
+        "Availability": "PendingResource",
+        "Prefab": ""
+      },
+      "notes": {},
+      "_cells": []
+    },
+    {
+      "row": 10,
+      "enabled": true,
+      "comment": "Pump",
+      "values": {
+        "Id": "50061",
+        "ModelId": "5006",
+        "NameKey": "Building.Pump",
+        "ConstructionTimeSeconds": "60",
+        "StorageCapacity": "100",
+        "OutputCacheSlots": "0",
+        "RatedPower": "0",
+        "EnergyCapacity": "0",
+        "ProductionRate": "50 water per 4 minutes",
+        "MaximumIntegrity": "100",
+        "ConstructionPrice": "500",
+        "RecyclePrice": "400",
+        "IdlePower": "0.5",
+        "WorkingPower": "5",
+        "Availability": "PendingResource",
+        "Prefab": ""
+      },
+      "notes": {},
+      "_cells": []
+    },
+    {
+      "row": 11,
+      "enabled": true,
+      "comment": "Conveyor",
+      "values": {
+        "Id": "50071",
+        "ModelId": "5007",
+        "NameKey": "Building.Conveyor",
+        "ConstructionTimeSeconds": "30",
+        "StorageCapacity": "0",
+        "OutputCacheSlots": "0",
+        "RatedPower": "0",
+        "EnergyCapacity": "0",
+        "ProductionRate": "",
+        "MaximumIntegrity": "100",
+        "ConstructionPrice": "200",
+        "RecyclePrice": "160",
+        "IdlePower": "0.1",
+        "WorkingPower": "1",
+        "Availability": "Ready",
+        "Prefab": "Buildings/Conveyor"
+      },
+      "notes": null,
+      "_cells": []
+    }
+  ]
+}

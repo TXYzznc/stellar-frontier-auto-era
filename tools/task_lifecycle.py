@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Guard result delivery: result-ready, producer accept, or rework."""
+"""Guard result delivery: result-ready, producer accept, rework, or cancel."""
 import argparse,json
 from datetime import datetime,timezone
 from pathlib import Path
@@ -11,8 +11,13 @@ ap=argparse.ArgumentParser();sp=ap.add_subparsers(dest='cmd',required=True)
 r=sp.add_parser('result-ready');r.add_argument('--task-id',required=True);r.add_argument('--artifact',action='append',required=True);r.add_argument('--evidence',action='append',required=True);r.add_argument('--validation',required=True);r.add_argument('--gaps',default='');r.add_argument('--released',default='')
 a=sp.add_parser('accept');a.add_argument('--task-id',required=True);a.add_argument('--by',required=True)
 w=sp.add_parser('rework');w.add_argument('--task-id',required=True);w.add_argument('--reason',required=True)
+c=sp.add_parser('cancel');c.add_argument('--task-id',required=True);c.add_argument('--reason',required=True);c.add_argument('--by',default='producer')
 x=ap.parse_args();d=load()
 if x.cmd=='result-ready': d[x.task_id]={'taskId':x.task_id,'state':'AwaitingProducerAcceptance','artifacts':x.artifact,'evidence':x.evidence,'validation':x.validation,'gaps':x.gaps,'released':x.released,'resultReadyAt':stamp(),'producerAcceptedAt':None,'reworkReason':None};save(d);print(json.dumps(d[x.task_id],ensure_ascii=False))
+elif x.cmd=='cancel':
+ rec=d.setdefault(x.task_id,{'taskId':x.task_id,'state':None,'artifacts':[],'evidence':[],'validation':'','gaps':'','released':'','resultReadyAt':None,'producerAcceptedAt':None,'reworkReason':None})
+ rec.update({'state':'Cancelled','cancelledAt':stamp(),'cancelledBy':x.by,'cancelReason':x.reason,'reworkReason':None,'acceptedBy':None})
+ save(d);print(json.dumps(rec,ensure_ascii=False))
 else:
  if x.task_id not in d: raise SystemExit('task has no result-ready record')
  d[x.task_id]['state']='Accepted' if x.cmd=='accept' else 'Rework';d[x.task_id]['producerAcceptedAt']=stamp() if x.cmd=='accept' else None;d[x.task_id]['acceptedBy']=getattr(x,'by',None);d[x.task_id]['reworkReason']=getattr(x,'reason',None);save(d);print(json.dumps(d[x.task_id],ensure_ascii=False))

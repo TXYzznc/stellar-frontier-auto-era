@@ -3,8 +3,14 @@
 本目录保存OpenSpec建立前的专业窗口探索派发单，以及当前多窗口协作占用情况。它不替代
 用户维护的`第一版开发任务表.xlsx`，不构成任务顺序、依赖、工时或完成状态的第二权威来源。
 
+> 工作模式：主力平台已从 Codex 多窗口迁到 DSH AgentTeams。DSH 团队的协作语义见
+> [`DSHAgentTeams.md`](./DSHAgentTeams.md)；本目录其余文档描述 Codex 多窗口语义，作为遗留路径保留。
+
 ## 目录职责
 
+- `DSHAgentTeams.md`：DSH 主平台协作手册——角色映射（逻辑角色 dev/qa/art-design/art-3d ↔
+  实际成员名 programmer/tester/art-writer/art-maker）、批次流程、状态同步合同、DCC 环境策略
+  与 Codex 遗留窗口冲突规避。
 - `ActiveAssignments.md`：由制作人窗口维护批次级派发、异常和长期占用，不再登记普通进度、
   每次Unity交接或Git提交；不记录任务表意义上的完成状态。
 - `DispatchTemplate.md`：方案探索派发单的固定字段、启动检查、修改权限、锁与回传模板。

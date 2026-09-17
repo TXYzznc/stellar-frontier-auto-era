@@ -15,6 +15,7 @@ import subprocess
 import sys
 import time
 import tkinter as tk
+import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 from tkinter import messagebox, ttk
@@ -31,6 +32,10 @@ QUEUE = DISPATCH / 'task-queue.local.json'
 LIFECYCLE = DISPATCH / 'task-lifecycle.local.json'
 HEARTBEATS = DISPATCH / 'heartbeats.local.json'
 BINDINGS = DISPATCH / 'watchdog-ui-bindings.local.json'
+DSH_STATE = DISPATCH / 'dsh-team-state.local.json'
+DSH_INBOX = ROOT / '.agent-teams/autoera-dsh/inbox/captain.jsonl'
+# generatedAt 超过该时长（秒）视为数据过期，在 DSH 团队页高亮提示。
+DSH_STALE_SECONDS = 300
 IMGPROXY_DIR = ROOT / 'tools' / 'imgproxy'
 IMGPROXY_CONFIG = IMGPROXY_DIR / 'config.json'
 IMGPROXY_START = IMGPROXY_DIR / 'start_background.cmd'
@@ -190,6 +195,188 @@ def scan_session_meta(thread_id: str) -> dict:
     return {}
 
 
+def lifecycle_by_task(lifecycle: dict) -> dict[str, dict]:
+    """将任务生命周期索引为 taskId，兼容历史文件使用任意键名的情况。"""
+    return {
+        value.get('taskId'): value
+        for value in (lifecycle or {}).values()
+        if isinstance(value, dict) and value.get('taskId')
+    }
+
+
+def task_status_label(bucket: str, task: dict, lifecycle: dict[str, dict]) -> str:
+    """将队列槽位和生命周期统一成面板可读的当前状态。"""
+    task_id = task.get('taskId', '')
+    lifecycle_state = (lifecycle.get(task_id) or {}).get('state') or task.get('state')
+    labels = {
+        'Active': '执行中',
+        'active': '执行中',
+        'Pending': '排队中',
+        'pending': '排队中',
+        'Queued': '排队中',
+        'queued': '排队中',
+        'AwaitingProducerAcceptance': '待验收',
+        'AwaitingCollaboration': '待协作',
+        'AwaitingUserAcceptance': '待用户验收',
+        'Blocked': '已阻塞',
+        'blocked': '已阻塞',
+        'Rework': '返工中',
+        'rework': '返工中',
+        'Cancelled': '已取消',
+        'cancelled': '已取消',
+        'Accepted': '已验收',
+        'accepted': '已验收',
+        'Completed': '已完成',
+        'completed': '已完成',
+    }
+    if lifecycle_state:
+        return labels.get(str(lifecycle_state), str(lifecycle_state))
+    return {
+        'active': '执行中',
+        'pending': '排队中',
+        'suspended': '挂起中',
+        'completed': '已完成',
+    }.get(bucket, '未标记')
+
+
+def queue_task_rows(entry: dict, lifecycle: dict) -> list[tuple[str, str, str]]:
+    """返回一个角色全部队列任务，每项为 ID、标题、当前状态。"""
+    indexed_lifecycle = lifecycle_by_task(lifecycle)
+    rows: list[tuple[str, str, str]] = []
+    seen: set[str] = set()
+    # 已完成任务固定置顶，便于先折叠完整历史、再查看当前待办。
+    slots = (
+        ('completed', entry.get('completed') or []),
+        ('active', [entry.get('active')] if entry.get('active') else []),
+        ('pending', entry.get('pending') or []),
+        ('suspended', entry.get('suspended') or []),
+    )
+    for bucket, tasks in slots:
+        for task in tasks:
+            if not isinstance(task, dict):
+                continue
+            task_id = task.get('taskId') or '未命名任务'
+            if task_id in seen:
+                continue
+            seen.add(task_id)
+            status = task_status_label(bucket, task, indexed_lifecycle)
+            if status == '已取消':
+                # 已取消任务不再占用任务列表，队列文件里仍保留历史记录供追溯。
+                continue
+            rows.append((task_id, task.get('title') or '未命名任务', status))
+    return rows
+
+
+def split_completed_queue_rows(rows: list[tuple[str, str, str]]) -> tuple[list[tuple[str, str, str]], list[tuple[str, str, str]]]:
+    """拆分真正已完成的历史项；待验收等仍属于用户应优先关注的未完成项。"""
+    completed = [row for row in rows if row[2] in ('已完成', '已验收')]
+    remaining = [row for row in rows if row[2] not in ('已完成', '已验收')]
+    return completed, remaining
+
+
+def build_team_registry(selected_thread_ids: list[str], catalog: dict[str, dict], old_windows: dict,
+                        bindings: dict) -> dict[str, dict]:
+    """从用户在置顶窗口中选中的线程重建团队注册表，不会纳入未选线程。"""
+    by_thread = {value.get('threadId'): value for value in old_windows.values() if value.get('threadId')}
+    windows: dict[str, dict] = {}
+    for thread_id in selected_thread_ids:
+        meta = catalog.get(thread_id) or scan_session_meta(thread_id)
+        previous = by_thread.get(thread_id, {})
+        title = meta.get('title') or previous.get('title', '')
+        role = bindings.get(thread_id) or derive_role(title) or ('window-' + thread_id[:8])
+        base, suffix = role, 2
+        while role in windows:
+            role = f'{base}-{suffix}'
+            suffix += 1
+        windows[role] = {
+            'title': title,
+            'threadId': thread_id,
+            'hostId': previous.get('hostId', 'local'),
+            'projectId': meta.get('projectId') or previous.get('projectId', ''),
+            'projectPath': meta.get('cwd') or previous.get('projectPath', ''),
+            'status': previous.get('status', 'ready') or 'ready',
+            'unityPort': previous.get('unityPort', default_port(meta.get('cwd', ''))),
+        }
+    return windows
+
+
+# ---------- DSH 团队状态 ----------
+
+def dsh_mode_active(path: Path | None = None) -> bool:
+    """DSH 状态文件存在即进入 DSH 模式（与 agent_watchdog.py 的判定一致）。"""
+    return (path or DSH_STATE).is_file()
+
+
+def load_dsh_state(path: Path | None = None) -> dict:
+    """读取 DSH 队长导出的团队状态；文件缺失或损坏时返回空字典，保持旧行为。"""
+    return load(path or DSH_STATE, {})
+
+
+def parse_generated_at(value):
+    """解析 generatedAt（ISO 字符串），失败返回 None。"""
+    if value in (None, ''):
+        return None
+    try:
+        text = str(value).strip()
+        if text.endswith('Z'):
+            text = text[:-1] + '+00:00'
+        dt = datetime.fromisoformat(text)
+        return dt.replace(tzinfo=timezone.utc) if dt.tzinfo is None else dt
+    except Exception:
+        return None
+
+
+def dsh_freshness(generated_at, now: datetime | None = None) -> dict:
+    """generatedAt 相对时长与过期判定；不可解析时同样视为过期。"""
+    now = now or datetime.now(timezone.utc)
+    dt = parse_generated_at(generated_at)
+    if dt is None:
+        return {'seconds': None, 'stale': True, 'label': '无法解析生成时间'}
+    seconds = int((now - dt).total_seconds())
+    stale = seconds < 0 or seconds > DSH_STALE_SECONDS
+    label = '（未来时间）' if seconds < 0 else human_delta(seconds) + '前'
+    return {'seconds': seconds, 'stale': stale, 'label': label}
+
+
+def dsh_member_rows(state: dict) -> list[tuple[str, str, str]]:
+    """成员表行：姓名、职责、活动状态。"""
+    return [
+        (m.get('name', ''), m.get('role', ''), m.get('activity', ''))
+        for m in (state.get('members') or []) if isinstance(m, dict)
+    ]
+
+
+def dsh_task_rows(state: dict) -> list[tuple[str, str, str, str]]:
+    """任务表行：编号、主题、状态、负责人。"""
+    return [
+        (t.get('id', ''), t.get('subject', ''), t.get('status', ''), t.get('assignee', ''))
+        for t in (state.get('tasks') or []) if isinstance(t, dict)
+    ]
+
+
+def write_dsh_inbox_message(content: str, inbox_path: Path | None = None, sender: str = 'watchdog-ui') -> dict:
+    """向 DSH 队长的收件箱追加一条消息（JSONL）。
+
+    「入队」按钮在 DSH 模式下的语义：写给 DSH 队长的收件箱，而不是写入 Codex
+    窗口队列。写入格式与 AgentTeams 收件箱消息保持一致（from/to/content/ts）。
+    """
+    content = (content or '').strip()
+    if not content:
+        raise ValueError('消息内容不能为空')
+    path = inbox_path or DSH_INBOX
+    path.parent.mkdir(parents=True, exist_ok=True)
+    record = {
+        'id': str(uuid.uuid4()),
+        'from': sender,
+        'to': 'captain',
+        'content': content,
+        'ts': int(datetime.now(timezone.utc).timestamp() * 1000),
+    }
+    with path.open('a', encoding='utf8') as fh:
+        fh.write(json.dumps(record, ensure_ascii=False) + '\n')
+    return record
+
+
 class App:
     def __init__(self, root: tk.Tk) -> None:
         self.root = root
@@ -200,8 +387,31 @@ class App:
         self.interval = tk.IntVar(value=c.get('interval', MIN_INTERVAL_SECONDS))
         self.only_autorea = tk.BooleanVar(value=True)
         self.results: dict = {}
+        # DSH 模式：dsh-team-state.local.json 存在即进入；无该文件时保持旧行为。
+        self.dsh_active = dsh_mode_active()
 
-        bar = ttk.Frame(root)
+        self.notebook = ttk.Notebook(root)
+        self.notebook.pack(fill='both', expand=True)
+        codex_tab = ttk.Frame(self.notebook)
+        dsh_tab = ttk.Frame(self.notebook)
+        self.notebook.add(codex_tab, text='Codex 守护')
+        self.notebook.add(dsh_tab, text='DSH 团队')
+
+        self._build_codex_tab(codex_tab)
+        self._build_dsh_tab(dsh_tab)
+
+        # DSH 模式下直接进入团队页；Codex 页保留只读的队列/生命周期视图。
+        if self.dsh_active:
+            self.notebook.select(dsh_tab)
+
+        self.refresh()
+        self.refresh_dsh()
+        self.refresh_proxy_status()
+        self.root.after(10000, self.poll_proxy)
+
+    def _build_codex_tab(self, tab: ttk.Frame) -> None:
+        """构建 Codex 守护页：注册表/队列/生命周期视图与守护设置。"""
+        bar = ttk.Frame(tab)
         bar.pack(fill='x', padx=10, pady=8)
         ttk.Checkbutton(bar, text='启用守护', variable=self.enabled, command=self.apply_settings).pack(side='left')
         ttk.Label(bar, text='检查间隔(秒)').pack(side='left', padx=(16, 4))
@@ -210,23 +420,28 @@ class App:
         spin.pack(side='left')
         spin.bind('<Return>', self.apply_settings)
         spin.bind('<FocusOut>', self.apply_settings)
-        ttk.Button(bar, text='立即检查', command=self.check).pack(side='left', padx=10)
+        self.btn_check = ttk.Button(bar, text='立即检查', command=self.check)
+        self.btn_check.pack(side='left', padx=10)
         ttk.Button(bar, text='刷新', command=self.refresh).pack(side='left', padx=4)
-        ttk.Button(bar, text='更新窗口', command=self.sync_windows).pack(side='left', padx=4)
+        self.btn_team_members = ttk.Button(bar, text='团队成员…', command=self.edit_team_members)
+        self.btn_team_members.pack(side='left', padx=4)
+        self.btn_update_windows = ttk.Button(bar, text='更新窗口', command=self.refresh_registered_windows)
+        self.btn_update_windows.pack(side='left', padx=4)
         ttk.Button(bar, text='解除退避', command=self.clear_backoff).pack(side='left', padx=4)
         ttk.Button(bar, text='安全暂停', command=self.pause).pack(side='left')
 
-        bar2 = ttk.Frame(root)
+        bar2 = ttk.Frame(tab)
         bar2.pack(fill='x', padx=10)
         ttk.Checkbutton(bar2, text='仅纳入 AutoEra 窗口', variable=self.only_autorea).pack(side='left')
         ttk.Label(bar2, text='测试角色').pack(side='left', padx=(20, 4))
         self.testRole = tk.StringVar(value='art-3d')
         self.roleBox = ttk.Combobox(bar2, textvariable=self.testRole, values=[], width=18)
         self.roleBox.pack(side='left')
-        ttk.Button(bar2, text='创建虚拟任务', command=self.create_test).pack(side='left', padx=6)
+        self.btn_create_test = ttk.Button(bar2, text='创建虚拟任务', command=self.create_test)
+        self.btn_create_test.pack(side='left', padx=6)
         ttk.Label(bar2, text='双击 role 单元格可改绑角色').pack(side='right')
 
-        bar3 = ttk.Frame(root)
+        bar3 = ttk.Frame(tab)
         bar3.pack(fill='x', padx=10, pady=(6, 0))
         ttk.Label(bar3, text='图片预处理代理').pack(side='left')
         self.proxyDot = tk.Canvas(bar3, width=14, height=14, highlightthickness=0)
@@ -240,7 +455,7 @@ class App:
         ttk.Label(bar3, textvariable=self.proxyChecked).pack(side='right')
         ttk.Label(bar3, text='绿=运行中  黄=异常  红=未运行').pack(side='right', padx=(0, 12))
 
-        pane = ttk.Panedwindow(root, orient='vertical')
+        pane = ttk.Panedwindow(tab, orient='vertical')
         pane.pack(fill='both', expand=True, padx=10, pady=(8, 0))
 
         top = ttk.Frame(pane)
@@ -255,7 +470,12 @@ class App:
         vs.pack(side='right', fill='y')
         pane.add(top, weight=3)
 
+        self.completed_queue_expanded = tk.BooleanVar(value=False)
         bottom = ttk.LabelFrame(pane, text='选中窗口详情')
+        detail_bar = ttk.Frame(bottom)
+        detail_bar.pack(fill='x', padx=4, pady=(4, 0))
+        ttk.Checkbutton(detail_bar, text='展开已完成任务', variable=self.completed_queue_expanded,
+                        command=self.show_detail).pack(side='left')
         self.detail = tk.Text(bottom, height=14, wrap='word', state='disabled')
         dvs = ttk.Scrollbar(bottom, orient='vertical', command=self.detail.yview)
         self.detail.configure(yscrollcommand=dvs.set)
@@ -268,10 +488,105 @@ class App:
         self.edit = None
 
         self.status = tk.StringVar(value='正在读取 Windows 守护任务状态…')
-        ttk.Label(root, textvariable=self.status).pack(anchor='w', padx=10, pady=6)
-        self.refresh()
-        self.refresh_proxy_status()
-        self.root.after(10000, self.poll_proxy)
+        ttk.Label(tab, textvariable=self.status).pack(anchor='w', padx=10, pady=6)
+
+        # DSH 模式下禁用 Codex 窗口重绑定与手动唤醒；队列/生命周期视图保留为只读。
+        if self.dsh_active:
+            for widget in (self.btn_check, self.btn_team_members, self.btn_update_windows, self.btn_create_test):
+                widget.configure(state='disabled')
+            self.status.set('DSH 模式：Codex 窗口重绑定与手动唤醒已禁用（见「DSH 团队」页）')
+
+    def _build_dsh_tab(self, tab: ttk.Frame) -> None:
+        """构建 DSH 团队页：成员/任务状态与数据新鲜度，「入队」写队长收件箱。"""
+        header = ttk.Frame(tab)
+        header.pack(fill='x', padx=10, pady=8)
+        self.dshTitle = tk.StringVar(value='')
+        ttk.Label(header, textvariable=self.dshTitle).pack(side='left')
+        ttk.Button(header, text='刷新 DSH 状态', command=self.refresh_dsh).pack(side='right')
+        ttk.Button(header, text='入队（写队长收件箱）', command=self.enqueue_dsh_message).pack(side='right', padx=6)
+
+        self.dshFreshness = tk.Label(header, text='', foreground='#1a7f37')
+        self.dshFreshness.pack(side='left', padx=(16, 0))
+
+        body = ttk.Panedwindow(tab, orient='vertical')
+        body.pack(fill='both', expand=True, padx=10, pady=(0, 8))
+
+        members_frame = ttk.LabelFrame(body, text='团队成员')
+        member_cols = ('name', 'role', 'activity')
+        self.dsh_members = ttk.Treeview(members_frame, columns=member_cols, show='headings', height=6)
+        for name, label, width in (('name', '成员', 160), ('role', '职责', 260), ('activity', '活动状态', 160)):
+            self.dsh_members.heading(name, text=label)
+            self.dsh_members.column(name, width=width, stretch=True)
+        mvs = ttk.Scrollbar(members_frame, orient='vertical', command=self.dsh_members.yview)
+        self.dsh_members.configure(yscrollcommand=mvs.set)
+        self.dsh_members.pack(side='left', fill='both', expand=True)
+        mvs.pack(side='right', fill='y')
+        body.add(members_frame, weight=1)
+
+        tasks_frame = ttk.LabelFrame(body, text='任务')
+        task_cols = ('id', 'subject', 'status', 'assignee')
+        self.dsh_tasks = ttk.Treeview(tasks_frame, columns=task_cols, show='headings', height=8)
+        for name, label, width in (('id', '编号', 90), ('subject', '主题', 420), ('status', '状态', 120), ('assignee', '负责人', 120)):
+            self.dsh_tasks.heading(name, text=label)
+            self.dsh_tasks.column(name, width=width, stretch=name == 'subject')
+        tvs = ttk.Scrollbar(tasks_frame, orient='vertical', command=self.dsh_tasks.yview)
+        self.dsh_tasks.configure(yscrollcommand=tvs.set)
+        self.dsh_tasks.pack(side='left', fill='both', expand=True)
+        tvs.pack(side='right', fill='y')
+        body.add(tasks_frame, weight=2)
+
+    # ---------- DSH 团队页 ----------
+
+    def refresh_dsh(self) -> None:
+        """重新读取 dsh-team-state.local.json 并刷新成员/任务表与新鲜度提示。"""
+        if not self.dsh_active:
+            self.dshTitle.set('DSH 模式未启用：未检测到 .ai/dispatch/dsh-team-state.local.json')
+            self.dshFreshness.configure(text='', foreground='#1a7f37')
+            self.dsh_members.delete(*self.dsh_members.get_children())
+            self.dsh_tasks.delete(*self.dsh_tasks.get_children())
+            return
+        state = load_dsh_state()
+        self.dshTitle.set(f"DSH 团队：{state.get('team', '')}（schema v{state.get('schemaVersion', '?')}）".strip())
+        freshness = dsh_freshness(state.get('generatedAt'))
+        color = '#c0392b' if freshness.get('stale') else '#1a7f37'
+        note = '（已过期）' if freshness.get('stale') else ''
+        self.dshFreshness.configure(text=f"数据新鲜度：{freshness.get('label')}{note}", foreground=color)
+
+        self.dsh_members.delete(*self.dsh_members.get_children())
+        for row in dsh_member_rows(state):
+            self.dsh_members.insert('', 'end', values=row)
+
+        self.dsh_tasks.delete(*self.dsh_tasks.get_children())
+        for row in dsh_task_rows(state):
+            self.dsh_tasks.insert('', 'end', values=row)
+
+    def enqueue_dsh_message(self) -> None:
+        """「入队」：DSH 模式下的语义是写给 DSH 队长的收件箱，而不是 Codex 队列。"""
+        dialog = tk.Toplevel(self.root)
+        dialog.title('入队（写队长收件箱）')
+        dialog.geometry('560x300')
+        dialog.transient(self.root)
+        dialog.grab_set()
+        ttk.Label(dialog, text='向 DSH 队长（captain）的收件箱写入一条消息：').pack(anchor='w', padx=12, pady=(12, 6))
+        text = tk.Text(dialog, height=8, wrap='word')
+        text.pack(fill='both', expand=True, padx=12)
+
+        def send():
+            content = text.get('1.0', 'end').strip()
+            if not content:
+                messagebox.showwarning('入队', '消息内容不能为空。', parent=dialog)
+                return
+            try:
+                record = write_dsh_inbox_message(content)
+                dialog.destroy()
+                self.status.set(f"已写入 DSH 队长收件箱（消息 id={record['id']}）")
+            except Exception as exc:
+                messagebox.showerror('入队', '写入收件箱失败：' + str(exc), parent=dialog)
+
+        controls = ttk.Frame(dialog)
+        controls.pack(fill='x', padx=12, pady=12)
+        ttk.Button(controls, text='发送', command=send).pack(side='right')
+        ttk.Button(controls, text='取消', command=dialog.destroy).pack(side='right', padx=6)
 
     # ---------- 图片预处理代理 ----------
 
@@ -414,50 +729,80 @@ class App:
     def bindings(self) -> dict:
         return load(BINDINGS, {})
 
-    def sync_windows(self):
-        """移除旧数据，读取本机所有置顶窗口后重建注册表。"""
+    def refresh_registered_windows(self):
+        """“更新窗口”只重载注册表中的成员，不会用所有置顶窗口覆盖注册表。"""
+        count = len((load(REG, {}).get('windows', {}) or {}))
+        self.refresh()
+        self.status.set(f'已显示注册表中的 {count} 个团队成员（未修改注册表）')
+
+    def edit_team_members(self):
+        """从当前置顶窗口中选择团队成员，并以选择结果原子更新注册表。"""
         pinned = read_pinned_ids()
         if not pinned:
-            messagebox.showwarning('更新窗口', f'未能读取到置顶窗口。\n请确认存在：{GLOBAL_STATE}')
+            messagebox.showwarning('团队成员', f'未能读取到置顶窗口。\n请确认存在：{GLOBAL_STATE}')
             return
+
         catalog = read_catalog()
         registry = load(REG, {})
-        old = registry.get('windows', {}) or {}
-        by_thread = {v.get('threadId'): (k, v) for k, v in old.items() if v.get('threadId')}
-        saved = self.bindings()
-        windows: dict[str, dict] = {}
-        skipped: list[str] = []
-        for tid in pinned:
-            meta = catalog.get(tid) or scan_session_meta(tid)
+        old_windows = registry.get('windows', {}) or {}
+        existing_threads = {entry.get('threadId') for entry in old_windows.values() if entry.get('threadId')}
+        bindings = self.bindings()
+        candidates = []
+        for thread_id in pinned:
+            meta = catalog.get(thread_id) or scan_session_meta(thread_id)
             title = meta.get('title') or ''
-            role = saved.get(tid) or derive_role(title)
-            if not role:
-                if self.only_autorea.get():
-                    skipped.append(title or tid)
-                    continue
-                role = 'window-' + tid[:8]
-            base, suffix = role, 2
-            while role in windows:
-                role = f'{base}-{suffix}'
-                suffix += 1
-            prev = by_thread.get(tid, (None, {}))[1]
-            windows[role] = {
-                'title': title or prev.get('title', ''),
-                'threadId': tid,
-                'hostId': prev.get('hostId', 'local'),
-                'projectId': meta.get('projectId') or prev.get('projectId', ''),
-                'projectPath': meta.get('cwd') or prev.get('projectPath', ''),
-                'status': 'ready',
-                'unityPort': prev.get('unityPort', default_port(meta.get('cwd', ''))),
-            }
-        registry['windows'] = windows
-        save_json(REG, registry)
-        self.roleBox.configure(values=list(windows.keys()))
-        parts = [f'已更新 {len(windows)} 个窗口']
-        if skipped:
-            parts.append(f'跳过非 AutoEra 置顶 {len(skipped)} 个')
-        self.status.set('，'.join(parts))
-        self.refresh()
+            if self.only_autorea.get() and not title.startswith('AutoEra'):
+                continue
+            candidates.append((thread_id, title, bindings.get(thread_id) or derive_role(title) or ('window-' + thread_id[:8])))
+        if not candidates:
+            scope = 'AutoEra ' if self.only_autorea.get() else ''
+            messagebox.showwarning('团队成员', f'当前置顶窗口中没有可选择的 {scope}窗口。')
+            return
+
+        dialog = tk.Toplevel(self.root)
+        dialog.title('选择团队成员')
+        dialog.geometry('940x440')
+        dialog.transient(self.root)
+        dialog.grab_set()
+
+        ttk.Label(dialog, text='从当前置顶窗口中选择要写入团队注册表的成员；未选窗口不会出现在下方成员列表。').pack(
+            anchor='w', padx=12, pady=(12, 6))
+        container = ttk.Frame(dialog)
+        container.pack(fill='both', expand=True, padx=12)
+        columns = ('title', 'thread', 'role', 'registered')
+        picker = ttk.Treeview(container, columns=columns, show='headings', selectmode='extended')
+        for name, label, width in (
+            ('title', '窗口标题', 260), ('thread', '线程', 260), ('role', '建议角色', 170), ('registered', '当前已注册', 100),
+        ):
+            picker.heading(name, text=label)
+            picker.column(name, width=width, stretch=name in ('title', 'thread'))
+        scroll = ttk.Scrollbar(container, orient='vertical', command=picker.yview)
+        picker.configure(yscrollcommand=scroll.set)
+        picker.pack(side='left', fill='both', expand=True)
+        scroll.pack(side='right', fill='y')
+        for thread_id, title, role in candidates:
+            picker.insert('', 'end', iid=thread_id, values=(title or '（无标题）', thread_id, role, '是' if thread_id in existing_threads else '否'))
+            if thread_id in existing_threads:
+                picker.selection_add(thread_id)
+
+        controls = ttk.Frame(dialog)
+        controls.pack(fill='x', padx=12, pady=12)
+        ttk.Button(controls, text='全选', command=lambda: picker.selection_set(picker.get_children())).pack(side='left')
+        ttk.Button(controls, text='全不选', command=lambda: picker.selection_remove(picker.selection())).pack(side='left', padx=6)
+
+        def save_selection():
+            selected = list(picker.selection())
+            if not selected and not messagebox.askyesno('团队成员', '未选择任何窗口，将清空团队成员注册表。是否继续？', parent=dialog):
+                return
+            registry['windows'] = build_team_registry(selected, catalog, old_windows, bindings)
+            save_json(REG, registry)
+            self.roleBox.configure(values=list(registry['windows'].keys()))
+            dialog.destroy()
+            self.refresh_registered_windows()
+            self.status.set(f'已更新团队成员注册表：{len(selected)} 个窗口')
+
+        ttk.Button(controls, text='保存为团队成员并更新注册表', command=save_selection).pack(side='right')
+        ttk.Button(controls, text='取消', command=dialog.destroy).pack(side='right', padx=6)
 
     def set_role(self, old_role: str, new_role: str) -> bool:
         new_role = (new_role or '').strip()
@@ -482,6 +827,8 @@ class App:
         return True
 
     def begin_role_edit(self, event):
+        if self.dsh_active:
+            return  # DSH 模式下禁止改绑 Codex 窗口角色
         if self.tree.identify_column(event.x) != '#1':
             return
         row = self.tree.identify_row(event.y)
@@ -571,12 +918,11 @@ class App:
             entry = (load(QUEUE, {}).get('roles', {}) or {}).get(role, {}) or {}
             life = load(LIFECYCLE, {})
             active = entry.get('active') or {}
-            pending = [x.get('taskId', '') for x in entry.get('pending') or []]
-            suspended = [x.get('taskId', '') for x in entry.get('suspended') or []]
+            queue_rows = queue_task_rows(entry, life)
             result = (self.results or {}).get(role, {}) or {}
             hb = (load(HEARTBEATS, {}).get(role) or {})
             task_id = active.get('taskId', '')
-            life_entry = next((v for v in life.values() if task_id and v.get('taskId') == task_id), None) or {}
+            life_entry = lifecycle_by_task(life).get(task_id, {})
             state = life_entry.get('state')
             verdict = backoff.evaluate(role, w.get('threadId'))
             rows = [
@@ -603,9 +949,20 @@ class App:
                 f'当前任务 (active)  : {task_id or "无"}',
                 f'生命周期状态       : {state or "无"}',
                 f'任务结果时间       : ' + (format_instant(life_entry.get('resultReadyAt')) or '—'),
-                f'排队任务 (pending) : {", ".join(pending) if pending else "无"}',
-                f'挂起任务 (suspend) : {", ".join(suspended) if suspended else "无"}',
+                '',
             ]
+            completed_rows, active_rows = split_completed_queue_rows(queue_rows)
+            rows.append(f'任务队列（已完成 {len(completed_rows)} 项，未完成 {len(active_rows)} 项；每行一条，后缀为当前状态）：')
+            if completed_rows:
+                if self.completed_queue_expanded.get():
+                    rows.append(f'  已完成任务（{len(completed_rows)} 项，勾选上方“展开已完成任务”可折叠）：')
+                    rows.extend(f'    {task_id}｜{title}（{task_state}）' for task_id, title, task_state in completed_rows)
+                else:
+                    rows.append(f'  已完成任务：{len(completed_rows)} 项（已折叠，勾选上方“展开已完成任务”查看）')
+            if active_rows:
+                rows.extend(f'  {task_id}｜{title}（{task_state}）' for task_id, title, task_state in active_rows)
+            elif not completed_rows:
+                rows.append('  无')
             text = '\n'.join(rows)
         self.detail.configure(state='normal')
         self.detail.delete('1.0', 'end')

@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "kind": "GF_X.DataTable.AI",
+  "tableName": "ResourcePointDefinitions",
+  "relativePath": "ResourcePoints/ResourcePointDefinitions",
+  "sourceExcel": "GameData/DataTables/ResourcePoints/ResourcePointDefinitions.xlsx",
+  "sourceExcelLastWriteUtc": null,
+  "sourceFingerprint": null,
+  "generatedAtUtc": null,
+  "tableComment": "Resource point definitions with capacity, cache, production parameters and integrity",
+  "columns": [
+    {
+      "index": 1,
+      "key": "Note",
+      "name": "#",
+      "type": "#",
+      "comment": "#",
+      "role": "comment"
+    },
+    {
+      "index": 2,
+      "key": "Id",
+      "name": "Id",
+      "type": "int",
+      "comment": "Stable row identifier",
+      "role": "id"
+    },
+    {
+      "index": 3,
+      "key": "Note3",
+      "name": "",
+      "type": "",
+      "comment": "",
+      "role": "comment"
+    },
+    {
+      "index": 4,
+      "key": "ModelId",
+      "name": "ModelId",
+      "type": "int",
+      "comment": "Resource point model ID",
+      "role": "data"
+    },
+    {
+      "index": 5,
+      "key": "NameKey",
+      "name": "NameKey",
+      "type": "string",
+      "comment": "Localization key",
+      "role": "data"
+    },
+    {
+      "index": 6,
+      "key": "PlantCapacity",
+      "name": "PlantCapacity",
+      "type": "int",
+      "comment": "Farmland planting capacity",
+      "role": "data"
+    },
+    {
+      "index": 7,
+      "key": "CacheCapacity",
+      "name": "CacheCapacity",
+      "type": "int",
+      "comment": "Temporary output cache capacity",
+      "role": "data"
+    },
+    {
+      "index": 8,
+      "key": "TotalReserve",
+      "name": "TotalReserve",
+      "type": "string",
+      "comment": "Total resource reserve (number or 'Infinite')",
+      "role": "data"
+    },
+    {
+      "index": 9,
+      "key": "ProductionRate",
+      "name": "ProductionRate",
+      "type": "string",
+      "comment": "Production rate description",
+      "role": "data"
+    },
+    {
+      "index": 10,
+      "key": "MaximumIntegrity",
+      "name": "MaximumIntegrity",
+      "type": "double",
+      "comment": "Structure integrity limit",
+      "role": "data"
+    },
+    {
+      "index": 11,
+      "key": "Availability",
+      "name": "Availability",
+      "type": "string",
+      "comment": "Resource availability state",
+      "role": "data"
+    },
+    {
+      "index": 12,
+      "key": "Prefab",
+      "name": "Prefab",
+      "type": "string",
+      "comment": "Prefab relative path",
+      "role": "data"
+    }
+  ],
+  "rows": [
+    {
+      "row": 5,
+      "enabled": true,
+      "comment": "Farmland",
+      "values": {
+        "Id": "60011",
+        "ModelId": "6001",
+        "NameKey": "ResourcePoint.Farmland",
+        "PlantCapacity": "10",
+        "CacheCapacity": "60",
+        "TotalReserve": "N/A",
+        "ProductionRate": "Batch production, see crop specs",
+        "MaximumIntegrity": "100",
+        "Availability": "Ready",
+        "Prefab": "InitialRegion/Farmland"
+      },
+      "notes": {},
+      "_cells": []
+    },
+    {
+      "row": 6,
+      "enabled": true,
+      "comment": "Forest",
+      "values": {
+        "Id": "60021",
+        "ModelId": "6002",
+        "NameKey": "ResourcePoint.Forest",
+        "PlantCapacity": "0",
+        "CacheCapacity": "0",
+        "TotalReserve": "Infinite",
+        "ProductionRate": "Continuous growth, see cutting specs",
+        "MaximumIntegrity": "100",
+        "Availability": "Ready",
+        "Prefab": "InitialRegion/Forest"
+      },
+      "notes": {},
+      "_cells": []
+    },
+    {
+      "row": 7,
+      "enabled": true,
+      "comment": "MineralVein",
+      "values": {
+        "Id": "60031",
+        "ModelId": "6003",
+        "NameKey": "ResourcePoint.MineralVein",
+        "PlantCapacity": "0",
+        "CacheCapacity": "0",
+        "TotalReserve": "100",
+        "ProductionRate": "Drilling damage / MiningResistance",
+        "MaximumIntegrity": "100",
+        "Availability": "Ready",
+        "Prefab": "InitialRegion/MineralVein"
+      },
+      "notes": {},
+      "_cells": []
+    },
+    {
+      "row": 8,
+      "enabled": true,
+      "comment": "WaterArea",
+      "values": {
+        "Id": "60041",
+        "ModelId": "6004",
+        "NameKey": "ResourcePoint.WaterArea",
+        "PlantCapacity": "0",
+        "CacheCapacity": "0",
+        "TotalReserve": "Infinite",
+        "ProductionRate": "Source only, extracted by pump building",
+        "MaximumIntegrity": "100",
+        "Availability": "Ready",
+        "Prefab": "InitialRegion/Water"
+      },
+      "notes": {},
+      "_cells": []
+    }
+  ]
+}

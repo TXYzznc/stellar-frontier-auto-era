@@ -1,4 +1,5 @@
-﻿using AutoEra.World;
+﻿using AutoEra.Events;
+using AutoEra.World;
 using AutoEra.World.Time;
 
 namespace AutoEra.Application
@@ -11,14 +12,19 @@ namespace AutoEra.Application
     {
         public AutoEraApplicationContext Create()
         {
-            return Create(new SystemUtcTimeProvider(), new AutoEraWorldSessionFactory());
+            return Create(new SystemUtcTimeProvider(), new AutoEraWorldSessionFactory(), new GfEventPublisher());
         }
 
-        public AutoEraApplicationContext Create(
-            IUtcTimeProvider utcTimeProvider,
-            AutoEraWorldSessionFactory worldSessionFactory)
+        public AutoEraApplicationContext Create(IUtcTimeProvider utcTimeProvider, AutoEraWorldSessionFactory worldSessionFactory)
         {
-            return new AutoEraApplicationContext(utcTimeProvider, worldSessionFactory);
+            return Create(utcTimeProvider, worldSessionFactory, null);
         }
+
+        public AutoEraApplicationContext Create(IUtcTimeProvider utcTimeProvider, AutoEraWorldSessionFactory worldSessionFactory,
+            IEventPublisher eventPublisher)
+        {
+            return new AutoEraApplicationContext(utcTimeProvider, worldSessionFactory, eventPublisher);
+        }
+
     }
 }

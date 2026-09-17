@@ -3,6 +3,7 @@
 1. 队列 Active + 窗口 idle/notLoaded 必须产生 wake。
 2. 队列 Active + 窗口 running 必须不产生 wake。
 3. 生命周期 AwaitingProducerAcceptance/WaitingCollaboration/Accepted 即使窗口 idle 也不得 wake。
+3b. 生命周期 `Cancelled`（用户/制作人决定不再执行）属于终态：即使窗口 idle 也不得 wake，且不得与 `Accepted` 混用，也不得计入 `completed`。
 4. 明确暂停不得 wake。
 5. 没有可执行任务不得 wake。
 6. 同一 decisionId 只能投递一次。

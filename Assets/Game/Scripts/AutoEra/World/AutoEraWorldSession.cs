@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using AutoEra.Events;
 using AutoEra.World.Identity;
 using AutoEra.World.Time;
 
@@ -12,11 +13,13 @@ namespace AutoEra.World
     {
         private bool _isDisposed;
 
-        internal AutoEraWorldSession(PersistentIdAllocator idAllocator, PersistentObjectRegistry objectRegistry, WorldClock clock)
+        internal AutoEraWorldSession(PersistentIdAllocator idAllocator, PersistentObjectRegistry objectRegistry, WorldClock clock,
+            AutoEraEventService events)
         {
             IdAllocator = idAllocator ?? throw new ArgumentNullException(nameof(idAllocator));
             ObjectRegistry = objectRegistry ?? throw new ArgumentNullException(nameof(objectRegistry));
             Clock = clock ?? throw new ArgumentNullException(nameof(clock));
+            Events = events ?? throw new ArgumentNullException(nameof(events));
             Machines = new AutoEra.Machines.MachineRoster(IdAllocator, ObjectRegistry);
         }
 
@@ -25,6 +28,7 @@ namespace AutoEra.World
         public PersistentObjectRegistry ObjectRegistry { get; }
 
         public WorldClock Clock { get; }
+        public AutoEraEventService Events { get; }
         public AutoEra.Machines.MachineRoster Machines { get; }
 
         public bool IsActive => !_isDisposed;
@@ -38,6 +42,7 @@ namespace AutoEra.World
 
             _isDisposed = true;
             Machines.Dispose();
+            Events.Dispose();
             ObjectRegistry.Clear();
         }
     }

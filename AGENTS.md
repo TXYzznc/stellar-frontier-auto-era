@@ -83,6 +83,11 @@ Pending队列，按明确优先级和同级FIFO执行；不得向运行中窗口
 
 ## 路由
 
+> 主平台为 DSH AgentTeams（`autoera-dsh` 团队）：队长＝制作人＋策划＋Git 集成，dev＝程序＋工具，
+> qa＝测试，art-design＝概念层（提示词/文档/视觉合同），art-3d＝制作层（DCC）。角色映射、批次流程、
+> 状态同步与冲突规避见 [DSH 协作手册](./Docs/Development/Dispatch/DSHAgentTeams.md)。
+> 下表为 Codex 遗留路由，仅在多窗口或独立 Codex 会话中沿用。
+
 | 任务 | Agent |
 |---|---|
 | 范围、计划、排期、风险、研究 | `producer` |

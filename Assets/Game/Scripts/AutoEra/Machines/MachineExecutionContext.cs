@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AutoEra.Events;
 using AutoEra.World.Identity;
 
 namespace AutoEra.Machines
@@ -18,11 +19,11 @@ namespace AutoEra.Machines
         public MachineTaskQueue Tasks { get; }
         public MachineComputePool Compute { get; }
         public Sensors.MachineSensorSet Sensors { get; }
-        public MachineExecutionContext(MachineInstance machine, PersistentIdAllocator ids)
+        public MachineExecutionContext(MachineInstance machine, PersistentIdAllocator ids, AutoEraEventService events = null)
         {
             _machine = machine ?? throw new ArgumentNullException(nameof(machine));
             _ids = ids ?? throw new ArgumentNullException(nameof(ids));
-            Tasks = new MachineTaskQueue(ids); Compute = new MachineComputePool(ids, machine.ComputeCapacity, machine.LogicCapacity);
+            Tasks = new MachineTaskQueue(ids, events, machine.Id); Compute = new MachineComputePool(ids, machine.ComputeCapacity, machine.LogicCapacity);
             Sensors = new Sensors.MachineSensorSet(this);
             _machine.Changed += OnMachineChanged; Compute.Changed += OnComputeChanged;
             Synchronize();

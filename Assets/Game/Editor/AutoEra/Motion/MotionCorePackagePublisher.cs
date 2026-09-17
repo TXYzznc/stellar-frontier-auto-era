@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
@@ -24,6 +24,12 @@ namespace AutoEra.Editor.Motion
             "Assets/Game/Scripts/AutoEra/Motion/MotionPrimitives.cs",
             "Assets/Game/Scripts/AutoEra/Motion/MotionPresentationLeasePool.cs",
             "Assets/Game/Scripts/AutoEra/Motion/MotionPresentationUpdateLevel.cs",
+            "Assets/Game/Scripts/AutoEra/Motion/MotionPreviewEvaluator.cs",
+            "Assets/Game/Scripts/AutoEra/Motion/CargoBayPreview.cs",
+            "Assets/Game/Scripts/AutoEra/Motion/ConveyorLoopPresentation.cs",
+            "Assets/Game/Scripts/AutoEra/Motion/ConveyorLoopRigPreview.cs",
+            "Assets/Game/Scripts/AutoEra/Motion/EffectorWorkPresentation.cs",
+            "Assets/Game/Scripts/AutoEra/Motion/EffectorWorkRigPreview.cs",
             "Assets/Game/Scripts/AutoEra/Motion/FourWheelPresentation.cs",
             "Assets/Game/Scripts/AutoEra/Motion/ArmPresentationSolver.cs",
             "Assets/Game/Scripts/AutoEra/Motion/EffectorPresentationSequence.cs",

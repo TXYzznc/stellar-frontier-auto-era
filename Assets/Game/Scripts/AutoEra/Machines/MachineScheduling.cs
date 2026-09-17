@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using AutoEra.Events;
 using AutoEra.World.Identity;
+using GameFramework;
 
 namespace AutoEra.Machines
 {
@@ -17,6 +19,7 @@ namespace AutoEra.Machines
         public PersistentId Id { get; }
         public string Name { get; }
         public WorkPriority Priority { get; }
+        public CorrelationId Correlation { get; internal set; }
         public MachineTaskState State { get; internal set; } = MachineTaskState.Queued;
         public MachineWaitReason WaitReasons { get; internal set; }
         internal MachineTaskState BeforePause;
@@ -31,6 +34,8 @@ namespace AutoEra.Machines
     {
         public const int WaitingCapacity = 32;
         private readonly PersistentIdAllocator _ids;
+        private readonly AutoEraEventService _events;
+        private readonly PersistentId _source;
         private readonly List<MachineTaskRecord> _waiting = new List<MachineTaskRecord>();
         private readonly Dictionary<PersistentId, MachineTaskRecord> _live = new Dictionary<PersistentId, MachineTaskRecord>();
         private readonly Queue<MachineTaskRecord> _history = new Queue<MachineTaskRecord>();
@@ -39,7 +44,8 @@ namespace AutoEra.Machines
         public event Action<MachineTaskRecord> CancellationRequested;
         public int WaitingCount => _waiting.Count;
         public IEnumerable<MachineTaskRecord> History => _history;
-        public MachineTaskQueue(PersistentIdAllocator ids) { _ids = ids ?? throw new ArgumentNullException(nameof(ids)); }
+        public MachineTaskQueue(PersistentIdAllocator ids, AutoEraEventService events = null, PersistentId source = default)
+        { _ids = ids ?? throw new ArgumentNullException(nameof(ids)); _events = events; _source = source; }
         public QueueAdmission Submit(string name, WorkPriority priority, out MachineTaskRecord task)
         {
             task = null;
@@ -47,6 +53,11 @@ namespace AutoEra.Machines
             if (_waiting.Count >= WaitingCapacity) return QueueAdmission.Full;
             if (!_ids.TryAllocate(out var id)) return QueueAdmission.InvalidRequest;
             task = new MachineTaskRecord(id, name, priority); _waiting.Add(task); _live.Add(id, task);
+            if (_events != null)
+            {
+                task.Correlation = _events.OpenCommand(EventDomain.Task, _source, "task.submit");
+                PublishTaskFact(task, MachineTaskState.Queued, false, EventOutcome.None);
+            }
             if (_pauseReasons != MachineWaitReason.None)
             { task.BeforePause = MachineTaskState.Queued; task.State = MachineTaskState.Paused; task.WaitReasons = _pauseReasons; }
             return QueueAdmission.Accepted;
@@ -57,7 +68,9 @@ namespace AutoEra.Machines
             for (int i = 0; i < _waiting.Count; i++)
                 if (_waiting[i].State == MachineTaskState.Queued && (selected < 0 || _waiting[i].Priority > _waiting[selected].Priority)) selected = i;
             if (selected < 0) return null;
-            var task = _waiting[selected]; _waiting.RemoveAt(selected); task.State = MachineTaskState.Running; return task;
+            var task = _waiting[selected]; _waiting.RemoveAt(selected); task.State = MachineTaskState.Running;
+            PublishTaskFact(task, MachineTaskState.Running, false, EventOutcome.None);
+            return task;
         }
         public bool TryStart(PersistentId id)
         {
@@ -65,7 +78,9 @@ namespace AutoEra.Machines
             for (int i = 0; i < _waiting.Count; i++)
                 if (_waiting[i].State == MachineTaskState.Queued && (selected < 0 || _waiting[i].Priority > _waiting[selected].Priority)) selected = i;
             if (selected < 0 || _waiting[selected].Id != id) return false;
-            var task = _waiting[selected]; _waiting.RemoveAt(selected); task.State = MachineTaskState.Running; return true;
+            var task = _waiting[selected]; _waiting.RemoveAt(selected); task.State = MachineTaskState.Running;
+            PublishTaskFact(task, MachineTaskState.Running, false, EventOutcome.None);
+            return true;
         }
         public bool TryGet(PersistentId id, out MachineTaskRecord task) => _live.TryGetValue(id, out task);
         public bool AddActivity(PersistentId id)
@@ -112,6 +127,18 @@ namespace AutoEra.Machines
             _live.Remove(task.Id); _waiting.Remove(task);
             if (_history.Count == 100) _history.Dequeue();
             _history.Enqueue(task); Ended?.Invoke(task);
+            EventOutcome outcome = task.State == MachineTaskState.Completed ? EventOutcome.Succeeded
+                : task.State == MachineTaskState.Failed ? EventOutcome.Failed : EventOutcome.Cancelled;
+            PublishTaskFact(task, task.State, true, outcome);
+        }
+        private void PublishTaskFact(MachineTaskRecord task, MachineTaskState state, bool terminal, EventOutcome outcome)
+        {
+            if (_events == null || !task.Correlation.IsValid) return;
+            string action = state == MachineTaskState.Queued ? "task.queued"
+                : state == MachineTaskState.Running ? "task.started" : "task.ended";
+            var fact = ReferencePool.Acquire<MachineTaskFactEventArgs>();
+            fact.Initialize(task.Correlation, _source, task.Id, task.Name, task.Priority, state, action, terminal, outcome);
+            _events.PublishFact(fact);
         }
     }
 

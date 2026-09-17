@@ -13,6 +13,8 @@
 | 快速执行 | notLoaded | 无 | 0 | 0 | 新窗口空闲 |
 | Git集成 | notLoaded | 无 | 0 | 0 | 保持手动触发，不自动启动 |
 
+> **2026-09-16 更新**：`art2d-algorithm-assets-prefabs-20260912` 已由用户决定标记为未开始，并从 art-2d 队列移除；生命周期状态登记为 `Cancelled`，既不算完成，也不算验收通过。上表为 **2026-09-12 历史快照**，其中“美术（2D）”一行已不代表该任务的当前状态。详见 [Active/motion-bridge-and-algorithm-ui-production-20260912.md](./Active/motion-bridge-and-algorithm-ui-production-20260912.md)。
+
 ## 已知问题
 
 - 客户端任务仍在队列中，但窗口连续多个回合无工具调用、无输出即结束；不能视为完成，也不能视为等待外部协作。

@@ -49,6 +49,14 @@
 正式合同见[多窗口任务派发](../Docs/Development/Dispatch/README.md)与
 [Git集成工作流](../Docs/Development/Dispatch/GitIntegration.md)。
 
+## 路由
+
+> 主平台为 DSH AgentTeams（`autoera-dsh` 团队）：队长＝制作人＋策划＋Git 集成，dev＝程序＋工具，
+> qa＝测试，art-design＝概念层（提示词/文档/视觉合同），art-3d＝制作层（DCC）。角色映射、批次流程、
+> 状态同步与冲突规避见 [DSH 协作手册](../Docs/Development/Dispatch/DSHAgentTeams.md)。
+> Codex 多窗口语义（`producer`/`client-lead`/`client-unity`/`client-ta`/`qa-engineer`/
+> `tools-engineer`/`art-director`/`art-*` 等）作为遗留路径保留，仅在独立 Codex 会话沿用。
+
 ## Unity/GF_X 约束
 
 - 代码落地必须按 Unity 2022.3.62f3 校验。

@@ -1,4 +1,5 @@
-﻿using AutoEra.World.Identity;
+﻿using AutoEra.Events;
+using AutoEra.World.Identity;
 using AutoEra.World.Time;
 
 namespace AutoEra.World
@@ -11,10 +12,17 @@ namespace AutoEra.World
     {
         public AutoEraWorldSession Create(long initialWorldMilliseconds)
         {
+            return Create(initialWorldMilliseconds, null);
+        }
+
+        /// <summary>Journal-only sessions pass null; runtime passes the application event publisher.</summary>
+        public AutoEraWorldSession Create(long initialWorldMilliseconds, IEventPublisher eventPublisher)
+        {
             var allocator = new PersistentIdAllocator();
             var registry = new PersistentObjectRegistry(allocator);
             var clock = new WorldClock(initialWorldMilliseconds);
-            return new AutoEraWorldSession(allocator, registry, clock);
+            var events = new AutoEraEventService(clock, eventPublisher);
+            return new AutoEraWorldSession(allocator, registry, clock, events);
         }
     }
 }
