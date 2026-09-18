@@ -1,0 +1,8 @@
+#	Resource point definitions with capacity, cache, production parameters and integrity										
+#	Id		ModelId	NameKey	PlantCapacity	CacheCapacity	TotalReserve	ProductionRate	MaximumIntegrity	Availability	Prefab
+#	int		int	string	int	int	string	string	double	string	string
+#	Stable row identifier		Resource point model ID	Localization key	Farmland planting capacity	Temporary output cache capacity	Total resource reserve (number or 'Infinite')	Production rate description	Structure integrity limit	Resource availability state	Prefab relative path
+	60011		6001	ResourcePoint.Farmland	10	60	N/A	Batch production, see crop specs	100	Ready	InitialRegion/Farmland
+	60021		6002	ResourcePoint.Forest	0	0	Infinite	Continuous growth, see cutting specs	100	Ready	InitialRegion/Forest
+	60031		6003	ResourcePoint.MineralVein	0	0	100	Drilling damage / MiningResistance	100	Ready	InitialRegion/MineralVein
+	60041		6004	ResourcePoint.WaterArea	0	0	Infinite	Source only, extracted by pump building	100	Ready	InitialRegion/Water

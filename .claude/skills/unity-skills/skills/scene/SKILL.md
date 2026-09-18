@@ -162,7 +162,7 @@ import unity_skills
 unity_skills.call_skill("scene_create", scenePath="Assets/Scenes/Level1.unity")
 
 # Load an existing scene
-unity_skills.call_skill("scene_load", scenePath="Assets/Scenes/MainMenu.unity")
+unity_skills.call_skill("scene_load", scenePath="Assets/Scenes/YourScene.unity")
 
 # Load scene additively (multi-scene)
 unity_skills.call_skill("scene_load", scenePath="Assets/Scenes/UI.unity", additive=True)

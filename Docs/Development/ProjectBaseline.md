@@ -64,9 +64,12 @@ python tools/audit_framework_purity.py --product-profile tools/audit_product_pro
 python tools/audit_project_boundaries.py
 ```
 
+- 编译、引用、AppConfigs、资源表与框架纯度五类检查的统一入口见
+  [编译与框架纯度检查入口](./CompilePurityCheck.md)，一条命令 `python tools/run_project_checks.py` 串起执行。
 - 框架纯度审计负责领域无关框架、Agent/SKILL、禁止内容、构建场景和生成物边界。
 - 本产品实例须显式提供上述产品配置；配置只允许派发依据列明的精确启动文件中MainMenu标识及精确场景，不豁免SampleScene、ScriptsBuiltin或其他规则。配置缺失/非法/越界即失败。
 - 检查未产品化的框架基线使用 `python tools/audit_framework_purity.py --strict-framework`；不传模式也保持严格框架行为，不自动加载产品配置。
 - 项目边界审计负责 `AutoEra.*` 目录/命名空间、`ScriptsBuiltin` 反向依赖、冗余资源目录和本基线入口。
+- 2026-09-18 起：框架部分内容此前已有备份，本仓库按具体业务项目管理，原「框架层禁改」红线解除；产品代码仍限 `Assets/Game/Scripts/AutoEra/` 与 `AutoEra.*` 命名空间。框架纯度与项目边界审计保留作自动回归围栏，5 项历史债务已清零（见 [编译与框架纯度检查入口](./CompilePurityCheck.md)）。
 - Editor Play Mode 内仅有小范围方法体迭代可以使用 FSR；字段、序列化、泛型、依赖、目录和程序集等结构变更必须退出 Play Mode 后通过普通 Unity 编译验证。
 - 每个 OpenSpec 的完成证据以其 specs、tasks、自动化测试、Unity 状态和审计结果为准；不得仅凭实现意图或无报错推定完成。

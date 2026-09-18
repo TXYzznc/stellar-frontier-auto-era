@@ -65,7 +65,7 @@ After a write, verify in the Editor, not from the echo: `*_get_info` / `*_get_pr
 | Profile | Hidden | What to do |
 |---|---|---|
 | `full` | nothing | Normal automation. |
-| `guide` | write skills in GameObject, Component, Material, Scene and Sample | Give manual steps via [SKILL_GUIDE.md](SKILL_GUIDE.md) and the `manual-*` docs. Read-only skills there still work, as does every other module. |
+| `guide` | write skills in GameObject, Component, Material and Scene | Give manual steps via [SKILL_GUIDE.md](SKILL_GUIDE.md) and the `manual-*` docs. Read-only skills there still work, as does every other module. |
 | `noSceneAuthoring` | every scene-authoring write, incl. any `mutatesScene` skill | Do the rest of the task normally; if it genuinely needs scene authoring, say so and let the user switch back to `full`. |
 
 Calling a hidden skill returns **`SURFACE_EXCLUDED`**, and the response names the document to read (or the profile to leave). It is a configuration boundary, not a failure: never retry it, never route around it through another module.

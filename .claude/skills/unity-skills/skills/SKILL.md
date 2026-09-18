@@ -68,7 +68,6 @@ Module docs. Start with [../SKILL.md](../SKILL.md) for mode switching and schema
 | [project](./project/SKILL.md) | SA* | Project info/settings | No |
 | [profiler](./profiler/SKILL.md) | SA | Perf statistics | No |
 | [optimization](./optimization/SKILL.md) | Mixed | Asset optimization | No |
-| [sample](./sample/SKILL.md) | Mixed* | Demo/test skills | No |
 | [debug](./debug/SKILL.md) | SA* | Compile/system diagnostics | No |
 | [test](./test/SKILL.md) | Mixed* | Unity Test Runner | No |
 | [bookmark](./bookmark/SKILL.md) | SA | Scene View bookmarks | No |

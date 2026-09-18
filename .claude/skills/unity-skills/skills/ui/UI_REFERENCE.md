@@ -14,8 +14,8 @@ Load this file when you need fuller UGUI examples, extended element/property det
 import unity_skills
 import json
 
-unity_skills.call_skill("ui_create_canvas", name="MainMenu")
-unity_skills.call_skill("ui_create_panel", name="MenuPanel", parent="MainMenu", a=0.65)
+unity_skills.call_skill("ui_create_canvas", name="HudCanvas")
+unity_skills.call_skill("ui_create_panel", name="MenuPanel", parent="HudCanvas", a=0.65)
 unity_skills.call_skill("ui_set_rect", name="MenuPanel", width=300, height=200)
 unity_skills.call_skill("ui_create_batch", items=json.dumps([
     {"type": "Button", "name": "StartBtn", "parent": "MenuPanel", "text": "Start", "width": 220, "height": 44},

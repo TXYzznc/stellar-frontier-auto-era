@@ -1,0 +1,11 @@
+#	Building definitions with construction time, capacity, power consumption and economic data																
+#	Id		ModelId	NameKey	ConstructionTimeSeconds	StorageCapacity	OutputCacheSlots	RatedPower	EnergyCapacity	ProductionRate	MaximumIntegrity	ConstructionPrice	RecyclePrice	IdlePower	WorkingPower	Availability	Prefab
+#	int		int	string	int	int	int	double	double	string	double	int	int	double	double	string	string
+#	Stable row identifier		Building model ID	Localization key	Auto construction time in seconds	Physical item storage capacity	Output cache slots for workshop	Rated power output for generators	Battery energy storage capacity	Production rate description	Structure integrity limit	Construction cost in coins	Recycle value	Idle power consumption	Working power consumption	Resource availability state	Prefab relative path
+	50011		5001	Building.Warehouse	0	120	0	0	0		100	0	0	0.5	2	Ready	InitialRegion/Warehouse
+	50021		5002	Building.Workshop	180	0	2	0	0		100	1500	1200	1	10	PendingResource	
+	50031		5003	Building.BiomassGenerator	240	0	0	60	0	1 biomass = 60 energy	100	2000	1600	0.5	0	Ready	InitialRegion/Generator
+	50041		5004	Building.SolarGenerator	0	0	0	15	0	Daytime only	100	0	0	0	0	Ready	InitialRegion/SolarArray
+	50051		5005	Building.Battery	120	0	0	0	240		100	1200	960	0.1	0.1	PendingResource	
+	50061		5006	Building.Pump	60	100	0	0	0	50 water per 4 minutes	100	500	400	0.5	5	PendingResource	
+	50071		5007	Building.Conveyor	30	0	0	0	0		100	200	160	0.1	1	Ready	Buildings/Conveyor

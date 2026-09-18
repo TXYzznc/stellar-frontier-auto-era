@@ -399,3 +399,12 @@ Assets/Game/Font/Common/SIMHEI SDF.asset
 .ai/dispatch/*.local.json.lock
 .ai/dispatch/*.local.jsonl
 .ai/dispatch/backup-*/
+
+# 多窗口派发本机备份快照（.local.json.before-*.bak）
+.ai/dispatch/*.before-*
+
+# AgentTeams 团队运行态（DSH 团队状态与成员邮箱，按本机保留）
+.agent-teams/
+
+# 看门狗旧版 exe 本地备份（.bak-MMDD-<tag>，pyinstaller 重打包前快照）
+tools/desktop/*.bak-*

@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using GameFramework.Editor.DataTableTools;
 using NUnit.Framework;
 using UGF.EditorTools;
@@ -84,10 +85,14 @@ namespace AutoEra.Tests.Editor
             bool loaded = AIDataGenerationProfileLoader.TryLoadDataTableProfiles(out var profiles, out var errors);
 
             Assert.That(loaded, Is.True, string.Join(" | ", errors));
-            Assert.That(profiles, Has.Count.EqualTo(1));
-            Assert.That(profiles[0].SourceRelativePath, Is.EqualTo("Foundation"));
-            Assert.That(profiles[0].CodeOutputRoot, Is.EqualTo("Assets/Game/Scripts/AutoEra/DataTable"));
-            Assert.That(profiles[0].Namespace, Is.EqualTo("AutoEra.DataTable"));
+            Assert.That(profiles, Has.Count.EqualTo(6));
+            Assert.That(profiles.Select(p => p.SourceRelativePath),
+                Is.EquivalentTo(new[] { "Sensors", "Foundation", "Machines", "Catalog", "Buildings", "ResourcePoints" }));
+            foreach (var profile in profiles)
+            {
+                Assert.That(profile.CodeOutputRoot, Is.EqualTo("Assets/Game/Scripts/AutoEra/DataTable"));
+                Assert.That(profile.Namespace, Is.EqualTo("AutoEra.DataTable"));
+            }
         }
 
         [Test]

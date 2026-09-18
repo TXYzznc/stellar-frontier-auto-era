@@ -194,8 +194,8 @@ Read the response payload if you need to know which one was created before later
 import unity_skills
 import json
 
-unity_skills.call_skill("ui_create_canvas", name="MainMenu")
-unity_skills.call_skill("ui_create_panel", name="MenuPanel", parent="MainMenu", a=0.7)
+unity_skills.call_skill("ui_create_canvas", name="HudCanvas")
+unity_skills.call_skill("ui_create_panel", name="MenuPanel", parent="HudCanvas", a=0.7)
 unity_skills.call_skill("ui_set_rect", name="MenuPanel", width=320, height=240)
 unity_skills.call_skill("ui_create_batch", items=json.dumps([
     {"type": "Button", "name": "StartBtn", "parent": "MenuPanel", "text": "Start", "width": 220, "height": 44},
