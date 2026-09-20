@@ -15,7 +15,7 @@ namespace UGF.EditorTools
         /// </summary>
         public const bool ResolveDuplicateAssets = true;
         public const string UIViewScriptFile = "Assets/Game/Scripts/UI/Core/UIViews.cs";
-        public const string UISerializeFieldDir = "Assets/Game/Scripts/UI/UIVariables";//生成UI变量代码目录
+        public const string UISerializeFieldDir = "Assets/Game/Scripts/AutoEra/UI/UIVariables";//生成UI变量代码目录
         public const string UIItemSerializeFiledDir = "Assets/Game/Scripts/UI/UIItemVariables";
         public const string UITableExcel = "Core/UITable.xlsx";
         public static string UITableExcelFullPath => UtilityBuiltin.AssetsPath.GetCombinePath(DataTableExcelPath, UITableExcel);
@@ -67,7 +67,7 @@ namespace UGF.EditorTools
         public const string GameConfigPath = "Assets/Game/Config";
         public const string LanguagePath = "Assets/Game/Language";
         public const string DataTableCodePath = "Assets/Game/Scripts/DataTable";
-        public const string UIScriptsPath = "Assets/Game/Scripts/UI";
+        public const string UIScriptsPath = "Assets/Game/Scripts/AutoEra/UI";
         public const string UIItemScriptsPath = "Assets/Game/Scripts/UI/Item";
         public const string UIFormTemplate = "Assets/Game/ScriptsBuiltin/Editor/UI/Templates/UIFormTemplate.prefab";
         public const string UIDialogTemplate = "Assets/Game/ScriptsBuiltin/Editor/UI/Templates/UIDialogTemplate.prefab";

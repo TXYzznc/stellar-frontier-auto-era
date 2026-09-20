@@ -1,10 +1,22 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using UnityGameFramework.Runtime;
-#if ENABLE_OBFUZ
-[Obfuz.ObfuzIgnore(Obfuz.ObfuzScope.TypeName)]
-#endif
-public partial class _CLASS_NAME_ : UIFormBase
-{
+using AutoEra.UI.Contracts;
 
+namespace AutoEra.UI
+{
+    /// <summary>
+    /// _CLASS_NAME_ 表单。
+    /// 结构契约：Docs/Development/UI-PrefabLayouts/_CLASS_NAME_.md
+    /// 原型验收（门 1 四层）：Docs/Development/GF-UI-Standards/07-测试与验收清单.md
+    /// </summary>
+#if ENABLE_OBFUZ
+    [Obfuz.ObfuzIgnore(Obfuz.ObfuzScope.TypeName)]
+#endif
+    public partial class _CLASS_NAME_ : AutoEraUiFormBase
+    {
+        /// <summary>由 AutoEraUiFormBase 声明的抽象成员，表单必须实现（无操作展示时留空）。</summary>
+        protected override void OnOperationPresentationChanged(
+            AutoEraUiOperationSnapshot snapshot,
+            AutoEraUiOperationPresentation presentation)
+        {
+        }
+    }
 }

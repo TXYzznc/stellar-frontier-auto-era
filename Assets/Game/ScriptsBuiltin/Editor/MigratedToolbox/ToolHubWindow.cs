@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-[UGF.EditorTools.EditorToolMenu("工具/Unity开发工具箱", null, 20)]
+[UGF.EditorTools.EditorToolMenu("Tools/Unity开发工具箱", null, 20)]
 public class ToolHubWindow : UGF.EditorTools.EditorToolBase
 {
     private const string SettingsAssetPath = "Assets/Game/ScriptsBuiltin/Editor/MigratedToolbox/ToolHubSettings.asset";

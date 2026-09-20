@@ -1,4 +1,4 @@
-﻿
+
 using UnityEngine;
 using GameFramework;
 using UnityGameFramework.Runtime;
@@ -50,7 +50,13 @@ public class UIFormBase : UIFormLogic, ISerializeFieldTool
     protected Canvas UICanvas { get; private set; }
 
     private bool isOnEscape;
-    IList<IObjectPool<UIItemObject>> m_ItemPools = null;
+    // 对象池句柄分成两份保存：
+    //   m_ItemPools 用基类类型交出池实例，供关闭时销毁（GF 有 DestroyObjectPool(ObjectPoolBase) 重载）；
+    //   m_ItemPoolRecycles 用闭包保留「具体泛型」的池，因为 UnspawnAll() 只在 IObjectPool<T> 上。
+    // 不能把 IObjectPool<具体T> 强转成 IObjectPool<UIItemObject>：IObjectPool<T> 不是协变接口，
+    // 那样转在运行期必抛 InvalidCastException（实测导致所有列表首次渲染就中断）。
+    IList<ObjectPoolBase> m_ItemPools = null;
+    IList<Action> m_ItemPoolRecycles = null;
     /// <summary>
     /// 子UI界面, 会随着父界面关闭而关闭
     /// </summary>
@@ -193,24 +199,24 @@ public class UIFormBase : UIFormLogic, ISerializeFieldTool
 
     private void UnspawnAllItemObjects()
     {
-        if (m_ItemPools == null) return;
-        foreach (var item in m_ItemPools)
+        if (m_ItemPoolRecycles == null) return;
+        for (int i = 0; i < m_ItemPoolRecycles.Count; i++)
         {
-            item.ReleaseAllUnused();
-            
-            item.UnspawnAll();
+            m_ItemPoolRecycles[i]?.Invoke();
         }
     }
     private void DestroyAllItemPool()
     {
-        if (m_ItemPools == null) return;
-
-        for (int i = 0; i < m_ItemPools.Count; i++)
+        if (m_ItemPools != null)
         {
-            var item = m_ItemPools[i];
-            GF.ObjectPool.DestroyObjectPool(item);
+            for (int i = 0; i < m_ItemPools.Count; i++)
+            {
+                GF.ObjectPool.DestroyObjectPool(m_ItemPools[i]);
+            }
+            m_ItemPools.Clear();
         }
-        m_ItemPools.Clear();
+
+        m_ItemPoolRecycles?.Clear();
     }
 
     /// <summary>
@@ -236,8 +242,16 @@ public class UIFormBase : UIFormLogic, ISerializeFieldTool
         else
         {
             pool = GF.ObjectPool.CreateSingleSpawnObjectPool<T>(itemTempleId, autoReleaseInterval, capacity, expireTime, 0);
-            if (m_ItemPools == null) m_ItemPools = new List<IObjectPool<UIItemObject>>();
-            m_ItemPools.Add((IObjectPool<UIItemObject>)(object)pool);
+            // 闭包按具体 T 捕获池：回收要走 IObjectPool<T>.UnspawnAll()，销毁走 ObjectPoolBase 重载。
+            IObjectPool<T> created = pool;
+            if (m_ItemPools == null) m_ItemPools = new List<ObjectPoolBase>();
+            m_ItemPools.Add((ObjectPoolBase)created);
+            if (m_ItemPoolRecycles == null) m_ItemPoolRecycles = new List<Action>();
+            m_ItemPoolRecycles.Add(() =>
+            {
+                created.ReleaseAllUnused();
+                created.UnspawnAll();
+            });
         }
 
         var spawn = pool.Spawn();
