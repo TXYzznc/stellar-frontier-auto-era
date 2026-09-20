@@ -1,0 +1,5574 @@
+{
+ "schemaVersion": 3,
+ "form": "WarehouseForm",
+ "namespace": "AutoEra.UI",
+ "prefabPath": "Assets/Game/Prefabs/UI/Operations/WarehouseForm.prefab",
+ "scriptPath": "Assets/Game/Scripts/AutoEra/UI/WarehouseForm.cs",
+ "referenceResolution": [
+  1920,
+  1080
+ ],
+ "root": {
+  "name": "WarehouseForm",
+  "components": [
+   {
+    "type": "WarehouseForm"
+   },
+   {
+    "type": "CanvasGroup",
+    "alpha": 1.0,
+    "interactable": true,
+    "blocksRaycasts": true
+   }
+  ],
+  "anchorMin": [
+   0.0,
+   0.0
+  ],
+  "anchorMax": [
+   1.0,
+   1.0
+  ],
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "sizeDelta": [
+   0.0,
+   0.0
+  ],
+  "anchoredPosition": [
+   0.0,
+   0.0
+  ],
+  "children": [
+   {
+    "name": "Bg_InputBlocker",
+    "components": [
+     {
+      "type": "Image",
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       0.65
+      ],
+      "imageType": 1,
+      "raycastTarget": true,
+      "preserveAspect": false
+     }
+    ],
+    "anchorMin": [
+     0.0,
+     0.0
+    ],
+    "anchorMax": [
+     1.0,
+     1.0
+    ],
+    "pivot": [
+     0.5,
+     0.5
+    ],
+    "sizeDelta": [
+     0.0,
+     0.0
+    ],
+    "anchoredPosition": [
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "Panel_Frame",
+    "components": [
+     {
+      "type": "Image",
+      "color": [
+       0.12549,
+       0.141176,
+       0.164706,
+       1.0
+      ],
+      "imageType": 1,
+      "raycastTarget": false,
+      "preserveAspect": false
+     }
+    ],
+    "anchorMin": [
+     0.5,
+     0.5
+    ],
+    "anchorMax": [
+     0.5,
+     0.5
+    ],
+    "pivot": [
+     0.5,
+     0.5
+    ],
+    "sizeDelta": [
+     1600.0,
+     900.0
+    ],
+    "anchoredPosition": [
+     0.0,
+     0.0
+    ],
+    "children": [
+     {
+      "name": "Deco_Frame",
+      "components": [
+       {
+        "type": "Image",
+        "color": [
+         0.001961,
+         0.001961,
+         0.001961,
+         0.25
+        ],
+        "imageType": 1,
+        "raycastTarget": false,
+        "preserveAspect": false
+       }
+      ],
+      "anchorMin": [
+       0.0,
+       0.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       0.5,
+       0.5
+      ],
+      "sizeDelta": [
+       0.0,
+       0.0
+      ],
+      "anchoredPosition": [
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "name": "Txt_FormTitle",
+      "components": [
+       {
+        "type": "TextMeshProUGUI",
+        "text": "仓库分类库存",
+        "fontSize": 28.0,
+        "color": [
+         0.941176,
+         0.94902,
+         0.956863,
+         1.0
+        ],
+        "raycastTarget": false,
+        "wordWrap": true,
+        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+       }
+      ],
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       0.0,
+       1.0
+      ],
+      "pivot": [
+       0.0,
+       1.0
+      ],
+      "sizeDelta": [
+       1300.0,
+       40.0
+      ],
+      "anchoredPosition": [
+       56.0,
+       -20.0
+      ]
+     },
+     {
+      "name": "Grp_Navigation",
+      "components": [
+       {
+        "type": "HorizontalLayoutGroup",
+        "spacing": 8.0,
+        "padding": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "ChildForceExpandWidth": false,
+        "ChildForceExpandHeight": false
+       }
+      ],
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       0.5,
+       1.0
+      ],
+      "sizeDelta": [
+       -200.0,
+       52.0
+      ],
+      "anchoredPosition": [
+       -44.0,
+       -68.0
+      ],
+      "children": [],
+      "active": false
+     },
+     {
+      "name": "Grp_PageHost",
+      "components": [],
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       0.0,
+       1.0
+      ],
+      "pivot": [
+       0.0,
+       1.0
+      ],
+      "sizeDelta": [
+       1488.0,
+       730.0
+      ],
+      "anchoredPosition": [
+       56.0,
+       -140.0
+      ],
+      "children": [
+       {
+        "name": "Panel_PageInventory",
+        "components": [
+         {
+          "type": "Image",
+          "color": [
+           0.12549,
+           0.141176,
+           0.164706,
+           1.0
+          ],
+          "imageType": 1,
+          "raycastTarget": false,
+          "preserveAspect": false
+         }
+        ],
+        "anchorMin": [
+         0.0,
+         0.0
+        ],
+        "anchorMax": [
+         1.0,
+         1.0
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         0.0,
+         0.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_InventoryTitle",
+          "components": [
+           {
+            "type": "TextMeshProUGUI",
+            "text": "仓库分类库存",
+            "fontSize": 28.0,
+            "color": [
+             0.941176,
+             0.94902,
+             0.956863,
+             1.0
+            ],
+            "raycastTarget": false,
+            "wordWrap": true,
+            "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1472.0,
+           32.0
+          ],
+          "anchoredPosition": [
+           8.0,
+           0.0
+          ]
+         },
+         {
+          "name": "Grp_InventoryActions",
+          "components": [
+           {
+            "type": "GridLayoutGroup",
+            "constraint": 1,
+            "ChildForceExpandWidth": false,
+            "ChildForceExpandHeight": false,
+            "constraintCount": 8,
+            "cellSize": [
+             177.0,
+             48.0
+            ],
+            "spacing": [
+             8.0,
+             8.0
+            ]
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           0.0
+          ],
+          "pivot": [
+           0.5,
+           0.0
+          ],
+          "sizeDelta": [
+           -16.0,
+           48.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": [
+           {
+            "name": "Btn_InventoryInspect",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_InventoryInspectLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "物品详情",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           },
+           {
+            "name": "Btn_InventoryRecords",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_InventoryRecordsLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "入库记录",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           },
+           {
+            "name": "Btn_InventorySell",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_InventorySellLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "前往出售",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Panel_InventoryCatalog",
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.12549,
+             0.141176,
+             0.164706,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": false,
+            "preserveAspect": false
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           565.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Txt_InventoryCatalogHeading",
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "分类库存",
+              "fontSize": 24.0,
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             541.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             12.0,
+             -8.0
+            ]
+           },
+           {
+            "name": "List_InventoryCatalog",
+            "components": [
+             {
+              "type": "ScrollRect",
+              "horizontal": false,
+              "vertical": true,
+              "movementType": 2
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -24.0,
+             -52.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             -18.0
+            ],
+            "children": [
+             {
+              "name": "Viewport_InventoryCatalog",
+              "components": [
+               {
+                "type": "RectMask2D"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Content_InventoryCatalog",
+                "components": [
+                 {
+                  "type": "VerticalLayoutGroup",
+                  "spacing": 8.0,
+                  "ChildForceExpandWidth": true,
+                  "ChildForceExpandHeight": false
+                 },
+                 {
+                  "type": "ContentSizeFitter",
+                  "verticalFit": 2,
+                  "horizontalFit": 0
+                 }
+                ],
+                "anchorMin": [
+                 0.0,
+                 1.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 1.0
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_InventoryCatalogBody",
+                  "components": [
+                   {
+                    "type": "TextMeshProUGUI",
+                    "text": "物品类别",
+                    "fontSize": 22.0,
+                    "color": [
+                     0.941176,
+                     0.94902,
+                     0.956863,
+                     1.0
+                    ],
+                    "raycastTarget": false,
+                    "wordWrap": true,
+                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                   },
+                   {
+                    "type": "LayoutElement",
+                    "minHeight": 120.0
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   541.0,
+                   120.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ]
+                 },
+                 {
+                  "name": "Item_InventoryCatalogTemplate",
+                  "components": [
+                   {
+                    "type": "Image",
+                    "color": [
+                     0.12549,
+                     0.141176,
+                     0.164706,
+                     1.0
+                    ],
+                    "imageType": 1,
+                    "raycastTarget": false,
+                    "preserveAspect": false
+                   },
+                   {
+                    "type": "LayoutElement"
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   541.0,
+                   104.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "active": false,
+                  "children": [
+                   {
+                    "name": "Btn_InventoryCatalogRow",
+                    "components": [
+                     {
+                      "type": "Image",
+                      "color": [
+                       0.321569,
+                       0.498039,
+                       0.639216,
+                       1.0
+                      ],
+                      "imageType": 1,
+                      "raycastTarget": true,
+                      "preserveAspect": false
+                     },
+                     {
+                      "type": "Button",
+                      "transition": 1,
+                      "interactable": true
+                     }
+                    ],
+                    "anchorMin": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchorMax": [
+                     1.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.5,
+                     0.5
+                    ],
+                    "sizeDelta": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchoredPosition": [
+                     0.0,
+                     0.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Txt_InventoryCatalogRowLabel",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "名称：—",
+                        "fontSize": 22.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ]
+                     },
+                     {
+                      "name": "Txt_InventoryCatalogRowValue",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "值、状态、时间：—",
+                        "fontSize": 20.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       48.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ]
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Panel_InventoryDetail",
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.12549,
+             0.141176,
+             0.164706,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": false,
+            "preserveAspect": false
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           907.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           581.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Txt_InventoryDetailHeading",
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "物品摘要",
+              "fontSize": 24.0,
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             883.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             12.0,
+             -8.0
+            ]
+           },
+           {
+            "name": "List_InventoryDetail",
+            "components": [
+             {
+              "type": "ScrollRect",
+              "horizontal": false,
+              "vertical": true,
+              "movementType": 2
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -24.0,
+             -52.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             -18.0
+            ],
+            "children": [
+             {
+              "name": "Viewport_InventoryDetail",
+              "components": [
+               {
+                "type": "RectMask2D"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Content_InventoryDetail",
+                "components": [
+                 {
+                  "type": "VerticalLayoutGroup",
+                  "spacing": 8.0,
+                  "ChildForceExpandWidth": true,
+                  "ChildForceExpandHeight": false
+                 },
+                 {
+                  "type": "ContentSizeFitter",
+                  "verticalFit": 2,
+                  "horizontalFit": 0
+                 }
+                ],
+                "anchorMin": [
+                 0.0,
+                 1.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 1.0
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_InventoryDetailBody",
+                  "components": [
+                   {
+                    "type": "TextMeshProUGUI",
+                    "text": "名称、用途、标签",
+                    "fontSize": 22.0,
+                    "color": [
+                     0.941176,
+                     0.94902,
+                     0.956863,
+                     1.0
+                    ],
+                    "raycastTarget": false,
+                    "wordWrap": true,
+                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                   },
+                   {
+                    "type": "LayoutElement",
+                    "minHeight": 120.0
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   883.0,
+                   120.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ]
+                 },
+                 {
+                  "name": "Item_InventoryDetailTemplate",
+                  "components": [
+                   {
+                    "type": "Image",
+                    "color": [
+                     0.12549,
+                     0.141176,
+                     0.164706,
+                     1.0
+                    ],
+                    "imageType": 1,
+                    "raycastTarget": false,
+                    "preserveAspect": false
+                   },
+                   {
+                    "type": "LayoutElement"
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   883.0,
+                   104.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "active": false,
+                  "children": [
+                   {
+                    "name": "Btn_InventoryDetailRow",
+                    "components": [
+                     {
+                      "type": "Image",
+                      "color": [
+                       0.321569,
+                       0.498039,
+                       0.639216,
+                       1.0
+                      ],
+                      "imageType": 1,
+                      "raycastTarget": true,
+                      "preserveAspect": false
+                     },
+                     {
+                      "type": "Button",
+                      "transition": 1,
+                      "interactable": true
+                     }
+                    ],
+                    "anchorMin": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchorMax": [
+                     1.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.5,
+                     0.5
+                    ],
+                    "sizeDelta": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchoredPosition": [
+                     0.0,
+                     0.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Txt_InventoryDetailRowLabel",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "名称：—",
+                        "fontSize": 22.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ]
+                     },
+                     {
+                      "name": "Txt_InventoryDetailRowValue",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "值、状态、时间：—",
+                        "fontSize": 20.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       48.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ]
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_InventoryLoadingState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_InventoryLoadingMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_InventoryLoadingMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Loading：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_InventoryEmptyState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_InventoryEmptyMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_InventoryEmptyMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Empty：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_InventoryErrorState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_InventoryErrorMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_InventoryErrorMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Error：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_InventorySuccessState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_InventorySuccessMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_InventorySuccessMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Success：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_InventoryDisabledState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_InventoryDisabledMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_InventoryDisabledMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Disabled：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       },
+       {
+        "name": "Panel_PageItemDetail",
+        "components": [
+         {
+          "type": "Image",
+          "color": [
+           0.12549,
+           0.141176,
+           0.164706,
+           1.0
+          ],
+          "imageType": 1,
+          "raycastTarget": false,
+          "preserveAspect": false
+         }
+        ],
+        "anchorMin": [
+         0.0,
+         0.0
+        ],
+        "anchorMax": [
+         1.0,
+         1.0
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         0.0,
+         0.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_ItemDetailTitle",
+          "components": [
+           {
+            "type": "TextMeshProUGUI",
+            "text": "库存物品详情",
+            "fontSize": 28.0,
+            "color": [
+             0.941176,
+             0.94902,
+             0.956863,
+             1.0
+            ],
+            "raycastTarget": false,
+            "wordWrap": true,
+            "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1472.0,
+           32.0
+          ],
+          "anchoredPosition": [
+           8.0,
+           0.0
+          ]
+         },
+         {
+          "name": "Grp_ItemDetailActions",
+          "components": [
+           {
+            "type": "GridLayoutGroup",
+            "constraint": 1,
+            "ChildForceExpandWidth": false,
+            "ChildForceExpandHeight": false,
+            "constraintCount": 8,
+            "cellSize": [
+             177.0,
+             48.0
+            ],
+            "spacing": [
+             8.0,
+             8.0
+            ]
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           0.0
+          ],
+          "pivot": [
+           0.5,
+           0.0
+          ],
+          "sizeDelta": [
+           -16.0,
+           48.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": [
+           {
+            "name": "Btn_ItemDetailSell",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_ItemDetailSellLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "前往出售",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           },
+           {
+            "name": "Btn_ItemDetailBack",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_ItemDetailBackLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "返回库存",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Panel_ItemDetailItem",
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.12549,
+             0.141176,
+             0.164706,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": false,
+            "preserveAspect": false
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           565.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Txt_ItemDetailItemHeading",
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "物品说明",
+              "fontSize": 24.0,
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             541.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             12.0,
+             -8.0
+            ]
+           },
+           {
+            "name": "List_ItemDetailItem",
+            "components": [
+             {
+              "type": "ScrollRect",
+              "horizontal": false,
+              "vertical": true,
+              "movementType": 2
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -24.0,
+             -52.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             -18.0
+            ],
+            "children": [
+             {
+              "name": "Viewport_ItemDetailItem",
+              "components": [
+               {
+                "type": "RectMask2D"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Content_ItemDetailItem",
+                "components": [
+                 {
+                  "type": "VerticalLayoutGroup",
+                  "spacing": 8.0,
+                  "ChildForceExpandWidth": true,
+                  "ChildForceExpandHeight": false
+                 },
+                 {
+                  "type": "ContentSizeFitter",
+                  "verticalFit": 2,
+                  "horizontalFit": 0
+                 }
+                ],
+                "anchorMin": [
+                 0.0,
+                 1.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 1.0
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_ItemDetailItemBody",
+                  "components": [
+                   {
+                    "type": "TextMeshProUGUI",
+                    "text": "名称、说明、标签、品质／等级、用途",
+                    "fontSize": 22.0,
+                    "color": [
+                     0.941176,
+                     0.94902,
+                     0.956863,
+                     1.0
+                    ],
+                    "raycastTarget": false,
+                    "wordWrap": true,
+                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                   },
+                   {
+                    "type": "LayoutElement",
+                    "minHeight": 120.0
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   541.0,
+                   120.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ]
+                 },
+                 {
+                  "name": "Item_ItemDetailItemTemplate",
+                  "components": [
+                   {
+                    "type": "Image",
+                    "color": [
+                     0.12549,
+                     0.141176,
+                     0.164706,
+                     1.0
+                    ],
+                    "imageType": 1,
+                    "raycastTarget": false,
+                    "preserveAspect": false
+                   },
+                   {
+                    "type": "LayoutElement"
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   541.0,
+                   104.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "active": false,
+                  "children": [
+                   {
+                    "name": "Btn_ItemDetailItemRow",
+                    "components": [
+                     {
+                      "type": "Image",
+                      "color": [
+                       0.321569,
+                       0.498039,
+                       0.639216,
+                       1.0
+                      ],
+                      "imageType": 1,
+                      "raycastTarget": true,
+                      "preserveAspect": false
+                     },
+                     {
+                      "type": "Button",
+                      "transition": 1,
+                      "interactable": true
+                     }
+                    ],
+                    "anchorMin": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchorMax": [
+                     1.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.5,
+                     0.5
+                    ],
+                    "sizeDelta": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchoredPosition": [
+                     0.0,
+                     0.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Txt_ItemDetailItemRowLabel",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "名称：—",
+                        "fontSize": 22.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ]
+                     },
+                     {
+                      "name": "Txt_ItemDetailItemRowValue",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "值、状态、时间：—",
+                        "fontSize": 20.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       48.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ]
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Panel_ItemDetailStock",
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.12549,
+             0.141176,
+             0.164706,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": false,
+            "preserveAspect": false
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           907.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           581.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Txt_ItemDetailStockHeading",
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "数量与回收",
+              "fontSize": 24.0,
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             883.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             12.0,
+             -8.0
+            ]
+           },
+           {
+            "name": "List_ItemDetailStock",
+            "components": [
+             {
+              "type": "ScrollRect",
+              "horizontal": false,
+              "vertical": true,
+              "movementType": 2
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -24.0,
+             -52.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             -18.0
+            ],
+            "children": [
+             {
+              "name": "Viewport_ItemDetailStock",
+              "components": [
+               {
+                "type": "RectMask2D"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Content_ItemDetailStock",
+                "components": [
+                 {
+                  "type": "VerticalLayoutGroup",
+                  "spacing": 8.0,
+                  "ChildForceExpandWidth": true,
+                  "ChildForceExpandHeight": false
+                 },
+                 {
+                  "type": "ContentSizeFitter",
+                  "verticalFit": 2,
+                  "horizontalFit": 0
+                 }
+                ],
+                "anchorMin": [
+                 0.0,
+                 1.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 1.0
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_ItemDetailStockBody",
+                  "components": [
+                   {
+                    "type": "TextMeshProUGUI",
+                    "text": "当前数量",
+                    "fontSize": 22.0,
+                    "color": [
+                     0.941176,
+                     0.94902,
+                     0.956863,
+                     1.0
+                    ],
+                    "raycastTarget": false,
+                    "wordWrap": true,
+                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                   },
+                   {
+                    "type": "LayoutElement",
+                    "minHeight": 120.0
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   883.0,
+                   120.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ]
+                 },
+                 {
+                  "name": "Item_ItemDetailStockTemplate",
+                  "components": [
+                   {
+                    "type": "Image",
+                    "color": [
+                     0.12549,
+                     0.141176,
+                     0.164706,
+                     1.0
+                    ],
+                    "imageType": 1,
+                    "raycastTarget": false,
+                    "preserveAspect": false
+                   },
+                   {
+                    "type": "LayoutElement"
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   883.0,
+                   104.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "active": false,
+                  "children": [
+                   {
+                    "name": "Btn_ItemDetailStockRow",
+                    "components": [
+                     {
+                      "type": "Image",
+                      "color": [
+                       0.321569,
+                       0.498039,
+                       0.639216,
+                       1.0
+                      ],
+                      "imageType": 1,
+                      "raycastTarget": true,
+                      "preserveAspect": false
+                     },
+                     {
+                      "type": "Button",
+                      "transition": 1,
+                      "interactable": true
+                     }
+                    ],
+                    "anchorMin": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchorMax": [
+                     1.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.5,
+                     0.5
+                    ],
+                    "sizeDelta": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchoredPosition": [
+                     0.0,
+                     0.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Txt_ItemDetailStockRowLabel",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "名称：—",
+                        "fontSize": 22.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ]
+                     },
+                     {
+                      "name": "Txt_ItemDetailStockRowValue",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "值、状态、时间：—",
+                        "fontSize": 20.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       48.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ]
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_ItemDetailLoadingState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_ItemDetailLoadingMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_ItemDetailLoadingMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Loading：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_ItemDetailEmptyState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_ItemDetailEmptyMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_ItemDetailEmptyMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Empty：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_ItemDetailErrorState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_ItemDetailErrorMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_ItemDetailErrorMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Error：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_ItemDetailSuccessState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_ItemDetailSuccessMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_ItemDetailSuccessMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Success：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_ItemDetailDisabledState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_ItemDetailDisabledMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_ItemDetailDisabledMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Disabled：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ],
+        "active": false
+       },
+       {
+        "name": "Panel_PageWarehouseRecords",
+        "components": [
+         {
+          "type": "Image",
+          "color": [
+           0.12549,
+           0.141176,
+           0.164706,
+           1.0
+          ],
+          "imageType": 1,
+          "raycastTarget": false,
+          "preserveAspect": false
+         }
+        ],
+        "anchorMin": [
+         0.0,
+         0.0
+        ],
+        "anchorMax": [
+         1.0,
+         1.0
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         0.0,
+         0.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_WarehouseRecordsTitle",
+          "components": [
+           {
+            "type": "TextMeshProUGUI",
+            "text": "仓库记录",
+            "fontSize": 28.0,
+            "color": [
+             0.941176,
+             0.94902,
+             0.956863,
+             1.0
+            ],
+            "raycastTarget": false,
+            "wordWrap": true,
+            "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1472.0,
+           32.0
+          ],
+          "anchoredPosition": [
+           8.0,
+           0.0
+          ]
+         },
+         {
+          "name": "Grp_WarehouseRecordsActions",
+          "components": [
+           {
+            "type": "GridLayoutGroup",
+            "constraint": 1,
+            "ChildForceExpandWidth": false,
+            "ChildForceExpandHeight": false,
+            "constraintCount": 8,
+            "cellSize": [
+             177.0,
+             48.0
+            ],
+            "spacing": [
+             8.0,
+             8.0
+            ]
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           0.0
+          ],
+          "pivot": [
+           0.5,
+           0.0
+          ],
+          "sizeDelta": [
+           -16.0,
+           48.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": [
+           {
+            "name": "Btn_WarehouseRecordsFilter",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_WarehouseRecordsFilterLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "筛选记录",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           },
+           {
+            "name": "Btn_WarehouseRecordsLocate",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_WarehouseRecordsLocateLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "定位来源",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           },
+           {
+            "name": "Btn_WarehouseRecordsDestination",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_WarehouseRecordsDestinationLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "查看去向",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Panel_WarehouseRecordsEvents",
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.12549,
+             0.141176,
+             0.164706,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": false,
+            "preserveAspect": false
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           565.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Txt_WarehouseRecordsEventsHeading",
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "事件列表",
+              "fontSize": 24.0,
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             541.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             12.0,
+             -8.0
+            ]
+           },
+           {
+            "name": "List_WarehouseRecordsEvents",
+            "components": [
+             {
+              "type": "ScrollRect",
+              "horizontal": false,
+              "vertical": true,
+              "movementType": 2
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -24.0,
+             -52.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             -18.0
+            ],
+            "children": [
+             {
+              "name": "Viewport_WarehouseRecordsEvents",
+              "components": [
+               {
+                "type": "RectMask2D"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Content_WarehouseRecordsEvents",
+                "components": [
+                 {
+                  "type": "VerticalLayoutGroup",
+                  "spacing": 8.0,
+                  "ChildForceExpandWidth": true,
+                  "ChildForceExpandHeight": false
+                 },
+                 {
+                  "type": "ContentSizeFitter",
+                  "verticalFit": 2,
+                  "horizontalFit": 0
+                 }
+                ],
+                "anchorMin": [
+                 0.0,
+                 1.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 1.0
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_WarehouseRecordsEventsBody",
+                  "components": [
+                   {
+                    "type": "TextMeshProUGUI",
+                    "text": "时间",
+                    "fontSize": 22.0,
+                    "color": [
+                     0.941176,
+                     0.94902,
+                     0.956863,
+                     1.0
+                    ],
+                    "raycastTarget": false,
+                    "wordWrap": true,
+                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                   },
+                   {
+                    "type": "LayoutElement",
+                    "minHeight": 120.0
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   541.0,
+                   120.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ]
+                 },
+                 {
+                  "name": "Item_WarehouseRecordsEventsTemplate",
+                  "components": [
+                   {
+                    "type": "Image",
+                    "color": [
+                     0.12549,
+                     0.141176,
+                     0.164706,
+                     1.0
+                    ],
+                    "imageType": 1,
+                    "raycastTarget": false,
+                    "preserveAspect": false
+                   },
+                   {
+                    "type": "LayoutElement"
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   541.0,
+                   104.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "active": false,
+                  "children": [
+                   {
+                    "name": "Btn_WarehouseRecordsEventsRow",
+                    "components": [
+                     {
+                      "type": "Image",
+                      "color": [
+                       0.321569,
+                       0.498039,
+                       0.639216,
+                       1.0
+                      ],
+                      "imageType": 1,
+                      "raycastTarget": true,
+                      "preserveAspect": false
+                     },
+                     {
+                      "type": "Button",
+                      "transition": 1,
+                      "interactable": true
+                     }
+                    ],
+                    "anchorMin": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchorMax": [
+                     1.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.5,
+                     0.5
+                    ],
+                    "sizeDelta": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchoredPosition": [
+                     0.0,
+                     0.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Txt_WarehouseRecordsEventsRowLabel",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "名称：—",
+                        "fontSize": 22.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ]
+                     },
+                     {
+                      "name": "Txt_WarehouseRecordsEventsRowValue",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "值、状态、时间：—",
+                        "fontSize": 20.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       48.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ]
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Panel_WarehouseRecordsDetail",
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.12549,
+             0.141176,
+             0.164706,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": false,
+            "preserveAspect": false
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           907.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           581.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Txt_WarehouseRecordsDetailHeading",
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "事件详情",
+              "fontSize": 24.0,
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             883.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             12.0,
+             -8.0
+            ]
+           },
+           {
+            "name": "List_WarehouseRecordsDetail",
+            "components": [
+             {
+              "type": "ScrollRect",
+              "horizontal": false,
+              "vertical": true,
+              "movementType": 2
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -24.0,
+             -52.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             -18.0
+            ],
+            "children": [
+             {
+              "name": "Viewport_WarehouseRecordsDetail",
+              "components": [
+               {
+                "type": "RectMask2D"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Content_WarehouseRecordsDetail",
+                "components": [
+                 {
+                  "type": "VerticalLayoutGroup",
+                  "spacing": 8.0,
+                  "ChildForceExpandWidth": true,
+                  "ChildForceExpandHeight": false
+                 },
+                 {
+                  "type": "ContentSizeFitter",
+                  "verticalFit": 2,
+                  "horizontalFit": 0
+                 }
+                ],
+                "anchorMin": [
+                 0.0,
+                 1.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 1.0
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_WarehouseRecordsDetailBody",
+                  "components": [
+                   {
+                    "type": "TextMeshProUGUI",
+                    "text": "物品",
+                    "fontSize": 22.0,
+                    "color": [
+                     0.941176,
+                     0.94902,
+                     0.956863,
+                     1.0
+                    ],
+                    "raycastTarget": false,
+                    "wordWrap": true,
+                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                   },
+                   {
+                    "type": "LayoutElement",
+                    "minHeight": 120.0
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   883.0,
+                   120.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ]
+                 },
+                 {
+                  "name": "Item_WarehouseRecordsDetailTemplate",
+                  "components": [
+                   {
+                    "type": "Image",
+                    "color": [
+                     0.12549,
+                     0.141176,
+                     0.164706,
+                     1.0
+                    ],
+                    "imageType": 1,
+                    "raycastTarget": false,
+                    "preserveAspect": false
+                   },
+                   {
+                    "type": "LayoutElement"
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   883.0,
+                   104.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "active": false,
+                  "children": [
+                   {
+                    "name": "Btn_WarehouseRecordsDetailRow",
+                    "components": [
+                     {
+                      "type": "Image",
+                      "color": [
+                       0.321569,
+                       0.498039,
+                       0.639216,
+                       1.0
+                      ],
+                      "imageType": 1,
+                      "raycastTarget": true,
+                      "preserveAspect": false
+                     },
+                     {
+                      "type": "Button",
+                      "transition": 1,
+                      "interactable": true
+                     }
+                    ],
+                    "anchorMin": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchorMax": [
+                     1.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.5,
+                     0.5
+                    ],
+                    "sizeDelta": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchoredPosition": [
+                     0.0,
+                     0.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Txt_WarehouseRecordsDetailRowLabel",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "名称：—",
+                        "fontSize": 22.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ]
+                     },
+                     {
+                      "name": "Txt_WarehouseRecordsDetailRowValue",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "值、状态、时间：—",
+                        "fontSize": 20.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       48.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ]
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_WarehouseRecordsLoadingState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_WarehouseRecordsLoadingMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_WarehouseRecordsLoadingMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Loading：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_WarehouseRecordsEmptyState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_WarehouseRecordsEmptyMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_WarehouseRecordsEmptyMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Empty：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_WarehouseRecordsErrorState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_WarehouseRecordsErrorMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_WarehouseRecordsErrorMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Error：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_WarehouseRecordsSuccessState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_WarehouseRecordsSuccessMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_WarehouseRecordsSuccessMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Success：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_WarehouseRecordsDisabledState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_WarehouseRecordsDisabledMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_WarehouseRecordsDisabledMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Disabled：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ],
+        "active": false
+       }
+      ]
+     },
+     {
+      "name": "Btn_FormBack",
+      "components": [
+       {
+        "type": "Image",
+        "color": [
+         0.321569,
+         0.498039,
+         0.639216,
+         1.0
+        ],
+        "imageType": 1,
+        "raycastTarget": true,
+        "preserveAspect": false
+       },
+       {
+        "type": "Button",
+        "transition": 1,
+        "interactable": true
+       }
+      ],
+      "anchorMin": [
+       1.0,
+       1.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       1.0,
+       1.0
+      ],
+      "sizeDelta": [
+       88.0,
+       48.0
+      ],
+      "anchoredPosition": [
+       -112.0,
+       -20.0
+      ],
+      "children": [
+       {
+        "name": "Txt_FormBackLabel",
+        "components": [
+         {
+          "type": "TextMeshProUGUI",
+          "text": "返回",
+          "fontSize": 22.0,
+          "color": [
+           0.941176,
+           0.94902,
+           0.956863,
+           1.0
+          ],
+          "raycastTarget": false,
+          "wordWrap": true,
+          "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+         }
+        ],
+        "anchorMin": [
+         0,
+         0
+        ],
+        "anchorMax": [
+         1,
+         1
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         -8.0,
+         -8.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Btn_FormClose",
+      "components": [
+       {
+        "type": "Image",
+        "color": [
+         0.321569,
+         0.498039,
+         0.639216,
+         1.0
+        ],
+        "imageType": 1,
+        "raycastTarget": true,
+        "preserveAspect": false
+       },
+       {
+        "type": "Button",
+        "transition": 1,
+        "interactable": true
+       }
+      ],
+      "anchorMin": [
+       1.0,
+       1.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       1.0,
+       1.0
+      ],
+      "sizeDelta": [
+       80.0,
+       48.0
+      ],
+      "anchoredPosition": [
+       -24.0,
+       -20.0
+      ],
+      "children": [
+       {
+        "name": "Txt_FormCloseLabel",
+        "components": [
+         {
+          "type": "TextMeshProUGUI",
+          "text": "关闭",
+          "fontSize": 22.0,
+          "color": [
+           0.941176,
+           0.94902,
+           0.956863,
+           1.0
+          ],
+          "raycastTarget": false,
+          "wordWrap": true,
+          "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+         }
+        ],
+        "anchorMin": [
+         0,
+         0
+        ],
+        "anchorMax": [
+         1,
+         1
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         -8.0,
+         -8.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "bindings": [
+  {
+   "path": "_pageHost",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost",
+   "kind": "RectTransform"
+  },
+  {
+   "path": "_backButton",
+   "node": "WarehouseForm/Panel_Frame/Btn_FormBack",
+   "kind": "Button"
+  },
+  {
+   "path": "_closeButton",
+   "node": "WarehouseForm/Panel_Frame/Btn_FormClose",
+   "kind": "Button"
+  },
+  {
+   "path": "_inventoryCatalogContent",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Panel_InventoryCatalog/List_InventoryCatalog/Viewport_InventoryCatalog/Content_InventoryCatalog",
+   "kind": "RectTransform"
+  },
+  {
+   "path": "_inventoryCatalogBody",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Panel_InventoryCatalog/List_InventoryCatalog/Viewport_InventoryCatalog/Content_InventoryCatalog/Txt_InventoryCatalogBody",
+   "kind": "TextMeshProUGUI"
+  },
+  {
+   "path": "_inventoryCatalogTemplate",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Panel_InventoryCatalog/List_InventoryCatalog/Viewport_InventoryCatalog/Content_InventoryCatalog/Item_InventoryCatalogTemplate",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_inventoryDetailContent",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Panel_InventoryDetail/List_InventoryDetail/Viewport_InventoryDetail/Content_InventoryDetail",
+   "kind": "RectTransform"
+  },
+  {
+   "path": "_inventoryDetailBody",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Panel_InventoryDetail/List_InventoryDetail/Viewport_InventoryDetail/Content_InventoryDetail/Txt_InventoryDetailBody",
+   "kind": "TextMeshProUGUI"
+  },
+  {
+   "path": "_inventoryDetailTemplate",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Panel_InventoryDetail/List_InventoryDetail/Viewport_InventoryDetail/Content_InventoryDetail/Item_InventoryDetailTemplate",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_inventoryLoadingState",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Grp_InventoryLoadingState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_inventoryEmptyState",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Grp_InventoryEmptyState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_inventoryErrorState",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Grp_InventoryErrorState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_inventorySuccessState",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Grp_InventorySuccessState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_inventoryDisabledState",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Grp_InventoryDisabledState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_itemDetailItemContent",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageItemDetail/Panel_ItemDetailItem/List_ItemDetailItem/Viewport_ItemDetailItem/Content_ItemDetailItem",
+   "kind": "RectTransform"
+  },
+  {
+   "path": "_itemDetailItemBody",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageItemDetail/Panel_ItemDetailItem/List_ItemDetailItem/Viewport_ItemDetailItem/Content_ItemDetailItem/Txt_ItemDetailItemBody",
+   "kind": "TextMeshProUGUI"
+  },
+  {
+   "path": "_itemDetailItemTemplate",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageItemDetail/Panel_ItemDetailItem/List_ItemDetailItem/Viewport_ItemDetailItem/Content_ItemDetailItem/Item_ItemDetailItemTemplate",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_itemDetailStockContent",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageItemDetail/Panel_ItemDetailStock/List_ItemDetailStock/Viewport_ItemDetailStock/Content_ItemDetailStock",
+   "kind": "RectTransform"
+  },
+  {
+   "path": "_itemDetailStockBody",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageItemDetail/Panel_ItemDetailStock/List_ItemDetailStock/Viewport_ItemDetailStock/Content_ItemDetailStock/Txt_ItemDetailStockBody",
+   "kind": "TextMeshProUGUI"
+  },
+  {
+   "path": "_itemDetailStockTemplate",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageItemDetail/Panel_ItemDetailStock/List_ItemDetailStock/Viewport_ItemDetailStock/Content_ItemDetailStock/Item_ItemDetailStockTemplate",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_itemDetailLoadingState",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageItemDetail/Grp_ItemDetailLoadingState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_itemDetailEmptyState",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageItemDetail/Grp_ItemDetailEmptyState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_itemDetailErrorState",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageItemDetail/Grp_ItemDetailErrorState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_itemDetailSuccessState",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageItemDetail/Grp_ItemDetailSuccessState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_itemDetailDisabledState",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageItemDetail/Grp_ItemDetailDisabledState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_warehouseRecordsEventsContent",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageWarehouseRecords/Panel_WarehouseRecordsEvents/List_WarehouseRecordsEvents/Viewport_WarehouseRecordsEvents/Content_WarehouseRecordsEvents",
+   "kind": "RectTransform"
+  },
+  {
+   "path": "_warehouseRecordsEventsBody",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageWarehouseRecords/Panel_WarehouseRecordsEvents/List_WarehouseRecordsEvents/Viewport_WarehouseRecordsEvents/Content_WarehouseRecordsEvents/Txt_WarehouseRecordsEventsBody",
+   "kind": "TextMeshProUGUI"
+  },
+  {
+   "path": "_warehouseRecordsEventsTemplate",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageWarehouseRecords/Panel_WarehouseRecordsEvents/List_WarehouseRecordsEvents/Viewport_WarehouseRecordsEvents/Content_WarehouseRecordsEvents/Item_WarehouseRecordsEventsTemplate",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_warehouseRecordsDetailContent",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageWarehouseRecords/Panel_WarehouseRecordsDetail/List_WarehouseRecordsDetail/Viewport_WarehouseRecordsDetail/Content_WarehouseRecordsDetail",
+   "kind": "RectTransform"
+  },
+  {
+   "path": "_warehouseRecordsDetailBody",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageWarehouseRecords/Panel_WarehouseRecordsDetail/List_WarehouseRecordsDetail/Viewport_WarehouseRecordsDetail/Content_WarehouseRecordsDetail/Txt_WarehouseRecordsDetailBody",
+   "kind": "TextMeshProUGUI"
+  },
+  {
+   "path": "_warehouseRecordsDetailTemplate",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageWarehouseRecords/Panel_WarehouseRecordsDetail/List_WarehouseRecordsDetail/Viewport_WarehouseRecordsDetail/Content_WarehouseRecordsDetail/Item_WarehouseRecordsDetailTemplate",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_warehouseRecordsLoadingState",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageWarehouseRecords/Grp_WarehouseRecordsLoadingState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_warehouseRecordsEmptyState",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageWarehouseRecords/Grp_WarehouseRecordsEmptyState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_warehouseRecordsErrorState",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageWarehouseRecords/Grp_WarehouseRecordsErrorState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_warehouseRecordsSuccessState",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageWarehouseRecords/Grp_WarehouseRecordsSuccessState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_warehouseRecordsDisabledState",
+   "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageWarehouseRecords/Grp_WarehouseRecordsDisabledState",
+   "kind": "GameObject"
+  }
+ ],
+ "scalars": [],
+ "scriptFields": [],
+ "generatedFrom": "界面规格/prefab-layout.md（tools/ui_spec_to_contract.py）",
+ "formArrays": {
+  "_pageRoots": [
+   {
+    "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory",
+    "kind": "GameObject"
+   },
+   {
+    "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageItemDetail",
+    "kind": "GameObject"
+   },
+   {
+    "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageWarehouseRecords",
+    "kind": "GameObject"
+   }
+  ]
+ }
+}

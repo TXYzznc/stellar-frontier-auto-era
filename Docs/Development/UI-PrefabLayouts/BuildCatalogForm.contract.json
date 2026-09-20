@@ -1,0 +1,2188 @@
+{
+ "schemaVersion": 3,
+ "form": "BuildCatalogForm",
+ "namespace": "AutoEra.UI",
+ "prefabPath": "Assets/Game/Prefabs/UI/Operations/BuildCatalogForm.prefab",
+ "scriptPath": "Assets/Game/Scripts/AutoEra/UI/BuildCatalogForm.cs",
+ "referenceResolution": [
+  1920,
+  1080
+ ],
+ "root": {
+  "name": "BuildCatalogForm",
+  "components": [
+   {
+    "type": "BuildCatalogForm"
+   },
+   {
+    "type": "CanvasGroup",
+    "alpha": 1.0,
+    "interactable": true,
+    "blocksRaycasts": true
+   }
+  ],
+  "anchorMin": [
+   0.0,
+   0.0
+  ],
+  "anchorMax": [
+   1.0,
+   1.0
+  ],
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "sizeDelta": [
+   0.0,
+   0.0
+  ],
+  "anchoredPosition": [
+   0.0,
+   0.0
+  ],
+  "children": [
+   {
+    "name": "Bg_InputBlocker",
+    "components": [
+     {
+      "type": "Image",
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       0.65
+      ],
+      "imageType": 1,
+      "raycastTarget": true,
+      "preserveAspect": false
+     }
+    ],
+    "anchorMin": [
+     0.0,
+     0.0
+    ],
+    "anchorMax": [
+     1.0,
+     1.0
+    ],
+    "pivot": [
+     0.5,
+     0.5
+    ],
+    "sizeDelta": [
+     0.0,
+     0.0
+    ],
+    "anchoredPosition": [
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "Panel_Frame",
+    "components": [
+     {
+      "type": "Image",
+      "color": [
+       0.12549,
+       0.141176,
+       0.164706,
+       1.0
+      ],
+      "imageType": 1,
+      "raycastTarget": false,
+      "preserveAspect": false
+     }
+    ],
+    "anchorMin": [
+     0.5,
+     0.5
+    ],
+    "anchorMax": [
+     0.5,
+     0.5
+    ],
+    "pivot": [
+     0.5,
+     0.5
+    ],
+    "sizeDelta": [
+     1600.0,
+     900.0
+    ],
+    "anchoredPosition": [
+     0.0,
+     0.0
+    ],
+    "children": [
+     {
+      "name": "Deco_Frame",
+      "components": [
+       {
+        "type": "Image",
+        "color": [
+         0.001961,
+         0.001961,
+         0.001961,
+         0.25
+        ],
+        "imageType": 1,
+        "raycastTarget": false,
+        "preserveAspect": false
+       }
+      ],
+      "anchorMin": [
+       0.0,
+       0.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       0.5,
+       0.5
+      ],
+      "sizeDelta": [
+       0.0,
+       0.0
+      ],
+      "anchoredPosition": [
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "name": "Txt_FormTitle",
+      "components": [
+       {
+        "type": "TextMeshProUGUI",
+        "text": "建筑图纸目录与详情",
+        "fontSize": 28.0,
+        "color": [
+         0.941176,
+         0.94902,
+         0.956863,
+         1.0
+        ],
+        "raycastTarget": false,
+        "wordWrap": true,
+        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+       }
+      ],
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       0.0,
+       1.0
+      ],
+      "pivot": [
+       0.0,
+       1.0
+      ],
+      "sizeDelta": [
+       1300.0,
+       40.0
+      ],
+      "anchoredPosition": [
+       56.0,
+       -20.0
+      ]
+     },
+     {
+      "name": "Grp_Navigation",
+      "components": [
+       {
+        "type": "HorizontalLayoutGroup",
+        "spacing": 8.0,
+        "padding": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "ChildForceExpandWidth": false,
+        "ChildForceExpandHeight": false
+       }
+      ],
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       0.5,
+       1.0
+      ],
+      "sizeDelta": [
+       -200.0,
+       52.0
+      ],
+      "anchoredPosition": [
+       -44.0,
+       -68.0
+      ],
+      "children": [],
+      "active": false
+     },
+     {
+      "name": "Grp_PageHost",
+      "components": [],
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       0.0,
+       1.0
+      ],
+      "pivot": [
+       0.0,
+       1.0
+      ],
+      "sizeDelta": [
+       1488.0,
+       730.0
+      ],
+      "anchoredPosition": [
+       56.0,
+       -140.0
+      ],
+      "children": [
+       {
+        "name": "Panel_PageBlueprints",
+        "components": [
+         {
+          "type": "Image",
+          "color": [
+           0.12549,
+           0.141176,
+           0.164706,
+           1.0
+          ],
+          "imageType": 1,
+          "raycastTarget": false,
+          "preserveAspect": false
+         }
+        ],
+        "anchorMin": [
+         0.0,
+         0.0
+        ],
+        "anchorMax": [
+         1.0,
+         1.0
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         0.0,
+         0.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_BlueprintsTitle",
+          "components": [
+           {
+            "type": "TextMeshProUGUI",
+            "text": "建筑图纸目录与详情",
+            "fontSize": 28.0,
+            "color": [
+             0.941176,
+             0.94902,
+             0.956863,
+             1.0
+            ],
+            "raycastTarget": false,
+            "wordWrap": true,
+            "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1472.0,
+           32.0
+          ],
+          "anchoredPosition": [
+           8.0,
+           0.0
+          ]
+         },
+         {
+          "name": "Grp_BlueprintsActions",
+          "components": [
+           {
+            "type": "GridLayoutGroup",
+            "constraint": 1,
+            "ChildForceExpandWidth": false,
+            "ChildForceExpandHeight": false,
+            "constraintCount": 8,
+            "cellSize": [
+             177.0,
+             48.0
+            ],
+            "spacing": [
+             8.0,
+             8.0
+            ]
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           0.0
+          ],
+          "pivot": [
+           0.5,
+           0.0
+          ],
+          "sizeDelta": [
+           -16.0,
+           48.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": [
+           {
+            "name": "Btn_BlueprintsPlace",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_BlueprintsPlaceLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "进入放置模式",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           },
+           {
+            "name": "Btn_BlueprintsRule",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_BlueprintsRuleLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "建造规则",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           },
+           {
+            "name": "Btn_BlueprintsSelect",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_BlueprintsSelectLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "切换图纸",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Panel_BlueprintsCatalog",
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.12549,
+             0.141176,
+             0.164706,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": false,
+            "preserveAspect": false
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           565.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Txt_BlueprintsCatalogHeading",
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "建筑图纸",
+              "fontSize": 24.0,
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             541.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             12.0,
+             -8.0
+            ]
+           },
+           {
+            "name": "List_BlueprintsCatalog",
+            "components": [
+             {
+              "type": "ScrollRect",
+              "horizontal": false,
+              "vertical": true,
+              "movementType": 2
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -24.0,
+             -52.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             -18.0
+            ],
+            "children": [
+             {
+              "name": "Viewport_BlueprintsCatalog",
+              "components": [
+               {
+                "type": "RectMask2D"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Content_BlueprintsCatalog",
+                "components": [
+                 {
+                  "type": "VerticalLayoutGroup",
+                  "spacing": 8.0,
+                  "ChildForceExpandWidth": true,
+                  "ChildForceExpandHeight": false
+                 },
+                 {
+                  "type": "ContentSizeFitter",
+                  "verticalFit": 2,
+                  "horizontalFit": 0
+                 }
+                ],
+                "anchorMin": [
+                 0.0,
+                 1.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 1.0
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_BlueprintsCatalogBody",
+                  "components": [
+                   {
+                    "type": "TextMeshProUGUI",
+                    "text": "类型",
+                    "fontSize": 22.0,
+                    "color": [
+                     0.941176,
+                     0.94902,
+                     0.956863,
+                     1.0
+                    ],
+                    "raycastTarget": false,
+                    "wordWrap": true,
+                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                   },
+                   {
+                    "type": "LayoutElement",
+                    "minHeight": 120.0
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   541.0,
+                   120.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ]
+                 },
+                 {
+                  "name": "Item_BlueprintsCatalogTemplate",
+                  "components": [
+                   {
+                    "type": "Image",
+                    "color": [
+                     0.12549,
+                     0.141176,
+                     0.164706,
+                     1.0
+                    ],
+                    "imageType": 1,
+                    "raycastTarget": false,
+                    "preserveAspect": false
+                   },
+                   {
+                    "type": "LayoutElement"
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   541.0,
+                   104.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "active": false,
+                  "children": [
+                   {
+                    "name": "Btn_BlueprintsCatalogRow",
+                    "components": [
+                     {
+                      "type": "Image",
+                      "color": [
+                       0.321569,
+                       0.498039,
+                       0.639216,
+                       1.0
+                      ],
+                      "imageType": 1,
+                      "raycastTarget": true,
+                      "preserveAspect": false
+                     },
+                     {
+                      "type": "Button",
+                      "transition": 1,
+                      "interactable": true
+                     }
+                    ],
+                    "anchorMin": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchorMax": [
+                     1.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.5,
+                     0.5
+                    ],
+                    "sizeDelta": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchoredPosition": [
+                     0.0,
+                     0.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Txt_BlueprintsCatalogRowLabel",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "名称：—",
+                        "fontSize": 22.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ]
+                     },
+                     {
+                      "name": "Txt_BlueprintsCatalogRowValue",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "值、状态、时间：—",
+                        "fontSize": 20.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       48.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ]
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Panel_BlueprintsBlueprint",
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.12549,
+             0.141176,
+             0.164706,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": false,
+            "preserveAspect": false
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           907.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           581.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Txt_BlueprintsBlueprintHeading",
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "选中图纸",
+              "fontSize": 24.0,
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             883.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             12.0,
+             -8.0
+            ]
+           },
+           {
+            "name": "List_BlueprintsBlueprint",
+            "components": [
+             {
+              "type": "ScrollRect",
+              "horizontal": false,
+              "vertical": true,
+              "movementType": 2
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -24.0,
+             -52.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             -18.0
+            ],
+            "children": [
+             {
+              "name": "Viewport_BlueprintsBlueprint",
+              "components": [
+               {
+                "type": "RectMask2D"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Content_BlueprintsBlueprint",
+                "components": [
+                 {
+                  "type": "VerticalLayoutGroup",
+                  "spacing": 8.0,
+                  "ChildForceExpandWidth": true,
+                  "ChildForceExpandHeight": false
+                 },
+                 {
+                  "type": "ContentSizeFitter",
+                  "verticalFit": 2,
+                  "horizontalFit": 0
+                 }
+                ],
+                "anchorMin": [
+                 0.0,
+                 1.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 1.0
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_BlueprintsBlueprintBody",
+                  "components": [
+                   {
+                    "type": "TextMeshProUGUI",
+                    "text": "功能",
+                    "fontSize": 22.0,
+                    "color": [
+                     0.941176,
+                     0.94902,
+                     0.956863,
+                     1.0
+                    ],
+                    "raycastTarget": false,
+                    "wordWrap": true,
+                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                   },
+                   {
+                    "type": "LayoutElement",
+                    "minHeight": 120.0
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   883.0,
+                   120.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ]
+                 },
+                 {
+                  "name": "Item_BlueprintsBlueprintTemplate",
+                  "components": [
+                   {
+                    "type": "Image",
+                    "color": [
+                     0.12549,
+                     0.141176,
+                     0.164706,
+                     1.0
+                    ],
+                    "imageType": 1,
+                    "raycastTarget": false,
+                    "preserveAspect": false
+                   },
+                   {
+                    "type": "LayoutElement"
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   883.0,
+                   104.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "active": false,
+                  "children": [
+                   {
+                    "name": "Btn_BlueprintsBlueprintRow",
+                    "components": [
+                     {
+                      "type": "Image",
+                      "color": [
+                       0.321569,
+                       0.498039,
+                       0.639216,
+                       1.0
+                      ],
+                      "imageType": 1,
+                      "raycastTarget": true,
+                      "preserveAspect": false
+                     },
+                     {
+                      "type": "Button",
+                      "transition": 1,
+                      "interactable": true
+                     }
+                    ],
+                    "anchorMin": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchorMax": [
+                     1.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.5,
+                     0.5
+                    ],
+                    "sizeDelta": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchoredPosition": [
+                     0.0,
+                     0.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Txt_BlueprintsBlueprintRowLabel",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "名称：—",
+                        "fontSize": 22.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ]
+                     },
+                     {
+                      "name": "Txt_BlueprintsBlueprintRowValue",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "值、状态、时间：—",
+                        "fontSize": 20.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       48.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ]
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_BlueprintsLoadingState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_BlueprintsLoadingMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_BlueprintsLoadingMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Loading：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_BlueprintsEmptyState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_BlueprintsEmptyMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_BlueprintsEmptyMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Empty：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_BlueprintsErrorState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_BlueprintsErrorMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_BlueprintsErrorMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Error：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_BlueprintsSuccessState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_BlueprintsSuccessMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_BlueprintsSuccessMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Success：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_BlueprintsDisabledState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_BlueprintsDisabledMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_BlueprintsDisabledMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Disabled：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Btn_FormBack",
+      "components": [
+       {
+        "type": "Image",
+        "color": [
+         0.321569,
+         0.498039,
+         0.639216,
+         1.0
+        ],
+        "imageType": 1,
+        "raycastTarget": true,
+        "preserveAspect": false
+       },
+       {
+        "type": "Button",
+        "transition": 1,
+        "interactable": true
+       }
+      ],
+      "anchorMin": [
+       1.0,
+       1.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       1.0,
+       1.0
+      ],
+      "sizeDelta": [
+       88.0,
+       48.0
+      ],
+      "anchoredPosition": [
+       -112.0,
+       -20.0
+      ],
+      "children": [
+       {
+        "name": "Txt_FormBackLabel",
+        "components": [
+         {
+          "type": "TextMeshProUGUI",
+          "text": "返回",
+          "fontSize": 22.0,
+          "color": [
+           0.941176,
+           0.94902,
+           0.956863,
+           1.0
+          ],
+          "raycastTarget": false,
+          "wordWrap": true,
+          "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+         }
+        ],
+        "anchorMin": [
+         0,
+         0
+        ],
+        "anchorMax": [
+         1,
+         1
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         -8.0,
+         -8.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Btn_FormClose",
+      "components": [
+       {
+        "type": "Image",
+        "color": [
+         0.321569,
+         0.498039,
+         0.639216,
+         1.0
+        ],
+        "imageType": 1,
+        "raycastTarget": true,
+        "preserveAspect": false
+       },
+       {
+        "type": "Button",
+        "transition": 1,
+        "interactable": true
+       }
+      ],
+      "anchorMin": [
+       1.0,
+       1.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       1.0,
+       1.0
+      ],
+      "sizeDelta": [
+       80.0,
+       48.0
+      ],
+      "anchoredPosition": [
+       -24.0,
+       -20.0
+      ],
+      "children": [
+       {
+        "name": "Txt_FormCloseLabel",
+        "components": [
+         {
+          "type": "TextMeshProUGUI",
+          "text": "关闭",
+          "fontSize": 22.0,
+          "color": [
+           0.941176,
+           0.94902,
+           0.956863,
+           1.0
+          ],
+          "raycastTarget": false,
+          "wordWrap": true,
+          "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+         }
+        ],
+        "anchorMin": [
+         0,
+         0
+        ],
+        "anchorMax": [
+         1,
+         1
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         -8.0,
+         -8.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "bindings": [
+  {
+   "path": "_pageHost",
+   "node": "BuildCatalogForm/Panel_Frame/Grp_PageHost",
+   "kind": "RectTransform"
+  },
+  {
+   "path": "_backButton",
+   "node": "BuildCatalogForm/Panel_Frame/Btn_FormBack",
+   "kind": "Button"
+  },
+  {
+   "path": "_closeButton",
+   "node": "BuildCatalogForm/Panel_Frame/Btn_FormClose",
+   "kind": "Button"
+  },
+  {
+   "path": "_blueprintsCatalogContent",
+   "node": "BuildCatalogForm/Panel_Frame/Grp_PageHost/Panel_PageBlueprints/Panel_BlueprintsCatalog/List_BlueprintsCatalog/Viewport_BlueprintsCatalog/Content_BlueprintsCatalog",
+   "kind": "RectTransform"
+  },
+  {
+   "path": "_blueprintsCatalogBody",
+   "node": "BuildCatalogForm/Panel_Frame/Grp_PageHost/Panel_PageBlueprints/Panel_BlueprintsCatalog/List_BlueprintsCatalog/Viewport_BlueprintsCatalog/Content_BlueprintsCatalog/Txt_BlueprintsCatalogBody",
+   "kind": "TextMeshProUGUI"
+  },
+  {
+   "path": "_blueprintsCatalogTemplate",
+   "node": "BuildCatalogForm/Panel_Frame/Grp_PageHost/Panel_PageBlueprints/Panel_BlueprintsCatalog/List_BlueprintsCatalog/Viewport_BlueprintsCatalog/Content_BlueprintsCatalog/Item_BlueprintsCatalogTemplate",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_blueprintsBlueprintContent",
+   "node": "BuildCatalogForm/Panel_Frame/Grp_PageHost/Panel_PageBlueprints/Panel_BlueprintsBlueprint/List_BlueprintsBlueprint/Viewport_BlueprintsBlueprint/Content_BlueprintsBlueprint",
+   "kind": "RectTransform"
+  },
+  {
+   "path": "_blueprintsBlueprintBody",
+   "node": "BuildCatalogForm/Panel_Frame/Grp_PageHost/Panel_PageBlueprints/Panel_BlueprintsBlueprint/List_BlueprintsBlueprint/Viewport_BlueprintsBlueprint/Content_BlueprintsBlueprint/Txt_BlueprintsBlueprintBody",
+   "kind": "TextMeshProUGUI"
+  },
+  {
+   "path": "_blueprintsBlueprintTemplate",
+   "node": "BuildCatalogForm/Panel_Frame/Grp_PageHost/Panel_PageBlueprints/Panel_BlueprintsBlueprint/List_BlueprintsBlueprint/Viewport_BlueprintsBlueprint/Content_BlueprintsBlueprint/Item_BlueprintsBlueprintTemplate",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_blueprintsLoadingState",
+   "node": "BuildCatalogForm/Panel_Frame/Grp_PageHost/Panel_PageBlueprints/Grp_BlueprintsLoadingState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_blueprintsEmptyState",
+   "node": "BuildCatalogForm/Panel_Frame/Grp_PageHost/Panel_PageBlueprints/Grp_BlueprintsEmptyState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_blueprintsErrorState",
+   "node": "BuildCatalogForm/Panel_Frame/Grp_PageHost/Panel_PageBlueprints/Grp_BlueprintsErrorState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_blueprintsSuccessState",
+   "node": "BuildCatalogForm/Panel_Frame/Grp_PageHost/Panel_PageBlueprints/Grp_BlueprintsSuccessState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_blueprintsDisabledState",
+   "node": "BuildCatalogForm/Panel_Frame/Grp_PageHost/Panel_PageBlueprints/Grp_BlueprintsDisabledState",
+   "kind": "GameObject"
+  }
+ ],
+ "scalars": [],
+ "scriptFields": [],
+ "generatedFrom": "界面规格/prefab-layout.md（tools/ui_spec_to_contract.py）",
+ "formArrays": {
+  "_pageRoots": [
+   {
+    "node": "BuildCatalogForm/Panel_Frame/Grp_PageHost/Panel_PageBlueprints",
+    "kind": "GameObject"
+   }
+  ]
+ }
+}

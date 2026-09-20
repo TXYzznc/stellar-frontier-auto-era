@@ -1,0 +1,2114 @@
+{
+ "schemaVersion": 3,
+ "form": "SaveRecoveryForm",
+ "namespace": "AutoEra.UI",
+ "prefabPath": "Assets/Game/Prefabs/UI/Startup/SaveRecoveryForm.prefab",
+ "scriptPath": "Assets/Game/Scripts/AutoEra/UI/SaveRecoveryForm.cs",
+ "referenceResolution": [
+  1920,
+  1080
+ ],
+ "root": {
+  "name": "SaveRecoveryForm",
+  "components": [
+   {
+    "type": "SaveRecoveryForm"
+   },
+   {
+    "type": "CanvasGroup",
+    "alpha": 1.0,
+    "interactable": true,
+    "blocksRaycasts": true
+   }
+  ],
+  "anchorMin": [
+   0.0,
+   0.0
+  ],
+  "anchorMax": [
+   1.0,
+   1.0
+  ],
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "sizeDelta": [
+   0.0,
+   0.0
+  ],
+  "anchoredPosition": [
+   0.0,
+   0.0
+  ],
+  "children": [
+   {
+    "name": "Bg_InputBlocker",
+    "components": [
+     {
+      "type": "Image",
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       0.65
+      ],
+      "imageType": 1,
+      "raycastTarget": true,
+      "preserveAspect": false
+     }
+    ],
+    "anchorMin": [
+     0.0,
+     0.0
+    ],
+    "anchorMax": [
+     1.0,
+     1.0
+    ],
+    "pivot": [
+     0.5,
+     0.5
+    ],
+    "sizeDelta": [
+     0.0,
+     0.0
+    ],
+    "anchoredPosition": [
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "Panel_Frame",
+    "components": [
+     {
+      "type": "Image",
+      "color": [
+       0.12549,
+       0.141176,
+       0.164706,
+       1.0
+      ],
+      "imageType": 1,
+      "raycastTarget": false,
+      "preserveAspect": false
+     }
+    ],
+    "anchorMin": [
+     0.5,
+     0.5
+    ],
+    "anchorMax": [
+     0.5,
+     0.5
+    ],
+    "pivot": [
+     0.5,
+     0.5
+    ],
+    "sizeDelta": [
+     960.0,
+     800.0
+    ],
+    "anchoredPosition": [
+     0.0,
+     0.0
+    ],
+    "children": [
+     {
+      "name": "Deco_Frame",
+      "components": [
+       {
+        "type": "Image",
+        "color": [
+         0.001961,
+         0.001961,
+         0.001961,
+         0.25
+        ],
+        "imageType": 1,
+        "raycastTarget": false,
+        "preserveAspect": false
+       }
+      ],
+      "anchorMin": [
+       0.0,
+       0.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       0.5,
+       0.5
+      ],
+      "sizeDelta": [
+       0.0,
+       0.0
+      ],
+      "anchoredPosition": [
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "name": "Txt_FormTitle",
+      "components": [
+       {
+        "type": "TextMeshProUGUI",
+        "text": "损坏存档恢复",
+        "fontSize": 28.0,
+        "color": [
+         0.941176,
+         0.94902,
+         0.956863,
+         1.0
+        ],
+        "raycastTarget": false,
+        "wordWrap": true,
+        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+       }
+      ],
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       0.0,
+       1.0
+      ],
+      "pivot": [
+       0.0,
+       1.0
+      ],
+      "sizeDelta": [
+       660.0,
+       40.0
+      ],
+      "anchoredPosition": [
+       56.0,
+       -20.0
+      ]
+     },
+     {
+      "name": "Grp_Navigation",
+      "components": [
+       {
+        "type": "HorizontalLayoutGroup",
+        "spacing": 8.0,
+        "padding": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "ChildForceExpandWidth": false,
+        "ChildForceExpandHeight": false
+       }
+      ],
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       0.5,
+       1.0
+      ],
+      "sizeDelta": [
+       -200.0,
+       52.0
+      ],
+      "anchoredPosition": [
+       -44.0,
+       -68.0
+      ],
+      "children": [],
+      "active": false
+     },
+     {
+      "name": "Grp_PageHost",
+      "components": [],
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       0.0,
+       1.0
+      ],
+      "pivot": [
+       0.0,
+       1.0
+      ],
+      "sizeDelta": [
+       848.0,
+       630.0
+      ],
+      "anchoredPosition": [
+       56.0,
+       -140.0
+      ],
+      "children": [
+       {
+        "name": "Panel_PageRecovery",
+        "components": [
+         {
+          "type": "Image",
+          "color": [
+           0.12549,
+           0.141176,
+           0.164706,
+           1.0
+          ],
+          "imageType": 1,
+          "raycastTarget": false,
+          "preserveAspect": false
+         }
+        ],
+        "anchorMin": [
+         0.0,
+         0.0
+        ],
+        "anchorMax": [
+         1.0,
+         1.0
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         0.0,
+         0.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_RecoveryTitle",
+          "components": [
+           {
+            "type": "TextMeshProUGUI",
+            "text": "损坏存档恢复",
+            "fontSize": 28.0,
+            "color": [
+             0.941176,
+             0.94902,
+             0.956863,
+             1.0
+            ],
+            "raycastTarget": false,
+            "wordWrap": true,
+            "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           832.0,
+           32.0
+          ],
+          "anchoredPosition": [
+           8.0,
+           0.0
+          ]
+         },
+         {
+          "name": "Grp_RecoveryActions",
+          "components": [
+           {
+            "type": "GridLayoutGroup",
+            "constraint": 1,
+            "ChildForceExpandWidth": false,
+            "ChildForceExpandHeight": false,
+            "constraintCount": 4,
+            "cellSize": [
+             202.0,
+             48.0
+            ],
+            "spacing": [
+             8.0,
+             8.0
+            ]
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           0.0
+          ],
+          "pivot": [
+           0.5,
+           0.0
+          ],
+          "sizeDelta": [
+           -16.0,
+           48.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": [
+           {
+            "name": "Btn_RecoveryRestore",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             202.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_RecoveryRestoreLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "恢复并继续",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           },
+           {
+            "name": "Btn_RecoveryReturn",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             202.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_RecoveryReturnLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "返回主菜单",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Panel_RecoveryDiagnosis",
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.12549,
+             0.141176,
+             0.164706,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": false,
+            "preserveAspect": false
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           416.0,
+           534.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Txt_RecoveryDiagnosisHeading",
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "恢复原因",
+              "fontSize": 24.0,
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             392.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             12.0,
+             -8.0
+            ]
+           },
+           {
+            "name": "List_RecoveryDiagnosis",
+            "components": [
+             {
+              "type": "ScrollRect",
+              "horizontal": false,
+              "vertical": true,
+              "movementType": 2
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -24.0,
+             -52.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             -18.0
+            ],
+            "children": [
+             {
+              "name": "Viewport_RecoveryDiagnosis",
+              "components": [
+               {
+                "type": "RectMask2D"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Content_RecoveryDiagnosis",
+                "components": [
+                 {
+                  "type": "VerticalLayoutGroup",
+                  "spacing": 8.0,
+                  "ChildForceExpandWidth": true,
+                  "ChildForceExpandHeight": false
+                 },
+                 {
+                  "type": "ContentSizeFitter",
+                  "verticalFit": 2,
+                  "horizontalFit": 0
+                 }
+                ],
+                "anchorMin": [
+                 0.0,
+                 1.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 1.0
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_RecoveryDiagnosisBody",
+                  "components": [
+                   {
+                    "type": "TextMeshProUGUI",
+                    "text": "正式存档无法读取说明",
+                    "fontSize": 22.0,
+                    "color": [
+                     0.941176,
+                     0.94902,
+                     0.956863,
+                     1.0
+                    ],
+                    "raycastTarget": false,
+                    "wordWrap": true,
+                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                   },
+                   {
+                    "type": "LayoutElement",
+                    "minHeight": 120.0
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   392.0,
+                   120.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ]
+                 },
+                 {
+                  "name": "Item_RecoveryDiagnosisTemplate",
+                  "components": [
+                   {
+                    "type": "Image",
+                    "color": [
+                     0.12549,
+                     0.141176,
+                     0.164706,
+                     1.0
+                    ],
+                    "imageType": 1,
+                    "raycastTarget": false,
+                    "preserveAspect": false
+                   },
+                   {
+                    "type": "LayoutElement"
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   392.0,
+                   104.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "active": false,
+                  "children": [
+                   {
+                    "name": "Btn_RecoveryDiagnosisRow",
+                    "components": [
+                     {
+                      "type": "Image",
+                      "color": [
+                       0.321569,
+                       0.498039,
+                       0.639216,
+                       1.0
+                      ],
+                      "imageType": 1,
+                      "raycastTarget": true,
+                      "preserveAspect": false
+                     },
+                     {
+                      "type": "Button",
+                      "transition": 1,
+                      "interactable": true
+                     }
+                    ],
+                    "anchorMin": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchorMax": [
+                     1.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.5,
+                     0.5
+                    ],
+                    "sizeDelta": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchoredPosition": [
+                     0.0,
+                     0.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Txt_RecoveryDiagnosisRowLabel",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "名称：—",
+                        "fontSize": 22.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ]
+                     },
+                     {
+                      "name": "Txt_RecoveryDiagnosisRowValue",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "值、状态、时间：—",
+                        "fontSize": 20.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       48.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ]
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Panel_RecoveryCandidate",
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.12549,
+             0.141176,
+             0.164706,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": false,
+            "preserveAspect": false
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           416.0,
+           534.0
+          ],
+          "anchoredPosition": [
+           432.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Txt_RecoveryCandidateHeading",
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "可恢复备份",
+              "fontSize": 24.0,
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             392.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             12.0,
+             -8.0
+            ]
+           },
+           {
+            "name": "List_RecoveryCandidate",
+            "components": [
+             {
+              "type": "ScrollRect",
+              "horizontal": false,
+              "vertical": true,
+              "movementType": 2
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -24.0,
+             -52.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             -18.0
+            ],
+            "children": [
+             {
+              "name": "Viewport_RecoveryCandidate",
+              "components": [
+               {
+                "type": "RectMask2D"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Content_RecoveryCandidate",
+                "components": [
+                 {
+                  "type": "VerticalLayoutGroup",
+                  "spacing": 8.0,
+                  "ChildForceExpandWidth": true,
+                  "ChildForceExpandHeight": false
+                 },
+                 {
+                  "type": "ContentSizeFitter",
+                  "verticalFit": 2,
+                  "horizontalFit": 0
+                 }
+                ],
+                "anchorMin": [
+                 0.0,
+                 1.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 1.0
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_RecoveryCandidateBody",
+                  "components": [
+                   {
+                    "type": "TextMeshProUGUI",
+                    "text": "由新到旧找到的首个有效备份时间",
+                    "fontSize": 22.0,
+                    "color": [
+                     0.941176,
+                     0.94902,
+                     0.956863,
+                     1.0
+                    ],
+                    "raycastTarget": false,
+                    "wordWrap": true,
+                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                   },
+                   {
+                    "type": "LayoutElement",
+                    "minHeight": 120.0
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   392.0,
+                   120.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ]
+                 },
+                 {
+                  "name": "Item_RecoveryCandidateTemplate",
+                  "components": [
+                   {
+                    "type": "Image",
+                    "color": [
+                     0.12549,
+                     0.141176,
+                     0.164706,
+                     1.0
+                    ],
+                    "imageType": 1,
+                    "raycastTarget": false,
+                    "preserveAspect": false
+                   },
+                   {
+                    "type": "LayoutElement"
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   392.0,
+                   104.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "active": false,
+                  "children": [
+                   {
+                    "name": "Btn_RecoveryCandidateRow",
+                    "components": [
+                     {
+                      "type": "Image",
+                      "color": [
+                       0.321569,
+                       0.498039,
+                       0.639216,
+                       1.0
+                      ],
+                      "imageType": 1,
+                      "raycastTarget": true,
+                      "preserveAspect": false
+                     },
+                     {
+                      "type": "Button",
+                      "transition": 1,
+                      "interactable": true
+                     }
+                    ],
+                    "anchorMin": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchorMax": [
+                     1.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.5,
+                     0.5
+                    ],
+                    "sizeDelta": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchoredPosition": [
+                     0.0,
+                     0.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Txt_RecoveryCandidateRowLabel",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "名称：—",
+                        "fontSize": 22.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ]
+                     },
+                     {
+                      "name": "Txt_RecoveryCandidateRowValue",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "值、状态、时间：—",
+                        "fontSize": 20.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       48.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ]
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_RecoveryLoadingState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           848.0,
+           534.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_RecoveryLoadingMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_RecoveryLoadingMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Loading：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_RecoveryEmptyState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           848.0,
+           534.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_RecoveryEmptyMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_RecoveryEmptyMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Empty：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_RecoveryErrorState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           848.0,
+           534.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_RecoveryErrorMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_RecoveryErrorMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Error：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_RecoverySuccessState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           848.0,
+           534.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_RecoverySuccessMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_RecoverySuccessMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Success：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_RecoveryDisabledState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           848.0,
+           534.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_RecoveryDisabledMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_RecoveryDisabledMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Disabled：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Btn_FormBack",
+      "components": [
+       {
+        "type": "Image",
+        "color": [
+         0.321569,
+         0.498039,
+         0.639216,
+         1.0
+        ],
+        "imageType": 1,
+        "raycastTarget": true,
+        "preserveAspect": false
+       },
+       {
+        "type": "Button",
+        "transition": 1,
+        "interactable": true
+       }
+      ],
+      "anchorMin": [
+       1.0,
+       1.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       1.0,
+       1.0
+      ],
+      "sizeDelta": [
+       88.0,
+       48.0
+      ],
+      "anchoredPosition": [
+       -112.0,
+       -20.0
+      ],
+      "children": [
+       {
+        "name": "Txt_FormBackLabel",
+        "components": [
+         {
+          "type": "TextMeshProUGUI",
+          "text": "返回",
+          "fontSize": 22.0,
+          "color": [
+           0.941176,
+           0.94902,
+           0.956863,
+           1.0
+          ],
+          "raycastTarget": false,
+          "wordWrap": true,
+          "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+         }
+        ],
+        "anchorMin": [
+         0,
+         0
+        ],
+        "anchorMax": [
+         1,
+         1
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         -8.0,
+         -8.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Btn_FormClose",
+      "components": [
+       {
+        "type": "Image",
+        "color": [
+         0.321569,
+         0.498039,
+         0.639216,
+         1.0
+        ],
+        "imageType": 1,
+        "raycastTarget": true,
+        "preserveAspect": false
+       },
+       {
+        "type": "Button",
+        "transition": 1,
+        "interactable": true
+       }
+      ],
+      "anchorMin": [
+       1.0,
+       1.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       1.0,
+       1.0
+      ],
+      "sizeDelta": [
+       80.0,
+       48.0
+      ],
+      "anchoredPosition": [
+       -24.0,
+       -20.0
+      ],
+      "children": [
+       {
+        "name": "Txt_FormCloseLabel",
+        "components": [
+         {
+          "type": "TextMeshProUGUI",
+          "text": "关闭",
+          "fontSize": 22.0,
+          "color": [
+           0.941176,
+           0.94902,
+           0.956863,
+           1.0
+          ],
+          "raycastTarget": false,
+          "wordWrap": true,
+          "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+         }
+        ],
+        "anchorMin": [
+         0,
+         0
+        ],
+        "anchorMax": [
+         1,
+         1
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         -8.0,
+         -8.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "bindings": [
+  {
+   "path": "_pageHost",
+   "node": "SaveRecoveryForm/Panel_Frame/Grp_PageHost",
+   "kind": "RectTransform"
+  },
+  {
+   "path": "_backButton",
+   "node": "SaveRecoveryForm/Panel_Frame/Btn_FormBack",
+   "kind": "Button"
+  },
+  {
+   "path": "_closeButton",
+   "node": "SaveRecoveryForm/Panel_Frame/Btn_FormClose",
+   "kind": "Button"
+  },
+  {
+   "path": "_restoreButton",
+   "node": "SaveRecoveryForm/Panel_Frame/Grp_PageHost/Panel_PageRecovery/Grp_RecoveryActions/Btn_RecoveryRestore",
+   "kind": "Button"
+  },
+  {
+   "path": "_returnButton",
+   "node": "SaveRecoveryForm/Panel_Frame/Grp_PageHost/Panel_PageRecovery/Grp_RecoveryActions/Btn_RecoveryReturn",
+   "kind": "Button"
+  },
+  {
+   "path": "_recoveryDiagnosisContent",
+   "node": "SaveRecoveryForm/Panel_Frame/Grp_PageHost/Panel_PageRecovery/Panel_RecoveryDiagnosis/List_RecoveryDiagnosis/Viewport_RecoveryDiagnosis/Content_RecoveryDiagnosis",
+   "kind": "RectTransform"
+  },
+  {
+   "path": "_recoveryDiagnosisBody",
+   "node": "SaveRecoveryForm/Panel_Frame/Grp_PageHost/Panel_PageRecovery/Panel_RecoveryDiagnosis/List_RecoveryDiagnosis/Viewport_RecoveryDiagnosis/Content_RecoveryDiagnosis/Txt_RecoveryDiagnosisBody",
+   "kind": "TextMeshProUGUI"
+  },
+  {
+   "path": "_recoveryDiagnosisTemplate",
+   "node": "SaveRecoveryForm/Panel_Frame/Grp_PageHost/Panel_PageRecovery/Panel_RecoveryDiagnosis/List_RecoveryDiagnosis/Viewport_RecoveryDiagnosis/Content_RecoveryDiagnosis/Item_RecoveryDiagnosisTemplate",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_recoveryCandidateContent",
+   "node": "SaveRecoveryForm/Panel_Frame/Grp_PageHost/Panel_PageRecovery/Panel_RecoveryCandidate/List_RecoveryCandidate/Viewport_RecoveryCandidate/Content_RecoveryCandidate",
+   "kind": "RectTransform"
+  },
+  {
+   "path": "_recoveryCandidateBody",
+   "node": "SaveRecoveryForm/Panel_Frame/Grp_PageHost/Panel_PageRecovery/Panel_RecoveryCandidate/List_RecoveryCandidate/Viewport_RecoveryCandidate/Content_RecoveryCandidate/Txt_RecoveryCandidateBody",
+   "kind": "TextMeshProUGUI"
+  },
+  {
+   "path": "_recoveryCandidateTemplate",
+   "node": "SaveRecoveryForm/Panel_Frame/Grp_PageHost/Panel_PageRecovery/Panel_RecoveryCandidate/List_RecoveryCandidate/Viewport_RecoveryCandidate/Content_RecoveryCandidate/Item_RecoveryCandidateTemplate",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_recoveryLoadingState",
+   "node": "SaveRecoveryForm/Panel_Frame/Grp_PageHost/Panel_PageRecovery/Grp_RecoveryLoadingState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_recoveryEmptyState",
+   "node": "SaveRecoveryForm/Panel_Frame/Grp_PageHost/Panel_PageRecovery/Grp_RecoveryEmptyState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_recoveryErrorState",
+   "node": "SaveRecoveryForm/Panel_Frame/Grp_PageHost/Panel_PageRecovery/Grp_RecoveryErrorState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_recoverySuccessState",
+   "node": "SaveRecoveryForm/Panel_Frame/Grp_PageHost/Panel_PageRecovery/Grp_RecoverySuccessState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_recoveryDisabledState",
+   "node": "SaveRecoveryForm/Panel_Frame/Grp_PageHost/Panel_PageRecovery/Grp_RecoveryDisabledState",
+   "kind": "GameObject"
+  }
+ ],
+ "scalars": [],
+ "scriptFields": [],
+ "generatedFrom": "界面规格/prefab-layout.md（tools/ui_spec_to_contract.py）",
+ "formArrays": {
+  "_pageRoots": [
+   {
+    "node": "SaveRecoveryForm/Panel_Frame/Grp_PageHost/Panel_PageRecovery",
+    "kind": "GameObject"
+   }
+  ]
+ }
+}

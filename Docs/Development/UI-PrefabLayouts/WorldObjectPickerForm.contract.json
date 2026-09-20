@@ -1,0 +1,2292 @@
+{
+ "schemaVersion": 3,
+ "form": "WorldObjectPickerForm",
+ "namespace": "AutoEra.UI",
+ "prefabPath": "Assets/Game/Prefabs/UI/Operations/WorldObjectPickerForm.prefab",
+ "scriptPath": "Assets/Game/Scripts/AutoEra/UI/WorldObjectPickerForm.cs",
+ "referenceResolution": [
+  1920,
+  1080
+ ],
+ "root": {
+  "name": "WorldObjectPickerForm",
+  "components": [
+   {
+    "type": "WorldObjectPickerForm"
+   },
+   {
+    "type": "CanvasGroup",
+    "alpha": 1.0,
+    "interactable": true,
+    "blocksRaycasts": true
+   }
+  ],
+  "anchorMin": [
+   0.0,
+   0.0
+  ],
+  "anchorMax": [
+   1.0,
+   1.0
+  ],
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "sizeDelta": [
+   0.0,
+   0.0
+  ],
+  "anchoredPosition": [
+   0.0,
+   0.0
+  ],
+  "children": [
+   {
+    "name": "Bg_InputBlocker",
+    "components": [
+     {
+      "type": "Image",
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       0.65
+      ],
+      "imageType": 1,
+      "raycastTarget": true,
+      "preserveAspect": false
+     }
+    ],
+    "anchorMin": [
+     0.0,
+     0.0
+    ],
+    "anchorMax": [
+     1.0,
+     1.0
+    ],
+    "pivot": [
+     0.5,
+     0.5
+    ],
+    "sizeDelta": [
+     0.0,
+     0.0
+    ],
+    "anchoredPosition": [
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "Panel_Frame",
+    "components": [
+     {
+      "type": "Image",
+      "color": [
+       0.12549,
+       0.141176,
+       0.164706,
+       1.0
+      ],
+      "imageType": 1,
+      "raycastTarget": false,
+      "preserveAspect": false
+     }
+    ],
+    "anchorMin": [
+     0.5,
+     0.5
+    ],
+    "anchorMax": [
+     0.5,
+     0.5
+    ],
+    "pivot": [
+     0.5,
+     0.5
+    ],
+    "sizeDelta": [
+     960.0,
+     800.0
+    ],
+    "anchoredPosition": [
+     0.0,
+     0.0
+    ],
+    "children": [
+     {
+      "name": "Deco_Frame",
+      "components": [
+       {
+        "type": "Image",
+        "color": [
+         0.001961,
+         0.001961,
+         0.001961,
+         0.25
+        ],
+        "imageType": 1,
+        "raycastTarget": false,
+        "preserveAspect": false
+       }
+      ],
+      "anchorMin": [
+       0.0,
+       0.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       0.5,
+       0.5
+      ],
+      "sizeDelta": [
+       0.0,
+       0.0
+      ],
+      "anchoredPosition": [
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "name": "Txt_FormTitle",
+      "components": [
+       {
+        "type": "TextMeshProUGUI",
+        "text": "世界对象选择器",
+        "fontSize": 28.0,
+        "color": [
+         0.941176,
+         0.94902,
+         0.956863,
+         1.0
+        ],
+        "raycastTarget": false,
+        "wordWrap": true,
+        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+       }
+      ],
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       0.0,
+       1.0
+      ],
+      "pivot": [
+       0.0,
+       1.0
+      ],
+      "sizeDelta": [
+       660.0,
+       40.0
+      ],
+      "anchoredPosition": [
+       56.0,
+       -20.0
+      ]
+     },
+     {
+      "name": "Grp_Navigation",
+      "components": [
+       {
+        "type": "HorizontalLayoutGroup",
+        "spacing": 8.0,
+        "padding": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "ChildForceExpandWidth": false,
+        "ChildForceExpandHeight": false
+       }
+      ],
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       0.5,
+       1.0
+      ],
+      "sizeDelta": [
+       -200.0,
+       52.0
+      ],
+      "anchoredPosition": [
+       -44.0,
+       -68.0
+      ],
+      "children": [],
+      "active": false
+     },
+     {
+      "name": "Grp_PageHost",
+      "components": [],
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       0.0,
+       1.0
+      ],
+      "pivot": [
+       0.0,
+       1.0
+      ],
+      "sizeDelta": [
+       848.0,
+       630.0
+      ],
+      "anchoredPosition": [
+       56.0,
+       -140.0
+      ],
+      "children": [
+       {
+        "name": "Panel_PageWorldObjectPicker",
+        "components": [
+         {
+          "type": "Image",
+          "color": [
+           0.12549,
+           0.141176,
+           0.164706,
+           1.0
+          ],
+          "imageType": 1,
+          "raycastTarget": false,
+          "preserveAspect": false
+         }
+        ],
+        "anchorMin": [
+         0.0,
+         0.0
+        ],
+        "anchorMax": [
+         1.0,
+         1.0
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         0.0,
+         0.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_WorldObjectPickerTitle",
+          "components": [
+           {
+            "type": "TextMeshProUGUI",
+            "text": "世界对象选择器",
+            "fontSize": 28.0,
+            "color": [
+             0.941176,
+             0.94902,
+             0.956863,
+             1.0
+            ],
+            "raycastTarget": false,
+            "wordWrap": true,
+            "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           832.0,
+           32.0
+          ],
+          "anchoredPosition": [
+           8.0,
+           0.0
+          ]
+         },
+         {
+          "name": "Grp_WorldObjectPickerActions",
+          "components": [
+           {
+            "type": "GridLayoutGroup",
+            "constraint": 1,
+            "ChildForceExpandWidth": false,
+            "ChildForceExpandHeight": false,
+            "constraintCount": 4,
+            "cellSize": [
+             202.0,
+             48.0
+            ],
+            "spacing": [
+             8.0,
+             8.0
+            ]
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           0.0
+          ],
+          "pivot": [
+           0.5,
+           0.0
+          ],
+          "sizeDelta": [
+           -16.0,
+           48.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": [
+           {
+            "name": "Btn_WorldObjectPickerSelect",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             202.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_WorldObjectPickerSelectLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "选择对象",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           },
+           {
+            "name": "Btn_WorldObjectPickerWorld",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             202.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_WorldObjectPickerWorldLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "在世界选择",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           },
+           {
+            "name": "Btn_WorldObjectPickerConfirm",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             202.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_WorldObjectPickerConfirmLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "确认绑定",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           },
+           {
+            "name": "Btn_WorldObjectPickerCancel",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             202.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_WorldObjectPickerCancelLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "取消",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Panel_WorldObjectPickerCandidates",
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.12549,
+             0.141176,
+             0.164706,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": false,
+            "preserveAspect": false
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           416.0,
+           534.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Txt_WorldObjectPickerCandidatesHeading",
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "兼容对象",
+              "fontSize": 24.0,
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             392.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             12.0,
+             -8.0
+            ]
+           },
+           {
+            "name": "List_WorldObjectPickerCandidates",
+            "components": [
+             {
+              "type": "ScrollRect",
+              "horizontal": false,
+              "vertical": true,
+              "movementType": 2
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -24.0,
+             -52.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             -18.0
+            ],
+            "children": [
+             {
+              "name": "Viewport_WorldObjectPickerCandidates",
+              "components": [
+               {
+                "type": "RectMask2D"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Content_WorldObjectPickerCandidates",
+                "components": [
+                 {
+                  "type": "VerticalLayoutGroup",
+                  "spacing": 8.0,
+                  "ChildForceExpandWidth": true,
+                  "ChildForceExpandHeight": false
+                 },
+                 {
+                  "type": "ContentSizeFitter",
+                  "verticalFit": 2,
+                  "horizontalFit": 0
+                 }
+                ],
+                "anchorMin": [
+                 0.0,
+                 1.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 1.0
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_WorldObjectPickerCandidatesBody",
+                  "components": [
+                   {
+                    "type": "TextMeshProUGUI",
+                    "text": "名称、类型、位置",
+                    "fontSize": 22.0,
+                    "color": [
+                     0.941176,
+                     0.94902,
+                     0.956863,
+                     1.0
+                    ],
+                    "raycastTarget": false,
+                    "wordWrap": true,
+                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                   },
+                   {
+                    "type": "LayoutElement",
+                    "minHeight": 120.0
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   392.0,
+                   120.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ]
+                 },
+                 {
+                  "name": "Item_WorldObjectPickerCandidatesTemplate",
+                  "components": [
+                   {
+                    "type": "Image",
+                    "color": [
+                     0.12549,
+                     0.141176,
+                     0.164706,
+                     1.0
+                    ],
+                    "imageType": 1,
+                    "raycastTarget": false,
+                    "preserveAspect": false
+                   },
+                   {
+                    "type": "LayoutElement"
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   392.0,
+                   104.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "active": false,
+                  "children": [
+                   {
+                    "name": "Btn_WorldObjectPickerCandidatesRow",
+                    "components": [
+                     {
+                      "type": "Image",
+                      "color": [
+                       0.321569,
+                       0.498039,
+                       0.639216,
+                       1.0
+                      ],
+                      "imageType": 1,
+                      "raycastTarget": true,
+                      "preserveAspect": false
+                     },
+                     {
+                      "type": "Button",
+                      "transition": 1,
+                      "interactable": true
+                     }
+                    ],
+                    "anchorMin": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchorMax": [
+                     1.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.5,
+                     0.5
+                    ],
+                    "sizeDelta": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchoredPosition": [
+                     0.0,
+                     0.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Txt_WorldObjectPickerCandidatesRowLabel",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "名称：—",
+                        "fontSize": 22.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ]
+                     },
+                     {
+                      "name": "Txt_WorldObjectPickerCandidatesRowValue",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "值、状态、时间：—",
+                        "fontSize": 20.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       48.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ]
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Panel_WorldObjectPickerPreview",
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.12549,
+             0.141176,
+             0.164706,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": false,
+            "preserveAspect": false
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           416.0,
+           534.0
+          ],
+          "anchoredPosition": [
+           432.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Txt_WorldObjectPickerPreviewHeading",
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "选择预览",
+              "fontSize": 24.0,
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             392.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             12.0,
+             -8.0
+            ]
+           },
+           {
+            "name": "List_WorldObjectPickerPreview",
+            "components": [
+             {
+              "type": "ScrollRect",
+              "horizontal": false,
+              "vertical": true,
+              "movementType": 2
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -24.0,
+             -52.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             -18.0
+            ],
+            "children": [
+             {
+              "name": "Viewport_WorldObjectPickerPreview",
+              "components": [
+               {
+                "type": "RectMask2D"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Content_WorldObjectPickerPreview",
+                "components": [
+                 {
+                  "type": "VerticalLayoutGroup",
+                  "spacing": 8.0,
+                  "ChildForceExpandWidth": true,
+                  "ChildForceExpandHeight": false
+                 },
+                 {
+                  "type": "ContentSizeFitter",
+                  "verticalFit": 2,
+                  "horizontalFit": 0
+                 }
+                ],
+                "anchorMin": [
+                 0.0,
+                 1.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 1.0
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_WorldObjectPickerPreviewBody",
+                  "components": [
+                   {
+                    "type": "TextMeshProUGUI",
+                    "text": "绑定用途",
+                    "fontSize": 22.0,
+                    "color": [
+                     0.941176,
+                     0.94902,
+                     0.956863,
+                     1.0
+                    ],
+                    "raycastTarget": false,
+                    "wordWrap": true,
+                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                   },
+                   {
+                    "type": "LayoutElement",
+                    "minHeight": 120.0
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   392.0,
+                   120.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ]
+                 },
+                 {
+                  "name": "Item_WorldObjectPickerPreviewTemplate",
+                  "components": [
+                   {
+                    "type": "Image",
+                    "color": [
+                     0.12549,
+                     0.141176,
+                     0.164706,
+                     1.0
+                    ],
+                    "imageType": 1,
+                    "raycastTarget": false,
+                    "preserveAspect": false
+                   },
+                   {
+                    "type": "LayoutElement"
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   392.0,
+                   104.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "active": false,
+                  "children": [
+                   {
+                    "name": "Btn_WorldObjectPickerPreviewRow",
+                    "components": [
+                     {
+                      "type": "Image",
+                      "color": [
+                       0.321569,
+                       0.498039,
+                       0.639216,
+                       1.0
+                      ],
+                      "imageType": 1,
+                      "raycastTarget": true,
+                      "preserveAspect": false
+                     },
+                     {
+                      "type": "Button",
+                      "transition": 1,
+                      "interactable": true
+                     }
+                    ],
+                    "anchorMin": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchorMax": [
+                     1.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.5,
+                     0.5
+                    ],
+                    "sizeDelta": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchoredPosition": [
+                     0.0,
+                     0.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Txt_WorldObjectPickerPreviewRowLabel",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "名称：—",
+                        "fontSize": 22.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ]
+                     },
+                     {
+                      "name": "Txt_WorldObjectPickerPreviewRowValue",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "值、状态、时间：—",
+                        "fontSize": 20.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       48.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ]
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_WorldObjectPickerLoadingState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           848.0,
+           534.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_WorldObjectPickerLoadingMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_WorldObjectPickerLoadingMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Loading：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_WorldObjectPickerEmptyState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           848.0,
+           534.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_WorldObjectPickerEmptyMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_WorldObjectPickerEmptyMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Empty：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_WorldObjectPickerErrorState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           848.0,
+           534.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_WorldObjectPickerErrorMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_WorldObjectPickerErrorMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Error：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_WorldObjectPickerSuccessState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           848.0,
+           534.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_WorldObjectPickerSuccessMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_WorldObjectPickerSuccessMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Success：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_WorldObjectPickerDisabledState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           848.0,
+           534.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_WorldObjectPickerDisabledMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_WorldObjectPickerDisabledMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Disabled：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Btn_FormBack",
+      "components": [
+       {
+        "type": "Image",
+        "color": [
+         0.321569,
+         0.498039,
+         0.639216,
+         1.0
+        ],
+        "imageType": 1,
+        "raycastTarget": true,
+        "preserveAspect": false
+       },
+       {
+        "type": "Button",
+        "transition": 1,
+        "interactable": true
+       }
+      ],
+      "anchorMin": [
+       1.0,
+       1.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       1.0,
+       1.0
+      ],
+      "sizeDelta": [
+       88.0,
+       48.0
+      ],
+      "anchoredPosition": [
+       -112.0,
+       -20.0
+      ],
+      "children": [
+       {
+        "name": "Txt_FormBackLabel",
+        "components": [
+         {
+          "type": "TextMeshProUGUI",
+          "text": "返回",
+          "fontSize": 22.0,
+          "color": [
+           0.941176,
+           0.94902,
+           0.956863,
+           1.0
+          ],
+          "raycastTarget": false,
+          "wordWrap": true,
+          "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+         }
+        ],
+        "anchorMin": [
+         0,
+         0
+        ],
+        "anchorMax": [
+         1,
+         1
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         -8.0,
+         -8.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Btn_FormClose",
+      "components": [
+       {
+        "type": "Image",
+        "color": [
+         0.321569,
+         0.498039,
+         0.639216,
+         1.0
+        ],
+        "imageType": 1,
+        "raycastTarget": true,
+        "preserveAspect": false
+       },
+       {
+        "type": "Button",
+        "transition": 1,
+        "interactable": true
+       }
+      ],
+      "anchorMin": [
+       1.0,
+       1.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       1.0,
+       1.0
+      ],
+      "sizeDelta": [
+       80.0,
+       48.0
+      ],
+      "anchoredPosition": [
+       -24.0,
+       -20.0
+      ],
+      "children": [
+       {
+        "name": "Txt_FormCloseLabel",
+        "components": [
+         {
+          "type": "TextMeshProUGUI",
+          "text": "关闭",
+          "fontSize": 22.0,
+          "color": [
+           0.941176,
+           0.94902,
+           0.956863,
+           1.0
+          ],
+          "raycastTarget": false,
+          "wordWrap": true,
+          "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+         }
+        ],
+        "anchorMin": [
+         0,
+         0
+        ],
+        "anchorMax": [
+         1,
+         1
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         -8.0,
+         -8.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "bindings": [
+  {
+   "path": "_pageHost",
+   "node": "WorldObjectPickerForm/Panel_Frame/Grp_PageHost",
+   "kind": "RectTransform"
+  },
+  {
+   "path": "_backButton",
+   "node": "WorldObjectPickerForm/Panel_Frame/Btn_FormBack",
+   "kind": "Button"
+  },
+  {
+   "path": "_closeButton",
+   "node": "WorldObjectPickerForm/Panel_Frame/Btn_FormClose",
+   "kind": "Button"
+  },
+  {
+   "path": "_selectButton",
+   "node": "WorldObjectPickerForm/Panel_Frame/Grp_PageHost/Panel_PageWorldObjectPicker/Grp_WorldObjectPickerActions/Btn_WorldObjectPickerSelect",
+   "kind": "Button"
+  },
+  {
+   "path": "_worldButton",
+   "node": "WorldObjectPickerForm/Panel_Frame/Grp_PageHost/Panel_PageWorldObjectPicker/Grp_WorldObjectPickerActions/Btn_WorldObjectPickerWorld",
+   "kind": "Button"
+  },
+  {
+   "path": "_confirmButton",
+   "node": "WorldObjectPickerForm/Panel_Frame/Grp_PageHost/Panel_PageWorldObjectPicker/Grp_WorldObjectPickerActions/Btn_WorldObjectPickerConfirm",
+   "kind": "Button"
+  },
+  {
+   "path": "_cancelButton",
+   "node": "WorldObjectPickerForm/Panel_Frame/Grp_PageHost/Panel_PageWorldObjectPicker/Grp_WorldObjectPickerActions/Btn_WorldObjectPickerCancel",
+   "kind": "Button"
+  },
+  {
+   "path": "_worldObjectPickerCandidatesContent",
+   "node": "WorldObjectPickerForm/Panel_Frame/Grp_PageHost/Panel_PageWorldObjectPicker/Panel_WorldObjectPickerCandidates/List_WorldObjectPickerCandidates/Viewport_WorldObjectPickerCandidates/Content_WorldObjectPickerCandidates",
+   "kind": "RectTransform"
+  },
+  {
+   "path": "_worldObjectPickerCandidatesBody",
+   "node": "WorldObjectPickerForm/Panel_Frame/Grp_PageHost/Panel_PageWorldObjectPicker/Panel_WorldObjectPickerCandidates/List_WorldObjectPickerCandidates/Viewport_WorldObjectPickerCandidates/Content_WorldObjectPickerCandidates/Txt_WorldObjectPickerCandidatesBody",
+   "kind": "TextMeshProUGUI"
+  },
+  {
+   "path": "_worldObjectPickerCandidatesTemplate",
+   "node": "WorldObjectPickerForm/Panel_Frame/Grp_PageHost/Panel_PageWorldObjectPicker/Panel_WorldObjectPickerCandidates/List_WorldObjectPickerCandidates/Viewport_WorldObjectPickerCandidates/Content_WorldObjectPickerCandidates/Item_WorldObjectPickerCandidatesTemplate",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_worldObjectPickerPreviewContent",
+   "node": "WorldObjectPickerForm/Panel_Frame/Grp_PageHost/Panel_PageWorldObjectPicker/Panel_WorldObjectPickerPreview/List_WorldObjectPickerPreview/Viewport_WorldObjectPickerPreview/Content_WorldObjectPickerPreview",
+   "kind": "RectTransform"
+  },
+  {
+   "path": "_worldObjectPickerPreviewBody",
+   "node": "WorldObjectPickerForm/Panel_Frame/Grp_PageHost/Panel_PageWorldObjectPicker/Panel_WorldObjectPickerPreview/List_WorldObjectPickerPreview/Viewport_WorldObjectPickerPreview/Content_WorldObjectPickerPreview/Txt_WorldObjectPickerPreviewBody",
+   "kind": "TextMeshProUGUI"
+  },
+  {
+   "path": "_worldObjectPickerPreviewTemplate",
+   "node": "WorldObjectPickerForm/Panel_Frame/Grp_PageHost/Panel_PageWorldObjectPicker/Panel_WorldObjectPickerPreview/List_WorldObjectPickerPreview/Viewport_WorldObjectPickerPreview/Content_WorldObjectPickerPreview/Item_WorldObjectPickerPreviewTemplate",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_worldObjectPickerLoadingState",
+   "node": "WorldObjectPickerForm/Panel_Frame/Grp_PageHost/Panel_PageWorldObjectPicker/Grp_WorldObjectPickerLoadingState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_worldObjectPickerEmptyState",
+   "node": "WorldObjectPickerForm/Panel_Frame/Grp_PageHost/Panel_PageWorldObjectPicker/Grp_WorldObjectPickerEmptyState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_worldObjectPickerErrorState",
+   "node": "WorldObjectPickerForm/Panel_Frame/Grp_PageHost/Panel_PageWorldObjectPicker/Grp_WorldObjectPickerErrorState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_worldObjectPickerSuccessState",
+   "node": "WorldObjectPickerForm/Panel_Frame/Grp_PageHost/Panel_PageWorldObjectPicker/Grp_WorldObjectPickerSuccessState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_worldObjectPickerDisabledState",
+   "node": "WorldObjectPickerForm/Panel_Frame/Grp_PageHost/Panel_PageWorldObjectPicker/Grp_WorldObjectPickerDisabledState",
+   "kind": "GameObject"
+  }
+ ],
+ "scalars": [],
+ "scriptFields": [],
+ "generatedFrom": "界面规格/prefab-layout.md（tools/ui_spec_to_contract.py）",
+ "formArrays": {
+  "_pageRoots": [
+   {
+    "node": "WorldObjectPickerForm/Panel_Frame/Grp_PageHost/Panel_PageWorldObjectPicker",
+    "kind": "GameObject"
+   }
+  ]
+ }
+}

@@ -1,0 +1,6102 @@
+{
+ "schemaVersion": 3,
+ "form": "AlgorithmLibraryForm",
+ "namespace": "AutoEra.UI",
+ "prefabPath": "Assets/Game/Prefabs/UI/Operations/AlgorithmLibraryForm.prefab",
+ "scriptPath": "Assets/Game/Scripts/AutoEra/UI/AlgorithmLibraryForm.cs",
+ "referenceResolution": [
+  1920,
+  1080
+ ],
+ "root": {
+  "name": "AlgorithmLibraryForm",
+  "components": [
+   {
+    "type": "AlgorithmLibraryForm"
+   },
+   {
+    "type": "CanvasGroup",
+    "alpha": 1.0,
+    "interactable": true,
+    "blocksRaycasts": true
+   }
+  ],
+  "anchorMin": [
+   0.0,
+   0.0
+  ],
+  "anchorMax": [
+   1.0,
+   1.0
+  ],
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "sizeDelta": [
+   0.0,
+   0.0
+  ],
+  "anchoredPosition": [
+   0.0,
+   0.0
+  ],
+  "children": [
+   {
+    "name": "Bg_InputBlocker",
+    "components": [
+     {
+      "type": "Image",
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       0.65
+      ],
+      "imageType": 1,
+      "raycastTarget": true,
+      "preserveAspect": false
+     }
+    ],
+    "anchorMin": [
+     0.0,
+     0.0
+    ],
+    "anchorMax": [
+     1.0,
+     1.0
+    ],
+    "pivot": [
+     0.5,
+     0.5
+    ],
+    "sizeDelta": [
+     0.0,
+     0.0
+    ],
+    "anchoredPosition": [
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "Panel_Frame",
+    "components": [
+     {
+      "type": "Image",
+      "color": [
+       0.12549,
+       0.141176,
+       0.164706,
+       1.0
+      ],
+      "imageType": 1,
+      "raycastTarget": false,
+      "preserveAspect": false
+     }
+    ],
+    "anchorMin": [
+     0.5,
+     0.5
+    ],
+    "anchorMax": [
+     0.5,
+     0.5
+    ],
+    "pivot": [
+     0.5,
+     0.5
+    ],
+    "sizeDelta": [
+     1600.0,
+     900.0
+    ],
+    "anchoredPosition": [
+     0.0,
+     0.0
+    ],
+    "children": [
+     {
+      "name": "Deco_Frame",
+      "components": [
+       {
+        "type": "Image",
+        "color": [
+         0.001961,
+         0.001961,
+         0.001961,
+         0.25
+        ],
+        "imageType": 1,
+        "raycastTarget": false,
+        "preserveAspect": false
+       }
+      ],
+      "anchorMin": [
+       0.0,
+       0.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       0.5,
+       0.5
+      ],
+      "sizeDelta": [
+       0.0,
+       0.0
+      ],
+      "anchoredPosition": [
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "name": "Txt_FormTitle",
+      "components": [
+       {
+        "type": "TextMeshProUGUI",
+        "text": "系统算法模板",
+        "fontSize": 28.0,
+        "color": [
+         0.941176,
+         0.94902,
+         0.956863,
+         1.0
+        ],
+        "raycastTarget": false,
+        "wordWrap": true,
+        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+       }
+      ],
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       0.0,
+       1.0
+      ],
+      "pivot": [
+       0.0,
+       1.0
+      ],
+      "sizeDelta": [
+       1300.0,
+       40.0
+      ],
+      "anchoredPosition": [
+       56.0,
+       -20.0
+      ]
+     },
+     {
+      "name": "Grp_Navigation",
+      "components": [
+       {
+        "type": "HorizontalLayoutGroup",
+        "spacing": 8.0,
+        "padding": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "ChildForceExpandWidth": false,
+        "ChildForceExpandHeight": false
+       }
+      ],
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       0.5,
+       1.0
+      ],
+      "sizeDelta": [
+       -200.0,
+       52.0
+      ],
+      "anchoredPosition": [
+       -44.0,
+       -68.0
+      ],
+      "children": [
+       {
+        "name": "Btn_AlgorithmLibrarySystem",
+        "controlledBy": "group",
+        "components": [
+         {
+          "type": "Image",
+          "color": [
+           0.321569,
+           0.498039,
+           0.639216,
+           1.0
+          ],
+          "imageType": 1,
+          "raycastTarget": true,
+          "preserveAspect": false
+         },
+         {
+          "type": "Button",
+          "transition": 1,
+          "interactable": true
+         },
+         {
+          "type": "LayoutElement",
+          "preferredWidth": 136.0,
+          "preferredHeight": 48.0
+         }
+        ],
+        "anchorMin": [
+         0,
+         1
+        ],
+        "anchorMax": [
+         0,
+         1
+        ],
+        "pivot": [
+         0,
+         1
+        ],
+        "sizeDelta": [
+         136.0,
+         48.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_AlgorithmLibrarySystemLabel",
+          "components": [
+           {
+            "type": "TextMeshProUGUI",
+            "text": "系统模板",
+            "fontSize": 22.0,
+            "color": [
+             0.941176,
+             0.94902,
+             0.956863,
+             1.0
+            ],
+            "raycastTarget": false,
+            "wordWrap": true,
+            "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+           }
+          ],
+          "anchorMin": [
+           0,
+           0
+          ],
+          "anchorMax": [
+           1,
+           1
+          ],
+          "pivot": [
+           0.5,
+           0.5
+          ],
+          "sizeDelta": [
+           -16.0,
+           -8.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ]
+         }
+        ]
+       },
+       {
+        "name": "Btn_AlgorithmLibraryPlayer",
+        "controlledBy": "group",
+        "components": [
+         {
+          "type": "Image",
+          "color": [
+           0.321569,
+           0.498039,
+           0.639216,
+           1.0
+          ],
+          "imageType": 1,
+          "raycastTarget": true,
+          "preserveAspect": false
+         },
+         {
+          "type": "Button",
+          "transition": 1,
+          "interactable": true
+         },
+         {
+          "type": "LayoutElement",
+          "preferredWidth": 136.0,
+          "preferredHeight": 48.0
+         }
+        ],
+        "anchorMin": [
+         0,
+         1
+        ],
+        "anchorMax": [
+         0,
+         1
+        ],
+        "pivot": [
+         0,
+         1
+        ],
+        "sizeDelta": [
+         136.0,
+         48.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_AlgorithmLibraryPlayerLabel",
+          "components": [
+           {
+            "type": "TextMeshProUGUI",
+            "text": "玩家模板",
+            "fontSize": 22.0,
+            "color": [
+             0.941176,
+             0.94902,
+             0.956863,
+             1.0
+            ],
+            "raycastTarget": false,
+            "wordWrap": true,
+            "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+           }
+          ],
+          "anchorMin": [
+           0,
+           0
+          ],
+          "anchorMax": [
+           1,
+           1
+          ],
+          "pivot": [
+           0.5,
+           0.5
+          ],
+          "sizeDelta": [
+           -16.0,
+           -8.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Grp_PageHost",
+      "components": [],
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       0.0,
+       1.0
+      ],
+      "pivot": [
+       0.0,
+       1.0
+      ],
+      "sizeDelta": [
+       1488.0,
+       730.0
+      ],
+      "anchoredPosition": [
+       56.0,
+       -140.0
+      ],
+      "children": [
+       {
+        "name": "Panel_PageSystemTemplates",
+        "components": [
+         {
+          "type": "Image",
+          "color": [
+           0.12549,
+           0.141176,
+           0.164706,
+           1.0
+          ],
+          "imageType": 1,
+          "raycastTarget": false,
+          "preserveAspect": false
+         }
+        ],
+        "anchorMin": [
+         0.0,
+         0.0
+        ],
+        "anchorMax": [
+         1.0,
+         1.0
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         0.0,
+         0.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_SystemTemplatesTitle",
+          "components": [
+           {
+            "type": "TextMeshProUGUI",
+            "text": "系统算法模板",
+            "fontSize": 28.0,
+            "color": [
+             0.941176,
+             0.94902,
+             0.956863,
+             1.0
+            ],
+            "raycastTarget": false,
+            "wordWrap": true,
+            "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1472.0,
+           32.0
+          ],
+          "anchoredPosition": [
+           8.0,
+           0.0
+          ]
+         },
+         {
+          "name": "Grp_SystemTemplatesActions",
+          "components": [
+           {
+            "type": "GridLayoutGroup",
+            "constraint": 1,
+            "ChildForceExpandWidth": false,
+            "ChildForceExpandHeight": false,
+            "constraintCount": 8,
+            "cellSize": [
+             177.0,
+             48.0
+            ],
+            "spacing": [
+             8.0,
+             8.0
+            ]
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           0.0
+          ],
+          "pivot": [
+           0.5,
+           0.0
+          ],
+          "sizeDelta": [
+           -16.0,
+           48.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": [
+           {
+            "name": "Btn_SystemTemplatesDetails",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_SystemTemplatesDetailsLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "模板详情",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           },
+           {
+            "name": "Btn_SystemTemplatesCreate",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_SystemTemplatesCreateLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "创建实例",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           },
+           {
+            "name": "Btn_SystemTemplatesCopy",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_SystemTemplatesCopyLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "复制模板",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           },
+           {
+            "name": "Btn_SystemTemplatesTabs",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_SystemTemplatesTabsLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "切换来源",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Panel_SystemTemplatesCatalog",
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.12549,
+             0.141176,
+             0.164706,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": false,
+            "preserveAspect": false
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           565.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Txt_SystemTemplatesCatalogHeading",
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "模板目录",
+              "fontSize": 24.0,
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             541.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             12.0,
+             -8.0
+            ]
+           },
+           {
+            "name": "List_SystemTemplatesCatalog",
+            "components": [
+             {
+              "type": "ScrollRect",
+              "horizontal": false,
+              "vertical": true,
+              "movementType": 2
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -24.0,
+             -52.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             -18.0
+            ],
+            "children": [
+             {
+              "name": "Viewport_SystemTemplatesCatalog",
+              "components": [
+               {
+                "type": "RectMask2D"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Content_SystemTemplatesCatalog",
+                "components": [
+                 {
+                  "type": "VerticalLayoutGroup",
+                  "spacing": 8.0,
+                  "ChildForceExpandWidth": true,
+                  "ChildForceExpandHeight": false
+                 },
+                 {
+                  "type": "ContentSizeFitter",
+                  "verticalFit": 2,
+                  "horizontalFit": 0
+                 }
+                ],
+                "anchorMin": [
+                 0.0,
+                 1.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 1.0
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_SystemTemplatesCatalogBody",
+                  "components": [
+                   {
+                    "type": "TextMeshProUGUI",
+                    "text": "系统模板名称",
+                    "fontSize": 22.0,
+                    "color": [
+                     0.941176,
+                     0.94902,
+                     0.956863,
+                     1.0
+                    ],
+                    "raycastTarget": false,
+                    "wordWrap": true,
+                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                   },
+                   {
+                    "type": "LayoutElement",
+                    "minHeight": 120.0
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   541.0,
+                   120.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ]
+                 },
+                 {
+                  "name": "Item_SystemTemplatesCatalogTemplate",
+                  "components": [
+                   {
+                    "type": "Image",
+                    "color": [
+                     0.12549,
+                     0.141176,
+                     0.164706,
+                     1.0
+                    ],
+                    "imageType": 1,
+                    "raycastTarget": false,
+                    "preserveAspect": false
+                   },
+                   {
+                    "type": "LayoutElement"
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   541.0,
+                   104.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "active": false,
+                  "children": [
+                   {
+                    "name": "Btn_SystemTemplatesCatalogRow",
+                    "components": [
+                     {
+                      "type": "Image",
+                      "color": [
+                       0.321569,
+                       0.498039,
+                       0.639216,
+                       1.0
+                      ],
+                      "imageType": 1,
+                      "raycastTarget": true,
+                      "preserveAspect": false
+                     },
+                     {
+                      "type": "Button",
+                      "transition": 1,
+                      "interactable": true
+                     }
+                    ],
+                    "anchorMin": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchorMax": [
+                     1.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.5,
+                     0.5
+                    ],
+                    "sizeDelta": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchoredPosition": [
+                     0.0,
+                     0.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Txt_SystemTemplatesCatalogRowLabel",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "名称：—",
+                        "fontSize": 22.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ]
+                     },
+                     {
+                      "name": "Txt_SystemTemplatesCatalogRowValue",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "值、状态、时间：—",
+                        "fontSize": 20.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       48.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ]
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Panel_SystemTemplatesDetail",
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.12549,
+             0.141176,
+             0.164706,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": false,
+            "preserveAspect": false
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           907.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           581.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Txt_SystemTemplatesDetailHeading",
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "模板条件",
+              "fontSize": 24.0,
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             883.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             12.0,
+             -8.0
+            ]
+           },
+           {
+            "name": "List_SystemTemplatesDetail",
+            "components": [
+             {
+              "type": "ScrollRect",
+              "horizontal": false,
+              "vertical": true,
+              "movementType": 2
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -24.0,
+             -52.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             -18.0
+            ],
+            "children": [
+             {
+              "name": "Viewport_SystemTemplatesDetail",
+              "components": [
+               {
+                "type": "RectMask2D"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Content_SystemTemplatesDetail",
+                "components": [
+                 {
+                  "type": "VerticalLayoutGroup",
+                  "spacing": 8.0,
+                  "ChildForceExpandWidth": true,
+                  "ChildForceExpandHeight": false
+                 },
+                 {
+                  "type": "ContentSizeFitter",
+                  "verticalFit": 2,
+                  "horizontalFit": 0
+                 }
+                ],
+                "anchorMin": [
+                 0.0,
+                 1.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 1.0
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_SystemTemplatesDetailBody",
+                  "components": [
+                   {
+                    "type": "TextMeshProUGUI",
+                    "text": "目标机器",
+                    "fontSize": 22.0,
+                    "color": [
+                     0.941176,
+                     0.94902,
+                     0.956863,
+                     1.0
+                    ],
+                    "raycastTarget": false,
+                    "wordWrap": true,
+                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                   },
+                   {
+                    "type": "LayoutElement",
+                    "minHeight": 120.0
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   883.0,
+                   120.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ]
+                 },
+                 {
+                  "name": "Item_SystemTemplatesDetailTemplate",
+                  "components": [
+                   {
+                    "type": "Image",
+                    "color": [
+                     0.12549,
+                     0.141176,
+                     0.164706,
+                     1.0
+                    ],
+                    "imageType": 1,
+                    "raycastTarget": false,
+                    "preserveAspect": false
+                   },
+                   {
+                    "type": "LayoutElement"
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   883.0,
+                   104.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "active": false,
+                  "children": [
+                   {
+                    "name": "Btn_SystemTemplatesDetailRow",
+                    "components": [
+                     {
+                      "type": "Image",
+                      "color": [
+                       0.321569,
+                       0.498039,
+                       0.639216,
+                       1.0
+                      ],
+                      "imageType": 1,
+                      "raycastTarget": true,
+                      "preserveAspect": false
+                     },
+                     {
+                      "type": "Button",
+                      "transition": 1,
+                      "interactable": true
+                     }
+                    ],
+                    "anchorMin": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchorMax": [
+                     1.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.5,
+                     0.5
+                    ],
+                    "sizeDelta": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchoredPosition": [
+                     0.0,
+                     0.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Txt_SystemTemplatesDetailRowLabel",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "名称：—",
+                        "fontSize": 22.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ]
+                     },
+                     {
+                      "name": "Txt_SystemTemplatesDetailRowValue",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "值、状态、时间：—",
+                        "fontSize": 20.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       48.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ]
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_SystemTemplatesLoadingState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_SystemTemplatesLoadingMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_SystemTemplatesLoadingMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Loading：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_SystemTemplatesEmptyState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_SystemTemplatesEmptyMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_SystemTemplatesEmptyMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Empty：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_SystemTemplatesErrorState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_SystemTemplatesErrorMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_SystemTemplatesErrorMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Error：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_SystemTemplatesSuccessState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_SystemTemplatesSuccessMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_SystemTemplatesSuccessMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Success：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_SystemTemplatesDisabledState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_SystemTemplatesDisabledMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_SystemTemplatesDisabledMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Disabled：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       },
+       {
+        "name": "Panel_PagePlayerTemplates",
+        "components": [
+         {
+          "type": "Image",
+          "color": [
+           0.12549,
+           0.141176,
+           0.164706,
+           1.0
+          ],
+          "imageType": 1,
+          "raycastTarget": false,
+          "preserveAspect": false
+         }
+        ],
+        "anchorMin": [
+         0.0,
+         0.0
+        ],
+        "anchorMax": [
+         1.0,
+         1.0
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         0.0,
+         0.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_PlayerTemplatesTitle",
+          "components": [
+           {
+            "type": "TextMeshProUGUI",
+            "text": "玩家算法模板",
+            "fontSize": 28.0,
+            "color": [
+             0.941176,
+             0.94902,
+             0.956863,
+             1.0
+            ],
+            "raycastTarget": false,
+            "wordWrap": true,
+            "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1472.0,
+           32.0
+          ],
+          "anchoredPosition": [
+           8.0,
+           0.0
+          ]
+         },
+         {
+          "name": "Grp_PlayerTemplatesActions",
+          "components": [
+           {
+            "type": "GridLayoutGroup",
+            "constraint": 1,
+            "ChildForceExpandWidth": false,
+            "ChildForceExpandHeight": false,
+            "constraintCount": 8,
+            "cellSize": [
+             177.0,
+             48.0
+            ],
+            "spacing": [
+             8.0,
+             8.0
+            ]
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           0.0
+          ],
+          "pivot": [
+           0.5,
+           0.0
+          ],
+          "sizeDelta": [
+           -16.0,
+           48.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": [
+           {
+            "name": "Btn_PlayerTemplatesDetails",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_PlayerTemplatesDetailsLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "模板详情",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           },
+           {
+            "name": "Btn_PlayerTemplatesCreate",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_PlayerTemplatesCreateLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "创建实例",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           },
+           {
+            "name": "Btn_PlayerTemplatesCopy",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_PlayerTemplatesCopyLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "复制模板",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           },
+           {
+            "name": "Btn_PlayerTemplatesTabs",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_PlayerTemplatesTabsLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "切换来源",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Panel_PlayerTemplatesCatalog",
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.12549,
+             0.141176,
+             0.164706,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": false,
+            "preserveAspect": false
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           565.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Txt_PlayerTemplatesCatalogHeading",
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "模板目录",
+              "fontSize": 24.0,
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             541.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             12.0,
+             -8.0
+            ]
+           },
+           {
+            "name": "List_PlayerTemplatesCatalog",
+            "components": [
+             {
+              "type": "ScrollRect",
+              "horizontal": false,
+              "vertical": true,
+              "movementType": 2
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -24.0,
+             -52.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             -18.0
+            ],
+            "children": [
+             {
+              "name": "Viewport_PlayerTemplatesCatalog",
+              "components": [
+               {
+                "type": "RectMask2D"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Content_PlayerTemplatesCatalog",
+                "components": [
+                 {
+                  "type": "VerticalLayoutGroup",
+                  "spacing": 8.0,
+                  "ChildForceExpandWidth": true,
+                  "ChildForceExpandHeight": false
+                 },
+                 {
+                  "type": "ContentSizeFitter",
+                  "verticalFit": 2,
+                  "horizontalFit": 0
+                 }
+                ],
+                "anchorMin": [
+                 0.0,
+                 1.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 1.0
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_PlayerTemplatesCatalogBody",
+                  "components": [
+                   {
+                    "type": "TextMeshProUGUI",
+                    "text": "玩家模板名称",
+                    "fontSize": 22.0,
+                    "color": [
+                     0.941176,
+                     0.94902,
+                     0.956863,
+                     1.0
+                    ],
+                    "raycastTarget": false,
+                    "wordWrap": true,
+                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                   },
+                   {
+                    "type": "LayoutElement",
+                    "minHeight": 120.0
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   541.0,
+                   120.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ]
+                 },
+                 {
+                  "name": "Item_PlayerTemplatesCatalogTemplate",
+                  "components": [
+                   {
+                    "type": "Image",
+                    "color": [
+                     0.12549,
+                     0.141176,
+                     0.164706,
+                     1.0
+                    ],
+                    "imageType": 1,
+                    "raycastTarget": false,
+                    "preserveAspect": false
+                   },
+                   {
+                    "type": "LayoutElement"
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   541.0,
+                   104.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "active": false,
+                  "children": [
+                   {
+                    "name": "Btn_PlayerTemplatesCatalogRow",
+                    "components": [
+                     {
+                      "type": "Image",
+                      "color": [
+                       0.321569,
+                       0.498039,
+                       0.639216,
+                       1.0
+                      ],
+                      "imageType": 1,
+                      "raycastTarget": true,
+                      "preserveAspect": false
+                     },
+                     {
+                      "type": "Button",
+                      "transition": 1,
+                      "interactable": true
+                     }
+                    ],
+                    "anchorMin": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchorMax": [
+                     1.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.5,
+                     0.5
+                    ],
+                    "sizeDelta": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchoredPosition": [
+                     0.0,
+                     0.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Txt_PlayerTemplatesCatalogRowLabel",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "名称：—",
+                        "fontSize": 22.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ]
+                     },
+                     {
+                      "name": "Txt_PlayerTemplatesCatalogRowValue",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "值、状态、时间：—",
+                        "fontSize": 20.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       48.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ]
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Panel_PlayerTemplatesDetail",
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.12549,
+             0.141176,
+             0.164706,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": false,
+            "preserveAspect": false
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           907.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           581.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Txt_PlayerTemplatesDetailHeading",
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "模板条件",
+              "fontSize": 24.0,
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             883.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             12.0,
+             -8.0
+            ]
+           },
+           {
+            "name": "List_PlayerTemplatesDetail",
+            "components": [
+             {
+              "type": "ScrollRect",
+              "horizontal": false,
+              "vertical": true,
+              "movementType": 2
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -24.0,
+             -52.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             -18.0
+            ],
+            "children": [
+             {
+              "name": "Viewport_PlayerTemplatesDetail",
+              "components": [
+               {
+                "type": "RectMask2D"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Content_PlayerTemplatesDetail",
+                "components": [
+                 {
+                  "type": "VerticalLayoutGroup",
+                  "spacing": 8.0,
+                  "ChildForceExpandWidth": true,
+                  "ChildForceExpandHeight": false
+                 },
+                 {
+                  "type": "ContentSizeFitter",
+                  "verticalFit": 2,
+                  "horizontalFit": 0
+                 }
+                ],
+                "anchorMin": [
+                 0.0,
+                 1.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 1.0
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_PlayerTemplatesDetailBody",
+                  "components": [
+                   {
+                    "type": "TextMeshProUGUI",
+                    "text": "目标机器",
+                    "fontSize": 22.0,
+                    "color": [
+                     0.941176,
+                     0.94902,
+                     0.956863,
+                     1.0
+                    ],
+                    "raycastTarget": false,
+                    "wordWrap": true,
+                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                   },
+                   {
+                    "type": "LayoutElement",
+                    "minHeight": 120.0
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   883.0,
+                   120.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ]
+                 },
+                 {
+                  "name": "Item_PlayerTemplatesDetailTemplate",
+                  "components": [
+                   {
+                    "type": "Image",
+                    "color": [
+                     0.12549,
+                     0.141176,
+                     0.164706,
+                     1.0
+                    ],
+                    "imageType": 1,
+                    "raycastTarget": false,
+                    "preserveAspect": false
+                   },
+                   {
+                    "type": "LayoutElement"
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   883.0,
+                   104.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "active": false,
+                  "children": [
+                   {
+                    "name": "Btn_PlayerTemplatesDetailRow",
+                    "components": [
+                     {
+                      "type": "Image",
+                      "color": [
+                       0.321569,
+                       0.498039,
+                       0.639216,
+                       1.0
+                      ],
+                      "imageType": 1,
+                      "raycastTarget": true,
+                      "preserveAspect": false
+                     },
+                     {
+                      "type": "Button",
+                      "transition": 1,
+                      "interactable": true
+                     }
+                    ],
+                    "anchorMin": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchorMax": [
+                     1.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.5,
+                     0.5
+                    ],
+                    "sizeDelta": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchoredPosition": [
+                     0.0,
+                     0.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Txt_PlayerTemplatesDetailRowLabel",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "名称：—",
+                        "fontSize": 22.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ]
+                     },
+                     {
+                      "name": "Txt_PlayerTemplatesDetailRowValue",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "值、状态、时间：—",
+                        "fontSize": 20.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       48.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ]
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_PlayerTemplatesLoadingState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_PlayerTemplatesLoadingMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_PlayerTemplatesLoadingMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Loading：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_PlayerTemplatesEmptyState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_PlayerTemplatesEmptyMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_PlayerTemplatesEmptyMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Empty：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_PlayerTemplatesErrorState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_PlayerTemplatesErrorMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_PlayerTemplatesErrorMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Error：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_PlayerTemplatesSuccessState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_PlayerTemplatesSuccessMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_PlayerTemplatesSuccessMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Success：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_PlayerTemplatesDisabledState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_PlayerTemplatesDisabledMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_PlayerTemplatesDisabledMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Disabled：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ],
+        "active": false
+       },
+       {
+        "name": "Panel_PageTemplateDetail",
+        "components": [
+         {
+          "type": "Image",
+          "color": [
+           0.12549,
+           0.141176,
+           0.164706,
+           1.0
+          ],
+          "imageType": 1,
+          "raycastTarget": false,
+          "preserveAspect": false
+         }
+        ],
+        "anchorMin": [
+         0.0,
+         0.0
+        ],
+        "anchorMax": [
+         1.0,
+         1.0
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         0.0,
+         0.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_TemplateDetailTitle",
+          "components": [
+           {
+            "type": "TextMeshProUGUI",
+            "text": "算法模板详情",
+            "fontSize": 28.0,
+            "color": [
+             0.941176,
+             0.94902,
+             0.956863,
+             1.0
+            ],
+            "raycastTarget": false,
+            "wordWrap": true,
+            "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1472.0,
+           32.0
+          ],
+          "anchoredPosition": [
+           8.0,
+           0.0
+          ]
+         },
+         {
+          "name": "Grp_TemplateDetailActions",
+          "components": [
+           {
+            "type": "GridLayoutGroup",
+            "constraint": 1,
+            "ChildForceExpandWidth": false,
+            "ChildForceExpandHeight": false,
+            "constraintCount": 8,
+            "cellSize": [
+             177.0,
+             48.0
+            ],
+            "spacing": [
+             8.0,
+             8.0
+            ]
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           0.0
+          ],
+          "pivot": [
+           0.5,
+           0.0
+          ],
+          "sizeDelta": [
+           -16.0,
+           48.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": [
+           {
+            "name": "Btn_TemplateDetailCreate",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_TemplateDetailCreateLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "创建实例",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           },
+           {
+            "name": "Btn_TemplateDetailCopy",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_TemplateDetailCopyLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "复制",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           },
+           {
+            "name": "Btn_TemplateDetailRename",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_TemplateDetailRenameLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "重命名",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           },
+           {
+            "name": "Btn_TemplateDetailDelete",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_TemplateDetailDeleteLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "删除模板",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Panel_TemplateDetailDefinition",
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.12549,
+             0.141176,
+             0.164706,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": false,
+            "preserveAspect": false
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           565.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Txt_TemplateDetailDefinitionHeading",
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "模板信息",
+              "fontSize": 24.0,
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             541.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             12.0,
+             -8.0
+            ]
+           },
+           {
+            "name": "List_TemplateDetailDefinition",
+            "components": [
+             {
+              "type": "ScrollRect",
+              "horizontal": false,
+              "vertical": true,
+              "movementType": 2
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -24.0,
+             -52.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             -18.0
+            ],
+            "children": [
+             {
+              "name": "Viewport_TemplateDetailDefinition",
+              "components": [
+               {
+                "type": "RectMask2D"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Content_TemplateDetailDefinition",
+                "components": [
+                 {
+                  "type": "VerticalLayoutGroup",
+                  "spacing": 8.0,
+                  "ChildForceExpandWidth": true,
+                  "ChildForceExpandHeight": false
+                 },
+                 {
+                  "type": "ContentSizeFitter",
+                  "verticalFit": 2,
+                  "horizontalFit": 0
+                 }
+                ],
+                "anchorMin": [
+                 0.0,
+                 1.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 1.0
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_TemplateDetailDefinitionBody",
+                  "components": [
+                   {
+                    "type": "TextMeshProUGUI",
+                    "text": "名称",
+                    "fontSize": 22.0,
+                    "color": [
+                     0.941176,
+                     0.94902,
+                     0.956863,
+                     1.0
+                    ],
+                    "raycastTarget": false,
+                    "wordWrap": true,
+                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                   },
+                   {
+                    "type": "LayoutElement",
+                    "minHeight": 120.0
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   541.0,
+                   120.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ]
+                 },
+                 {
+                  "name": "Item_TemplateDetailDefinitionTemplate",
+                  "components": [
+                   {
+                    "type": "Image",
+                    "color": [
+                     0.12549,
+                     0.141176,
+                     0.164706,
+                     1.0
+                    ],
+                    "imageType": 1,
+                    "raycastTarget": false,
+                    "preserveAspect": false
+                   },
+                   {
+                    "type": "LayoutElement"
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   541.0,
+                   104.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "active": false,
+                  "children": [
+                   {
+                    "name": "Btn_TemplateDetailDefinitionRow",
+                    "components": [
+                     {
+                      "type": "Image",
+                      "color": [
+                       0.321569,
+                       0.498039,
+                       0.639216,
+                       1.0
+                      ],
+                      "imageType": 1,
+                      "raycastTarget": true,
+                      "preserveAspect": false
+                     },
+                     {
+                      "type": "Button",
+                      "transition": 1,
+                      "interactable": true
+                     }
+                    ],
+                    "anchorMin": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchorMax": [
+                     1.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.5,
+                     0.5
+                    ],
+                    "sizeDelta": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchoredPosition": [
+                     0.0,
+                     0.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Txt_TemplateDetailDefinitionRowLabel",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "名称：—",
+                        "fontSize": 22.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ]
+                     },
+                     {
+                      "name": "Txt_TemplateDetailDefinitionRowValue",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "值、状态、时间：—",
+                        "fontSize": 20.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       48.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ]
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Panel_TemplateDetailRequirements",
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.12549,
+             0.141176,
+             0.164706,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": false,
+            "preserveAspect": false
+           }
+          ],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           907.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           581.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Txt_TemplateDetailRequirementsHeading",
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "使用条件",
+              "fontSize": 24.0,
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             883.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             12.0,
+             -8.0
+            ]
+           },
+           {
+            "name": "List_TemplateDetailRequirements",
+            "components": [
+             {
+              "type": "ScrollRect",
+              "horizontal": false,
+              "vertical": true,
+              "movementType": 2
+             }
+            ],
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -24.0,
+             -52.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             -18.0
+            ],
+            "children": [
+             {
+              "name": "Viewport_TemplateDetailRequirements",
+              "components": [
+               {
+                "type": "RectMask2D"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Content_TemplateDetailRequirements",
+                "components": [
+                 {
+                  "type": "VerticalLayoutGroup",
+                  "spacing": 8.0,
+                  "ChildForceExpandWidth": true,
+                  "ChildForceExpandHeight": false
+                 },
+                 {
+                  "type": "ContentSizeFitter",
+                  "verticalFit": 2,
+                  "horizontalFit": 0
+                 }
+                ],
+                "anchorMin": [
+                 0.0,
+                 1.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 1.0
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_TemplateDetailRequirementsBody",
+                  "components": [
+                   {
+                    "type": "TextMeshProUGUI",
+                    "text": "目标机器能力差异",
+                    "fontSize": 22.0,
+                    "color": [
+                     0.941176,
+                     0.94902,
+                     0.956863,
+                     1.0
+                    ],
+                    "raycastTarget": false,
+                    "wordWrap": true,
+                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                   },
+                   {
+                    "type": "LayoutElement",
+                    "minHeight": 120.0
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   883.0,
+                   120.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ]
+                 },
+                 {
+                  "name": "Item_TemplateDetailRequirementsTemplate",
+                  "components": [
+                   {
+                    "type": "Image",
+                    "color": [
+                     0.12549,
+                     0.141176,
+                     0.164706,
+                     1.0
+                    ],
+                    "imageType": 1,
+                    "raycastTarget": false,
+                    "preserveAspect": false
+                   },
+                   {
+                    "type": "LayoutElement"
+                   }
+                  ],
+                  "controlledBy": "group",
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   883.0,
+                   104.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "active": false,
+                  "children": [
+                   {
+                    "name": "Btn_TemplateDetailRequirementsRow",
+                    "components": [
+                     {
+                      "type": "Image",
+                      "color": [
+                       0.321569,
+                       0.498039,
+                       0.639216,
+                       1.0
+                      ],
+                      "imageType": 1,
+                      "raycastTarget": true,
+                      "preserveAspect": false
+                     },
+                     {
+                      "type": "Button",
+                      "transition": 1,
+                      "interactable": true
+                     }
+                    ],
+                    "anchorMin": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchorMax": [
+                     1.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.5,
+                     0.5
+                    ],
+                    "sizeDelta": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchoredPosition": [
+                     0.0,
+                     0.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Txt_TemplateDetailRequirementsRowLabel",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "名称：—",
+                        "fontSize": 22.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ]
+                     },
+                     {
+                      "name": "Txt_TemplateDetailRequirementsRowValue",
+                      "components": [
+                       {
+                        "type": "TextMeshProUGUI",
+                        "text": "值、状态、时间：—",
+                        "fontSize": 20.0,
+                        "color": [
+                         0.941176,
+                         0.94902,
+                         0.956863,
+                         1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                       }
+                      ],
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       48.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ]
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_TemplateDetailLoadingState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_TemplateDetailLoadingMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_TemplateDetailLoadingMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Loading：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_TemplateDetailEmptyState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_TemplateDetailEmptyMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_TemplateDetailEmptyMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Empty：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_TemplateDetailErrorState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_TemplateDetailErrorMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_TemplateDetailErrorMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Error：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_TemplateDetailSuccessState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_TemplateDetailSuccessMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_TemplateDetailSuccessMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Success：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_TemplateDetailDisabledState",
+          "components": [],
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "active": false,
+          "children": [
+           {
+            "name": "Panel_TemplateDetailDisabledMessage",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": false,
+              "preserveAspect": false
+             }
+            ],
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_TemplateDetailDisabledMessage",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "Disabled：—",
+                "fontSize": 20.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ],
+        "active": false
+       }
+      ]
+     },
+     {
+      "name": "Btn_FormBack",
+      "components": [
+       {
+        "type": "Image",
+        "color": [
+         0.321569,
+         0.498039,
+         0.639216,
+         1.0
+        ],
+        "imageType": 1,
+        "raycastTarget": true,
+        "preserveAspect": false
+       },
+       {
+        "type": "Button",
+        "transition": 1,
+        "interactable": true
+       }
+      ],
+      "anchorMin": [
+       1.0,
+       1.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       1.0,
+       1.0
+      ],
+      "sizeDelta": [
+       88.0,
+       48.0
+      ],
+      "anchoredPosition": [
+       -112.0,
+       -20.0
+      ],
+      "children": [
+       {
+        "name": "Txt_FormBackLabel",
+        "components": [
+         {
+          "type": "TextMeshProUGUI",
+          "text": "返回",
+          "fontSize": 22.0,
+          "color": [
+           0.941176,
+           0.94902,
+           0.956863,
+           1.0
+          ],
+          "raycastTarget": false,
+          "wordWrap": true,
+          "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+         }
+        ],
+        "anchorMin": [
+         0,
+         0
+        ],
+        "anchorMax": [
+         1,
+         1
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         -8.0,
+         -8.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Btn_FormClose",
+      "components": [
+       {
+        "type": "Image",
+        "color": [
+         0.321569,
+         0.498039,
+         0.639216,
+         1.0
+        ],
+        "imageType": 1,
+        "raycastTarget": true,
+        "preserveAspect": false
+       },
+       {
+        "type": "Button",
+        "transition": 1,
+        "interactable": true
+       }
+      ],
+      "anchorMin": [
+       1.0,
+       1.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       1.0,
+       1.0
+      ],
+      "sizeDelta": [
+       80.0,
+       48.0
+      ],
+      "anchoredPosition": [
+       -24.0,
+       -20.0
+      ],
+      "children": [
+       {
+        "name": "Txt_FormCloseLabel",
+        "components": [
+         {
+          "type": "TextMeshProUGUI",
+          "text": "关闭",
+          "fontSize": 22.0,
+          "color": [
+           0.941176,
+           0.94902,
+           0.956863,
+           1.0
+          ],
+          "raycastTarget": false,
+          "wordWrap": true,
+          "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+         }
+        ],
+        "anchorMin": [
+         0,
+         0
+        ],
+        "anchorMax": [
+         1,
+         1
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         -8.0,
+         -8.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "bindings": [
+  {
+   "path": "_pageHost",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost",
+   "kind": "RectTransform"
+  },
+  {
+   "path": "_backButton",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Btn_FormBack",
+   "kind": "Button"
+  },
+  {
+   "path": "_closeButton",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Btn_FormClose",
+   "kind": "Button"
+  },
+  {
+   "path": "_systemTemplatesCatalogContent",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageSystemTemplates/Panel_SystemTemplatesCatalog/List_SystemTemplatesCatalog/Viewport_SystemTemplatesCatalog/Content_SystemTemplatesCatalog",
+   "kind": "RectTransform"
+  },
+  {
+   "path": "_systemTemplatesCatalogBody",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageSystemTemplates/Panel_SystemTemplatesCatalog/List_SystemTemplatesCatalog/Viewport_SystemTemplatesCatalog/Content_SystemTemplatesCatalog/Txt_SystemTemplatesCatalogBody",
+   "kind": "TextMeshProUGUI"
+  },
+  {
+   "path": "_systemTemplatesCatalogTemplate",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageSystemTemplates/Panel_SystemTemplatesCatalog/List_SystemTemplatesCatalog/Viewport_SystemTemplatesCatalog/Content_SystemTemplatesCatalog/Item_SystemTemplatesCatalogTemplate",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_systemTemplatesDetailContent",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageSystemTemplates/Panel_SystemTemplatesDetail/List_SystemTemplatesDetail/Viewport_SystemTemplatesDetail/Content_SystemTemplatesDetail",
+   "kind": "RectTransform"
+  },
+  {
+   "path": "_systemTemplatesDetailBody",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageSystemTemplates/Panel_SystemTemplatesDetail/List_SystemTemplatesDetail/Viewport_SystemTemplatesDetail/Content_SystemTemplatesDetail/Txt_SystemTemplatesDetailBody",
+   "kind": "TextMeshProUGUI"
+  },
+  {
+   "path": "_systemTemplatesDetailTemplate",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageSystemTemplates/Panel_SystemTemplatesDetail/List_SystemTemplatesDetail/Viewport_SystemTemplatesDetail/Content_SystemTemplatesDetail/Item_SystemTemplatesDetailTemplate",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_systemTemplatesLoadingState",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageSystemTemplates/Grp_SystemTemplatesLoadingState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_systemTemplatesEmptyState",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageSystemTemplates/Grp_SystemTemplatesEmptyState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_systemTemplatesErrorState",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageSystemTemplates/Grp_SystemTemplatesErrorState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_systemTemplatesSuccessState",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageSystemTemplates/Grp_SystemTemplatesSuccessState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_systemTemplatesDisabledState",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageSystemTemplates/Grp_SystemTemplatesDisabledState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_playerTemplatesCatalogContent",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PagePlayerTemplates/Panel_PlayerTemplatesCatalog/List_PlayerTemplatesCatalog/Viewport_PlayerTemplatesCatalog/Content_PlayerTemplatesCatalog",
+   "kind": "RectTransform"
+  },
+  {
+   "path": "_playerTemplatesCatalogBody",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PagePlayerTemplates/Panel_PlayerTemplatesCatalog/List_PlayerTemplatesCatalog/Viewport_PlayerTemplatesCatalog/Content_PlayerTemplatesCatalog/Txt_PlayerTemplatesCatalogBody",
+   "kind": "TextMeshProUGUI"
+  },
+  {
+   "path": "_playerTemplatesCatalogTemplate",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PagePlayerTemplates/Panel_PlayerTemplatesCatalog/List_PlayerTemplatesCatalog/Viewport_PlayerTemplatesCatalog/Content_PlayerTemplatesCatalog/Item_PlayerTemplatesCatalogTemplate",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_playerTemplatesDetailContent",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PagePlayerTemplates/Panel_PlayerTemplatesDetail/List_PlayerTemplatesDetail/Viewport_PlayerTemplatesDetail/Content_PlayerTemplatesDetail",
+   "kind": "RectTransform"
+  },
+  {
+   "path": "_playerTemplatesDetailBody",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PagePlayerTemplates/Panel_PlayerTemplatesDetail/List_PlayerTemplatesDetail/Viewport_PlayerTemplatesDetail/Content_PlayerTemplatesDetail/Txt_PlayerTemplatesDetailBody",
+   "kind": "TextMeshProUGUI"
+  },
+  {
+   "path": "_playerTemplatesDetailTemplate",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PagePlayerTemplates/Panel_PlayerTemplatesDetail/List_PlayerTemplatesDetail/Viewport_PlayerTemplatesDetail/Content_PlayerTemplatesDetail/Item_PlayerTemplatesDetailTemplate",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_playerTemplatesLoadingState",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PagePlayerTemplates/Grp_PlayerTemplatesLoadingState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_playerTemplatesEmptyState",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PagePlayerTemplates/Grp_PlayerTemplatesEmptyState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_playerTemplatesErrorState",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PagePlayerTemplates/Grp_PlayerTemplatesErrorState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_playerTemplatesSuccessState",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PagePlayerTemplates/Grp_PlayerTemplatesSuccessState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_playerTemplatesDisabledState",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PagePlayerTemplates/Grp_PlayerTemplatesDisabledState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_templateDetailDefinitionContent",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageTemplateDetail/Panel_TemplateDetailDefinition/List_TemplateDetailDefinition/Viewport_TemplateDetailDefinition/Content_TemplateDetailDefinition",
+   "kind": "RectTransform"
+  },
+  {
+   "path": "_templateDetailDefinitionBody",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageTemplateDetail/Panel_TemplateDetailDefinition/List_TemplateDetailDefinition/Viewport_TemplateDetailDefinition/Content_TemplateDetailDefinition/Txt_TemplateDetailDefinitionBody",
+   "kind": "TextMeshProUGUI"
+  },
+  {
+   "path": "_templateDetailDefinitionTemplate",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageTemplateDetail/Panel_TemplateDetailDefinition/List_TemplateDetailDefinition/Viewport_TemplateDetailDefinition/Content_TemplateDetailDefinition/Item_TemplateDetailDefinitionTemplate",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_templateDetailRequirementsContent",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageTemplateDetail/Panel_TemplateDetailRequirements/List_TemplateDetailRequirements/Viewport_TemplateDetailRequirements/Content_TemplateDetailRequirements",
+   "kind": "RectTransform"
+  },
+  {
+   "path": "_templateDetailRequirementsBody",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageTemplateDetail/Panel_TemplateDetailRequirements/List_TemplateDetailRequirements/Viewport_TemplateDetailRequirements/Content_TemplateDetailRequirements/Txt_TemplateDetailRequirementsBody",
+   "kind": "TextMeshProUGUI"
+  },
+  {
+   "path": "_templateDetailRequirementsTemplate",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageTemplateDetail/Panel_TemplateDetailRequirements/List_TemplateDetailRequirements/Viewport_TemplateDetailRequirements/Content_TemplateDetailRequirements/Item_TemplateDetailRequirementsTemplate",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_templateDetailLoadingState",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageTemplateDetail/Grp_TemplateDetailLoadingState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_templateDetailEmptyState",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageTemplateDetail/Grp_TemplateDetailEmptyState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_templateDetailErrorState",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageTemplateDetail/Grp_TemplateDetailErrorState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_templateDetailSuccessState",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageTemplateDetail/Grp_TemplateDetailSuccessState",
+   "kind": "GameObject"
+  },
+  {
+   "path": "_templateDetailDisabledState",
+   "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageTemplateDetail/Grp_TemplateDetailDisabledState",
+   "kind": "GameObject"
+  }
+ ],
+ "scalars": [],
+ "scriptFields": [],
+ "generatedFrom": "界面规格/prefab-layout.md（tools/ui_spec_to_contract.py）",
+ "formArrays": {
+  "_pageRoots": [
+   {
+    "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageSystemTemplates",
+    "kind": "GameObject"
+   },
+   {
+    "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PagePlayerTemplates",
+    "kind": "GameObject"
+   },
+   {
+    "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageTemplateDetail",
+    "kind": "GameObject"
+   }
+  ],
+  "_navButtons": [
+   {
+    "node": "AlgorithmLibraryForm/Panel_Frame/Grp_Navigation/Btn_AlgorithmLibrarySystem",
+    "kind": "Button"
+   },
+   {
+    "node": "AlgorithmLibraryForm/Panel_Frame/Grp_Navigation/Btn_AlgorithmLibraryPlayer",
+    "kind": "Button"
+   }
+  ]
+ },
+ "navigationPageIndex": [
+  0,
+  1
+ ]
+}

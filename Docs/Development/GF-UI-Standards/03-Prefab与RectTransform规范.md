@@ -9,16 +9,76 @@
 
 ## 命名与层级
 
-Prefab、脚本和公开类型用 PascalCase；节点采用 `前缀_语义`，同一 Form 内唯一且不含本地化文字、路径分隔符或无意义序号。
+Prefab、脚本和公开类型用 PascalCase；节点采用 `前缀_语义`，同一 Form 内唯一且不含本地化文字、
+路径分隔符或无意义序号。**本表是唯一的命名规范**——不存在第二套前缀，任何不在表内的前缀
+（如历史遗留的 `Art_`）都视为违规，必须改名并入本表。
 
-`Bg_` 背景、`Overlay_` 模态根、`Panel_` 可视容器、`Grp_` 无视觉分组、`Txt_` TMP 文本、`Img_` 图片、`Icon_` 图标、`Btn_` 按钮、`Tgl_` 开关、`Sld_` 滑条、`List_` 列表、`Item_` 模板。
+### 节点前缀词表
+
+| 前缀 | 职责 | 必备组件 | 硬性禁止 |
+|---|---|---|---|
+| `Bg_` | 背景 / 遮罩 | Image | 不得含交互控件（除非本身是拦截遮罩） |
+| `Overlay_` | 模态 / 覆盖层根 | Image 或视图脚本 | — |
+| `Panel_` | 有视觉的容器 | Image | — |
+| `Grp_` | **无视觉**分组（纯层级） | 无 Graphic | **不得有 Image/TMP** |
+| `Txt_` | 文本 | `TextMeshProUGUI` | **不得挂 Button** |
+| `Img_` | 图片 / 装饰 | Image | 装饰件 `raycastTarget` 必须 false |
+| `Icon_` | 小图标 | Image | `raycastTarget` 必须 false |
+| `Btn_` | 按钮 | **Button + targetGraphic(Image)** | 名字不得挂在纯文本节点上 |
+| `Tgl_` | 开关 | Toggle | — |
+| `Sld_` | 滑条 | Slider | — |
+| `List_` | 列表 / 滚动区根 | ScrollRect | 必须配 `Viewport_` + `Content_` |
+| `Viewport_` | 滚动视口 | RectMask2D | 只能作为 `List_` 子节点 |
+| `Content_` | 滚动内容 | LayoutGroup(+ContentSizeFitter) | 只能作为 `Viewport_` 子节点 |
+| `Item_` | 列表项模板 | 与行内容一致 | 默认必须 inactive |
+| `Bar_` | 进度 / 数值条 | Image(Filled) | — |
+| `Deco_` | **纯装饰**（分隔线、间距、色块、光效） | Image 或空 RectTransform | `raycastTarget` 必须 false；**不得承载任何文本或交互** |
+| `Grp_*State` | 区域状态分组 | 无 Graphic 或 `Panel_` | 同区域同时只激活一个 |
+
+`Deco_` 的用途是把"纯装饰"与"真的图片资源"分开：分隔线、占位间距、纯色块和光效都属于
+装饰，不应借用 `Img_`，否则"装饰性 Img_"与"要绑定 Sprite 的 Img_"无法用规则区分。
+
+### 命名硬性规则
+
+- 节点名 = `前缀_语义`，语义段 PascalCase，**同一 Form 内唯一**。
+- 根节点是唯一例外：名为 Form 类名（无前缀），与预制体同名。
+- 禁止本地化文字、路径分隔符、无意义序号（`_01`、`_02`）。
+- **前缀决定职责与必备组件；前缀与组件不匹配即违规**——这是可机器判定的部分，也是自检的依据。
+- `Item_<语义>Template`，同一列表唯一且默认 inactive；禁止具名预览行（如 `Txt_TaskRow_01`）。
+- 废弃 `Btn_*_Background` 两段式写法：Button 与 Image 同节点（`Btn_<语义>`），标签作为其子节点
+  `Txt_<语义>`。
+- 状态节点的两种表达：控件级状态用 `Selectable` transition，**不建节点**；区域级状态用
+  `Grp_<区域><状态>State`（Empty / Loading / Error / Success / Disabled），同一区域同时只激活一个。
+  不为此把每个控件状态都建成独立节点。
 
 ## Canvas 与根节点
 
 - UIForm 根使用全屏 Stretch：anchorMin `(0,0)`、anchorMax `(1,1)`、offsets 为 `0`。
-- 使用统一 `CanvasScaler / Scale With Screen Size` 和项目参考分辨率；不得每页私设不同缩放策略。
-- 根只放 UIForm、项目 Form 脚本、Canvas、CanvasGroup、GraphicRaycaster 等生命周期组件，避免重复 Canvas/GraphicRaycaster。
+- **根节点不带 Canvas、GraphicRaycaster 或 CanvasScaler**。UIForm 由 GF 动态实例化到场景中
+  预先配置好的根 Canvas 下，缩放策略由根 Canvas 统一承担。
+  - 这是本项目对 GF 自带 `UIFormTemplate.prefab`（其根带 Canvas + GraphicRaycaster + CanvasGroup）
+    的**刻意偏离**，理由：页面根若各自带 Canvas，等于每页私设一套渲染与缩放策略。
+  - 参考分辨率来自 `AppSettings.DesignResolution`（当前 1920×1080），由 `GFBuiltin.UpdateCanvasScaler()`
+    下发给根 Canvas。**不得在 Form 脚本里给无 Canvas 的根节点添加 CanvasScaler**——在自身
+    GameObject 上没有 Canvas 时它不生效。
+- 根只放 UIForm 生命周期组件、项目 Form 脚本与必要的 CanvasGroup。
 - 页面层级、Sorting Order、UI Layer 和打开组由 GF 配置统一管理，不在子节点硬编码对抗。
+
+## 原型阶段与效果图阶段
+
+本项目界面分两个阶段交付，两阶段的验收门完全不同，不得互相取代：
+
+| 阶段 | 产出 | 责任方 | 判定内容 |
+|---|---|---|---|
+| 原型 | 结构 / 功能 / 布局正确的 Prefab | AI | 结构、命名、绑定、交互对象与布局四层自检；**不含美术** |
+| 效果图 | 以原型为基准绘制的视觉稿 | 用户 | 外观是否达标，由用户手动判断 |
+| 微调 | 把原型调整为效果图外观 | 用户手动 | 只改颜色 / Sprite / 字号 / 位置微调 |
+
+流程方向是**先从原型出效果图**，不是先有视觉稿再拼 Prefab。原型阶段使用结构期中性 token
+配色、命名明确的占位 Image 和零假数据；美术阶段才替换为正式资源。
+
+因此：**效果图不是原型阶段的输入，也不构成 AI 任务的完成门**。原型交付的判定标准是结构与
+功能正确，不是像不像效果图。
 
 ## 锚点、轴心与尺寸
 
