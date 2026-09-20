@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using AutoEra.UI;
 using System.Collections.Generic;
 using GameFramework;
@@ -121,7 +121,7 @@ namespace AutoEra.World.Region
             if (_hud != null) _hud.BindRegion(null);
             _hud = hud;
             _lastDisplayedSecond = -1;
-            if (_hud != null) { _hud.BindRegion(Region); _hud.BindMachines(_session.Machines); }
+            if (_hud != null) { _hud.BindRegion(Region); }
         }
 
         private void InitializeNavigation()

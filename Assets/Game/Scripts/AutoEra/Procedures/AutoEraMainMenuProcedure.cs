@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using AutoEra.Application;
 using AutoEra.UI;
 using GameFramework.Fsm;
@@ -27,7 +27,8 @@ namespace AutoEra.Procedures
             AutoEraRuntimeSettings settings = AutoEraRuntimeSettings.Load(key => GF.Config.GetString(key));
             _message = _context.WorldEntryError ?? "进入初始区域";
             _loading = true;
-            var parameters = UIParams.Create(false);
+            // 不传 allowEscape：由 UITable 的 EscapeClose 兜底（MainMenuForm 登记为 false）。
+            var parameters = AutoEraUiSession.ForApplication(_context).WriteTo(UIParams.Create());
             parameters.OpenCallback = logic =>
             {
                 if (!_active || version != _version) return;
@@ -58,7 +59,9 @@ namespace AutoEra.Procedures
             _context?.SceneFlow.Cancel();
             if (_form != null) _form.EnterRequested -= RequestEnterWorld;
             _form = null;
-            if (_uiId >= 0) GF.UI.CloseUIForm(_uiId);
+            // UI 组件可能已经先一步关闭（整体退出、场景卸载、测试收尾），此时直接
+            // CloseUIForm 会抛 GameFrameworkException: Can not find UI form。关闭前先确认它还在。
+            if (_uiId >= 0 && GF.UI != null && GF.UI.HasUIForm(_uiId)) GF.UI.CloseUIForm(_uiId);
             _uiId = -1;
             base.OnLeave(owner, shutdown);
         }

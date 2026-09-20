@@ -105,6 +105,61 @@ namespace AutoEra.Save
             return deleted;
         }
 
+        /// <summary>是否存在可用的备份文件。界面用它预先禁用不可行的「恢复」，而不是点下去才失败。</summary>
+        public bool HasBackup(int slotIndex)
+        {
+            ValidateSlotIndex(slotIndex);
+            return File.Exists(GetSlotPath(slotIndex) + ".bak");
+        }
+
+        /// <summary>
+        /// 把备份提升为主文件，用于主文件损坏后的恢复。
+        ///
+        /// 返回 false 表示没有可用备份，此时主文件保持原样——恢复失败不得让玩家丢掉更多东西。
+        /// 注意 <see cref="Read"/> 本来就会在主文件损坏时回退读备份，所以「能不能读出来」
+        /// 与「备份有没有被提升为主文件」是两件事：前者只影响显示，后者才真正修好存档。
+        /// </summary>
+        public bool RestoreFromBackup(int slotIndex)
+        {
+            ValidateSlotIndex(slotIndex);
+            string path = GetSlotPath(slotIndex);
+            string backupPath = path + ".bak";
+            if (!File.Exists(backupPath))
+            {
+                return false;
+            }
+
+            SaveSlotRecord backup = TryReadFile(backupPath);
+            if (backup == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                EnsureDirectory();
+                string json = JsonConvert.SerializeObject(backup, Formatting.Indented);
+                // 先把备份挪开，避免 WriteAtomic 用自己的副本覆盖掉即将被提升的那份内容。
+                string promoted = backupPath + ".promote";
+                File.Copy(backupPath, promoted, overwrite: true);
+                TryDeleteFile(backupPath);
+                try
+                {
+                    WriteAtomic(path, json);
+                }
+                finally
+                {
+                    TryDeleteFile(promoted);
+                }
+
+                return true;
+            }
+            catch (Exception exception) when (exception is IOException || exception is UnauthorizedAccessException)
+            {
+                return false;
+            }
+        }
+
         public bool Exists(int slotIndex)
         {
             ValidateSlotIndex(slotIndex);

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using AutoEra.Application;
 using AutoEra.UI;
 using AutoEra.World.Region;
@@ -39,7 +39,11 @@ namespace AutoEra.Procedures
                     _entry.InitializeRuntime(session, () =>
                     {
                     if (!_active || version != _version) return;
-                    var parameters = UIParams.Create(false);
+                    // 会话随参数进入界面：页面只经 UIParams 拿数据来源，不持有全局单例。
+                    // 区域也随会话一起给出去——现场界面（放置、世界对象选择、资源页）都要用它，
+                    // 而区域是场景级对象，不属于世界会话。
+                    // 不传 allowEscape：由 UITable 的 EscapeClose 兜底。
+                    var parameters = AutoEraUiSession.ForWorld(_context, session, _entry.Region).WriteTo(UIParams.Create());
                     parameters.OpenCallback = logic =>
                     {
                         if (_active && version == _version && _entry != null) _entry.BindHud((FieldHudForm)logic);
@@ -60,14 +64,15 @@ namespace AutoEra.Procedures
         protected override void OnUpdate(IFsm<IProcedureManager> owner, float elapsed, float realElapsed)
         {
             base.OnUpdate(owner, elapsed, realElapsed);
-            if (_return) { ChangeState<AutoEraMainMenuProcedure>(owner); return; }
+            if (_return || (_context != null && _context.ConsumeReturnToMenuRequest())) { ChangeState<AutoEraMainMenuProcedure>(owner); return; }
             _entry?.Advance(realElapsed);
         }
         protected override void OnLeave(IFsm<IProcedureManager> owner, bool shutdown)
         {
             _active = false; _version++;
             _context?.SceneFlow.Cancel();
-            if (_uiId >= 0) GF.UI.CloseUIForm(_uiId);
+            // 同 MainMenuProcedure：UI 组件可能已先关闭，直接 CloseUIForm 会抛异常。
+            if (_uiId >= 0 && GF.UI != null && GF.UI.HasUIForm(_uiId)) GF.UI.CloseUIForm(_uiId);
             _uiId = -1;
             _entry?.Release(); _entry = null;
             _context?.ReleaseActiveWorldSession();

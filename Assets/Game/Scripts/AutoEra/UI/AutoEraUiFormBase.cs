@@ -1,9 +1,9 @@
-﻿using AutoEra.UI.Contracts;
+using AutoEra.UI.Contracts;
 
 using System;
+using UnityGameFramework.Runtime;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace AutoEra.UI
 {
@@ -41,16 +41,10 @@ namespace AutoEra.UI
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
-            CanvasScaler scaler = gameObject.GetComponent<CanvasScaler>();
-            if (scaler == null)
-            {
-                scaler = gameObject.AddComponent<CanvasScaler>();
-            }
-
-            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = new Vector2(1920f, 1080f);
-            scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
-            scaler.matchWidthOrHeight = 0.5f;
+            // 参考分辨率与缩放策略由根 Canvas 统一提供：GFBuiltin.UpdateCanvasScaler() 用
+            // AppSettings.DesignResolution（1920×1080）下发到场景根 Canvas。Form 预制体根节点
+            // 刻意不带 Canvas（动态实例化到场景 Canvas 下），因此这里不再自行添加 CanvasScaler
+            // —— 在自身 GameObject 上没有 Canvas 时它不生效，只是无法兑现的死配置。
         }
 
         protected override void OnCover()
@@ -134,6 +128,45 @@ namespace AutoEra.UI
         {
             OperationActionRequested?.Invoke(request);
         }
+
+        /// <summary>
+        /// 读取打开时注入的服务会话句柄。
+        ///
+        /// 缺参数时返回 false —— 调用方应呈现「本页不可用」并说明原因，而不是抛异常：
+        /// 规格要求不存在／无权限时禁用写操作并说明，而非中断。必须用 <c>TryGet</c>，
+        /// 因为 <c>RefParams.Get(string)</c> 在缺 key 时会对 null 取 <c>.Value</c> 而抛
+        /// <c>NullReferenceException</c>。
+        /// </summary>
+        protected bool TryGetSession(out AutoEraUiSession session)
+        {
+            session = null;
+            return Params != null
+                && Params.TryGet(AutoEraUiParamKeys.Session, out VarObject boxed)
+                && (session = boxed.Value as AutoEraUiSession) != null;
+        }
+
+        /// <summary>读取打开请求（pageKey 与稳定身份）。缺参数时返回 false。</summary>
+        protected bool TryGetRequest<TRequest>(out TRequest request) where TRequest : class
+        {
+            request = null;
+            return Params != null
+                && Params.TryGet(AutoEraUiParamKeys.Request, out VarObject boxed)
+                && (request = boxed.Value as TRequest) != null;
+        }
+
+        /// <summary>
+        /// 供导航服务透传：本页打开时拿到的会话（可能为空）。
+        ///
+        /// 让子界面的数据来源仍然只有一条——打开参数里的会话，而不是自己去某个全局对象里解析服务。
+        /// </summary>
+        internal AutoEraUiSession SessionOrNull =>
+            TryGetSession(out AutoEraUiSession session) ? session : null;
+
+        /// <summary>
+        /// 关闭本界面（返回上一层）。用于「继续游戏」「返回」这类语义明确的按钮，
+        /// 它们不该依赖 UITable 的 EscapeClose 登记值。
+        /// </summary>
+        protected void CloseSelf() => GF.UI.CloseUIForm(UIForm.SerialId);
 
         private void RestoreOpenTriggerFocus()
         {

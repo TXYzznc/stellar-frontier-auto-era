@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using AutoEra.World.Identity;
 
 namespace AutoEra.Events
@@ -84,6 +84,29 @@ namespace AutoEra.Events
         public ulong NextSequence()
         {
             return ++_appended;
+        }
+
+        /// <summary>
+        /// 把最近的记录按「由旧到新」追加到目标列表（**不清空**目标，调用方自行复用）。
+        ///
+        /// 这是给只读展示用的快照：调用方拿到的是一份拷贝，环形缓冲随后继续被覆盖也不影响它。
+        /// 之所以写成「写入调用方列表」而不是返回数组，是为了让界面在每次刷新时零分配。
+        /// maxCount ≤ 0 表示取当前全部。
+        /// </summary>
+        public void CopyRecent(System.Collections.Generic.List<EventJournalRecord> destination, int maxCount = 0)
+        {
+            if (destination == null || _count == 0)
+            {
+                return;
+            }
+
+            int take = maxCount > 0 && maxCount < _count ? maxCount : _count;
+            int start = _count < _records.Length ? 0 : _head;
+            int skip = _count - take;
+            for (int i = 0; i < take; i++)
+            {
+                destination.Add(_records[(start + skip + i) % _records.Length]);
+            }
         }
 
         public bool TryGetTrace(CorrelationId correlation, out EventTrace trace)
