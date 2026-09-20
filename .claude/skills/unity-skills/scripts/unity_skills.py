@@ -25,7 +25,12 @@ from urllib.parse import urlencode
 
 __version__ = "2.8.3"
 
-UNITY_URL = "http://localhost:8090"
+# The Unity-side HttpListener registers a 127.0.0.1 prefix and rejects a
+# `Host: localhost:PORT` header with "Bad Request (Invalid host)", so the client
+# must address the loopback IP literally. Override with UNITY_SKILLS_HOST when a
+# deployment registers a different prefix.
+UNITY_HOST = os.environ.get("UNITY_SKILLS_HOST", "127.0.0.1")
+UNITY_URL = f"http://{UNITY_HOST}:8090"
 DEFAULT_PORT = 8090
 PORT_RANGE_START = 8090
 PORT_RANGE_END = 8100
@@ -240,24 +245,24 @@ class UnitySkills:
 
         if not self.url:
             if port:
-                self.url = f"http://localhost:{port}"
+                self.url = f"http://{UNITY_HOST}:{port}"
             elif target:
                 found_port = self._find_port_by_target(target)
                 if found_port:
-                    self.url = f"http://localhost:{found_port}"
+                    self.url = f"http://{UNITY_HOST}:{found_port}"
                 else:
                     raise ValueError(f"Could not find Unity instance matching '{target}' in registry.")
             elif version:
                 found_port = self._find_port_by_version(version)
                 if found_port:
-                    self.url = f"http://localhost:{found_port}"
+                    self.url = f"http://{UNITY_HOST}:{found_port}"
                 else:
                     raise ValueError(f"Could not find Unity instance matching version '{version}'.")
             else:
                 # Auto-discover: prefer the current project's registry entry, then other
                 # registry ports, and finally scan 8090-8100.
                 found_port = self._find_first_available()
-                self.url = f"http://localhost:{found_port}"
+                self.url = f"http://{UNITY_HOST}:{found_port}"
 
         if not timeout:
             self._sync_timeout_from_server()
@@ -333,14 +338,14 @@ class UnitySkills:
         tried = set()
         for port in self._registry_candidate_ports():
             tried.add(port)
-            health = self._fetch_health(f"http://localhost:{port}", timeout=HEALTH_TIMEOUT)
+            health = self._fetch_health(f"http://{UNITY_HOST}:{port}", timeout=HEALTH_TIMEOUT)
             if health is not None:
                 self._health_info = health
                 return port
         for port in range(PORT_RANGE_START, PORT_RANGE_END + 1):
             if port in tried:
                 continue
-            health = self._fetch_health(f"http://localhost:{port}", timeout=SCAN_TIMEOUT)
+            health = self._fetch_health(f"http://{UNITY_HOST}:{port}", timeout=SCAN_TIMEOUT)
             if health is not None:
                 self._health_info = health
                 return port
@@ -384,7 +389,7 @@ class UnitySkills:
 
             for port in ports_without_version:
                 try:
-                    resp = requests.get(f"http://localhost:{port}/health", timeout=HEALTH_TIMEOUT)
+                    resp = requests.get(f"http://{UNITY_HOST}:{port}/health", timeout=HEALTH_TIMEOUT)
                     if resp.status_code == 200:
                         health_data = resp.json()
                         health_version = health_data.get('unityVersion')
@@ -397,7 +402,7 @@ class UnitySkills:
         if not registry_data:
             for port in range(PORT_RANGE_START, PORT_RANGE_END + 1):
                 try:
-                    resp = requests.get(f"http://localhost:{port}/health", timeout=SCAN_TIMEOUT)
+                    resp = requests.get(f"http://{UNITY_HOST}:{port}/health", timeout=SCAN_TIMEOUT)
                     if resp.status_code == 200:
                         health_data = resp.json()
                         health_version = health_data.get('unityVersion')
