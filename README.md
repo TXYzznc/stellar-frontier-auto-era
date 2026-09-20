@@ -115,7 +115,7 @@ git clone --recurse-submodules git@github.com:TXYzznc/AI-Friendly-Project.git
 
 ### 纯度与提交前检查
 
-框架基线不应包含项目玩法、产品数据、演示资源、固定本机路径或业务生成物。安装 Python 依赖后可运行：
+框架基线不提交构建产物、演示资源或固定的本机路径。框架核心可修改（2026-09-18 起原「框架层禁改」解除，修改需留痕），但不得依赖 `AutoEra` 业务类型。安装 Python 依赖后可运行：
 
 ```powershell
 python tools/audit_framework_purity.py
@@ -127,7 +127,7 @@ python tools/audit_framework_purity.py
 - `Launch.unity` 可进入 `FrameworkReadyProcedure`；
 - 新增表、流程和资源分组已登记到相应配置；
 - 未提交 `Library/`、`Temp/`、`Logs/`、`HybridCLRData/`、`AB/` 或本机安装的示例副本；
-- 未把项目领域内容回写到 `Assets/Game/ScriptsBuiltin/`。
+- 未把 `AutoEra` 业务类型依赖引入 `Assets/Game/ScriptsBuiltin/`（框架核心本身可修改）。
 
 ## 目录约定
 

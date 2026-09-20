@@ -60,7 +60,7 @@
 ## Unity/GF_X 约束
 
 - 代码落地必须按 Unity 2022.3.62f3 校验。
-- `Assets/Game/ScriptsBuiltin/` 是框架核心；不得混入产品代码。
+- `Assets/Game/ScriptsBuiltin/` 是框架核心；可修改（2026-09-18 起原「框架层禁改」解除，修改需留痕），但不得依赖 `AutoEra` 业务类型。
 - `Assets/Game/Scripts/` 保存领域无关扩展和项目接入边界；自动纪元产品代码只能进入`Assets/Game/Scripts/AutoEra/`并使用`AutoEra.*`命名空间。
 - 输入经过框架输入抽象。
 - 配置路径和资源索引由具体项目声明，不在框架 prompt 中硬编码。

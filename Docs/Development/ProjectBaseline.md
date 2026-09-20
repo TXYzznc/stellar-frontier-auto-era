@@ -41,7 +41,7 @@
 
 ## 框架与产品代码边界
 
-- `Assets/Game/ScriptsBuiltin/` 是 GF_X 框架核心，禁止写入或依赖自动纪元产品业务。
+- `Assets/Game/ScriptsBuiltin/` 是 GF_X 框架核心；可修改（2026-09-18 起原「框架层禁改」解除，修改需留痕），但不得依赖自动纪元产品业务类型。
 - `Assets/Game/Scripts/` 的既有内容是框架通用扩展、热更新程序集入口和项目接入边界。
 - `Assets/Game/Scripts/AutoEra/` 是自动纪元产品代码根；产品类型必须使用 `AutoEra` 或 `AutoEra.*` 命名空间。
 - 产品代码按业务领域组织，只有对应任务进入实施时才创建目录；不预建完整空骨架，不创建无功能占位类型，不预设杂物型 `Common` 目录。

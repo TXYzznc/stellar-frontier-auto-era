@@ -2,9 +2,9 @@
 
 ## 目录边界
 
-- `Assets/Game/ScriptsBuiltin/`：GF_X 框架核心。
+- `Assets/Game/ScriptsBuiltin/`：GF_X 框架核心。可修改（2026-09-18 起原「框架层禁改」解除，修改需留痕），但不得依赖 `AutoEra` 业务类型。
 - `Assets/Game/Scripts/`：领域无关扩展和项目接入边界。
-- 产品代码、内容资源、配置和生成物由具体项目另行建立，不进入框架基线。
+- 自动纪元产品业务代码只能位于 `Assets/Game/Scripts/AutoEra/` 并使用 `AutoEra.*` 命名空间；构建产物与固定本机路径不提交。
 
 ### 资源目录骨架
 

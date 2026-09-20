@@ -115,7 +115,7 @@ Pending队列，按明确优先级和同级FIFO执行；不得向运行中窗口
 
 - 平台：Windows 10。
 - Unity：2022.3.62f3；所有实现、工作流与参考资料均以 Unity 2022.3 API 为准。
-- 框架核心：`Assets/Game/ScriptsBuiltin/`。
+- 框架核心：`Assets/Game/ScriptsBuiltin/`。自 2026-09-18 起框架已有备份、本仓库按具体业务项目管理，原「框架层禁改」红线解除：允许为项目需要修改框架核心与 Editor 工具链（模板、菜单、目录常量、配置项），修改需留痕（OpenSpec 或决策记录）。
 - 通用扩展与项目接入：`Assets/Game/Scripts/`；自动纪元产品代码只能进入`Assets/Game/Scripts/AutoEra/`并使用`AutoEra.*`命名空间。
 - 代码结构查询优先使用 codebase-memory；不可用时用最小范围 `rg`。
 - 修改 Unity 代码前先读 [.claude/conventions.md](./.claude/conventions.md)。
@@ -137,4 +137,6 @@ python tools/audit_framework_purity.py
 ```
 
 审计必须覆盖 agent↔SKILL、OpenSpec、禁止内容、业务生成物和固定路径。
-具体项目的领域内容应存在于项目自己的变更中，不得回写框架基线。
+框架核心可修改，但不得依赖 `AutoEra` 业务类型；自动纪元产品业务代码仍必须位于
+`Assets/Game/Scripts/AutoEra/` 并使用 `AutoEra.*` 命名空间。框架纯度与项目边界审计
+保留为自动回归围栏。
