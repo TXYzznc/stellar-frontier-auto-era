@@ -1,4 +1,4 @@
-//------------------------------------------------------------
+﻿//------------------------------------------------------------
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
 // 生成时间：__DATA_TABLE_CREATE_TIME__
@@ -22,7 +22,7 @@ public class UIGroupTable : DataRowBase
 {
 	private int m_Id = 0;
 	/// <summary>
-    ///
+    /// 
     /// </summary>
     public override int Id
     {
@@ -30,7 +30,7 @@ public class UIGroupTable : DataRowBase
     }
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         public string Name
         {
@@ -80,3 +80,4 @@ public class UIGroupTable : DataRowBase
             return true;
         }
 }
+
