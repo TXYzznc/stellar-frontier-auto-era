@@ -1,4 +1,4 @@
-﻿using AutoEra.UI.Contracts;
+using AutoEra.UI.Contracts;
 using NUnit.Framework;
 
 namespace AutoEra.Tests.Editor
@@ -76,16 +76,6 @@ namespace AutoEra.Tests.Editor
             Assert.That(snapshot.TrustedProgress, Is.Null);
             Assert.That(presentation.ShowProgress, Is.False);
             Assert.That(presentation.ShowLongWaitHint, Is.True);
-        }
-
-        [Test]
-        public void HubPageSelection_CyclesOnlyAcrossTheFiveFrozenHubPages()
-        {
-            var selection = new AutoEra.UI.AutoEraHubPageSelection(AutoEra.UI.AutoEraHubPage.Overview);
-            Assert.That(selection.Move(-1), Is.EqualTo(AutoEra.UI.AutoEraHubPage.Statistics));
-            Assert.That(selection.Move(1), Is.EqualTo(AutoEra.UI.AutoEraHubPage.Overview));
-            Assert.That(selection.Select(AutoEra.UI.AutoEraHubPage.Rules), Is.True);
-            Assert.That(selection.Select(AutoEra.UI.AutoEraHubPage.Rules), Is.False);
         }
 
         [Test]

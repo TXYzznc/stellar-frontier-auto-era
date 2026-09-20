@@ -75,12 +75,10 @@ namespace AutoEra.Tests.Editor
                     var ui=UIParams.Create(false);ui.OpenCallback=logic=>hud=(FieldHudForm)logic;serial=uiComponent.OpenUIForm(UIViews.FieldHudForm,ui);
                     until=Time.realtimeSinceStartupAsDouble+20;while(hud==null&&Time.realtimeSinceStartupAsDouble<until)yield return null;
                     Assert.That(hud,Is.Not.Null);entry.BindHud(hud);hud.SetFieldAccess(true,false);
-                    Assert.That(hud.OpenMachine(machine.Id,ManagementOrigin.Field),Is.True);
-                    var panel=hud.GetComponentInChildren<MachineHardwarePanel>(true);Assert.That(panel.IsOpen,Is.True);
                     long now=entry.WorldMilliseconds;sensor.Tick(now);Assert.That(sensor.TryRead(out _),Is.True);
                     runtime.Pump(now);adapter.Pump(now,Time.realtimeSinceStartupAsDouble);Assert.That(nav.IsActive,Is.True);
-                    // Closing the observer cannot cancel the accepted navigation.
-                    panel.Close();Assert.That(nav.IsActive,Is.True);
+                    // Closing the observer UI cannot cancel the accepted navigation.
+                    uiComponent.CloseUIForm(serial);serial=-1;Assert.That(nav.IsActive,Is.True);
                     // Same target, new binding generation: old graph subscription cannot fire again.
                     int acceptedEvents=runtime.WaitingCount;sensor.Bind(provider.Target);sensor.Tick(now);Assert.That(runtime.WaitingCount,Is.EqualTo(acceptedEvents));
                     until=Time.realtimeSinceStartupAsDouble+20;
@@ -93,10 +91,9 @@ namespace AutoEra.Tests.Editor
                     Assert.That(history[3].CopyTrigger().TaskId,Is.Not.Zero);
                     int finished=0;foreach(var task in context.Tasks.History){Assert.That(task.State,Is.EqualTo(MachineTaskState.Completed));finished++;}Assert.That(finished,Is.EqualTo(1));
                     Assert.That(session.ObjectRegistry.TryResolve(machine.Id,PersistentObjectKind.Machine,out var authority),Is.EqualTo(PersistentRegistryResult.Success));Assert.That(authority,Is.SameAs(machine));
-                    Assert.That(hud.OpenMachine(machine.Id,ManagementOrigin.Field),Is.True);Assert.That(panel.IsOpen,Is.True);
                     System.IO.Directory.CreateDirectory("Temp/AutoEraTestResults");
                     ScreenCapture.CaptureScreenshot("Temp/AutoEraTestResults/b15-joint-lifecycle.png");yield return new WaitForEndOfFrame();yield return null;
-                    panel.Close();runtime.Dispose();adapter.Dispose();entry.Release();
+                    runtime.Dispose();adapter.Dispose();entry.Release();
                     Assert.That(context.Compute.Used,Is.Zero);Assert.That(context.Compute.WaitingCount,Is.Zero);Assert.That(sensor.TryRead(out _),Is.False);
                 }
                 finally

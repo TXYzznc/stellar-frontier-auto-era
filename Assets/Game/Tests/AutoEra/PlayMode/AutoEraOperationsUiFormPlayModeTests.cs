@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,6 +8,14 @@ using UnityEngine.TestTools;
 
 namespace AutoEra.Tests.PlayMode
 {
+    /// <summary>
+    /// 界面在真实 GF 运行时下的打开／关闭回归。
+    ///
+    /// 断言只覆盖**结构与生命周期**：能从 UITable 打开、根节点的 Canvas 与缩放契约、
+    /// 默认焦点落在安全返回、取消后把焦点还给触发者。页面内部的具体节点与状态通道
+    /// 不再在这里断言——那是门 1 契约驱动检查
+    /// （AutoEraContractPrefabGate1EditModeTests）的职责，避免同一结构被两处各写一份。
+    /// </summary>
     public sealed class AutoEraOperationsUiFormPlayModeTests
     {
         [UnityTest]
@@ -28,42 +36,31 @@ namespace AutoEra.Tests.PlayMode
             Assert.GreaterOrEqual(commandHubId, 0, "BaseCommandHubForm should be opened from the generated UITable entry.");
             yield return WaitForForm(commandHubId, expectedLoaded: true);
             Assert.IsNotNull(EventSystem.current.currentSelectedGameObject, "Hub opening should assign its default focus.");
-            Assert.AreEqual("Txt_TabOverview", EventSystem.current.currentSelectedGameObject.name, "Hub default focus should be the overview tab.");
+
+            // 00-通用合同「数据与交互」：首焦点优先安全取消／返回，其次才是本页第一个可用交互。
+            Assert.AreEqual("Btn_FormBack", EventSystem.current.currentSelectedGameObject.name,
+                "Hub 的默认焦点应落在安全返回按钮上。");
 
             var hub = GF.UI.GetUIForm(commandHubId).Logic as AutoEra.UI.BaseCommandHubForm;
             Assert.IsNotNull(hub, "The formal command hub entry must load its GF UIForm bridge.");
-            CanvasScaler canvasScaler = hub.gameObject.GetComponent<CanvasScaler>();
-            Assert.IsNotNull(canvasScaler, "AutoEra UI forms must use one standard CanvasScaler.");
-            Assert.AreEqual(CanvasScaler.ScaleMode.ScaleWithScreenSize, canvasScaler.uiScaleMode);
-            Assert.AreEqual(new Vector2(1920f, 1080f), canvasScaler.referenceResolution);
-            long operationRequest = hub.BeginOperationRequest();
-            var inProgress = new AutoEra.UI.Contracts.AutoEraUiOperationSnapshot(
-                "playmode-operation", AutoEra.UI.Contracts.AutoEraUiOperationStatus.InProgress, "正在执行", 0.5f, true, false, "rule-details", "rules");
-            Assert.IsTrue(hub.TryApplyOperationSnapshot(hub.CurrentFormVersion, operationRequest, inProgress, true));
-            yield return null;
-            Assert.IsTrue(FindRequired(hub.transform, "Btn_RuleOperationCancel").gameObject.activeSelf);
-            Assert.IsTrue(FindRequired(hub.transform, "Txt_RuleOperationLongWait").gameObject.activeSelf);
-            Assert.That(FindRequired(hub.transform, "Bar_RuleOperationProgress").GetComponent<Image>().fillAmount, Is.EqualTo(0.5f).Within(0.0001f));
 
-            var failed = new AutoEra.UI.Contracts.AutoEraUiOperationSnapshot(
-                "playmode-operation", AutoEra.UI.Contracts.AutoEraUiOperationStatus.Failed, "操作失败", null, false, true, "rule-details", "rules");
-            Assert.IsTrue(hub.TryApplyOperationSnapshot(hub.CurrentFormVersion, operationRequest, failed, false));
-            yield return null;
-            Assert.IsTrue(FindRequired(hub.transform, "Btn_RuleOperationRetry").gameObject.activeSelf);
-            Assert.IsTrue(FindRequired(hub.transform, "Btn_RuleOperationDetails").gameObject.activeSelf);
+            // The form root deliberately carries no CanvasScaler: the form is instantiated
+            // under the scene's root Canvas, and a CanvasScaler without a Canvas on the same
+            // GameObject is inert. Scaling is owned by the root Canvas (GF-UI-Standards/03+08).
+            // 注意：GF 会在实例化 UIForm 时给实例根补一个 Canvas（运行期行为），所以这里只断言
+            // CanvasScaler；「预制体根不带 Canvas」是对**资产**的要求，由门 1 静态检查判定。
+            Assert.IsNull(hub.gameObject.GetComponent<CanvasScaler>(), "Form 根节点不得自带 CanvasScaler。");
+            Assert.IsNotNull(GFBuiltin.RootCanvas, "场景根 Canvas 必须存在。");
+            CanvasScaler rootScaler = GFBuiltin.RootCanvas.GetComponent<CanvasScaler>();
+            Assert.IsNotNull(rootScaler, "场景根 Canvas 必须提供 CanvasScaler。");
+            Assert.AreEqual(CanvasScaler.ScaleMode.ScaleWithScreenSize, rootScaler.uiScaleMode);
+            Assert.AreEqual(new Vector2(1920f, 1080f), rootScaler.referenceResolution);
 
-            long successRequest = hub.BeginOperationRequest();
-            var success = new AutoEra.UI.Contracts.AutoEraUiOperationSnapshot(
-                "playmode-success", AutoEra.UI.Contracts.AutoEraUiOperationStatus.Succeeded, "已完成", null, false, false, string.Empty, "rules");
-            Assert.IsTrue(hub.TryApplyOperationSnapshot(hub.CurrentFormVersion, successRequest, success, false));
-            yield return null;
-            Assert.IsTrue(FindRequired(hub.transform, "Art_RuleSuccessState").gameObject.activeSelf);
-            yield return new WaitForSecondsRealtime(2.1f);
-            Assert.IsFalse(FindRequired(hub.transform, "Art_RuleSuccessState").gameObject.activeSelf, "Success feedback should return to the stable card after about two seconds.");
-
-            ExecuteEvents.Execute(EventSystem.current.currentSelectedGameObject, new BaseEventData(EventSystem.current), ExecuteEvents.cancelHandler);
+            Assert.IsTrue(hub.TryHandleIntent(AutoEra.UI.AutoEraUiIntent.Cancel),
+                "Hub 必须消费取消意图。");
             yield return WaitForForm(commandHubId, expectedLoaded: false);
-            Assert.AreEqual(openingControl, EventSystem.current.currentSelectedGameObject, "Cancel should restore the control that opened the Hub.");
+            Assert.AreEqual(openingControl, EventSystem.current.currentSelectedGameObject,
+                "Cancel should restore the control that opened the Hub.");
 
             GF.UI.CloseUIForm(fieldHudId);
             yield return WaitForForm(fieldHudId, expectedLoaded: false);
@@ -118,21 +115,6 @@ namespace AutoEra.Tests.PlayMode
             }
 
             Assert.Fail($"UI form serial {serialId} did not reach loaded={expectedLoaded} within 300 frames.");
-        }
-
-        private static Transform FindRequired(Transform root, string name)
-        {
-            Transform[] transforms = root.GetComponentsInChildren<Transform>(true);
-            for (int index = 0; index < transforms.Length; index++)
-            {
-                if (transforms[index].name == name)
-                {
-                    return transforms[index];
-                }
-            }
-
-            Assert.Fail("Missing required runtime UI node: " + name);
-            return null;
         }
     }
 }

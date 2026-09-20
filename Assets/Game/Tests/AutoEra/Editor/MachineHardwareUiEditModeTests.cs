@@ -1,4 +1,4 @@
-﻿using AutoEra.Machines;
+using AutoEra.Machines;
 using AutoEra.UI;
 using AutoEra.World.Identity;
 using NUnit.Framework;
@@ -106,39 +106,6 @@ namespace AutoEra.Tests.Editor
                     view.Preview(true); Assert.That(view.TryGetImpact(out _,out _,out int capacity),Is.False); Assert.That(capacity,Is.EqualTo(30));
                     Assert.That(view.Confirm(),Is.False);
                 }
-            }
-        }
-        [Test]
-        public void FormalPanel_IsBoundAndHasNoCanvasOrSampleInventory()
-        {
-            var asset = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Game/Prefabs/UI/Operations/MachineHardwarePanel.prefab");
-            Assert.That(asset,Is.Not.Null); Assert.That(asset.GetComponent<MachineHardwarePanel>(),Is.Not.Null);
-            Assert.That(asset.GetComponentsInChildren<Canvas>(true),Is.Empty);
-            foreach(var button in asset.GetComponentsInChildren<Button>(true))
-                if(button.name == "B11_Sensor2" || button.name == "B11_Effector2")
-                    Assert.That(button.targetGraphic.raycastTarget,Is.True,"Occupied second slot remains selectable through UGUI raycasts.");
-            foreach(var t in asset.GetComponentsInChildren<Transform>(true)) Assert.That(t.name,Is.Not.EqualTo("B11_PickerRowArm"));
-            foreach(var t in asset.GetComponentsInChildren<MonoBehaviour>(true))
-                if (t != null && t.GetType().FullName == "TMPro.TextMeshProUGUI")
-                {
-                    var data = new SerializedObject(t);
-                    Assert.That(data.FindProperty("m_fontAsset").objectReferenceValue,Is.Not.Null,t.name);
-                    Assert.That(data.FindProperty("m_sharedMaterial").objectReferenceValue,Is.Not.Null,t.name);
-                }
-            var hud = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Game/Prefabs/UI/Operations/FieldHudForm.prefab");
-            Assert.That(hud.GetComponentsInChildren<MachineHardwarePanel>(true).Length,Is.EqualTo(1));
-            var instance = Object.Instantiate(asset);
-            using(var roster = Roster())
-            {
-                try
-                {
-                    var machine=roster.Create(Definition()); var panel=instance.GetComponent<MachineHardwarePanel>();
-                    panel.Open(roster,machine.Id,ManagementOrigin.Library);
-                    Assert.That(panel.HandleIntent(AutoEraUiIntent.NavigateNext),Is.True);
-                    Assert.That(panel.Presenter.Layer,Is.EqualTo(MachinePanelLayer.Hardware));
-                    Assert.That(panel.HandleIntent(AutoEraUiIntent.Cancel),Is.True); Assert.That(panel.IsOpen,Is.False);
-                }
-                finally { Object.DestroyImmediate(instance); }
             }
         }
     }

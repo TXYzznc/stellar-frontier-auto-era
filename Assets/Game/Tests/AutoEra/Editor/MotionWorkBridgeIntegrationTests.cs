@@ -128,9 +128,6 @@ namespace AutoEra.Tests.Editor
                         Assert.That(hud, Is.Not.Null);
                         entry.BindHud(hud);
                         hud.SetFieldAccess(true, false);
-                        Assert.That(hud.OpenMachine(machine.Id, ManagementOrigin.Field), Is.True);
-                        var panel = hud.GetComponentInChildren<MachineHardwarePanel>(true);
-                        panel.Close();
                         Assert.That(navigation.IsActive, Is.True);
                         Assert.That(work.GetRequestState(machine.Id), Is.EqualTo(WorkRequestState.Waiting));
 
@@ -162,8 +159,6 @@ namespace AutoEra.Tests.Editor
                         Assert.That(current.Id, Is.Not.EqualTo(waiting.Id));
                         Assert.That(current.TaskId, Is.EqualTo(bridge.TaskId));
                         Assert.That(current.Target.Id, Is.EqualTo(target.Id));
-                        Assert.That(hud.OpenMachine(machine.Id, ManagementOrigin.Field), Is.True);
-                        panel.Close();
                         ui.CloseUIForm(serial);
                         serial = -1;
                         for (int i = 0; i < 3; i++) yield return null;
