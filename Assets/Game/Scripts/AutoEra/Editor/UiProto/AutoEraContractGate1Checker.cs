@@ -85,7 +85,7 @@ namespace AutoEra.Editor.UiProto
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(reportPath) ?? "tools");
                 File.WriteAllText(reportPath, problems.Count == 0
-                    ? $"[Gate1] 通过：{ContractDirectory} 下全部契约满足 L1/L2/L3。\n"
+                    ? $"[Gate1] 通过：{ContractDirectory} 下全部契约满足 L1/L2/L3/L5。\n"
                     : $"[Gate1] 未通过（{problems.Count} 项）：\n" + string.Join("\n", problems) + "\n");
             }
             catch (Exception ex)
@@ -95,7 +95,7 @@ namespace AutoEra.Editor.UiProto
 
             if (problems.Count == 0)
             {
-                Debug.Log($"[Gate1] 通过：{ContractDirectory} 下全部契约满足 L1/L2/L3。");
+                Debug.Log($"[Gate1] 通过：{ContractDirectory} 下全部契约满足 L1/L2/L3/L5。");
                 return;
             }
 
@@ -331,6 +331,8 @@ namespace AutoEra.Editor.UiProto
                 errors.Add($"{tag} L2: {path} 激活状态不一致，契约 {expectedActive}，实际 {actual.gameObject.activeSelf}");
             }
 
+            CheckL5GroupChildSize(tag, path, spec, rect, errors);
+
             if (spec["components"] is JArray comps)
             {
                 foreach (JObject comp in comps)
@@ -361,6 +363,58 @@ namespace AutoEra.Editor.UiProto
             {
                 Transform child = actual.GetChild(i);
                 CheckL2Tree(tag, (JObject)specChildren[i], child, $"{path}/{child.name}", errors);
+            }
+        }
+
+        /// <summary>
+        /// L5：父级 H/V LayoutGroup 勾了 Control Child Size 时，子节点必须自己声明优选尺寸。
+        ///
+        /// 布局组用 <c>LayoutUtility.GetPreferredSize</c> 询问子节点，子节点上一个 ILayoutElement
+        /// 都没有时结果是 0——按钮高度 0，组内按全拉伸写内缩的标签再连带变成负高度（实测
+        /// FieldHudForm 的 Btn_HudStatusGrowth = 0x0 → Txt_HudStatusGrowthLabel = -16x-8）。
+        /// GridLayoutGroup 不在此列：它把子节点一律钉成 m_CellSize。
+        /// 全拉伸的子节点（anchorMin ≠ anchorMax）跳过——它的 sizeDelta 是内缩量而不是尺寸，
+        /// 不能当优选值用。
+        /// </summary>
+        private static void CheckL5GroupChildSize(string tag, string path, JObject spec, RectTransform actual, List<string> errors)
+        {
+            Transform parent = actual.parent;
+            if (parent == null)
+            {
+                return;
+            }
+
+            var group = parent.GetComponent<HorizontalOrVerticalLayoutGroup>();
+            if (group == null || (!group.childControlWidth && !group.childControlHeight))
+            {
+                return;
+            }
+
+            if (!(spec["anchorMin"] is JArray anchorMin) || !(spec["anchorMax"] is JArray anchorMax) ||
+                anchorMin.Count < 2 || anchorMax.Count < 2)
+            {
+                return;
+            }
+
+            var element = actual.GetComponent<LayoutElement>();
+            if (group.childControlWidth && Mathf.Abs(anchorMax[0].Value<float>() - anchorMin[0].Value<float>()) < 1e-4f)
+            {
+                bool declared = element != null && (element.preferredWidth >= 0f || element.minWidth >= 0f);
+                if (!declared)
+                {
+                    errors.Add($"{tag} L5: {path} 的父级 {parent.name} 勾了 Control Child Width，" +
+                               "但节点没有声明优选宽度（LayoutElement.preferredWidth/minWidth 均为空 ⇒ 组会把它算成 0 宽）");
+                }
+            }
+
+            if (group.childControlHeight && Mathf.Abs(anchorMax[1].Value<float>() - anchorMin[1].Value<float>()) < 1e-4f)
+            {
+                bool declared = element != null && (element.preferredHeight >= 0f || element.minHeight >= 0f);
+                if (!declared)
+                {
+                    errors.Add($"{tag} L5: {path} 的父级 {parent.name} 勾了 Control Child Height，" +
+                               "但节点没有声明优选高度（LayoutElement.preferredHeight/minHeight 均为空 ⇒ 组会把它算成 0 高）");
+                }
             }
         }
 

@@ -86,6 +86,14 @@ Prefab、脚本和公开类型用 PascalCase；节点采用 `前缀_语义`，�
 - 元素相对于哪条屏幕边稳定，就锚定哪条边；禁止用 1920 坐标模拟另一侧对齐。
 - 左上定位必须同时使用左上 anchor 与左上 pivot；锚点改变后重新核对 `anchoredPosition`。
 - 内部连续行、按钮列和列表优先 Layout Group；不要同时以 Layout Group 和手写绝对坐标争夺同一子节点。
+- **布局组接管尺寸时，孩子必须自己声明尺寸**：父级 Horizontal/VerticalLayoutGroup 勾了
+  Control Child Width/Height（`m_ChildControlWidth/Height = 1`）之后，孩子的最终尺寸由
+  `LayoutUtility.GetPreferredSize` 决定——孩子上没有任何 ILayoutElement 时结果就是 **0**
+  （按钮高 0，组内按全拉伸写内缩的文本再连带变成负高度）。这类孩子必须带 `LayoutElement`，
+  `preferredWidth/Height` 取规格表里的尺寸。`GridLayoutGroup` 不在此列：它把子节点一律钉成
+  `m_CellSize`。此判据由门1 的 L5 检查强制（契约侧由 `tools/ui_spec_to_contract.py` 的
+  `ensure_group_layout_elements` 自动补齐，生成器侧由 `AutoEraUiPrefabGenerator` 的
+  `LayoutElement` 分支写进预制体——少了生成器那一段，契约里写了也到不了预制体）。
 - 每个节点在 layout 中记录 anchor、pivot、sizeDelta、anchoredPosition、组件、颜色、资源、文本样例与状态。
 
 ## UGUI 组件
@@ -103,3 +111,9 @@ Prefab、脚本和公开类型用 PascalCase；节点采用 `前缀_语义`，�
 3. 绑定已验收资源；缺失项保留命名明确的占位 Image。
 4. 在 Form 脚本声明 SerializeField 并显式绑定。
 5. 逐节点复核 layout，打开页面检查多宽高比、焦点和遮挡。
+6. **产出即幂等**：预制体必须走「从契约重建所有页面」产出（生成器保存前会固化布局组驱动值
+   与 TMP 惰性缓存）。判据是「打开预制体不产生任何文件差异」——若出现差异，先跑
+   `Game Framework/AutoEra/UI/实测：Prefab Mode 打开一次会改哪些字段` 看是哪些字段，
+   再跑 `Game Framework/AutoEra/UI/固化预制体（把加载时会重算的值写进资产）` 收口。
+   注意：生成器重建会在活动场景里建/销临时节点，跑完场景是「已修改」状态；
+   最新版固化已不再产生这种副作用（它只临时改预制体根自己的 rect）。

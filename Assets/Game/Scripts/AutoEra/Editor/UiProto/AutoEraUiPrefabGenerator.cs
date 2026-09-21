@@ -364,6 +364,21 @@ namespace AutoEra.Editor.UiProto
                     if (Val(spec, "verticalFit") != null) fitter.verticalFit = (ContentSizeFitter.FitMode)spec["verticalFit"].Value<int>();
                     break;
 
+                // 布局组会用自己的 ILayoutElement 查询覆盖子节点的 anchor/sizeDelta，
+                // 所以「组内的孩子」唯一有效的尺寸声明就在这里。少了这一段，契约里写了
+                // preferredWidth/Height 也到不了预制体（全部停在 LayoutElement 的默认 -1），
+                // 组于是把子节点算成 0×0 —— FieldHudForm 按钮高 0 就是这么来的。
+                case LayoutElement element:
+                    if (Val(spec, "ignoreLayout") != null) element.ignoreLayout = spec["ignoreLayout"].Value<bool>();
+                    if (Val(spec, "minWidth") != null) element.minWidth = spec["minWidth"].Value<float>();
+                    if (Val(spec, "minHeight") != null) element.minHeight = spec["minHeight"].Value<float>();
+                    if (Val(spec, "preferredWidth") != null) element.preferredWidth = spec["preferredWidth"].Value<float>();
+                    if (Val(spec, "preferredHeight") != null) element.preferredHeight = spec["preferredHeight"].Value<float>();
+                    if (Val(spec, "flexibleWidth") != null) element.flexibleWidth = spec["flexibleWidth"].Value<float>();
+                    if (Val(spec, "flexibleHeight") != null) element.flexibleHeight = spec["flexibleHeight"].Value<float>();
+                    if (Val(spec, "layoutPriority") != null) element.layoutPriority = spec["layoutPriority"].Value<int>();
+                    break;
+
                 case ScrollRect scroll:
                     if (Val(spec, "horizontal") != null) scroll.horizontal = spec["horizontal"].Value<bool>();
                     if (Val(spec, "vertical") != null) scroll.vertical = spec["vertical"].Value<bool>();
@@ -765,6 +780,11 @@ namespace AutoEra.Editor.UiProto
         private static void SavePrefab(GameObject root, string prefabPath)
         {
             WireScrollRects(root);
+
+            // 产出即幂等：布局组驱动值 + TMP 惰性缓存在保存前先算定，否则预制体一被打开
+            // （Prefab Mode 会分配 Canvas 并跑布局）就会自己变脏，Auto Save 开着就会写回资产。
+            AutoEraUiPrefabCanonicalizer.Canonicalize(root);
+
             string directory = Path.GetDirectoryName(prefabPath);
             if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
             {
