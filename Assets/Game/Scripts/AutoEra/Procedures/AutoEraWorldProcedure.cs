@@ -36,14 +36,24 @@ namespace AutoEra.Procedures
                         _entry = candidate;
                     }
                     if (_entry == null) throw new InvalidOperationException("InitialRegion entry missing.");
+                    var regionInput = _entry.GetComponent<AutoEra.Input.RegionInputModule>();
                     _entry.InitializeRuntime(session, () =>
                     {
                     if (!_active || version != _version) return;
+                    // 本机保存的镜头参数要在**镜头刚建好**时推上去：玩家可能在主菜单里就调过，
+                    // 那时现场还没有镜头。漏掉这一步的表现是「设置保存了、进区域却还是默认手感」，
+                    // 而且只有打开一次设置页才会生效——那等于让界面替保存撒谎。
+                    SettingsReadModels.CreateControlSettings()?.ApplyTo(regionInput?.CameraTarget);
                     // 会话随参数进入界面：页面只经 UIParams 拿数据来源，不持有全局单例。
                     // 区域也随会话一起给出去——现场界面（放置、世界对象选择、资源页）都要用它，
                     // 而区域是场景级对象，不属于世界会话。
+                    // 世界输入模块同样随会话传递：放置预览的指针换算与提交都在它手里，
+                    // 界面自己再实现一份就会造出第二个互相竞争的预览。
                     // 不传 allowEscape：由 UITable 的 EscapeClose 兜底。
-                    var parameters = AutoEraUiSession.ForWorld(_context, session, _entry.Region).WriteTo(UIParams.Create());
+                    var parameters = AutoEraUiSession.ForWorld(
+                        _context, session, _entry.Region, regionInput,
+                        _entry.MachineRuntimes, _entry.Energy, _entry.Alerts)
+                        .WriteTo(UIParams.Create());
                     parameters.OpenCallback = logic =>
                     {
                         if (_active && version == _version && _entry != null) _entry.BindHud((FieldHudForm)logic);

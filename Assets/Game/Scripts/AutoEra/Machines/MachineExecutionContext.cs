@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using AutoEra.Events;
 using AutoEra.World.Identity;
@@ -74,6 +74,9 @@ namespace AutoEra.Machines
                     Compute.SetDispatchEnabled(_machine.CanRun);
                     _machine.UpdateComputeUsage(Compute.Used, Compute.AppliedLogicCost, Compute.WaitingCount);
                     bool active = _navigationActive;
+                    // 移动与「效应器在执行动作」是两件事：区域电网按部件逐项求和耗电，
+                    // 载体只在**移动**时算工作负载，所以这里把移动单独推送给机器。
+                    _machine.UpdateNavigationActivity(_navigationActive);
                     _removed.Clear();
                     foreach (var pair in _effectors)
                     {
@@ -87,6 +90,9 @@ namespace AutoEra.Machines
                         bool mayAdvance = _machine.Powered && _machine.Activated && binding.Component.Enabled &&
                             _machine.RequestedRunState != MachineRunState.Sleeping;
                         binding.SetEnabled(_machine.CanRun && binding.Component.Enabled, mayAdvance);
+                        // 每个效应器各自的执行状态单独推送：能耗必须按部件求和，
+                        // 用一个整机倍率替代正是规格禁止的做法。
+                        _machine.SetComponentActivity(binding.Component.Id, binding.Active);
                         active |= binding.Active;
                     }
                     foreach (var id in _removed) _effectors.Remove(id);

@@ -17,6 +17,20 @@ namespace AutoEra.Tests.Editor
 {
     public sealed class AlgorithmServicesIntegrationTests
     {
+        /// <summary>
+        /// 这条集成用例要自己进 Play Mode、等框架 preload（HybridCLR ＋ 数据表）就绪，再跑完一段导航，
+        /// 而 NUnit 的默认上限是 180 秒。
+        ///
+        /// 实测（Debug.Log 打点）：在**长时间运行且经历大量域重载**的编辑器上，光「进入 Play Mode」
+        /// 就要 176 秒（数据表就绪落在 175.2s），于是用例在自己的第一步就被超时掐掉——
+        /// 看起来像功能退化，其实是编辑器状态退化。重启编辑器之后同一批用例 80 秒跑完 6/6，
+        /// 所以遇到这种「整类用例同时超时」的现象，先怀疑编辑器状态、而不是先怀疑业务代码。
+        ///
+        /// 这里显式放宽上限是**兜底**：即使编辑器又慢下来，真正的断言失败
+        /// （导航没到达、事件多触发一次、注册表对不上）仍然会照常失败，
+        /// 放宽的只是「等待环境就绪」这段的容忍度。
+        /// </summary>
+        [Timeout(600000)]
         [UnityTest]
         public IEnumerator FormalRegionSensor_GraphTaskNavigation_HardwareObservationAndTeardown()
         {

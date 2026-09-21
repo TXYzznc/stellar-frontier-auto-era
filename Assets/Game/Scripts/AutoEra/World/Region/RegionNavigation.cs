@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using AutoEra.Machines;
 using AutoEra.Motion;
@@ -75,9 +75,22 @@ namespace AutoEra.World.Region
             }
             catch (Exception error)
             {
-                if (next != null) UnityEngine.Object.Destroy(next);
+                if (next != null) DestroySafely(next);
                 ReleaseData(); Error = error.GetType().Name + ": " + error.Message; return false;
             }
+        }
+
+        /// <summary>
+        /// 编辑态不能调 `Object.Destroy`：Unity 会记录
+        /// 「Destroy may not be called from edit mode」**错误日志**，而 EditMode 测试把未预期的
+        /// 错误日志当作失败——于是「在编辑器里打开区域场景再释放」这条正常路径会假失败。
+        /// 这是真实缺陷而非测试问题：销毁本来就该按运行/编辑态分流。
+        /// </summary>
+        internal static void DestroySafely(UnityEngine.Object target)
+        {
+            if (target == null) return;
+            if (UnityEngine.Application.isPlaying) UnityEngine.Object.Destroy(target);
+            else UnityEngine.Object.DestroyImmediate(target);
         }
 
         public RegionMachineNavigationBinding Bind(MachineExecutionContext context, GameObject instance, MachineNavigationSettings settings,
@@ -116,7 +129,7 @@ namespace AutoEra.World.Region
             IsReady = false;
             foreach (var binding in _bindings.Values) binding.Navigation.InvalidateRoute();
             if (_instance.valid) _instance.Remove();
-            if (_data != null) UnityEngine.Object.Destroy(_data);
+            if (_data != null) DestroySafely(_data);
             _data = null;
         }
         public void Dispose()
@@ -150,7 +163,7 @@ namespace AutoEra.World.Region
                 if (!_agent.isOnNavMesh) throw new InvalidOperationException("Machine instance is not on the navigation surface.");
                 Navigation = new MachineNavigation(context, driver, settings);
             }
-            catch { UnityEngine.Object.Destroy(_agent); throw; }
+            catch { RegionNavigation.DestroySafely(_agent); throw; }
         }
         internal bool Reattach() => IsValid && _agent.Warp(_transform.position);
         internal void Tick(double now, float deltaSeconds)
@@ -158,7 +171,7 @@ namespace AutoEra.World.Region
         public void Dispose()
         {
             if (_disposed) return; _disposed = true; Navigation.Dispose();
-            if (_agent != null) { _agent.enabled = false; UnityEngine.Object.Destroy(_agent); }
+            if (_agent != null) { _agent.enabled = false; RegionNavigation.DestroySafely(_agent); }
         }
     }
 }

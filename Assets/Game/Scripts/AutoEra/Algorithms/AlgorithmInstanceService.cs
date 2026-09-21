@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using AutoEra.Machines;
 using AutoEra.World.Identity;
@@ -28,6 +28,40 @@ namespace AutoEra.Algorithms
         internal AlgorithmApplyRequest Request;
     }
 
+    /// <summary>
+    /// 一台机器上某个算法实例的只读状态快照（界面用）。
+    ///
+    /// 单独开这个类型而不是把 <c>Entry</c> 暴露出去：界面需要的是「这个实例现在处于什么版本、
+    /// 占多少逻辑算力、有没有待处理的应用请求」，而不是可变的领域对象。
+    /// </summary>
+    public readonly struct AlgorithmInstanceInfo
+    {
+        public AlgorithmInstanceInfo(ulong id, ulong appliedRevision, ulong draftRevision, ulong savedRevision,
+            int logicCost, AlgorithmApplyState requestState, ulong requestId, string requestReason)
+        {
+            Id = id;
+            AppliedRevision = appliedRevision;
+            DraftRevision = draftRevision;
+            SavedRevision = savedRevision;
+            LogicCost = logicCost;
+            RequestState = requestState;
+            RequestId = requestId;
+            RequestReason = requestReason;
+        }
+
+        public ulong Id { get; }
+        public ulong AppliedRevision { get; }
+        public ulong DraftRevision { get; }
+        public ulong SavedRevision { get; }
+        public int LogicCost { get; }
+        public AlgorithmApplyState RequestState { get; }
+        public ulong RequestId { get; }
+        public string RequestReason { get; }
+
+        /// <summary>草稿是否领先于已应用版本——界面据此区分「已生效」与「改了还没应用」。</summary>
+        public bool HasUnappliedDraft => DraftRevision > AppliedRevision;
+    }
+
     /// <summary>One machine. UI observers never own pending requests or running state.</summary>
     public sealed class AlgorithmInstanceService : IDisposable
     {
@@ -49,11 +83,46 @@ namespace AutoEra.Algorithms
             if (_disposed || runtime == null || _entries.ContainsKey(runtime.InstanceId.Value) || !runtime.IsSafe) return false;
             int cost = TotalCost() + runtime.LogicCost;
             if (!_compute.TryApplyLogicCost(cost)) return false;
-            var doc = runtime.CopyApplied(); _entries.Add(runtime.InstanceId.Value, new Entry { Runtime = runtime, Draft = doc, Saved = doc.Copy() }); return true;
+            var doc = runtime.CopyApplied(); _entries.Add(runtime.InstanceId.Value, new Entry { Runtime = runtime, Draft = doc, Saved = doc.Copy() });
+            // 新增实例同样是一次状态变化，必须发事件：否则订阅者（界面的读模型）会一直停在
+            // 「这台机器没有实例」上，直到别的操作恰好触发一次 Changed。
+            // 这条曾经漏过一次：数据对了、界面却是旧状态，看起来像界面没接线。
+            Changed?.Invoke();
+            return true;
         }
         public AlgorithmDocument ReadDraft(ulong id) => _entries[id].Draft.Copy();
         public ulong SavedDraftRevision(ulong id) => _entries[id].Saved.Revision;
         public AlgorithmApplyRequest ReadRequest(ulong id) => _entries[id].Request?.Copy();
+
+        /// <summary>
+        /// 本机上全部算法实例的只读状态，按实例 Id 排序。
+        ///
+        /// **界面观察算法域的唯一入口**：`_entries` 是私有的，没有它界面就只能报「不可用」——
+        /// 那正是「算法界面永远说域没接线」这条旧状态的成因。返回新数组，调用方不持有内部状态。
+        /// </summary>
+        public AlgorithmInstanceInfo[] ListInstances()
+        {
+            var result = new List<AlgorithmInstanceInfo>(_entries.Count);
+            foreach (var pair in _entries)
+            {
+                Entry entry = pair.Value;
+                result.Add(new AlgorithmInstanceInfo(
+                    pair.Key,
+                    entry.Runtime.Revision,
+                    entry.Draft.Revision,
+                    entry.Saved.Revision,
+                    entry.Runtime.LogicCost,
+                    entry.Request?.State ?? AlgorithmApplyState.None,
+                    entry.Request?.RequestId ?? 0,
+                    entry.Request?.Reason));
+            }
+
+            result.Sort((a, b) => a.Id.CompareTo(b.Id));
+            return result.ToArray();
+        }
+
+        /// <summary>实例是否存在。界面在读草稿前用它做前置判断，避免直接索引抛异常。</summary>
+        public bool HasInstance(ulong id) => _entries.ContainsKey(id);
         public bool Edit(ulong id, ulong expectedRevision, AlgorithmDocument replacement)
         {
             if (_disposed || !_entries.TryGetValue(id, out var entry) || entry.Draft.Revision != expectedRevision ||
