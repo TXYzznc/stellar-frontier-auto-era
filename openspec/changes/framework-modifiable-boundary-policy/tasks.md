@@ -18,6 +18,12 @@
 ## 3. 验证
 
 - [x] 3.1 全仓检索旧口径残留（"不得混入产品代码"、"禁止写入"、"不得回写框架基线"等）
-- [ ] 3.2 `python tools/audit_project_boundaries.py` 通过（确认规范改动未影响审计规则）
-- [ ] 3.3 `python tools/audit_framework_purity.py --product-profile tools/audit_product_profile.json` 通过
-- [ ] 3.4 Unity 普通编译无新增错误（本变更不含代码改动，作为回归确认）
+- [x] 3.2 `python tools/audit_project_boundaries.py` 通过（确认规范改动未影响审计规则）
+      （2026-09-20 复跑：`[OK] project boundary audit passed`，exit 0。）
+- [x] 3.3 `python tools/audit_framework_purity.py --product-profile tools/audit_product_profile.json` 通过
+      （2026-09-20 复跑：`[OK] framework purity audit passed`，exit 0。）
+- [x] 3.4 Unity 普通编译无新增错误（本变更不含代码改动，作为回归确认）
+      （2026-09-20 复跑 `tools/_unity_compile.py`：触发 `Assets/Refresh` 后
+      「编译通过：程序集已更新且 console 无 CS 错误」——程序集确实比源码新，不是只看 console 的假绿。
+      同日 `python tools/run_project_checks.py` 5/5，其中 [1/5] 编译检查 compile errors = 0、
+      [5/5] 框架纯度检查同时覆盖 `audit_framework_purity` 与 `audit_project_boundaries`。）

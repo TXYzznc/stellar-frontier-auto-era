@@ -7,7 +7,15 @@
 ## 2. Operations 正式入口独立化
 
 - [x] 2.1 只通过 Unity Prefab/AssetDatabase 工作流将 `Operations/BaseCommandHubForm` 与 `Operations/FieldHudForm` 展开并保存为独立正式入口，保留 GF、TMP、Sprite、输入与状态绑定。（证据：`segment-01-retirement-preflight.md` 的“Operations 独立入口”）
-- [ ] 2.2 更新 UITable JSON 的稳定入口（如路径发生变化），仅按 AI JSON→Validate→Reverse→生成流程同步；不手改任何 xlsx 或生成 C#。
+- [x] 2.2 更新 UITable JSON 的稳定入口（如路径发生变化），仅按 AI JSON→Validate→Reverse→生成流程同步；不手改任何 xlsx 或生成 C#。
+      （2026-09-20 复核：路径确实变化过——`FieldHudForm` 由 `Operations/` 移到 `Hud/`，`MachineHardwarePanel` 退役；
+      生成产物 `Assets/Game/DataTable/Core/UITable.txt` 的 33 条登记（6000–6032）逐条与实际预制体位置比对**全部一致**，
+      含 `6001 → Hud/FieldHudForm`、`6005–6007 → System/*`；全表检索无 `Operations/FieldHudForm`、
+      `MachineHardwarePanel`、`ART006_UI`、`FunctionalPrototypes` 残留。
+      源 `GameData/DataTables/Core/UITable.xlsx`（20:04:49）早于生成物 `UITable.txt`（20:04:57），说明生成流程已在此后跑过，
+      两者同步；本次未改任何 xlsx 或生成 C#。
+      运行期旁证：`AutoEraAllUiFormsPlayModeTests` 遍历 `UIViews` 6000–6032 逐个打开／关闭通过，
+      即全部登记路径都能被 GF 真实实例化。）
 - [x] 2.3 运行 Missing Reference、实际 GF UIForm 开关、默认页、Cancel/焦点恢复、输入和状态 EditMode/PlayMode 回归；记录 Console Error=0 证据。（证据：b05 既有真实 UIForm 回归，加上 job `83460b2c` 的 b09 独立化复验）
 - [x] 2.4 确认候选链引用归零后，使用 AssetDatabase 退役 `Assets/Game/Prefabs/UI/ART006_UI/` 及 `Assets/Game/Art/UI/ART006_UI/` 的过程副本和空目录。（证据：`evidence/segment-02-formal-entity-handoff-and-retirement.md`）
 
