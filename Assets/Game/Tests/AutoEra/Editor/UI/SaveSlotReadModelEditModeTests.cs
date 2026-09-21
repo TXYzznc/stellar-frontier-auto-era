@@ -126,7 +126,10 @@ namespace AutoEra.Tests.Editor
         {
             _context.SaveSlots.Create(0, "会被弄坏", 1000L, "{}");
             File.WriteAllText(Path.Combine(_root, "slot_0.json"), "{ 这不是合法的 JSON");
-            File.Delete(Path.Combine(_root, "slot_0.json.bak"));
+            for (int index = 1; index <= SaveSlotService.BackupCount; index++)
+            {
+                File.Delete(_context.SaveSlots.GetBackupPath(0, index));
+            }
 
             using (ISaveSlotReadModel model = Model())
             {
@@ -139,6 +142,33 @@ namespace AutoEra.Tests.Editor
                 Assert.That(model.Select(0), Is.True);
                 Assert.That(Contains(model.Snapshot.Health, "损坏"), Is.True,
                     "健康栏必须说明真实文件状态。");
+            }
+        }
+
+        [Test]
+        public void ReadingFromBackup_IsVisibleOnTheRowAndInTheDetail_NotHiddenAsNormal()
+        {
+            // 三次保存 → 主文件是第三版，备份 1／2 是第二版／第一版。
+            _context.SaveSlots.Create(0, "第一版", 1000L, "{}");
+            _context.SaveSlots.Overwrite(0, "第二版", 2000L, "{}");
+            _context.SaveSlots.Overwrite(0, "第三版", 3000L, "{}");
+            File.WriteAllText(Path.Combine(_root, "slot_0.json"), "{ 坏了");
+
+            using (ISaveSlotReadModel model = Model())
+            {
+                UiSaveSlotRow row = model.Snapshot.Slots[0];
+                Assert.That(row.Occupied, Is.True);
+                Assert.That(row.NeedsRecovery, Is.True,
+                    "正在读备份必须标成需要恢复——显示成普通占用就是静默回退。");
+                StringAssert.Contains("备份", row.Summary, "行摘要要说出来源。");
+                StringAssert.DoesNotContain("正常", row.Summary);
+
+                Assert.That(model.Select(0), Is.True);
+                Assert.That(Contains(model.Snapshot.Health, "备份 1"), Is.True,
+                    "详情要说清读的是哪一份、它的保存时间。");
+                Assert.That(Contains(model.Snapshot.Health, "正式存档不可读"), Is.True);
+                Assert.That(Contains(model.Snapshot.Metadata, "保存时间"), Is.True,
+                    "「恢复到哪个时间点」靠这一栏回答。");
             }
         }
 

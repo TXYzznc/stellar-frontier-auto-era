@@ -58,10 +58,10 @@ namespace AutoEra.UI
         /// <summary>本页当前处理的槽位索引；-1 表示没有指定。</summary>
         public int TargetSlotIndex => _slotIndex;
 
-        /// <summary>「恢复」当前是否可点：只有确实存在备份时才可点。</summary>
+        /// <summary>「恢复」当前是否可点：只有确实存在**可用**备份时才可点。</summary>
         public bool CanRestore => _service != null
             && SaveSlotService.IsValidSlotIndex(_slotIndex)
-            && _service.HasBackup(_slotIndex);
+            && _service.HasUsableBackup(_slotIndex);
 
         private void RequestCancel() => TryHandleIntent(AutoEraUiIntent.Cancel);
 
@@ -102,7 +102,7 @@ namespace AutoEra.UI
             }
 
             SaveSlotReadResult result = _service.Read(_slotIndex);
-            bool hasBackup = _service.HasBackup(_slotIndex);
+            bool hasBackup = _service.HasUsableBackup(_slotIndex);
 
             SetState(_recoveryLoadingState, false);
             SetState(_recoveryErrorState, result.Status == SaveSlotReadStatus.Corrupt && !hasBackup);
@@ -130,9 +130,17 @@ namespace AutoEra.UI
             var fields = new List<UiDetailField>
             {
                 new UiDetailField("槽位", "槽位 " + (_slotIndex + 1)),
-                new UiDetailField("文件状态", DescribeStatus(result.Status)),
-                new UiDetailField("备份", _service.HasBackup(_slotIndex) ? "可用" : "没有备份"),
+                new UiDetailField("文件状态", SaveSlotNarrative.DescribeStatus(result.Status)),
+                new UiDetailField("本次读取来源", SaveSlotNarrative.DescribeOrigin(result)),
             };
+
+            // 三份备份逐份列出：规格要求恢复界面说明「有效备份时间」，
+            // 只写一句「备份可用」会让玩家不知道会退回到哪个时间点。
+            IReadOnlyList<SaveSlotBackupInfo> backups = _service.ListBackups(_slotIndex);
+            for (int i = 0; i < backups.Count; i++)
+            {
+                fields.Add(new UiDetailField("备份 " + backups[i].Index, SaveSlotNarrative.DescribeBackup(backups[i])));
+            }
 
             RenderDetailRows(_recoveryDiagnosisTemplate, _recoveryDiagnosisContent, fields);
             if (_recoveryDiagnosisBody != null)
@@ -149,7 +157,8 @@ namespace AutoEra.UI
                 {
                     new UiDetailField("摘要", result.Record.Summary),
                     new UiDetailField("世界时间", AutoEraUiFormat.WorldTime(result.Record.WorldTimeMilliseconds)),
-                    new UiDetailField("来源", hasBackup ? "主文件或备份" : "主文件"),
+                    new UiDetailField("保存时间", SaveSlotNarrative.DescribeBackupTime(result.Record)),
+                    new UiDetailField("来源", SaveSlotNarrative.DescribeOrigin(result)),
                 };
 
                 RenderDetailRows(_recoveryCandidateTemplate, _recoveryCandidateContent, fields);
@@ -157,7 +166,8 @@ namespace AutoEra.UI
 
             if (_recoveryCandidateBody != null)
             {
-                _recoveryCandidateBody.SetText(DescribeCandidate(result, hasBackup));
+                _recoveryCandidateBody.SetText(SaveSlotNarrative.DescribeRecovery(
+                    result, _service.ListBackups(_slotIndex)));
             }
         }
 
@@ -183,40 +193,6 @@ namespace AutoEra.UI
             {
                 _restoreButton.interactable = false;
             }
-        }
-
-        private static string DescribeStatus(SaveSlotReadStatus status)
-        {
-            switch (status)
-            {
-                case SaveSlotReadStatus.Success: return "正常";
-                case SaveSlotReadStatus.Empty: return "无存档";
-                case SaveSlotReadStatus.Corrupt: return "损坏";
-                case SaveSlotReadStatus.NewerVersion: return "版本过新";
-                default: return AutoEraUiFormat.Missing;
-            }
-        }
-
-        private static string DescribeCandidate(SaveSlotReadResult result, bool hasBackup)
-        {
-            if (result.IsSuccess && hasBackup)
-            {
-                return "主文件可用，同时保留着一份备份。恢复会用备份覆盖主文件。";
-            }
-
-            if (result.IsSuccess)
-            {
-                return "主文件可用，没有备份。";
-            }
-
-            if (hasBackup)
-            {
-                return "主文件不可读，已回退读到备份内容；恢复可把它提升为主文件。";
-            }
-
-            return result.Status == SaveSlotReadStatus.Empty
-                ? "这个槽位没有存档。"
-                : "主文件与备份都不可读，无法恢复。";
         }
 
         protected override void OnOperationPresentationChanged(
