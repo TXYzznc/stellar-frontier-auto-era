@@ -5,7 +5,7 @@
   "relativePath": "Machines/MachineDefinitions",
   "sourceExcel": "GameData/DataTables/Machines/MachineDefinitions.xlsx",
   "sourceExcelLastWriteUtc": null,
-  "sourceFingerprint": "E576B72DF4F4E9293684FDC669B99818B1C6505C070A88089B493B49B48D0B0F",
+  "sourceFingerprint": "8A00C91DC464AAD7AE80C519E2A5CBAB97A6755416944B3242D8755DBDDE7EE7",
   "generatedAtUtc": null,
   "tableComment": null,
   "columns": [
@@ -160,6 +160,22 @@
       "type": "string",
       "comment": "Prefab",
       "role": "data"
+    },
+    {
+      "index": 20,
+      "key": "FootprintX",
+      "name": "FootprintX",
+      "type": "double",
+      "comment": "交互占地沿本地X（米）。轴名写死是因为设计文档按「长×宽」记占地（见DEC-147与灰盒规格：轮式载体交互占地2.6×1.8米＝Z2.6×X1.8），不写死轴向会在实现侧再次推错",
+      "role": "data"
+    },
+    {
+      "index": 21,
+      "key": "FootprintZ",
+      "name": "FootprintZ",
+      "type": "double",
+      "comment": "交互占地沿本地Z（米）。0表示该型号尚未配置占地，放置流程须以「未配置占地」拒绝而不是猜一个值",
+      "role": "data"
     }
   ],
   "rows": [
@@ -184,7 +200,9 @@
         "IdlePower": "0.2",
         "WorkingPower": "2",
         "Availability": "Ready",
-        "Prefab": "Machines/WheeledCarrier"
+        "Prefab": "Machines/WheeledCarrier",
+        "FootprintX": "1.8",
+        "FootprintZ": "2.6"
       },
       "notes": {},
       "_cells": []
@@ -210,7 +228,9 @@
         "IdlePower": "0.2",
         "WorkingPower": "2.4",
         "Availability": "Ready",
-        "Prefab": "Machines/WheeledCarrier"
+        "Prefab": "Machines/WheeledCarrier",
+        "FootprintX": "1.8",
+        "FootprintZ": "2.6"
       },
       "notes": {},
       "_cells": []
@@ -236,7 +256,9 @@
         "IdlePower": "0.1",
         "WorkingPower": "1",
         "Availability": "Ready",
-        "Prefab": "Machines/FixedRotaryCarrier"
+        "Prefab": "Machines/FixedRotaryCarrier",
+        "FootprintX": "2",
+        "FootprintZ": "2"
       },
       "notes": {},
       "_cells": []
@@ -262,7 +284,9 @@
         "IdlePower": "0.1",
         "WorkingPower": "1.2",
         "Availability": "Ready",
-        "Prefab": "Machines/FixedRotaryCarrier"
+        "Prefab": "Machines/FixedRotaryCarrier",
+        "FootprintX": "2",
+        "FootprintZ": "2"
       },
       "notes": {},
       "_cells": []

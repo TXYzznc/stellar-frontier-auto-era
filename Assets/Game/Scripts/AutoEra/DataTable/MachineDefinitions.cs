@@ -174,6 +174,24 @@ public class MachineDefinitions : DataRowBase
             private set;
         }
 
+        /// <summary>
+        /// 交互占地沿本地X（米）。轴名写死是因为设计文档按「长×宽」记占地（见DEC-147与灰盒规格：轮式载体交互占地2.6×1.8米＝Z2.6×X1.8），不写死轴向会在实现侧再次推错
+        /// </summary>
+        public double FootprintX
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 交互占地沿本地Z（米）。0表示该型号尚未配置占地，放置流程须以「未配置占地」拒绝而不是猜一个值
+        /// </summary>
+        public double FootprintZ
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -202,6 +220,8 @@ public class MachineDefinitions : DataRowBase
             WorkingPower = double.Parse(columnStrings[index++]);
             Availability = columnStrings[index++];
             Prefab = columnStrings[index++];
+            FootprintX = double.Parse(columnStrings[index++]);
+            FootprintZ = double.Parse(columnStrings[index++]);
 
             return true;
         }
@@ -229,6 +249,8 @@ public class MachineDefinitions : DataRowBase
                     WorkingPower = binaryReader.ReadDouble();
                     Availability = binaryReader.ReadString();
                     Prefab = binaryReader.ReadString();
+                    FootprintX = binaryReader.ReadDouble();
+                    FootprintZ = binaryReader.ReadDouble();
                 }
             }
 
