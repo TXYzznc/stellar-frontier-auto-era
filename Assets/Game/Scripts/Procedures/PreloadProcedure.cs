@@ -1,4 +1,4 @@
-﻿
+
 using UnityEngine;
 using GameFramework.Event;
 using GameFramework.Procedure;
@@ -161,13 +161,21 @@ public class PreloadProcedure : ProcedureBase
 
 
         //初始化音效
-        var musicGroup = GetRequiredSoundGroup(defaultSoundGroupData, Const.SoundGroup.Music);
-        var soundGroup = GetRequiredSoundGroup(defaultSoundGroupData, Const.SoundGroup.Sound);
-        GF.Setting.SetMediaMute(Const.SoundGroup.Music, GF.Setting.GetMediaMute(Const.SoundGroup.Music, musicGroup.Mute));
-        GF.Setting.SetMediaMute(Const.SoundGroup.Sound, GF.Setting.GetMediaMute(Const.SoundGroup.Sound, soundGroup.Mute));
+        // 分组本身由上面那段按数据表建好；这里只做两件事：
+        // ① 校验代码引用的每一组都在表里（缺了就是配置错误，要响亮地失败）；
+        // ② 把**每一行**分组的静音与音量从本机设置恢复回来。
+        // ② 刻意按行遍历而不是写死 Music/Sound 两组：新增分组只需要加一行数据，
+        //    不必再来改这里——否则新分组每次启动都会被打回表里的默认值。
+        foreach (Const.SoundGroup group in Enum.GetValues(typeof(Const.SoundGroup)))
+        {
+            GetRequiredSoundGroup(defaultSoundGroupData, group);
+        }
 
-        GF.Setting.SetMediaVolume(Const.SoundGroup.Music, GF.Setting.GetMediaVolume(Const.SoundGroup.Music, musicGroup.Volume));
-        GF.Setting.SetMediaVolume(Const.SoundGroup.Sound, GF.Setting.GetMediaVolume(Const.SoundGroup.Sound, soundGroup.Volume));
+        foreach (var tb in soundGroupTb.GetAllDataRows())
+        {
+            GF.Setting.SetMediaMute(tb.Name, GF.Setting.GetMediaMute(tb.Name, tb.Mute));
+            GF.Setting.SetMediaVolume(tb.Name, GF.Setting.GetMediaVolume(tb.Name, tb.Volume));
+        }
     }
 
     private SoundGroupTable GetRequiredSoundGroup(Dictionary<string, SoundGroupTable> soundGroups, Const.SoundGroup group)

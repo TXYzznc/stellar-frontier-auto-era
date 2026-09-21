@@ -179,5 +179,105 @@ namespace AutoEra.Tests.Editor
             }
         }
 
+        // ------------------------------------------------------------ 整备页三栏
+
+        [Test]
+        public void PreparationCarrierRows_DescribeTheRealDefinition()
+        {
+            using (AutoEraApplicationContext context = ContextWithWorld(out AutoEraWorldSession world))
+            using (IMachineReadModel model = MachineReadModels.Create(AutoEraUiSession.ForWorld(context, world)))
+            {
+                MachineInstance machine = world.Machines.Create(Definition());
+                Assert.That(model.Select(machine.Id), Is.True);
+
+                IReadOnlyList<UiDetailField> carrier = model.Snapshot.Carrier;
+                Assert.That(Value(carrier, "型号"), Is.EqualTo("Fixture"));
+                Assert.That(Value(carrier, "等级"), Is.EqualTo("1"));
+                StringAssert.Contains("库中", Value(carrier, "部署"));
+                Assert.That(Value(carrier, "总通用容量"), Does.Contain("30"), "容量必须来自定义而不是常量。");
+                Assert.That(Value(carrier, "兼容安装位"), Is.EqualTo("传感器 2 ／ 核心 1 ／ 执行器 2"),
+                    "安装位必须来自定义，界面据此才知道该往哪装。");
+            }
+        }
+
+        [Test]
+        public void PreparationAssemblyRows_ListEverySlotAndItsOccupant()
+        {
+            using (AutoEraApplicationContext context = ContextWithWorld(out AutoEraWorldSession world))
+            using (IMachineReadModel model = MachineReadModels.Create(AutoEraUiSession.ForWorld(context, world)))
+            {
+                MachineInstance machine = world.Machines.Create(Definition());
+                ComponentInstance core = world.Machines.CreateComponent(
+                    new ComponentDefinition(2001, HardwareKind.Core, 1, 0, 50, 40, false));
+                Assert.That(world.Machines.Install(machine.Id, ManagementOrigin.Library, core.Id, 0),
+                    Is.EqualTo(MachineManagementResult.Completed));
+                Assert.That(model.Select(machine.Id), Is.True);
+
+                IReadOnlyList<UiDetailField> assembly = model.Snapshot.Assembly;
+                // 逐个槽位列出——只显示「已装 1 件」会让人无法回答「哪一格空着」。
+                Assert.That(Value(assembly, "传感器槽 0"), Is.EqualTo("空"));
+                Assert.That(Value(assembly, "核心槽 0"), Is.Not.EqualTo("空"));
+                Assert.That(Value(assembly, "执行器槽 0"), Is.EqualTo("空"));
+                Assert.That(Value(assembly, "已装组件"), Is.EqualTo("1 件"));
+                Assert.That(Value(assembly, "一键卸下影响"), Does.Contain("1 件组件"));
+                Assert.That(Value(assembly, "库存候选"), Is.Not.Null.And.Not.Empty);
+            }
+        }
+
+        [Test]
+        public void PreparationReadiness_SellQualificationFollowsTheCarrierState()
+        {
+            using (AutoEraApplicationContext context = ContextWithWorld(out AutoEraWorldSession world))
+            using (IMachineReadModel model = MachineReadModels.Create(AutoEraUiSession.ForWorld(context, world)))
+            {
+                MachineInstance machine = world.Machines.Create(Definition());
+                Assert.That(model.Select(machine.Id), Is.True);
+                StringAssert.Contains("资格成立", Value(model.Snapshot.Readiness, "出售资格"),
+                    "空载、完好、未部署的载体按规格就是可出售的。");
+
+                // 装上组件之后资格必须消失，并说清为什么（规格：出售空载完好载体）。
+                ComponentInstance core = world.Machines.CreateComponent(
+                    new ComponentDefinition(2001, HardwareKind.Core, 1, 0, 50, 40, false));
+                world.Machines.Install(machine.Id, ManagementOrigin.Library, core.Id, 0);
+
+                StringAssert.Contains("先一键卸下", Value(model.Snapshot.Readiness, "出售资格"));
+
+                // 部署之后同样不可出售（必须先撤收回库）。
+                world.Machines.Remove(machine.Id, ManagementOrigin.Library, HardwareKind.Core, 0);
+                world.Machines.Deploy(machine.Id);
+                StringAssert.Contains("先撤收回库", Value(model.Snapshot.Readiness, "出售资格"));
+
+                // 解锁域没有创建者，所以这一行必须**明说**而不是编一个「已解锁」。
+                StringAssert.Contains("成长解锁", Value(model.Snapshot.Readiness, "部署解锁条件"));
+            }
+        }
+
+        [Test]
+        public void PreparationRows_AreEmptyWithoutSelection()
+        {
+            using (AutoEraApplicationContext context = ContextWithWorld(out AutoEraWorldSession world))
+            using (IMachineReadModel model = MachineReadModels.Create(AutoEraUiSession.ForWorld(context, world)))
+            {
+                world.Machines.Create(Definition());
+                Assert.That(model.Snapshot.Carrier, Is.Empty, "未选中时三栏必须为空，不能拿别的机器凑数。");
+                Assert.That(model.Snapshot.Assembly, Is.Empty);
+                Assert.That(model.Snapshot.Readiness, Is.Empty);
+            }
+        }
+
+        private static string Value(IReadOnlyList<UiDetailField> fields, string label)
+        {
+            for (int i = 0; i < fields.Count; i++)
+            {
+                if (fields[i].Label == label)
+                {
+                    return fields[i].Value;
+                }
+            }
+
+            Assert.Fail("整备页缺少行：" + label);
+            return null;
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using NUnit.Framework;
 
@@ -20,8 +20,6 @@ namespace AutoEra.Tests.Editor
 
         private static readonly string[] NotWiredForms =
         {
-            "ComponentLibraryForm",
-            "ComponentPickerForm",
             "UpgradeForm",
             "WarehouseForm",
             "ShopForm",
@@ -29,7 +27,6 @@ namespace AutoEra.Tests.Editor
             "WorkshopForm",
             "QuestForm",
             "AlertForm",
-            "SettingsForm",
             "CropKnowledgeForm",
             "TutorialForm",
             "FeatureHelpForm",
@@ -67,7 +64,7 @@ namespace AutoEra.Tests.Editor
         public void WiredForms_AreNotInjectedWithNotWiredScaffolding()
         {
             // 已接入的界面绝不能带上「未接入」的脚手架：那会让它们明明有数据却宣称没有。
-            foreach (string form in new[] { "MainMenuForm", "BaseCommandHubForm", "FieldHudForm", "RecordReaderForm", "MachineLibraryForm" })
+            foreach (string form in new[] { "MainMenuForm", "BaseCommandHubForm", "FieldHudForm", "RecordReaderForm", "MachineLibraryForm", "ComponentLibraryForm", "SettingsForm", "ComponentPickerForm" })
             {
                 string path = UiDirectory + form + ".cs";
                 Assert.That(File.Exists(path), Is.True);

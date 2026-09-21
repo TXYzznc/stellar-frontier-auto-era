@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using AutoEra.Save;
 
@@ -283,6 +283,11 @@ namespace AutoEra.UI
             {
                 case SaveSlotReadStatus.Success:
                     return new UiSaveSlotRow(slot, title, result.Record.Summary, AutoEraUiFormat.WorldTime(result.Record.WorldTimeMilliseconds), true, false);
+                case SaveSlotReadStatus.RecoveredFromBackup:
+                    // 读的是备份：不能显示成普通占用。这一行本身就是「不静默回退」的落点——
+                    // 玩家在列表上就要看到「这份来自备份」，而不是进详情才发现。
+                    return new UiSaveSlotRow(slot, title, SaveSlotNarrative.DescribeRow(result),
+                        AutoEraUiFormat.WorldTime(result.Record.WorldTimeMilliseconds), true, true);
                 case SaveSlotReadStatus.Corrupt:
                     return new UiSaveSlotRow(slot, title, "存档损坏，可尝试恢复", AutoEraUiFormat.Missing, true, true);
                 case SaveSlotReadStatus.NewerVersion:
@@ -304,6 +309,7 @@ namespace AutoEra.UI
 
             UiSaveSlotRow row = _rows[_selected];
             SaveSlotReadResult result = _service.Read(_selected);
+            SaveSlotBackupInfo? newest = SaveSlotNarrative.NewestUsable(_service.ListBackups(_selected));
 
             _metadata.Add(new UiDetailField("槽位", row.Title));
             _metadata.Add(new UiDetailField("摘要", row.Occupied ? row.Summary : AutoEraUiFormat.Missing));
@@ -311,22 +317,16 @@ namespace AutoEra.UI
             _metadata.Add(new UiDetailField("存档格式", result.IsSuccess
                 ? "版本 " + result.Record.Version.ToString(System.Globalization.CultureInfo.InvariantCulture)
                 : AutoEraUiFormat.Missing));
+            _metadata.Add(new UiDetailField("保存时间", result.IsSuccess
+                ? SaveSlotNarrative.DescribeBackupTime(result.Record)
+                : AutoEraUiFormat.Missing));
 
-            _health.Add(new UiDetailField("文件", DescribeFileState(result.Status)));
-            _health.Add(new UiDetailField("备份", result.Status == SaveSlotReadStatus.Success ? "主文件可用" : "可能需从备份恢复"));
+            _health.Add(new UiDetailField("文件", SaveSlotNarrative.DescribeStatus(result.Status)));
+            _health.Add(new UiDetailField("本次读取来源", SaveSlotNarrative.DescribeOrigin(result)));
+            _health.Add(new UiDetailField("可用备份", newest == null
+                ? "没有可用备份"
+                : "备份 " + newest.Value.Index + "（" + SaveSlotNarrative.DescribeBackupTime(newest.Value.Record) + "）"));
             _health.Add(new UiDetailField("可读取", result.IsSuccess ? "是" : "否"));
-        }
-
-        private static string DescribeFileState(SaveSlotReadStatus status)
-        {
-            switch (status)
-            {
-                case SaveSlotReadStatus.Success: return "正常";
-                case SaveSlotReadStatus.Empty: return "无存档";
-                case SaveSlotReadStatus.Corrupt: return "损坏";
-                case SaveSlotReadStatus.NewerVersion: return "版本过新";
-                default: return AutoEraUiFormat.Missing;
-            }
         }
 
         private static SaveSlotDomainSection ListSection => SaveSlotDomainSection.List;

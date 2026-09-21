@@ -32,7 +32,35 @@ public static class SettingExtension
 
     public static void SetMediaMute(this SettingComponent component, Const.SoundGroup group, bool isMuted)
     {
-        string groupName = group.ToString();
+        component.SetMediaMute(group.ToString(), isMuted);
+    }
+
+    public static bool GetMediaMute(this SettingComponent component, Const.SoundGroup group, bool defaultValue = true)
+    {
+        return component.GetMediaMute(group.ToString(), defaultValue);
+    }
+
+    public static void SetMediaVolume(this SettingComponent component, Const.SoundGroup group, float volume)
+    {
+        component.SetMediaVolume(group.ToString(), volume);
+    }
+
+    public static float GetMediaVolume(this SettingComponent component, Const.SoundGroup group, float defaultValue = 1f)
+    {
+        return component.GetMediaVolume(group.ToString(), defaultValue);
+    }
+
+    /// <summary>
+    /// 按**分组名**读写静音。名字版是枚举版的基础，也是数据表驱动的那条路
+    /// （`SoundGroupTable` 的行是名字，新增分组不该逼着框架层改枚举）。
+    /// </summary>
+    public static void SetMediaMute(this SettingComponent component, string groupName, bool isMuted)
+    {
+        if (component == null || string.IsNullOrWhiteSpace(groupName))
+        {
+            return;
+        }
+
         var soundGroup = GF.Sound.GetSoundGroup(groupName);
         if (soundGroup == null)
         {
@@ -43,14 +71,24 @@ public static class SettingExtension
         component.SetBool($"Sound.{groupName}.Mute", isMuted);
     }
 
-    public static bool GetMediaMute(this SettingComponent component, Const.SoundGroup group, bool defaultValue = true)
+    public static bool GetMediaMute(this SettingComponent component, string groupName, bool defaultValue = true)
     {
-        return component.GetBool($"Sound.{group}.Mute", defaultValue);
+        return component == null || string.IsNullOrWhiteSpace(groupName)
+            ? defaultValue
+            : component.GetBool($"Sound.{groupName}.Mute", defaultValue);
     }
 
-    public static void SetMediaVolume(this SettingComponent component, Const.SoundGroup group, float volume)
+    /// <summary>
+    /// 按**分组名**读写音量。注意这里写入的 `Sound.&lt;分组&gt;.Volume` 是**最终生效音量**
+    /// （主音量已经乘进去）——这样启动时把每一行读回来就能直接恢复，框架层不需要知道主音量的存在。
+    /// </summary>
+    public static void SetMediaVolume(this SettingComponent component, string groupName, float volume)
     {
-        string groupName = group.ToString();
+        if (component == null || string.IsNullOrWhiteSpace(groupName))
+        {
+            return;
+        }
+
         var soundGroup = GF.Sound.GetSoundGroup(groupName);
         if (soundGroup == null)
         {
@@ -61,8 +99,10 @@ public static class SettingExtension
         component.SetFloat($"Sound.{groupName}.Volume", volume);
     }
 
-    public static float GetMediaVolume(this SettingComponent component, Const.SoundGroup group, float defaultValue = 1f)
+    public static float GetMediaVolume(this SettingComponent component, string groupName, float defaultValue = 1f)
     {
-        return component.GetFloat($"Sound.{group}.Volume", defaultValue);
+        return component == null || string.IsNullOrWhiteSpace(groupName)
+            ? defaultValue
+            : component.GetFloat($"Sound.{groupName}.Volume", defaultValue);
     }
 }

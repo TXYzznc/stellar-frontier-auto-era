@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using AutoEra.Machines;
 
 namespace AutoEra.UI
@@ -43,6 +43,39 @@ namespace AutoEra.UI
             }
         }
 
+        /// <summary>
+        /// 一段时长（世界毫秒）的人读写法。
+        ///
+        /// 用在能源停机记录这类「持续了多久」上：不足一分钟按秒、不足一小时按分秒、
+        /// 再长按小时分钟——三档够用，也不会把 3 分 20 秒写成「200 秒」。
+        /// 负数按 0 处理（时钟回退或记录顺序异常时不要把负时长显示给玩家）。
+        /// </summary>
+        public static string Duration(long milliseconds)
+        {
+            long totalSeconds = milliseconds / 1000L;
+            if (totalSeconds < 0L) totalSeconds = 0L;
+
+            if (totalSeconds < 60L)
+            {
+                return totalSeconds.ToString(CultureInfo.InvariantCulture) + " 秒";
+            }
+
+            if (totalSeconds < 3600L)
+            {
+                long minutes = totalSeconds / 60L;
+                long seconds = totalSeconds % 60L;
+                return string.Concat(
+                    minutes.ToString(CultureInfo.InvariantCulture), " 分 ",
+                    seconds.ToString("00", CultureInfo.InvariantCulture), " 秒");
+            }
+
+            long hours = totalSeconds / 3600L;
+            long restMinutes = totalSeconds % 3600L / 60L;
+            return string.Concat(
+                hours.ToString(CultureInfo.InvariantCulture), " 小时 ",
+                restMinutes.ToString(CultureInfo.InvariantCulture), " 分");
+        }
+
         /// <summary>索引行的一句状态摘要：位置 + 运行态 + 异常提示。</summary>
         public static string MachineSummary(MachineInstance machine)
         {
@@ -54,5 +87,80 @@ namespace AutoEra.UI
             if (!machine.Connected && machine.Deployed) return placement + " · 无连接";
             return placement + " · " + run;
         }
+
+        /// <summary>
+        /// 槽位的人读名字（「核心槽 0」）。集中在这里是因为机器整备、硬件修改确认与组件选择器
+        /// 三处都要说同一个槽位——各写一份迟早会出现「核心槽 1」与「核心 1 号槽」两种说法。
+        /// </summary>
+        public static string Slot(HardwareKind kind, int index) => SlotKind(kind) + "槽 " + index;
+
+        /// <summary>硬件类别的中文名。</summary>
+        public static string SlotKind(HardwareKind kind) => kind switch
+        {
+            HardwareKind.Sensor => "传感器",
+            HardwareKind.Core => "核心",
+            HardwareKind.Effector => "执行器",
+            _ => "槽",
+        };
+
+        /// <summary>
+        /// 按键的人读名字。鼠标键在引擎里是 <c>KeyCode.Mouse0..2</c>，直接 ToString 会显示成
+        /// 「Mouse1」——玩家看到的是「鼠标右键」。
+        /// </summary>
+        public static string KeyLabel(UnityEngine.KeyCode key) => key switch
+        {
+            UnityEngine.KeyCode.Mouse0 => "鼠标左键",
+            UnityEngine.KeyCode.Mouse1 => "鼠标右键",
+            UnityEngine.KeyCode.Mouse2 => "鼠标中键",
+            UnityEngine.KeyCode.Escape => "Esc",
+            UnityEngine.KeyCode.Return => "Enter",
+            UnityEngine.KeyCode.Space => "空格",
+            UnityEngine.KeyCode.Tab => "Tab",
+            UnityEngine.KeyCode.Backspace => "退格",
+            UnityEngine.KeyCode.Delete => "Delete",
+            UnityEngine.KeyCode.LeftShift => "左 Shift",
+            UnityEngine.KeyCode.RightShift => "右 Shift",
+            UnityEngine.KeyCode.LeftControl => "左 Ctrl",
+            UnityEngine.KeyCode.RightControl => "右 Ctrl",
+            UnityEngine.KeyCode.LeftAlt => "左 Alt",
+            UnityEngine.KeyCode.RightAlt => "右 Alt",
+            UnityEngine.KeyCode.UpArrow => "方向键上",
+            UnityEngine.KeyCode.DownArrow => "方向键下",
+            UnityEngine.KeyCode.LeftArrow => "方向键左",
+            UnityEngine.KeyCode.RightArrow => "方向键右",
+            _ => key.ToString(),
+        };
+
+        /// <summary>警报等级的显示名（规格 15：提醒／警告／严重）。</summary>
+        public static string AlertSeverity(Alerts.AlertSeverity severity) => severity switch
+        {
+            Alerts.AlertSeverity.Critical => "严重",
+            Alerts.AlertSeverity.Warning => "警告",
+            _ => "提醒",
+        };
+
+        /// <summary>硬件修改被领域拒绝时的可展示原因。</summary>
+        public static string ManagementResult(MachineManagementResult result) => result switch
+        {
+            MachineManagementResult.Completed => "已完成",
+            MachineManagementResult.WaitingForSafeStop => "等待安全停机",
+            MachineManagementResult.MustStop => "机器还没有停下来",
+            MachineManagementResult.InvalidOrigin => "来源不允许：整备环境只接受库来源，现场只接受现场来源",
+            MachineManagementResult.InvalidSlot => "槽位不存在",
+            MachineManagementResult.Occupied => "槽位已经被占用",
+            MachineManagementResult.AlreadyInstalled => "该组件已经装在别的槽位上",
+            MachineManagementResult.MissingComponent => "槽位里没有组件",
+            MachineManagementResult.CapacityInUse => "卸下会低于当前已用容量",
+            MachineManagementResult.ComputeInUse => "卸下会低于已保留的算力",
+            MachineManagementResult.LogicCapacityInUse => "卸下会低于已应用的逻辑算力",
+            MachineManagementResult.Destroyed => "机器已损坏",
+            MachineManagementResult.NotDeployed => "机器尚未部署",
+            MachineManagementResult.NotActivated => "机器尚未激活",
+            MachineManagementResult.Disconnected => "机器没有连接",
+            MachineManagementResult.CoreHasNoSwitch => "该核心没有独立开关",
+            MachineManagementResult.RepairRequired => "需要先修复",
+            MachineManagementResult.InvalidState => "机器当前状态不允许修改硬件",
+            _ => "修改未通过",
+        };
     }
 }

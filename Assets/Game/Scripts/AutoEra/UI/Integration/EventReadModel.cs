@@ -1,7 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using AutoEra.Energy;
 using AutoEra.Events;
+using AutoEra.Machines;
+using AutoEra.World;
 using AutoEra.World.Identity;
+using AutoEra.World.Region;
 
 namespace AutoEra.UI
 {
@@ -162,6 +166,11 @@ namespace AutoEra.UI
     internal sealed class EventReadModel : IEventReadModel
     {
         private readonly EventJournal _journal;
+        private readonly AutoEraWorldSession _world;
+        private readonly InitialRegion _region;
+
+        /// <summary>区域电网：只用于把设施身份翻译成名字，不参与任何结算。</summary>
+        private readonly RegionEnergyService _energyService;
         private readonly List<EventJournalRecord> _records = new List<EventJournalRecord>(128);
         private readonly List<UiEventRow> _all = new List<UiEventRow>(128);
         private readonly List<UiEventRow> _machines = new List<UiEventRow>(64);
@@ -172,9 +181,17 @@ namespace AutoEra.UI
         private ulong _selected;
         private bool _disposed;
 
-        public EventReadModel(EventJournal journal)
+        /// <summary>
+        /// 世界会话与区域只用于**把 Id 翻译成名字**（以及算活跃事件的持续时长）。
+        /// 传 null 也能工作——那时对象名显示为「—」而不是编一个名字。
+        /// </summary>
+        public EventReadModel(EventJournal journal, AutoEraWorldSession world = null,
+            InitialRegion region = null, RegionEnergyService energy = null)
         {
             _journal = journal ?? throw new ArgumentNullException(nameof(journal));
+            _world = world;
+            _region = region;
+            _energyService = energy;
             Refresh();
         }
 
@@ -199,11 +216,16 @@ namespace AutoEra.UI
             for (int i = 0; i < _records.Count; i++)
             {
                 EventJournalRecord record = _records[i];
+                // 能源事件的「动作」在日志里是稳定的种类名（生产侧与读取侧共用
+                // EnergyEventText 的常量）；列表行补上对象名，否则多台机器时这一行读不出是谁。
+                string action = record.Domain == EventDomain.Energy
+                    ? DescribeEnergyAction(record)
+                    : record.Action;
                 var row = new UiEventRow(
                     record.Sequence,
                     record.Kind == EventKind.Command ? "命令" : "事实",
                     DescribeDomain(record.Domain),
-                    record.Action,
+                    action,
                     AutoEraUiFormat.WorldTime(record.WorldMilliseconds),
                     DescribeOutcome(record.Terminal, record.Outcome),
                     record.Terminal,
@@ -221,8 +243,12 @@ namespace AutoEra.UI
                         // 机器做的事以任务与执行两类事实记账；机器历史的两个来源都收在这里。
                         _machines.Add(row);
                         break;
+                    case EventDomain.Energy:
+                        // 电网自己产生的离散事件（缺电停机／恢复、电量耗尽／恢复、燃料耗尽、供电缺口）。
+                        _energy.Add(row);
+                        break;
                     case EventDomain.Resource:
-                        // 资源域目前与能源无对应关系（事件分类里没有能源域），因此不进能源列表。
+                        // 资源域与能源域是两件事：资源产出不得冒充能源事件。
                         break;
                     default:
                         break;
@@ -348,6 +374,147 @@ namespace AutoEra.UI
             {
                 _detail.Add(new UiDetailField("追溯", "该记录没有可追溯的关联链"));
             }
+
+            AppendEnergyDetail(record);
+        }
+
+        // ---------------------------------------------------------------- 能源事件
+
+        /// <summary>
+        /// 能源事件的详情（规格 15「能源停机记录」的事件详情区：时间、对象、持续时长、原因、
+        /// 影响、活跃或已恢复）。
+        ///
+        /// 「活跃或已恢复」和「持续时长」都不能从单条记录读出来——日志里存的是一次状态跨越，
+        /// 所以这里把**同一主体、同一事件种类的停供记录**与它后面第一条对应的恢复记录配对。
+        /// 配不到恢复记录就是「活跃」，时长按世界时钟算到当前时刻。
+        /// 燃料耗尽与供电缺口没有恢复事件（补充燃料、扩容都还没实现），因此如实恒为「活跃」。
+        /// </summary>
+        private void AppendEnergyDetail(EventJournalRecord record)
+        {
+            EnergyEventKind? parsed = EnergyEventText.Parse(record.Action);
+            if (!parsed.HasValue)
+            {
+                return;
+            }
+
+            EnergyEventKind kind = parsed.Value;
+            _detail.Add(new UiDetailField("对象", DescribeSubject(record.Source)));
+
+            if (EnergyEventText.IsRecovery(kind))
+            {
+                long start = FindPrecedingStop(record, kind);
+                _detail.Add(new UiDetailField("状态", "已恢复"));
+                _detail.Add(new UiDetailField("持续时长", start >= 0
+                    ? AutoEraUiFormat.Duration(record.WorldMilliseconds - start)
+                    : AutoEraUiFormat.Missing + "（这条记录之前的那次停供已经不在日志里）"));
+            }
+            else
+            {
+                long end = EnergyEventText.RecoveryOf(kind).HasValue ? FindFollowingRecovery(record, kind) : -1L;
+                _detail.Add(new UiDetailField("状态", end >= 0 ? "已恢复" : "活跃"));
+                _detail.Add(new UiDetailField("持续时长", end >= 0
+                    ? AutoEraUiFormat.Duration(end - record.WorldMilliseconds)
+                    : AutoEraUiFormat.Duration(NowMilliseconds(record) - record.WorldMilliseconds) + "（至今，仍在持续）"));
+            }
+
+            _detail.Add(new UiDetailField("原因", EnergyEventText.Reason(kind)));
+            _detail.Add(new UiDetailField("影响", EnergyEventText.Impact(kind)));
+        }
+
+        /// <summary>列表行上的能源事件：种类 + 对象名（名字取不到时只留种类，不编造）。</summary>
+        private string DescribeEnergyAction(EventJournalRecord record)
+        {
+            string name = ResolveObjectName(record.Source);
+            return string.IsNullOrEmpty(name) ? record.Action : record.Action + " · " + name;
+        }
+
+        private string DescribeSubject(PersistentId id)
+        {
+            if (!id.IsValid)
+            {
+                // 电量与供电缺口是区域级事件：没有单一设施主体时如实说是合计口径。
+                return "本区域储能／电网（合计）";
+            }
+
+            return ResolveObjectName(id) ?? "对象已不在区域里（身份 " + AutoEraUiFormat.Count((int)Math.Min(id.Value, int.MaxValue)) + "）";
+        }
+
+        /// <summary>机器取花名册名；其次区域对象名；再次是场景声明的设施名。都取不到返回 null。</summary>
+        private string ResolveObjectName(PersistentId id)
+        {
+            if (!id.IsValid) return null;
+
+            if (_world != null && _world.Machines != null &&
+                _world.Machines.TryGet(id, out MachineInstance machine))
+            {
+                return machine.Name;
+            }
+
+            if (_region != null && _region.IsActive && _region.TryGet(id, out RegionObject model) &&
+                !string.IsNullOrEmpty(model.Name))
+            {
+                return model.Name;
+            }
+
+            if (_energyService != null)
+            {
+                IReadOnlyList<RegionEnergyFacility> facilities = _energyService.Facilities;
+                for (int i = 0; i < facilities.Count; i++)
+                {
+                    if (facilities[i] != null && facilities[i].ObjectId == id) return facilities[i].DisplayName;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>停供事件之后，同一主体上第一条对应的恢复记录；没有则 -1。</summary>
+        private long FindFollowingRecovery(EventJournalRecord stop, EnergyEventKind kind)
+        {
+            EnergyEventKind recovery = EnergyEventText.RecoveryOf(kind) ?? kind;
+            for (int i = 0; i < _records.Count; i++)
+            {
+                EventJournalRecord candidate = _records[i];
+                if (candidate.Sequence <= stop.Sequence) continue;
+                if (candidate.Domain != EventDomain.Energy) continue;
+                if (candidate.Source != stop.Source) continue;
+                if (EnergyEventText.Parse(candidate.Action) != recovery) continue;
+                return candidate.WorldMilliseconds;
+            }
+
+            return -1L;
+        }
+
+        /// <summary>恢复事件之前，同一主体上最后一次停供记录的时间；没有则 -1。</summary>
+        private long FindPrecedingStop(EventJournalRecord recovery, EnergyEventKind kind)
+        {
+            EnergyEventKind stop = EnergyEventText.StopOf(kind) ?? kind;
+            long found = -1L;
+            for (int i = 0; i < _records.Count; i++)
+            {
+                EventJournalRecord candidate = _records[i];
+                if (candidate.Sequence >= recovery.Sequence) break;
+                if (candidate.Domain != EventDomain.Energy) continue;
+                if (candidate.Source != recovery.Source) continue;
+                if (EnergyEventText.Parse(candidate.Action) != stop) continue;
+                found = candidate.WorldMilliseconds;
+            }
+
+            return found;
+        }
+
+        /// <summary>「现在」：优先用世界时钟；没有会话（单元测试）时退回到最新一条记录的时间。</summary>
+        private long NowMilliseconds(EventJournalRecord record)
+        {
+            if (_world != null && _world.IsActive) return _world.Clock.WorldMilliseconds;
+
+            long latest = record.WorldMilliseconds;
+            for (int i = 0; i < _records.Count; i++)
+            {
+                if (_records[i].WorldMilliseconds > latest) latest = _records[i].WorldMilliseconds;
+            }
+
+            return latest;
         }
 
         private static bool ContainsSequence(List<EventJournalRecord> records, ulong sequence)
@@ -372,6 +539,7 @@ namespace AutoEra.UI
                 case EventDomain.Effector: return "执行";
                 case EventDomain.Resource: return "资源";
                 case EventDomain.Alert: return "警报";
+                case EventDomain.Energy: return "能源";
                 default: return domain.ToString();
             }
         }
@@ -397,11 +565,12 @@ namespace AutoEra.UI
     public static class EventReadModels
     {
         /// <summary>
-        /// 能源历史当前没有数据来源：事件分类（<see cref="EventDomain"/>）只有任务／算法／执行／资源／警报，
-        /// **没有能源域**——能源系统本身也还没接入。界面据此说明，而不是拿资源域凑数。
+        /// 能源历史**已经接上真实数据**：能源域由区域电网在每次结算后写入离散事件
+        /// （缺电停机／恢复、电量耗尽／恢复、燃料耗尽、供电缺口）。
+        /// 这一句是「区域里还没有发生过任何能源事件」时的说明，不是「没有数据来源」。
         /// </summary>
-        public const string EnergyHistoryUnavailable =
-            "能源历史暂不可用：事件分类里没有能源域，能源系统本身也尚未接入；这里不拿资源域冒充能源。";
+        public const string EnergyHistoryEmpty =
+            "这个区域还没有能源事件：缺电停机、电量耗尽、燃料耗尽这类状态跨越发生后会记在这里。";
 
         public static IEventReadModel Create(AutoEraUiSession session)
         {
@@ -420,7 +589,10 @@ namespace AutoEra.UI
                 return new UnavailableEventReadModel("事件服务未接入：本页无法读取记录。");
             }
 
-            return new EventReadModel(session.World.Events.Journal);
+            // 世界会话与区域一起传进去：它们只用于把记录里的对象 Id 翻译成名字，
+            // 以及算活跃事件「至今持续了多久」。缺了也能工作，只是名字显示为占位符。
+            return new EventReadModel(session.World.Events.Journal, session.World,
+                session.HasRegion ? session.Region : null, session.RegionEnergy);
         }
     }
 }

@@ -19,6 +19,16 @@ namespace AutoEra.UI
         public Button BackButton => _backButton;
         [SerializeField] private Button _closeButton;
         public Button CloseButton => _closeButton;
+        [SerializeField] private Button _hubOverviewEnergyButton;
+        public Button HubOverviewEnergyButton => _hubOverviewEnergyButton;
+        [SerializeField] private Button _hubEnergyConfigureButton;
+        public Button HubEnergyConfigureButton => _hubEnergyConfigureButton;
+        [SerializeField] private Toggle _hubEnergyChargingAllowedToggle;
+        public Toggle HubEnergyChargingAllowedToggle => _hubEnergyChargingAllowedToggle;
+        [SerializeField] private Slider _hubEnergyChargeTargetSlider;
+        public Slider HubEnergyChargeTargetSlider => _hubEnergyChargeTargetSlider;
+        [SerializeField] private Button _hubEnergyHistoryButton;
+        public Button HubEnergyHistoryButton => _hubEnergyHistoryButton;
         [SerializeField] private RectTransform _hubOverviewEconomyContent;
         public RectTransform HubOverviewEconomyContent => _hubOverviewEconomyContent;
         [SerializeField] private TMP_Text _hubOverviewEconomyBody;

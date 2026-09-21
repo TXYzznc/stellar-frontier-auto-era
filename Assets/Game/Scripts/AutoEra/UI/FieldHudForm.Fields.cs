@@ -79,6 +79,18 @@ namespace AutoEra.UI
         public Button HudAlertsOpenButton => _hudAlertsOpenButton;
         [SerializeField] private Button _hudTrackerTaskButton;
         public Button HudTrackerTaskButton => _hudTrackerTaskButton;
+        [SerializeField] private Button _machineOverviewFocusButton;
+        public Button MachineOverviewFocusButton => _machineOverviewFocusButton;
+        [SerializeField] private Button _farmFocusButton;
+        public Button FarmFocusButton => _farmFocusButton;
+        [SerializeField] private Button _forestFocusButton;
+        public Button ForestFocusButton => _forestFocusButton;
+        [SerializeField] private Button _mineralFocusButton;
+        public Button MineralFocusButton => _mineralFocusButton;
+        [SerializeField] private Button _waterFocusButton;
+        public Button WaterFocusButton => _waterFocusButton;
+        [SerializeField] private Button _buildingOverviewFocusButton;
+        public Button BuildingOverviewFocusButton => _buildingOverviewFocusButton;
         [SerializeField] private RectTransform _machineOverviewIdentityContent;
         public RectTransform MachineOverviewIdentityContent => _machineOverviewIdentityContent;
         [SerializeField] private TMP_Text _machineOverviewIdentityBody;
