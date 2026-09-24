@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using AutoEra.Algorithms;
 
 namespace AutoEra.UI
@@ -139,6 +140,118 @@ namespace AutoEra.UI
         public void Dispose() { }
     }
 
+    /// <summary>基于 <see cref="AlgorithmTemplateLibrary"/> 的只读实现。模板库无变化事件，列表在构造/Refresh 时重建。</summary>
+    internal sealed class AlgorithmReadModel : IAlgorithmReadModel
+    {
+        private readonly AlgorithmTemplateLibrary _library;
+        private readonly List<UiAlgorithmTemplateRow> _rows = new List<UiAlgorithmTemplateRow>();
+        private readonly List<UiDetailField> _detail = new List<UiDetailField>(16);
+        private AlgorithmDomainSnapshot _snapshot;
+        private int _selected = -1;
+        private bool _disposed;
+
+        public AlgorithmReadModel(AlgorithmTemplateLibrary library)
+        {
+            _library = library ?? throw new ArgumentNullException(nameof(library));
+            Rebuild();
+        }
+
+        public AlgorithmDomainSnapshot Snapshot => _snapshot;
+
+        public event Action<AlgorithmDomainSection> Changed;
+
+        public int SelectedIndex => _selected;
+
+        public void Refresh()
+        {
+            if (_disposed) return;
+            Rebuild();
+            // 刷新后选中可能失效：索引越界即清掉，不自动改选其它模板。
+            if (_selected >= _rows.Count) _selected = -1;
+            RebuildDetail();
+            Changed?.Invoke(AlgorithmDomainSection.List);
+        }
+
+        public bool Select(ulong templateId)
+        {
+            if (_disposed) return false;
+            int index = IndexOf(templateId);
+            if (index < 0) return false;
+            if (_selected == index) return true;
+            _selected = index;
+            RebuildDetail();
+            Changed?.Invoke(AlgorithmDomainSection.Detail);
+            return true;
+        }
+
+        public void ClearSelection()
+        {
+            if (_disposed || _selected < 0) return;
+            _selected = -1;
+            RebuildDetail();
+            Changed?.Invoke(AlgorithmDomainSection.Detail);
+        }
+
+        public void Dispose()
+        {
+            if (_disposed) return;
+            _disposed = true;
+            Changed = null;
+            _rows.Clear();
+            _detail.Clear();
+        }
+
+        private int IndexOf(ulong templateId)
+        {
+            for (int i = 0; i < _rows.Count; i++)
+            {
+                if (_rows[i].Id == templateId) return i;
+            }
+            return -1;
+        }
+
+        private void Rebuild()
+        {
+            _rows.Clear();
+            foreach (AlgorithmTemplateInfo info in _library.List())
+            {
+                _rows.Add(new UiAlgorithmTemplateRow(info.Id, info.Name, "v" + info.Version, info.IsSystem));
+            }
+            PublishState();
+        }
+
+        private void RebuildDetail()
+        {
+            _detail.Clear();
+            if (_selected >= 0 && _selected < _rows.Count)
+            {
+                AppendDetail(_rows[_selected]);
+            }
+            PublishState();
+        }
+
+        private void AppendDetail(UiAlgorithmTemplateRow row)
+        {
+            _detail.Add(new UiDetailField("名称", row.Name));
+            _detail.Add(new UiDetailField("版本", row.Version));
+            _detail.Add(new UiDetailField("类型", row.IsSystem ? "系统模板" : "玩家模板"));
+            if (_library.TryGetDocument(row.Id, out AlgorithmDocument document))
+            {
+                _detail.Add(new UiDetailField("节点", document.Nodes.Count.ToString(CultureInfo.InvariantCulture)));
+                _detail.Add(new UiDetailField("连线", document.Edges.Count.ToString(CultureInfo.InvariantCulture)));
+                _detail.Add(new UiDetailField("逻辑成本",
+                    AlgorithmValidator.TryCompile(document, int.MaxValue, out AlgorithmPlan plan, out _, true)
+                        ? plan.LogicCost.ToString(CultureInfo.InvariantCulture) : "—"));
+            }
+        }
+
+        private void PublishState()
+        {
+            _snapshot = new AlgorithmDomainSnapshot(_rows.Count == 0 ? UiDataState.Empty : UiDataState.Ready, null,
+                _rows, _detail, _selected);
+        }
+    }
+
     /// <summary>算法界面的统一入口：把「算法域为什么不可用」讲清楚。</summary>
     public static class AlgorithmReadModels
     {
@@ -159,8 +272,7 @@ namespace AutoEra.UI
                 return new UnavailableAlgorithmReadModel("算法属于某个世界里的机器，请先从主菜单进入区域。");
             }
 
-            // 世界已就绪，但算法域的服务还没有被世界或区域创建——原因由常量给出，界面直接展示。
-            return new UnavailableAlgorithmReadModel(NotWiredReason);
+            return new AlgorithmReadModel(session.World.AlgorithmTemplates);
         }
     }
 }

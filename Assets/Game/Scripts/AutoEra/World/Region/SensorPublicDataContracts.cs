@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using AutoEra.Machines.Sensors;
@@ -42,13 +42,16 @@ namespace AutoEra.World.Region
         public string PublicStatus { get; }
         public long? ResourceAmount { get; }
         public bool Infinite { get; }
+        public long? CachedAmount { get; }
+        public long? CacheCapacity { get; }
         public IReadOnlyList<SoilCellReadout> Soil { get; }
         public IReadOnlyList<CropCellReadout> Crops { get; }
         public SensorSnapshot(long version, string publicStatus = null, long? resourceAmount = null, bool infinite = false,
-            SoilCellReadout[] soil = null, CropCellReadout[] crops = null)
+            SoilCellReadout[] soil = null, CropCellReadout[] crops = null, long? cachedAmount = null, long? cacheCapacity = null)
         {
-            if (version < 0 || resourceAmount < 0 || (infinite && resourceAmount.HasValue)) throw new ArgumentException("Invalid snapshot.");
+            if (version < 0 || resourceAmount < 0 || (infinite && resourceAmount.HasValue) || cachedAmount < 0 || cacheCapacity < 0) throw new ArgumentException("Invalid snapshot.");
             Version = version; PublicStatus = publicStatus; ResourceAmount = resourceAmount; Infinite = infinite;
+            CachedAmount = cachedAmount; CacheCapacity = cacheCapacity;
             if (soil != null)
             {
                 var ids = new HashSet<long>(); foreach (var cell in soil) if (cell.Id <= 0 || !ids.Add(cell.Id)) throw new ArgumentException("Duplicate soil ID.");

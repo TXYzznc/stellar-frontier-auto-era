@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using AutoEra.Algorithms;
 using AutoEra.Machines;
 using AutoEra.World.Identity;
@@ -15,6 +15,8 @@ namespace AutoEra.Tests.Editor
             public ulong Submit(AlgorithmTrigger trigger, AlgorithmIntent intent) { Commands++; return trigger.TaskId; }
             public void EndBatch(AlgorithmTrigger trigger) { }
             public void Cancel() { Cancellations++; }
+            public bool TryReadCargo(string field, string itemType, out AlgorithmValue value) { value = null; return false; }
+            public bool TryQueryTask(string name, out AlgorithmValue task) { task = null; return false; }
         }
         internal static AlgorithmDocument Graph(bool divideByZero = false)
         {

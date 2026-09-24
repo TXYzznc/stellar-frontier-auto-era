@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using AutoEra.Machines;
 using AutoEra.World.Identity;
@@ -13,6 +13,10 @@ namespace AutoEra.Algorithms
         ulong Submit(AlgorithmTrigger trigger, AlgorithmIntent intent);
         void EndBatch(AlgorithmTrigger trigger);
         void Cancel();
+        /// <summary>读取本机货舱字段（DEC-111）：capacity/remaining/has_item。无实现时返回 false。</summary>
+        bool TryReadCargo(string field, string itemType, out AlgorithmValue value);
+        /// <summary>按名称查询本机未结束任务（DEC-123 显式防重）。无实现时返回 false。</summary>
+        bool TryQueryTask(string name, out AlgorithmValue task);
     }
     public sealed class AlgorithmRunRecord
     {
@@ -86,8 +90,11 @@ namespace AutoEra.Algorithms
             if (!instanceId.IsValid) throw new ArgumentException(nameof(instanceId));
             _instanceId = instanceId; _plan = plan ?? throw new ArgumentNullException(nameof(plan));
             _compute = compute ?? throw new ArgumentNullException(nameof(compute)); _sink = sink ?? throw new ArgumentNullException(nameof(sink));
-            _evaluator = new AlgorithmEvaluation(plan);
+            _evaluator = NewEvaluator(plan);
         }
+        private AlgorithmEvaluation NewEvaluator(AlgorithmPlan plan) => new AlgorithmEvaluation(plan,
+            (field, itemType) => _sink.TryReadCargo(field, itemType, out var value) ? value : null,
+            name => _sink.TryQueryTask(name, out var task) ? task : null);
         public bool Enqueue(AlgorithmTrigger trigger)
         {
             if (_disposed || Invalid || trigger == null || trigger.Revision != Revision || trigger.Generation != Generation) return false;
@@ -203,7 +210,7 @@ namespace AutoEra.Algorithms
         public bool Replace(AlgorithmPlan plan, bool preserveState)
         {
             if (_disposed || !IsSafe || plan == null || plan.Revision <= Revision) return false;
-            _plan = plan; _evaluator = new AlgorithmEvaluation(plan); Generation++; _events.Clear();
+            _plan = plan; _evaluator = NewEvaluator(plan); Generation++; _events.Clear();
             if (!preserveState) { ReleaseResidents(); _state.Clear(); _delays.Clear(); }
             else foreach (var delay in _delays) { delay.Trigger.Revision = Revision; delay.Trigger.Generation = Generation; }
             Invalid = false; LastReason = null; AppliedChanged?.Invoke(); return true;
@@ -227,7 +234,7 @@ namespace AutoEra.Algorithms
             if (_disposed || !IsSafe || snapshot == null || snapshot.Instance != InstanceId.Value || now < 0 ||
                 !AlgorithmValidator.TryCompile(snapshot.Applied, _compute.LogicCapacity, out var plan, out _)) return false;
             foreach (long remaining in snapshot.Remaining) if (remaining > long.MaxValue - now) return false;
-            CancelPending(); _plan = plan; _evaluator = new AlgorithmEvaluation(plan);
+            CancelPending(); _plan = plan; _evaluator = NewEvaluator(plan);
             Generation = Math.Max(Generation, snapshot.Generation) + 1;
             ReleaseResidents(); _state.Clear(); foreach (var item in snapshot.State) _state.Add(item.Key, item.Value.Copy());
             foreach (var item in snapshot.Events) { var copy = item.Copy(); copy.Generation = Generation; _events.Enqueue(copy); }

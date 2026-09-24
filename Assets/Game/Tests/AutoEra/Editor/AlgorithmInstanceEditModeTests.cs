@@ -1,4 +1,4 @@
-﻿using AutoEra.Algorithms;
+using AutoEra.Algorithms;
 using AutoEra.Machines;
 using AutoEra.World.Identity;
 using NUnit.Framework;
@@ -8,7 +8,7 @@ namespace AutoEra.Tests.Editor
     public sealed class AlgorithmInstanceEditModeTests
     {
         private sealed class Sink : IAlgorithmCommandSink
-        { public bool Safe=true; public bool IsSafe=>Safe; public ulong Submit(AlgorithmTrigger t,AlgorithmIntent i)=>t.TaskId; public void EndBatch(AlgorithmTrigger t){} public void Cancel(){} }
+        { public bool Safe=true; public bool IsSafe=>Safe; public ulong Submit(AlgorithmTrigger t,AlgorithmIntent i)=>t.TaskId; public void EndBatch(AlgorithmTrigger t){} public void Cancel(){} public bool TryReadCargo(string f,string i2,out AlgorithmValue v){v=null;return false;} public bool TryQueryTask(string n,out AlgorithmValue t){t=null;return false;} }
         private static AlgorithmRuntime Runtime(ulong id,MachineComputePool pool,Sink sink)
         {
             var g=AlgorithmExecutionEditModeTests.Graph(); g.DocumentId=id; g.Nodes[1].Kind=AlgorithmNodeKind.Parameter;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using AutoEra.Events;
 using AutoEra.World.Identity;
@@ -83,6 +83,15 @@ namespace AutoEra.Machines
             return true;
         }
         public bool TryGet(PersistentId id, out MachineTaskRecord task) => _live.TryGetValue(id, out task);
+        /// <summary>按名称查询未结束任务（DEC-123 显式防重）；终止态（完成/失败/取消）不计。</summary>
+        public bool TryFindActive(string name, out MachineTaskRecord task)
+        {
+            task = null;
+            foreach (var candidate in _live.Values)
+                if (candidate.Name == name && candidate.State != MachineTaskState.Completed && candidate.State != MachineTaskState.Failed && candidate.State != MachineTaskState.Cancelled)
+                { task = candidate; return true; }
+            return false;
+        }
         public bool AddActivity(PersistentId id)
         {
             if (!_live.TryGetValue(id, out var task) || task.State != MachineTaskState.Running || task.ChainClosed) return false;
@@ -159,6 +168,21 @@ namespace AutoEra.Machines
         internal BehaviorRequest(PersistentId id, PersistentId task, PersistentId algorithm, PersistentId node,
             PersistentObjectReference target, WorkPriority priority, InterruptionRule interruption, TParameters parameters)
         { Id = id; TaskId = task; AlgorithmId = algorithm; NodeId = node; Target = target; Priority = priority; Interruption = interruption; Parameters = parameters; }
+    }
+
+    /// <summary>
+    /// 第一版效应器行为统一参数：算法层桥接到效应器队列的弱类型载体。
+    /// 强类型动作参数契约（每种动作专属 struct）在效应器行为契约变更中定义；这里先承载动作类型、目标与数值参数，
+    /// 使「算法图 → 效应器队列」链路可接通，效应器物理执行器独立消费 <see cref="BehaviorRequest{TParameters}"/>。
+    /// </summary>
+    public sealed class EffectorBehaviorParameters
+    {
+        public string Action;
+        public PersistentObjectReference Target;
+        public readonly Dictionary<string, double> Numbers = new Dictionary<string, double>();
+        public int Enumeration;
+        public bool Flag;
+        public EffectorBehaviorParameters(string action) { Action = action; }
     }
 
     /// <summary>One installed active effector. The parameter type belongs to that action, never to an algorithm graph.</summary>

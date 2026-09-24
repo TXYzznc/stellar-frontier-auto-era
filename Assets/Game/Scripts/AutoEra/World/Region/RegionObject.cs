@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using AutoEra.World.Identity;
 using UnityEngine;
 
@@ -27,6 +27,8 @@ namespace AutoEra.World.Region
         public string PublicStatus { get; private set; } = "待机";
         public long? PublicResourceAmount { get; private set; }
         public bool ResourceIsInfinite { get; private set; }
+        public long? PublicCachedAmount { get; private set; }
+        public long? PublicCacheCapacity { get; private set; }
         public string WorkSummary { get; private set; } = string.Empty;
         private readonly System.Collections.Generic.SortedDictionary<string, string> _workChannels = new System.Collections.Generic.SortedDictionary<string, string>(StringComparer.Ordinal);
         public event Action<RegionObject> Changed;
@@ -46,11 +48,12 @@ namespace AutoEra.World.Region
             Changed?.Invoke(this);
         }
 
-        public void SetPublicState(string status, long? resourceAmount = null, bool infinite = false)
+        public void SetPublicState(string status, long? resourceAmount = null, bool infinite = false, long? cachedAmount = null, long? cacheCapacity = null)
         {
-            if (string.IsNullOrWhiteSpace(status) || resourceAmount < 0 || (infinite && resourceAmount.HasValue))
+            if (string.IsNullOrWhiteSpace(status) || resourceAmount < 0 || (infinite && resourceAmount.HasValue) || cachedAmount < 0 || cacheCapacity < 0)
                 throw new ArgumentException("Invalid public state.");
             PublicStatus = status; PublicResourceAmount = resourceAmount; ResourceIsInfinite = infinite;
+            PublicCachedAmount = cachedAmount; PublicCacheCapacity = cacheCapacity;
             Changed?.Invoke(this);
         }
     }

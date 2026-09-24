@@ -1,11 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace AutoEra.Algorithms
 {
     public enum AlgorithmValueKind { Boolean, Number, Enumeration, Object, Objects, Position, Event, Communication, SoilGrid, CropGrid, TreeGrid }
-    public enum AlgorithmNodeKind { Constant, Parameter, Input, Startup, Arithmetic, Compare, Boolean, Branch, Merge, Variable, SetVariable, Delay, Navigate, Log }
-    public enum AlgorithmOperator { Add, Subtract, Multiply, Divide, Minimum, Maximum, Equal, NotEqual, Less, Greater, And, Or, Not }
+    public enum AlgorithmNodeKind { Constant, Parameter, Input, Startup, Arithmetic, Compare, Boolean, Branch, Merge, Variable, SetVariable, Delay, Navigate, Effector, SubmitTask, QueryTask, CancelTask, Hysteresis, Log, Cargo }
+    public enum AlgorithmOperator { Add, Subtract, Multiply, Divide, Minimum, Maximum, Equal, NotEqual, Less, Greater, LessOrEqual, GreaterOrEqual, And, Or, Not }
+    public enum AlgorithmEffectorAction { Spray, ModifySpray, StopSpray, Sow, Harvest, Clean, Transfer, Cut, Drill }
 
     [Serializable]
     public sealed class AlgorithmType
@@ -47,10 +48,12 @@ namespace AutoEra.Algorithms
         public AlgorithmValue Default;
         public string BindingKey = "";
         public string StateKey = "";
+        public string Field = "resource";
+        public AlgorithmEffectorAction Action;
         public bool Deleted;
         public float LayoutX, LayoutY;
         public AlgorithmNode Copy() => new AlgorithmNode { Id = Id, Kind = Kind, Operator = Operator, ValueType = ValueType?.Copy(),
-            Default = Default?.Copy(), BindingKey = BindingKey, StateKey = StateKey, Deleted = Deleted, LayoutX = LayoutX, LayoutY = LayoutY };
+            Default = Default?.Copy(), BindingKey = BindingKey, StateKey = StateKey, Field = Field, Action = Action, Deleted = Deleted, LayoutX = LayoutX, LayoutY = LayoutY };
     }
 
     [Serializable]

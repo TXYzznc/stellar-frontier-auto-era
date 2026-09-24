@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace AutoEra.Algorithms
@@ -77,7 +77,7 @@ namespace AutoEra.Algorithms
                     issues.Add(new AlgorithmIssue("ArithmeticOperator", node.Id));
                 if (node.Kind == AlgorithmNodeKind.Arithmetic && (node.Operator == AlgorithmOperator.Multiply || node.Operator == AlgorithmOperator.Divide) && !string.IsNullOrEmpty(node.ValueType.Unit))
                     issues.Add(new AlgorithmIssue("UnsupportedCompoundDimension", node.Id));
-                if (node.Kind == AlgorithmNodeKind.Compare && (node.Operator < AlgorithmOperator.Equal || node.Operator > AlgorithmOperator.Greater ||
+                if (node.Kind == AlgorithmNodeKind.Compare && (node.Operator < AlgorithmOperator.Equal || node.Operator > AlgorithmOperator.GreaterOrEqual ||
                     (node.ValueType.Kind != AlgorithmValueKind.Number && node.ValueType.Kind != AlgorithmValueKind.Enumeration && node.ValueType.Kind != AlgorithmValueKind.Object)))
                     issues.Add(new AlgorithmIssue("ComparisonOperator", node.Id));
                 if (node.Kind == AlgorithmNodeKind.Compare && node.ValueType.Kind != AlgorithmValueKind.Number && node.Operator != AlgorithmOperator.Equal && node.Operator != AlgorithmOperator.NotEqual)
@@ -89,6 +89,13 @@ namespace AutoEra.Algorithms
                     else if (stateTypes.TryGetValue(node.StateKey, out var stateType) && (!AlgorithmCatalog.Compatible(stateType,node.ValueType)||!AlgorithmCatalog.Compatible(node.ValueType,stateType))) issues.Add(new AlgorithmIssue("StateTypeMismatch",node.Id));
                     else stateTypes[node.StateKey] = node.ValueType;
                 }
+                if (node.Kind == AlgorithmNodeKind.Hysteresis)
+                {
+                    if (string.IsNullOrEmpty(node.StateKey)) issues.Add(new AlgorithmIssue("StateKeyMissing", node.Id));
+                    else if (stateTypes.TryGetValue(node.StateKey, out var hysteresisType) && hysteresisType.Kind != AlgorithmValueKind.Boolean)
+                        issues.Add(new AlgorithmIssue("StateTypeMismatch", node.Id));
+                    else stateTypes[node.StateKey] = AlgorithmType.Of(AlgorithmValueKind.Boolean);
+                }
                 if (node.Kind == AlgorithmNodeKind.Constant || node.Kind == AlgorithmNodeKind.Parameter || node.Kind == AlgorithmNodeKind.Variable)
                     if (node.Default == null || !AlgorithmCatalog.Compatible(node.Default.Type, node.ValueType) || !Finite(node.Default)) issues.Add(new AlgorithmIssue("DefaultInvalid", node.Id));
                 if (node.Kind == AlgorithmNodeKind.Input && !template)
@@ -97,6 +104,9 @@ namespace AutoEra.Algorithms
                         !AlgorithmCatalog.Compatible(binding.Type, node.ValueType)) issues.Add(new AlgorithmIssue("RequiredBinding", node.Id));
                     else if (!binding.Available) issues.Add(new AlgorithmIssue("BindingTemporarilyUnavailable", node.Id, null, AlgorithmIssueSeverity.Warning));
                 }
+                if (node.Kind == AlgorithmNodeKind.Effector && !template &&
+                    (string.IsNullOrEmpty(node.BindingKey) || !bindings.TryGetValue(node.BindingKey, out var effectorBinding) || effectorBinding.ComponentId == 0))
+                    issues.Add(new AlgorithmIssue("RequiredBinding", node.Id));
             }
             if (capacity < 0 || cost > capacity) issues.Add(new AlgorithmIssue("LogicCapacity"));
             var occupied = new HashSet<string>();

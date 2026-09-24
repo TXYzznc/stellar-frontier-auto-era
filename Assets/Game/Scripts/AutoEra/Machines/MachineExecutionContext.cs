@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using AutoEra.Events;
 using AutoEra.World.Identity;
@@ -19,12 +19,15 @@ namespace AutoEra.Machines
         public MachineTaskQueue Tasks { get; }
         public MachineComputePool Compute { get; }
         public Sensors.MachineSensorSet Sensors { get; }
+        /// <summary>本机货舱（DEC-111）：统一容量单位，第一版由执行上下文持有。</summary>
+        public MachineCargo Cargo { get; }
         public MachineExecutionContext(MachineInstance machine, PersistentIdAllocator ids, AutoEraEventService events = null)
         {
             _machine = machine ?? throw new ArgumentNullException(nameof(machine));
             _ids = ids ?? throw new ArgumentNullException(nameof(ids));
             Tasks = new MachineTaskQueue(ids, events, machine.Id); Compute = new MachineComputePool(ids, machine.ComputeCapacity, machine.LogicCapacity);
             Sensors = new Sensors.MachineSensorSet(this);
+            Cargo = new MachineCargo(100);
             _machine.Changed += OnMachineChanged; Compute.Changed += OnComputeChanged;
             Synchronize();
         }

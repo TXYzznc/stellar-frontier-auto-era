@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace AutoEra.Algorithms
@@ -23,6 +23,14 @@ namespace AutoEra.Algorithms
         public ulong NodeId;
         public AlgorithmNodeKind Kind;
         public AlgorithmValue Value;
+        /// <summary>效应器动作类型（仅 Effector 意图使用，其余为空）。</summary>
+        public AlgorithmEffectorAction? Action;
+        /// <summary>效应器/任务控制意图的多参数快照（含 target 对象），仅这些意图填充。</summary>
+        public Dictionary<string, AlgorithmValue> Parameters;
+        /// <summary>效应器行为节点的组件绑定键（绑定效应器组件，与 Input 节点绑定传感器同源）。</summary>
+        public string BindingKey;
+        /// <summary>任务控制节点的稳定任务名（SubmitTask/QueryTask 对齐防重，取节点 Field）。</summary>
+        public string Field;
     }
     public sealed class AlgorithmBatch
     {
@@ -46,9 +54,12 @@ namespace AutoEra.Algorithms
         private AlgorithmTrigger _trigger;
         private IReadOnlyDictionary<string, AlgorithmValue> _state;
         private AlgorithmBatch _batch;
+        private readonly Func<string, string, AlgorithmValue> _cargoReader;
+        private readonly Func<string, AlgorithmValue> _taskQuerier;
 
-        public AlgorithmEvaluation(AlgorithmPlan plan)
+        public AlgorithmEvaluation(AlgorithmPlan plan, Func<string, string, AlgorithmValue> cargoReader = null, Func<string, AlgorithmValue> taskQuerier = null)
         {
+            _cargoReader = cargoReader; _taskQuerier = taskQuerier;
             var document = plan.CopyDocument();
             foreach (var node in document.Nodes) if (!node.Deleted) _nodes.Add(node.Id, node);
             foreach (var edge in document.Edges)
@@ -101,6 +112,20 @@ namespace AutoEra.Algorithms
                         if (seconds.Number <= 0) throw new EvaluationFailure(node.Id, "DelayMustBePositive");
                         _batch.Intents.Add(new AlgorithmIntent { NodeId = node.Id, Kind = node.Kind, Value = seconds.Copy() }); break;
                     case AlgorithmNodeKind.Log: _batch.Intents.Add(new AlgorithmIntent { NodeId = node.Id, Kind = node.Kind }); break;
+                    case AlgorithmNodeKind.Effector:
+                        _batch.Intents.Add(new AlgorithmIntent { NodeId = node.Id, Kind = node.Kind, Action = node.Action, Parameters = ReadParameters(node), BindingKey = node.BindingKey }); break;
+                    case AlgorithmNodeKind.SubmitTask:
+                        _batch.Intents.Add(new AlgorithmIntent { NodeId = node.Id, Kind = node.Kind, Field = node.Field }); break;
+                    case AlgorithmNodeKind.CancelTask:
+                        _batch.Intents.Add(new AlgorithmIntent { NodeId = node.Id, Kind = node.Kind, Parameters = ReadParameters(node) }); break;
+                    case AlgorithmNodeKind.Hysteresis:
+                        double hv = Read(node, "value").Number;
+                        double onThreshold = Read(node, "on").Number;
+                        double offThreshold = Read(node, "off").Number;
+                        bool locked = _batch.Writes.TryGetValue(node.StateKey, out var hw) ? hw.Boolean : (_state.TryGetValue(node.StateKey, out var hs) && hs.Boolean);
+                        if ((!locked && hv < onThreshold) || (locked && hv > offThreshold))
+                        { _batch.Writes[node.StateKey] = AlgorithmValue.Bool(!locked); _cache.Clear(); Emit(node.Id, "event", depth + 1); }
+                        break;
                     default: throw new EvaluationFailure(node.Id, "InvalidEventDestination");
                 }
             }
@@ -111,6 +136,16 @@ namespace AutoEra.Algorithms
             var result = Value(edge.From, edge.Output);
             if (!result.IsValid) throw new EvaluationFailure(node.Id, "InputUnavailable");
             return result;
+        }
+        private Dictionary<string, AlgorithmValue> ReadParameters(AlgorithmNode node)
+        {
+            var parameters = new Dictionary<string, AlgorithmValue>(StringComparer.Ordinal);
+            foreach (var port in AlgorithmCatalog.Inputs(node))
+            {
+                if (port.Key == "event" || !_inputs.ContainsKey(Key(node.Id, port.Key))) continue;
+                parameters.Add(port.Key, Read(node, port.Key).Copy());
+            }
+            return parameters;
         }
         private AlgorithmValue Value(ulong id, string port)
         {
@@ -123,6 +158,9 @@ namespace AutoEra.Algorithms
                 case AlgorithmNodeKind.Parameter: result = node.Default.Copy(); break;
                 case AlgorithmNodeKind.Variable:
                     if (!_batch.Writes.TryGetValue(node.StateKey, out result) && !_state.TryGetValue(node.StateKey, out result)) result = node.Default;
+                    result = result.Copy(); break;
+                case AlgorithmNodeKind.Hysteresis:
+                    if (!_batch.Writes.TryGetValue(node.StateKey, out result) && !_state.TryGetValue(node.StateKey, out result)) result = AlgorithmValue.Bool(false);
                     result = result.Copy(); break;
                 case AlgorithmNodeKind.Input:
                     bool exists = _trigger.Inputs.TryGetValue(node.BindingKey, out result);
@@ -149,10 +187,21 @@ namespace AutoEra.Algorithms
                     int comparison = left.Type.Kind == AlgorithmValueKind.Object ? left.ObjectId.CompareTo(right.ObjectId) :
                         left.Type.Kind == AlgorithmValueKind.Enumeration ? left.EnumValue.CompareTo(right.EnumValue) : left.Number.CompareTo(right.Number);
                     result = AlgorithmValue.Bool(node.Operator == AlgorithmOperator.Equal ? comparison == 0 : node.Operator == AlgorithmOperator.NotEqual ? comparison != 0 :
-                        node.Operator == AlgorithmOperator.Less ? comparison < 0 : comparison > 0); break;
+                        node.Operator == AlgorithmOperator.Less ? comparison < 0 : node.Operator == AlgorithmOperator.Greater ? comparison > 0 :
+                        node.Operator == AlgorithmOperator.LessOrEqual ? comparison <= 0 : comparison >= 0); break;
                 case AlgorithmNodeKind.Boolean:
                     bool first = Read(node, "a").Boolean;
                     result = AlgorithmValue.Bool(node.Operator == AlgorithmOperator.Not ? !first : node.Operator == AlgorithmOperator.And ? first & Read(node, "b").Boolean : first | Read(node, "b").Boolean); break;
+                case AlgorithmNodeKind.Cargo:
+                    result = _cargoReader?.Invoke(port, node.Field);
+                    if (result == null) result = new AlgorithmValue { Type = port == "has_item" ? AlgorithmType.Of(AlgorithmValueKind.Boolean) : AlgorithmType.Of(AlgorithmValueKind.Number), IsValid = false };
+                    break;
+                case AlgorithmNodeKind.QueryTask:
+                    var queried = _taskQuerier?.Invoke(node.Field);
+                    if (queried == null) result = new AlgorithmValue { Type = port == "found" ? AlgorithmType.Of(AlgorithmValueKind.Boolean) : AlgorithmType.Of(AlgorithmValueKind.Object), IsValid = false };
+                    else if (port == "found") result = AlgorithmValue.Bool(queried.ObjectId != 0);
+                    else result = queried.Copy();
+                    break;
                 default: throw new EvaluationFailure(id, "UnsupportedValueNode");
             }
             if (!AlgorithmValidator.Finite(result)) throw new EvaluationFailure(id, "NonFiniteValue");

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using AutoEra.Machines.Sensors;
 using AutoEra.World.Identity;
 using UnityEngine;
@@ -56,8 +56,10 @@ namespace AutoEra.World.Region
             if (_dirty)
             {
                 if (_snapshot == null || _snapshot.PublicStatus != _target.PublicStatus ||
-                    _snapshot.ResourceAmount != _target.PublicResourceAmount || _snapshot.Infinite != _target.ResourceIsInfinite)
-                    _snapshot = new SensorSnapshot(++_version, _target.PublicStatus, _target.PublicResourceAmount, _target.ResourceIsInfinite);
+                    _snapshot.ResourceAmount != _target.PublicResourceAmount || _snapshot.Infinite != _target.ResourceIsInfinite ||
+                    _snapshot.CachedAmount != _target.PublicCachedAmount || _snapshot.CacheCapacity != _target.PublicCacheCapacity)
+                    _snapshot = new SensorSnapshot(++_version, _target.PublicStatus, _target.PublicResourceAmount, _target.ResourceIsInfinite,
+                        cachedAmount: _target.PublicCachedAmount, cacheCapacity: _target.PublicCacheCapacity);
                 _dirty = false;
             }
             snapshot = _snapshot; return true;

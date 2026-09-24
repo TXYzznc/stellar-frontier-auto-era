@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using AutoEra.Machines;
 using AutoEra.World.Identity;
@@ -210,6 +210,12 @@ namespace AutoEra.Algorithms
             foreach(var node in copy.Nodes) { if(!_ids.TryAllocate(out var nodeId))return null;map.Add(node.Id,nodeId.Value);node.Id=nodeId.Value; }
             foreach(var edge in copy.Edges) { edge.From=map[edge.From];edge.To=map[edge.To]; }
             return copy;
+        }
+        /// <summary>只读查询模板文档（不分配 ID、不复制绑定状态），供界面展示详情与逻辑成本。</summary>
+        public bool TryGetDocument(ulong id, out AlgorithmDocument document)
+        {
+            if(_items.TryGetValue(id,out var template)) { document=template.Document; return true; }
+            document=null; return false;
         }
         private sealed class Template { internal string Name;internal ulong Version;internal bool System;internal AlgorithmDocument Document; }
     }
