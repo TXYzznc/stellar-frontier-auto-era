@@ -18,6 +18,8 @@ namespace AutoEra.UI
         /// <summary>规格页序：本 Form 只有一页。</summary>
         public const int PageNodeComponentPicker = 0;
 
+        private static readonly UiDetailField[] NoFields = new UiDetailField[0];
+
         private IAlgorithmReadModel _algorithms;
 
         protected override void OnInit(object userData)
@@ -71,10 +73,27 @@ namespace AutoEra.UI
 
         private void Render(AlgorithmDomainSnapshot snapshot)
         {
-            ShowPageUnavailable(snapshot.UnavailableReason ?? "候选组件暂不可用。",
-                _nodeComponentPickerLoadingState, _nodeComponentPickerEmptyState, _nodeComponentPickerErrorState,
-                _nodeComponentPickerSuccessState, _nodeComponentPickerDisabledState,
-                _nodeComponentPickerCandidatesBody, _nodeComponentPickerContractBody);
+            // 选择器要的是「某个输入节点 + 它期望的类型」，也就是编辑器上下文；
+            // 算法域活着但本页还没接上那条通道时，状态是 Empty 而不是 Disabled。
+            if (snapshot.State == UiDataState.Unavailable)
+            {
+                ShowPageUnavailable(snapshot.UnavailableReason ?? "候选组件暂不可用。",
+                    _nodeComponentPickerLoadingState, _nodeComponentPickerEmptyState, _nodeComponentPickerErrorState,
+                    _nodeComponentPickerSuccessState, _nodeComponentPickerDisabledState,
+                    _nodeComponentPickerCandidatesBody, _nodeComponentPickerContractBody);
+            }
+            else
+            {
+                ShowPageEmpty(
+                    "候选组件需要一个输入节点作为上下文：本页还没有接上「编辑器选中节点 → 按它期望的类型筛选候选」"
+                    + "这条通道，因此不列出任何候选。",
+                    _nodeComponentPickerLoadingState, _nodeComponentPickerEmptyState, _nodeComponentPickerErrorState,
+                    _nodeComponentPickerSuccessState, _nodeComponentPickerDisabledState,
+                    _nodeComponentPickerCandidatesBody, _nodeComponentPickerContractBody);
+            }
+
+            RenderDetailRows(_nodeComponentPickerCandidatesTemplate, _nodeComponentPickerCandidatesContent, NoFields);
+            RenderDetailRows(_nodeComponentPickerContractTemplate, _nodeComponentPickerContractContent, NoFields);
         }
 
         protected override void OnOperationPresentationChanged(

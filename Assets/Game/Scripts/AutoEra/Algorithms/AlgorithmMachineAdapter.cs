@@ -24,12 +24,20 @@ namespace AutoEra.Algorithms
         private AlgorithmRuntime _runtime;
         private bool _disposed;
         private long _now;
-        public bool IsSafe => _active == null && _waiting.Count == 0 && !_navigation.IsActive;
+        public bool IsSafe => _active == null && _waiting.Count == 0 && (_navigation == null || !_navigation.IsActive);
         public event Action<ulong, PersistentId, string> Result;
+
+        /// <summary>
+        /// 本机是否拥有导航。**不可移动的机器（定义 `CanMove == false`）没有导航，这是正常形态而不是失败**：
+        /// 它照样有算力池、任务队列与传感器，只是不能执行 Navigate。刻意用 null 表示「没有」，
+        /// 而不是给它伪造一个永远失败的导航对象——后者会把「不可移动」伪装成「导航出错」。
+        /// </summary>
+        public bool HasNavigation => _navigation != null;
+
         public AlgorithmMachineAdapter(MachineExecutionContext context, MachineNavigation navigation, InitialRegion region)
         {
             _context = context; _navigation = navigation; _region = region;
-            _navigation.Ended += OnNavigationEnded;
+            if (_navigation != null) _navigation.Ended += OnNavigationEnded;
         }
         public void Attach(AlgorithmRuntime runtime)
         {
@@ -97,6 +105,9 @@ namespace AutoEra.Algorithms
             if (intent.Kind == AlgorithmNodeKind.CancelTask)
             { Publish(trigger, intent.NodeId, new PersistentId(trigger.TaskId), "rejected"); return trigger.TaskId; }
             if (intent.Kind != AlgorithmNodeKind.Navigate) throw new InvalidOperationException("Unsupported authority endpoint.");
+            // 不可移动机器收到 Navigate：立刻按「拒绝」回报，而不是排队等一个永远不会发生的执行。
+            // 这样界面与日志拿到的是一个明确原因，而不是卡在等待里。
+            if (_navigation == null) { Publish(trigger, intent.NodeId, PersistentId.Invalid, "rejected"); return trigger.TaskId; }
             MachineTaskRecord task = null;
             if (trigger.TaskId != 0) _context.Tasks.TryGet(new PersistentId(trigger.TaskId), out task);
             if (task == null)
@@ -217,6 +228,12 @@ namespace AutoEra.Algorithms
             if (task.State == MachineTaskState.Queued && !_context.Tasks.TryStart(task.Id)) return;
             if (task.State != MachineTaskState.Running) return;
             _waiting.RemoveAt(0); _active = pending;
+            if (_navigation == null)
+            {
+                // 兜底：无导航的机器不该走到这里（Submit 已拦），但真到了也要给出可辨结局而不是静默卡住。
+                _active = null; _context.Tasks.Cancel(task.Id); Publish(pending.Trigger, pending.NodeId, task.Id, "rejected"); return;
+            }
+
             var admission = _navigation.Start(task.Id, new MachineNavigationTarget(_region, pending.Position), navigationSeconds);
             if (admission != NavigationAdmission.Accepted)
             {
@@ -261,13 +278,14 @@ namespace AutoEra.Algorithms
         {
             foreach (var item in _waiting) _context.Tasks.Cancel(item.Task);
             _waiting.Clear();
-            if (_active != null) _navigation.Cancel();
+            if (_active != null && _navigation != null) _navigation.Cancel();
             foreach (var task in new List<PersistentId>(_ownedTasks)) _context.Tasks.Cancel(task);
             _ownedTasks.Clear();
         }
         public void Dispose()
         {
-            if (_disposed) return; _disposed = true; Cancel(); _navigation.Ended -= OnNavigationEnded;
+            if (_disposed) return; _disposed = true; Cancel();
+            if (_navigation != null) _navigation.Ended -= OnNavigationEnded;
             _context.Machine.Changed -= OnMachineChanged;
             if (_runtime != null) _runtime.AppliedChanged -= RebindApplied;
             foreach (var sensor in _sensors) sensor.Dispose(); _sensors.Clear(); _registeredSensors.Clear();

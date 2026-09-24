@@ -133,6 +133,71 @@ namespace AutoEra.UI
             SetState(errorState, false);
             SetState(successState, false);
             SetState(disabledState, true);
+            WriteStateCard(disabledState, reason);
+
+            for (int i = 0; i < bodies.Length; i++)
+            {
+                if (bodies[i] != null)
+                {
+                    bodies[i].SetText(reason);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 把原因写进**正在激活的那个状态组自己的说明卡片**。
+        ///
+        /// 为什么必须有这一步：五个 `Grp_*State` 是**覆盖在内容区上的不透明卡片**
+        /// （520×120 居中，Image 的 alpha 为 1），而预制体里卡片的文案是规格说明列的占位
+        /// （「Disabled：—」「Empty：—」）。只激活状态组就会把一句占位话盖在真实原因上——
+        /// 玩家看到的是「Disabled：—」，而不是「区域没有加载」。写进 bodies 的那份原因
+        /// 正好被卡片挡住，等于没写。
+        ///
+        /// 按**结构**找卡片文本、不按绑定找：卡片文案不是页面的业务接入点，
+        /// 给 33 个 Form 各加五个 SerializeField 只为读一句状态说明，代价远大于收益。
+        /// 这一条与 <see cref="DisableDomainActions"/> 同源——都靠结构名／结构位置，
+        /// 因此对尚未接线的页面同样生效。
+        /// </summary>
+        protected static void WriteStateCard(GameObject state, string reason)
+        {
+            if (state == null || string.IsNullOrEmpty(reason))
+            {
+                return;
+            }
+
+            TMPro.TMP_Text[] texts = state.GetComponentsInChildren<TMPro.TMP_Text>(true);
+            for (int i = 0; i < texts.Length; i++)
+            {
+                if (texts[i] != null)
+                {
+                    texts[i].SetText(reason);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 把「本域已经接线，但当前没有内容」的原因渲染到状态组与说明文本上。
+        ///
+        /// 与 <see cref="ShowPageUnavailable"/> 的区别只在状态通道：这里是 **Empty**，不是 Disabled。
+        /// 这个区别对玩家和排查的人都有意义——「域没接线」意味着怎么点都不会有数据，
+        /// 「域接线了但这次没有内容」意味着换一台机器／建一个对象就会出现。
+        /// 把它们合成一个状态，界面就是在撒谎。
+        /// </summary>
+        protected void ShowPageEmpty(
+            string reason,
+            GameObject loadingState,
+            GameObject emptyState,
+            GameObject errorState,
+            GameObject successState,
+            GameObject disabledState,
+            params TMPro.TMP_Text[] bodies)
+        {
+            SetState(loadingState, false);
+            SetState(emptyState, true);
+            SetState(errorState, false);
+            SetState(successState, false);
+            SetState(disabledState, false);
+            WriteStateCard(emptyState, reason);
 
             for (int i = 0; i < bodies.Length; i++)
             {

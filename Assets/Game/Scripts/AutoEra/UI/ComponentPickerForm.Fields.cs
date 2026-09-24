@@ -19,6 +19,14 @@ namespace AutoEra.UI
         public Button BackButton => _backButton;
         [SerializeField] private Button _closeButton;
         public Button CloseButton => _closeButton;
+        [SerializeField] private TMP_Text _title;
+        public TMP_Text Title => _title;
+        [SerializeField] private Button _selectButton;
+        public Button SelectButton => _selectButton;
+        [SerializeField] private Button _confirmButton;
+        public Button ConfirmButton => _confirmButton;
+        [SerializeField] private Button _cancelButton;
+        public Button CancelButton => _cancelButton;
         [SerializeField] private RectTransform _componentPickerCandidatesContent;
         public RectTransform ComponentPickerCandidatesContent => _componentPickerCandidatesContent;
         [SerializeField] private TMP_Text _componentPickerCandidatesBody;

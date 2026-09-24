@@ -130,6 +130,45 @@
       回归围栏：`AutoEraNotWiredFormsEditModeTests` 16/16——15 个界面逐个断言「带原因、声明未接入、
       渲染空态、禁用本域动作」，另有一条断言已接入的界面**绝不**被注入这段脚手架
       （否则会出现「明明有数据却宣称没有」的反向错误）。
+      **后续迁出（2026-09-21）**：`ComponentLibraryForm` 已由
+      `component-domain-readonly-wiring` 变更从 `NOT_WIRED` 迁到 `HANDWRITTEN` 并接上真实数据
+      （目录表 ＋ 花名册），围栏名单同步调整为 14 个界面。原因是代码侦察发现该域的**两半
+      都已在生产里存在**，缺的只是界面的观察入口——「该界面依赖的领域服务没有创建者」
+      这条判定标准对它是**误判**。后续按同一标准复核其余 14 个界面时应当先做这层侦察。
+      **再次迁出（2026-09-21）**：`SettingsForm` 已由 `user-settings-display-wiring` 变更迁出，
+      围栏名单调整为 **13 个界面**。判定同样被侦察推翻——持久化载体 `GF.Setting`
+      早就在生产里（`PreloadProcedure` 一直在用它读写语言与声音分组音量），缺的是
+      界面能注入的存储边界。**两次误判都指向同一条经验**：先侦察「这个域到底有没有后端」，
+      再决定要不要写「未接入」；否则围栏会忠实地守住一个错误的结论。
+       **第三次迁出（2026-09-21）**：`ComponentPickerForm` 已由
+       `component-picker-install-wiring` 变更迁到 `HANDWRITTEN` 并接上真实数据
+       （候选＝组件库的散件、占用与槽位＝机器实例、比较栏＝预选那一件），
+       围栏名单调整为 **12 个界面**。这也是被侦察推翻的第三个误判：组件域的两半
+       （`ComponentDefinitions` 表 ＋ `MachineRoster` 实例）在 `component-domain-readonly-wiring`
+       那一批就已经接线，选择器缺的只是「散件 → 候选」这一层投影。**三次误判全是同一类错误**：
+       把「还没有这一页的读模型」当成了「这个域没有后端」。
+       **第四次（2026-09-21，同一节内的声音分页）**：设置页的声音分页长期被写成
+       「音频分组只有两组，缺的几路需要先新增分组与资源」。侦察后发现**每路音量可读写、可持久化、
+       立即生效的那条路早就在生产里**（`SettingExtension.SetMediaVolume`，
+       `PreloadProcedure` 一直在用它恢复音乐与音效），真缺口只有三行分组数据，
+       外加一条「启动只恢复了两组」的路径。已由 `audio-settings-wiring` 变更补齐。
+       **四次的错误形态完全一致**，因此这条纪律没有例外：给出「未接入」之前，
+       先查「这个域在生产里到底有没有后端」，而不是查「这一页有没有人写读模型」。
+       **第五次（2026-09-21，同一节内的操作分页）**：操作分页长期被写成
+       「镜头速度需要拿到相机控制组件、键位重绑需要可持久化的绑定表」。侦察后发现
+       ① 相机控制组件**本来就在会话里**（现场输入模块持有它，本批只加了一行 `CameraTarget`），
+       速度也早就是真实后端（`RegionCameraController` 的三个序列化字段）；
+       ② 「绑定表」根本不是缺口而是**范围**——设计原文写明「第一版不开放改键，只读显示
+       InputModule 当前绑定」。真缺口只有两样，且都不是「接线」：反转没有实现、
+       参数没有单一来源。已由 `control-settings-wiring` 变更补齐。
+       这一点给上面那条纪律补了半句：除了「有没有创建者」，还要区分
+       **「没有创建者」（缺口）** 与 **「设计明确不做」（范围）**——后者该写进「不在本变更内」，
+       而不是留在界面上当「未接入」的原因。
+       **补记（2026-09-21，同一条纪律的第三个方向）**：整备页的「一键卸下」长期被写成
+       「经济域未接入」，与升级／出售并列。侦察发现它**根本不依赖经济域**——它只依赖机器域的
+       槽位归属，而「回库」在实现里就是清空 `OwnerId`。已由 `machine-unload-all-wiring` 变更补齐。
+       所以这条纪律还要再补半句：**给出缺口归属之前先查依赖关系**，
+       不要把一个不依赖某域的活挂到那个域上等它。
 - [x] 2.8 删除与 `AutoEraUiSession` 并行的旧直通通道：`AutoEraUiRuntime.BindMachineRoster`
       的 `_machines`/`_hub` 分支在生产路径下永不赋值（只有测试后门在用），
       页面数据来源应收敛到读模型一条路。`FieldHudForm.BindMachines` 同理，随 HUD 读模型迁移一并处置。
@@ -303,3 +342,92 @@
 创建／销毁顺序，并考虑存档是否携带运行时），本变更只保证：算法界面在接线之前呈现
 「诚实不可用」，且接口已冻结——接线完成后只需替换 `AlgorithmReadModels.Create` 的分支，
 四个算法界面无需改动。
+
+### 8.1 补记（2026-09-20 代码侦察：真实缺口比上述更深）
+
+真正去接线时发现，**缺的不只是执行上下文的创建者，而是整条「机器落到区域上」的通道**：
+
+| 环节 | 实现状态 | 生产调用者 |
+|---|---|---|
+| `InitialRegion.DeployMachine`（空间＋身份绑定，并让花名册转入已部署） | 完整——含「重复部署不瞬移」、`CanPlace` 校验、失败枚举 | **无**，只有 `Assets/Game/Tests/` 调用 |
+| `RegionNavigation.Bind(context, instance, settings, …)`（给实例加 `NavMeshAgent` 并建 `MachineNavigation`） | 完整，前置条件写得很严：需已部署同身份机器、导航面就绪、位置误差 ≤0.01、子节点有 `MotionRig` | **无**，同样只有测试 |
+| `MachineExecutionContext` / `AlgorithmInstanceService` / `AlgorithmMachineAdapter` 的创建 | 完整，集成测试演示了全链路 | **无** |
+| `InitialRegionScene` | 生产里确实建了 `RegionNavigation` | 但它只建面、从不 `Bind`；且场景内容是**静态种子**（`_objects` + `_entityPrefabs` 固定 7 个），没有动态落位路径 |
+
+三处「无生产调用者」串在一起，所以 8.1 不能单独做——它的前置是**落位事务**，
+而那正是 `WorldPlacementForm` 三页整页不可用的原因，也是 `MachineLibraryForm` 部署按钮被禁用的原因。
+因果链：落位事务 → 部署（领域绑定）→ 机器视图生成 → 导航绑定 → 执行上下文与算法服务 →
+算法界面／落位界面／机器库部署按钮**同时**转为可用。
+
+**批次划分（供后续领域集成变更直接采用）**：
+
+1. **落位事务（领域层）**：给 `DeployMachine` 一条生产入口，明确「谁裁决位置／朝向合法、失败时谁回滚」；
+2. **机器视图生成**：部署成功后产出可见实体（复用 `InitialRegionEntity` 的种子模式或新建视图）；
+3. **导航绑定**：视图就绪后调 `Navigation.Bind`；把失败路径变成**可展示状态**而不是异常（导航面未就绪是正常情况）；
+4. **运行时创建**：`MachineExecutionContext` + `AlgorithmInstanceService` + `AlgorithmMachineAdapter`，
+   生命周期跟随区域／世界会话，并回答「存档是否携带运行时」；
+5. **UI 回填**：替换 `AlgorithmReadModels.Create` 的分支，解禁 `WorldPlacementForm` 与机器库部署按钮；
+6. **验收**：编译、门1 33/33、EditMode/PlayMode 回归，外加「部署 → 导航 → 出现算法实例 → 界面 Ready」的数据流测试。
+
+### 8.1 落地结论（2026-09-21）：**已由 `region-machine-deployment-runtime` 变更完成**
+
+上面第 323–331 行的六段批次划分已经逐段实现并通过验收，因此本节从「待决策」转为「已落地」。对照：
+
+| 本节的段 | 落在哪里 | 验收 |
+|---|---|---|
+| 1 落位事务（领域层） | `MachineDeploymentFlow`（`TryBegin`/`Preview`/`TryCommit`/`Cancel`，占地取自机器定义） | `MachineDeploymentFlowEditModeTests` 7/7 |
+| 2 机器视图生成 | `InitialRegionScene.TrySpawnMachine` + `InitialRegionMachineEntity` + `RegionObjectView.BindDeployed` | `MachineDeploymentSpawnEditModeTests`、`RegionObjectViewBindingEditModeTests` 5/5 |
+| 3 导航绑定（失败转为可展示状态） | `RegionMachineRuntimeRegistry.TryAttach` 内的 `RegionNavigation.Bind` + 四类降级原因 | `MachineDeploymentRuntimeEditModeTests` 5/5、`MachineDeploymentRuntimePlayModeTests` 1/1 |
+| 4 运行时创建与生命周期 | `RegionMachineRuntimeRegistry` / `RegionMachineRuntime`；生命周期跟随区域，**不进行存档**（重建只读领域事实） | 同上「重建后队列为空、机器仍已部署」用例 |
+| 5 UI 回填 | `WorldPlacementForm` 机器部署页、`MachineLibraryForm` 部署入口、`AlgorithmReadModels.Create` 换成分支、`BaseCommandHubForm` 远程机器详情读运行时 | `WorldPlacementFormPlayModeTests` 1/1、`MachineLibraryDeployEntryPlayModeTests` 1/1、`AlgorithmReadModelEditModeTests` 9/9 |
+| 6 验收 | 编译 0 错、门1 33/33、EditMode 16 类、PlayMode 4 套 | `MachineDeploymentDataFlowPlayModeTests` 1/1（数据流） |
+
+**本节预判「接线后四个算法界面无需改动」并不成立**，实际偏离三处，留痕如下：
+
+1. **四个算法界面的 `Render` 必须改**。它们原本无条件调 `ShowPageUnavailable`，也就是无论数据状态
+   都把自己画成 Disabled。读模型一变成 Empty/Ready，这个渲染就是在撒谎。现在
+   `AlgorithmEditorForm` 按三种状态分别渲染（Unavailable/Empty/Ready），另外三个界面至少把
+   Empty 与 Disabled 分开（新增 `AutoEraShellFormBase.ShowPageEmpty`）。
+2. **机器身份的来源被固定为「区域当前选中对象」**，而不是某个界面参数。算法界面是从现场 HUD 打开的
+   （`FieldHudForm` 未带任何机器参数），所以「哪台机器」只能取区域选中项——它是稳定 Id，不按名字查找。
+3. **模板库仍然没有生产创建者**。模板是存档级数据（玩家模板要跨机器），不属于任何一台机器，
+   所以它不随机器运行时一起出现。实例列表现为真、模板列表现为空，两者在快照里分成
+   `Instances` 与 `Templates` 两个字段，界面据此区分「没有实例」和「没有模板库」。
+
+顺带修掉一个真实缺陷：`AlgorithmInstanceService.Add` **不触发 `Changed`**，因此新加实例时
+订阅者（界面读模型）一直停在旧状态——表现为「数据对了但界面还是 Empty」。
+`MachineDeploymentDataFlowPlayModeTests` 直接抓到了它。
+
+### 8.2 建筑显示名没有本地化数据（2026-09-21 侦察发现，需要决策）
+
+为评估「建造目录只读接入」的成本侦察 `BuildingDefinitions`（7 行）时发现一个内容缺口：
+
+- 该表 7 行的 `NameKey` 分别是 `Building.Warehouse` / `Building.Workshop` /
+  `Building.BiomassGenerator` / `Building.SolarGenerator` / `Building.Battery` /
+  `Building.Pump` / `Building.Conveyor`；
+- 而本地化数据只有两个字典：`Machines/Hardware`（`Component.*` 与 `Machine.*`）与
+  `Foundation/Startup`——**没有任何 `Building.*` 条目**；
+- 字典名是**显式登记**在 `Assets/Game/ScriptableAssets/Core/AppConfigs.asset` 的 `mLanguages`
+  列表里（不是按目录扫描），源文件在 `GameData/AIData/Languages/<字典名>.json`，
+  由 `MachineDataSetup` / `AutoEraFoundationDataSetup` 写入配置。
+
+两个直接后果：
+1. 按既有的 `MachineCatalog` 口径（`NameKey` 必须能被 `GF.Localization.HasRawString` 解析，
+   否则抛 `FormatException`）**根本无法为建筑建目录**——`BuildCatalogForm` 的只读接入被它挡住；
+2. 界面拿不到任何建筑显示名。
+
+显示名确实存在于另一处：`FirstVersionObjects` 的 7 行 `Category=Building` 有中文名
+（基础仓库／基础制造工坊／生物质发电机／太阳能发电器／基础蓄电池／岸边水泵／传送带），
+顺序与 `Prefab` 都与定义表一一对应。但那张表自我声明是
+「Resource coverage index only; never grants machine instantiation or gameplay readiness」，
+即**内部覆盖索引**，不是显示来源；拿它当显示名会让「资源覆盖」与「玩家可见文案」两件事
+耦合在一起。
+
+**需要决定的是内容权威性（两者都会改变数据/内容约定，所以未擅自选择）**：
+- 候选 A：补齐 7 条 `Building.*` 本地化条目（新字典 `Buildings/Buildings`，源文件放
+  `GameData/AIData/Languages/Buildings/`，并注册进 `AppConfigs.mLanguages`），
+  定义表的 `NameKey` 从此可解析——与机器/组件域完全同构，`BuildCatalogForm` 随即可以接入；
+- 候选 B：明确 `FirstVersionObjects.Name` 就是建筑的显示来源，并把
+  「NameKey 必须本地化」这条校验对建筑域放宽或改写——代价是两个域走两套口径。
+
+倾向候选 A（与既有域同构、代价小、不把内部索引变成玩家文案），但这属于内容约定，等确认。

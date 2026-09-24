@@ -9,14 +9,16 @@ namespace AutoEra.UI
     ///
     /// 绑定字段在同名的 .Fields.cs 里，结构由契约生成。
     ///
-    /// 「待绑定」来自算法实例的草稿文档——没有实例就没有待绑定项，原因见
-    /// <see cref="AlgorithmReadModels.NotWiredReason"/>。本页因此呈现整页不可用，
-    /// 只保留返回与关闭。
+    /// 「待绑定」来自算法实例的草稿文档——所以本页的状态取决于**这台机器有没有算法实例**：
+    /// 算法域缺能力时是 Unavailable（写明缺什么），域活着但没有实例/图时是 Empty
+    /// （写明还缺「选择实例 → 读它的传感器与对象端点」这条通道），两者不混成一个状态。
     /// </summary>
     public sealed partial class AlgorithmBindingForm : AutoEraShellFormBase
     {
         /// <summary>规格页序：本 Form 只有一页。</summary>
         public const int PagePendingBindings = 0;
+
+        private static readonly UiDetailField[] NoFields = new UiDetailField[0];
 
         private IAlgorithmReadModel _algorithms;
 
@@ -71,10 +73,27 @@ namespace AutoEra.UI
 
         private void Render(AlgorithmDomainSnapshot snapshot)
         {
-            ShowPageUnavailable(snapshot.UnavailableReason ?? "待绑定项暂不可用。",
-                _pendingBindingsLoadingState, _pendingBindingsEmptyState, _pendingBindingsErrorState,
-                _pendingBindingsSuccessState, _pendingBindingsDisabledState,
-                _pendingBindingsBindingsBody, _pendingBindingsRequirementBody);
+            // 状态通道要分开：Unavailable＝算法域缺能力（怎么点都不会有数据）；
+            // Empty/Ready＝算法域活着，缺的是「一个已应用的算法图」——绑定属于图，不属于机器。
+            if (snapshot.State == UiDataState.Unavailable)
+            {
+                ShowPageUnavailable(snapshot.UnavailableReason ?? "待绑定项暂不可用。",
+                    _pendingBindingsLoadingState, _pendingBindingsEmptyState, _pendingBindingsErrorState,
+                    _pendingBindingsSuccessState, _pendingBindingsDisabledState,
+                    _pendingBindingsBindingsBody, _pendingBindingsRequirementBody);
+            }
+            else
+            {
+                ShowPageEmpty(
+                    "算法绑定需要一张已应用的算法图：本页还没有接上「选择算法实例 → 读它的传感器与对象端点」"
+                    + "这条通道，因此不显示任何待绑定项。",
+                    _pendingBindingsLoadingState, _pendingBindingsEmptyState, _pendingBindingsErrorState,
+                    _pendingBindingsSuccessState, _pendingBindingsDisabledState,
+                    _pendingBindingsBindingsBody, _pendingBindingsRequirementBody);
+            }
+
+            RenderDetailRows(_pendingBindingsBindingsTemplate, _pendingBindingsBindingsContent, NoFields);
+            RenderDetailRows(_pendingBindingsRequirementTemplate, _pendingBindingsRequirementContent, NoFields);
         }
 
         protected override void OnOperationPresentationChanged(

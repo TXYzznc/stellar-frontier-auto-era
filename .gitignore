@@ -185,3 +185,29 @@ tools/desktop/*.bak-*
 # 本地忽略资源：无需进 git 的杂物与 8192 原图备份
 /Assets/IgnoreResource/
 /Assets/IgnoreResource.meta
+
+# 本地测试证据截图（含目录元数据）；远端已从版本控制移除
+/Assets/Screenshots/
+/Assets/Screenshots.meta
+
+# 工具链运行产物：每次跑编译门禁、门1 与回归都会重建，不入版本控制。
+# 只按后缀与下划线前缀限定，避免误伤 tools/_unity_*.py、tools/_test_summary.py
+# 与已跟踪的 tools/audit_product_profile.json。
+/tools/_test_result_*.json
+/tools/_sg_before.json
+/tools/*.log
+/tools/_compile_*.txt
+/tools/_project_checks_last.txt
+/tools/_gate1_report.txt
+/tools/_font_report.txt
+/tools/_prefab_canonicalize_report.txt
+/tools/_regression_*.txt
+/tools/_test_*.txt
+
+# Unity Test Runner 临时场景；以及 Assets/Temp 的目录元数据
+# （[Tt]emp/ 带尾斜杠只匹配目录，盖不住同级的 Assets/Temp.meta）
+/Assets/InitTestScene*
+/Assets/Temp.meta
+
+# 数据表工作簿的本地编辑前备份（.bak-MMDD-<tag>）
+/GameData/**/*.bak-*

@@ -44,6 +44,20 @@ namespace AutoEra.Tests.PlayMode
             var hub = GF.UI.GetUIForm(commandHubId).Logic as AutoEra.UI.BaseCommandHubForm;
             Assert.IsNotNull(hub, "The formal command hub entry must load its GF UIForm bridge.");
 
+            // 不带会话打开中枢 → 能源页必须走「不可用」通道，并且**原因要写进那张卡片自己**。
+            // 五个状态组是覆盖在内容区上的不透明卡片（520×120、alpha=1），而预制体里卡片文案是
+            // 规格说明列的占位（「Disabled：—」）；只激活组、不写文案，玩家看到的就是一句占位话，
+            // 写进正文的那份原因正好被卡片挡住。
+            Assert.IsNotNull(hub.HubEnergyDisabledState, "Grp_HubEnergyDisabledState 必须绑进契约。");
+            Assert.IsTrue(hub.HubEnergyDisabledState.activeSelf,
+                "没有界面会话时，能源页必须显示为不可用，而不是伪装成「没有内容」。");
+            string energyCard = StateCardText(hub.HubEnergyDisabledState);
+            Assert.IsNotEmpty(energyCard, "不可用卡片必须写出真实原因，而不是留空。");
+            Assert.IsFalse(energyCard.StartsWith("Disabled"),
+                $"卡片停在占位文案上了：{energyCard}");
+            Assert.IsFalse(hub.HubEnergySuccessState.activeSelf,
+                "读一次快照不是提交，不得点亮成功卡片。");
+
             // The form root deliberately carries no CanvasScaler: the form is instantiated
             // under the scene's root Canvas, and a CanvasScaler without a Canvas on the same
             // GameObject is inert. Scaling is owned by the root Canvas (GF-UI-Standards/03+08).
@@ -65,6 +79,21 @@ namespace AutoEra.Tests.PlayMode
             GF.UI.CloseUIForm(fieldHudId);
             yield return WaitForForm(fieldHudId, expectedLoaded: false);
             Object.Destroy(openingControl);
+        }
+
+        /// <summary>
+        /// 读状态卡片上的文案。卡片是按结构定位的（状态组里只有一个说明面板、一个文本），
+        /// 所以这里也按结构读——「卡片有没有写出真实原因」这件事本身就该与绑定无关。
+        /// </summary>
+        private static string StateCardText(GameObject state)
+        {
+            if (state == null)
+            {
+                return null;
+            }
+
+            TMPro.TMP_Text[] texts = state.GetComponentsInChildren<TMPro.TMP_Text>(true);
+            return texts.Length == 0 ? null : texts[0].text;
         }
 
         private static IEnumerator EnsureLaunchSceneLoaded()

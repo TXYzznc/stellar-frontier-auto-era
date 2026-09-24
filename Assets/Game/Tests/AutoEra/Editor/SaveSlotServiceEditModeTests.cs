@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using AutoEra.Save;
 using NUnit.Framework;
@@ -104,22 +104,26 @@ namespace AutoEra.Tests.Editor
         }
 
         [Test]
-        public void Delete_RemovesBackupAndTemporaryFiles()
+        public void Delete_RemovesEveryBackupAndTemporaryFile()
         {
             Assert.That(_service.Overwrite(0, "v1", 1L, "c1"), Is.True);
             Assert.That(_service.Overwrite(0, "v2", 2L, "c2"), Is.True);
             string main = Path.Combine(_root, "slot_0.json");
-            string backup = Path.Combine(_root, "slot_0.json.bak");
+            string backup = _service.GetBackupPath(0, 1);
             Assert.That(File.Exists(main), Is.True);
             Assert.That(File.Exists(backup), Is.True);
 
             Assert.That(_service.Delete(0), Is.True);
             Assert.That(File.Exists(main), Is.False);
-            Assert.That(File.Exists(backup), Is.False);
+            for (int index = 1; index <= SaveSlotService.BackupCount; index++)
+            {
+                Assert.That(File.Exists(_service.GetBackupPath(0, index)), Is.False,
+                    "删掉进度却留下备份，会让「已删除的进度」还能被恢复出来。");
+            }
         }
 
         [Test]
-        public void Read_CorruptMainFile_FallsBackToBackup()
+        public void Read_CorruptMainFile_FallsBackToBackupAndSaysSo()
         {
             Assert.That(_service.Overwrite(0, "v1", 1L, "c1"), Is.True);
             Assert.That(_service.Overwrite(0, "v2", 2L, "c2"), Is.True);
@@ -131,6 +135,10 @@ namespace AutoEra.Tests.Editor
             Assert.That(result.IsSuccess, Is.True);
             Assert.That(result.Record.Summary, Is.EqualTo("v1"));
             Assert.That(result.Record.ContentJson, Is.EqualTo("c1"));
+            Assert.That(result.Status, Is.EqualTo(SaveSlotReadStatus.RecoveredFromBackup),
+                "回退读备份必须是**独立状态**：报 Success 就等于静默回退。");
+            Assert.That(result.IsFromBackup, Is.True);
+            Assert.That(result.BackupIndex, Is.EqualTo(1), "读的是最新那一份备份。");
         }
 
         [Test]
@@ -140,7 +148,7 @@ namespace AutoEra.Tests.Editor
             Assert.That(_service.Overwrite(0, "v2", 2L, "c2"), Is.True);
 
             File.WriteAllText(Path.Combine(_root, "slot_0.json"), "garbage");
-            File.WriteAllText(Path.Combine(_root, "slot_0.json.bak"), "garbage");
+            File.WriteAllText(_service.GetBackupPath(0, 1), "garbage");
 
             Assert.That(_service.Read(0).Status, Is.EqualTo(SaveSlotReadStatus.Corrupt));
         }

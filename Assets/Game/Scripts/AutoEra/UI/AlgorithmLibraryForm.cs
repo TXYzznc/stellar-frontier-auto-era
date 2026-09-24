@@ -25,6 +25,8 @@ namespace AutoEra.UI
         /// <summary>导航按钮 → 规格页索引（来源：00-共享外壳-prefab-layout.md 的导航表）。</summary>
         private static readonly int[] NavigationPageIndex = { PageSystemTemplates, PagePlayerTemplates };
 
+        private static readonly UiDetailField[] NoFields = new UiDetailField[0];
+
         private IAlgorithmReadModel _algorithms;
 
         protected override void OnInit(object userData)
@@ -102,21 +104,48 @@ namespace AutoEra.UI
         private void Render(AlgorithmDomainSnapshot snapshot)
         {
             string reason = snapshot.UnavailableReason ?? "算法模板暂不可用。";
+            // Unavailable＝算法域缺能力；Empty/Ready＝算法域活着，只是**模板库**还没接线
+            // （模板是存档级数据，不随机器运行时出现）。状态通道必须分开：后者怎么点都不会有数据，
+            // 前者换一台机器就可能出现。
+            bool unavailable = snapshot.State == UiDataState.Unavailable;
 
-            ShowPageUnavailable(reason,
+            RenderPage(unavailable, reason,
                 _systemTemplatesLoadingState, _systemTemplatesEmptyState, _systemTemplatesErrorState,
                 _systemTemplatesSuccessState, _systemTemplatesDisabledState,
                 _systemTemplatesCatalogBody, _systemTemplatesDetailBody);
 
-            ShowPageUnavailable(reason,
+            RenderPage(unavailable, reason,
                 _playerTemplatesLoadingState, _playerTemplatesEmptyState, _playerTemplatesErrorState,
                 _playerTemplatesSuccessState, _playerTemplatesDisabledState,
                 _playerTemplatesCatalogBody, _playerTemplatesDetailBody);
 
-            ShowPageUnavailable(reason,
+            RenderPage(unavailable, reason,
                 _templateDetailLoadingState, _templateDetailEmptyState, _templateDetailErrorState,
                 _templateDetailSuccessState, _templateDetailDisabledState,
                 _templateDetailDefinitionBody, _templateDetailRequirementsBody);
+
+            // 模板列表仍然没有数据来源，显式清空段落行——不能留着预制体里的示例行冒充真实数据。
+            RenderDetailRows(_systemTemplatesCatalogTemplate, _systemTemplatesCatalogContent, NoFields);
+            RenderDetailRows(_systemTemplatesDetailTemplate, _systemTemplatesDetailContent, NoFields);
+            RenderDetailRows(_playerTemplatesCatalogTemplate, _playerTemplatesCatalogContent, NoFields);
+            RenderDetailRows(_playerTemplatesDetailTemplate, _playerTemplatesDetailContent, NoFields);
+            RenderDetailRows(_templateDetailDefinitionTemplate, _templateDetailDefinitionContent, NoFields);
+            RenderDetailRows(_templateDetailRequirementsTemplate, _templateDetailRequirementsContent, NoFields);
+        }
+
+        private void RenderPage(bool unavailable, string reason, GameObject loadingState, GameObject emptyState,
+            GameObject errorState, GameObject successState, GameObject disabledState,
+            TMPro.TMP_Text firstBody, TMPro.TMP_Text secondBody)
+        {
+            if (unavailable)
+            {
+                ShowPageUnavailable(reason, loadingState, emptyState, errorState, successState, disabledState,
+                    firstBody, secondBody);
+                return;
+            }
+
+            ShowPageEmpty(AlgorithmReadModels.NotWiredReason,
+                loadingState, emptyState, errorState, successState, disabledState, firstBody, secondBody);
         }
 
         protected override void OnOperationPresentationChanged(

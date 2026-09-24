@@ -35,6 +35,7 @@ namespace AutoEra.UI
 
         private readonly StringBuilder _timeBuffer = new StringBuilder(32);
         private InitialRegion _region;
+        private AutoEra.Input.RegionInputModule _regionInput;
         private IMachineReadModel _machineReadModel;
         private IRegionReadModel _regionReadModel;
         private PersistentId _selectedMachineId = PersistentId.Invalid;
@@ -44,7 +45,7 @@ namespace AutoEra.UI
         private long _worldMilliseconds;
 
         /// <summary>现场侧栏或管理页占用输入时，世界输入必须让位。</summary>
-        public bool BlocksWorldInput => _managementOpen || _openFieldPage >= 0;
+        public override bool BlocksWorldInput => _managementOpen || _openFieldPage >= 0;
 
         public InitialRegion Region => _region;
         public long WorldMilliseconds => _worldMilliseconds;
@@ -104,6 +105,62 @@ namespace AutoEra.UI
             // 状态栏与追踪栏的两个聚合入口。
             if (_hudAlertsOpenButton != null) _hudAlertsOpenButton.onClick.AddListener(() => AutoEraUiNavigator.Open(this, UIViews.AlertForm));
             if (_hudTrackerTaskButton != null) _hudTrackerTaskButton.onClick.AddListener(() => AutoEraUiNavigator.Open(this, UIViews.QuestForm));
+
+            // 「定位／聚焦」：机器概况、四个资源观察页与建筑总览的聚焦按钮。
+            // 它们与 F 键、双击共用 `RegionInputModule.FocusSelection()` 这一条实现——
+            // 规格把三者写成一件事（14-WorldBinding：「有效对象双击或F聚焦」），
+            // 各写一份就会出现「按钮聚焦到锚点、双击聚焦到包围盒中心」这种看得见的偏差。
+            WireLocate(_machineOverviewFocusButton);
+            WireLocate(_farmFocusButton);
+            WireLocate(_forestFocusButton);
+            WireLocate(_mineralFocusButton);
+            WireLocate(_waterFocusButton);
+            WireLocate(_buildingOverviewFocusButton);
+        }
+
+        private void WireLocate(Button button)
+        {
+            if (button != null)
+            {
+                // 包一层 lambda：FocusSelection 返回「有没有定位成功」，
+                // 而 UnityEvent 只要 void；返回值供测试与调用方判断，按钮不消费它。
+                button.onClick.AddListener(() => FocusSelection());
+            }
+        }
+
+        /// <summary>
+        /// 把镜头带到当前选中的现场对象。返回 false 表示这一刻没有可定位的对象——
+        /// 按钮本来就被禁用，所以这里只是不做事，而不是编一个结果。
+        /// </summary>
+        public bool FocusSelection() => _regionInput != null && _regionInput.FocusSelection();
+
+        /// <summary>当前是否给出了可点的定位入口（测试与调试用）。</summary>
+        public bool CanLocateSelection => _regionInput != null && _regionInput.CanFocusSelection;
+
+        /// <summary>
+        /// 定位按钮的可点性。
+        ///
+        /// 判据来自现场输入模块（它才知道选中的是谁），不是「页面上有没有选中行」——
+        /// 现场页与选中状态是两条同步路径，只有输入模块那一份是权威的。
+        /// 没有会话输入模块（编辑器直接打开 HUD、测试装置）时同样禁用并说明。
+        /// </summary>
+        private void RefreshLocateActions()
+        {
+            bool canLocate = CanLocateSelection;
+            SetInteractable(_machineOverviewFocusButton, canLocate);
+            SetInteractable(_farmFocusButton, canLocate);
+            SetInteractable(_forestFocusButton, canLocate);
+            SetInteractable(_mineralFocusButton, canLocate);
+            SetInteractable(_waterFocusButton, canLocate);
+            SetInteractable(_buildingOverviewFocusButton, canLocate);
+        }
+
+        private static void SetInteractable(Button button, bool value)
+        {
+            if (button != null)
+            {
+                button.interactable = value;
+            }
         }
 
         private void WireRecords(Button button)
@@ -143,8 +200,13 @@ namespace AutoEra.UI
             _regionReadModel = RegionReadModels.Create(session);
             _regionReadModel.Changed += OnRegionSectionChanged;
 
+            // 定位按钮的动作与可点性都来自现场输入模块：它才知道谁被选中、镜头在不在手上。
+            // HUD 自己不维护第二份「当前对象」，否则现场点选与页面显示会各有各的答案。
+            _regionInput = session?.RegionInput;
+
             RenderMachinePages(_machineReadModel.Snapshot);
             RenderRegionPages(_regionReadModel.Snapshot);
+            RefreshLocateActions();
         }
 
         protected override void OnAutoEraClose(bool isShutdown)
@@ -152,6 +214,7 @@ namespace AutoEra.UI
             ReleaseMachines();
             ReleaseRegion();
             _region = null;
+            _regionInput = null;
             _openFieldPage = -1;
         }
 
@@ -160,6 +223,7 @@ namespace AutoEra.UI
             ReleaseMachines();
             ReleaseRegion();
             _region = null;
+            _regionInput = null;
             _openFieldPage = -1;
             base.OnAutoEraRecycle();
         }
@@ -247,6 +311,9 @@ namespace AutoEra.UI
         {
             _worldMilliseconds = worldMilliseconds;
             SyncSelectedMachine();
+            // 与选中同步同一个节拍刷新定位按钮：现场点选不产生领域事件，而世界秒是这一页已有的
+            // 稳定节拍。漏掉它就会出现「明明选着对象，聚焦按钮却是灰的」。
+            RefreshLocateActions();
 
             if (_statusSummary == null)
             {

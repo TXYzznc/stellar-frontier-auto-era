@@ -16,8 +16,9 @@ namespace AutoEra.UI
     /// <list type="bullet">
     /// <item><b>机器历史</b>取任务域与执行域的事实——机器做的事以这两类记账；</item>
     /// <item><b>算法历史</b>取算法域的事实；</item>
-    /// <item><b>能源历史</b>当前恒为空并说明原因：事件分类里没有能源域，能源系统本身也还没接入，
-    ///       这里不拿资源域冒充能源。</item>
+    /// <item><b>能源历史</b>取能源域的离散事件：区域电网在每次结算后写入缺电停机／恢复、
+    ///       电量耗尽／恢复、燃料耗尽与供电缺口。规格 06 明确第一版不做连续功率曲线，
+    ///       所以这里读到的是一次次状态跨越，而不是功率曲线。</item>
     /// </list>
     ///
     /// 工具栏动作（过滤、定位、诊断、跳能源）依赖未接入的过滤与定位通道，由
@@ -33,7 +34,12 @@ namespace AutoEra.UI
 
         private const string MachineEmptyHint = "这个区域还没有机器相关的记录。";
         private const string AlgorithmEmptyHint = "还没有算法相关的记录；算法域接入后会出现。";
-        private static readonly string EnergyEmptyHint = EventReadModels.EnergyHistoryUnavailable;
+
+        /// <summary>
+        /// 能源历史已经有真实数据来源：区域电网在每次结算后把离散事件（缺电停机／恢复、
+        /// 电量耗尽／恢复、燃料耗尽、供电缺口）写进日志。这里只是「还没发生过」的说明。
+        /// </summary>
+        private static readonly string EnergyEmptyHint = EventReadModels.EnergyHistoryEmpty;
 
         /// <summary>一页历史的全部绑定打包在一起，避免渲染方法收十几个参数。</summary>
         private readonly struct HistoryPage

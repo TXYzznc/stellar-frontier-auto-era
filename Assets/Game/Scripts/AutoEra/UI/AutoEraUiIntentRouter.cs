@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace AutoEra.UI
 {
@@ -10,8 +10,10 @@ namespace AutoEra.UI
         {
             get
             {
+                // 「谁挡输入」由界面自己声明（见 AutoEraUiFormBase.BlocksWorldInput）：
+                // 世界放置的机器部署页就是刻意不挡的那一类，它需要在世界里挪预览。
                 foreach (AutoEraUiFormBase form in _forms)
-                    if (form != null && form.gameObject.activeInHierarchy && (!(form is FieldHudForm hud) || hud.BlocksWorldInput)) return true;
+                    if (form != null && form.gameObject.activeInHierarchy && form.BlocksWorldInput) return true;
                 return false;
             }
         }

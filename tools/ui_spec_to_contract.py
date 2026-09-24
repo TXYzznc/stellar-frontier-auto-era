@@ -728,6 +728,21 @@ EXTRA_BINDINGS: dict[str, list[tuple[str, str, str]]] = {
     ],
     # BaseCommandHubForm 不再手写页面绑定：它的页面引用由 auto_page_bindings 按命名规则
     # 自动推导（阶段 1 的样板页已用实物验证过这套规则的可用性）。
+    #
+    # 只有「二级页入口 + 输入控件」需要在这里显式声明：二级页（能源系统详情）没有一级导航按钮，
+    # 契约不会为它推导入口；而 Toggle/Slider 这两个独立输入控件不是 Btn_ 命名的行内按钮，
+    # 自动推导同样覆盖不到。三个写入口的意图见 04-基地中枢/HubEnergy.md：
+    # 「仅燃料设施开放充电许可与目标比例，使用 Toggle＋百分比滑条；最终提交再验权限」
+    # 与「字段控制与确认按钮职责分离」。
+    "BaseCommandHubForm": [
+        ("_hubOverviewEnergyButton", "Btn_HubOverviewEnergy", "Button"),
+        ("_hubEnergyConfigureButton", "Btn_HubEnergyConfigure", "Button"),
+        ("_hubEnergyChargingAllowedToggle", "Tgl_HubEnergyChargingAllowed", "Toggle"),
+        ("_hubEnergyChargeTargetSlider", "Sld_HubEnergyChargeTarget", "Slider"),
+        # 「查看能源事件」：能源页的第三个动作，进入 15-任务与记录 的能源停机记录页。
+        # 它与「定位设施」不同——后者要的是尚未接入的跨对象定位通道，所以本批不绑。
+        ("_hubEnergyHistoryButton", "Btn_HubEnergyHistory", "Button"),
+    ],
     "FieldHudForm": [
         ("_fieldCloseButton", "Btn_FieldClose", "Button"),
         ("_statusPanel", "Panel_PageHudStatus", "GameObject"),
@@ -768,6 +783,18 @@ EXTRA_BINDINGS: dict[str, list[tuple[str, str, str]]] = {
         # 「警报→活跃警报列表」「主线追踪→任务详情」。
         ("_hudAlertsOpenButton", "Btn_HudAlertsOpen", "Button"),
         ("_hudTrackerTaskButton", "Btn_HudTrackerTask", "Button"),
+        # 「定位／聚焦」：把镜头带到**当前选中的现场对象**。规格把三者写成一件事
+        # （14-WorldBinding：「有效对象双击或F聚焦」），所以这些按钮与 F 键、双击共用
+        # RegionInputModule.FocusSelection 这一条实现；各写一份会出现看得见的偏差。
+        # 只声明「聚焦当前对象」的按钮：`Btn_PumpFocus`（查看水源）、`Btn_ConveyorLocate`
+        # （定位关联对象）、`Btn_MachineDiagnosticsLocate`（定位关联对象）定位的是**另一个**
+        # 对象，需要跨对象的定位通道，不在本批范围内。
+        ("_machineOverviewFocusButton", "Btn_MachineOverviewFocus", "Button"),
+        ("_farmFocusButton", "Btn_FarmFocus", "Button"),
+        ("_forestFocusButton", "Btn_ForestFocus", "Button"),
+        ("_mineralFocusButton", "Btn_MineralFocus", "Button"),
+        ("_waterFocusButton", "Btn_WaterFocus", "Button"),
+        ("_buildingOverviewFocusButton", "Btn_BuildingOverviewFocus", "Button"),
     ],
     "SystemMenuForm": [
         ("_resumeButton", "Btn_SystemMenuResume", "Button"),
@@ -799,6 +826,15 @@ EXTRA_BINDINGS: dict[str, list[tuple[str, str, str]]] = {
         ("_deployedRenameButton", "Btn_DeployedMachinesRename", "Button"),
         ("_deployedReturnButton", "Btn_DeployedMachinesUndeployed", "Button"),
     ],
+    # 安装替换组件选择器（12-选择与绑定）：三个动作按钮必须绑进契约——「选择」只改预选项、
+    # 「使用该组件」确认并进入 17-硬件确认、「取消」返回来源槽位且不消费库存。
+    # 候选与比较两栏的内容、模板、正文与五个状态组由命名规则自动推导，不需要在这里列。
+    "ComponentPickerForm": [
+        ("_title", "Txt_ComponentPickerTitle", "TextMeshProUGUI"),
+        ("_selectButton", "Btn_ComponentPickerSelect", "Button"),
+        ("_confirmButton", "Btn_ComponentPickerConfirm", "Button"),
+        ("_cancelButton", "Btn_ComponentPickerCancel", "Button"),
+    ],
     # 世界对象选择器：选择与确认是它唯一的真实动作，因此这四个按钮必须绑进契约。
     "WorldObjectPickerForm": [
         ("_selectButton", "Btn_WorldObjectPickerSelect", "Button"),
@@ -806,8 +842,53 @@ EXTRA_BINDINGS: dict[str, list[tuple[str, str, str]]] = {
         ("_confirmButton", "Btn_WorldObjectPickerConfirm", "Button"),
         ("_cancelButton", "Btn_WorldObjectPickerCancel", "Button"),
     ],
-    # 世界放置（放置／部署／绑定三页）：整域未接线，按钮全部由 DisableDomainActions 处置，
-    # 不需要逐个绑定——取消类按钮会被安全出口规则自动保留。
+    # 世界放置（放置／部署／绑定三页）：建造放置与世界绑定两页整域未接线，按钮由
+    # DisableDomainActions 处置；机器部署页已经真正可用，所以它自己的三个动作必须绑进契约
+    # ——旋转、确认、取消都走流程与现场输入模块，没有第二个入口。
+    "WorldPlacementForm": [
+        ("_machineDeploymentRotateButton", "Btn_MachineDeploymentRotate", "Button"),
+        ("_machineDeploymentConfirmButton", "Btn_MachineDeploymentConfirm", "Button"),
+        ("_machineDeploymentCancelButton", "Btn_MachineDeploymentCancel", "Button"),
+        # 世界绑定页的「聚焦」虽然语义上就是「有效对象双击或F聚焦」（规格 14-WorldBinding 原文），
+        # 但**该页整域未接线**（选择栏／校验栏／提示栏都陈述原因，页级状态是 Disabled）。
+        # 在一个自称不可用的页面上点亮一个可用按钮，比一个死按钮更让人困惑，
+        # 所以它随世界绑定域一起接，不在这里单独声明。
+    ],
+    # 操作确认与输入：参数驱动的多页对话框。本批接入**硬件修改确认**一页
+    # （整备环境安装／拆卸的必经关卡），因此「保留配置」「提交硬件修改」两个按钮必须绑进契约。
+    "OperationDialogForm": [
+        ("_hardwareConfirmKeepButton", "Btn_HardwareConfirmKeep", "Button"),
+        ("_hardwareConfirmCommitButton", "Btn_HardwareConfirmCommit", "Button"),
+    ],
+    # 用户设置：显示与性能分页已接线，它的每一个控件都必须能点（否则页面依然是死页）；
+    # 声音与操作分页尚未接线，但它们的控件也要绑定——原因写在页面上、
+    # 控件由 SetXxxOptionsInteractable(false) 明确禁用，而不是靠「没有绑定所以点不动」。
+    # 「没有绑定 = 点不动」会让排查的人分不清「未接线」与「忘了接」。
+    "SettingsForm": [
+        ("_displaySettingsResetButton", "Btn_DisplaySettingsReset", "Button"),
+        ("_windowModeFullscreenButton", "Btn_DisplaySettingsWindowModeFullscreen", "Button"),
+        ("_windowModeBorderlessButton", "Btn_DisplaySettingsWindowModeBorderless", "Button"),
+        ("_vSyncEnabledButton", "Btn_DisplaySettingsVSyncEnabled", "Button"),
+        ("_vSyncDisabledButton", "Btn_DisplaySettingsVSyncDisabled", "Button"),
+        ("_frameLimitThirtyButton", "Btn_DisplaySettingsFrameLimitThirty", "Button"),
+        ("_frameLimitSixtyButton", "Btn_DisplaySettingsFrameLimitSixty", "Button"),
+        ("_frameLimitUnlimitedButton", "Btn_DisplaySettingsFrameLimitUnlimited", "Button"),
+        ("_qualityPresetLowButton", "Btn_DisplaySettingsPresetLow", "Button"),
+        ("_qualityPresetMediumButton", "Btn_DisplaySettingsPresetMedium", "Button"),
+        ("_qualityPresetHighButton", "Btn_DisplaySettingsPresetHigh", "Button"),
+        ("_audioSettingsMainVolumeSlider", "Sld_AudioSettingsMainVolume", "Slider"),
+        ("_audioSettingsMusicVolumeSlider", "Sld_AudioSettingsMusicVolume", "Slider"),
+        ("_audioSettingsAmbientVolumeSlider", "Sld_AudioSettingsAmbientVolume", "Slider"),
+        ("_audioSettingsMachineVolumeSlider", "Sld_AudioSettingsMachineVolume", "Slider"),
+        ("_audioSettingsUiVolumeSlider", "Sld_AudioSettingsUiVolume", "Slider"),
+        ("_audioSettingsResetButton", "Btn_AudioSettingsReset", "Button"),
+        ("_controlSettingsPanSpeedSlider", "Sld_ControlSettingsPanSpeed", "Slider"),
+        ("_controlSettingsRotateSpeedSlider", "Sld_ControlSettingsRotateSpeed", "Slider"),
+        ("_controlSettingsZoomSpeedSlider", "Sld_ControlSettingsZoomSpeed", "Slider"),
+        ("_controlSettingsInvertHorizontalToggle", "Tgl_ControlSettingsInvertHorizontal", "Toggle"),
+        ("_controlSettingsInvertVerticalToggle", "Tgl_ControlSettingsInvertVertical", "Toggle"),
+        ("_controlSettingsResetButton", "Btn_ControlSettingsReset", "Button"),
+    ],
 }
 
 

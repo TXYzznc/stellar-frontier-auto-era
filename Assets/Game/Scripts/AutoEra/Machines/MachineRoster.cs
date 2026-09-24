@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using AutoEra.World.Identity;
@@ -96,6 +96,13 @@ namespace AutoEra.Machines
         }
         public MachineManagementResult Remove(PersistentId machineId, ManagementOrigin origin, HardwareKind kind, int index)
             => _machines.TryGetValue(machineId, out var machine) ? machine.Remove(origin, kind, index) : MachineManagementResult.InvalidState;
+
+        /// <summary>
+        /// 一键卸下全部（规格 05-机器整备：「确认全部卸下影响并原子回库」）。
+        /// 卸下的组件只清掉归属，于是它们回到组件库成为散件——不需要另一套库存系统。
+        /// </summary>
+        public MachineManagementResult RemoveAll(PersistentId machineId, ManagementOrigin origin)
+            => _machines.TryGetValue(machineId, out var machine) ? machine.RemoveAll(origin) : MachineManagementResult.InvalidState;
 
         public ulong GetHistoricalCount(int definitionId) => _serials.TryGetValue(definitionId, out var count) ? count : 0;
 

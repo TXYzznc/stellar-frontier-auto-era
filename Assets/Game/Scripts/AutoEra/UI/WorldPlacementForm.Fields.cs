@@ -17,6 +17,12 @@ namespace AutoEra.UI
         public RectTransform PageHost => _pageHost;
         [SerializeField] private GameObject _firstInteractable;
         public GameObject FirstInteractable => _firstInteractable;
+        [SerializeField] private Button _machineDeploymentRotateButton;
+        public Button MachineDeploymentRotateButton => _machineDeploymentRotateButton;
+        [SerializeField] private Button _machineDeploymentConfirmButton;
+        public Button MachineDeploymentConfirmButton => _machineDeploymentConfirmButton;
+        [SerializeField] private Button _machineDeploymentCancelButton;
+        public Button MachineDeploymentCancelButton => _machineDeploymentCancelButton;
         [SerializeField] private RectTransform _buildPlacementSelectionContent;
         public RectTransform BuildPlacementSelectionContent => _buildPlacementSelectionContent;
         [SerializeField] private TMP_Text _buildPlacementSelectionBody;

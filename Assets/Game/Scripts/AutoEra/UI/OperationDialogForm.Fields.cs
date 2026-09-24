@@ -19,6 +19,10 @@ namespace AutoEra.UI
         public Button BackButton => _backButton;
         [SerializeField] private Button _closeButton;
         public Button CloseButton => _closeButton;
+        [SerializeField] private Button _hardwareConfirmKeepButton;
+        public Button HardwareConfirmKeepButton => _hardwareConfirmKeepButton;
+        [SerializeField] private Button _hardwareConfirmCommitButton;
+        public Button HardwareConfirmCommitButton => _hardwareConfirmCommitButton;
         [SerializeField] private RectTransform _renameInputContent;
         public RectTransform RenameInputContent => _renameInputContent;
         [SerializeField] private TMP_Text _renameInputBody;

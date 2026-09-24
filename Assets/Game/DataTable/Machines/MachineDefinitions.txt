@@ -1,8 +1,8 @@
-#	MachineDefinitions																	
-#	Id		ModelId	NameKey	Level	SensorSlots	CoreSlots	EffectorSlots	BaseCapacity	CanMove	CanRotate	MaximumIntegrity	PurchasePrice	RecyclePrice	IdlePower	WorkingPower	Availability	Prefab
-#	int		int	string	int	int	int	int	int	bool	bool	double	int	int	double	double	string	string
-#	Stable row identifier		ModelId	NameKey	Level	SensorSlots	CoreSlots	EffectorSlots	BaseCapacity	CanMove	CanRotate	MaximumIntegrity	PurchasePrice	RecyclePrice	IdlePower	WorkingPower	Availability	Prefab
-	10011		1001	Machine.Wheeled	1	2	1	2	30	true	true	100	900	720	0.2	2	Ready	Machines/WheeledCarrier
-	10012		1001	Machine.Wheeled	2	2	1	2	36	true	true	120	900	720	0.2	2.4	Ready	Machines/WheeledCarrier
-	10021		1002	Machine.FixedRotary	1	2	1	1	10	false	true	100	350	280	0.1	1	Ready	Machines/FixedRotaryCarrier
-	10022		1002	Machine.FixedRotary	2	2	1	1	12	false	true	120	350	280	0.1	1.2	Ready	Machines/FixedRotaryCarrier
+#	MachineDefinitions																			
+#	Id		ModelId	NameKey	Level	SensorSlots	CoreSlots	EffectorSlots	BaseCapacity	CanMove	CanRotate	MaximumIntegrity	PurchasePrice	RecyclePrice	IdlePower	WorkingPower	Availability	Prefab	FootprintX	FootprintZ
+#	int		int	string	int	int	int	int	int	bool	bool	double	int	int	double	double	string	string	double	double
+#	Stable row identifier		ModelId	NameKey	Level	SensorSlots	CoreSlots	EffectorSlots	BaseCapacity	CanMove	CanRotate	MaximumIntegrity	PurchasePrice	RecyclePrice	IdlePower	WorkingPower	Availability	Prefab	交互占地沿本地X（米）。轴名写死是因为设计文档按「长×宽」记占地（见DEC-147与灰盒规格：轮式载体交互占地2.6×1.8米＝Z2.6×X1.8），不写死轴向会在实现侧再次推错	交互占地沿本地Z（米）。0表示该型号尚未配置占地，放置流程须以「未配置占地」拒绝而不是猜一个值
+	10011		1001	Machine.Wheeled	1	2	1	2	30	true	true	100	900	720	0.2	2	Ready	Machines/WheeledCarrier	1.8	2.6
+	10012		1001	Machine.Wheeled	2	2	1	2	36	true	true	120	900	720	0.2	2.4	Ready	Machines/WheeledCarrier	1.8	2.6
+	10021		1002	Machine.FixedRotary	1	2	1	1	10	false	true	100	350	280	0.1	1	Ready	Machines/FixedRotaryCarrier	2	2
+	10022		1002	Machine.FixedRotary	2	2	1	1	12	false	true	120	350	280	0.1	1.2	Ready	Machines/FixedRotaryCarrier	2	2

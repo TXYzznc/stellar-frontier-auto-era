@@ -24,6 +24,19 @@ namespace AutoEra.UI
         private readonly AutoEraUiRequestVersionGate _requestVersionGate = new AutoEraUiRequestVersionGate();
         private GameObject _openTriggerFocus;
 
+        /// <summary>
+        /// 本界面当前是否要独占世界输入（镜头、选取、放置预览都让位）。
+        ///
+        /// 默认 true：管理／模态界面本就该挡住世界操作。**但有一类界面刻意不是全屏模态**——
+        /// 例如世界放置的机器部署页，规格写明「世界虚影可见，底部居中操作条，只拦截 UI 占用区域，
+        /// 不用全屏遮罩」：它必须让镜头与放置预览继续工作，否则玩家一边看着页面一边点不到世界。
+        /// 子类按**当前页**覆写即可（见 <c>WorldPlacementForm</c>）。
+        ///
+        /// 这条属性替代了路由里对 <c>FieldHudForm</c> 的类型判断——把「谁挡输入」从类型知识
+        /// 变成界面自己的声明，新增同类界面时不必再回到路由改一次。
+        /// </summary>
+        public virtual bool BlocksWorldInput => true;
+
         /// <summary>Raised for a state-gated UI action; the authoritative operation owner decides the outcome.</summary>
         public event Action<AutoEraUiOperationActionRequest> OperationActionRequested;
 

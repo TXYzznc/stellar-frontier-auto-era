@@ -25,6 +25,9 @@ public static partial class Const
 	public enum SoundGroup
 	{
 		Music,
-		Sound
+		Sound,
+		Ambient,
+		Machine,
+		Ui
 	}
 }
