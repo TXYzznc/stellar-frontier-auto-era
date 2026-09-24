@@ -32,13 +32,17 @@ B15 已交付算法域完整服务层（`AlgorithmDocument` / `AlgorithmValidato
 
 3. **UI 读模型只替换 `Create` 分支**：`AlgorithmReadModels.Create(session)` 从 `session.World.AlgorithmTemplates` 读模板列表与详情，构造真实 `IAlgorithmReadModel`。接口不扩展，四个算法界面零改动。
 
-4. **机器实例服务分阶段（阶段 B）**：`AlgorithmInstanceService` 依赖 `MachineComputePool`（执行上下文有）与 `bindingsValid`（来自 `AlgorithmMachineAdapter`，而 adapter 依赖 navigation + region）。因此实例服务在区域「部署机器 + 绑定导航」处创建，而非在 `MachineExecutionContext` 构造时。阶段 B 单独设计/测试，不阻塞阶段 A。
+4. **机器实例服务分阶段（阶段 B，已交付）**：`AlgorithmInstanceService` 依赖 `MachineComputePool`（执行上下文有）与 `bindingsValid`（来自 `AlgorithmMachineAdapter`，而 adapter 依赖 navigation + region）。因此实例服务在区域「部署机器 + 绑定导航」处创建——落地在 `RegionMachineRuntimeRegistry.TryAttach`（`new AlgorithmMachineAdapter(...)` + `new AlgorithmInstanceService(IdAllocator, Compute, () => (ulong)machine.Revision, adapter.ValidateBindings)`），而非在 `MachineExecutionContext` 构造时。
 
-5. **分阶段交付**：阶段 A（世界模板库 + 五模板 + 读模型）先交付并验收，阶段 B（机器实例 + 编辑/诊断读模型）随后。理由：A 无场景依赖、低风险，先验证接线模式。
+5. **分阶段交付（已交付）**：阶段 A（世界模板库 + 五模板 + 实例读模型）与阶段 B（机器实例服务 + 编辑/诊断读模型）均落地。机器运行时（`RegionMachineRuntime`）同时持有 `Adapter` 与 `Instances`，编辑/诊断界面从 `Instances.ListInstances()` 读版本三元组、逻辑算力与应用请求状态。
 
 ## Risks / Trade-offs
 
-- [机器实例依赖导航绑定链] → 阶段 B 单独设计，接入点选在 `InitialRegion` 部署+导航绑定处，不阻塞阶段 A。
-- [五模板成本需按新端口重算] → 先按 DEC-121 已知成本录入两套，其余三套结构录入 + 成本待重算标记，重算结果列用户确认，不擅自定值。
-- [读模型接口冻结] → 只替换 `Create` 分支，不扩接口；实例状态若需新字段，走阶段 B 单独评估。
-- [模板库与实例服务的世界退出顺序] → 模板库随 `AutoEraWorldSession.Dispose` 清理，实例服务随机器解除绑定释放，遵循既有对称生命周期约定。
+- [机器实例依赖导航绑定链] → **已解决**：接入点落在 `RegionMachineRuntimeRegistry.TryAttach`，实例服务与适配器在同一处按顺序创建（运行时创建 → 导航绑定 → 适配器 → 实例服务），不存在假依赖方向。
+- [五模板成本需按新端口重算] → **已定稿（DEC-202）**：灌溉 9、开采 15、采集 17、农田 14、固定运输 35，口径 DEC-117；偏差为粒度差异，非缺陷。
+- [读模型接口冻结] → 只替换 `Create` 分支，不扩接口；实例状态快照（版本三元组/逻辑算力/应用请求）已满足编辑/诊断只读需求。
+- [模板库与实例服务的世界退出顺序] → 模板库随 `AutoEraWorldSession.Dispose` 清理，实例服务随 `RegionMachineRuntime.Dispose`（Instances → Adapter → 导航绑定 → Context）释放，遵循既有对称生命周期约定。
+
+## Open Questions
+
+（无待决事项。原「模板列表 UI 欠账（2.x 未落地）」已补齐：新增 `TemplateAlgorithmReadModel`（读 `AutoEraWorldSession.AlgorithmTemplates`），`AlgorithmReadModels.Create` 按 `AlgorithmReadModelDomain.Library/Machine` 分域，`IAlgorithmReadModel` 增加 `SelectTemplate`，`AlgorithmLibraryForm` 渲染系统/玩家模板目录与选中模板详情，回归 12/12 通过。）

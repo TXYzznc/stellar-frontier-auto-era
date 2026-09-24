@@ -28,3 +28,21 @@
 #### Scenario: 选中模板返回详情
 - **WHEN** 读模型对某个模板 ID 调用 Select 且返回成功
 - **THEN** 快照的 SelectedIndex 指向该模板，Detail 非空且包含该模板摘要
+
+### Requirement: 机器实例服务接入执行上下文
+部署一台机器时，区域运行时 SHALL 为该机器创建 `AlgorithmInstanceService`（以 `MachineComputePool` + `IdAllocator` + 硬件版本 + 适配器绑定校验构造），供编辑/诊断界面读写实例草稿与应用状态。
+
+#### Scenario: 部署后机器拥有实例服务
+- **WHEN** 一台机器在区域运行时被部署并建立运行时
+- **THEN** 该机器运行时持有非空的算法实例服务（`RegionMachineRuntime.Instances`）
+
+### Requirement: UI 读模型返回机器实例状态
+当界面会话解析到选中机器及其运行时，算法读模型 SHALL 从该机器的实例服务读取实例列表（稳定 ID、版本三元组、逻辑算力、应用请求状态），并区分「无实例」（Empty）与「有实例」（Ready）。
+
+#### Scenario: 机器无实例时为 Empty 且携带机器身份
+- **WHEN** 读模型解析到一台有运行时但无算法实例的机器
+- **THEN** 快照 State 为 Empty，MachineId 指向该机器，且不伪造实例
+
+#### Scenario: 机器有实例时为 Ready
+- **WHEN** 读模型解析到一台有算法实例的机器
+- **THEN** 快照 State 为 Ready，Instances 包含全部实例，且默认选中首行

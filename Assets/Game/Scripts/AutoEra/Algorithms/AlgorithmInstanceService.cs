@@ -95,6 +95,20 @@ namespace AutoEra.Algorithms
         public AlgorithmApplyRequest ReadRequest(ulong id) => _entries[id].Request?.Copy();
 
         /// <summary>
+        /// 该实例运行时最近运行记录的快照；无实例/无运行时返回空数组。
+        /// 这是界面观察诊断历史的唯一只读入口（`_entries` 私有，运行时不能绕过本服务直取）。
+        /// </summary>
+        public AlgorithmRunRecord[] ReadHistory(ulong id)
+        {
+            if (_disposed || !_entries.TryGetValue(id, out var entry) || entry.Runtime == null)
+            {
+                return Array.Empty<AlgorithmRunRecord>();
+            }
+
+            return entry.Runtime.History();
+        }
+
+        /// <summary>
         /// 本机上全部算法实例的只读状态，按实例 Id 排序。
         ///
         /// **界面观察算法域的唯一入口**：`_entries` 是私有的，没有它界面就只能报「不可用」——
