@@ -32,6 +32,20 @@ namespace AutoEra.Tests.Editor
             public ulong Submit(AlgorithmTrigger t, AlgorithmIntent i) => t.TaskId;
             public void EndBatch(AlgorithmTrigger t) { }
             public void Cancel() { }
+
+            // 合并适配：b19 在 IAlgorithmCommandSink 上新增的货物/任务查询成员。
+            // 本文件用例不覆盖货舱与任务查询，桩实现按接口语义返回 false。
+            public bool TryReadCargo(string field, string itemType, out AlgorithmValue value)
+            {
+                value = null;
+                return false;
+            }
+
+            public bool TryQueryTask(string name, out AlgorithmValue task)
+            {
+                task = null;
+                return false;
+            }
         }
 
         [Test]
