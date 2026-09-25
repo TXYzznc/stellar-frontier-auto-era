@@ -26,6 +26,7 @@ SCRIPT_DIR = Path("Assets/Game/Scripts/AutoEra/UI")
 TYPE_BY_KIND = {
     "GameObject": "GameObject",
     "TextMeshProUGUI": "TMP_Text",
+    "TMP_InputField": "TMP_InputField",
     "Image": "Image",
     "Button": "Button",
     "Slider": "Slider",
