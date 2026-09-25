@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using AutoEra.PCG;
 
 namespace AutoEra.Editor.PCG
 {

@@ -433,6 +433,7 @@ GameObject:
   - component: {fileID: 415659154}
   - component: {fileID: 415659153}
   - component: {fileID: 415659152}
+  - component: {fileID: 415659156}
   m_Layer: 0
   m_Name: InitialRegion
   m_TagString: Untagged
@@ -484,6 +485,8 @@ MonoBehaviour:
   _panSpeed: 15
   _rotationSpeed: 3
   _zoomSpeed: 5
+  _invertHorizontal: 0
+  _invertVertical: 0
 --- !u!114 &415659154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,6 +525,8 @@ MonoBehaviour:
   _navigationGround: {fileID: 1321054550}
   _navigationRadius: 1.6
   _navigationHeight: 2
+  _wheelRadius: 0.32
+  _wheelBase: 1.8
 --- !u!4 &415659155
 Transform:
   m_ObjectHideFlags: 0
@@ -544,6 +549,37 @@ Transform:
   - {fileID: 22697314}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &415659156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 415659151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e0efd028d612b543bdcd4f04ab13734, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _area: {x: 80, y: 80}
+  _density: 0.05
+  _minDistance: 1.5
+  _seed: 20261001
+  _rockVarieties:
+  - Preset: {fileID: 11400000, guid: 8a5992227a0b58f40bb3f09fca288ae4, type: 2}
+    Weight: 1
+  - Preset: {fileID: 11400000, guid: 4349c7b662261844cac4a2ebf1385be0, type: 2}
+    Weight: 1
+  _rockShare: 0.3
+  _rockSinkMin: 0.1
+  _vegetationPrefabs:
+  - {fileID: 4772186735831710505, guid: 4840431eed8ee4140813ed85d0d57a08, type: 3}
+  - {fileID: 3929166119001699076, guid: e2bb821a831a5594e8edd639a3071573, type: 3}
+  - {fileID: 7749666473272246182, guid: d71060bfc3bf30348b5f8d46ecc793d9, type: 3}
+  - {fileID: 5705650778111776176, guid: 2e4d3bb5214a2f9429075323d32905ba, type: 3}
+  _alignToSurface: 0
+  _maxSlope: 30
+  _buildOnStart: 1
 --- !u!1 &672735107
 GameObject:
   m_ObjectHideFlags: 0
@@ -1698,7 +1734,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1718148092
 Transform:
   m_ObjectHideFlags: 0
@@ -1774,6 +1810,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1722317460}
   - component: {fileID: 1722317459}
+  - component: {fileID: 1722317461}
   m_Layer: 0
   m_Name: "\u5730\u8868\u77FF\u8109"
   m_TagString: Untagged
@@ -1819,6 +1856,24 @@ Transform:
   - {fileID: 1513540534}
   m_Father: {fileID: 415659155}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1722317461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1722317458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb4a0244500403146ab3149084bcd9bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _distribution: {fileID: 11400000, guid: 5f9c39811b8650e45b3ec98e63b5aaf8, type: 2}
+  _footprint: {x: 10, y: 8}
+  _seed: 20261001
+  _oreCount: 8
+  _edgeMargin: 0.5
+  _buildOnStart: 1
 --- !u!1 &1744762488
 GameObject:
   m_ObjectHideFlags: 0

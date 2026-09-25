@@ -1,4 +1,5 @@
 using System;
+using AutoEra.PCG;
 using AutoEra.Input;
 using AutoEra.World.Identity;
 using AutoEra.World.Region;
@@ -62,6 +63,7 @@ namespace AutoEra.Editor
                     Create(root, selectionLayer, "生物质发电机", PersistentObjectKind.Building, new Vector2(-12, -14), new Vector2(4, 3), 1.5f, true),
                     Create(root, selectionLayer, "太阳能阵列", PersistentObjectKind.Building, new Vector2(12, -14), new Vector2(4, 4), .8f, true)
                 };
+                AttachPcgDecoration(root, views);
                 var serialized = new SerializedObject(entry);
                 SerializedProperty array = serialized.FindProperty("_objects");
                 array.arraySize = views.Length;
@@ -133,6 +135,67 @@ namespace AutoEra.Editor
             collider.center = Vector3.up * height * .5f;
             collider.size = new Vector3(size.x, Mathf.Max(height, .5f), size.y);
             return view;
+        }
+
+        /// <summary>接入 PCG 运行时装饰：地表矿脉挂矿石生成器、区域根挂散布器。运行时 Play Mode 程序化生成。</summary>
+        private static void AttachPcgDecoration(GameObject root, RegionObjectView[] views)
+        {
+            // 1. 「地表矿脉」资源点挂 OreDepositVisual（运行时程序化生成矿石视觉，替换 Cube 占位）
+            OreDistributionConfig oreConfig = AssetDatabase.LoadAssetAtPath<OreDistributionConfig>(
+                "Assets/Game/ScriptableAssets/PCGConfigs/OreDistribution.asset");
+            foreach (RegionObjectView view in views)
+            {
+                if (view == null || view.name != "地表矿脉")
+                {
+                    continue;
+                }
+                OreDepositVisual ore = view.gameObject.AddComponent<OreDepositVisual>();
+                var oreData = new SerializedObject(ore);
+                oreData.FindProperty("_distribution").objectReferenceValue = oreConfig;
+                oreData.FindProperty("_footprint").vector2Value = new Vector2(10f, 8f);
+                oreData.FindProperty("_seed").intValue = 20261001;
+                oreData.FindProperty("_oreCount").intValue = 8;
+                oreData.ApplyModifiedPropertiesWithoutUndo();
+                // 禁用 Cube 占位：矿石成为正式视觉
+                Transform visual = view.transform.Find("Visual");
+                if (visual != null)
+                {
+                    visual.gameObject.SetActive(false);
+                }
+            }
+
+            // 2. 区域根挂 RuntimeScatterer（运行时散布岩石/植株）
+            RuntimeScatterer scatterer = root.AddComponent<RuntimeScatterer>();
+            var scData = new SerializedObject(scatterer);
+            scData.FindProperty("_area").vector2Value = new Vector2(80f, 80f);
+            scData.FindProperty("_density").floatValue = 0.02f;
+            scData.FindProperty("_minDistance").floatValue = 1.5f;
+            scData.FindProperty("_seed").intValue = 20261001;
+            scData.FindProperty("_rockShare").floatValue = 0.15f;
+            SerializedProperty rocks = scData.FindProperty("_rockVarieties");
+            rocks.arraySize = 2;
+            ConfigureRockVariety(rocks.GetArrayElementAtIndex(0), "Assets/Game/ScriptableAssets/PCG/Rock/岩石-普通石块.asset", 1f);
+            ConfigureRockVariety(rocks.GetArrayElementAtIndex(1), "Assets/Game/ScriptableAssets/PCG/Rock/岩石-圆润卵石.asset", 1f);
+            string[] vegPaths =
+            {
+                "Assets/Game/Prefabs/植株/树/ForestTree01_Optimized.prefab",
+                "Assets/Game/Prefabs/植株/灌木/ForestBush01_Optimized.prefab",
+                "Assets/Game/Prefabs/植株/草/GrassPlant02.prefab",
+                "Assets/Game/Prefabs/植株/花/FlowerGrass01.prefab"
+            };
+            SerializedProperty veg = scData.FindProperty("_vegetationPrefabs");
+            veg.arraySize = vegPaths.Length;
+            for (int i = 0; i < vegPaths.Length; i++)
+            {
+                veg.GetArrayElementAtIndex(i).objectReferenceValue = AssetDatabase.LoadAssetAtPath<GameObject>(vegPaths[i]);
+            }
+            scData.ApplyModifiedPropertiesWithoutUndo();
+        }
+
+        private static void ConfigureRockVariety(SerializedProperty element, string path, float weight)
+        {
+            element.FindPropertyRelative("Preset").objectReferenceValue = AssetDatabase.LoadAssetAtPath<RockPreset>(path);
+            element.FindPropertyRelative("Weight").floatValue = weight;
         }
     }
 }
