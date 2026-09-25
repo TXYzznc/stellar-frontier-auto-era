@@ -10,11 +10,10 @@ namespace AutoEra.UI
     ///
     /// 绑定字段在同名的 .Fields.cs 里，结构由契约生成。
     ///
-    /// 算法域的服务层已接入世界与机器运行路径（`AutoEraWorldSession.AlgorithmTemplates`
-    /// 与 `RegionMachineRuntimeRegistry` 创建的实例服务），但**模板列表/详情的读模型通道
-    /// 尚未接线**——见 <see cref="AlgorithmReadModels.NotWiredReason"/>。所以本页当前呈现的是
-    /// 「模板列表未接线」这一真实状态：三个页面写明原因，业务按钮全部禁用，只有返回、
-    /// 关闭与两页导航仍然可用。模板读模型接线后本页需要补上模板行渲染，见 b17 design Open Questions。
+    /// 模板列表/详情的读模型通道已在 b17 接线（<see cref="AlgorithmReadModels.Create"/> 的库页域），
+    /// 三个「创建实例」按钮在 b23 接线：有模板时启用，点击后在当前选中机器上创建草稿实例并
+    /// 跳转算法工作台（工作台机器域读模型自动选中新实例，显示图结构与「缺少绑定」校验问题）。
+    /// 集中待绑定面板（绑定重绑）尚未接线，后续批完成后再调整创建后的导航目标。
     /// </summary>
     public sealed partial class AlgorithmLibraryForm : AutoEraShellFormBase
     {
@@ -55,6 +54,9 @@ namespace AutoEra.UI
 
             if (_backButton != null) _backButton.onClick.AddListener(RequestCancel);
             if (_closeButton != null) _closeButton.onClick.AddListener(RequestCancel);
+            if (_systemTemplatesCreateButton != null) _systemTemplatesCreateButton.onClick.AddListener(OnCreateInstanceFromTemplate);
+            if (_playerTemplatesCreateButton != null) _playerTemplatesCreateButton.onClick.AddListener(OnCreateInstanceFromTemplate);
+            if (_templateDetailCreateButton != null) _templateDetailCreateButton.onClick.AddListener(OnCreateInstanceFromTemplate);
         }
 
         protected override void OnAutoEraOpen()
@@ -70,7 +72,6 @@ namespace AutoEra.UI
             _algorithms.Changed += OnAlgorithmSectionChanged;
 
             Render(_algorithms.Snapshot);
-            DisableDomainActions();
         }
 
         protected override void OnAutoEraClose(bool isShutdown) => ReleaseAlgorithms();
@@ -126,6 +127,7 @@ namespace AutoEra.UI
                 RenderDetailRows(_playerTemplatesDetailTemplate, _playerTemplatesDetailContent, NoFields);
                 RenderDetailRows(_templateDetailDefinitionTemplate, _templateDetailDefinitionContent, NoFields);
                 RenderDetailRows(_templateDetailRequirementsTemplate, _templateDetailRequirementsContent, NoFields);
+                SetCreateButtonInteractable(false);
                 return;
             }
 
@@ -164,6 +166,7 @@ namespace AutoEra.UI
                 _playerTemplatesDetailTemplate, _playerTemplatesDetailContent, player, hasTemplates, detail, "玩家模板");
 
             RenderTemplateDetailPage(detail, hasTemplates);
+            SetCreateButtonInteractable(hasTemplates);
         }
 
         private void RenderCatalogPage(
@@ -226,6 +229,42 @@ namespace AutoEra.UI
             {
                 _algorithms.SelectTemplate(templateId);
             }
+        }
+
+        /// <summary>
+        /// 点「创建实例」→ 取当前选中模板（无选中则取第一个），在当前选中机器上创建草稿实例并
+        /// 跳转算法工作台。无选中机器／机器无运行时／模板无效时 <c>InstantiateTemplate</c> 返回 0，
+        /// 保持库页不跳转（库页从 FieldHud 机器按钮打开，正常路径下机器上下文已存在）。
+        /// </summary>
+        private void OnCreateInstanceFromTemplate()
+        {
+            if (_algorithms == null)
+            {
+                return;
+            }
+
+            AlgorithmDomainSnapshot snapshot = _algorithms.Snapshot;
+            if (snapshot.Templates == null || snapshot.Templates.Count == 0)
+            {
+                return;
+            }
+
+            ulong templateId = snapshot.SelectedTemplate?.Id ?? snapshot.Templates[0].Id;
+            ulong instanceId = _algorithms.InstantiateTemplate(templateId);
+            if (instanceId == 0)
+            {
+                return;
+            }
+
+            AutoEraUiNavigator.Open(this, UIViews.AlgorithmEditorForm);
+        }
+
+        /// <summary>按快照是否有模板统一启用/禁用三个「创建实例」按钮。</summary>
+        private void SetCreateButtonInteractable(bool interactable)
+        {
+            if (_systemTemplatesCreateButton != null) _systemTemplatesCreateButton.interactable = interactable;
+            if (_playerTemplatesCreateButton != null) _playerTemplatesCreateButton.interactable = interactable;
+            if (_templateDetailCreateButton != null) _templateDetailCreateButton.interactable = interactable;
         }
 
         private static void SetText(TMPro.TMP_Text text, string value)

@@ -34,6 +34,12 @@ namespace AutoEra.Algorithms
         /// </summary>
         public bool HasNavigation => _navigation != null;
 
+        /// <summary>
+        /// 是否已绑定活动运行时。适配器当前是**单运行时**（一个 <c>_runtime</c> 字段，<see cref="Attach"/> 只允许一次）：
+        /// 一台机器当前只服务一个活动算法实例；多实例并行激活需要适配器重构，属后续批。
+        /// </summary>
+        public bool HasRuntime => _runtime != null;
+
         public AlgorithmMachineAdapter(MachineExecutionContext context, MachineNavigation navigation, InitialRegion region)
         {
             _context = context; _navigation = navigation; _region = region;

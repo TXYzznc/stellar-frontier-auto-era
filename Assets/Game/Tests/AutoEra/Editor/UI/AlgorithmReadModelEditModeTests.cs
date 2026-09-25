@@ -370,6 +370,48 @@ namespace AutoEra.Tests.Editor
         }
 
         [Test]
+        public void MachineDomain_AfterRun_SelectNode_ExposesThenValue()
+        {
+            using (var fixture = new Fixture())
+            {
+                fixture.InstallCore();
+                fixture.Deploy();
+                RegionMachineRuntime runtime = fixture.AttachRuntime();
+                fixture.Select();
+
+                var graph = AlgorithmExecutionEditModeTests.Graph();
+                graph.DocumentId = 700;
+                Assert.That(AlgorithmValidator.TryCompile(graph, runtime.Context.Compute.LogicCapacity, out AlgorithmPlan plan, out _), Is.True);
+                var pool = new MachineComputePool(new PersistentIdAllocator(), 100, 100);
+                var instance = new AlgorithmRuntime(new PersistentId(700), plan, pool, new Sink());
+                Assert.That(runtime.Instances.Add(instance), Is.True);
+
+                Assert.That(instance.Enqueue(new AlgorithmTrigger { NodeId = 1, Revision = 1, Generation = 1 }), Is.True);
+                instance.Pump(0);
+
+                using (IAlgorithmReadModel model = AlgorithmReadModels.Create(fixture.Session()))
+                {
+                    Assert.That(model.Select(700), Is.True);
+                    Assert.That(model.SelectNode(2), Is.True, "Constant 节点应可选中。");
+                    AlgorithmDomainSnapshot snapshot = model.Snapshot;
+                    Assert.That(snapshot.NodeDetail, Is.Not.Null);
+
+                    bool found = false;
+                    for (int i = 0; i < snapshot.NodeDetail.Count; i++)
+                    {
+                        if (snapshot.NodeDetail[i].Label == "当时值")
+                        {
+                            found = true;
+                            Assert.That(snapshot.NodeDetail[i].Value, Does.Contain("12"), "Constant 当时值应为 12。");
+                        }
+                    }
+
+                    Assert.That(found, Is.True, "选中执行过的值节点应显示当时值。");
+                }
+            }
+        }
+
+        [Test]
         public void MachineDomain_FailedRun_MarksFailedNode()
         {
             using (var fixture = new Fixture())
@@ -530,6 +572,333 @@ namespace AutoEra.Tests.Editor
                 Assert.That(model.SelectedIndex, Is.EqualTo(-1));
                 Assert.That(notifications, Is.Zero);
             }
+        }
+
+        [Test]
+        public void LibraryDomain_InstantiateTemplate_CreatesDraftInstance_VisibleInMachineDomain()
+        {
+            using (var fixture = new Fixture())
+            {
+                fixture.InstallCore();
+                fixture.Deploy();
+                fixture.AttachRuntime();
+                fixture.Select();
+
+                ulong instanceId;
+                using (IAlgorithmReadModel library = AlgorithmReadModels.Create(fixture.Session(), AlgorithmReadModelDomain.Library))
+                {
+                    AlgorithmDomainSnapshot templates = library.Snapshot;
+                    Assert.That(templates.Count, Is.GreaterThan(0), "世界应有种子模板。");
+                    instanceId = library.InstantiateTemplate(templates.Templates[0].Id);
+                    Assert.That(instanceId, Is.Not.Zero, "选中机器 + 有效模板必须能创建草稿实例。");
+                }
+
+                using (IAlgorithmReadModel machine = AlgorithmReadModels.Create(fixture.Session(), AlgorithmReadModelDomain.Machine))
+                {
+                    AlgorithmDomainSnapshot snapshot = machine.Snapshot;
+                    Assert.That(snapshot.State, Is.EqualTo(UiDataState.Ready));
+                    Assert.That(snapshot.InstanceCount, Is.EqualTo(1));
+                    Assert.That(snapshot.Instances[0].Id, Is.EqualTo(instanceId));
+                    Assert.That(snapshot.Instances[0].AppliedRevision, Is.Zero, "草稿实例未应用。");
+                    Assert.That(snapshot.Instances[0].Status, Does.Contain("未应用"),
+                        "实例行应显示「未应用」而非「已应用 r0」。");
+
+                    // 草稿实例可被选中，并显示图结构与「缺少绑定」校验问题。
+                    Assert.That(snapshot.GraphNodeCount, Is.GreaterThan(0), "模板实例化后应有图节点。");
+                    Assert.That(snapshot.IssueCount, Is.GreaterThan(0),
+                        "未绑定模板实例化后必须有校验问题（缺少绑定）。");
+                }
+            }
+        }
+
+        [Test]
+        public void MachineDomain_DraftInstance_ExposesPendingBindings_AndRebindMarksBound()
+        {
+            using (var fixture = new Fixture())
+            {
+                fixture.InstallCore();
+                fixture.Deploy();
+                fixture.AttachRuntime();
+                fixture.Select();
+
+                ulong instanceId;
+                using (IAlgorithmReadModel library = AlgorithmReadModels.Create(fixture.Session(), AlgorithmReadModelDomain.Library))
+                {
+                    instanceId = library.InstantiateTemplate(library.Snapshot.Templates[0].Id);
+                    Assert.That(instanceId, Is.Not.Zero);
+                }
+
+                using (IAlgorithmReadModel machine = AlgorithmReadModels.Create(fixture.Session(), AlgorithmReadModelDomain.Machine))
+                {
+                    AlgorithmDomainSnapshot snapshot = machine.Snapshot;
+                    Assert.That(snapshot.State, Is.EqualTo(UiDataState.Ready));
+                    Assert.That(snapshot.PendingBindings, Is.Not.Null);
+                    Assert.That(snapshot.PendingBindingCount, Is.GreaterThan(0), "模板实例化后必须有待绑定端点。");
+
+                    for (int i = 0; i < snapshot.PendingBindings.Count; i++)
+                    {
+                        Assert.That(snapshot.PendingBindings[i].Bound, Is.False, "初始端点全部待绑定。");
+                    }
+
+                    string key = snapshot.PendingBindings[0].BindingKey;
+                    Assert.That(machine.Rebind(instanceId, key, 90, 91, 1), Is.True, "Rebind 应成功。");
+
+                    snapshot = machine.Snapshot;
+                    bool found = false;
+                    for (int i = 0; i < snapshot.PendingBindings.Count; i++)
+                    {
+                        if (snapshot.PendingBindings[i].BindingKey == key)
+                        {
+                            Assert.That(snapshot.PendingBindings[i].Bound, Is.True);
+                            Assert.That(snapshot.PendingBindings[i].ComponentId, Is.EqualTo(90UL));
+                            found = true;
+                        }
+                    }
+
+                    Assert.That(found, Is.True, "绑定后的端点必须仍在清单里且标注已绑定。");
+                }
+            }
+        }
+
+        [Test]
+        public void MachineDomain_ActivateDraft_CompilesBoundDraft_AndRejectsUnbound()
+        {
+            using (var fixture = new Fixture())
+            {
+                fixture.InstallCore();
+                fixture.Deploy();
+                fixture.AttachRuntime();
+                fixture.Select();
+
+                ulong instanceId;
+                using (IAlgorithmReadModel library = AlgorithmReadModels.Create(fixture.Session(), AlgorithmReadModelDomain.Library))
+                {
+                    instanceId = library.InstantiateTemplate(library.Snapshot.Templates[0].Id);
+                    Assert.That(instanceId, Is.Not.Zero);
+                }
+
+                using (IAlgorithmReadModel machine = AlgorithmReadModels.Create(fixture.Session(), AlgorithmReadModelDomain.Machine))
+                {
+                    // 未绑定草稿：RequiredBinding → 拒绝激活。
+                    Assert.That(machine.ActivateDraft(instanceId), Is.False, "未绑定草稿必须拒绝激活。");
+
+                    // 绑定所有端点。
+                    AlgorithmDomainSnapshot snapshot = machine.Snapshot;
+                    for (int i = 0; i < snapshot.PendingBindings.Count; i++)
+                    {
+                        Assert.That(machine.Rebind(instanceId, snapshot.PendingBindings[i].BindingKey, 90 + (ulong)i, 91, 1), Is.True);
+                    }
+
+                    // 绑定完整：激活成功，实例从「草稿」进入「已应用 r1」。
+                    Assert.That(machine.ActivateDraft(instanceId), Is.True, "绑定完整草稿应能激活。");
+
+                    snapshot = machine.Snapshot;
+                    Assert.That(snapshot.InstanceCount, Is.EqualTo(1));
+                    Assert.That(snapshot.Instances[0].AppliedRevision, Is.GreaterThan(0UL), "激活后 AppliedRevision 应为非 0（不再是草稿）。");
+                    Assert.That(snapshot.Instances[0].HasUnappliedDraft, Is.False, "激活后草稿与已应用一致。");
+                }
+            }
+        }
+
+        [Test]
+        public void MachineDomain_Apply_DispatchesActivationThenApply()
+        {
+            using (var fixture = new Fixture())
+            {
+                fixture.InstallCore();
+                fixture.Deploy();
+                fixture.AttachRuntime();
+                fixture.Select();
+
+                ulong instanceId;
+                using (IAlgorithmReadModel library = AlgorithmReadModels.Create(fixture.Session(), AlgorithmReadModelDomain.Library))
+                {
+                    instanceId = library.InstantiateTemplate(library.Snapshot.Templates[0].Id);
+                    Assert.That(instanceId, Is.Not.Zero);
+                }
+
+                // 库页 Apply → false（不持有实例服务）。
+                using (IAlgorithmReadModel lib = AlgorithmReadModels.Create(fixture.Session(), AlgorithmReadModelDomain.Library))
+                {
+                    Assert.That(lib.Apply(instanceId), Is.False, "库页 Apply 恒 false。");
+                }
+
+                using (IAlgorithmReadModel machine = AlgorithmReadModels.Create(fixture.Session(), AlgorithmReadModelDomain.Machine))
+                {
+                    // 未绑定草稿 → Apply 拒绝（走 ActivateDraft 的 RequiredBinding）。
+                    Assert.That(machine.Apply(instanceId), Is.False, "未绑定草稿 Apply 必须拒绝。");
+
+                    // 绑定所有端点 → Apply（草稿首应用）激活。
+                    AlgorithmDomainSnapshot snapshot = machine.Snapshot;
+                    for (int i = 0; i < snapshot.PendingBindings.Count; i++)
+                    {
+                        Assert.That(machine.Rebind(instanceId, snapshot.PendingBindings[i].BindingKey, 90 + (ulong)i, 91, 1), Is.True);
+                    }
+
+                    Assert.That(machine.Apply(instanceId), Is.True, "绑定完整草稿 Apply 应激活。");
+                    snapshot = machine.Snapshot;
+                    Assert.That(snapshot.Instances[0].AppliedRevision, Is.GreaterThan(0UL));
+
+                    // 激活后再改一个绑定（草稿领先）→ Apply 走 Apply 请求。
+                    Assert.That(machine.Rebind(instanceId, snapshot.PendingBindings[0].BindingKey, 99, 91, 2), Is.True);
+                    Assert.That(machine.Apply(instanceId), Is.True, "已激活实例草稿领先 Apply 应创建应用请求。");
+                }
+            }
+        }
+
+        [Test]
+        public void MachineDomain_ConfirmWarningsAndCancelApply_DispatchToService()
+        {
+            using (var fixture = new Fixture())
+            {
+                fixture.InstallCore();
+                fixture.Deploy();
+                RegionMachineRuntime runtime = fixture.AttachRuntime();
+                fixture.Select();
+
+                // 干净图（无绑定）：Apply 无警告 → WaitingSafePoint（bindingsValid 对空 Bindings 返回 true）。
+                var graph = AlgorithmExecutionEditModeTests.Graph();
+                graph.DocumentId = 700;
+                Assert.That(AlgorithmValidator.TryCompile(graph, runtime.Context.Compute.LogicCapacity, out var plan, out _), Is.True);
+                runtime.Instances.Add(new AlgorithmRuntime(new PersistentId(700), plan, runtime.Context.Compute, runtime.Adapter));
+
+                var draft = runtime.Instances.ReadDraft(700);
+                draft.Nodes[1].Default.Number = 20;
+                runtime.Instances.Edit(700, draft.Revision, draft);
+                Assert.That(runtime.Instances.Apply(700, 2, 1, out var request), Is.True);
+                Assert.That(request.State, Is.EqualTo(AlgorithmApplyState.WaitingSafePoint), "干净图无警告，应进入等待安全点。");
+
+                using (IAlgorithmReadModel machine = AlgorithmReadModels.Create(fixture.Session(), AlgorithmReadModelDomain.Machine))
+                {
+                    // CancelApply 取消等待安全点的请求。
+                    Assert.That(machine.CancelApply(700, request.RequestId), Is.True);
+                    Assert.That(machine.Snapshot.SelectedInstance.Value.RequestState, Is.EqualTo(AlgorithmApplyState.Cancelled));
+
+                    // 已取消的请求不能再确认。
+                    Assert.That(machine.ConfirmWarnings(700, request.RequestId), Is.False);
+                }
+
+                using (IAlgorithmReadModel lib = AlgorithmReadModels.Create(fixture.Session(), AlgorithmReadModelDomain.Library))
+                {
+                    // 库页不持有实例服务：命令恒 false。
+                    Assert.That(lib.ConfirmWarnings(700, 1), Is.False);
+                    Assert.That(lib.CancelApply(700, 1), Is.False);
+                }
+            }
+        }
+
+        [Test]
+        public void MachineDomain_ExposesInstalledComponentCandidates()
+        {
+            using (var fixture = new Fixture())
+            {
+                fixture.InstallCore();
+                fixture.Deploy();
+                fixture.AttachRuntime();
+                fixture.Select();
+
+                // 只装 Core 时，候选（Sensor/Effector）为空列表——不是 null。
+                using (IAlgorithmReadModel machine = AlgorithmReadModels.Create(fixture.Session(), AlgorithmReadModelDomain.Machine))
+                {
+                    Assert.That(machine.Snapshot.ComponentCandidates, Is.Not.Null);
+                    Assert.That(machine.Snapshot.ComponentCandidates.Count, Is.EqualTo(0));
+                }
+
+                // 装一个传感器 → 新读模型的候选应包含它。机器已部署，装组件须走现场来源（Field）。
+                ComponentInstance sensor = fixture.World.Machines.CreateComponent(
+                    new ComponentDefinition(30011, HardwareKind.Sensor, 1, 0, 0, 0, false));
+                Assert.That(fixture.World.Machines.Install(fixture.Machine.Id, ManagementOrigin.Field, sensor.Id, 0),
+                    Is.EqualTo(MachineManagementResult.Completed));
+
+                using (IAlgorithmReadModel machine = AlgorithmReadModels.Create(fixture.Session(), AlgorithmReadModelDomain.Machine))
+                {
+                    AlgorithmDomainSnapshot snapshot = machine.Snapshot;
+                    Assert.That(snapshot.ComponentCandidates.Count, Is.GreaterThanOrEqualTo(1));
+                    bool found = false;
+                    for (int i = 0; i < snapshot.ComponentCandidates.Count; i++)
+                    {
+                        if (snapshot.ComponentCandidates[i].ComponentId == sensor.Id.Value)
+                        {
+                            found = true;
+                            Assert.That(snapshot.ComponentCandidates[i].Kind, Is.EqualTo(HardwareKind.Sensor));
+                            break;
+                        }
+                    }
+
+                    Assert.That(found, Is.True, "候选应包含刚装的传感器。");
+                }
+            }
+        }
+
+        [Test]
+        public void MachineDomain_MoveNode_DispatchToService()
+        {
+            using (var fixture = new Fixture())
+            {
+                fixture.InstallCore();
+                fixture.Deploy();
+                RegionMachineRuntime runtime = fixture.AttachRuntime();
+                fixture.Select();
+
+                var graph = AlgorithmExecutionEditModeTests.Graph();
+                graph.DocumentId = 700;
+                Assert.That(runtime.Instances.AddDraft(graph), Is.True);
+
+                using (IAlgorithmReadModel machine = AlgorithmReadModels.Create(fixture.Session(), AlgorithmReadModelDomain.Machine))
+                {
+                    Assert.That(machine.MoveNode(700, 1, 12.5f, -3.25f), Is.True);
+                    AlgorithmDocument draft = runtime.Instances.ReadDraft(700);
+                    Assert.That(draft.Revision, Is.EqualTo(2UL));
+                    Assert.That(draft.Nodes.Find(n => n.Id == 1).LayoutX, Is.EqualTo(12.5f));
+                    Assert.That(draft.Nodes.Find(n => n.Id == 1).LayoutY, Is.EqualTo(-3.25f));
+                }
+
+                using (IAlgorithmReadModel lib = AlgorithmReadModels.Create(fixture.Session(), AlgorithmReadModelDomain.Library))
+                {
+                    Assert.That(lib.MoveNode(700, 1, 1, 1), Is.False, "库页不持有实例服务。");
+                }
+            }
+        }
+
+        [Test]
+        public void MachineDomain_GraphNodes_ExposeLayoutCoordinates()
+        {
+            using (var fixture = new Fixture())
+            {
+                fixture.InstallCore();
+                fixture.Deploy();
+                RegionMachineRuntime runtime = fixture.AttachRuntime();
+                fixture.Select();
+
+                var graph = AlgorithmExecutionEditModeTests.Graph();
+                graph.DocumentId = 700;
+                graph.Nodes[0].LayoutX = 12.5f;
+                graph.Nodes[0].LayoutY = -3.25f;
+                Assert.That(runtime.Instances.AddDraft(graph), Is.True);
+
+                using (IAlgorithmReadModel model = AlgorithmReadModels.Create(fixture.Session()))
+                {
+                    Assert.That(model.Select(700), Is.True);
+                    AlgorithmDomainSnapshot snapshot = model.Snapshot;
+                    Assert.That(snapshot.GraphNodes, Is.Not.Null);
+                    Assert.That(snapshot.GraphNodes[0].LayoutX, Is.EqualTo(12.5f));
+                    Assert.That(snapshot.GraphNodes[0].LayoutY, Is.EqualTo(-3.25f));
+                }
+            }
+        }
+
+        [Test]
+        public void AlgorithmBindingPickRequest_CarriesInstanceAndEndpoint()
+        {
+            var request = new AutoEraAlgorithmBindingPickRequest(700, "sensor", AlgorithmNodeKind.Input);
+            Assert.That(request.InstanceId, Is.EqualTo(700UL));
+            Assert.That(request.BindingKey, Is.EqualTo("sensor"));
+            Assert.That(request.Kind, Is.EqualTo(AlgorithmNodeKind.Input));
+            Assert.That(request.Intent, Does.Contain("sensor"));
+
+            var effector = new AutoEraAlgorithmBindingPickRequest(701, "arm", AlgorithmNodeKind.Effector);
+            Assert.That(effector.Kind, Is.EqualTo(AlgorithmNodeKind.Effector));
+            Assert.That(effector.Intent, Does.Contain("效应器"));
         }
 
         /// <summary>

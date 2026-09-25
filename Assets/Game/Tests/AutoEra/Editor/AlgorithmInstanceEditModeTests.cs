@@ -93,5 +93,155 @@ namespace AutoEra.Tests.Editor
                 Assert.That(service.ConfirmWarnings(100,request.RequestId),Is.True);service.Pump(1);service.Pump(2);Assert.That(r.Revision,Is.EqualTo(2));
             }
         }
+
+        [Test]
+        public void DraftInstance_NoRuntime_ListsReadsAndGuardsWithoutThrow()
+        {
+            var ids=new PersistentIdAllocator();var pool=new MachineComputePool(ids,100,100);
+            using(var service=new AlgorithmInstanceService(ids,pool,()=>1,d=>true))
+            {
+                // 模板实例化产物：未绑定、未编译。走 AddDraft，而非需要已编译运行时的 Add。
+                var graph=AlgorithmExecutionEditModeTests.Graph();graph.DocumentId=300;
+                Assert.That(service.AddDraft(graph),Is.True,"未绑定未编译的文档必须能作为草稿实例入库。");
+
+                var list=service.ListInstances();
+                Assert.That(list.Length,Is.EqualTo(1));
+                Assert.That(list[0].Id,Is.EqualTo(300UL));
+                Assert.That(list[0].AppliedRevision,Is.Zero,"草稿实例没有已应用版本。");
+                Assert.That(list[0].LogicCost,Is.Zero);
+                Assert.That(list[0].DraftRevision,Is.EqualTo(1UL));
+
+                Assert.That(service.ReadDraft(300),Is.Not.Null);
+                Assert.That(service.ReadHistory(300),Is.Empty,"草稿实例无运行历史。");
+                Assert.That(service.SavedDraftRevision(300),Is.EqualTo(1UL));
+
+                // 草稿实例不可应用/捕获（无运行时，语义上是中间态）。
+                Assert.That(service.Apply(300,1,0,1,out _),Is.False);
+                Assert.That(service.Capture(300,0,out _),Is.False);
+
+                // 有草稿实例时 Pump/Dispose 不抛（空运行时守卫）。
+                service.Pump(0);
+            }
+            Assert.That(pool.AppliedLogicCost,Is.Zero,"草稿实例不占逻辑算力。");
+        }
+
+        [Test]
+        public void Rebind_UpdatesDraftBinding_AndIncrementsRevision()
+        {
+            var ids=new PersistentIdAllocator();var pool=new MachineComputePool(ids,100,100);
+            using(var service=new AlgorithmInstanceService(ids,pool,()=>1,d=>true))
+            {
+                var graph=AlgorithmExecutionEditModeTests.Graph();graph.DocumentId=300;
+                graph.Nodes.Add(new AlgorithmNode { Id=9,Kind=AlgorithmNodeKind.Input,BindingKey="sensor" });
+                Assert.That(service.AddDraft(graph),Is.True);
+
+                // 新增绑定（无对应 Binding），Type 从节点 ValueType 派生。
+                Assert.That(service.Rebind(300,1,"sensor",90,91,2),Is.True,"Rebind 应为新 BindingKey 新增绑定。");
+                var draft=service.ReadDraft(300);
+                Assert.That(draft.Revision,Is.EqualTo(2UL));
+                var binding=draft.Bindings.Find(b=>b.Key=="sensor");
+                Assert.That(binding,Is.Not.Null);
+                Assert.That(binding.ComponentId,Is.EqualTo(90UL));
+                Assert.That(binding.TargetId,Is.EqualTo(91UL));
+                Assert.That(binding.Generation,Is.EqualTo(2UL));
+                Assert.That(binding.Type,Is.Not.Null,"Type 应从节点 ValueType 派生。");
+
+                // 更新已有绑定。
+                Assert.That(service.Rebind(300,2,"sensor",80,81,3),Is.True);
+                draft=service.ReadDraft(300);
+                Assert.That(draft.Revision,Is.EqualTo(3UL));
+                binding=draft.Bindings.Find(b=>b.Key=="sensor");
+                Assert.That(binding.ComponentId,Is.EqualTo(80UL));
+
+                // 无效：修订不匹配 / 空 Key / 实例不存在。
+                Assert.That(service.Rebind(300,1,"sensor",70,71,4),Is.False,"修订不匹配必须拒绝。");
+                Assert.That(service.Rebind(300,3,"",70,71,4),Is.False);
+                Assert.That(service.Rebind(999,1,"sensor",70,71,4),Is.False);
+            }
+        }
+
+        [Test]
+        public void MoveNode_UpdatesLayoutAndIncrementsRevision()
+        {
+            var ids=new PersistentIdAllocator();var pool=new MachineComputePool(ids,100,100);
+            using(var service=new AlgorithmInstanceService(ids,pool,()=>1,d=>true))
+            {
+                var graph=AlgorithmExecutionEditModeTests.Graph();graph.DocumentId=300;
+                Assert.That(service.AddDraft(graph),Is.True);
+
+                Assert.That(service.MoveNode(300,1,1,12.5f,-3.25f),Is.True,"MoveNode 应更新画布坐标。");
+                var draft=service.ReadDraft(300);
+                Assert.That(draft.Revision,Is.EqualTo(2UL));
+                var node=draft.Nodes.Find(n=>n.Id==1);
+                Assert.That(node.LayoutX,Is.EqualTo(12.5f));
+                Assert.That(node.LayoutY,Is.EqualTo(-3.25f));
+
+                // 无效：修订不匹配 / 节点不存在 / 实例不存在。
+                Assert.That(service.MoveNode(300,1,1,1,1),Is.False,"修订不匹配必须拒绝。");
+                Assert.That(service.MoveNode(300,2,9999,1,1),Is.False,"节点不存在必须拒绝。");
+                Assert.That(service.MoveNode(999,1,1,1,1),Is.False);
+            }
+        }
+
+        [Test]
+        public void CompileDraft_ActivatesRuntime_AndRejectsNonDraftOrMismatch()
+        {
+            var ids=new PersistentIdAllocator();var pool=new MachineComputePool(ids,100,100);var sink=new Sink();
+            using(var service=new AlgorithmInstanceService(ids,pool,()=>1,d=>true))
+            {
+                var graph=AlgorithmExecutionEditModeTests.Graph();graph.DocumentId=300;graph.Nodes[1].Kind=AlgorithmNodeKind.Parameter;
+                Assert.That(service.AddDraft(graph),Is.True);
+
+                // 编译草稿 → 挂接运行时（Graph 无 Input/Effector 端点，编译必通过）。
+                var compiled=AlgorithmExecutionEditModeTests.Graph();compiled.DocumentId=300;compiled.Nodes[1].Kind=AlgorithmNodeKind.Parameter;
+                Assert.That(AlgorithmValidator.TryCompile(compiled,100,out var plan,out _),Is.True);
+                var runtime=new AlgorithmRuntime(new PersistentId(300),plan,pool,sink);
+                Assert.That(service.CompileDraft(300,runtime),Is.True,"草稿实例应能挂接运行时。");
+                var info=service.ListInstances();
+                Assert.That(info.Length,Is.EqualTo(1));
+                Assert.That(info[0].AppliedRevision,Is.EqualTo(1UL),"激活后 AppliedRevision 应为运行时修订 1。");
+                Assert.That(pool.AppliedLogicCost,Is.GreaterThan(0),"激活应占用算力。");
+
+                // 已持有运行时：再次 CompileDraft 拒绝。
+                Assert.That(service.CompileDraft(300,runtime),Is.False,"已持有运行时必须拒绝。");
+
+                // Id 不一致：拒绝。
+                var other=Runtime(400,pool,sink);
+                Assert.That(service.CompileDraft(300,other),Is.False,"Id 不一致必须拒绝。");
+
+                // 非安全运行时：拒绝（先加一个草稿 500，再用非安全 sink 编译）。
+                sink.Safe=false;
+                var g500=AlgorithmExecutionEditModeTests.Graph();g500.DocumentId=500;g500.Nodes[1].Kind=AlgorithmNodeKind.Parameter;
+                Assert.That(service.AddDraft(g500),Is.True);
+                Assert.That(AlgorithmValidator.TryCompile(g500,100,out var plan500,out _),Is.True);
+                var unsafeRuntime=new AlgorithmRuntime(new PersistentId(500),plan500,pool,sink);
+                Assert.That(service.CompileDraft(500,unsafeRuntime),Is.False,"非安全运行时必须拒绝。");
+            }
+        }
+
+        [Test]
+        public void ApplyOverload_UsesInternalHardwareRevision()
+        {
+            var ids=new PersistentIdAllocator();var pool=new MachineComputePool(ids,100,100);var sink=new Sink();ulong hardware=7;
+            using(var service=new AlgorithmInstanceService(ids,pool,()=>hardware,d=>true))
+            {
+                var r=Runtime(100,pool,sink);service.Add(r);
+                var d=service.ReadDraft(100);d.Nodes[1].Default.Number=20;service.Edit(100,1,d);
+
+                // 4 参数重载：显式传硬件修订。
+                Assert.That(service.Apply(100,2,1,7,out var req4),Is.True);
+                service.CancelApply(100,req4.RequestId);
+
+                // 3 参数重载：内部取 _hardwareRevision() == 7，行为与 4 参数一致。
+                Assert.That(service.Apply(100,2,1,out var req3),Is.True,"无 hardware 重载应内部取硬件修订 7。");
+                Assert.That(req3.HardwareRevision,Is.EqualTo(7UL));
+
+                // 硬件修订不匹配时 3 参数重载同样拒绝。
+                service.CancelApply(100,req3.RequestId);
+                hardware=8;
+                Assert.That(service.Apply(100,2,1,out _),Is.True,"3 参数重载总是取当前硬件修订，故仍应成功。");
+                hardware=7;
+            }
+        }
     }
 }

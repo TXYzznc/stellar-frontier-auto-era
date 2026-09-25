@@ -40,7 +40,11 @@ namespace AutoEra.Algorithms
         internal readonly List<ulong> Path = new List<ulong>();
         internal readonly Dictionary<string, AlgorithmValue> Writes = new Dictionary<string, AlgorithmValue>(StringComparer.Ordinal);
         internal readonly List<AlgorithmIntent> Intents = new List<AlgorithmIntent>();
+        internal readonly Dictionary<ulong, AlgorithmValue> NodeValues = new Dictionary<ulong, AlgorithmValue>();
         public IReadOnlyList<ulong> ExecutedPath => Path.AsReadOnly();
+
+        /// <summary>执行到的值节点的「当时值」快照（节点 Id → 主输出值），供诊断按值细节。</summary>
+        public IReadOnlyDictionary<ulong, AlgorithmValue> ExecutedValues => NodeValues;
     }
 
     /// <summary>Pure speculative evaluation. No shared writes or world calls before batch commit.</summary>
@@ -205,6 +209,14 @@ namespace AutoEra.Algorithms
                 default: throw new EvaluationFailure(id, "UnsupportedValueNode");
             }
             if (!AlgorithmValidator.Finite(result)) throw new EvaluationFailure(id, "NonFiniteValue");
+            if (!_batch.NodeValues.ContainsKey(id))
+            {
+                AlgorithmPort[] outputs = AlgorithmCatalog.Outputs(node);
+                if (outputs.Length > 0 && port == outputs[0].Key)
+                {
+                    _batch.NodeValues[id] = result.Copy();
+                }
+            }
             _cache[key] = result; return result;
         }
         private sealed class EvaluationFailure : Exception

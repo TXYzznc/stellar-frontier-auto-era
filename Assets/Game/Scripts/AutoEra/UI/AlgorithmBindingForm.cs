@@ -1,3 +1,4 @@
+using AutoEra.Algorithms;
 using AutoEra.UI.Contracts;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,7 +39,6 @@ namespace AutoEra.UI
             _algorithms.Changed += OnAlgorithmSectionChanged;
 
             Render(_algorithms.Snapshot);
-            DisableDomainActions();
         }
 
         protected override void OnAutoEraClose(bool isShutdown) => ReleaseAlgorithms();
@@ -71,29 +71,75 @@ namespace AutoEra.UI
 
         private void OnAlgorithmSectionChanged(AlgorithmDomainSection section) => Render(_algorithms.Snapshot);
 
+        /// <summary>点一个待绑定项 → 打开节点组件选择器（带实例 + 端点上下文）。</summary>
+        private void OnBindingClicked(int index)
+        {
+            if (_algorithms == null)
+            {
+                return;
+            }
+
+            AlgorithmDomainSnapshot snapshot = _algorithms.Snapshot;
+            if (!snapshot.SelectedInstance.HasValue || index < 0 || index >= snapshot.PendingBindingCount)
+            {
+                return;
+            }
+
+            UiAlgorithmBindingRow binding = snapshot.PendingBindings[index];
+            AutoEraUiNavigator.Open(this, UIViews.NodeComponentPickerForm,
+                new AutoEraAlgorithmBindingPickRequest(snapshot.SelectedInstance.Value.Id, binding.BindingKey, binding.Kind));
+        }
+
         private void Render(AlgorithmDomainSnapshot snapshot)
         {
-            // 状态通道要分开：Unavailable＝算法域缺能力（怎么点都不会有数据）；
-            // Empty/Ready＝算法域活着，缺的是「一个已应用的算法图」——绑定属于图，不属于机器。
+            // 状态通道分开：Unavailable＝算法域缺能力；Empty＝有实例但无待绑定端点；Ready＝有待绑定端点。
             if (snapshot.State == UiDataState.Unavailable)
             {
                 ShowPageUnavailable(snapshot.UnavailableReason ?? "待绑定项暂不可用。",
                     _pendingBindingsLoadingState, _pendingBindingsEmptyState, _pendingBindingsErrorState,
                     _pendingBindingsSuccessState, _pendingBindingsDisabledState,
                     _pendingBindingsBindingsBody, _pendingBindingsRequirementBody);
+                RenderDetailRows(_pendingBindingsBindingsTemplate, _pendingBindingsBindingsContent, NoFields);
+                RenderDetailRows(_pendingBindingsRequirementTemplate, _pendingBindingsRequirementContent, NoFields);
+                return;
+            }
+
+            bool hasInstances = snapshot.InstanceCount > 0;
+            bool hasBindings = snapshot.PendingBindingCount > 0;
+
+            SetState(_pendingBindingsLoadingState, false);
+            SetState(_pendingBindingsEmptyState, !hasBindings);
+            SetState(_pendingBindingsErrorState, false);
+            SetState(_pendingBindingsSuccessState, hasBindings);
+            SetState(_pendingBindingsDisabledState, false);
+
+            if (hasBindings)
+            {
+                RenderListRows(_pendingBindingsBindingsTemplate, _pendingBindingsBindingsContent, snapshot.PendingBindingCount,
+                    (index, item) => item.Bind(index, snapshot.PendingBindings[index].Label, snapshot.PendingBindings[index].Status, OnBindingClicked));
+                SetText(_pendingBindingsBindingsBody, "待绑定 " + snapshot.PendingBindingCount + " 项（点一行选择要绑定的组件）。");
             }
             else
             {
-                ShowPageEmpty(
-                    "算法绑定需要一张已应用的算法图：本页还没有接上「选择算法实例 → 读它的传感器与对象端点」"
-                    + "这条通道，因此不显示任何待绑定项。",
-                    _pendingBindingsLoadingState, _pendingBindingsEmptyState, _pendingBindingsErrorState,
-                    _pendingBindingsSuccessState, _pendingBindingsDisabledState,
-                    _pendingBindingsBindingsBody, _pendingBindingsRequirementBody);
+                RenderDetailRows(_pendingBindingsBindingsTemplate, _pendingBindingsBindingsContent, NoFields);
+                SetText(_pendingBindingsBindingsBody, hasInstances
+                    ? "本实例已无待绑定端点。"
+                    : AlgorithmReadModels.NoInstanceReason);
             }
 
-            RenderDetailRows(_pendingBindingsBindingsTemplate, _pendingBindingsBindingsContent, NoFields);
-            RenderDetailRows(_pendingBindingsRequirementTemplate, _pendingBindingsRequirementContent, NoFields);
+            RenderDetailRows(_pendingBindingsRequirementTemplate, _pendingBindingsRequirementContent,
+                new[] { new UiDetailField("绑定需求", "系统模板不预置绑定，实例化后由玩家逐项绑定实际组件与目标对象。") });
+            SetText(_pendingBindingsRequirementBody, hasInstances
+                ? "Input 端点读传感器字段，Effector 端点驱动效应器动作；绑定后进入工作台检查并应用。"
+                : "绑定属于算法实例：请先在机器上创建一个算法实例。");
+        }
+
+        private static void SetText(TMPro.TMP_Text text, string value)
+        {
+            if (text != null)
+            {
+                text.SetText(value ?? string.Empty);
+            }
         }
 
         protected override void OnOperationPresentationChanged(

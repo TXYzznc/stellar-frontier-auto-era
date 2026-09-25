@@ -25,6 +25,12 @@ namespace AutoEra.UI
         public TMP_Text AlgorithmEditorNodesBody => _algorithmEditorNodesBody;
         [SerializeField] private GameObject _algorithmEditorNodesTemplate;
         public GameObject AlgorithmEditorNodesTemplate => _algorithmEditorNodesTemplate;
+        [SerializeField] private TMP_InputField _algorithmEditorNodeSearch;
+        public TMP_InputField AlgorithmEditorNodeSearch => _algorithmEditorNodeSearch;
+        [SerializeField] private RectTransform _algorithmGraphContent;
+        public RectTransform AlgorithmGraphContent => _algorithmGraphContent;
+        [SerializeField] private GameObject _algorithmGraphElementTemplate;
+        public GameObject AlgorithmGraphElementTemplate => _algorithmGraphElementTemplate;
         [SerializeField] private RectTransform _algorithmEditorInspectorContent;
         public RectTransform AlgorithmEditorInspectorContent => _algorithmEditorInspectorContent;
         [SerializeField] private TMP_Text _algorithmEditorInspectorBody;
@@ -69,6 +75,8 @@ namespace AutoEra.UI
         public GameObject PublicParametersSuccessState => _publicParametersSuccessState;
         [SerializeField] private GameObject _publicParametersDisabledState;
         public GameObject PublicParametersDisabledState => _publicParametersDisabledState;
+        [SerializeField] private Button _algorithmEditorApplyButton;
+        public Button AlgorithmEditorApplyButton => _algorithmEditorApplyButton;
         [SerializeField] private GameObject[] _pageRoots;
         public GameObject[] PageRoots => _pageRoots;
         [SerializeField] private Button[] _navButtons;

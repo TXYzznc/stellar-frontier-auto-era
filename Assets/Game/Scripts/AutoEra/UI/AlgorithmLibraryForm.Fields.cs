@@ -85,6 +85,12 @@ namespace AutoEra.UI
         public GameObject TemplateDetailSuccessState => _templateDetailSuccessState;
         [SerializeField] private GameObject _templateDetailDisabledState;
         public GameObject TemplateDetailDisabledState => _templateDetailDisabledState;
+        [SerializeField] private Button _systemTemplatesCreateButton;
+        public Button SystemTemplatesCreateButton => _systemTemplatesCreateButton;
+        [SerializeField] private Button _playerTemplatesCreateButton;
+        public Button PlayerTemplatesCreateButton => _playerTemplatesCreateButton;
+        [SerializeField] private Button _templateDetailCreateButton;
+        public Button TemplateDetailCreateButton => _templateDetailCreateButton;
         [SerializeField] private GameObject[] _pageRoots;
         public GameObject[] PageRoots => _pageRoots;
         [SerializeField] private Button[] _navButtons;

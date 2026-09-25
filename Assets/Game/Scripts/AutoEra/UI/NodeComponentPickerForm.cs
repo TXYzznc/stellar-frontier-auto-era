@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using AutoEra.Algorithms;
+using AutoEra.Machines;
 using AutoEra.UI.Contracts;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,9 +12,9 @@ namespace AutoEra.UI
     ///
     /// 绑定字段在同名的 .Fields.cs 里，结构由契约生成。
     ///
-    /// 候选来自「某个算法节点需要什么组件」这一上下文，而算法实例与节点库都还没有数据源
-    /// （见 <see cref="AlgorithmReadModels.NotWiredReason"/>）。本页因此呈现整页不可用，
-    /// 只保留返回与关闭。
+    /// 候选来自「机器上已安装、可被算法端点绑定的组件」（传感器读输入、效应器执行动作），
+    /// 由机器域算法读模型 <c>AlgorithmDomainSnapshot.ComponentCandidates</c> 提供；
+    /// 按端点类别筛选候选，点选回写 <c>Rebind</c>（组件 Id；目标对象由后续世界对象选择器补齐）。
     /// </summary>
     public sealed partial class NodeComponentPickerForm : AutoEraShellFormBase
     {
@@ -21,12 +24,15 @@ namespace AutoEra.UI
         private static readonly UiDetailField[] NoFields = new UiDetailField[0];
 
         private IAlgorithmReadModel _algorithms;
+        private AutoEraAlgorithmBindingPickRequest _request;
+        private readonly List<UiAlgorithmComponentCandidate> _visibleCandidates = new List<UiAlgorithmComponentCandidate>(8);
 
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
             if (_backButton != null) _backButton.onClick.AddListener(RequestCancel);
             if (_closeButton != null) _closeButton.onClick.AddListener(RequestCancel);
+            _request = TryGetRequest(out AutoEraAlgorithmBindingPickRequest request) ? request : null;
         }
 
         protected override void OnAutoEraOpen()
@@ -73,27 +79,81 @@ namespace AutoEra.UI
 
         private void Render(AlgorithmDomainSnapshot snapshot)
         {
-            // 选择器要的是「某个输入节点 + 它期望的类型」，也就是编辑器上下文；
-            // 算法域活着但本页还没接上那条通道时，状态是 Empty 而不是 Disabled。
             if (snapshot.State == UiDataState.Unavailable)
             {
                 ShowPageUnavailable(snapshot.UnavailableReason ?? "候选组件暂不可用。",
                     _nodeComponentPickerLoadingState, _nodeComponentPickerEmptyState, _nodeComponentPickerErrorState,
                     _nodeComponentPickerSuccessState, _nodeComponentPickerDisabledState,
                     _nodeComponentPickerCandidatesBody, _nodeComponentPickerContractBody);
-            }
-            else
-            {
-                ShowPageEmpty(
-                    "候选组件需要一个输入节点作为上下文：本页还没有接上「编辑器选中节点 → 按它期望的类型筛选候选」"
-                    + "这条通道，因此不列出任何候选。",
-                    _nodeComponentPickerLoadingState, _nodeComponentPickerEmptyState, _nodeComponentPickerErrorState,
-                    _nodeComponentPickerSuccessState, _nodeComponentPickerDisabledState,
-                    _nodeComponentPickerCandidatesBody, _nodeComponentPickerContractBody);
+                RenderDetailRows(_nodeComponentPickerCandidatesTemplate, _nodeComponentPickerCandidatesContent, NoFields);
+                RenderDetailRows(_nodeComponentPickerContractTemplate, _nodeComponentPickerContractContent, NoFields);
+                return;
             }
 
-            RenderDetailRows(_nodeComponentPickerCandidatesTemplate, _nodeComponentPickerCandidatesContent, NoFields);
+            // 按端点类别筛选候选（无请求时列出全部，作为只读候选查看）。
+            _visibleCandidates.Clear();
+            if (snapshot.ComponentCandidates != null)
+            {
+                for (int i = 0; i < snapshot.ComponentCandidates.Count; i++)
+                {
+                    UiAlgorithmComponentCandidate candidate = snapshot.ComponentCandidates[i];
+                    if (_request == null || MatchesKind(candidate.Kind, _request.Kind))
+                    {
+                        _visibleCandidates.Add(candidate);
+                    }
+                }
+            }
+
+            int candidateCount = _visibleCandidates.Count;
+            bool hasCandidates = candidateCount > 0;
+
+            SetState(_nodeComponentPickerLoadingState, false);
+            SetState(_nodeComponentPickerEmptyState, !hasCandidates);
+            SetState(_nodeComponentPickerErrorState, false);
+            SetState(_nodeComponentPickerSuccessState, hasCandidates);
+            SetState(_nodeComponentPickerDisabledState, false);
+
+            RenderListRows(_nodeComponentPickerCandidatesTemplate, _nodeComponentPickerCandidatesContent, candidateCount,
+                (index, item) => item.Bind(index,
+                    _visibleCandidates[index].Label,
+                    _visibleCandidates[index].Status,
+                    OnCandidateClicked));
+
+            SetText(_nodeComponentPickerCandidatesBody, hasCandidates
+                ? "候选 " + candidateCount + " 件，点一行绑定到 "
+                    + (_request != null ? _request.Intent : "端点") + "。"
+                : _request != null
+                    ? "这台机器还没有安装可绑定的"
+                        + (_request.Kind == AlgorithmNodeKind.Input ? "传感器" : "效应器")
+                        + "组件：装上对应组件后，这里才会出现候选。"
+                    : "这台机器还没有安装可绑定的组件：装一个传感器或效应器后，这里才会出现候选。");
+
             RenderDetailRows(_nodeComponentPickerContractTemplate, _nodeComponentPickerContractContent, NoFields);
+        }
+
+        /// <summary>点选候选 → 回写 Rebind（组件 Id；目标对象由后续世界对象选择器补齐）并返回。</summary>
+        private void OnCandidateClicked(int index)
+        {
+            if (_algorithms == null || _request == null || index < 0 || index >= _visibleCandidates.Count)
+            {
+                return;
+            }
+
+            _algorithms.Rebind(_request.InstanceId, _request.BindingKey, _visibleCandidates[index].ComponentId, 0, 1);
+            RequestCancel();
+        }
+
+        private static bool MatchesKind(HardwareKind hardwareKind, AlgorithmNodeKind nodeKind)
+            => nodeKind == AlgorithmNodeKind.Input
+                ? hardwareKind == HardwareKind.Sensor
+                : hardwareKind == HardwareKind.Effector;
+
+        private static void SetText(TMPro.TMP_Text text, string value)
+        {
+            if (text != null)
+            {
+                text.SetText(value ?? string.Empty);
+            }
         }
 
         protected override void OnOperationPresentationChanged(

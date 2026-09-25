@@ -99,5 +99,12 @@ namespace AutoEra.Algorithms
             foreach (var node in Nodes) if (node.Id == id && !node.Deleted) { node.Deleted = true; Revision++; return true; }
             return false;
         }
+
+        /// <summary>移动节点画布坐标（画布自由布局）。未找到或已删除的节点返回 false。</summary>
+        public bool MoveNode(ulong id, float x, float y)
+        {
+            foreach (var node in Nodes) if (node.Id == id && !node.Deleted) { node.LayoutX = x; node.LayoutY = y; Revision++; return true; }
+            return false;
+        }
     }
 }

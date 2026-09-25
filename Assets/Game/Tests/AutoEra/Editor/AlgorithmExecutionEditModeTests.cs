@@ -54,6 +54,19 @@ namespace AutoEra.Tests.Editor
                 Assert.That(pool.Used, Is.Zero);
             }
         }
+
+        [Test]
+        public void NodeValues_SnapshotExecutedValueNodes()
+        {
+            var sink = new Sink(); var pool = new MachineComputePool(new PersistentIdAllocator(), 100, 100);
+            using (var runtime = new AlgorithmRuntime(new PersistentId(999), Compile(Graph()), pool, sink))
+            {
+                runtime.Enqueue(new AlgorithmTrigger { NodeId = 1, Revision = 1, Generation = 1 }); runtime.Pump(0);
+                var values = runtime.History()[0].CopyNodeValues();
+                Assert.That(values.ContainsKey(2UL), Is.True, "Constant 节点应记录当时值。");
+                Assert.That(values[2UL].Number, Is.EqualTo(12), "Constant 主输出 value 应为 12。");
+            }
+        }
         [Test]
         public void WaitingIsNotFailure_WholeBatchRunsAfterLease_StaleEventsRejected()
         {

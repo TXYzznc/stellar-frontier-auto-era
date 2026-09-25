@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AutoEra.Algorithms;
 using AutoEra.UI.Contracts;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +19,8 @@ namespace AutoEra.UI
     /// <item>Empty：运行时在，但这台机器还没有算法实例（实例由模板实例化创建，模板库还没接线）；</item>
     /// <item>Ready：有真实实例，节点栏列出选中实例草稿的图节点与连线，检视器列出机器/实例/节点属性，问题栏列出校验问题。</item>
     /// </list>
-    /// 编辑与诊断的**写入口**（改图、应用、诊断运行）仍未接线，因此业务按钮依旧由
+    /// 「应用草稿」按钮已接线（统一应用命令：草稿首应用＝激活、已激活草稿＝Apply）；
+    /// 其余写入口（改图、诊断运行、参数编辑）仍未接线，因此除应用外的业务按钮仍由
     /// <c>DisableDomainActions</c> 处置——但只读部分是真实数据（图结构 + 校验问题）。
     ///
     /// 注：`Content_AlgorithmGraph` 上挂的是 <see cref="AutoEraGraphLayoutGroup"/>——规格提到
@@ -36,6 +38,8 @@ namespace AutoEra.UI
         private static readonly UiDetailField[] NoFields = new UiDetailField[0];
 
         private IAlgorithmReadModel _algorithms;
+        private string _nodeFilter = string.Empty;
+        private readonly List<UiAlgorithmNodeRow> _visibleNodes = new List<UiAlgorithmNodeRow>(16);
 
         protected override void OnInit(object userData)
         {
@@ -62,6 +66,8 @@ namespace AutoEra.UI
 
             if (_backButton != null) _backButton.onClick.AddListener(RequestCancel);
             if (_closeButton != null) _closeButton.onClick.AddListener(RequestCancel);
+            if (_algorithmEditorApplyButton != null) _algorithmEditorApplyButton.onClick.AddListener(OnApplyClicked);
+            if (_algorithmEditorNodeSearch != null) _algorithmEditorNodeSearch.onValueChanged.AddListener(OnNodeSearchChanged);
         }
 
         protected override void OnAutoEraOpen()
@@ -77,6 +83,8 @@ namespace AutoEra.UI
 
             Render(_algorithms.Snapshot);
             DisableDomainActions();
+            // 应用命令已接线：整域禁用后单独启用「应用草稿」按钮，其余业务按钮仍未接线、保持禁用。
+            SetApplyButtonInteractable(_algorithms.Snapshot);
         }
 
         protected override void OnAutoEraClose(bool isShutdown) => ReleaseAlgorithms();
@@ -112,13 +120,35 @@ namespace AutoEra.UI
         /// <summary>点一行图节点 → 交给读模型按稳定 Id 选中，供检视器展示节点属性。</summary>
         private void OnNodeRowClicked(int index)
         {
-            AlgorithmDomainSnapshot snapshot = _algorithms.Snapshot;
-            if (snapshot.GraphNodes == null || index < 0 || index >= snapshot.GraphNodes.Count)
+            if (_algorithms == null || index < 0 || index >= _visibleNodes.Count)
             {
                 return;
             }
 
-            _algorithms.SelectNode(snapshot.GraphNodes[index].Id);
+            _algorithms.SelectNode(_visibleNodes[index].Id);
+        }
+
+        /// <summary>搜索框输入 → 更新过滤词并重渲染节点栏。</summary>
+        private void OnNodeSearchChanged(string value)
+        {
+            _nodeFilter = value ?? string.Empty;
+            if (_algorithms != null)
+            {
+                Render(_algorithms.Snapshot);
+            }
+        }
+
+        private static bool MatchesNodeFilter(UiAlgorithmNodeRow node, string filter)
+        {
+            if (string.IsNullOrEmpty(filter))
+            {
+                return true;
+            }
+
+            string label = node.Label ?? string.Empty;
+            string status = node.Status ?? string.Empty;
+            return label.IndexOf(filter, System.StringComparison.OrdinalIgnoreCase) >= 0
+                || status.IndexOf(filter, System.StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
         /// <summary>
@@ -160,17 +190,35 @@ namespace AutoEra.UI
             SetState(_algorithmEditorSuccessState, hasInstances);
             SetState(_algorithmEditorDisabledState, false);
 
-            // 节点栏：选中实例草稿图的真实节点（点一行在检视器查看属性）。
-            RenderListRows(_algorithmEditorNodesTemplate, _algorithmEditorNodesContent, snapshot.GraphNodeCount,
-                (index, item) => item.Bind(index, snapshot.GraphNodes[index].Label, snapshot.GraphNodes[index].Status,
+            // 节点栏：选中实例草稿图的真实节点（按搜索框过滤；点一行在检视器查看属性）。
+            _visibleNodes.Clear();
+            if (snapshot.GraphNodes != null)
+            {
+                for (int i = 0; i < snapshot.GraphNodes.Count; i++)
+                {
+                    if (MatchesNodeFilter(snapshot.GraphNodes[i], _nodeFilter))
+                    {
+                        _visibleNodes.Add(snapshot.GraphNodes[i]);
+                    }
+                }
+            }
+
+            int visibleCount = _visibleNodes.Count;
+            RenderListRows(_algorithmEditorNodesTemplate, _algorithmEditorNodesContent, visibleCount,
+                (index, item) => item.Bind(index, _visibleNodes[index].Label, _visibleNodes[index].Status,
                     OnNodeRowClicked));
             SetText(_algorithmEditorNodesBody, hasGraph
                 ? "实例 #" + InstanceIdLabel(snapshot)
                     + " · 图节点 " + snapshot.GraphNodeCount + " 个 · 连线 " + snapshot.GraphEdgeCount
-                    + " 条（点一行查看属性）。"
+                    + " 条" + (visibleCount != snapshot.GraphNodeCount
+                        ? "（搜索命中 " + visibleCount + " 个）" : "")
+                    + "（点一行查看属性）。"
                 : hasInstances
                     ? "请选择一个实例查看它的图结构。"
                     : AlgorithmReadModels.NoInstanceReason);
+
+            // 画布：按布局坐标定位图节点（画布自由布局；拖拽回写属后续）。
+            RenderGraphCanvas(snapshot);
 
             // 检视器：机器 + 实例 + 图摘要；点选节点后追加节点属性。
             RenderDetailRows(_algorithmEditorInspectorTemplate, _algorithmEditorInspectorContent, BuildInspectorDetail(snapshot));
@@ -200,6 +248,127 @@ namespace AutoEra.UI
             SetText(_publicParametersImpactBody, hasInstances
                 ? "影响评估尚未运行：本页还没有接上校验入口。"
                 : AlgorithmReadModels.NoInstanceReason);
+
+            // 应用按钮随选中与域状态启用/禁用（DisableDomainActions 已把它关掉，这里按真实状态重开）。
+            SetApplyButtonInteractable(snapshot);
+        }
+
+        /// <summary>画布渲染：按布局坐标定位图节点（画布自由布局；拖拽回写属后续）。</summary>
+        private void RenderGraphCanvas(AlgorithmDomainSnapshot snapshot)
+        {
+            if (_algorithmGraphContent == null || _algorithmGraphElementTemplate == null)
+            {
+                return;
+            }
+
+            // 清空旧节点（保留模板自身）。
+            for (int i = _algorithmGraphContent.childCount - 1; i >= 0; i--)
+            {
+                Transform child = _algorithmGraphContent.GetChild(i);
+                if (child.gameObject != _algorithmGraphElementTemplate)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+
+            if (snapshot.GraphNodes == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < snapshot.GraphNodes.Count; i++)
+            {
+                UiAlgorithmNodeRow node = snapshot.GraphNodes[i];
+                GameObject instance = Instantiate(_algorithmGraphElementTemplate, _algorithmGraphContent);
+                instance.SetActive(true);
+                RectTransform rect = instance.GetComponent<RectTransform>();
+                if (rect != null)
+                {
+                    rect.anchoredPosition = new Vector2(node.LayoutX, node.LayoutY);
+                }
+
+                SetGraphNodeName(instance, node.Label);
+
+                AlgorithmGraphNodeDragHandler drag = instance.GetComponent<AlgorithmGraphNodeDragHandler>();
+                if (drag == null)
+                {
+                    drag = instance.AddComponent<AlgorithmGraphNodeDragHandler>();
+                }
+
+                ulong nodeId = node.Id;
+                drag.OnMoved = position => OnGraphNodeMoved(nodeId, position);
+            }
+        }
+
+        /// <summary>画布节点拖拽松手 → 写回 MoveNode（新坐标）。</summary>
+        private void OnGraphNodeMoved(ulong nodeId, Vector2 position)
+        {
+            if (_algorithms == null || !_algorithms.Snapshot.SelectedInstance.HasValue)
+            {
+                return;
+            }
+
+            _algorithms.MoveNode(_algorithms.Snapshot.SelectedInstance.Value.Id, nodeId, position.x, position.y);
+        }
+
+        private static void SetGraphNodeName(GameObject instance, string label)
+        {
+            Transform nameText = instance.transform.Find("Grp_AlgorithmNode/Btn_AlgorithmNodeSelect/Txt_AlgorithmNodeName");
+            if (nameText == null)
+            {
+                return;
+            }
+
+            TMPro.TMP_Text text = nameText.GetComponent<TMPro.TMP_Text>();
+            if (text != null)
+            {
+                text.SetText(label ?? string.Empty);
+            }
+        }
+
+        private void OnApplyClicked()
+        {
+            if (_algorithms == null)
+            {
+                return;
+            }
+
+            AlgorithmDomainSnapshot snapshot = _algorithms.Snapshot;
+            if (!snapshot.SelectedInstance.HasValue)
+            {
+                return;
+            }
+
+            UiAlgorithmInstanceRow instance = snapshot.SelectedInstance.Value;
+            if (instance.RequestState == AlgorithmApplyState.AwaitingWarningConfirmation)
+            {
+                // 有待确认的警告：同一按钮变「确认并应用」，走确认链。
+                _algorithms.ConfirmWarnings(instance.Id, instance.RequestId);
+            }
+            else
+            {
+                // 统一应用命令：草稿首应用＝激活，已激活草稿＝Apply；结果经 Changed 事件刷新呈现。
+                _algorithms.Apply(instance.Id);
+            }
+        }
+
+        private void SetApplyButtonInteractable(AlgorithmDomainSnapshot snapshot)
+        {
+            if (_algorithmEditorApplyButton == null)
+            {
+                return;
+            }
+
+            if (snapshot.State != UiDataState.Ready || !snapshot.SelectedInstance.HasValue)
+            {
+                _algorithmEditorApplyButton.interactable = false;
+                return;
+            }
+
+            AlgorithmApplyState state = snapshot.SelectedInstance.Value.RequestState;
+            // 无请求＝可应用；待确认警告＝可确认；等待安全点/应用中＝禁用等待。
+            _algorithmEditorApplyButton.interactable =
+                state == AlgorithmApplyState.None || state == AlgorithmApplyState.AwaitingWarningConfirmation;
         }
 
         private static void SetText(TMPro.TMP_Text text, string value)

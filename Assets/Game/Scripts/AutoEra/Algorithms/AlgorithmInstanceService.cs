@@ -90,6 +90,48 @@ namespace AutoEra.Algorithms
             Changed?.Invoke();
             return true;
         }
+
+        /// <summary>
+        /// 从未绑定、未编译的文档创建「草稿实例」（无运行时）。模板实例化的产物在玩家完成绑定、
+        /// 编译并应用之前只存在于草稿里；本方法与 <see cref="Add(AlgorithmRuntime)"/> 并列，
+        /// 是写路径「模板 → 实例」的入口。实例 Id 复用文档的 <c>DocumentId</c>（与运行时同一 Id 空间）。
+        /// </summary>
+        public bool AddDraft(AlgorithmDocument draft)
+        {
+            if (_disposed || draft == null || draft.DocumentId == 0 || draft.Nodes == null || draft.Edges == null ||
+                draft.Bindings == null || _entries.ContainsKey(draft.DocumentId))
+            {
+                return false;
+            }
+
+            _entries.Add(draft.DocumentId, new Entry { Runtime = null, Draft = draft.Copy(), Saved = draft.Copy() });
+            Changed?.Invoke();
+            return true;
+        }
+
+        /// <summary>
+        /// 把外部编译好的运行时挂接到草稿实例（<c>Runtime == null</c>）——写路径「绑定 → 编译 → 激活」的最后一环。
+        /// 是 <see cref="Add(AlgorithmRuntime)"/> 的「就地激活」变体：草稿实例已在 <c>_entries</c> 里，
+        /// 只是还没运行时；校验运行时 Id 一致、<c>IsSafe</c> 与算力容量后替换空运行时。
+        /// </summary>
+        public bool CompileDraft(ulong id, AlgorithmRuntime runtime)
+        {
+            if (_disposed || runtime == null || runtime.InstanceId.Value != id ||
+                !_entries.TryGetValue(id, out var entry) || entry.Runtime != null || !runtime.IsSafe)
+            {
+                return false;
+            }
+
+            if (!_compute.TryApplyLogicCost(TotalCost() + runtime.LogicCost))
+            {
+                return false;
+            }
+
+            entry.Runtime = runtime;
+            Changed?.Invoke();
+            return true;
+        }
+
         public AlgorithmDocument ReadDraft(ulong id) => _entries[id].Draft.Copy();
         public ulong SavedDraftRevision(ulong id) => _entries[id].Saved.Revision;
         public AlgorithmApplyRequest ReadRequest(ulong id) => _entries[id].Request?.Copy();
@@ -122,10 +164,10 @@ namespace AutoEra.Algorithms
                 Entry entry = pair.Value;
                 result.Add(new AlgorithmInstanceInfo(
                     pair.Key,
-                    entry.Runtime.Revision,
+                    entry.Runtime?.Revision ?? 0,
                     entry.Draft.Revision,
                     entry.Saved.Revision,
-                    entry.Runtime.LogicCost,
+                    entry.Runtime?.LogicCost ?? 0,
                     entry.Request?.State ?? AlgorithmApplyState.None,
                     entry.Request?.RequestId ?? 0,
                     entry.Request?.Reason));
@@ -149,10 +191,58 @@ namespace AutoEra.Algorithms
             if (_disposed || !_entries.TryGetValue(id, out var entry) || entry.Draft.Revision != expectedRevision) return false;
             entry.Saved = entry.Draft.Copy(); Changed?.Invoke(); return true;
         }
+
+        /// <summary>
+        /// 按 <c>BindingKey</c> 更新草稿里某个端点（Input/Effector）的绑定（无则新增）。
+        /// 是 <see cref="Edit"/> 的聚焦变体：只改 <c>Bindings</c> 一项三元组，绑定 <c>Type</c>
+        /// 从对应节点（<c>BindingKey</c> 匹配且未删除）的 <c>ValueType</c> 派生，<c>Revision</c> 自增。
+        /// </summary>
+        public bool Rebind(ulong id, ulong expectedRevision, string bindingKey, ulong componentId, ulong targetId, ulong generation)
+        {
+            if (_disposed || string.IsNullOrEmpty(bindingKey) || !_entries.TryGetValue(id, out var entry) ||
+                entry.Draft.Revision != expectedRevision || entry.Request?.State == AlgorithmApplyState.Applying) return false;
+
+            AlgorithmDocument draft = entry.Draft.Copy();
+            AlgorithmBinding binding = draft.Bindings.Find(b => b != null && b.Key == bindingKey);
+            if (binding == null)
+            {
+                binding = new AlgorithmBinding { Key = bindingKey, Available = true };
+                draft.Bindings.Add(binding);
+            }
+
+            binding.ComponentId = componentId;
+            binding.TargetId = targetId;
+            binding.Generation = generation;
+            AlgorithmNode node = draft.Nodes.Find(n => n != null && !n.Deleted && n.BindingKey == bindingKey);
+            if (node != null && node.ValueType != null)
+            {
+                binding.Type = node.ValueType.Copy();
+            }
+
+            draft.Revision = checked(expectedRevision + 1);
+            entry.Draft = draft;
+            Changed?.Invoke();
+            return true;
+        }
+
+        /// <summary>移动草稿节点画布坐标（画布自由布局）。未找到节点时返回 false。</summary>
+        public bool MoveNode(ulong id, ulong expectedRevision, ulong nodeId, float x, float y)
+        {
+            if (_disposed || !_entries.TryGetValue(id, out var entry) ||
+                entry.Draft.Revision != expectedRevision || entry.Request?.State == AlgorithmApplyState.Applying) return false;
+
+            AlgorithmDocument draft = entry.Draft.Copy();
+            if (!draft.MoveNode(nodeId, x, y)) return false;
+
+            entry.Draft = draft;
+            Changed?.Invoke();
+            return true;
+        }
+
         public bool Apply(ulong id, ulong expectedDraft, ulong expectedApplied, ulong hardware, out AlgorithmApplyRequest request)
         {
             request = null;
-            if (_disposed || !_entries.TryGetValue(id, out var entry) || IsPending(entry.Request) || entry.Draft.Revision != expectedDraft ||
+            if (_disposed || !_entries.TryGetValue(id, out var entry) || entry.Runtime == null || IsPending(entry.Request) || entry.Draft.Revision != expectedDraft ||
                 entry.Runtime.Revision != expectedApplied || hardware != _hardwareRevision() || expectedDraft <= expectedApplied || !_ids.TryAllocate(out var requestId)) return false;
             var pending = new AlgorithmApplyRequest { RequestId = requestId.Value, DraftRevision = expectedDraft, ExpectedAppliedRevision = expectedApplied,
                 HardwareRevision = hardware, Document = entry.Draft.Copy(), State = AlgorithmApplyState.WaitingSafePoint };
@@ -162,6 +252,14 @@ namespace AutoEra.Algorithms
             else pending.ParametersOnly = SameStructure(entry.Runtime.CopyApplied(), compiled.CopyDocument());
             request = pending.Copy(); Changed?.Invoke(); return true;
         }
+
+        /// <summary>
+        /// <see cref="Apply(ulong, ulong, ulong, ulong, out AlgorithmApplyRequest)"/> 的便捷重载：
+        /// 硬件修订由服务内部取（<c>_hardwareRevision()</c>）。读模型等不持有硬件修订源的调用方用这个入口，
+        /// 避免把硬件修订暴露到界面层。
+        /// </summary>
+        public bool Apply(ulong id, ulong expectedDraft, ulong expectedApplied, out AlgorithmApplyRequest request)
+            => Apply(id, expectedDraft, expectedApplied, _hardwareRevision(), out request);
         public bool CancelApply(ulong id, ulong requestId)
         {
             if (!_entries.TryGetValue(id, out var entry) || entry.Request == null || entry.Request.RequestId != requestId || (entry.Request.State != AlgorithmApplyState.WaitingSafePoint && entry.Request.State != AlgorithmApplyState.AwaitingWarningConfirmation)) return false;
@@ -193,18 +291,27 @@ namespace AutoEra.Algorithms
                 _restartPaused.Clear(); _publishing = null; Changed?.Invoke();
                 return;
             }
-            foreach (var entry in _entries.Values) entry.Runtime.Pump(now);
+            foreach (var entry in _entries.Values) entry.Runtime?.Pump(now);
             foreach (var entry in _entries.Values)
             {
                 var request = entry.Request;
                 if (request?.State != AlgorithmApplyState.WaitingSafePoint) continue;
                 if (!Validate(entry, request, out _)) { request.State = AlgorithmApplyState.Rejected; Changed?.Invoke(); continue; }
-                bool safe = entry.Runtime.IsSafe;
-                if (!request.ParametersOnly) foreach (var other in _entries.Values) safe &= other.Runtime.IsSafe;
+                bool safe = entry.Runtime?.IsSafe ?? false;
+                if (!request.ParametersOnly)
+                {
+                    foreach (var other in _entries.Values) safe = safe && (other.Runtime?.IsSafe ?? false);
+                }
+
                 if (!safe) continue;
                 request.State = AlgorithmApplyState.Applying; _publishing = entry;
                 if (!request.ParametersOnly) foreach (var other in _entries.Values)
-                    { other.Runtime.SetPaused(true, now, AlgorithmPauseReason.Application); _restartPaused.Add(other.Runtime); }
+                    {
+                        if (other.Runtime == null) continue;
+                        other.Runtime.SetPaused(true, now, AlgorithmPauseReason.Application);
+                        _restartPaused.Add(other.Runtime);
+                    }
+
                 Changed?.Invoke(); break;
             }
         }
@@ -221,12 +328,12 @@ namespace AutoEra.Algorithms
         public bool Capture(ulong id, long now, out AlgorithmInstanceCheckpoint checkpoint)
         {
             checkpoint = null;
-            if (_publishing != null || !_entries.TryGetValue(id, out var e) || !e.Runtime.TryCapture(now, out var runtime)) return false;
+            if (_publishing != null || !_entries.TryGetValue(id, out var e) || e.Runtime == null || !e.Runtime.TryCapture(now, out var runtime)) return false;
             checkpoint = new AlgorithmInstanceCheckpoint { Runtime = runtime, Draft = e.Draft.Copy(), Saved = e.Saved.Copy(), Request = e.Request?.Copy() }; return true;
         }
         public bool Restore(ulong id, AlgorithmInstanceCheckpoint checkpoint, long now)
         {
-            if (_publishing != null || checkpoint == null || !_entries.TryGetValue(id, out var e) ||
+            if (_publishing != null || checkpoint == null || !_entries.TryGetValue(id, out var e) || e.Runtime == null ||
                 !_bindingsValid(checkpoint.Runtime.Applied.Copy()) ||
                 !AlgorithmValidator.TryCompile(checkpoint.Runtime.Applied, _compute.LogicCapacity - TotalCost() + e.Runtime.LogicCost, out _, out _) ||
                 !e.Runtime.Restore(checkpoint.Runtime, now)) return false;
@@ -234,7 +341,7 @@ namespace AutoEra.Algorithms
             if (e.Request != null) _ids.TryRestore(new PersistentId(e.Request.RequestId));
             _compute.TryApplyLogicCost(TotalCost()); return true;
         }
-        private int TotalCost() { int sum = 0; foreach (var entry in _entries.Values) sum += entry.Runtime.LogicCost; return sum; }
+        private int TotalCost() { int sum = 0; foreach (var entry in _entries.Values) sum += entry.Runtime?.LogicCost ?? 0; return sum; }
         private static bool IsPending(AlgorithmApplyRequest request) => request != null && (request.State == AlgorithmApplyState.AwaitingWarningConfirmation || request.State == AlgorithmApplyState.WaitingSafePoint || request.State == AlgorithmApplyState.Applying);
         internal static bool SameStructure(AlgorithmDocument a, AlgorithmDocument b)
         {
@@ -256,7 +363,7 @@ namespace AutoEra.Algorithms
         public void Dispose()
         {
             if (_disposed) return; _disposed=true;
-            foreach(var entry in _entries.Values) entry.Runtime.Dispose();
+            foreach(var entry in _entries.Values) entry.Runtime?.Dispose();
             _entries.Clear(); _compute.TryApplyLogicCost(0); Changed=null;
         }
         private sealed class Entry { internal AlgorithmRuntime Runtime; internal AlgorithmDocument Draft,Saved; internal AlgorithmApplyRequest Request; }

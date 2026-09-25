@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using AutoEra.Algorithms;
+using AutoEra.Machines;
 using AutoEra.World.Identity;
 using AutoEra.World.Region;
 
@@ -83,8 +84,10 @@ namespace AutoEra.UI
 
         /// <summary>一行列表用的状态摘要。</summary>
         public string Status =>
-            "已应用 r" + AppliedRevision + " ／ 草稿 r" + DraftRevision
-            + (HasUnappliedDraft ? "（未应用）" : string.Empty)
+            (AppliedRevision == 0
+                ? "未应用（草稿）"
+                : "已应用 r" + AppliedRevision + (HasUnappliedDraft ? "（未应用）" : string.Empty))
+            + " ／ 草稿 r" + DraftRevision
             + " ／ 逻辑算力 " + LogicCost
             + (RequestState == AlgorithmApplyState.None ? string.Empty : " ／ 请求 " + RequestState);
     }
@@ -106,12 +109,15 @@ namespace AutoEra.UI
     public readonly struct UiAlgorithmNodeRow
     {
         public UiAlgorithmNodeRow(ulong id, string label, string status,
-            UiAlgorithmNodeDiagnostic diagnostic = UiAlgorithmNodeDiagnostic.None)
+            UiAlgorithmNodeDiagnostic diagnostic = UiAlgorithmNodeDiagnostic.None,
+            float layoutX = 0f, float layoutY = 0f)
         {
             Id = id;
             Label = label;
             Status = status;
             Diagnostic = diagnostic;
+            LayoutX = layoutX;
+            LayoutY = layoutY;
         }
 
         public ulong Id { get; }
@@ -120,17 +126,23 @@ namespace AutoEra.UI
 
         /// <summary>最近一次运行里该节点的执行状态（供节点栏高亮/标注）。</summary>
         public UiAlgorithmNodeDiagnostic Diagnostic { get; }
+
+        /// <summary>画布布局坐标（供画布节点定位，画布自由布局）。</summary>
+        public float LayoutX { get; }
+        public float LayoutY { get; }
     }
 
     /// <summary>选中实例最近一次运行的一行摘要（诊断读路径）。</summary>
     public readonly struct UiAlgorithmRunRow
     {
-        public UiAlgorithmRunRow(ulong runId, string error, ulong failedNode, int cost)
+        public UiAlgorithmRunRow(ulong runId, string error, ulong failedNode, int cost,
+            IReadOnlyDictionary<ulong, AlgorithmValue> nodeValues = null)
         {
             RunId = runId;
             Error = error;
             FailedNode = failedNode;
             Cost = cost;
+            NodeValues = nodeValues;
         }
 
         public ulong RunId { get; }
@@ -140,6 +152,9 @@ namespace AutoEra.UI
         public bool Succeeded => string.IsNullOrEmpty(Error);
         public string Label => "运行 #" + RunId;
         public string Status => (Succeeded ? "正常" : "错误：" + Error) + " ／ 瞬时成本 " + Cost;
+
+        /// <summary>最近一次运行里各值节点的「当时值」快照（节点 Id → 主输出值），供诊断按值细节。</summary>
+        public IReadOnlyDictionary<ulong, AlgorithmValue> NodeValues { get; }
     }
 
     /// <summary>选中实例草稿图里的一行连线：From → To，输出端口 → 输入端口。</summary>
@@ -183,6 +198,61 @@ namespace AutoEra.UI
             + (string.IsNullOrEmpty(PortId) ? string.Empty : " ／ 端口 " + PortId);
     }
 
+    /// <summary>选中实例草稿里一个待绑定/已绑定的端点（Input 传感器 / Effector 效应器）。</summary>
+    public readonly struct UiAlgorithmBindingRow
+    {
+        public UiAlgorithmBindingRow(string bindingKey, AlgorithmNodeKind kind, string field, string action,
+            bool bound, ulong componentId, ulong targetId)
+        {
+            BindingKey = bindingKey ?? string.Empty;
+            Kind = kind;
+            Field = field ?? string.Empty;
+            Action = action ?? string.Empty;
+            Bound = bound;
+            ComponentId = componentId;
+            TargetId = targetId;
+        }
+
+        public string BindingKey { get; }
+        public AlgorithmNodeKind Kind { get; }
+        public string Field { get; }
+        public string Action { get; }
+        public bool Bound { get; }
+        public ulong ComponentId { get; }
+        public ulong TargetId { get; }
+
+        /// <summary>端点用途：传感器读哪个字段、效应器做什么动作。</summary>
+        public string Port =>
+            Kind == AlgorithmNodeKind.Input
+                ? (string.IsNullOrEmpty(Field) ? "输入" : "读 " + Field)
+                : (string.IsNullOrEmpty(Action) ? "效应器" : Action);
+
+        public string Label => (Kind == AlgorithmNodeKind.Input ? "传感器" : "效应器") + " · " + BindingKey;
+        public string Status => Bound ? "已绑定 #" + ComponentId + " → #" + TargetId : "待绑定";
+    }
+
+    /// <summary>机器上已安装、可被算法端点绑定的一行候选组件（传感器/效应器）。</summary>
+    public readonly struct UiAlgorithmComponentCandidate
+    {
+        public UiAlgorithmComponentCandidate(ulong componentId, string name, HardwareKind kind, int level, bool enabled)
+        {
+            ComponentId = componentId;
+            Name = name ?? string.Empty;
+            Kind = kind;
+            Level = level;
+            Enabled = enabled;
+        }
+
+        public ulong ComponentId { get; }
+        public string Name { get; }
+        public HardwareKind Kind { get; }
+        public int Level { get; }
+        public bool Enabled { get; }
+
+        public string Label => Name + " · L" + Level;
+        public string Status => Enabled ? "已安装" : "已停用";
+    }
+
     /// <summary>算法域的只读快照。</summary>
     public readonly struct AlgorithmDomainSnapshot
     {
@@ -202,7 +272,9 @@ namespace AutoEra.UI
             IReadOnlyList<UiAlgorithmIssueRow> issues = null,
             IReadOnlyList<UiDetailField> nodeDetail = null,
             int selectedNodeIndex = -1,
-            UiAlgorithmRunRow? latestRun = null)
+            UiAlgorithmRunRow? latestRun = null,
+            IReadOnlyList<UiAlgorithmBindingRow> pendingBindings = null,
+            IReadOnlyList<UiAlgorithmComponentCandidate> componentCandidates = null)
         {
             State = state;
             UnavailableReason = unavailableReason;
@@ -220,6 +292,8 @@ namespace AutoEra.UI
             NodeDetail = nodeDetail;
             SelectedNodeIndex = selectedNodeIndex;
             LatestRun = latestRun;
+            PendingBindings = pendingBindings;
+            ComponentCandidates = componentCandidates;
         }
 
         public UiDataState State { get; }
@@ -285,6 +359,18 @@ namespace AutoEra.UI
 
         /// <summary>选中实例最近一次运行的摘要；无实例/无运行历史时为 null。</summary>
         public UiAlgorithmRunRow? LatestRun { get; }
+
+        /// <summary>选中实例草稿的绑定端点（Input/Effector 的 BindingKey 与绑定状态）；无实例/库页为 null。</summary>
+        public IReadOnlyList<UiAlgorithmBindingRow> PendingBindings { get; }
+
+        /// <summary>待绑定端点数量。</summary>
+        public int PendingBindingCount => PendingBindings == null ? 0 : PendingBindings.Count;
+
+        /// <summary>机器上已安装、可被算法端点绑定的候选组件（传感器/效应器）；非机器域为 null。</summary>
+        public IReadOnlyList<UiAlgorithmComponentCandidate> ComponentCandidates { get; }
+
+        /// <summary>候选组件数量。</summary>
+        public int ComponentCandidateCount => ComponentCandidates == null ? 0 : ComponentCandidates.Count;
 
         /// <summary>实例数量。与 <see cref="Count"/>（模板数量）刻意分开：它们是两个域。</summary>
         public int InstanceCount => Instances == null ? 0 : Instances.Count;
@@ -371,6 +457,40 @@ namespace AutoEra.UI
         bool SelectNode(ulong nodeId);
 
         void ClearSelection();
+
+        /// <summary>
+        /// 从模板在当前选中机器上创建「草稿实例」（写路径入口）。返回新实例的稳定 Id；无法解析机器、
+        /// 机器无运行时或模板无效时返回 0。机器域/不可用域读模型恒返回 0（它们不持有模板库）。
+        /// </summary>
+        ulong InstantiateTemplate(ulong templateId);
+
+        /// <summary>
+        /// 按 <c>BindingKey</c> 更新选中实例草稿的绑定（写路径「绑定重绑」）。机器域调用实例服务
+        /// <c>Rebind</c>；库页/不可用域返回 false。无选中实例时按 <c>instanceId</c> 定位。
+        /// </summary>
+        bool Rebind(ulong instanceId, string bindingKey, ulong componentId, ulong targetId, ulong generation);
+
+        /// <summary>
+        /// 把「绑定完整且校验通过」的草稿实例编译为运行时（写路径「激活」）。机器域读草稿 →
+        /// <c>TryCompile</c>（真实算力容量，template:false）→ 构造运行时（adapter 作 sink）→
+        /// <c>Adapter.Attach</c> → <c>CompileDraft</c>；库页/不可用域返回 false。
+        /// </summary>
+        bool ActivateDraft(ulong instanceId);
+
+        /// <summary>
+        /// 统一「应用」命令：草稿实例（<c>AppliedRevision == 0</c>）首次应用＝激活（<see cref="ActivateDraft"/>），
+        /// 已激活实例且草稿领先＝<c>Apply</c>；无事可做或域不支持返回 false。
+        /// </summary>
+        bool Apply(ulong instanceId);
+
+        /// <summary>确认应用请求的警告（<c>AwaitingWarningConfirmation</c> → <c>WaitingSafePoint</c>）；库页/不可用域返回 false。</summary>
+        bool ConfirmWarnings(ulong instanceId, ulong requestId);
+
+        /// <summary>取消待处理的应用请求；库页/不可用域返回 false。</summary>
+        bool CancelApply(ulong instanceId, ulong requestId);
+
+        /// <summary>移动选中实例草稿节点的画布坐标（写路径「画布布局」）；库页/不可用域返回 false。</summary>
+        bool MoveNode(ulong instanceId, ulong nodeId, float x, float y);
     }
 
     /// <summary>
@@ -392,12 +512,15 @@ namespace AutoEra.UI
     internal sealed class MachineAlgorithmReadModel : IAlgorithmReadModel
     {
         private readonly AlgorithmInstanceService _instances;
+        private readonly MachineCatalog _catalog;
         private readonly List<UiAlgorithmInstanceRow> _rows = new List<UiAlgorithmInstanceRow>(8);
         private readonly List<UiDetailField> _detail = new List<UiDetailField>(12);
         private readonly List<UiAlgorithmNodeRow> _graphNodes = new List<UiAlgorithmNodeRow>(16);
         private readonly List<UiAlgorithmEdgeRow> _graphEdges = new List<UiAlgorithmEdgeRow>(16);
         private readonly List<UiAlgorithmIssueRow> _issues = new List<UiAlgorithmIssueRow>(8);
+        private readonly List<UiAlgorithmBindingRow> _bindings = new List<UiAlgorithmBindingRow>(8);
         private readonly List<UiDetailField> _nodeDetail = new List<UiDetailField>(8);
+        private readonly List<UiAlgorithmComponentCandidate> _componentCandidates = new List<UiAlgorithmComponentCandidate>(8);
         private AlgorithmDomainSnapshot _snapshot;
         private int _selectedIndex = -1;
         private int _selectedNodeIndex = -1;
@@ -405,9 +528,10 @@ namespace AutoEra.UI
         private bool _autoSelectPending = true;
         private bool _disposed;
 
-        public MachineAlgorithmReadModel(RegionMachineRuntime runtime)
+        public MachineAlgorithmReadModel(RegionMachineRuntime runtime, MachineCatalog catalog)
         {
             Runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
+            _catalog = catalog;
             _instances = runtime.Instances;
             if (_instances != null)
             {
@@ -418,6 +542,9 @@ namespace AutoEra.UI
         }
 
         public RegionMachineRuntime Runtime { get; }
+
+        /// <summary>机器上已安装、可被算法端点绑定的候选组件（传感器/效应器）。</summary>
+        public IReadOnlyList<UiAlgorithmComponentCandidate> ComponentCandidates => _componentCandidates;
 
         public AlgorithmDomainSnapshot Snapshot => _snapshot;
 
@@ -488,6 +615,108 @@ namespace AutoEra.UI
             Publish(AlgorithmDomainSection.Detail);
         }
 
+        /// <summary>机器域读模型不持有模板库，从模板创建实例恒为 0（入口在库页）。</summary>
+        public ulong InstantiateTemplate(ulong templateId) => 0;
+
+        /// <summary>按 BindingKey 更新草稿绑定；实例不存在或修订不匹配时返回 false。</summary>
+        public bool Rebind(ulong instanceId, string bindingKey, ulong componentId, ulong targetId, ulong generation)
+        {
+            if (_disposed || _instances == null)
+            {
+                return false;
+            }
+
+            AlgorithmDocument draft = _instances.ReadDraft(instanceId);
+            if (draft == null)
+            {
+                return false;
+            }
+
+            return _instances.Rebind(instanceId, draft.Revision, bindingKey, componentId, targetId, generation);
+        }
+
+        /// <summary>把校验通过的草稿编译为运行时并激活；校验失败、域缺 adapter/算力池、或已有活动实例时返回 false。</summary>
+        public bool ActivateDraft(ulong instanceId)
+        {
+            if (_disposed || _instances == null || Runtime.Adapter == null || Runtime.Adapter.HasRuntime ||
+                Runtime.Context == null || Runtime.Context.Compute == null)
+            {
+                return false;
+            }
+
+            AlgorithmDocument draft = _instances.ReadDraft(instanceId);
+            if (draft == null)
+            {
+                return false;
+            }
+
+            if (!AlgorithmValidator.TryCompile(draft, Runtime.Context.Compute.LogicCapacity, out AlgorithmPlan plan, out _, false))
+            {
+                return false;
+            }
+
+            var runtime = new AlgorithmRuntime(new PersistentId(instanceId), plan, Runtime.Context.Compute, Runtime.Adapter);
+            Runtime.Adapter.Attach(runtime);
+            return _instances.CompileDraft(instanceId, runtime);
+        }
+
+        /// <summary>统一应用：草稿实例首次应用＝激活；已激活实例且草稿领先＝Apply；无事可做返回 false。</summary>
+        public bool Apply(ulong instanceId)
+        {
+            if (_disposed || _instances == null)
+            {
+                return false;
+            }
+
+            AlgorithmInstanceInfo[] infos = _instances.ListInstances();
+            AlgorithmInstanceInfo? info = null;
+            for (int i = 0; i < infos.Length; i++)
+            {
+                if (infos[i].Id == instanceId)
+                {
+                    info = infos[i];
+                    break;
+                }
+            }
+
+            if (!info.HasValue)
+            {
+                return false;
+            }
+
+            if (info.Value.AppliedRevision == 0)
+            {
+                return ActivateDraft(instanceId);
+            }
+
+            return _instances.Apply(instanceId, info.Value.DraftRevision, info.Value.AppliedRevision, out _);
+        }
+
+        /// <summary>确认应用请求的警告；实例不存在或请求状态不符时返回 false。</summary>
+        public bool ConfirmWarnings(ulong instanceId, ulong requestId)
+            => !_disposed && _instances != null && _instances.ConfirmWarnings(instanceId, requestId);
+
+        /// <summary>取消待处理的应用请求。</summary>
+        public bool CancelApply(ulong instanceId, ulong requestId)
+            => !_disposed && _instances != null && _instances.CancelApply(instanceId, requestId);
+
+        /// <summary>移动草稿节点画布坐标；实例不存在或修订不匹配时返回 false。</summary>
+        public bool MoveNode(ulong instanceId, ulong nodeId, float x, float y)
+        {
+            if (_disposed || _instances == null)
+            {
+                return false;
+            }
+
+            AlgorithmDocument draft = _instances.ReadDraft(instanceId);
+            if (draft == null)
+            {
+                return false;
+            }
+
+            return _instances.MoveNode(instanceId, draft.Revision, nodeId, x, y);
+        }
+
         public void Dispose()
         {
             if (_disposed)
@@ -542,6 +771,7 @@ namespace AutoEra.UI
 
             BuildDetail();
             BuildGraph();
+            BuildComponentCandidates();
 
             // 有运行时但一台算法实例都没有：这是 **Empty**（领域接线了，只是还没有东西），
             // 不是 Unavailable——把它们混成一个状态会让「界面在撒谎」与「域没接线」分不清。
@@ -560,7 +790,9 @@ namespace AutoEra.UI
                 issues: _issues.ToArray(),
                 nodeDetail: _nodeDetail.ToArray(),
                 selectedNodeIndex: _selectedNodeIndex,
-                latestRun: _latestRun);
+                latestRun: _latestRun,
+                pendingBindings: _bindings.ToArray(),
+                componentCandidates: _componentCandidates.ToArray());
 
             Changed?.Invoke(section);
         }
@@ -570,6 +802,41 @@ namespace AutoEra.UI
             var machine = Runtime.Context != null ? Runtime.Context.Machine : null;
             return machine != null && machine.Definition != null ? machine.Definition.Name : null;
         }
+
+        /// <summary>机器上已安装、可被算法端点绑定的候选组件：传感器读输入、效应器执行动作。</summary>
+        private void BuildComponentCandidates()
+        {
+            _componentCandidates.Clear();
+            MachineInstance machine = Runtime.Context != null ? Runtime.Context.Machine : null;
+            if (machine == null || machine.Definition == null)
+            {
+                return;
+            }
+
+            foreach (HardwareKind kind in CandidateKinds)
+            {
+                int slots = machine.Definition.SlotCount(kind);
+                for (int index = 0; index < slots; index++)
+                {
+                    ComponentInstance component = machine.GetComponent(kind, index);
+                    if (component == null)
+                    {
+                        continue;
+                    }
+
+                    string name = "组件 #" + component.Definition.Id;
+                    if (_catalog != null && _catalog.TryGetComponentRow(component.Definition, out ComponentDisplayRow row))
+                    {
+                        name = row.Name;
+                    }
+
+                    _componentCandidates.Add(new UiAlgorithmComponentCandidate(
+                        component.Id.Value, name, kind, component.Definition.Level, component.Enabled));
+                }
+            }
+        }
+
+        private static readonly HardwareKind[] CandidateKinds = { HardwareKind.Sensor, HardwareKind.Effector };
 
         private void BuildDetail()
         {
@@ -614,6 +881,7 @@ namespace AutoEra.UI
             _graphNodes.Clear();
             _graphEdges.Clear();
             _issues.Clear();
+            _bindings.Clear();
             _nodeDetail.Clear();
             _latestRun = null;
 
@@ -644,7 +912,8 @@ namespace AutoEra.UI
                     executedPath.Add(path[i]);
                 }
 
-                _latestRun = new UiAlgorithmRunRow(latest.RunId, latest.Error, latest.FailedNode, latest.Cost);
+                _latestRun = new UiAlgorithmRunRow(latest.RunId, latest.Error, latest.FailedNode, latest.Cost,
+                    latest.CopyNodeValues());
             }
 
             var nodesById = new Dictionary<ulong, AlgorithmNode>();
@@ -674,7 +943,8 @@ namespace AutoEra.UI
                     }
 
                     nodesById[node.Id] = node;
-                    _graphNodes.Add(new UiAlgorithmNodeRow(node.Id, node.Kind + " #" + node.Id, status, diagnostic));
+                    _graphNodes.Add(new UiAlgorithmNodeRow(node.Id, node.Kind + " #" + node.Id, status, diagnostic,
+                        node.LayoutX, node.LayoutY));
                 }
             }
 
@@ -698,6 +968,27 @@ namespace AutoEra.UI
                 {
                     AlgorithmIssue issue = issues[i];
                     _issues.Add(new UiAlgorithmIssueRow(issue.Severity, issue.Code, issue.NodeId, issue.PortId));
+                }
+            }
+
+            // 待绑定端点：Input/Effector 节点带 BindingKey，但 Bindings 无对应项或 ComponentId 为 0 即「待绑定」。
+            if (draft.Nodes != null)
+            {
+                for (int i = 0; i < draft.Nodes.Count; i++)
+                {
+                    AlgorithmNode node = draft.Nodes[i];
+                    if (node == null || node.Deleted ||
+                        (node.Kind != AlgorithmNodeKind.Input && node.Kind != AlgorithmNodeKind.Effector) ||
+                        string.IsNullOrEmpty(node.BindingKey))
+                    {
+                        continue;
+                    }
+
+                    AlgorithmBinding binding = draft.Bindings.Find(b => b != null && b.Key == node.BindingKey);
+                    bool bound = binding != null && binding.ComponentId != 0;
+                    _bindings.Add(new UiAlgorithmBindingRow(
+                        node.BindingKey, node.Kind, node.Field, node.Action.ToString(),
+                        bound, bound ? binding.ComponentId : 0, bound ? binding.TargetId : 0));
                 }
             }
 
@@ -732,6 +1023,13 @@ namespace AutoEra.UI
             if (node.Default != null)
             {
                 _nodeDetail.Add(new UiDetailField("默认值", FormatValue(node.Default)));
+            }
+
+            // 诊断按值细节：最近运行里该节点的当时值（与「默认值」当前值对比）。
+            if (_latestRun.HasValue && _latestRun.Value.NodeValues != null
+                && _latestRun.Value.NodeValues.TryGetValue(node.Id, out AlgorithmValue thenValue))
+            {
+                _nodeDetail.Add(new UiDetailField("当时值", FormatValue(thenValue)));
             }
 
             if (!string.IsNullOrEmpty(node.BindingKey))
@@ -830,6 +1128,7 @@ namespace AutoEra.UI
     internal sealed class TemplateAlgorithmReadModel : IAlgorithmReadModel
     {
         private readonly AlgorithmTemplateLibrary _library;
+        private readonly AutoEraUiSession _session;
         private readonly List<UiAlgorithmTemplateRow> _rows = new List<UiAlgorithmTemplateRow>(8);
         private readonly List<UiDetailField> _detail = new List<UiDetailField>(8);
         private AlgorithmDomainSnapshot _snapshot;
@@ -837,9 +1136,10 @@ namespace AutoEra.UI
         private bool _autoSelectPending = true;
         private bool _disposed;
 
-        public TemplateAlgorithmReadModel(AlgorithmTemplateLibrary library)
+        public TemplateAlgorithmReadModel(AlgorithmTemplateLibrary library, AutoEraUiSession session)
         {
             _library = library ?? throw new ArgumentNullException(nameof(library));
+            _session = session;
             Publish();
         }
 
@@ -888,6 +1188,50 @@ namespace AutoEra.UI
             _selectedTemplateIndex = -1;
             Publish(AlgorithmDomainSection.Detail);
         }
+
+        /// <summary>
+        /// 从模板在当前选中机器上创建草稿实例（写路径「模板 → 实例」入口）。
+        /// 解析不到选中机器/机器无运行时/模板无效时返回 0；成功后返回新实例 Id。
+        /// </summary>
+        public ulong InstantiateTemplate(ulong templateId)
+        {
+            if (_disposed || _session == null || !_session.HasMachineRuntimes)
+            {
+                return 0;
+            }
+
+            if (!AlgorithmReadModels.TryResolveMachine(_session, out PersistentId machineId))
+            {
+                return 0;
+            }
+
+            if (!_session.MachineRuntimes.TryGet(machineId, out RegionMachineRuntime runtime))
+            {
+                return 0;
+            }
+
+            AlgorithmDocument draft = _library.Instantiate(templateId);
+            if (draft == null)
+            {
+                return 0;
+            }
+
+            return runtime.Instances.AddDraft(draft) ? draft.DocumentId : 0;
+        }
+
+        /// <summary>库页不持有实例服务，绑定重绑恒为 false（入口在机器域/绑定面板）。</summary>
+        public bool Rebind(ulong instanceId, string bindingKey, ulong componentId, ulong targetId, ulong generation) => false;
+
+        /// <summary>库页不持有实例服务与适配器，激活恒为 false（入口在机器域）。</summary>
+        public bool ActivateDraft(ulong instanceId) => false;
+
+        /// <summary>库页不持有实例服务，应用恒为 false（入口在机器域/工作台）。</summary>
+        public bool Apply(ulong instanceId) => false;
+
+        public bool ConfirmWarnings(ulong instanceId, ulong requestId) => false;
+
+        public bool CancelApply(ulong instanceId, ulong requestId) => false;
+        public bool MoveNode(ulong instanceId, ulong nodeId, float x, float y) => false;
 
         public void Dispose()
         {
@@ -1034,7 +1378,8 @@ namespace AutoEra.UI
                     "这台机器还没有运行时（可能尚未部署，或区域刚重建）：算法实例与执行上下文都建立在运行时之上。");
             }
 
-            return new MachineAlgorithmReadModel(runtime);
+            MachineCatalog catalog = MachineCatalog.IsGameDataLoaded ? MachineCatalog.FromLoadedGameData() : null;
+            return new MachineAlgorithmReadModel(runtime, catalog);
         }
 
         /// <summary>
@@ -1052,14 +1397,14 @@ namespace AutoEra.UI
                 return new UnavailableAlgorithmReadModel("算法模板属于某个世界，请先从主菜单进入区域。");
             }
 
-            return new TemplateAlgorithmReadModel(session.World.AlgorithmTemplates);
+            return new TemplateAlgorithmReadModel(session.World.AlgorithmTemplates, session);
         }
 
         /// <summary>
         /// 机器身份来自区域当前的选中对象。**只认稳定 Id**：不为「猜一台机器」留任何回退，
         /// 否则界面就会在玩家没选机器时悄悄展示另一台机器的数据。
         /// </summary>
-        private static bool TryResolveMachine(AutoEraUiSession session, out PersistentId machineId)
+        internal static bool TryResolveMachine(AutoEraUiSession session, out PersistentId machineId)
         {
             machineId = PersistentId.Invalid;
             if (session.Region == null || !session.Region.IsActive)
@@ -1105,6 +1450,19 @@ namespace AutoEra.UI
         public bool SelectNode(ulong nodeId) => false;
 
         public void ClearSelection() { }
+
+        public ulong InstantiateTemplate(ulong templateId) => 0;
+
+        public bool Rebind(ulong instanceId, string bindingKey, ulong componentId, ulong targetId, ulong generation) => false;
+
+        public bool ActivateDraft(ulong instanceId) => false;
+
+        public bool Apply(ulong instanceId) => false;
+
+        public bool ConfirmWarnings(ulong instanceId, ulong requestId) => false;
+
+        public bool CancelApply(ulong instanceId, ulong requestId) => false;
+        public bool MoveNode(ulong instanceId, ulong nodeId, float x, float y) => false;
 
         public void Dispose() { }
     }

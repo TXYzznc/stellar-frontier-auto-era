@@ -22,14 +22,25 @@ namespace AutoEra.Algorithms
     {
         private readonly AlgorithmTrigger _trigger;
         private readonly ulong[] _path;
+        private readonly Dictionary<ulong, AlgorithmValue> _nodeValues;
         public string Error { get; }
         public ulong FailedNode { get; }
         public int Cost { get; }
         public ulong RunId { get; }
         public AlgorithmTrigger CopyTrigger() => _trigger.Copy();
         public ulong[] CopyPath() => (ulong[])_path.Clone();
+        public IReadOnlyDictionary<ulong, AlgorithmValue> CopyNodeValues()
+        {
+            var copy = new Dictionary<ulong, AlgorithmValue>(_nodeValues.Count);
+            foreach (var pair in _nodeValues) copy.Add(pair.Key, pair.Value.Copy());
+            return copy;
+        }
         internal AlgorithmRunRecord(ulong runId, AlgorithmTrigger trigger, AlgorithmBatch batch)
-        { RunId = runId; _trigger = trigger.Copy(); _path = batch.Path.ToArray(); Error = batch.Error; FailedNode = batch.FailedNode; Cost = batch.Cost; }
+        {
+            RunId = runId; _trigger = trigger.Copy(); _path = batch.Path.ToArray(); Error = batch.Error; FailedNode = batch.FailedNode; Cost = batch.Cost;
+            _nodeValues = new Dictionary<ulong, AlgorithmValue>(batch.NodeValues.Count);
+            foreach (var pair in batch.NodeValues) _nodeValues.Add(pair.Key, pair.Value.Copy());
+        }
     }
 
     /// <summary>Explicit world-clock pump; no frame-wide graph traversal and no world changes in evaluation.</summary>
