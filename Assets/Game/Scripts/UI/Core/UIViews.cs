@@ -36,5 +36,7 @@ public enum UIViews : int
 	CropKnowledgeForm = 6029,
 	OperationDialogForm = 6030,
 	ProgressReportForm = 6031,
-	OperationFeedbackForm = 6032
+	OperationFeedbackForm = 6032,
+	FieldHudDetailForm = 6033,
+	FieldHudResidentForm = 6034
 }

@@ -26,7 +26,6 @@ namespace AutoEra.Tests.Editor
             "BuildCatalogForm",
             "WorkshopForm",
             "QuestForm",
-            "AlertForm",
             "CropKnowledgeForm",
             "TutorialForm",
             "FeatureHelpForm",
@@ -64,7 +63,7 @@ namespace AutoEra.Tests.Editor
         public void WiredForms_AreNotInjectedWithNotWiredScaffolding()
         {
             // 已接入的界面绝不能带上「未接入」的脚手架：那会让它们明明有数据却宣称没有。
-            foreach (string form in new[] { "MainMenuForm", "BaseCommandHubForm", "FieldHudForm", "RecordReaderForm", "MachineLibraryForm", "ComponentLibraryForm", "SettingsForm", "ComponentPickerForm" })
+            foreach (string form in new[] { "MainMenuForm", "BaseCommandHubForm", "FieldHudForm", "RecordReaderForm", "MachineLibraryForm", "ComponentLibraryForm", "SettingsForm", "ComponentPickerForm", "AlertForm" })
             {
                 string path = UiDirectory + form + ".cs";
                 Assert.That(File.Exists(path), Is.True);

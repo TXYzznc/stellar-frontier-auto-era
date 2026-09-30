@@ -28,8 +28,8 @@ namespace AutoEra.Tests.PlayMode
     /// 与 <c>AutoEraAllUiFormsPlayModeTests</c> 的分工：那个测试回答「每个界面单独能否打开」，
     /// 本测试回答「界面之间是否连得起来」——后者才是「界面接进游戏」的实际判据。
     ///
-    /// 会话透传不靠读私有字段证明，而是靠**界面真的显示出了世界里的数据**：中枢只有拿到
-    /// 带世界会话的打开参数，才可能把测试预置的那台机器列出来。
+    /// 会话透传不靠读私有字段证明，而是靠**界面真的显示出了世界里的数据**：机器库只有拿到
+    /// 带世界会话的打开参数，才可能把测试预置的那台未部署机器列出来；中枢则验证部署筛选空态。
     ///
     /// 三条纪律（都是实测踩出来的）：
     /// ① 两条链写在同一个 [UnityTest] 里：Launch 场景的产品流程对场景重载很敏感，
@@ -141,7 +141,7 @@ namespace AutoEra.Tests.PlayMode
                 "从「新游戏」进入应落在新建进度页。");
         }
 
-        /// <summary>世界链：HUD 顶栏「中枢」→ 中枢，且中枢显示出了世界会话里的机器。</summary>
+        /// <summary>世界链：HUD 顶栏进入中枢和机器库，并验证部署筛选及会话数据透传。</summary>
         private IEnumerator WorldChain()
         {
             Assert.That(_context.TryCreateWorldSession(0L, out AutoEraWorldSession world), Is.True,
@@ -164,21 +164,22 @@ namespace AutoEra.Tests.PlayMode
 
             var hud = (FieldHudForm)GF.UI.GetUIForm(hudId).Logic;
             Assert.That(hud, Is.Not.Null, "现场 HUD 的 Logic 未挂上。");
-            Assert.That(hud.HudHubButton, Is.Not.Null, "Btn_HudNavigationHub 必须绑进契约（世界链入口）。");
-            Assert.That(hud.RegionDataState, Is.EqualTo(UiDataState.Ready),
-                "区域随会话到达后，现场内容页必须显示为可读，而不是「区域尚未加载」。");
-            Assert.That(hud.RegionObjectCount, Is.EqualTo(1));
+            FieldHudResidentForm resident = null;
+            yield return WaitForLogic<FieldHudResidentForm>(found => resident = found, "FieldHudResidentForm");
+            Assert.That(resident.HudHubButton, Is.Not.Null, "Btn_HudNavigationHub 必须存在于独立常驻层。");
 
             // 选中区域对象后，资源观察页的公开状态栏必须真的渲染出详情行。
             Assert.That(_region.Select(site.Id, inputBlocked: false), Is.True);
             yield return WaitFrames(2);
-            Assert.That(hud.FarmPublicContent, Is.Not.Null, "Content_FarmPublic 必须绑进契约。");
-            Assert.That(hud.FarmPublicContent.childCount, Is.GreaterThan(1),
-                "资源观察页必须渲染出选中对象的公开状态，而不是只留模板。");
+            FieldHudDetailForm detail = null;
+            yield return WaitForLogic<FieldHudDetailForm>(found => detail = found, "FieldHudDetailForm");
+            Assert.That(detail.BuildingOverviewIdentityContent, Is.Not.Null, "建筑详情内容必须在独立详情 Form 中。");
+            Assert.That(detail.BuildingOverviewIdentityContent.childCount, Is.GreaterThan(1),
+                "建筑详情必须渲染出选中对象的公开状态，而不是只留模板。");
             // HUD 是「常驻模块 + 互斥侧栏」模型，不走 ShowPage，因此没有页选择可等。
             yield return WaitFrames(5);
 
-            hud.HudHubButton.onClick.Invoke();
+            resident.HudHubButton.onClick.Invoke();
             BaseCommandHubForm hub = null;
             yield return WaitForLogic<BaseCommandHubForm>(found => hub = found, "BaseCommandHubForm");
             yield return WaitForPageChosen(hub, "BaseCommandHubForm");
@@ -190,18 +191,18 @@ namespace AutoEra.Tests.PlayMode
                 $" 页={hub.CurrentPage}" +
                 $" 世界机器数={world.Machines.Machines.Count()}");
 
-            // 期望文本用产品自己的格式化函数拼：既证明「界面真的写入了数据」，又不会因为
-            // 数字格式调整而误报（写死 "机器 1 台" 会随格式化规则变化而失效）。
+            // 测试夹具创建的是尚未部署的机器。中枢只显示已部署机器，因此这里应验证
+            // 产品定义的真实空态；同一条链路后面的机器库断言再验证未部署机器仍可见。
             Assert.That(hub.HubObjectsIndexTemplate, Is.Not.Null,
                 "Item_HubObjectsIndexTemplate 未绑进契约——渲染会在第一行提前返回。");
             Assert.That(hub.HubObjectsIndexContent, Is.Not.Null,
                 "Content_HubObjectsIndex 未绑进契约——渲染会在第一行提前返回。");
-            Assert.That(hub.HubObjectsIndexBody.text, Is.EqualTo("机器 " + AutoEraUiFormat.Count(1) + " 台"),
-                "中枢的索引标题必须由数据写入，而不是保留预制体里的静态占位文案。");
+            Assert.That(hub.HubObjectsIndexBody.text, Is.EqualTo("还没有已部署到现场的机器。"),
+                "中枢在没有已部署机器时必须显示真实空态，而不是保留预制体里的静态占位文案。");
 
             // 同一条世界链上再走一步：HUD 的「机器」入口 → 机器库，并确认它真的按部署状态过滤。
-            Assert.That(hud.HudMachinesButton, Is.Not.Null, "Btn_HudNavigationMachines 必须绑进契约。");
-            hud.HudMachinesButton.onClick.Invoke();
+            Assert.That(resident.HudMachinesButton, Is.Not.Null, "Btn_HudNavigationMachines 必须在独立常驻层。");
+            resident.HudMachinesButton.onClick.Invoke();
             MachineLibraryForm library = null;
             yield return WaitForLogic<MachineLibraryForm>(found => library = found, "MachineLibraryForm");
             yield return WaitForPageChosen(library, "MachineLibraryForm");
@@ -214,10 +215,10 @@ namespace AutoEra.Tests.PlayMode
             // 世界链再走一步：HUD 的「记录」入口 → 记录阅读，且真的渲染出日志行。
             // 事件域是唯一「世界会话一建好就已经活着」的域，所以这个入口必须读出真实记录，
             // 而不是像算法／传感那样只能陈述原因——这是它值得单独断言的理由。
-            Assert.That(hud.FarmRecordButton, Is.Not.Null, "Btn_FarmRecord 必须绑进契约（记录入口）。");
-            Assert.That(hud.MachineOverviewDiagnosticButton, Is.Not.Null,
-                "Btn_MachineOverviewDiagnostic 必须绑进契约（机器诊断的记录入口）。");
-            hud.FarmRecordButton.onClick.Invoke();
+            Assert.That(detail.FarmRecordButton, Is.Not.Null, "Btn_FarmRecord 必须在独立详情 Form 中。");
+            Assert.That(detail.MachineOverviewDiagnosticButton, Is.Not.Null,
+                "Btn_MachineOverviewDiagnostic 必须在独立详情 Form 中。");
+            detail.FarmRecordButton.onClick.Invoke();
             RecordReaderForm reader = null;
             yield return WaitForLogic<RecordReaderForm>(found => reader = found, "RecordReaderForm");
             yield return WaitForPageChosen(reader, "RecordReaderForm");

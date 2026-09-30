@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.TestTools;
+using AutoEra.UI;
 
 namespace AutoEra.Tests.PlayMode
 {
@@ -65,7 +66,21 @@ namespace AutoEra.Tests.PlayMode
                     }
                 }
 
-                GF.UI.CloseUIForm(serialId);
+                // 报告型界面在 UITable 中故意禁止 Escape 关闭，显式“返回”必须仍可退出。
+                if (view == UIViews.ProgressReportForm && logic.GetComponent<ProgressReportForm>() is ProgressReportForm report)
+                {
+                    Assert.That(report.BackButton, Is.Not.Null);
+                    report.BackButton.onClick.Invoke();
+                }
+                else if (view == UIViews.OperationFeedbackForm && logic.GetComponent<OperationFeedbackForm>() is OperationFeedbackForm feedback)
+                {
+                    Assert.That(feedback.BackButton, Is.Not.Null);
+                    feedback.BackButton.onClick.Invoke();
+                }
+                else
+                {
+                    GF.UI.CloseUIForm(serialId);
+                }
                 yield return WaitForForm(serialId, expectedLoaded: false);
 
                 if (GF.UI.HasUIForm(serialId))

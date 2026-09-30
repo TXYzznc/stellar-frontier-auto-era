@@ -1,480 +1,141 @@
-using System;
-using System.Text;
 using AutoEra.UI.Contracts;
 using AutoEra.World.Identity;
 using AutoEra.World.Region;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace AutoEra.UI
 {
     /// <summary>
-    /// 现场 HUD（规格 03-世界HUD 五模块 ＋ 05／06／07 的现场内容页）。
-    ///
-    /// 结构完全由 Docs/Development/UI-PrefabLayouts/FieldHudForm.contract.json 生成，
-    /// 绑定字段在同名的 .Fields.cs 里。
-    ///
-    /// 两条结构事实（来自 00-共享外壳 的 FieldHudForm 段）：
-    /// ① HUD 五模块同时常驻，只有现场内容页互斥，默认全部关闭；
-    /// ② 侧栏关闭按钮挂在 Grp_PageHost 下且只在侧栏开启时显示。
-    ///
-    /// 数据来源分两条，各有各的域：
-    /// ① **区域域**：<see cref="BindRegion"/>（InitialRegionScene.BindHud 注入），提供选中对象；
-    /// ② **机器域**：打开参数里的 `AutoEraUiSession` → 机器域读模型，提供机器详情。
-    /// 历史：这里曾有一个 `BindMachines(MachineRoster)` 直通入口，与读模型形成第二条数据路；
-    /// 已删除——HUD 不再持有花名册，机器信息只经读模型拿。
+    /// 现场 UI 的会话路由。常驻模块和对象详情各自拥有 UIForm Prefab、读模型和按钮绑定。
+    /// 本 Form 不持有任何页面内容或列表模板。
     /// </summary>
     public sealed partial class FieldHudForm : AutoEraShellFormBase
     {
-        // 绑定字段由 FieldHudForm.Fields.cs 依契约生成，与本文件同属一个 partial 类；
-        // 新增节点引用请改契约后重新生成，不要在此手写字段。
-        private const string ResidentHudPrefix = "Panel_PageHud";
-
-        private static readonly UiDetailField[] NoFields = new UiDetailField[0];
-
-        private readonly StringBuilder _timeBuffer = new StringBuilder(32);
         private InitialRegion _region;
         private AutoEra.Input.RegionInputModule _regionInput;
-        private IMachineReadModel _machineReadModel;
-        private IRegionReadModel _regionReadModel;
-        private PersistentId _selectedMachineId = PersistentId.Invalid;
-        private bool _fieldAccessible = true;
-        private bool _managementOpen;
+        private int _residentFormSerialId;
+        private int _detailFormSerialId;
         private int _openFieldPage = -1;
+        private PersistentId _lastDetailSelectionId = PersistentId.Invalid;
         private long _worldMilliseconds;
 
-        /// <summary>现场侧栏或管理页占用输入时，世界输入必须让位。</summary>
-        public override bool BlocksWorldInput => _managementOpen || _openFieldPage >= 0;
-
+        public override bool BlocksWorldInput => false;
         public InitialRegion Region => _region;
         public long WorldMilliseconds => _worldMilliseconds;
         public int OpenFieldPage => _openFieldPage;
-
-        /// <summary>机器域当前数据状态；null 表示读模型尚未建立。测试与调试用。</summary>
-        public UiDataState? MachineDataState => _machineReadModel?.Snapshot.State;
-
-        /// <summary>区域域当前数据状态；null 表示读模型尚未建立。测试与调试用。</summary>
-        public UiDataState? RegionDataState => _regionReadModel?.Snapshot.State;
-
-        /// <summary>区域里的对象数量；读模型未建立时为 0。测试与调试用。</summary>
-        public int RegionObjectCount => _regionReadModel?.Snapshot.Count ?? 0;
-
-        protected override void OnInit(object userData)
-        {
-            base.OnInit(userData);
-            if (_fieldCloseButton != null)
-            {
-                _fieldCloseButton.onClick.AddListener(CloseFieldPanel);
-            }
-
-            // 世界链入口（来源：00-页面关系与复用 的主要入口表：HUD → 中枢五页／各集中界面）。
-            // 会话由导航服务从本页透传，目标界面不自己去解析服务。
-            if (_hudHubButton != null) _hudHubButton.onClick.AddListener(() => OpenHub(BaseCommandHubForm.PageOverview));
-            if (_hudTasksButton != null) _hudTasksButton.onClick.AddListener(() => OpenHub(BaseCommandHubForm.PageTasks));
-            if (_hudMachinesButton != null) _hudMachinesButton.onClick.AddListener(() => AutoEraUiNavigator.Open(this, UIViews.MachineLibraryForm));
-            if (_hudBuildButton != null) _hudBuildButton.onClick.AddListener(() => AutoEraUiNavigator.Open(this, UIViews.BuildCatalogForm));
-            if (_hudShopButton != null) _hudShopButton.onClick.AddListener(() => AutoEraUiNavigator.Open(this, UIViews.ShopForm));
-            if (_hudComponentsButton != null) _hudComponentsButton.onClick.AddListener(() => AutoEraUiNavigator.Open(this, UIViews.ComponentLibraryForm));
-            if (_hudSystemButton != null) _hudSystemButton.onClick.AddListener(() => AutoEraUiNavigator.Open(this, UIViews.SystemMenuForm));
-
-            // 记录阅读：机器诊断与四个资源观察页的记录入口共用同一个 RecordReaderForm 的机器历史页。
-            // 事件域已经活着（世界会话创建时就建好日志），所以这些入口点开就有真实记录；
-            // 能源历史页会陈述「事件分类里没有能源域」，这是诚实空态而不是错误。
-            WireRecords(_machineOverviewDiagnosticButton);
-            WireRecords(_machineDiagnosticsTaskRecordButton);
-            WireRecords(_machineDiagnosticsRunRecordButton);
-            WireRecords(_farmRecordButton);
-            WireRecords(_forestRecordButton);
-            WireRecords(_mineralRecordButton);
-            WireRecords(_waterRecordButton);
-            WireRecords(_warehouseBuildingRecordsButton);
-
-            // 算法入口：算法域没有生产运行路径，编辑器与模板库会整页切 Disabled 并写明原因。
-            // 仍然接线——「未就绪」是设计里可展示的正常状态，死按钮不是。
-            if (_machineOverviewAlgorithmButton != null) _machineOverviewAlgorithmButton.onClick.AddListener(() => OpenAlgorithmEditor());
-            if (_machineAlgorithmEditButton != null) _machineAlgorithmEditButton.onClick.AddListener(() => OpenAlgorithmEditor());
-            if (_machineAlgorithmTemplateButton != null) _machineAlgorithmTemplateButton.onClick.AddListener(() => AutoEraUiNavigator.Open(this, UIViews.AlgorithmLibraryForm));
-
-            // 知识入口（00-页面关系与复用：作物知识入口放农田详情）。
-            WireKnowledge(_farmKnowledgeButton);
-            WireKnowledge(_forestKnowledgeButton);
-            WireKnowledge(_mineralKnowledgeButton);
-            WireKnowledge(_waterKnowledgeButton);
-
-            // 状态栏与追踪栏的两个聚合入口。
-            if (_hudAlertsOpenButton != null) _hudAlertsOpenButton.onClick.AddListener(() => AutoEraUiNavigator.Open(this, UIViews.AlertForm));
-            if (_hudTrackerTaskButton != null) _hudTrackerTaskButton.onClick.AddListener(() => AutoEraUiNavigator.Open(this, UIViews.QuestForm));
-
-            // 「定位／聚焦」：机器概况、四个资源观察页与建筑总览的聚焦按钮。
-            // 它们与 F 键、双击共用 `RegionInputModule.FocusSelection()` 这一条实现——
-            // 规格把三者写成一件事（14-WorldBinding：「有效对象双击或F聚焦」），
-            // 各写一份就会出现「按钮聚焦到锚点、双击聚焦到包围盒中心」这种看得见的偏差。
-            WireLocate(_machineOverviewFocusButton);
-            WireLocate(_farmFocusButton);
-            WireLocate(_forestFocusButton);
-            WireLocate(_mineralFocusButton);
-            WireLocate(_waterFocusButton);
-            WireLocate(_buildingOverviewFocusButton);
-        }
-
-        private void WireLocate(Button button)
-        {
-            if (button != null)
-            {
-                // 包一层 lambda：FocusSelection 返回「有没有定位成功」，
-                // 而 UnityEvent 只要 void；返回值供测试与调用方判断，按钮不消费它。
-                button.onClick.AddListener(() => FocusSelection());
-            }
-        }
-
-        /// <summary>
-        /// 把镜头带到当前选中的现场对象。返回 false 表示这一刻没有可定位的对象——
-        /// 按钮本来就被禁用，所以这里只是不做事，而不是编一个结果。
-        /// </summary>
-        public bool FocusSelection() => _regionInput != null && _regionInput.FocusSelection();
-
-        /// <summary>当前是否给出了可点的定位入口（测试与调试用）。</summary>
         public bool CanLocateSelection => _regionInput != null && _regionInput.CanFocusSelection;
-
-        /// <summary>
-        /// 定位按钮的可点性。
-        ///
-        /// 判据来自现场输入模块（它才知道选中的是谁），不是「页面上有没有选中行」——
-        /// 现场页与选中状态是两条同步路径，只有输入模块那一份是权威的。
-        /// 没有会话输入模块（编辑器直接打开 HUD、测试装置）时同样禁用并说明。
-        /// </summary>
-        private void RefreshLocateActions()
-        {
-            bool canLocate = CanLocateSelection;
-            SetInteractable(_machineOverviewFocusButton, canLocate);
-            SetInteractable(_farmFocusButton, canLocate);
-            SetInteractable(_forestFocusButton, canLocate);
-            SetInteractable(_mineralFocusButton, canLocate);
-            SetInteractable(_waterFocusButton, canLocate);
-            SetInteractable(_buildingOverviewFocusButton, canLocate);
-        }
-
-        private static void SetInteractable(Button button, bool value)
-        {
-            if (button != null)
-            {
-                button.interactable = value;
-            }
-        }
-
-        private void WireRecords(Button button)
-        {
-            if (button != null)
-            {
-                button.onClick.AddListener(() => AutoEraUiNavigator.Open(this, UIViews.RecordReaderForm,
-                    new AutoEraUiPageRequest(RecordReaderForm.PageMachineHistory)));
-            }
-        }
-
-        private void WireKnowledge(Button button)
-        {
-            if (button != null)
-            {
-                button.onClick.AddListener(() => AutoEraUiNavigator.Open(this, UIViews.CropKnowledgeForm));
-            }
-        }
-
-        private void OpenAlgorithmEditor() =>
-            AutoEraUiNavigator.Open(this, UIViews.AlgorithmEditorForm);
-
-        private void OpenHub(int page) =>
-            AutoEraUiNavigator.Open(this, UIViews.BaseCommandHubForm, new AutoEraUiPageRequest(page));
+        public bool FocusSelection() => _regionInput != null && _regionInput.FocusSelection();
 
         protected override void OnAutoEraOpen()
         {
-            SetFieldPanel(-1);
-            // 全屏 HUD 没有安全返回按钮，首焦点落在顶栏第一个入口（00-通用合同的首焦点顺序）。
-            ApplyDefaultFocus(null, _firstInteractable);
-
-            _machineReadModel = MachineReadModels.Create(TryGetSession(out AutoEraUiSession session) ? session : null);
-            _machineReadModel.Changed += OnMachineSectionChanged;
-
-            // 区域域：现场 12 个内容页（四个资源观察页与八个建筑页）的数据来源。
-            // 区域已随会话到达（AutoEraWorldProcedure 在场景就绪后把它一起交出去）。
-            _regionReadModel = RegionReadModels.Create(session);
-            _regionReadModel.Changed += OnRegionSectionChanged;
-
-            // 定位按钮的动作与可点性都来自现场输入模块：它才知道谁被选中、镜头在不在手上。
-            // HUD 自己不维护第二份「当前对象」，否则现场点选与页面显示会各有各的答案。
+            AutoEraUiSession session = SessionOrNull;
+            BindRegion(session?.Region);
             _regionInput = session?.RegionInput;
-
-            RenderMachinePages(_machineReadModel.Snapshot);
-            RenderRegionPages(_regionReadModel.Snapshot);
-            RefreshLocateActions();
+            _residentFormSerialId = AutoEraUiNavigator.Open(this, UIViews.FieldHudResidentForm);
+            OpenFieldPageForSelection();
         }
 
-        protected override void OnAutoEraClose(bool isShutdown)
-        {
-            ReleaseMachines();
-            ReleaseRegion();
-            _region = null;
-            _regionInput = null;
-            _openFieldPage = -1;
-        }
+        protected override void OnAutoEraClose(bool isShutdown) => Release();
 
         protected override void OnAutoEraRecycle()
         {
-            ReleaseMachines();
-            ReleaseRegion();
-            _region = null;
-            _regionInput = null;
-            _openFieldPage = -1;
+            Release();
             base.OnAutoEraRecycle();
         }
 
-        private void ReleaseMachines()
+        private void Release()
         {
-            if (_machineReadModel == null)
-            {
-                return;
-            }
-
-            _machineReadModel.Changed -= OnMachineSectionChanged;
-            _machineReadModel.Dispose();
-            _machineReadModel = null;
-            _selectedMachineId = PersistentId.Invalid;
+            if (_region != null) _region.SelectionChanged -= OnRegionSelectionChanged;
+            _region = null;
+            _regionInput = null;
+            AutoEraUiNavigator.Close(_detailFormSerialId);
+            AutoEraUiNavigator.Close(_residentFormSerialId);
+            _detailFormSerialId = 0;
+            _residentFormSerialId = 0;
+            _openFieldPage = -1;
+            _lastDetailSelectionId = PersistentId.Invalid;
         }
 
-        private void ReleaseRegion()
-        {
-            if (_regionReadModel == null)
-            {
-                return;
-            }
-
-            _regionReadModel.Changed -= OnRegionSectionChanged;
-            _regionReadModel.Dispose();
-            _regionReadModel = null;
-        }
-
-        private void OnRegionSectionChanged(RegionDomainSection section) =>
-            RenderRegionPages(_regionReadModel.Snapshot);
-
-        /// <summary>
-        /// 世界区域接入点：InitialRegionScene.BindHud 调用。
-        ///
-        /// 正常情况下区域已经随会话到达（见 <see cref="AutoEraUiSession.Region"/>）；这条通道服务于
-        /// 会话没带区域的场合（编辑器直接打开 HUD、测试装置）。此时若读模型仍是不可用态，
-        /// 就用注入的区域把它换掉——否则界面会一直声称自己没有区域，而区域其实就在手上。
-        /// </summary>
         public void BindRegion(InitialRegion region)
         {
+            if (_region == region) return;
+            if (_region != null) _region.SelectionChanged -= OnRegionSelectionChanged;
             _region = region;
-            if (region == null || _regionReadModel == null
-                || _regionReadModel.Snapshot.State != UiDataState.Unavailable)
-            {
-                return;
-            }
-
-            _regionReadModel.Changed -= OnRegionSectionChanged;
-            _regionReadModel.Dispose();
-            _regionReadModel = RegionReadModels.CreateForRegion(region);
-            _regionReadModel.Changed += OnRegionSectionChanged;
-            RenderRegionPages(_regionReadModel.Snapshot);
+            if (_region != null) _region.SelectionChanged += OnRegionSelectionChanged;
+            _lastDetailSelectionId = PersistentId.Invalid;
+            OpenFieldPageForSelection();
         }
 
-        /// <summary>现场可访问性与管理页覆盖：InitialRegionScene.ShowFieldAccess 调用。</summary>
         public void SetFieldAccess(bool accessible, bool managementOpen)
         {
-            if (_fieldAccessible == accessible && _managementOpen == managementOpen)
-            {
-                return;
-            }
-
-            _fieldAccessible = accessible;
-            _managementOpen = managementOpen;
-            if (_managementOpen)
-            {
-                SetFieldPanel(-1);
-            }
-
-            RefreshFieldChrome();
+            // 管理界面的世界输入占用由其自身声明，现场层始终不反向锁住输入。
         }
 
-        /// <summary>
-        /// 世界时间接入点：InitialRegionScene.Advance 每个世界秒调用一次。
-        ///
-        /// 规格 03 的顶部状态栏没有单列时间字段，这里把接入点映射到最接近的
-        /// 「系统摘要」通道；正式显示格式应由显示模型提供，届时替换本方法内的排版。
-        /// 用 StringBuilder 复用缓冲，避免在世界秒节拍上产生 GC 分配。
-        ///
-        /// 它也顺带承担「把区域选中的对象同步到机器域读模型」这件事：现场选中不产生
-        /// 领域事件，而世界秒是本页已有的稳定节拍，不需要为同步再引入一条新机制。
-        /// </summary>
         public void ShowWorldTime(long worldMilliseconds)
         {
             _worldMilliseconds = worldMilliseconds;
-            SyncSelectedMachine();
-            // 与选中同步同一个节拍刷新定位按钮：现场点选不产生领域事件，而世界秒是这一页已有的
-            // 稳定节拍。漏掉它就会出现「明明选着对象，聚焦按钮却是灰的」。
-            RefreshLocateActions();
-
-            if (_statusSummary == null)
-            {
-                return;
-            }
-
-            _timeBuffer.Clear();
-            _timeBuffer.Append("世界时间：").Append(worldMilliseconds / 1000L).Append('s');
-            _statusSummary.SetText(_timeBuffer);
+            if (_residentFormSerialId > 0 && GF.UI != null && GF.UI.HasUIForm(_residentFormSerialId))
+                (GF.UI.GetUIForm(_residentFormSerialId).Logic as FieldHudResidentForm)?.ShowWorldTime(worldMilliseconds);
+            OpenFieldPageForSelection();
         }
 
-        /// <summary>打开一个现场内容页；传入常驻 HUD 页或越界索引等同于关闭侧栏。</summary>
-        public bool ShowFieldPage(int pageIndex) => SetFieldPanel(pageIndex);
-
-        private static bool IsResidentHud(GameObject page)
-            => page != null && page.name.StartsWith(ResidentHudPrefix, StringComparison.Ordinal);
-
-        private bool SetFieldPanel(int pageIndex)
+        public bool ShowFieldPage(int pageIndex)
         {
-            if (_pageRoots == null || _pageRoots.Length == 0)
+            if (pageIndex < 5 || pageIndex > 21)
             {
+                Debug.LogWarning($"[AutoEra][FieldHud] 忽略无效详情页 page={pageIndex}");
                 return false;
             }
-
-            bool withinRange = pageIndex >= 0 && pageIndex < _pageRoots.Length && !IsResidentHud(_pageRoots[pageIndex]);
-            int target = withinRange ? pageIndex : -1;
-
-            for (int i = 0; i < _pageRoots.Length; i++)
+            _openFieldPage = pageIndex;
+            if (_detailFormSerialId > 0 && GF.UI != null && GF.UI.HasUIForm(_detailFormSerialId))
             {
-                GameObject page = _pageRoots[i];
-                if (page == null || IsResidentHud(page))
-                {
-                    continue;
-                }
-
-                page.SetActive(i == target);
-            }
-
-            _openFieldPage = target;
-            RefreshFieldChrome();
-
-            // 打开现场页时立即同步一次选中，避免等待下一个世界秒才刷新内容。
-            if (target >= 0)
-            {
-                SyncSelectedMachine();
-            }
-
-            return true;
-        }
-
-        private void CloseFieldPanel() => SetFieldPanel(-1);
-
-        private void RefreshFieldChrome()
-        {
-            if (_fieldCloseButton != null)
-            {
-                _fieldCloseButton.gameObject.SetActive(_openFieldPage >= 0);
-            }
-        }
-
-        // -------------------------------------------------- 机器域
-
-        private void SyncSelectedMachine()
-        {
-            if (_machineReadModel == null)
-            {
-                return;
-            }
-
-            PersistentId selected = _region != null && _region.SelectedId.IsValid ? _region.SelectedId : PersistentId.Invalid;
-            if (selected.IsValid == _selectedMachineId.IsValid && selected == _selectedMachineId)
-            {
-                return;
-            }
-
-            _selectedMachineId = selected;
-            if (selected.IsValid)
-            {
-                _machineReadModel.Select(selected);
+                Debug.Log($"[AutoEra][FieldHud] 更新现有详情 Form serial={_detailFormSerialId} page={pageIndex}");
+                (GF.UI.GetUIForm(_detailFormSerialId).Logic as FieldHudDetailForm)?.ShowSelectionPage(pageIndex);
             }
             else
             {
-                _machineReadModel.ClearSelection();
+                _detailFormSerialId = AutoEraUiNavigator.Open(this, UIViews.FieldHudDetailForm, new AutoEraUiPageRequest(pageIndex));
+                Debug.Log($"[AutoEra][FieldHud] 打开详情 Form serial={_detailFormSerialId} page={pageIndex}");
             }
+            return _detailFormSerialId > 0;
         }
 
-        private void OnMachineSectionChanged(MachineDomainSection section) => RenderMachinePages(_machineReadModel.Snapshot);
+        private void OnRegionSelectionChanged() => OpenFieldPageForSelection();
 
-        private void RenderMachinePages(MachineDomainSnapshot snapshot)
+        private void OpenFieldPageForSelection()
         {
-            // 现场四页只有「概况／身份」一栏有真实数据（机器域详情）；其余栏位依赖尚未接入的
-            // 硬件装配、算法实例与诊断域，因此陈述原因而不是留空或编造。
-            RenderMachinePage(
-                snapshot,
-                _machineOverviewIdentityTemplate, _machineOverviewIdentityContent, _machineOverviewIdentityBody,
-                _machineOverviewCapacityBody,
-                _machineOverviewLoadingState, _machineOverviewEmptyState, _machineOverviewErrorState,
-                _machineOverviewSuccessState, _machineOverviewDisabledState,
-                "容量明细尚未接入：这里只显示机器身份与基本状态。");
-
-            RenderMachinePage(
-                snapshot,
-                _machineHardwareSlotsTemplate, _machineHardwareSlotsContent, _machineHardwareSlotsBody,
-                _machineHardwareComponentBody,
-                _machineHardwareLoadingState, _machineHardwareEmptyState, _machineHardwareErrorState,
-                _machineHardwareSuccessState, _machineHardwareDisabledState,
-                "硬件装配与组件库尚未接入：槽位与候选组件暂无可显示内容。");
-
-            RenderMachinePage(
-                snapshot,
-                _machineAlgorithmInstancesTemplate, _machineAlgorithmInstancesContent, _machineAlgorithmInstancesBody,
-                _machineAlgorithmParametersBody,
-                _machineAlgorithmLoadingState, _machineAlgorithmEmptyState, _machineAlgorithmErrorState,
-                _machineAlgorithmSuccessState, _machineAlgorithmDisabledState,
-                "算法域尚未接入：实例与公开参数暂无可显示内容。");
-
-            RenderMachinePage(
-                snapshot,
-                _machineDiagnosticsTasksTemplate, _machineDiagnosticsTasksContent, _machineDiagnosticsTasksBody,
-                _machineDiagnosticsComputeBody,
-                _machineDiagnosticsLoadingState, _machineDiagnosticsEmptyState, _machineDiagnosticsErrorState,
-                _machineDiagnosticsSuccessState, _machineDiagnosticsDisabledState,
-                "执行队列与算力明细尚未接入：诊断栏暂无可显示内容。");
+            PersistentId selected = _region != null ? _region.SelectedId : PersistentId.Invalid;
+            if (selected == _lastDetailSelectionId) return;
+            _lastDetailSelectionId = selected;
+            int page = ResolveFieldPageIndex();
+            Debug.Log($"[AutoEra][FieldHud] selection={selected} resolvedPage={page} detailSerial={_detailFormSerialId}");
+            if (page < 0)
+            {
+                AutoEraUiNavigator.Close(_detailFormSerialId);
+                _detailFormSerialId = 0;
+                _openFieldPage = -1;
+                return;
+            }
+            ShowFieldPage(page);
         }
 
-        private void RenderMachinePage(
-            MachineDomainSnapshot snapshot,
-            GameObject primaryTemplate,
-            RectTransform primaryContent,
-            TMP_Text primaryBody,
-            TMP_Text secondaryBody,
-            GameObject loadingState,
-            GameObject emptyState,
-            GameObject errorState,
-            GameObject successState,
-            GameObject disabledState,
-            string missingReason)
+        private int ResolveFieldPageIndex()
         {
-            bool unavailable = snapshot.State == UiDataState.Unavailable;
-            bool hasSelection = snapshot.HasSelection;
-
-            SetState(loadingState, false);
-            SetState(errorState, false);
-            SetState(emptyState, !unavailable && !hasSelection);
-            SetState(successState, !unavailable && hasSelection);
-            SetState(disabledState, unavailable);
-
-            RenderDetailRows(primaryTemplate, primaryContent, hasSelection ? snapshot.Detail : NoFields);
-
-            if (primaryBody != null)
+            if (_region == null || !_region.SelectedId.IsValid || !_region.TryGet(_region.SelectedId, out RegionObject obj))
+                return -1;
+            switch (obj.Kind)
             {
-                primaryBody.SetText(hasSelection
-                    ? string.Empty
-                    : unavailable
-                        ? snapshot.UnavailableReason ?? "机器数据不可用"
-                        : "未选择对象：在区域中选择一台机器后这里会显示它的详情。");
-            }
-
-            if (secondaryBody != null)
-            {
-                secondaryBody.SetText(missingReason);
+                case PersistentObjectKind.Machine: return 5;
+                case PersistentObjectKind.Building: return 14;
+                case PersistentObjectKind.ResourcePoint:
+                    switch (obj.Name)
+                    {
+                        case "人工林": return 10;
+                        case "地表矿脉": return 11;
+                        case "水域": return 12;
+                        default: return 9;
+                    }
+                default: return -1;
             }
         }
 

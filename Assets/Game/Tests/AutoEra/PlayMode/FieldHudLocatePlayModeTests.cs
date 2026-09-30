@@ -10,6 +10,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
+using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 
 namespace AutoEra.Tests.PlayMode
@@ -91,6 +92,15 @@ namespace AutoEra.Tests.PlayMode
 
                     FieldHudForm hud = GF.UI.GetUIForm(hudId).Logic as FieldHudForm;
                     Assert.That(hud, Is.Not.Null, "必须挂上 FieldHudForm 的 GF UIForm 桥。");
+                    FieldHudResidentForm resident = null;
+                    for (int frame = 0; frame < 120 && resident == null; frame++)
+                    {
+                        resident = Object.FindObjectOfType<FieldHudResidentForm>(true);
+                        if (resident == null) yield return null;
+                    }
+                    Assert.That(resident, Is.Not.Null, "现场 HUD 必须独立加载常驻层 UIForm。");
+                    Assert.That(resident.GetComponentsInChildren<Button>(true).Any(button => button.name == "Btn_HudStatusGrowth"), Is.True,
+                        "顶部状态按钮必须随常驻层迁移。");
 
                     // 场景里那批 `_objects` 是**建造期模板**：InitializeRuntime 会把它们整批 SetActive(false)，
                     // 真正的对象是它按实体预制体实例化出来的（挂在自己的实体组下，可能不在同一个场景里）。
@@ -110,9 +120,7 @@ namespace AutoEra.Tests.PlayMode
                     Assert.That(input.CanFocusSelection, Is.False);
                     hud.ShowWorldTime(0L);
                     yield return null;
-                    Assert.That(hud.MachineOverviewFocusButton.interactable, Is.False);
-                    Assert.That(hud.FarmFocusButton.interactable, Is.False);
-                    Assert.That(hud.BuildingOverviewFocusButton.interactable, Is.False);
+                    Assert.That(hud.CanLocateSelection, Is.False);
                     Assert.That(hud.FocusSelection(), Is.False, "没有选中对象时定位必须如实返回 false。");
 
                     // ② 选中一个对象：入口变可用。
@@ -122,14 +130,31 @@ namespace AutoEra.Tests.PlayMode
                     Assert.That(input.CanFocusSelection, Is.True);
                     Assert.That(input.SelectedObjectId, Is.EqualTo(view.Model.Id));
                     Assert.That(hud.CanLocateSelection, Is.True);
-                    Assert.That(hud.MachineOverviewFocusButton.interactable, Is.True);
+
+                    // 现场详情已从 FieldHudForm 的内部页迁移为独立 UIForm；选中对象时应自动加载，
+                    // 关闭后常驻 HUD 与世界输入继续使用同一会话。
+                    FieldHudDetailForm detail = null;
+                    for (int frame = 0; frame < 120 && detail == null; frame++)
+                    {
+                        detail = Object.FindObjectOfType<FieldHudDetailForm>(true);
+                        if (detail == null) yield return null;
+                    }
+                    Assert.That(detail, Is.Not.Null, "选中现场对象后必须加载独立详情 UIForm。");
+                    Assert.That(detail.MachineOverviewFocusButton, Is.Not.Null, "机器详情的聚焦按钮必须随详情 Form 迁移。");
+                    Assert.That(detail.MachineOverviewFocusButton.interactable, Is.True);
+                    Button detailBack = detail.GetComponentsInChildren<Button>(true).FirstOrDefault(button => button != null && button.name == "Btn_FormBack");
+                    Assert.That(detailBack, Is.Not.Null, "独立详情 UIForm 必须提供返回出口。");
 
                     // ③ 按钮路径：镜头焦点落到该对象的焦点锚点上。
                     camera.Focus(new Vector3(999f, 0f, 999f));
-                    hud.MachineOverviewFocusButton.onClick.Invoke();
+                    detail.MachineOverviewFocusButton.onClick.Invoke();
                     Vector3 byButton = camera.FocusPosition;
                     Assert.That(byButton, Is.EqualTo(view.FocusPosition),
                         "聚焦必须落在对象自己的锚点上，而不是包围盒中心或别处。");
+
+                    detailBack.onClick.Invoke();
+                    yield return null;
+                    Assert.That(AutoEraUiRuntime.BlocksWorldInput, Is.False, "关闭详情后不得残留世界输入阻塞。");
 
                     // ④ 输入路径：喂一帧「按了 F」，结果必须与按钮**完全一致**。
                     camera.Focus(new Vector3(-999f, 0f, -999f));

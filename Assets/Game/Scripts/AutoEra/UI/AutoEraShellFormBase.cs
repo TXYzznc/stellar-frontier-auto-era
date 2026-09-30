@@ -16,6 +16,24 @@ namespace AutoEra.UI
     {
         private int _currentPage = -1;
 
+        /// <summary>普通界面只保留一个主要出口；需要独立“关闭”语义的流程显式覆写。</summary>
+        protected virtual bool KeepFormCloseButton => false;
+
+        protected override void OnInit(object userData)
+        {
+            base.OnInit(userData);
+            if (KeepFormCloseButton)
+            {
+                return;
+            }
+
+            Transform close = transform.Find("Panel_Frame/Btn_FormClose");
+            if (close != null)
+            {
+                close.gameObject.SetActive(false);
+            }
+        }
+
         /// <summary>当前激活页序号；-1 表示尚未选择页面。</summary>
         public int CurrentPage => _currentPage;
 

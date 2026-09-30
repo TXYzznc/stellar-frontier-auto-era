@@ -53,7 +53,9 @@ namespace AutoEra.UI
         /// <summary>关闭指定界面（返回上一层）。传无效序列号安全无副作用。</summary>
         public static void Close(int serialId)
         {
-            if (serialId > InvalidSerialId)
+            // 选择变化、详情按钮和 UIGroup 自动回收可能交错发生；旧序列号已经不存在时，
+            // 关闭请求必须是幂等的，不能把正常换选对象升级成 GameFrameworkException。
+            if (serialId > InvalidSerialId && GF.UI != null && GF.UI.HasUIForm(serialId))
             {
                 GF.UI.CloseUIForm(serialId);
             }

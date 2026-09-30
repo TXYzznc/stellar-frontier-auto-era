@@ -54,6 +54,10 @@ HANDWRITTEN = {
     # 安装替换组件选择器（2026-09-21）：候选来自组件库的散件、占用与槽位来自机器实例、
     # 比较栏算预选那一件，两半都已在生产里存在。它补齐了硬件修改链的**装入**方向。
     "ComponentPickerForm",
+    # 警报页接入（2026-09-28）：账本（AutoEraAlertService）、监控（RegionAlertMonitor）与
+    # 读模型（AlertReadModels）都已在生产里存在，缺的只是界面的观察入口；列表／详情／
+    # 标记已读／筛选／定位走读模型与区域选择，相关业务详情跳转留后续批次。
+    "AlertForm",
 }
 
 # 领域尚未接入运行路径的 Form：生成器会给它们注入统一的「整页未就绪」渲染。
@@ -63,7 +67,7 @@ HANDWRITTEN = {
 #     占用与槽位来自机器实例，两半都在生产里，见 HANDWRITTEN 的说明）
 #   * 库存与交易：WarehouseForm / ShopForm
 #   * 建造与工坊：BuildCatalogForm / WorkshopForm
-#   * 任务与警报：QuestForm / AlertForm
+#   * 任务：QuestForm（AlertForm 已接入，见 HANDWRITTEN）
 #   * 用户设置：设置域的三页里只有「显示与性能」已接线，但 NOT_WIRED 是**整页级**判定，
 #     而 SettingsForm 已经改为手写（见 HANDWRITTEN），因此它不在此列。
 #   * 作物知识与帮助系：CropKnowledgeForm / TutorialForm / FeatureHelpForm / HelpForm / RuleHelpForm
@@ -77,7 +81,6 @@ NOT_WIRED: dict[str, str] = {
     "BuildCatalogForm": "建造图纸域尚未接入运行路径：图纸目录与解锁状态没有数据来源。",
     "WorkshopForm": "工坊与配方域尚未接入运行路径：配方、队列与产出都没有创建者。",
     "QuestForm": "任务域尚未接入运行路径：任务状态与领取结算都还没有创建者。",
-    "AlertForm": "警报域尚未接入运行路径：警报分类与处理动都没有数据来源。",
     "CropKnowledgeForm": "作物知识尚未接入运行路径：作物图鉴数据没有来源。",
     "TutorialForm": "教程内容尚未接入运行路径：步骤与触发条件还没有配置载体。",
     "FeatureHelpForm": "功能说明尚未接入运行路径：说明文本还没有录入本地化表。",
