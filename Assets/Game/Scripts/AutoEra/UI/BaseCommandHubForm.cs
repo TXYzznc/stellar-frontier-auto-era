@@ -65,6 +65,9 @@ namespace AutoEra.UI
         /// <summary>「对象与系统」详情行的复用缓冲：机器域的行 + 运行时的行。</summary>
         private readonly List<UiDetailField> _detailRows = new List<UiDetailField>(24);
 
+        /// <summary>中枢只列「已连接」（已部署到现场）的机器——库中机器是蓝图，不属中枢远程视图。</summary>
+        private readonly List<UiMachineRow> _deployedMachines = new List<UiMachineRow>(16);
+
         private static readonly UiDetailField[] NoFields = new UiDetailField[0];
 
         protected override void OnInit(object userData)
@@ -611,13 +614,26 @@ namespace AutoEra.UI
                 return;
             }
 
-            RenderListRows(_hubObjectsIndexTemplate, _hubObjectsIndexContent, snapshot.Count,
-                (position, item) => item.Bind(position, snapshot.Machines[position].Name,
-                    snapshot.Machines[position].Status, OnMachineRowClicked));
+            // 中枢只列已部署到现场的机器（DoD「只显示已连接机器」）：库中机器是蓝图，
+            // 不是中枢要远程管理的对象；「库中」与「已部署」的分页属于机器库（MachineLibraryForm）。
+            _deployedMachines.Clear();
+            if (snapshot.Machines != null)
+            {
+                for (int i = 0; i < snapshot.Machines.Count; i++)
+                {
+                    if (snapshot.Machines[i].Deployed) _deployedMachines.Add(snapshot.Machines[i]);
+                }
+            }
+
+            RenderListRows(_hubObjectsIndexTemplate, _hubObjectsIndexContent, _deployedMachines.Count,
+                (position, item) => item.Bind(position, _deployedMachines[position].Name,
+                    _deployedMachines[position].Status, OnMachineRowClicked));
 
             if (_hubObjectsIndexBody != null && snapshot.State == UiDataState.Ready)
             {
-                _hubObjectsIndexBody.SetText("机器 " + AutoEraUiFormat.Count(snapshot.Count) + " 台");
+                _hubObjectsIndexBody.SetText(_deployedMachines.Count == 0
+                    ? "还没有已部署到现场的机器。"
+                    : "机器 " + AutoEraUiFormat.Count(_deployedMachines.Count) + " 台（已连接）");
             }
         }
 
@@ -710,13 +726,13 @@ namespace AutoEra.UI
                 return;
             }
 
-            MachineDomainSnapshot snapshot = _machineReadModel.Snapshot;
-            if (snapshot.Machines == null || index < 0 || index >= snapshot.Machines.Count)
+            // 索引对应中枢过滤后的「已连接」列表，不是读模型的原始全量列表。
+            if (index < 0 || index >= _deployedMachines.Count)
             {
                 return;
             }
 
-            _machineReadModel.Select(snapshot.Machines[index].Id);
+            _machineReadModel.Select(_deployedMachines[index].Id);
         }
 
         protected override void OnOperationPresentationChanged(
