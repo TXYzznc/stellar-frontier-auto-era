@@ -18,6 +18,31 @@ namespace AutoEra.Algorithms
             if (kind == AlgorithmNodeKind.SubmitTask || kind == AlgorithmNodeKind.QueryTask || kind == AlgorithmNodeKind.CancelTask) return 4;
             return 1;
         }
+
+        /// <summary>
+        /// 按种类构造**最小默认节点**（草稿「节点库添加」用）：值节点带有限默认值，算子节点带合法默认算子，
+        /// 其余字段保留 <see cref="AlgorithmNode"/> 文档默认。创建后的图可以仍不完整（必填端口未连、
+        /// StateKey 未填、Input 未绑定），这些由校验问题如实呈现，不做隐藏自动补线。
+        /// </summary>
+        public static AlgorithmNode DefaultNode(AlgorithmNodeKind kind)
+        {
+            var node = new AlgorithmNode { Kind = kind };
+            switch (kind)
+            {
+                case AlgorithmNodeKind.Constant:
+                case AlgorithmNodeKind.Parameter:
+                    node.Default = AlgorithmValue.Numeric(0);
+                    break;
+                case AlgorithmNodeKind.Compare:
+                    node.Operator = AlgorithmOperator.Greater;
+                    break;
+                case AlgorithmNodeKind.Boolean:
+                    node.Operator = AlgorithmOperator.And;
+                    break;
+            }
+
+            return node;
+        }
         public static AlgorithmPort[] Inputs(AlgorithmNode node)
         {
             var value = node.ValueType;

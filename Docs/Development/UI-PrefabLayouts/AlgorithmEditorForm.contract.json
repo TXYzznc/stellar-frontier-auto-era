@@ -597,7 +597,7 @@
               "components": [
                {
                 "type": "TextMeshProUGUI",
-                "text": "添加或连接节点",
+                "text": "添加节点",
                 "fontSize": 22.0,
                 "color": [
                  0.941176,
@@ -1101,7 +1101,7 @@
               "components": [
                {
                 "type": "TextMeshProUGUI",
-                "text": "保存为模板",
+                "text": "打开模板库",
                 "fontSize": 22.0,
                 "color": [
                  0.941176,
@@ -1883,720 +1883,7 @@
                  0.0,
                  0.0
                 ],
-                "children": [
-                 {
-                  "name": "Item_AlgorithmGraphElementTemplate",
-                  "components": [
-                   {
-                    "type": "Image",
-                    "color": [
-                     0.12549,
-                     0.141176,
-                     0.164706,
-                     1.0
-                    ],
-                    "imageType": 1,
-                    "raycastTarget": false,
-                    "preserveAspect": false
-                   },
-                   {
-                    "type": "LayoutElement"
-                   }
-                  ],
-                  "controlledBy": "group",
-                  "anchorMin": [
-                   0.0,
-                   1.0
-                  ],
-                  "anchorMax": [
-                   0.0,
-                   1.0
-                  ],
-                  "pivot": [
-                   0.0,
-                   1.0
-                  ],
-                  "sizeDelta": [
-                   240.0,
-                   168.0
-                  ],
-                  "anchoredPosition": [
-                   0.0,
-                   0.0
-                  ],
-                  "active": false,
-                  "children": [
-                   {
-                    "name": "Grp_AlgorithmNode",
-                    "components": [],
-                    "anchorMin": [
-                     0.0,
-                     0.0
-                    ],
-                    "anchorMax": [
-                     1.0,
-                     1.0
-                    ],
-                    "pivot": [
-                     0.5,
-                     0.5
-                    ],
-                    "sizeDelta": [
-                     0.0,
-                     0.0
-                    ],
-                    "anchoredPosition": [
-                     0.0,
-                     0.0
-                    ],
-                    "children": [
-                     {
-                      "name": "Btn_AlgorithmNodeSelect",
-                      "components": [
-                       {
-                        "type": "Image",
-                        "color": [
-                         0.321569,
-                         0.498039,
-                         0.639216,
-                         1.0
-                        ],
-                        "imageType": 1,
-                        "raycastTarget": true,
-                        "preserveAspect": false
-                       },
-                       {
-                        "type": "Button",
-                        "transition": 1,
-                        "interactable": true
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       1.0,
-                       1.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.5
-                      ],
-                      "sizeDelta": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchoredPosition": [
-                       0.0,
-                       0.0
-                      ],
-                      "children": [
-                       {
-                        "name": "Txt_AlgorithmNodeName",
-                        "components": [
-                         {
-                          "type": "TextMeshProUGUI",
-                          "text": "节点名：—",
-                          "fontSize": 22.0,
-                          "color": [
-                           0.941176,
-                           0.94902,
-                           0.956863,
-                           1.0
-                          ],
-                          "raycastTarget": false,
-                          "wordWrap": true,
-                          "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-                         }
-                        ],
-                        "anchorMin": [
-                         0.0,
-                         1.0
-                        ],
-                        "anchorMax": [
-                         1.0,
-                         1.0
-                        ],
-                        "pivot": [
-                         0.5,
-                         1.0
-                        ],
-                        "sizeDelta": [
-                         -24.0,
-                         36.0
-                        ],
-                        "anchoredPosition": [
-                         0.0,
-                         -12.0
-                        ]
-                       }
-                      ]
-                     },
-                     {
-                      "name": "List_AlgorithmInputPorts",
-                      "components": [
-                       {
-                        "type": "ScrollRect",
-                        "horizontal": false,
-                        "vertical": true,
-                        "movementType": 2
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       0.5
-                      ],
-                      "anchorMax": [
-                       0.0,
-                       0.5
-                      ],
-                      "pivot": [
-                       0.0,
-                       0.5
-                      ],
-                      "sizeDelta": [
-                       112.0,
-                       104.0
-                      ],
-                      "anchoredPosition": [
-                       0.0,
-                       -16.0
-                      ],
-                      "children": [
-                       {
-                        "name": "Viewport_AlgorithmInputPorts",
-                        "components": [
-                         {
-                          "type": "RectMask2D"
-                         }
-                        ],
-                        "anchorMin": [
-                         0.0,
-                         0.0
-                        ],
-                        "anchorMax": [
-                         1.0,
-                         1.0
-                        ],
-                        "pivot": [
-                         0.5,
-                         0.5
-                        ],
-                        "sizeDelta": [
-                         0.0,
-                         0.0
-                        ],
-                        "anchoredPosition": [
-                         0.0,
-                         0.0
-                        ],
-                        "children": [
-                         {
-                          "name": "Content_AlgorithmInputPorts",
-                          "components": [
-                           {
-                            "type": "VerticalLayoutGroup",
-                            "spacing": 4.0,
-                            "ChildForceExpandWidth": true,
-                            "ChildForceExpandHeight": false
-                           },
-                           {
-                            "type": "ContentSizeFitter",
-                            "verticalFit": 2
-                           }
-                          ],
-                          "anchorMin": [
-                           0.0,
-                           1.0
-                          ],
-                          "anchorMax": [
-                           1.0,
-                           1.0
-                          ],
-                          "pivot": [
-                           0.5,
-                           1.0
-                          ],
-                          "sizeDelta": [
-                           0.0,
-                           0.0
-                          ],
-                          "anchoredPosition": [
-                           0.0,
-                           0.0
-                          ],
-                          "children": [
-                           {
-                            "name": "Item_AlgorithmInputPortTemplate",
-                            "components": [
-                             {
-                              "type": "Image",
-                              "color": [
-                               0.12549,
-                               0.141176,
-                               0.164706,
-                               1.0
-                              ],
-                              "imageType": 1,
-                              "raycastTarget": false,
-                              "preserveAspect": false
-                             },
-                             {
-                              "type": "LayoutElement"
-                             }
-                            ],
-                            "controlledBy": "group",
-                            "anchorMin": [
-                             0.0,
-                             1.0
-                            ],
-                            "anchorMax": [
-                             0.0,
-                             1.0
-                            ],
-                            "pivot": [
-                             0.0,
-                             1.0
-                            ],
-                            "sizeDelta": [
-                             112.0,
-                             28.0
-                            ],
-                            "anchoredPosition": [
-                             0.0,
-                             0.0
-                            ],
-                            "active": false,
-                            "children": [
-                             {
-                              "name": "Btn_AlgorithmInputPort",
-                              "components": [
-                               {
-                                "type": "Image",
-                                "color": [
-                                 0.321569,
-                                 0.498039,
-                                 0.639216,
-                                 1.0
-                                ],
-                                "imageType": 1,
-                                "raycastTarget": true,
-                                "preserveAspect": false
-                               },
-                               {
-                                "type": "Button",
-                                "transition": 1,
-                                "interactable": true
-                               }
-                              ],
-                              "anchorMin": [
-                               0.0,
-                               0.0
-                              ],
-                              "anchorMax": [
-                               1.0,
-                               1.0
-                              ],
-                              "pivot": [
-                               0.5,
-                               0.5
-                              ],
-                              "sizeDelta": [
-                               0.0,
-                               0.0
-                              ],
-                              "anchoredPosition": [
-                               0.0,
-                               0.0
-                              ],
-                              "children": [
-                               {
-                                "name": "Txt_AlgorithmInputPort",
-                                "components": [
-                                 {
-                                  "type": "TextMeshProUGUI",
-                                  "text": "端口名／类型：—",
-                                  "fontSize": 22.0,
-                                  "color": [
-                                   0.941176,
-                                   0.94902,
-                                   0.956863,
-                                   1.0
-                                  ],
-                                  "raycastTarget": false,
-                                  "wordWrap": true,
-                                  "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-                                 }
-                                ],
-                                "anchorMin": [
-                                 0.0,
-                                 0.0
-                                ],
-                                "anchorMax": [
-                                 1.0,
-                                 1.0
-                                ],
-                                "pivot": [
-                                 0.5,
-                                 0.5
-                                ],
-                                "sizeDelta": [
-                                 0.0,
-                                 0.0
-                                ],
-                                "anchoredPosition": [
-                                 0.0,
-                                 0.0
-                                ]
-                               }
-                              ]
-                             }
-                            ]
-                           }
-                          ]
-                         }
-                        ]
-                       }
-                      ]
-                     },
-                     {
-                      "name": "List_AlgorithmOutputPorts",
-                      "components": [
-                       {
-                        "type": "ScrollRect",
-                        "horizontal": false,
-                        "vertical": true,
-                        "movementType": 2
-                       }
-                      ],
-                      "anchorMin": [
-                       1.0,
-                       0.5
-                      ],
-                      "anchorMax": [
-                       1.0,
-                       0.5
-                      ],
-                      "pivot": [
-                       1.0,
-                       0.5
-                      ],
-                      "sizeDelta": [
-                       112.0,
-                       104.0
-                      ],
-                      "anchoredPosition": [
-                       0.0,
-                       -16.0
-                      ],
-                      "children": [
-                       {
-                        "name": "Viewport_AlgorithmOutputPorts",
-                        "components": [
-                         {
-                          "type": "RectMask2D"
-                         }
-                        ],
-                        "anchorMin": [
-                         0.0,
-                         0.0
-                        ],
-                        "anchorMax": [
-                         1.0,
-                         1.0
-                        ],
-                        "pivot": [
-                         0.5,
-                         0.5
-                        ],
-                        "sizeDelta": [
-                         0.0,
-                         0.0
-                        ],
-                        "anchoredPosition": [
-                         0.0,
-                         0.0
-                        ],
-                        "children": [
-                         {
-                          "name": "Content_AlgorithmOutputPorts",
-                          "components": [
-                           {
-                            "type": "VerticalLayoutGroup",
-                            "spacing": 4.0,
-                            "ChildForceExpandWidth": true,
-                            "ChildForceExpandHeight": false
-                           },
-                           {
-                            "type": "ContentSizeFitter",
-                            "verticalFit": 2
-                           }
-                          ],
-                          "anchorMin": [
-                           0.0,
-                           1.0
-                          ],
-                          "anchorMax": [
-                           1.0,
-                           1.0
-                          ],
-                          "pivot": [
-                           0.5,
-                           1.0
-                          ],
-                          "sizeDelta": [
-                           0.0,
-                           0.0
-                          ],
-                          "anchoredPosition": [
-                           0.0,
-                           0.0
-                          ],
-                          "children": [
-                           {
-                            "name": "Item_AlgorithmOutputPortTemplate",
-                            "components": [
-                             {
-                              "type": "Image",
-                              "color": [
-                               0.12549,
-                               0.141176,
-                               0.164706,
-                               1.0
-                              ],
-                              "imageType": 1,
-                              "raycastTarget": false,
-                              "preserveAspect": false
-                             },
-                             {
-                              "type": "LayoutElement"
-                             }
-                            ],
-                            "controlledBy": "group",
-                            "anchorMin": [
-                             0.0,
-                             1.0
-                            ],
-                            "anchorMax": [
-                             0.0,
-                             1.0
-                            ],
-                            "pivot": [
-                             0.0,
-                             1.0
-                            ],
-                            "sizeDelta": [
-                             112.0,
-                             28.0
-                            ],
-                            "anchoredPosition": [
-                             0.0,
-                             0.0
-                            ],
-                            "active": false,
-                            "children": [
-                             {
-                              "name": "Btn_AlgorithmOutputPort",
-                              "components": [
-                               {
-                                "type": "Image",
-                                "color": [
-                                 0.321569,
-                                 0.498039,
-                                 0.639216,
-                                 1.0
-                                ],
-                                "imageType": 1,
-                                "raycastTarget": true,
-                                "preserveAspect": false
-                               },
-                               {
-                                "type": "Button",
-                                "transition": 1,
-                                "interactable": true
-                               }
-                              ],
-                              "anchorMin": [
-                               0.0,
-                               0.0
-                              ],
-                              "anchorMax": [
-                               1.0,
-                               1.0
-                              ],
-                              "pivot": [
-                               0.5,
-                               0.5
-                              ],
-                              "sizeDelta": [
-                               0.0,
-                               0.0
-                              ],
-                              "anchoredPosition": [
-                               0.0,
-                               0.0
-                              ],
-                              "children": [
-                               {
-                                "name": "Txt_AlgorithmOutputPort",
-                                "components": [
-                                 {
-                                  "type": "TextMeshProUGUI",
-                                  "text": "端口名／类型：—",
-                                  "fontSize": 22.0,
-                                  "color": [
-                                   0.941176,
-                                   0.94902,
-                                   0.956863,
-                                   1.0
-                                  ],
-                                  "raycastTarget": false,
-                                  "wordWrap": true,
-                                  "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-                                 }
-                                ],
-                                "anchorMin": [
-                                 0.0,
-                                 0.0
-                                ],
-                                "anchorMax": [
-                                 1.0,
-                                 1.0
-                                ],
-                                "pivot": [
-                                 0.5,
-                                 0.5
-                                ],
-                                "sizeDelta": [
-                                 0.0,
-                                 0.0
-                                ],
-                                "anchoredPosition": [
-                                 0.0,
-                                 0.0
-                                ]
-                               }
-                              ]
-                             }
-                            ]
-                           }
-                          ]
-                         }
-                        ]
-                       }
-                      ]
-                     }
-                    ]
-                   },
-                   {
-                    "name": "Grp_AlgorithmEdge",
-                    "components": [],
-                    "anchorMin": [
-                     0.0,
-                     0.0
-                    ],
-                    "anchorMax": [
-                     1.0,
-                     1.0
-                    ],
-                    "pivot": [
-                     0.5,
-                     0.5
-                    ],
-                    "sizeDelta": [
-                     0.0,
-                     0.0
-                    ],
-                    "anchoredPosition": [
-                     0.0,
-                     0.0
-                    ],
-                    "children": [
-                     {
-                      "name": "Img_AlgorithmEdge",
-                      "components": [
-                       {
-                        "type": "Image",
-                        "color": [
-                         0.003922,
-                         0.003922,
-                         0.003922,
-                         1
-                        ],
-                        "imageType": 0,
-                        "raycastTarget": false,
-                        "preserveAspect": true
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       1.0,
-                       1.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.5
-                      ],
-                      "sizeDelta": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchoredPosition": [
-                       0.0,
-                       0.0
-                      ]
-                     },
-                     {
-                      "name": "Btn_AlgorithmEdgeSelect",
-                      "components": [
-                       {
-                        "type": "Image",
-                        "color": [
-                         0.321569,
-                         0.498039,
-                         0.639216,
-                         1.0
-                        ],
-                        "imageType": 1,
-                        "raycastTarget": true,
-                        "preserveAspect": false
-                       },
-                       {
-                        "type": "Button",
-                        "transition": 1,
-                        "interactable": true
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       1.0,
-                       1.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.5
-                      ],
-                      "sizeDelta": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchoredPosition": [
-                       0.0,
-                       0.0
-                      ]
-                     }
-                    ]
-                   }
-                  ]
-                 }
-                ]
+                "children": []
                }
               ]
              }
@@ -3495,6 +2782,306 @@
             "anchoredPosition": [
              12.0,
              -40.0
+            ]
+           },
+           {
+            "name": "Grp_AlgorithmDraftTools",
+            "components": [
+             {
+              "type": "HorizontalLayoutGroup",
+              "spacing": 8.0,
+              "ChildForceExpandWidth": true,
+              "ChildForceExpandHeight": false
+             }
+            ],
+            "anchorMin": [
+             1.0,
+             1.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             1.0,
+             1.0
+            ],
+            "sizeDelta": [
+             360.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             -12.0,
+             -4.0
+            ],
+            "children": [
+             {
+              "name": "Btn_AlgorithmUndo",
+              "components": [
+               {
+                "type": "Image",
+                "color": [
+                 0.321569,
+                 0.498039,
+                 0.639216,
+                 1.0
+                ],
+                "imageType": 1,
+                "raycastTarget": true,
+                "preserveAspect": false
+               },
+               {
+                "type": "Button",
+                "transition": 1,
+                "interactable": false
+               },
+               {
+                "type": "LayoutElement",
+                "preferredHeight": 32.0,
+                "preferredWidth": 112.0
+               }
+              ],
+              "controlledBy": "group",
+              "anchorMin": [
+               0.0,
+               1.0
+              ],
+              "anchorMax": [
+               0.0,
+               1.0
+              ],
+              "pivot": [
+               0.0,
+               1.0
+              ],
+              "sizeDelta": [
+               112.0,
+               32.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Txt_AlgorithmUndoLabel",
+                "components": [
+                 {
+                  "type": "TextMeshProUGUI",
+                  "text": "撤销",
+                  "fontSize": 22.0,
+                  "color": [
+                   0.941176,
+                   0.94902,
+                   0.956863,
+                   1.0
+                  ],
+                  "raycastTarget": false,
+                  "wordWrap": true,
+                  "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                 }
+                ],
+                "anchorMin": [
+                 0.0,
+                 0.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 0.5
+                ],
+                "sizeDelta": [
+                 -8.0,
+                 -4.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ]
+               }
+              ]
+             },
+             {
+              "name": "Btn_AlgorithmRedo",
+              "components": [
+               {
+                "type": "Image",
+                "color": [
+                 0.321569,
+                 0.498039,
+                 0.639216,
+                 1.0
+                ],
+                "imageType": 1,
+                "raycastTarget": true,
+                "preserveAspect": false
+               },
+               {
+                "type": "Button",
+                "transition": 1,
+                "interactable": false
+               },
+               {
+                "type": "LayoutElement",
+                "preferredHeight": 32.0,
+                "preferredWidth": 112.0
+               }
+              ],
+              "controlledBy": "group",
+              "anchorMin": [
+               0.0,
+               1.0
+              ],
+              "anchorMax": [
+               0.0,
+               1.0
+              ],
+              "pivot": [
+               0.0,
+               1.0
+              ],
+              "sizeDelta": [
+               112.0,
+               32.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Txt_AlgorithmRedoLabel",
+                "components": [
+                 {
+                  "type": "TextMeshProUGUI",
+                  "text": "重做",
+                  "fontSize": 22.0,
+                  "color": [
+                   0.941176,
+                   0.94902,
+                   0.956863,
+                   1.0
+                  ],
+                  "raycastTarget": false,
+                  "wordWrap": true,
+                  "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                 }
+                ],
+                "anchorMin": [
+                 0.0,
+                 0.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 0.5
+                ],
+                "sizeDelta": [
+                 -8.0,
+                 -4.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ]
+               }
+              ]
+             },
+             {
+              "name": "Btn_AlgorithmDeleteSelected",
+              "components": [
+               {
+                "type": "Image",
+                "color": [
+                 0.321569,
+                 0.498039,
+                 0.639216,
+                 1.0
+                ],
+                "imageType": 1,
+                "raycastTarget": true,
+                "preserveAspect": false
+               },
+               {
+                "type": "Button",
+                "transition": 1,
+                "interactable": true
+               },
+               {
+                "type": "LayoutElement",
+                "preferredHeight": 32.0,
+                "preferredWidth": 112.0
+               }
+              ],
+              "controlledBy": "group",
+              "anchorMin": [
+               0.0,
+               1.0
+              ],
+              "anchorMax": [
+               0.0,
+               1.0
+              ],
+              "pivot": [
+               0.0,
+               1.0
+              ],
+              "sizeDelta": [
+               112.0,
+               32.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Txt_AlgorithmDeleteSelectedLabel",
+                "components": [
+                 {
+                  "type": "TextMeshProUGUI",
+                  "text": "删除选中",
+                  "fontSize": 22.0,
+                  "color": [
+                   0.941176,
+                   0.94902,
+                   0.956863,
+                   1.0
+                  ],
+                  "raycastTarget": false,
+                  "wordWrap": true,
+                  "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                 }
+                ],
+                "anchorMin": [
+                 0.0,
+                 0.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 0.5
+                ],
+                "sizeDelta": [
+                 -8.0,
+                 -4.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ]
+               }
+              ]
+             }
             ]
            }
           ]
@@ -6643,11 +6230,6 @@
    "kind": "RectTransform"
   },
   {
-   "path": "_algorithmGraphElementTemplate",
-   "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorCanvas/List_AlgorithmGraph/Viewport_AlgorithmGraph/Content_AlgorithmGraph/Item_AlgorithmGraphElementTemplate",
-   "kind": "GameObject"
-  },
-  {
    "path": "_algorithmEditorInspectorContent",
    "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorInspector/List_AlgorithmEditorInspector/Viewport_AlgorithmEditorInspector/Content_AlgorithmEditorInspector",
    "kind": "RectTransform"
@@ -6760,6 +6342,91 @@
   {
    "path": "_algorithmEditorApplyButton",
    "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorApply",
+   "kind": "Button"
+  },
+  {
+   "path": "_algorithmEditorAddButton",
+   "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorAdd",
+   "kind": "Button"
+  },
+  {
+   "path": "_algorithmUndoButton",
+   "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorToolbar/Grp_AlgorithmDraftTools/Btn_AlgorithmUndo",
+   "kind": "Button"
+  },
+  {
+   "path": "_algorithmRedoButton",
+   "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorToolbar/Grp_AlgorithmDraftTools/Btn_AlgorithmRedo",
+   "kind": "Button"
+  },
+  {
+   "path": "_algorithmDeleteSelectedButton",
+   "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorToolbar/Grp_AlgorithmDraftTools/Btn_AlgorithmDeleteSelected",
+   "kind": "Button"
+  },
+  {
+   "path": "_algorithmEditorBindButton",
+   "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorBind",
+   "kind": "Button"
+  },
+  {
+   "path": "_algorithmEditorValidateButton",
+   "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorValidate",
+   "kind": "Button"
+  },
+  {
+   "path": "_algorithmEditorDiagnoseButton",
+   "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorDiagnose",
+   "kind": "Button"
+  },
+  {
+   "path": "_algorithmEditorTemplateButton",
+   "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorTemplate",
+   "kind": "Button"
+  },
+  {
+   "path": "_publicParametersChangeButton",
+   "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersActions/Btn_PublicParametersChange",
+   "kind": "Button"
+  },
+  {
+   "path": "_publicParametersDefaultButton",
+   "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersActions/Btn_PublicParametersDefault",
+   "kind": "Button"
+  },
+  {
+   "path": "_publicParametersApplyButton",
+   "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersActions/Btn_PublicParametersApply",
+   "kind": "Button"
+  },
+  {
+   "path": "_publicParametersNumberValue",
+   "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersControls/Panel_PublicParametersNumberValue",
+   "kind": "TMP_InputField"
+  },
+  {
+   "path": "_publicParametersBooleanValue",
+   "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersControls/Tgl_PublicParametersBooleanValue",
+   "kind": "Toggle"
+  },
+  {
+   "path": "_algorithmDiagnosisLocateButton",
+   "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmDiagnosisActions/Btn_AlgorithmDiagnosisLocate",
+   "kind": "Button"
+  },
+  {
+   "path": "_algorithmDiagnosisReturnEditButton",
+   "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmDiagnosisActions/Btn_AlgorithmDiagnosisReturnEdit",
+   "kind": "Button"
+  },
+  {
+   "path": "_algorithmDiagnosisNextStepButton",
+   "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmDiagnosisActions/Btn_AlgorithmDiagnosisNextStep",
+   "kind": "Button"
+  },
+  {
+   "path": "_algorithmDiagnosisPreviousStepButton",
+   "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmDiagnosisActions/Btn_AlgorithmDiagnosisPreviousStep",
    "kind": "Button"
   }
  ],

@@ -15,20 +15,30 @@ namespace AutoEra.UI
     public sealed class AlgorithmGraphNodeDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         public System.Action<Vector2> OnMoved;
+        public System.Action<Vector2> OnDragging;
 
         private RectTransform _rect;
         private ScrollRect _scroll;
         private bool _dragging;
+        private RectTransform _dragParent;
+        private Vector2 _pointerOffset;
 
         private void Awake()
         {
             _rect = GetComponent<RectTransform>();
             _scroll = GetComponentInParent<ScrollRect>();
+            _dragParent = _rect != null ? _rect.parent as RectTransform : null;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
             _dragging = true;
+            if (_rect != null && _dragParent != null
+                && RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                    _dragParent, eventData.position, eventData.pressEventCamera, out Vector2 point))
+            {
+                _pointerOffset = _rect.anchoredPosition - point;
+            }
             if (_scroll != null)
             {
                 _scroll.enabled = false;
@@ -42,7 +52,17 @@ namespace AutoEra.UI
                 return;
             }
 
-            _rect.anchoredPosition += eventData.delta;
+            if (_dragParent != null
+                && RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                    _dragParent, eventData.position, eventData.pressEventCamera, out Vector2 point))
+            {
+                _rect.anchoredPosition = point + _pointerOffset;
+            }
+            else
+            {
+                _rect.anchoredPosition += eventData.delta;
+            }
+            OnDragging?.Invoke(_rect.anchoredPosition);
         }
 
         public void OnEndDrag(PointerEventData eventData)

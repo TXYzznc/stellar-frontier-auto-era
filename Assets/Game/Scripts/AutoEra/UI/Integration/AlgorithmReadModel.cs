@@ -105,12 +105,15 @@ namespace AutoEra.UI
         Failed,
     }
 
-    /// <summary>选中实例草稿图里的一行节点：稳定身份 + 展示标签/状态 + 诊断状态。</summary>
+    /// <summary>选中实例草稿图里的一行节点：稳定身份 + 展示标签/状态 + 诊断状态 + 端口行。</summary>
     public readonly struct UiAlgorithmNodeRow
     {
         public UiAlgorithmNodeRow(ulong id, string label, string status,
             UiAlgorithmNodeDiagnostic diagnostic = UiAlgorithmNodeDiagnostic.None,
-            float layoutX = 0f, float layoutY = 0f)
+            float layoutX = 0f, float layoutY = 0f,
+            IReadOnlyList<UiAlgorithmPortRow> inputPorts = null,
+            IReadOnlyList<UiAlgorithmPortRow> outputPorts = null,
+            AlgorithmValue defaultValue = null)
         {
             Id = id;
             Label = label;
@@ -118,6 +121,9 @@ namespace AutoEra.UI
             Diagnostic = diagnostic;
             LayoutX = layoutX;
             LayoutY = layoutY;
+            InputPorts = inputPorts ?? Array.Empty<UiAlgorithmPortRow>();
+            OutputPorts = outputPorts ?? Array.Empty<UiAlgorithmPortRow>();
+            Default = defaultValue?.Copy();
         }
 
         public ulong Id { get; }
@@ -130,6 +136,13 @@ namespace AutoEra.UI
         /// <summary>画布布局坐标（供画布节点定位，画布自由布局）。</summary>
         public float LayoutX { get; }
         public float LayoutY { get; }
+
+        /// <summary>该节点的输入端口行（目录序稳定；画布两步连线用）。</summary>
+        public IReadOnlyList<UiAlgorithmPortRow> InputPorts { get; }
+
+        /// <summary>该节点的输出端口行（目录序稳定；画布两步连线用）。</summary>
+        public IReadOnlyList<UiAlgorithmPortRow> OutputPorts { get; }
+        public AlgorithmValue Default { get; }
     }
 
     /// <summary>选中实例最近一次运行的一行摘要（诊断读路径）。</summary>
@@ -174,6 +187,129 @@ namespace AutoEra.UI
         public string Input { get; }
         public string Label => From + " → " + To;
         public string Status => Output + " → " + Input;
+    }
+
+    /// <summary>图节点上的一个端口行：端口名 + 类型标签 + 连接状态（是否有边指向/离开该端口）。</summary>
+    public readonly struct UiAlgorithmPortRow
+    {
+        public UiAlgorithmPortRow(string key, string typeLabel, bool connected)
+        {
+            Key = key ?? string.Empty;
+            TypeLabel = typeLabel ?? string.Empty;
+            Connected = connected;
+        }
+
+        public string Key { get; }
+        public string TypeLabel { get; }
+        public bool Connected { get; }
+        public string Label => Key + "：" + TypeLabel;
+    }
+
+    /// <summary>节点库目录行：种类 + 显示名 + 分类 + 逻辑成本。静态能力清单，三个域一致。</summary>
+    public readonly struct UiAlgorithmNodeKindRow
+    {
+        public UiAlgorithmNodeKindRow(AlgorithmNodeKind kind, string label, string category, int cost)
+        {
+            Kind = kind;
+            Label = label ?? string.Empty;
+            Category = category ?? string.Empty;
+            Cost = cost;
+        }
+
+        public AlgorithmNodeKind Kind { get; }
+        public string Label { get; }
+        public string Category { get; }
+        public int Cost { get; }
+        public string Status => Category + " · 成本 " + Cost;
+    }
+
+    /// <summary>
+    /// 节点种类目录（规格「节点库」）：AlgorithmNodeKind 枚举派生的静态清单，
+    /// 显示名/分类/成本固定，与实例无关——机器域、模板域、不可用域读到同一份。
+    /// 分类沿用规格页的语义分组（输入／判断与运算／状态／流程／行为），值源与调试单列。
+    /// </summary>
+    public static class AlgorithmNodeLibrary
+    {
+        /// <summary>全部节点种类目录行（按枚举序稳定排列）。</summary>
+        public static readonly UiAlgorithmNodeKindRow[] Rows = BuildRows();
+
+        private static UiAlgorithmNodeKindRow[] BuildRows()
+        {
+            var kinds = (AlgorithmNodeKind[])Enum.GetValues(typeof(AlgorithmNodeKind));
+            var rows = new UiAlgorithmNodeKindRow[kinds.Length];
+            for (int i = 0; i < kinds.Length; i++)
+            {
+                rows[i] = new UiAlgorithmNodeKindRow(kinds[i], LabelOf(kinds[i]), CategoryOf(kinds[i]), AlgorithmCatalog.Cost(kinds[i]));
+            }
+
+            return rows;
+        }
+
+        /// <summary>种类显示名（搜索过滤也用这个，不是枚举名）。</summary>
+        public static string LabelOf(AlgorithmNodeKind kind)
+        {
+            switch (kind)
+            {
+                case AlgorithmNodeKind.Constant: return "常量";
+                case AlgorithmNodeKind.Parameter: return "参数";
+                case AlgorithmNodeKind.Input: return "输入";
+                case AlgorithmNodeKind.Startup: return "启动";
+                case AlgorithmNodeKind.Arithmetic: return "算术";
+                case AlgorithmNodeKind.Compare: return "比较";
+                case AlgorithmNodeKind.Boolean: return "布尔";
+                case AlgorithmNodeKind.Branch: return "分支";
+                case AlgorithmNodeKind.Merge: return "汇合";
+                case AlgorithmNodeKind.Variable: return "变量";
+                case AlgorithmNodeKind.SetVariable: return "设置变量";
+                case AlgorithmNodeKind.Delay: return "延时";
+                case AlgorithmNodeKind.Navigate: return "导航";
+                case AlgorithmNodeKind.Effector: return "执行器";
+                case AlgorithmNodeKind.SubmitTask: return "提交任务";
+                case AlgorithmNodeKind.QueryTask: return "查询任务";
+                case AlgorithmNodeKind.CancelTask: return "取消任务";
+                case AlgorithmNodeKind.Hysteresis: return "滞回";
+                case AlgorithmNodeKind.Log: return "日志";
+                case AlgorithmNodeKind.Cargo: return "货舱";
+                default: return kind.ToString();
+            }
+        }
+
+        /// <summary>规格页语义分组；未知种类落到「其他」保证目录永远全覆盖。</summary>
+        public static string CategoryOf(AlgorithmNodeKind kind)
+        {
+            switch (kind)
+            {
+                case AlgorithmNodeKind.Constant:
+                case AlgorithmNodeKind.Parameter:
+                    return "数值";
+                case AlgorithmNodeKind.Input:
+                    return "输入";
+                case AlgorithmNodeKind.Arithmetic:
+                case AlgorithmNodeKind.Compare:
+                case AlgorithmNodeKind.Boolean:
+                case AlgorithmNodeKind.Hysteresis:
+                    return "判断与运算";
+                case AlgorithmNodeKind.Variable:
+                case AlgorithmNodeKind.SetVariable:
+                case AlgorithmNodeKind.Cargo:
+                    return "状态";
+                case AlgorithmNodeKind.Startup:
+                case AlgorithmNodeKind.Branch:
+                case AlgorithmNodeKind.Merge:
+                case AlgorithmNodeKind.Delay:
+                    return "流程";
+                case AlgorithmNodeKind.Navigate:
+                case AlgorithmNodeKind.Effector:
+                case AlgorithmNodeKind.SubmitTask:
+                case AlgorithmNodeKind.QueryTask:
+                case AlgorithmNodeKind.CancelTask:
+                    return "行为";
+                case AlgorithmNodeKind.Log:
+                    return "调试";
+                default:
+                    return "其他";
+            }
+        }
     }
 
     /// <summary>校验问题清单里的一行：严重度 + 代码 + 节点定位。</summary>
@@ -274,7 +410,10 @@ namespace AutoEra.UI
             int selectedNodeIndex = -1,
             UiAlgorithmRunRow? latestRun = null,
             IReadOnlyList<UiAlgorithmBindingRow> pendingBindings = null,
-            IReadOnlyList<UiAlgorithmComponentCandidate> componentCandidates = null)
+            IReadOnlyList<UiAlgorithmComponentCandidate> componentCandidates = null,
+            IReadOnlyList<UiAlgorithmNodeKindRow> nodeKinds = null,
+            IReadOnlyList<UiAlgorithmRunRow> runs = null,
+            int selectedRunIndex = -1)
         {
             State = state;
             UnavailableReason = unavailableReason;
@@ -294,6 +433,9 @@ namespace AutoEra.UI
             LatestRun = latestRun;
             PendingBindings = pendingBindings;
             ComponentCandidates = componentCandidates;
+            NodeKinds = nodeKinds ?? AlgorithmNodeLibrary.Rows;
+            Runs = runs;
+            SelectedRunIndex = selectedRunIndex;
         }
 
         public UiDataState State { get; }
@@ -359,6 +501,8 @@ namespace AutoEra.UI
 
         /// <summary>选中实例最近一次运行的摘要；无实例/无运行历史时为 null。</summary>
         public UiAlgorithmRunRow? LatestRun { get; }
+        public IReadOnlyList<UiAlgorithmRunRow> Runs { get; }
+        public int SelectedRunIndex { get; }
 
         /// <summary>选中实例草稿的绑定端点（Input/Effector 的 BindingKey 与绑定状态）；无实例/库页为 null。</summary>
         public IReadOnlyList<UiAlgorithmBindingRow> PendingBindings { get; }
@@ -368,6 +512,9 @@ namespace AutoEra.UI
 
         /// <summary>机器上已安装、可被算法端点绑定的候选组件（传感器/效应器）；非机器域为 null。</summary>
         public IReadOnlyList<UiAlgorithmComponentCandidate> ComponentCandidates { get; }
+
+        /// <summary>节点种类目录（节点库数据）；静态能力清单，所有域一致，缺省取 <see cref="AlgorithmNodeLibrary.Rows"/>。</summary>
+        public IReadOnlyList<UiAlgorithmNodeKindRow> NodeKinds { get; }
 
         /// <summary>候选组件数量。</summary>
         public int ComponentCandidateCount => ComponentCandidates == null ? 0 : ComponentCandidates.Count;
@@ -491,6 +638,29 @@ namespace AutoEra.UI
 
         /// <summary>移动选中实例草稿节点的画布坐标（写路径「画布布局」）；库页/不可用域返回 false。</summary>
         bool MoveNode(ulong instanceId, ulong nodeId, float x, float y);
+
+        /// <summary>
+        /// 在选中实例的草稿创建一个**最小默认节点**（写路径「节点库添加」），稳定 Id 由服务分配。
+        /// 返回新节点 Id；实例不存在、修订不匹配、正在应用或域不支持（库页/不可用域）时返回 0。
+        /// </summary>
+        ulong CreateNode(ulong instanceId, AlgorithmNodeKind kind, float layoutX, float layoutY);
+
+        /// <summary>在选中实例草稿连接一对端口（写路径「强类型连线」）；端口缺失、不兼容、目标输入已占用或域不支持时返回 false。</summary>
+        bool Connect(ulong instanceId, ulong from, string output, ulong to, string input);
+
+        /// <summary>按完整边身份断开草稿连线（写路径「断开连接」）；边不存在或域不支持时返回 false。</summary>
+        bool Disconnect(ulong instanceId, ulong from, string output, ulong to, string input);
+
+        /// <summary>删除草稿节点并级联断开其全部关联边（写路径「删除选中」）；节点不存在或域不支持时返回 false。</summary>
+        bool DeleteNode(ulong instanceId, ulong nodeId);
+
+        /// <summary>更新参数节点的草稿默认值；值类型必须与节点声明一致。</summary>
+        bool SetNodeDefault(ulong instanceId, ulong nodeId, AlgorithmValue value);
+
+        /// <summary>将参数节点恢复到实例保存版本的默认值。</summary>
+        bool ResetNodeDefault(ulong instanceId, ulong nodeId);
+        bool SelectPreviousRun();
+        bool SelectNextRun();
     }
 
     /// <summary>
@@ -525,6 +695,8 @@ namespace AutoEra.UI
         private int _selectedIndex = -1;
         private int _selectedNodeIndex = -1;
         private UiAlgorithmRunRow? _latestRun;
+        private readonly List<UiAlgorithmRunRow> _runs = new List<UiAlgorithmRunRow>(8);
+        private int _selectedRunIndex = -1;
         private bool _autoSelectPending = true;
         private bool _disposed;
 
@@ -580,6 +752,7 @@ namespace AutoEra.UI
             _selectedIndex = index;
             _autoSelectPending = false;
             _selectedNodeIndex = -1;
+            _selectedRunIndex = -1;
             Publish(AlgorithmDomainSection.Detail);
             return true;
         }
@@ -612,6 +785,7 @@ namespace AutoEra.UI
             _autoSelectPending = false;
             _selectedIndex = -1;
             _selectedNodeIndex = -1;
+            _selectedRunIndex = -1;
             Publish(AlgorithmDomainSection.Detail);
         }
 
@@ -717,6 +891,109 @@ namespace AutoEra.UI
             return _instances.MoveNode(instanceId, draft.Revision, nodeId, x, y);
         }
 
+        /// <summary>在选中实例草稿创建最小默认节点（稳定 Id 由服务分配）；实例不存在或修订不匹配时返回 0。</summary>
+        public ulong CreateNode(ulong instanceId, AlgorithmNodeKind kind, float layoutX, float layoutY)
+        {
+            if (_disposed || _instances == null)
+            {
+                return 0;
+            }
+
+            AlgorithmDocument draft = _instances.ReadDraft(instanceId);
+            if (draft == null)
+            {
+                return 0;
+            }
+
+            return _instances.CreateNode(instanceId, draft.Revision, kind, layoutX, layoutY, out ulong nodeId) ? nodeId : 0;
+        }
+
+        /// <summary>在选中实例草稿连接一对强类型兼容端口；实例不存在或修订不匹配时返回 false。</summary>
+        public bool Connect(ulong instanceId, ulong from, string output, ulong to, string input)
+        {
+            if (_disposed || _instances == null)
+            {
+                return false;
+            }
+
+            AlgorithmDocument draft = _instances.ReadDraft(instanceId);
+            if (draft == null)
+            {
+                return false;
+            }
+
+            return _instances.Connect(instanceId, draft.Revision, from, output, to, input);
+        }
+
+        /// <summary>按完整边身份断开草稿连线；实例不存在或修订不匹配时返回 false。</summary>
+        public bool Disconnect(ulong instanceId, ulong from, string output, ulong to, string input)
+        {
+            if (_disposed || _instances == null)
+            {
+                return false;
+            }
+
+            AlgorithmDocument draft = _instances.ReadDraft(instanceId);
+            if (draft == null)
+            {
+                return false;
+            }
+
+            return _instances.Disconnect(instanceId, draft.Revision, from, output, to, input);
+        }
+
+        /// <summary>删除草稿节点并级联断开其全部关联边；实例不存在或修订不匹配时返回 false。</summary>
+        public bool DeleteNode(ulong instanceId, ulong nodeId)
+        {
+            if (_disposed || _instances == null)
+            {
+                return false;
+            }
+
+            AlgorithmDocument draft = _instances.ReadDraft(instanceId);
+            if (draft == null)
+            {
+                return false;
+            }
+
+            return _instances.DeleteNode(instanceId, draft.Revision, nodeId);
+        }
+
+        public bool SetNodeDefault(ulong instanceId, ulong nodeId, AlgorithmValue value)
+        {
+            if (_disposed || _instances == null || value == null) return false;
+            AlgorithmDocument draft = _instances.ReadDraft(instanceId);
+            if (draft == null) return false;
+            AlgorithmDocument replacement = draft.Copy();
+            AlgorithmNode node = replacement.Nodes.Find(n => n != null && !n.Deleted && n.Id == nodeId && n.Kind == AlgorithmNodeKind.Parameter);
+            if (node == null || node.ValueType == null || value.Type == null || node.ValueType.Kind != value.Type.Kind) return false;
+            node.Default = value.Copy();
+            return _instances.Edit(instanceId, draft.Revision, replacement);
+        }
+
+        public bool ResetNodeDefault(ulong instanceId, ulong nodeId)
+        {
+            if (_disposed || _instances == null) return false;
+            AlgorithmDocument draft = _instances.ReadDraft(instanceId);
+            return draft != null && _instances.ResetDraftNodeDefault(instanceId, draft.Revision, nodeId);
+        }
+
+        public bool SelectPreviousRun()
+        {
+            if (_runs.Count == 0 || _selectedRunIndex <= 0) return false;
+            _selectedRunIndex--;
+            Publish(AlgorithmDomainSection.Detail);
+            return true;
+        }
+
+        public bool SelectNextRun()
+        {
+            if (_runs.Count == 0 || _selectedRunIndex >= _runs.Count - 1) return false;
+            _selectedRunIndex++;
+            Publish(AlgorithmDomainSection.Detail);
+            return true;
+        }
+
         public void Dispose()
         {
             if (_disposed)
@@ -792,7 +1069,8 @@ namespace AutoEra.UI
                 selectedNodeIndex: _selectedNodeIndex,
                 latestRun: _latestRun,
                 pendingBindings: _bindings.ToArray(),
-                componentCandidates: _componentCandidates.ToArray());
+                componentCandidates: _componentCandidates.ToArray(),
+                runs: _runs.ToArray(), selectedRunIndex: _selectedRunIndex);
 
             Changed?.Invoke(section);
         }
@@ -884,6 +1162,7 @@ namespace AutoEra.UI
             _bindings.Clear();
             _nodeDetail.Clear();
             _latestRun = null;
+            _runs.Clear();
 
             if (_instances == null || _selectedIndex < 0 || _selectedIndex >= _rows.Count)
             {
@@ -904,7 +1183,13 @@ namespace AutoEra.UI
             AlgorithmRunRecord[] history = _instances.ReadHistory(_rows[_selectedIndex].Id);
             if (history != null && history.Length > 0)
             {
-                AlgorithmRunRecord latest = history[history.Length - 1];
+                for (int i = 0; i < history.Length; i++)
+                {
+                    AlgorithmRunRecord record = history[i];
+                    _runs.Add(new UiAlgorithmRunRow(record.RunId, record.Error, record.FailedNode, record.Cost, record.CopyNodeValues()));
+                }
+                if (_selectedRunIndex < 0 || _selectedRunIndex >= _runs.Count) _selectedRunIndex = _runs.Count - 1;
+                AlgorithmRunRecord latest = history[_selectedRunIndex];
                 failedNode = latest.FailedNode;
                 ulong[] path = latest.CopyPath();
                 for (int i = 0; i < path.Length; i++)
@@ -944,7 +1229,9 @@ namespace AutoEra.UI
 
                     nodesById[node.Id] = node;
                     _graphNodes.Add(new UiAlgorithmNodeRow(node.Id, node.Kind + " #" + node.Id, status, diagnostic,
-                        node.LayoutX, node.LayoutY));
+                        node.LayoutX, node.LayoutY,
+                        BuildPortRows(node, draft, true),
+                        BuildPortRows(node, draft, false), node.Default));
                 }
             }
 
@@ -1007,9 +1294,72 @@ namespace AutoEra.UI
             }
         }
 
-        private void BuildNodeDetail(AlgorithmNode node)
+        /// <summary>把目录端口映射为端口行，并按草稿边标记连接状态（输入=有边指向，输出=有边离开）。</summary>
+        private static UiAlgorithmPortRow[] BuildPortRows(AlgorithmNode node, AlgorithmDocument draft, bool inputs)
         {
-            _nodeDetail.Add(new UiDetailField("节点", "#" + node.Id));
+            AlgorithmPort[] ports = inputs ? AlgorithmCatalog.Inputs(node) : AlgorithmCatalog.Outputs(node);
+            if (ports == null || ports.Length == 0)
+            {
+                return Array.Empty<UiAlgorithmPortRow>();
+            }
+
+            var rows = new UiAlgorithmPortRow[ports.Length];
+            for (int i = 0; i < ports.Length; i++)
+            {
+                bool connected = false;
+                if (draft.Edges != null)
+                {
+                    for (int e = 0; e < draft.Edges.Count; e++)
+                    {
+                        AlgorithmEdge edge = draft.Edges[e];
+                        if (edge == null)
+                        {
+                            continue;
+                        }
+
+                        if (inputs
+                                ? edge.To == node.Id && edge.Input == ports[i].Key
+                                : edge.From == node.Id && edge.Output == ports[i].Key)
+                        {
+                            connected = true;
+                            break;
+                        }
+                    }
+                }
+
+                rows[i] = new UiAlgorithmPortRow(ports[i].Key, FormatPortType(ports[i].Type), connected);
+            }
+
+            return rows;
+        }
+
+        /// <summary>端口类型标签：值类型 + 单位/枚举族/对象类别（有则附加）。</summary>
+        private static string FormatPortType(AlgorithmType type)
+        {
+            if (type == null)
+            {
+                return "—";
+            }
+
+            string label = type.Kind.ToString();
+            if (!string.IsNullOrEmpty(type.Unit))
+            {
+                label += ":" + type.Unit;
+            }
+            else if (type.Kind == AlgorithmValueKind.Enumeration && !string.IsNullOrEmpty(type.EnumFamily))
+            {
+                label += ":" + type.EnumFamily;
+            }
+            else if (type.Kind == AlgorithmValueKind.Object && !string.IsNullOrEmpty(type.ObjectCategory))
+            {
+                label += ":" + type.ObjectCategory;
+            }
+
+            return label;
+        }
+
+        private void BuildNodeDetail(AlgorithmNode node)
+        {            _nodeDetail.Add(new UiDetailField("节点", "#" + node.Id));
             _nodeDetail.Add(new UiDetailField("类型", node.Kind.ToString()));
             bool usesOperator = node.Kind == AlgorithmNodeKind.Arithmetic
                 || node.Kind == AlgorithmNodeKind.Compare
@@ -1232,6 +1582,16 @@ namespace AutoEra.UI
 
         public bool CancelApply(ulong instanceId, ulong requestId) => false;
         public bool MoveNode(ulong instanceId, ulong nodeId, float x, float y) => false;
+
+        /// <summary>库页不持有实例服务，图编辑命令（创建节点/连接/断开/删除）恒为无操作。</summary>
+        public ulong CreateNode(ulong instanceId, AlgorithmNodeKind kind, float layoutX, float layoutY) => 0;
+        public bool Connect(ulong instanceId, ulong from, string output, ulong to, string input) => false;
+        public bool Disconnect(ulong instanceId, ulong from, string output, ulong to, string input) => false;
+        public bool DeleteNode(ulong instanceId, ulong nodeId) => false;
+        public bool SetNodeDefault(ulong instanceId, ulong nodeId, AlgorithmValue value) => false;
+        public bool ResetNodeDefault(ulong instanceId, ulong nodeId) => false;
+        public bool SelectPreviousRun() => false;
+        public bool SelectNextRun() => false;
 
         public void Dispose()
         {
@@ -1463,6 +1823,14 @@ namespace AutoEra.UI
 
         public bool CancelApply(ulong instanceId, ulong requestId) => false;
         public bool MoveNode(ulong instanceId, ulong nodeId, float x, float y) => false;
+        public ulong CreateNode(ulong instanceId, AlgorithmNodeKind kind, float layoutX, float layoutY) => 0;
+        public bool Connect(ulong instanceId, ulong from, string output, ulong to, string input) => false;
+        public bool Disconnect(ulong instanceId, ulong from, string output, ulong to, string input) => false;
+        public bool DeleteNode(ulong instanceId, ulong nodeId) => false;
+        public bool SetNodeDefault(ulong instanceId, ulong nodeId, AlgorithmValue value) => false;
+        public bool ResetNodeDefault(ulong instanceId, ulong nodeId) => false;
+        public bool SelectPreviousRun() => false;
+        public bool SelectNextRun() => false;
 
         public void Dispose() { }
     }

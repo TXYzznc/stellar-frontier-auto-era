@@ -243,5 +243,103 @@ namespace AutoEra.Tests.Editor
                 hardware=7;
             }
         }
+
+        [Test]
+        public void CreateNode_AllocatesStableIdAndBumpsRevision_StaleRevisionRejects()
+        {
+            var ids=new PersistentIdAllocator();var pool=new MachineComputePool(ids,100,100);
+            using(var service=new AlgorithmInstanceService(ids,pool,()=>1,d=>true))
+            {
+                var r=Runtime(100,pool,new Sink());service.Add(r);
+                var draft=service.ReadDraft(100);
+
+                Assert.That(service.CreateNode(100,draft.Revision,AlgorithmNodeKind.Constant,12.5f,-8f,out var nodeId),Is.True,"匹配修订的创建必须成功。");
+                Assert.That(nodeId,Is.GreaterThan(0UL),"服务必须分配非零稳定 Id。");
+                var updated=service.ReadDraft(100);
+                Assert.That(updated.Revision,Is.EqualTo(draft.Revision+1),"创建成功后草稿修订加一。");
+                var created=updated.Nodes.Find(n=>n.Id==nodeId);
+                Assert.That(created,Is.Not.Null);
+                Assert.That(created.Kind,Is.EqualTo(AlgorithmNodeKind.Constant));
+                Assert.That(created.LayoutX,Is.EqualTo(12.5f));
+                Assert.That(created.LayoutY,Is.EqualTo(-8f));
+                Assert.That(created.Default,Is.Not.Null,"值节点必须带有限默认值。");
+
+                // 过期修订：拒绝且草稿保持不变。
+                Assert.That(service.CreateNode(100,draft.Revision,AlgorithmNodeKind.Log,0,0,out _),Is.False,"过期修订必须拒绝。");
+                Assert.That(service.ReadDraft(100).Revision,Is.EqualTo(draft.Revision+1),"拒绝后草稿修订不变。");
+
+                // 未定义种类：拒绝。
+                Assert.That(service.CreateNode(100,updated.Revision,(AlgorithmNodeKind)999,0,0,out _),Is.False,"未定义种类必须拒绝。");
+            }
+        }
+
+        [Test]
+        public void Connect_StrongTypedAndInputExclusive_DisconnectExact()
+        {
+            var ids=new PersistentIdAllocator();var pool=new MachineComputePool(ids,100,100);
+            using(var service=new AlgorithmInstanceService(ids,pool,()=>1,d=>true))
+            {
+                var r=Runtime(100,pool,new Sink());service.Add(r);
+                var draft=service.ReadDraft(100);
+                Assert.That(service.CreateNode(100,draft.Revision,AlgorithmNodeKind.Arithmetic,0,0,out var math),Is.True);
+                Assert.That(service.CreateNode(100,service.ReadDraft(100).Revision,AlgorithmNodeKind.Boolean,0,0,out var boolean),Is.True);
+                ulong rev=service.ReadDraft(100).Revision;
+
+                // Constant(Number,2) "value" → Arithmetic "a"：兼容，连接成功。
+                Assert.That(service.Connect(100,rev,2,"value",math,"a"),Is.True,"兼容端口连接必须成功。");
+                // 同一目标输入第二次连接拒绝（输入唯一）。
+                Assert.That(service.Connect(100,service.ReadDraft(100).Revision,2,"value",math,"a"),Is.False,"已占用输入必须拒绝。");
+                rev=service.ReadDraft(100).Revision;
+                // Number → Boolean "a"：类型不兼容拒绝。
+                Assert.That(service.Connect(100,rev,2,"value",boolean,"a"),Is.False,"类型不兼容必须拒绝。");
+                // 端口不存在拒绝（输出侧/输入侧各一）。
+                Assert.That(service.Connect(100,rev,2,"nope",math,"a"),Is.False,"不存在的输出端口必须拒绝。");
+                Assert.That(service.Connect(100,rev,2,"value",math,"nope"),Is.False,"不存在的输入端口必须拒绝。");
+                // 不存在的节点拒绝。
+                Assert.That(service.Connect(100,rev,999,"value",math,"a"),Is.False,"不存在的源节点必须拒绝。");
+                Assert.That(service.ReadDraft(100).Revision,Is.EqualTo(rev),"全部拒绝后草稿修订不变。");
+
+                // 精确断开：只移除目标边，不影响其余边。
+                Assert.That(service.Disconnect(100,rev,2,"value",math,"a"),Is.True,"精确断开已存在边必须成功。");
+                var after=service.ReadDraft(100);
+                Assert.That(after.Edges.Find(e=>e.From==2&&e.To==math&&e.Input=="a"),Is.Null,"目标边应被移除。");
+                Assert.That(after.Edges.Find(e=>e.From==2&&e.To==3&&e.Input=="value"),Is.Not.Null,"其余边不受影响。");
+                // 重复断开同一条边拒绝。
+                Assert.That(service.Disconnect(100,after.Revision,2,"value",math,"a"),Is.False,"边已不存在必须拒绝。");
+            }
+        }
+
+        [Test]
+        public void DeleteNode_CascadesEdges_BumpsRevision_StaleRevisionRejects()
+        {
+            var ids=new PersistentIdAllocator();var pool=new MachineComputePool(ids,100,100);
+            using(var service=new AlgorithmInstanceService(ids,pool,()=>1,d=>true))
+            {
+                var r=Runtime(100,pool,new Sink());service.Add(r);
+                var draft=service.ReadDraft(100);
+                Assert.That(service.CreateNode(100,draft.Revision,AlgorithmNodeKind.Arithmetic,0,0,out var math),Is.True);
+                ulong rev=service.ReadDraft(100).Revision;
+                // 2(Constant) → math 的 a 口；既有图 2 → 3(SetVariable value) 保持。
+                Assert.That(service.Connect(100,rev,2,"value",math,"a"),Is.True);
+
+                // 过期修订拒绝（Connect 已把修订推到 rev+1，rev 已过期）。
+                Assert.That(service.DeleteNode(100,rev,math),Is.False,"过期修订必须拒绝。");
+                Assert.That(service.ReadDraft(100).Revision,Is.EqualTo(rev+1),"拒绝后修订不变。");
+
+                // 正常删除：节点软删 + 关联边级联移除，其余边不动。
+                Assert.That(service.DeleteNode(100,rev+1,math),Is.True,"删除存在节点必须成功。");
+                var after=service.ReadDraft(100);
+                Assert.That(after.Revision,Is.EqualTo(rev+2),"删除成功后修订加一。");
+                Assert.That(after.Nodes.Find(n=>n.Id==math).Deleted,Is.True,"节点应软删。");
+                Assert.That(after.Edges.Find(e=>e.To==math),Is.Null,"指向被删节点的边必须级联移除。");
+                Assert.That(after.Edges.Find(e=>e.From==2&&e.To==math),Is.Null,"从被删节点出发的边必须级联移除。");
+                Assert.That(after.Edges.Find(e=>e.From==2&&e.To==3&&e.Input=="value"),Is.Not.Null,"与被删节点无关的边不受影响。");
+
+                // 重复删除拒绝。
+                Assert.That(service.DeleteNode(100,after.Revision,math),Is.False,"已删除节点再删必须拒绝。");
+                // 不存在节点拒绝。
+                Assert.That(service.DeleteNode(100,after.Revision,999),Is.False,"不存在的节点必须拒绝。");
+            }
+        }
     }
 }

@@ -861,6 +861,229 @@ namespace AutoEra.Tests.Editor
         }
 
         [Test]
+        public void MachineDomain_CreateConnectDisconnect_DispatchToService()
+        {
+            using (var fixture = new Fixture())
+            {
+                fixture.InstallCore();
+                fixture.Deploy();
+                RegionMachineRuntime runtime = fixture.AttachRuntime();
+                fixture.Select();
+
+                var graph = AlgorithmExecutionEditModeTests.Graph();
+                graph.DocumentId = 700;
+                Assert.That(runtime.Instances.AddDraft(graph), Is.True);
+
+                using (IAlgorithmReadModel machine = AlgorithmReadModels.Create(fixture.Session(), AlgorithmReadModelDomain.Machine))
+                {
+                    Assert.That(machine.Select(700), Is.True, "先选中实例，图快照才有内容。");
+
+                    // 节点库添加：机器域转发实例服务，分配稳定 Id 并落到草稿。
+                    ulong mathNode = machine.CreateNode(700, AlgorithmNodeKind.Arithmetic, 40f, -60f);
+                    Assert.That(mathNode, Is.GreaterThan(0UL), "机器域创建节点应转发实例服务。");
+                    AlgorithmDocument draft = runtime.Instances.ReadDraft(700);
+                    Assert.That(draft.Nodes.Find(n => n.Id == mathNode), Is.Not.Null);
+                    Assert.That(draft.Nodes.Find(n => n.Id == mathNode).LayoutX, Is.EqualTo(40f));
+                    Assert.That(draft.Nodes.Find(n => n.Id == mathNode).LayoutY, Is.EqualTo(-60f));
+
+                    // 强类型连线：Constant(2) "value" → 新 Arithmetic "a"。
+                    Assert.That(machine.Connect(700, 2, "value", mathNode, "a"), Is.True, "兼容端口连接应转发服务。");
+                    Assert.That(runtime.Instances.ReadDraft(700).Edges.Find(e => e.From == 2 && e.To == mathNode && e.Input == "a"), Is.Not.Null, "草稿应包含新边。");
+
+                    // 读侧快照真实呈现写侧结果（图连线包含新边）。
+                    machine.Refresh();
+                    bool edgeVisible = false;
+                    for (int i = 0; i < machine.Snapshot.GraphEdges.Count; i++)
+                    {
+                        if (machine.Snapshot.GraphEdges[i].From == 2 && machine.Snapshot.GraphEdges[i].To == mathNode && machine.Snapshot.GraphEdges[i].Input == "a")
+                        {
+                            edgeVisible = true;
+                            break;
+                        }
+                    }
+                    Assert.That(edgeVisible, Is.True, "图快照应包含新连接的边。");
+
+                    // 不兼容连线在机器域同样被拒绝（Number → Boolean）。
+                    ulong boolNode = machine.CreateNode(700, AlgorithmNodeKind.Boolean, 80f, -60f);
+                    Assert.That(boolNode, Is.GreaterThan(0UL));
+                    Assert.That(machine.Connect(700, 2, "value", boolNode, "a"), Is.False, "类型不兼容必须拒绝。");
+
+                    // 精确断开：边从草稿与快照消失。
+                    Assert.That(machine.Disconnect(700, 2, "value", mathNode, "a"), Is.True, "精确断开应转发服务。");
+                    Assert.That(runtime.Instances.ReadDraft(700).Edges.Find(e => e.From == 2 && e.To == mathNode && e.Input == "a"), Is.Null, "断开后草稿不应再包含该边。");
+                    machine.Refresh();
+                    for (int i = 0; i < machine.Snapshot.GraphEdges.Count; i++)
+                    {
+                        if (machine.Snapshot.GraphEdges[i].To == mathNode && machine.Snapshot.GraphEdges[i].Input == "a")
+                        {
+                            Assert.Fail("断开后图快照不应再包含该边。");
+                        }
+                    }
+                }
+
+                using (IAlgorithmReadModel lib = AlgorithmReadModels.Create(fixture.Session(), AlgorithmReadModelDomain.Library))
+                {
+                    Assert.That(lib.CreateNode(700, AlgorithmNodeKind.Log, 0, 0), Is.EqualTo(0UL), "库页不持有实例服务。");
+                    Assert.That(lib.Connect(700, 2, "value", 3, "value"), Is.False, "库页不持有实例服务。");
+                    Assert.That(lib.Disconnect(700, 2, "value", 3, "value"), Is.False, "库页不持有实例服务。");
+                }
+            }
+        }
+
+        [Test]
+        public void MachineDomain_DeleteNode_DispatchesAndCascades()
+        {
+            using (var fixture = new Fixture())
+            {
+                fixture.InstallCore();
+                fixture.Deploy();
+                RegionMachineRuntime runtime = fixture.AttachRuntime();
+                fixture.Select();
+
+                var graph = AlgorithmExecutionEditModeTests.Graph();
+                graph.DocumentId = 700;
+                Assert.That(runtime.Instances.AddDraft(graph), Is.True);
+
+                using (IAlgorithmReadModel machine = AlgorithmReadModels.Create(fixture.Session(), AlgorithmReadModelDomain.Machine))
+                {
+                    Assert.That(machine.Select(700), Is.True);
+                    ulong mathNode = machine.CreateNode(700, AlgorithmNodeKind.Arithmetic, 0, 0);
+                    Assert.That(mathNode, Is.GreaterThan(0UL));
+                    Assert.That(machine.Connect(700, 2, "value", mathNode, "a"), Is.True);
+
+                    // 删除节点：转发服务并级联移除关联边，既有无关边保留。
+                    Assert.That(machine.DeleteNode(700, mathNode), Is.True, "机器域删除节点应转发服务。");
+                    AlgorithmDocument draft = runtime.Instances.ReadDraft(700);
+                    Assert.That(draft.Nodes.Find(n => n.Id == mathNode).Deleted, Is.True, "节点应软删。");
+                    Assert.That(draft.Edges.Find(e => e.To == mathNode), Is.Null, "关联边必须级联移除。");
+                    Assert.That(draft.Edges.Find(e => e.From == 2 && e.To == 3 && e.Input == "value"), Is.Not.Null, "无关边不受影响。");
+
+                    // 不存在节点拒绝。
+                    Assert.That(machine.DeleteNode(700, 999), Is.False, "不存在的节点必须拒绝。");
+                }
+
+                using (IAlgorithmReadModel lib = AlgorithmReadModels.Create(fixture.Session(), AlgorithmReadModelDomain.Library))
+                {
+                    Assert.That(lib.DeleteNode(700, 2), Is.False, "库页不持有实例服务。");
+                }
+            }
+        }
+
+        [Test]
+        public void NodeKindLibrary_CatalogRows_IdenticalAcrossDomains_CoverEveryKind()
+        {
+            using (var fixture = new Fixture())
+            {
+                fixture.InstallCore();
+                fixture.Deploy();
+                RegionMachineRuntime runtime = fixture.AttachRuntime();
+                fixture.Select();
+
+                var graph = AlgorithmExecutionEditModeTests.Graph();
+                graph.DocumentId = 700;
+                Assert.That(runtime.Instances.AddDraft(graph), Is.True);
+
+                using (var machine = AlgorithmReadModels.Create(fixture.Session(), AlgorithmReadModelDomain.Machine))
+                using (var lib = AlgorithmReadModels.Create(fixture.Session(), AlgorithmReadModelDomain.Library))
+                using (var unavailable = AlgorithmReadModels.Create(null, AlgorithmReadModelDomain.Machine))
+                {
+                    // 目录全覆盖：每个枚举种类恰好一行。
+                    var kinds = (AlgorithmNodeKind[])System.Enum.GetValues(typeof(AlgorithmNodeKind));
+                    Assert.That(AlgorithmNodeLibrary.Rows.Length, Is.EqualTo(kinds.Length), "目录行数必须等于枚举种类数。");
+                    for (int i = 0; i < kinds.Length; i++)
+                    {
+                        bool found = false;
+                        for (int r = 0; r < AlgorithmNodeLibrary.Rows.Length; r++)
+                        {
+                            if (AlgorithmNodeLibrary.Rows[r].Kind == kinds[i]) { found = true; break; }
+                        }
+                        Assert.That(found, Is.True, "目录缺少种类 " + kinds[i]);
+                    }
+
+                    // 三个域读到同一份目录（能力清单而非实例数据）。
+                    var machineRows = machine.Snapshot.NodeKinds;
+                    var libRows = lib.Snapshot.NodeKinds;
+                    var unavailableRows = unavailable.Snapshot.NodeKinds;
+                    Assert.That(machineRows.Count, Is.EqualTo(AlgorithmNodeLibrary.Rows.Length), "机器域应携带目录。");
+                    Assert.That(libRows.Count, Is.EqualTo(AlgorithmNodeLibrary.Rows.Length), "库域应携带目录。");
+                    Assert.That(unavailableRows.Count, Is.EqualTo(AlgorithmNodeLibrary.Rows.Length), "不可用域也应携带目录。");
+                    Assert.That(machineRows[0].Kind, Is.EqualTo(libRows[0].Kind));
+                    Assert.That(machineRows[0].Label, Is.EqualTo(libRows[0].Label));
+                    Assert.That(machineRows[0].Category, Is.Not.Null.And.Not.Empty, "目录行必须带分类。");
+                }
+            }
+        }
+
+        [Test]
+        public void GraphNodeRows_ExposePortRowsWithConnectedState()
+        {
+            using (var fixture = new Fixture())
+            {
+                fixture.InstallCore();
+                fixture.Deploy();
+                RegionMachineRuntime runtime = fixture.AttachRuntime();
+                fixture.Select();
+
+                var graph = AlgorithmExecutionEditModeTests.Graph();
+                graph.DocumentId = 700;
+                Assert.That(runtime.Instances.AddDraft(graph), Is.True);
+
+                using (IAlgorithmReadModel machine = AlgorithmReadModels.Create(fixture.Session(), AlgorithmReadModelDomain.Machine))
+                {
+                    Assert.That(machine.Select(700), Is.True);
+                    AlgorithmDomainSnapshot snapshot = machine.Snapshot;
+
+                    // 图：1=Startup → 3=SetVariable(event)；2=Constant → 3(value)。
+                    // SetVariable 的输入端口行：event 与 value 都已连接。
+                    UiAlgorithmNodeRow? setVar = null;
+                    for (int i = 0; i < snapshot.GraphNodes.Count; i++)
+                    {
+                        if (snapshot.GraphNodes[i].Id == 3) { setVar = snapshot.GraphNodes[i]; break; }
+                    }
+                    Assert.That(setVar.HasValue, Is.True, "快照应包含节点 3。");
+
+                    UiAlgorithmPortRow eventPort = default, valuePort = default; bool eventFound = false, valueFound = false;
+                    for (int i = 0; i < setVar.Value.InputPorts.Count; i++)
+                    {
+                        if (setVar.Value.InputPorts[i].Key == "event") { eventPort = setVar.Value.InputPorts[i]; eventFound = true; }
+                        if (setVar.Value.InputPorts[i].Key == "value") { valuePort = setVar.Value.InputPorts[i]; valueFound = true; }
+                    }
+                    Assert.That(eventFound && valueFound, Is.True, "SetVariable 应有 event 与 value 输入端口。");
+                    Assert.That(eventPort.Connected, Is.True, "event 端口应有边指向。");
+                    Assert.That(valuePort.Connected, Is.True, "value 端口应有边指向。");
+                    Assert.That(eventPort.TypeLabel, Is.Not.Null.And.Not.Empty, "端口行必须带类型标签。");
+
+                    // Constant(2) 的输出端口 value 已连接。
+                    UiAlgorithmNodeRow? constant = null;
+                    for (int i = 0; i < snapshot.GraphNodes.Count; i++)
+                    {
+                        if (snapshot.GraphNodes[i].Id == 2) { constant = snapshot.GraphNodes[i]; break; }
+                    }
+                    Assert.That(constant.HasValue, Is.True);
+                    bool outputConnected = false;
+                    for (int i = 0; i < constant.Value.OutputPorts.Count; i++)
+                    {
+                        if (constant.Value.OutputPorts[i].Key == "value" && constant.Value.OutputPorts[i].Connected) { outputConnected = true; }
+                    }
+                    Assert.That(outputConnected, Is.True, "Constant 的 value 输出端口应有边离开。");
+
+                    // 无端口的种类（QueryTask）给空数组而不是 null。
+                    ulong query = machine.CreateNode(700, AlgorithmNodeKind.QueryTask, 0, 0);
+                    Assert.That(query, Is.GreaterThan(0UL));
+                    machine.Refresh();
+                    UiAlgorithmNodeRow? queryRow = null;
+                    for (int i = 0; i < machine.Snapshot.GraphNodes.Count; i++)
+                    {
+                        if (machine.Snapshot.GraphNodes[i].Id == query) { queryRow = machine.Snapshot.GraphNodes[i]; break; }
+                    }
+                    Assert.That(queryRow.HasValue, Is.True);
+                    Assert.That(queryRow.Value.InputPorts, Is.Not.Null);
+                    Assert.That(queryRow.Value.InputPorts.Count, Is.Zero, "QueryTask 无输入端口应为空列表。");
+                }
+            }
+        }
+
+        [Test]
         public void MachineDomain_GraphNodes_ExposeLayoutCoordinates()
         {
             using (var fixture = new Fixture())

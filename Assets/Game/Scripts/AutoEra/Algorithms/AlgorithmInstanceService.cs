@@ -133,6 +133,7 @@ namespace AutoEra.Algorithms
         }
 
         public AlgorithmDocument ReadDraft(ulong id) => _entries[id].Draft.Copy();
+        public AlgorithmDocument ReadSaved(ulong id) => _entries[id].Saved.Copy();
         public ulong SavedDraftRevision(ulong id) => _entries[id].Saved.Revision;
         public AlgorithmApplyRequest ReadRequest(ulong id) => _entries[id].Request?.Copy();
 
@@ -192,6 +193,19 @@ namespace AutoEra.Algorithms
             entry.Saved = entry.Draft.Copy(); Changed?.Invoke(); return true;
         }
 
+        public bool ResetDraftNodeDefault(ulong id, ulong expectedRevision, ulong nodeId)
+        {
+            if (_disposed || !_entries.TryGetValue(id, out var entry) || entry.Draft.Revision != expectedRevision || entry.Saved == null)
+                return false;
+            AlgorithmNode savedNode = entry.Saved.Nodes.Find(n => n != null && !n.Deleted && n.Id == nodeId && n.Kind == AlgorithmNodeKind.Parameter);
+            if (savedNode == null || savedNode.Default == null) return false;
+            AlgorithmDocument draft = entry.Draft.Copy();
+            AlgorithmNode node = draft.Nodes.Find(n => n != null && !n.Deleted && n.Id == nodeId && n.Kind == AlgorithmNodeKind.Parameter);
+            if (node == null) return false;
+            node.Default = savedNode.Default.Copy();
+            return Edit(id, expectedRevision, draft);
+        }
+
         /// <summary>
         /// 按 <c>BindingKey</c> 更新草稿里某个端点（Input/Effector）的绑定（无则新增）。
         /// 是 <see cref="Edit"/> 的聚焦变体：只改 <c>Bindings</c> 一项三元组，绑定 <c>Type</c>
@@ -233,6 +247,88 @@ namespace AutoEra.Algorithms
 
             AlgorithmDocument draft = entry.Draft.Copy();
             if (!draft.MoveNode(nodeId, x, y)) return false;
+
+            entry.Draft = draft;
+            Changed?.Invoke();
+            return true;
+        }
+
+        /// <summary>
+        /// 在草稿创建一个**最小默认节点**（节点库添加入口）。稳定节点 Id 由服务分配并通过 <c>nodeId</c> 返回，
+        /// 调用方只选种类与画布坐标。种类未定义、修订不匹配或正在应用时返回 false 且草稿不变。
+        /// 草稿可能含分配器视角之外的外部 Id（模板实例化、恢复、测试图）；分配时跳过草稿已占用的值，
+        /// 保证新节点 Id 在文档内唯一（分配器单调递增、草稿 Id 集有限，循环必然终止）。
+        /// </summary>
+        public bool CreateNode(ulong id, ulong expectedRevision, AlgorithmNodeKind kind, float layoutX, float layoutY, out ulong nodeId)
+        {
+            nodeId = 0;
+            if (_disposed || !Enum.IsDefined(typeof(AlgorithmNodeKind), kind) || !_entries.TryGetValue(id, out var entry) ||
+                entry.Draft.Revision != expectedRevision || entry.Request?.State == AlgorithmApplyState.Applying) return false;
+
+            AlgorithmNode node = AlgorithmCatalog.DefaultNode(kind);
+            node.LayoutX = layoutX;
+            node.LayoutY = layoutY;
+
+            AlgorithmDocument draft = entry.Draft.Copy();
+            while (_ids.TryAllocate(out var allocated))
+            {
+                bool collision = false;
+                foreach (var existing in draft.Nodes)
+                {
+                    if (existing != null && existing.Id == allocated.Value) { collision = true; break; }
+                }
+
+                if (!collision)
+                {
+                    node.Id = allocated.Value;
+                    break;
+                }
+            }
+
+            if (node.Id == 0 || !draft.CreateNode(node)) return false;
+
+            entry.Draft = draft;
+            nodeId = node.Id;
+            Changed?.Invoke();
+            return true;
+        }
+
+        /// <summary>在草稿连接一对端口（强类型连线）。端口缺失、类型/单位/能力不兼容或目标输入已占用时返回 false。</summary>
+        public bool Connect(ulong id, ulong expectedRevision, ulong from, string output, ulong to, string input)
+        {
+            if (_disposed || !_entries.TryGetValue(id, out var entry) ||
+                entry.Draft.Revision != expectedRevision || entry.Request?.State == AlgorithmApplyState.Applying) return false;
+
+            AlgorithmDocument draft = entry.Draft.Copy();
+            if (!draft.Connect(from, output, to, input)) return false;
+
+            entry.Draft = draft;
+            Changed?.Invoke();
+            return true;
+        }
+
+        /// <summary>按完整边身份断开草稿中的一条连线（精确断开，不影响其余边）；边不存在时返回 false。</summary>
+        public bool Disconnect(ulong id, ulong expectedRevision, ulong from, string output, ulong to, string input)
+        {
+            if (_disposed || !_entries.TryGetValue(id, out var entry) ||
+                entry.Draft.Revision != expectedRevision || entry.Request?.State == AlgorithmApplyState.Applying) return false;
+
+            AlgorithmDocument draft = entry.Draft.Copy();
+            if (!draft.Disconnect(from, output, to, input)) return false;
+
+            entry.Draft = draft;
+            Changed?.Invoke();
+            return true;
+        }
+
+        /// <summary>删除草稿节点并级联断开其全部关联边（一次草稿变更，一次修订自增）。节点不存在或已删除时返回 false。</summary>
+        public bool DeleteNode(ulong id, ulong expectedRevision, ulong nodeId)
+        {
+            if (_disposed || !_entries.TryGetValue(id, out var entry) ||
+                entry.Draft.Revision != expectedRevision || entry.Request?.State == AlgorithmApplyState.Applying) return false;
+
+            AlgorithmDocument draft = entry.Draft.Copy();
+            if (!draft.RemoveNode(nodeId)) return false;
 
             entry.Draft = draft;
             Changed?.Invoke();
