@@ -51,18 +51,40 @@ namespace AutoEra.UI
         private (ulong from, string output, ulong to, string input)? _selectedEdge;
         private readonly List<AlgorithmNodeItemObject> _nodeItems = new List<AlgorithmNodeItemObject>(32);
         private readonly List<AlgorithmEdgeItemObject> _edgeItems = new List<AlgorithmEdgeItemObject>(64);
+        private readonly List<AlgorithmGraphEdgeGraphic> _graphEdgeGraphics = new List<AlgorithmGraphEdgeGraphic>(64);
+        private readonly Dictionary<ulong, GameObject> _nodeInstances = new Dictionary<ulong, GameObject>(32);
+        private readonly Dictionary<(ulong node, string port, bool input), RectTransform> _portButtons =
+            new Dictionary<(ulong node, string port, bool input), RectTransform>(64);
         private readonly Dictionary<ulong, Vector2> _graphPositions = new Dictionary<ulong, Vector2>(32);
         private System.Func<ulong, Vector2?> _graphPositionResolver;
 
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
+            AddPanelBorder("Panel_AlgorithmEditorNodes");
+            AddPanelBorder("Panel_AlgorithmEditorCanvas");
+            AddPanelBorder("Panel_AlgorithmEditorInspector");
+            AddPanelBorder("Panel_AlgorithmEditorProblems");
             _graphPositionResolver = ResolveGraphPosition;
             RectTransform graphViewport = _algorithmGraphContent != null
                 ? _algorithmGraphContent.parent as RectTransform : null;
-            if (graphViewport != null && graphViewport.GetComponent<AlgorithmGraphCanvasInteraction>() == null)
+            if (graphViewport != null)
             {
-                AlgorithmGraphCanvasInteraction interaction = graphViewport.gameObject.AddComponent<AlgorithmGraphCanvasInteraction>();
+                // Viewport 原本只有 Mask，没有 Graphic，空白区域不会产生 PointerEvent。
+                // 透明 Image 只负责承接画布背景事件；节点自身的 Graphic 仍优先命中，
+                // 因而不会遮挡节点按钮、端口按钮或其它子对象交互。
+                Image interactionSurface = graphViewport.GetComponent<Image>();
+                if (interactionSurface == null)
+                {
+                    interactionSurface = graphViewport.gameObject.AddComponent<Image>();
+                }
+                interactionSurface.color = new Color(1f, 1f, 1f, 0f);
+                interactionSurface.raycastTarget = true;
+                AlgorithmGraphCanvasInteraction interaction = graphViewport.GetComponent<AlgorithmGraphCanvasInteraction>();
+                if (interaction == null)
+                {
+                    interaction = graphViewport.gameObject.AddComponent<AlgorithmGraphCanvasInteraction>();
+                }
                 interaction.Initialize(_algorithmGraphContent);
             }
             if (_navButtons != null)
@@ -103,6 +125,17 @@ namespace AutoEra.UI
             if (_algorithmDiagnosisNextStepButton != null) _algorithmDiagnosisNextStepButton.onClick.AddListener(SelectNextDiagnosticRun);
             if (_algorithmDiagnosisPreviousStepButton != null) _algorithmDiagnosisPreviousStepButton.onClick.AddListener(SelectPreviousDiagnosticRun);
             // 撤销/重做是占位（命令历史属后续批次），OnInit 里保持禁用、不再改状态。
+        }
+
+        private void AddPanelBorder(string panelName)
+        {
+            Transform panel = FindChild(transform, panelName);
+            if (panel == null) return;
+            Outline outline = panel.GetComponent<Outline>();
+            if (outline == null) outline = panel.gameObject.AddComponent<Outline>();
+            outline.effectColor = new Color(0.22f, 0.48f, 0.66f, 0.9f);
+            outline.effectDistance = new Vector2(2f, -2f);
+            outline.useGraphicAlpha = true;
         }
 
         protected override void OnAutoEraOpen()
@@ -811,7 +844,7 @@ namespace AutoEra.UI
         /// </summary>
         private void RenderGraphCanvas(AlgorithmDomainSnapshot snapshot)
         {
-            if (_algorithmGraphContent == null || _algorithmNodeItemPrefab == null || _algorithmEdgeItemPrefab == null)
+            if (_algorithmGraphContent == null || _algorithmNodeItemPrefab == null)
             {
                 return;
             }
@@ -834,22 +867,16 @@ namespace AutoEra.UI
             {
                 UiAlgorithmNodeRow node = snapshot.GraphNodes[i];
                 Vector2 modelPosition = new Vector2(node.LayoutX, node.LayoutY);
+                // 节点位置只由模型坐标决定；没有位置数据时使用统一原点兜底，
+                // 不在刷新阶段额外生成固定网格，也不覆盖任何节点的真实坐标。
                 Vector2 displayPosition = modelPosition;
-                int duplicateIndex = 0;
-                foreach (Vector2 existing in positions.Values)
-                {
-                    if (Vector2.SqrMagnitude(existing - modelPosition) < 1f) duplicateIndex++;
-                }
-                if (duplicateIndex > 0)
-                {
-                    displayPosition += new Vector2(((i % 4) - 1.5f) * 270f, -(i / 4) * 200f);
-                }
                 positions[node.Id] = displayPosition;
                 _graphPositions[node.Id] = displayPosition;
 
                 AlgorithmNodeItemObject item = SpawnItem<AlgorithmNodeItemObject>(_algorithmNodeItemPrefab, _algorithmGraphContent);
                 _nodeItems.Add(item);
                 GameObject instance = item.gameObject;
+                _nodeInstances[node.Id] = instance;
                 RectTransform rect = instance.GetComponent<RectTransform>();
                 if (rect != null)
                 {
@@ -893,16 +920,46 @@ namespace AutoEra.UI
                     continue;
                 }
 
-                AlgorithmEdgeItemObject item = SpawnItem<AlgorithmEdgeItemObject>(_algorithmEdgeItemPrefab, _algorithmGraphContent);
-                _edgeItems.Add(item);
-                GameObject instance = item.gameObject;
-                RectTransform rect = instance.GetComponent<RectTransform>();
-                ConfigureGraphElementRect(rect);
-                item.Logic?.SetGeometry(from, to);
-                item.Logic?.Bind(edge.From, edge.Output, edge.To, edge.Input,
-                    _selectedEdge.HasValue && _selectedEdge.Value.from == edge.From
+                Vector2 edgeCenter = (from + to) * 0.5f;
+                GameObject edgeObject = new GameObject("AlgorithmEdge_" + edge.From + "_" + edge.To,
+                    typeof(RectTransform), typeof(CanvasRenderer), typeof(AlgorithmGraphEdgeGraphic));
+                edgeObject.transform.SetParent(_algorithmGraphContent, false);
+                RectTransform edgeRect = edgeObject.GetComponent<RectTransform>();
+                ConfigureGraphElementRect(edgeRect);
+                edgeRect.anchoredPosition = edgeCenter;
+                AlgorithmGraphEdgeGraphic graphic = edgeObject.GetComponent<AlgorithmGraphEdgeGraphic>();
+                _graphEdgeGraphics.Add(graphic);
+                graphic.raycastTarget = false;
+                graphic.Bind(edge.From, edge.Output, edge.To, edge.Input);
+                bool selected = _selectedEdge.HasValue && _selectedEdge.Value.from == edge.From
                     && _selectedEdge.Value.output == edge.Output && _selectedEdge.Value.to == edge.To
-                    && _selectedEdge.Value.input == edge.Input, OnEdgeSelected);
+                    && _selectedEdge.Value.input == edge.Input;
+                graphic.SetPoints(ResolvePortPosition(edge.From, edge.Output, false) - edgeCenter,
+                    ResolvePortPosition(edge.To, edge.Input, true) - edgeCenter, selected);
+                GameObject edgeGroup = new GameObject("Grp_AlgorithmEdge", typeof(RectTransform));
+                edgeGroup.transform.SetParent(edgeObject.transform, false);
+                GameObject selectObject = new GameObject("Btn_AlgorithmEdgeSelect", typeof(RectTransform),
+                    typeof(CanvasRenderer), typeof(Image), typeof(Button));
+                selectObject.transform.SetParent(edgeGroup.transform, false);
+                RectTransform selectRect = selectObject.GetComponent<RectTransform>();
+                selectRect.anchorMin = new Vector2(0.5f, 0.5f);
+                selectRect.anchorMax = new Vector2(0.5f, 0.5f);
+                selectRect.sizeDelta = new Vector2(32f, 32f);
+                selectRect.anchoredPosition = Vector2.zero;
+                Image selectImage = selectObject.GetComponent<Image>();
+                selectImage.color = new Color(1f, 1f, 1f, 0f);
+                selectImage.raycastTarget = false;
+                Button selectButton = selectObject.GetComponent<Button>();
+                selectButton.targetGraphic = selectImage;
+                ulong fromId = edge.From, toId = edge.To;
+                string outputPort = edge.Output, inputPort = edge.Input;
+                selectButton.onClick.AddListener(() => OnEdgeSelected(fromId, outputPort, toId, inputPort));
+                edgeObject.transform.SetAsFirstSibling();
+                Debug.Log("[AutoEra][AlgorithmEditor] 程序化边=" + edgeObject.name
+                    + "，位置=" + edgeRect.anchoredPosition
+                    + "，中点=" + edgeCenter
+                    + "，组=" + (edgeObject.transform.Find("Grp_AlgorithmEdge") != null)
+                    + "，按钮=" + (edgeObject.transform.Find("Grp_AlgorithmEdge/Btn_AlgorithmEdgeSelect") != null));
             }
 
             Debug.Log("[AutoEra][AlgorithmEditor] 画布实例汇总：子节点=" + _algorithmGraphContent.childCount);
@@ -929,6 +986,16 @@ namespace AutoEra.UI
             }
             _nodeItems.Clear();
             _edgeItems.Clear();
+            for (int i = 0; i < _graphEdgeGraphics.Count; i++)
+            {
+                if (_graphEdgeGraphics[i] != null)
+                {
+                    Destroy(_graphEdgeGraphics[i].gameObject);
+                }
+            }
+            _graphEdgeGraphics.Clear();
+            _nodeInstances.Clear();
+            _portButtons.Clear();
             _graphPositions.Clear();
         }
 
@@ -1003,6 +1070,7 @@ namespace AutoEra.UI
                 Button button = buttonTransform != null ? buttonTransform.GetComponent<Button>() : null;
                 if (button != null)
                 {
+                    _portButtons[(nodeId, port.Key, isInput)] = button.transform as RectTransform;
                     ulong id = nodeId;
                     string key = port.Key;
                     button.onClick.AddListener(isInput
@@ -1052,18 +1120,65 @@ namespace AutoEra.UI
                 return;
             }
 
-            _algorithms.MoveNode(_algorithms.Snapshot.SelectedInstance.Value.Id, nodeId, position.x, position.y);
+            ulong instanceId = _algorithms.Snapshot.SelectedInstance.Value.Id;
+            bool moved = _algorithms.MoveNode(instanceId, nodeId, position.x, position.y);
+            // 节点拖拽结束与服务 Changed 通知可能在同一帧交错；失败时刷新一次快照并重试，
+            // 避免 Startup 等首个节点因短暂修订竞争立即回到旧坐标。
+            if (!moved)
+            {
+                _algorithms.Refresh();
+                moved = _algorithms.MoveNode(instanceId, nodeId, position.x, position.y);
+            }
+            Debug.Log("[AutoEra][AlgorithmEditor] 节点拖拽写回：实例=" + instanceId
+                + "，节点=" + nodeId + "，位置=" + position + "，结果=" + moved);
         }
 
         private void OnGraphNodeDragging(ulong nodeId, Vector2 position)
         {
             _graphPositions[nodeId] = position;
-            for (int i = 0; i < _edgeItems.Count; i++)
+            for (int i = 0; i < _graphEdgeGraphics.Count; i++)
             {
-                AlgorithmEdgeItem edge = _edgeItems[i].Logic;
-                if (edge == null) continue;
-                edge.RefreshGeometry(_graphPositionResolver);
+                RefreshProceduralEdge(_graphEdgeGraphics[i]);
             }
+        }
+
+        private void RefreshProceduralEdge(AlgorithmGraphEdgeGraphic graphic)
+        {
+            if (graphic == null) return;
+            bool selected = _selectedEdge.HasValue && _selectedEdge.Value.from == graphic.FromNode
+                && _selectedEdge.Value.output == graphic.OutputPort
+                && _selectedEdge.Value.to == graphic.ToNode
+                && _selectedEdge.Value.input == graphic.InputPort;
+            Vector2 from = ResolvePortPosition(graphic.FromNode, graphic.OutputPort, false);
+            Vector2 to = ResolvePortPosition(graphic.ToNode, graphic.InputPort, true);
+            Vector2 center = (_graphPositions.TryGetValue(graphic.FromNode, out Vector2 fromNode)
+                ? fromNode : from) + (_graphPositions.TryGetValue(graphic.ToNode, out Vector2 toNode)
+                ? toNode : to);
+            center *= 0.5f;
+            RectTransform edgeRect = graphic.transform as RectTransform;
+            if (edgeRect != null) edgeRect.anchoredPosition = center;
+            graphic.SetPoints(from - center, to - center, selected);
+        }
+
+        private Vector2 ResolvePortPosition(ulong nodeId, string portName, bool input)
+        {
+            if (!_nodeInstances.TryGetValue(nodeId, out GameObject node) || node == null)
+            {
+                return _graphPositions.TryGetValue(nodeId, out Vector2 fallback) ? fallback : Vector2.zero;
+            }
+
+            if (_portButtons.TryGetValue((nodeId, portName, input), out RectTransform button) && button != null)
+            {
+                Vector3[] corners = new Vector3[4];
+                button.GetWorldCorners(corners);
+                Vector3 socket = input
+                    ? (corners[0] + corners[1]) * 0.5f
+                    : (corners[2] + corners[3]) * 0.5f;
+                return _algorithmGraphContent.InverseTransformPoint(socket);
+            }
+
+            Vector2 center = _graphPositions.TryGetValue(nodeId, out Vector2 position) ? position : Vector2.zero;
+            return center + (input ? new Vector2(-120f, 0f) : new Vector2(120f, 0f));
         }
 
         private Vector2? ResolveGraphPosition(ulong nodeId)

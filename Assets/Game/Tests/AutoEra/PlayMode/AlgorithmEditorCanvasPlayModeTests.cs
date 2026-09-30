@@ -476,10 +476,12 @@ namespace AutoEra.Tests.PlayMode
         private static AlgorithmPlan CompileFixturePlan(RegionMachineRuntime runtime)
         {
             var graph = new AlgorithmDocument { DocumentId = 700 };
-            graph.Nodes.Add(new AlgorithmNode { Id = 1, Kind = AlgorithmNodeKind.Startup });
-            graph.Nodes.Add(new AlgorithmNode { Id = 2, Kind = AlgorithmNodeKind.Constant, Default = AlgorithmValue.Numeric(12) });
-            graph.Nodes.Add(new AlgorithmNode { Id = 3, Kind = AlgorithmNodeKind.SetVariable, StateKey = "counter" });
-            graph.Nodes.Add(new AlgorithmNode { Id = 4, Kind = AlgorithmNodeKind.Log });
+            // 夹具必须提供真实画布坐标：正常验收场景是在已有布局的算法上拖动节点，
+            // 不应使用“所有节点都没有坐标”的新图状态来验证拖拽行为。
+            graph.Nodes.Add(new AlgorithmNode { Id = 1, Kind = AlgorithmNodeKind.Startup, LayoutX = -420f, LayoutY = 120f });
+            graph.Nodes.Add(new AlgorithmNode { Id = 2, Kind = AlgorithmNodeKind.Constant, Default = AlgorithmValue.Numeric(12), LayoutX = -420f, LayoutY = -160f });
+            graph.Nodes.Add(new AlgorithmNode { Id = 3, Kind = AlgorithmNodeKind.SetVariable, StateKey = "counter", LayoutX = 0f, LayoutY = 0f });
+            graph.Nodes.Add(new AlgorithmNode { Id = 4, Kind = AlgorithmNodeKind.Log, LayoutX = 360f, LayoutY = 120f });
             graph.Edges.Add(new AlgorithmEdge { From = 1, To = 3, Output = "event", Input = "event" });
             graph.Edges.Add(new AlgorithmEdge { From = 2, To = 3, Input = "value" });
             graph.Edges.Add(new AlgorithmEdge { From = 1, To = 4, Output = "event", Input = "event" });

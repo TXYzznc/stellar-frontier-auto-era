@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace AutoEra.UI
 {
-    /// <summary>算法画布的缩放与中键平移。节点坐标仍由 Form 管理，组件只改变视图状态。</summary>
+    /// <summary>算法画布的缩放与左键空白区平移。节点坐标仍由 Form 管理，组件只改变视图状态。</summary>
     public sealed class AlgorithmGraphCanvasInteraction : MonoBehaviour,
         IScrollHandler, IPointerDownHandler, IPointerUpHandler, IDragHandler
     {
@@ -55,7 +55,8 @@ namespace AutoEra.UI
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (eventData.button != PointerEventData.InputButton.Middle) return;
+            if (eventData.button != PointerEventData.InputButton.Left
+                && eventData.button != PointerEventData.InputButton.Middle) return;
             _panning = true;
             if (_scroll != null) _scroll.enabled = false;
             eventData.Use();
@@ -70,7 +71,8 @@ namespace AutoEra.UI
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            if (eventData.button != PointerEventData.InputButton.Middle) return;
+            if (eventData.button != PointerEventData.InputButton.Left
+                && eventData.button != PointerEventData.InputButton.Middle) return;
             _panning = false;
             if (_scroll != null) _scroll.enabled = true;
             eventData.Use();
