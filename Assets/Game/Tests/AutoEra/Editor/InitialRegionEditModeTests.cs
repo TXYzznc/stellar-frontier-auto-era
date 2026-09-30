@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using AutoEra.World;
 using AutoEra.World.Identity;
 using AutoEra.World.Region;
@@ -116,6 +116,44 @@ namespace AutoEra.Tests.Editor
                     Assert.That(queue.Owner, Is.EqualTo(b.Id));
                 }
                 Assert.That(target.WorkSummary, Is.Empty);
+            }
+        }
+
+        [Test]
+        public void WorkQueue_PriorityUpgrade_PromotesWaitingMachine_WithoutPenalizingPeers()
+        {
+            using (var session = new AutoEraWorldSessionFactory().Create(0))
+            using (var region = new InitialRegion(session, new Rect(-30, -30, 60, 60)))
+            {
+                RegionObject target = region.Register(PersistentObjectKind.ResourcePoint, "矿脉", Vector2.zero, Vector2.one);
+                RegionObject a = region.Register(PersistentObjectKind.Machine, "A", new Vector2(-10, 0), Vector2.one);
+                RegionObject b = region.Register(PersistentObjectKind.Machine, "B", new Vector2(-12, 0), Vector2.one);
+                RegionObject c = region.Register(PersistentObjectKind.Machine, "C", new Vector2(-14, 0), Vector2.one);
+                RegionObject d = region.Register(PersistentObjectKind.Machine, "D", new Vector2(-16, 0), Vector2.one);
+                using (var queue = new RegionWorkQueue(region, target.Id, new Rect(-1, -1, 2, 2)))
+                {
+                    queue.Request(a.Id, Vector2.zero); // Owner
+                    queue.Request(b.Id, Vector2.zero, 1);
+                    queue.Request(c.Id, Vector2.zero, 1);
+                    queue.Request(d.Id, Vector2.zero, 1);
+
+                    // 同级重复申请：保持 FIFO 原位，不让后来者插到同级前面。
+                    Assert.That(queue.Request(c.Id, Vector2.zero, 1), Is.EqualTo(WorkRequestResult.Waiting));
+                    queue.Release(a.Id);
+                    Assert.That(queue.Owner, Is.EqualTo(b.Id), "同级再申请必须保持 FIFO。");
+
+                    // 降级申请：同样保持原位。
+                    queue.Request(c.Id, Vector2.zero, 0);
+                    queue.Release(b.Id);
+                    Assert.That(queue.Owner, Is.EqualTo(c.Id), "降级申请不得改变既有次序。");
+
+                    // 升级申请：D 带更高优先级重新排队，提到队首。
+                    queue.Request(d.Id, Vector2.zero, 5);
+                    queue.Release(c.Id);
+                    Assert.That(queue.Owner, Is.EqualTo(d.Id), "严格更高的优先级必须让等待者提位。");
+                    queue.Release(d.Id);
+                    Assert.That(queue.Owner.IsValid, Is.False);
+                }
             }
         }
     }

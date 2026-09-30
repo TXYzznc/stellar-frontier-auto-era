@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using AutoEra.World.Identity;
+using UnityEngine;
 
 namespace AutoEra.World.Region
 {
@@ -36,6 +37,36 @@ namespace AutoEra.World.Region
             {
                 _view = gameObject.AddComponent<RegionObjectView>();
             }
+
+            MoveCollidersToSelectionLayer();
+        }
+
+        /// <summary>
+        /// 把实体上的碰撞体切到现场点选层（RegionSelection，层 8）并**启用**。
+        ///
+        /// 机器实体预制体（B08 美术交付）的碰撞体在 Default 层（0）且**默认禁用**
+        /// （<c>m_Enabled: 0</c>），而 <see cref="RegionInputModule"/> 的现场点选只对
+        /// RegionSelection 层做射线检测（<c>_selectionLayers</c>）。只切层不启用，射线照样
+        /// 穿透、机器点不中——这正是「部署成功却点不中、也没日志」的根因（层名存在时本方法静默）。
+        /// </summary>
+        private void MoveCollidersToSelectionLayer()
+        {
+            int selectionLayer = LayerMask.NameToLayer("RegionSelection");
+            if (selectionLayer < 0)
+            {
+                // 项目里没有这个层名时静默跳过：至少不抛异常，让机器照常部署，只是不可点选。
+                Debug.LogWarning("[AutoEra][Region] 未找到 RegionSelection 层，机器实体将不可点选。");
+                return;
+            }
+
+            Collider[] colliders = GetComponentsInChildren<Collider>(true);
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                colliders[i].enabled = true;
+                colliders[i].gameObject.layer = selectionLayer;
+            }
+
+            Debug.Log($"[AutoEra][Region] 已启用 {colliders.Length} 个碰撞体并切到 RegionSelection 层（{name}）。");
         }
 
         /// <summary>
@@ -46,6 +77,28 @@ namespace AutoEra.World.Region
         {
             if (_view == null) throw new InvalidOperationException("The machine view was not created; OnInit did not run.");
             _view.BindDeployed(region, id);
+            SizeSelectionCollider(region, id);
+        }
+
+        /// <summary>
+        /// 把选择碰撞体对齐到机器的真实占地：预制体里碰撞体是 1×1×1 的占位，而机器占地来自
+        /// 区域对象（如轮式载体 1.8×2.4）。不对齐会让可点选区域只有中间一小块。
+        /// </summary>
+        private void SizeSelectionCollider(InitialRegion region, PersistentId id)
+        {
+            if (region == null || !region.TryGet(id, out RegionObject body)) return;
+            int selectionLayer = LayerMask.NameToLayer("RegionSelection");
+            if (selectionLayer < 0) return;
+
+            Collider[] colliders = GetComponentsInChildren<Collider>(true);
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                if (colliders[i].gameObject.layer != selectionLayer) continue;
+                if (colliders[i] is BoxCollider box)
+                {
+                    box.size = new Vector3(body.Size.x, 2f, body.Size.y);
+                }
+            }
         }
 
         protected override void OnHide(bool isShutdown, object userData)

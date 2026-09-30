@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using AutoEra.World.Identity;
 using UnityEngine;
@@ -51,11 +51,25 @@ namespace AutoEra.World.Region
                 return WorkRequestResult.InvalidRequester;
             if (!RegionPlacement.IsFinite(workPosition) || !_workArea.Contains(workPosition)) return WorkRequestResult.OutsideWorkArea;
             if (Owner == machine) return WorkRequestResult.Granted;
-            if (_waiting.Contains(machine)) return WorkRequestResult.Waiting;
+            if (_waiting.Contains(machine))
+            {
+                // 优先级升级：等待中的机器带着**严格更高**优先级重新申请时按新优先级提位；
+                // 同级或更低保持原位——重新申请不该让同级等待者被插队（FIFO 稳定）。
+                if (priority > _priorities[machine])
+                {
+                    _waiting.Remove(machine);
+                    int index = 0;
+                    while (index < _waiting.Count && _priorities[_waiting[index]] >= priority) index++;
+                    _waiting.Insert(index, machine);
+                    _priorities[machine] = priority;
+                    Publish();
+                }
+                return WorkRequestResult.Waiting;
+            }
             if (!Owner.IsValid) { Owner = machine; Publish(); return WorkRequestResult.Granted; }
-            int index = 0;
-            while (index < _waiting.Count && _priorities[_waiting[index]] >= priority) index++;
-            _waiting.Insert(index, machine); _priorities.Add(machine, priority);
+            int insert = 0;
+            while (insert < _waiting.Count && _priorities[_waiting[insert]] >= priority) insert++;
+            _waiting.Insert(insert, machine); _priorities.Add(machine, priority);
             Publish(); return WorkRequestResult.Waiting;
         }
         public bool Release(PersistentId machine)

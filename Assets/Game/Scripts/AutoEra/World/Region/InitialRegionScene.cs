@@ -68,6 +68,10 @@ namespace AutoEra.World.Region
 
         /// <summary>区域警报账本；区域就绪后建立。测试与调试用。</summary>
         public AutoEra.Alerts.AutoEraAlertService Alerts => _alerts;
+
+        /// <summary>世界会话；区域就绪后非空。测试与调试用（GM 面板等开发工具借此访问花名册与分配器）。</summary>
+        public AutoEraWorldSession Session => _session;
+
         public void AttachSensors(AutoEra.Machines.Sensors.MachineSensorSet sensors)
         {
             if (Region == null || !Region.IsActive || sensors == null || _sensorSets.Contains(sensors))
