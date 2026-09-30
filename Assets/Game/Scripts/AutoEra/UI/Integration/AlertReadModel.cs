@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using AutoEra.Alerts;
 
@@ -7,13 +7,15 @@ namespace AutoEra.UI
     /// <summary>警报列表的一行（规格 15-警报列表与详情：「活跃／已恢复；等级；已读／未读；来源；首次／最近时间；次数」）。</summary>
     public readonly struct UiAlertRow
     {
-        public UiAlertRow(int id, AlertKind kind, AlertSeverity severity, AlertState state, string sourceName,
+        public UiAlertRow(int id, AlertKind kind, AlertSeverity severity, AlertState state,
+            World.Identity.PersistentId source, string sourceName,
             int count, long firstMilliseconds, long lastMilliseconds, long recoveredMilliseconds, bool read)
         {
             Id = id;
             Kind = kind;
             Severity = severity;
             State = state;
+            Source = source;
             SourceName = sourceName;
             Count = count;
             FirstMilliseconds = firstMilliseconds;
@@ -28,6 +30,9 @@ namespace AutoEra.UI
         public AlertKind Kind { get; }
         public AlertSeverity Severity { get; }
         public AlertState State { get; }
+
+        /// <summary>来源对象身份（机器／设施）；区域口径（多储能合计）时为 Invalid。定位用它选中区域对象。</summary>
+        public World.Identity.PersistentId Source { get; }
 
         /// <summary>来源对象名；取不到名字时为 null（界面显示占位符，不编名字）。</summary>
         public string SourceName { get; }
@@ -188,6 +193,7 @@ namespace AutoEra.UI
             {
                 AlertEntry entry = _entries[i];
                 _rows.Add(new UiAlertRow(entry.Id, entry.Kind, entry.Severity, entry.State,
+                    entry.Source,
                     _resolveName != null ? _resolveName(entry.Source) : null,
                     entry.Count, entry.FirstMilliseconds, entry.LastMilliseconds, entry.RecoveredMilliseconds,
                     entry.Read));

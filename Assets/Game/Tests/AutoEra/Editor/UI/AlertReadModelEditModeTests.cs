@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using AutoEra.Alerts;
 using AutoEra.Application;
 using AutoEra.Machines;
@@ -111,6 +111,28 @@ namespace AutoEra.Tests.Editor
         }
 
         [Test]
+        public void AlertsCarryTheSourceIdentityForLocating()
+        {
+            MachineInstance machine = _world.Machines.Create(Definition());
+            var alerts = new AutoEraAlertService();
+            alerts.Raise(AlertKind.MachineDestroyed, machine.Id, 60000L);
+            alerts.Raise(AlertKind.StorageDepleted, PersistentId.Invalid, 60000L);
+
+            using (IAlertReadModel model = Model(alerts))
+            {
+                Assert.That(model.Snapshot.Alerts.Count, Is.EqualTo(2));
+
+                UiAlertRow machineAlert = FindByKind(model.Snapshot, AlertKind.MachineDestroyed);
+                UiAlertRow storageAlert = FindByKind(model.Snapshot, AlertKind.StorageDepleted);
+
+                Assert.That(machineAlert.Source, Is.EqualTo(machine.Id),
+                    "机器来源必须保留身份——定位要按它选中区域对象。");
+                Assert.That(storageAlert.Source.IsValid, Is.False,
+                    "多储能合计口径的来源是 Invalid（区域级），界面据此说明「无单一对象可定位」。");
+            }
+        }
+
+        [Test]
         public void SelectionPublishesDetailFieldsForTheChosenAlert()
         {
             var alerts = new AutoEraAlertService();
@@ -200,6 +222,16 @@ namespace AutoEra.Tests.Editor
         private static MachineDefinition Definition() =>
             new MachineDefinition(1001, "警报界面验证机", 1, 2, 1, 2, 30, true, true, 100d, 1.8d, 2.6d,
                 "Machines/WheeledCarrier", 0.2d, 2d);
+
+        private static UiAlertRow FindByKind(AlertDomainSnapshot snapshot, AlertKind kind)
+        {
+            for (int i = 0; i < snapshot.Alerts.Count; i++)
+            {
+                if (snapshot.Alerts[i].Kind == kind) return snapshot.Alerts[i];
+            }
+
+            return default;
+        }
 
         private static bool ContainsField(IReadOnlyList<UiDetailField> fields, string label)
         {

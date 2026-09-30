@@ -19,6 +19,14 @@ namespace AutoEra.UI
         public Button BackButton => _backButton;
         [SerializeField] private Button _closeButton;
         public Button CloseButton => _closeButton;
+        [SerializeField] private Button _alertsFilterButton;
+        public Button AlertsFilterButton => _alertsFilterButton;
+        [SerializeField] private Button _alertsReadButton;
+        public Button AlertsReadButton => _alertsReadButton;
+        [SerializeField] private Button _alertsLocateButton;
+        public Button AlertsLocateButton => _alertsLocateButton;
+        [SerializeField] private Button _alertsDetailsButton;
+        public Button AlertsDetailsButton => _alertsDetailsButton;
         [SerializeField] private RectTransform _alertsListContent;
         public RectTransform AlertsListContent => _alertsListContent;
         [SerializeField] private TMP_Text _alertsListBody;
