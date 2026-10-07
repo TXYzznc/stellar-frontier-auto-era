@@ -18,6 +18,8 @@ namespace AutoEra.Tests.Editor
     {
         private const string HubPrefabPath = "Assets/Game/Prefabs/UI/Operations/BaseCommandHubForm.prefab";
         private const string HudPrefabPath = "Assets/Game/Prefabs/UI/Hud/FieldHudForm.prefab";
+        private const string EnergyPrefabPath = "Assets/Game/Prefabs/UI/Operations/BaseCommandEnergyForm.prefab";
+        private const string AlgorithmParametersPrefabPath = "Assets/Game/Prefabs/UI/Operations/AlgorithmPublicParametersForm.prefab";
 
         private static readonly string[] NodePrefixes =
         {
@@ -174,7 +176,7 @@ namespace AutoEra.Tests.Editor
         }
 
         [TestCase(HubPrefabPath)]
-        [TestCase(HudPrefabPath)]
+        [TestCase("Assets/Game/Prefabs/UI/Operations/FieldHudDetailForm.prefab")]
         public void EveryListHasScrollStructureAndOneInactiveTemplate(string prefabPath)
         {
             GameObject root = PrefabUtility.LoadPrefabContents(prefabPath);
@@ -183,7 +185,7 @@ namespace AutoEra.Tests.Editor
                 var lists = root.GetComponentsInChildren<Transform>(true)
                     .Where(t => t.name.StartsWith("List_") || t.name.StartsWith("Panel_") && t.name.EndsWith("List"))
                     .ToArray();
-                Assert.IsNotEmpty(lists, "未找到任何列表节点");
+                Assert.IsNotEmpty(lists, "业务列表页必须含列表节点；HUD 壳由独立的根节点测试覆盖。");
 
                 foreach (Transform list in lists)
                 {
@@ -203,6 +205,25 @@ namespace AutoEra.Tests.Editor
                     Assert.AreEqual(1, templates.Length, $"列表模板必须唯一: {list.name}");
                     Assert.IsFalse(templates[0].gameObject.activeSelf, $"Item 模板必须默认停用: {templates[0].name}");
                 }
+            }
+            finally
+            {
+                PrefabUtility.UnloadPrefabContents(root);
+            }
+        }
+
+        [TestCase(EnergyPrefabPath)]
+        [TestCase(AlgorithmParametersPrefabPath)]
+        public void ExtractedSubFormsAreStandalonePrefabs(string prefabPath)
+        {
+            GameObject root = PrefabUtility.LoadPrefabContents(prefabPath);
+            try
+            {
+                Assert.IsNotNull(root.GetComponent<RectTransform>(), prefabPath);
+                Assert.IsNull(root.GetComponent<Canvas>(), prefabPath);
+                Assert.IsNull(root.GetComponent<GraphicRaycaster>(), prefabPath);
+                Assert.IsNull(root.GetComponent<CanvasScaler>(), prefabPath);
+                Assert.IsFalse(PrefabUtility.IsPartOfPrefabInstance(root), prefabPath);
             }
             finally
             {

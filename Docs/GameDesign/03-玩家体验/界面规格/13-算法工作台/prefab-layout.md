@@ -55,16 +55,17 @@ Panel_PageAlgorithmEditor [Image]
                   Content_AlgorithmInputPorts [VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred]
                     Item_AlgorithmInputPortTemplate [LayoutElement + Image；默认inactive]
                       Btn_AlgorithmInputPort [Button + Image]
+                        Img_AlgorithmPortSocket [AlgorithmPortSocketGraphic；运行时从模板补齐，输入侧圆点]
                         Txt_AlgorithmInputPort [TextMeshProUGUI]
               List_AlgorithmOutputPorts [ScrollRect vertical=true]
                 Viewport_AlgorithmOutputPorts [RectMask2D]
                   Content_AlgorithmOutputPorts [VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred]
                     Item_AlgorithmOutputPortTemplate [LayoutElement + Image；默认inactive]
                       Btn_AlgorithmOutputPort [Button + Image]
+                        Img_AlgorithmPortSocket [AlgorithmPortSocketGraphic；运行时从模板补齐，输出侧圆点]
                         Txt_AlgorithmOutputPort [TextMeshProUGUI]
-            Grp_AlgorithmEdge [无Graphic]
-              Img_AlgorithmEdge [Image + 连线表现组件]
-              Btn_AlgorithmEdgeSelect [Button + Image]
+          AlgorithmEdgeItem [UIItemBase + transparent Image；runtime edge shell，不承载矩形命中]
+            AlgorithmGraphEdgeGraphic [MaskableGraphic；runtime curve child，曲线本身负责命中与选中]
   Panel_AlgorithmEditorInspector [Image]
     Txt_AlgorithmEditorInspectorHeading [TextMeshProUGUI]
     List_AlgorithmEditorInspector [ScrollRect vertical=true horizontal=false]
@@ -133,7 +134,7 @@ Panel_PageAlgorithmEditor [Image]
 | Txt_AlgorithmEditorDiagnoseLabel | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-16,-8); pos(0,0) | absolute | TextMeshProUGUI；切换诊断模式 |
 | Btn_AlgorithmEditorTemplate | min(0,1) max(0,1); pivot(0,1); sizeDelta(183,48)初始化; pos(0,0)初始化; LayoutElement preferred(183,48); 最终位置/尺寸由组驱动 | group | Button + Image；清除实例绑定后保存玩家模板，重名覆盖走强确认 |
 | Txt_AlgorithmEditorTemplateLabel | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-16,-8); pos(0,0) | absolute | TextMeshProUGUI；保存为模板 |
-| Panel_AlgorithmEditorNodes | min(0,1) max(0,1); pivot(0,1); sizeDelta(280,478); pos(0,-124) | absolute | Image；节点库 |
+| Panel_AlgorithmEditorNodes | min(0,1) max(0,1); pivot(0,1); sizeDelta(320,478); pos(0,-124) | absolute | Image；节点库 |
 | Txt_AlgorithmEditorNodesHeading | min(0,1) max(0,1); pivot(0,1); sizeDelta(256,32); pos(12,-8) | absolute | TextMeshProUGUI；节点库 |
 | List_AlgorithmEditorNodes | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-52); pos(0,-18) | absolute | ScrollRect vertical=true horizontal=false；正文／真实记录 |
 | Viewport_AlgorithmEditorNodes | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | RectMask2D；裁切 |
@@ -148,9 +149,9 @@ Panel_PageAlgorithmEditor [Image]
 | Grp_AlgorithmEditorNodeSearchTextViewport | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-8); pos(0,0) | absolute | RectMask2D；textViewport，无Graphic |
 | Txt_AlgorithmEditorNodeSearchValue | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | TextMeshProUGUI；— |
 | Txt_AlgorithmEditorNodeSearchPlaceholder | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | TextMeshProUGUI；搜索节点 |
-| Panel_AlgorithmEditorCanvas | min(0,1) max(0,1); pivot(0,1); sizeDelta(1112,478); pos(296,-124) | absolute | Image；节点画布 |
+| Panel_AlgorithmEditorCanvas | min(0,1) max(0,1); pivot(0,1); sizeDelta(1048,478); pos(336,-124) | absolute | Image；节点画布 |
 | Txt_AlgorithmEditorCanvasHeading | min(0,1) max(0,1); pivot(0,1); sizeDelta(1088,32); pos(12,-8) | absolute | TextMeshProUGUI；节点画布 |
-| Panel_AlgorithmEditorInspector | min(0,1) max(0,1); pivot(0,1); sizeDelta(304,478); pos(1424,-124) | absolute | Image；节点检查器 |
+| Panel_AlgorithmEditorInspector | min(0,1) max(0,1); pivot(0,1); sizeDelta(328,478); pos(1400,-124) | absolute | Image；节点检查器 |
 | Txt_AlgorithmEditorInspectorHeading | min(0,1) max(0,1); pivot(0,1); sizeDelta(280,32); pos(12,-8) | absolute | TextMeshProUGUI；节点检查器 |
 | List_AlgorithmEditorInspector | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-52); pos(0,-18) | absolute | ScrollRect vertical=true horizontal=false；正文／真实记录 |
 | Viewport_AlgorithmEditorInspector | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | RectMask2D；裁切 |
@@ -194,21 +195,20 @@ Panel_PageAlgorithmEditor [Image]
 | Grp_AlgorithmNode | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | 无Graphic；节点模式启用，连线模式隐藏 |
 | Btn_AlgorithmNodeSelect | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | Button + Image；选择节点；拖拽意图修改草稿图坐标 |
 | Txt_AlgorithmNodeName | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(-24,36); pos(0,-12) | absolute | TextMeshProUGUI；节点名：— |
-| List_AlgorithmInputPorts | min(0,0.5) max(0,0.5); pivot(0,0.5); sizeDelta(112,104); pos(0,-16) | absolute | ScrollRect vertical=true；端口列表 |
+| List_AlgorithmInputPorts | min(0,0.5) max(0,0.5); pivot(0,0.5); sizeDelta(136,104); pos(0,-16) | absolute | ScrollRect vertical=true；端口列表 |
 | Viewport_AlgorithmInputPorts | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | RectMask2D；端口裁切 |
 | Content_AlgorithmInputPorts | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred；端口按模型稳定排序 |
-| Item_AlgorithmInputPortTemplate | min(0,1) max(0,1); pivot(0,1); sizeDelta(112,28); pos(0,0)初始化 | group | LayoutElement + Image；默认inactive；LayoutElement preferred=(112,28)；端口真实数据 |
+| Item_AlgorithmInputPortTemplate | min(0,1) max(0,1); pivot(0,1); sizeDelta(136,28); pos(0,0)初始化 | group | LayoutElement + Image；默认inactive；LayoutElement preferred=(136,28)；端口真实数据 |
 | Btn_AlgorithmInputPort | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | Button + Image；选择端口建立／断开连接；兼容性验证 |
-| Txt_AlgorithmInputPort | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | TextMeshProUGUI；端口名／类型：— |
-| List_AlgorithmOutputPorts | min(1,0.5) max(1,0.5); pivot(1,0.5); sizeDelta(112,104); pos(0,-16) | absolute | ScrollRect vertical=true；端口列表 |
+| Txt_AlgorithmInputPort | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | TextMeshProUGUI；端口名；类型与连接状态由彩色 socket 表达 |
+| Img_AlgorithmPortSocket | input anchor(0,0.5); output anchor(1,0.5); sizeDelta(20,20); offset(±8,0) | runtime child | AlgorithmPortSocketGraphic；由 AlgorithmNodeItem 从端口模板补齐；颜色按 Event／Boolean／Number／Enumeration／Object／Position 等类型变化，连接后增强内圈 |
+| List_AlgorithmOutputPorts | min(1,0.5) max(1,0.5); pivot(1,0.5); sizeDelta(136,104); pos(0,-16) | absolute | ScrollRect vertical=true；端口列表 |
 | Viewport_AlgorithmOutputPorts | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | RectMask2D；端口裁切 |
 | Content_AlgorithmOutputPorts | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred；端口按模型稳定排序 |
-| Item_AlgorithmOutputPortTemplate | min(0,1) max(0,1); pivot(0,1); sizeDelta(112,28); pos(0,0)初始化 | group | LayoutElement + Image；默认inactive；LayoutElement preferred=(112,28)；端口真实数据 |
+| Item_AlgorithmOutputPortTemplate | min(0,1) max(0,1); pivot(0,1); sizeDelta(136,28); pos(0,0)初始化 | group | LayoutElement + Image；默认inactive；LayoutElement preferred=(136,28)；端口真实数据 |
 | Btn_AlgorithmOutputPort | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | Button + Image；选择端口建立／断开连接；兼容性验证 |
-| Txt_AlgorithmOutputPort | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | TextMeshProUGUI；端口名／类型：— |
-| Grp_AlgorithmEdge | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | 无Graphic；连线模式启用，节点模式隐藏 |
-| Img_AlgorithmEdge | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | Image + 连线表现组件；由图模型计算端点和形状；诊断高亮；raycastTarget=false |
-| Btn_AlgorithmEdgeSelect | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | Button + Image；透明命中代理沿边包络，选中后可删除；诊断禁用写操作 |
+| Txt_AlgorithmOutputPort | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | TextMeshProUGUI；端口名；输出侧右对齐，类型与连接状态由彩色 socket 表达 |
+| AlgorithmGraphEdgeGraphic | runtime bounds + 64px padding; pivot(0.5,0.5) | runtime child | MaskableGraphic；贝塞尔曲线视觉与曲线距离命中；raycastTarget=true；不使用矩形选择代理 |
 | Txt_AlgorithmToolbarStatus | min(0,1) max(0,1); pivot(0,1); sizeDelta(1704,28); pos(12,-40) | absolute | TextMeshProUGUI；算法／机器／容量／草稿／运行版本：— |
 | Grp_AlgorithmDiagnosisActions | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-16,48); pos(0,0) | absolute | HorizontalLayoutGroup spacing=8；诊断启用时替代Grp_AlgorithmEditorActions，编辑时隐藏 |
 | Btn_AlgorithmDiagnosisPreviousStep | min(0,1) max(0,1); pivot(0,1); sizeDelta(200,48)初始化; pos(0,0)初始化 | group | Button + Image + LayoutElement preferredWidth=200 preferredHeight=48；上一步 |
@@ -368,3 +368,7 @@ Panel_PagePublicParameters [Image]
 | Grp_PublicParametersDisabledState | min(0,1) max(0,1); pivot(0,1); sizeDelta(1728,734); pos(0,-36) | absolute | 无Graphic；默认inactive；区域状态互斥，不覆盖底部返回 |
 | Panel_PublicParametersDisabledMessage | min(0.5,0.5) max(0.5,0.5); pivot(0.5,0.5); sizeDelta(520,120); pos(0,0) | absolute | Image；状态背景 |
 | Txt_PublicParametersDisabledMessage | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-24); pos(0,0) | absolute | TextMeshProUGUI；Disabled：— |
+
+## AlgorithmEditor 视觉补充
+
+`Panel_AlgorithmEditorCanvas` 的运行时视图由 `AlgorithmGraphBackdrop` 绘制低对比网格、中心轴和角标；`AlgorithmGraphInteractionHint` 只做说明，不参与射线。`AlgorithmEditorVisualStyle` 在 Form 初始化时统一设置面板颜色、区域强调线、阴影、按钮状态和进入过渡。动态节点 Item 默认 280×176，端口行 136×28；节点 Item 自己负责悬停、按压、选中状态与状态色带，Form 不重复创建这些表现对象。

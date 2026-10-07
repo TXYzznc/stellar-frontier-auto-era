@@ -193,14 +193,21 @@ namespace AutoEra.UI
     public readonly struct UiAlgorithmPortRow
     {
         public UiAlgorithmPortRow(string key, string typeLabel, bool connected)
+            : this(key, typeLabel, AlgorithmValueKind.Number, connected)
+        {
+        }
+
+        public UiAlgorithmPortRow(string key, string typeLabel, AlgorithmValueKind valueKind, bool connected)
         {
             Key = key ?? string.Empty;
             TypeLabel = typeLabel ?? string.Empty;
+            ValueKind = valueKind;
             Connected = connected;
         }
 
         public string Key { get; }
         public string TypeLabel { get; }
+        public AlgorithmValueKind ValueKind { get; }
         public bool Connected { get; }
         public string Label => Key + "：" + TypeLabel;
     }
@@ -1327,7 +1334,7 @@ namespace AutoEra.UI
                     }
                 }
 
-                rows[i] = new UiAlgorithmPortRow(ports[i].Key, FormatPortType(ports[i].Type), connected);
+                rows[i] = new UiAlgorithmPortRow(ports[i].Key, FormatPortType(ports[i].Type), ports[i].Type?.Kind ?? AlgorithmValueKind.Number, connected);
             }
 
             return rows;

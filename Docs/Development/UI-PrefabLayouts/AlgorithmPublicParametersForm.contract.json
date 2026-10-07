@@ -1,0 +1,1702 @@
+{
+ "schemaVersion": 3,
+ "form": "AlgorithmPublicParametersForm",
+ "namespace": "AutoEra.UI",
+ "prefabPath": "Assets/Game/Prefabs/UI/Operations/AlgorithmPublicParametersForm.prefab",
+ "scriptPath": "Assets/Game/Scripts/AutoEra/UI/AlgorithmPublicParametersForm.cs",
+ "referenceResolution": [
+  1652,
+  888
+ ],
+ "root": {
+  "name": "AlgorithmPublicParametersForm",
+  "active": true,
+  "anchorMin": [
+   0.0,
+   0.0
+  ],
+  "anchorMax": [
+   1.0,
+   1.0
+  ],
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "sizeDelta": [
+   0.0,
+   0.0
+  ],
+  "anchoredPosition": [
+   0.0,
+   0.0
+  ],
+  "children": [
+   {
+    "name": "Bg_InputBlocker(Clone)",
+    "active": true,
+    "anchorMin": [
+     0.0,
+     0.0
+    ],
+    "anchorMax": [
+     1.0,
+     1.0
+    ],
+    "pivot": [
+     0.5,
+     0.5
+    ],
+    "sizeDelta": [
+     0.0,
+     0.0
+    ],
+    "anchoredPosition": [
+     0.0,
+     0.0
+    ],
+    "children": []
+   },
+   {
+    "name": "Panel_Frame",
+    "active": true,
+    "anchorMin": [
+     0.5,
+     0.5
+    ],
+    "anchorMax": [
+     0.5,
+     0.5
+    ],
+    "pivot": [
+     0.5,
+     0.5
+    ],
+    "sizeDelta": [
+     1840.0,
+     1000.0
+    ],
+    "anchoredPosition": [
+     0.0,
+     0.0
+    ],
+    "children": [
+     {
+      "name": "Deco_Frame",
+      "active": true,
+      "anchorMin": [
+       0.0,
+       0.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       0.5,
+       0.5
+      ],
+      "sizeDelta": [
+       0.0,
+       0.0
+      ],
+      "anchoredPosition": [
+       0.0,
+       0.0
+      ],
+      "children": []
+     },
+     {
+      "name": "Txt_FormTitle",
+      "active": true,
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       0.0,
+       1.0
+      ],
+      "pivot": [
+       0.0,
+       1.0
+      ],
+      "sizeDelta": [
+       1540.0,
+       40.0
+      ],
+      "anchoredPosition": [
+       56.0,
+       -20.0
+      ],
+      "children": []
+     },
+     {
+      "name": "Grp_PageHost",
+      "active": true,
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       0.0,
+       1.0
+      ],
+      "pivot": [
+       0.0,
+       1.0
+      ],
+      "sizeDelta": [
+       1728.0,
+       830.0
+      ],
+      "anchoredPosition": [
+       56.0,
+       -140.0
+      ],
+      "children": [
+       {
+        "name": "Panel_PagePublicParameters",
+        "active": false,
+        "anchorMin": [
+         0.0,
+         0.0
+        ],
+        "anchorMax": [
+         1.0,
+         1.0
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         0.0,
+         0.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_PublicParametersTitle",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1712.0,
+           32.0
+          ],
+          "anchoredPosition": [
+           8.0,
+           0.0
+          ],
+          "children": []
+         },
+         {
+          "name": "Grp_PublicParametersActions",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           0.0
+          ],
+          "pivot": [
+           0.5,
+           0.0
+          ],
+          "sizeDelta": [
+           -16.0,
+           48.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": [
+           {
+            "name": "Btn_PublicParametersChange",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             183.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_PublicParametersChangeLabel",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": []
+             }
+            ]
+           },
+           {
+            "name": "Btn_PublicParametersDefault",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             183.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_PublicParametersDefaultLabel",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": []
+             }
+            ]
+           },
+           {
+            "name": "Btn_PublicParametersApply",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             183.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_PublicParametersApplyLabel",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": []
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Panel_PublicParametersParameters",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           656.0,
+           734.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Txt_PublicParametersParametersHeading",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             632.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             12.0,
+             -8.0
+            ],
+            "children": []
+           },
+           {
+            "name": "List_PublicParametersParameters",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -24.0,
+             -52.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             -18.0
+            ],
+            "children": [
+             {
+              "name": "Viewport_PublicParametersParameters",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Content_PublicParametersParameters",
+                "active": true,
+                "anchorMin": [
+                 0.0,
+                 1.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 1.0
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_PublicParametersParametersBody",
+                  "active": true,
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   632.0,
+                   120.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "children": []
+                 },
+                 {
+                  "name": "Item_PublicParametersParametersTemplate",
+                  "active": false,
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   632.0,
+                   104.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "children": [
+                   {
+                    "name": "Btn_PublicParametersParametersRow",
+                    "active": true,
+                    "anchorMin": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchorMax": [
+                     1.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.5,
+                     0.5
+                    ],
+                    "sizeDelta": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchoredPosition": [
+                     0.0,
+                     0.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Txt_PublicParametersParametersRowLabel",
+                      "active": true,
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ],
+                      "children": []
+                     },
+                     {
+                      "name": "Txt_PublicParametersParametersRowValue",
+                      "active": true,
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       48.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ],
+                      "children": []
+                     }
+                    ]
+                   }
+                  ]
+                 },
+                 {
+                  "name": "Panel_PublicParametersControls",
+                  "active": true,
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   632.0,
+                   160.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "children": [
+                   {
+                    "name": "Panel_PublicParametersNumberValue",
+                    "active": true,
+                    "anchorMin": [
+                     0.0,
+                     1.0
+                    ],
+                    "anchorMax": [
+                     0.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.0,
+                     1.0
+                    ],
+                    "sizeDelta": [
+                     600.0,
+                     48.0
+                    ],
+                    "anchoredPosition": [
+                     16.0,
+                     -8.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Grp_PublicParametersNumberValueTextViewport",
+                      "active": true,
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.5
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       -8.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       0.0
+                      ],
+                      "children": [
+                       {
+                        "name": "Txt_PublicParametersNumberValueValue",
+                        "active": true,
+                        "anchorMin": [
+                         0.0,
+                         0.0
+                        ],
+                        "anchorMax": [
+                         1.0,
+                         1.0
+                        ],
+                        "pivot": [
+                         0.5,
+                         0.5
+                        ],
+                        "sizeDelta": [
+                         0.0,
+                         0.0
+                        ],
+                        "anchoredPosition": [
+                         0.0,
+                         0.0
+                        ],
+                        "children": []
+                       },
+                       {
+                        "name": "Txt_PublicParametersNumberValuePlaceholder",
+                        "active": true,
+                        "anchorMin": [
+                         0.0,
+                         0.0
+                        ],
+                        "anchorMax": [
+                         1.0,
+                         1.0
+                        ],
+                        "pivot": [
+                         0.5,
+                         0.5
+                        ],
+                        "sizeDelta": [
+                         0.0,
+                         0.0
+                        ],
+                        "anchoredPosition": [
+                         0.0,
+                         0.0
+                        ],
+                        "children": []
+                       }
+                      ]
+                     }
+                    ]
+                   },
+                   {
+                    "name": "Tgl_PublicParametersBooleanValue",
+                    "active": true,
+                    "anchorMin": [
+                     0.0,
+                     1.0
+                    ],
+                    "anchorMax": [
+                     0.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.0,
+                     1.0
+                    ],
+                    "sizeDelta": [
+                     600.0,
+                     48.0
+                    ],
+                    "anchoredPosition": [
+                     16.0,
+                     -80.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Img_PublicParametersBooleanValueBox",
+                      "active": true,
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       0.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.0,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       32.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ],
+                      "children": [
+                       {
+                        "name": "Icon_PublicParametersBooleanValueCheck",
+                        "active": true,
+                        "anchorMin": [
+                         0.0,
+                         0.0
+                        ],
+                        "anchorMax": [
+                         1.0,
+                         1.0
+                        ],
+                        "pivot": [
+                         0.5,
+                         0.5
+                        ],
+                        "sizeDelta": [
+                         0.0,
+                         0.0
+                        ],
+                        "anchoredPosition": [
+                         0.0,
+                         0.0
+                        ],
+                        "children": []
+                       }
+                      ]
+                     },
+                     {
+                      "name": "Txt_PublicParametersBooleanValueLabel",
+                      "active": true,
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.5
+                      ],
+                      "sizeDelta": [
+                       -48.0,
+                       0.0
+                      ],
+                      "anchoredPosition": [
+                       24.0,
+                       0.0
+                      ],
+                      "children": []
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Panel_PublicParametersImpact",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1056.0,
+           734.0
+          ],
+          "anchoredPosition": [
+           672.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Txt_PublicParametersImpactHeading",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             1032.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             12.0,
+             -8.0
+            ],
+            "children": []
+           },
+           {
+            "name": "List_PublicParametersImpact",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -24.0,
+             -52.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             -18.0
+            ],
+            "children": [
+             {
+              "name": "Viewport_PublicParametersImpact",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Content_PublicParametersImpact",
+                "active": true,
+                "anchorMin": [
+                 0.0,
+                 1.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 1.0
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_PublicParametersImpactBody",
+                  "active": true,
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   1032.0,
+                   120.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "children": []
+                 },
+                 {
+                  "name": "Item_PublicParametersImpactTemplate",
+                  "active": false,
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   1032.0,
+                   104.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "children": [
+                   {
+                    "name": "Btn_PublicParametersImpactRow",
+                    "active": true,
+                    "anchorMin": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchorMax": [
+                     1.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.5,
+                     0.5
+                    ],
+                    "sizeDelta": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchoredPosition": [
+                     0.0,
+                     0.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Txt_PublicParametersImpactRowLabel",
+                      "active": true,
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ],
+                      "children": []
+                     },
+                     {
+                      "name": "Txt_PublicParametersImpactRowValue",
+                      "active": true,
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       48.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ],
+                      "children": []
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_PublicParametersLoadingState",
+          "active": false,
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1728.0,
+           734.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Panel_PublicParametersLoadingMessage",
+            "active": true,
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_PublicParametersLoadingMessage",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": []
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_PublicParametersEmptyState",
+          "active": false,
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1728.0,
+           734.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Panel_PublicParametersEmptyMessage",
+            "active": true,
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_PublicParametersEmptyMessage",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": []
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_PublicParametersErrorState",
+          "active": false,
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1728.0,
+           734.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Panel_PublicParametersErrorMessage",
+            "active": true,
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_PublicParametersErrorMessage",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": []
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_PublicParametersSuccessState",
+          "active": false,
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1728.0,
+           734.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Panel_PublicParametersSuccessMessage",
+            "active": true,
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_PublicParametersSuccessMessage",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": []
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_PublicParametersDisabledState",
+          "active": false,
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1728.0,
+           734.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Panel_PublicParametersDisabledMessage",
+            "active": true,
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_PublicParametersDisabledMessage",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": []
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Btn_FormBack",
+      "active": true,
+      "anchorMin": [
+       1.0,
+       1.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       1.0,
+       1.0
+      ],
+      "sizeDelta": [
+       88.0,
+       48.0
+      ],
+      "anchoredPosition": [
+       -112.0,
+       -20.0
+      ],
+      "children": [
+       {
+        "name": "Txt_FormBackLabel",
+        "active": true,
+        "anchorMin": [
+         0.0,
+         0.0
+        ],
+        "anchorMax": [
+         1.0,
+         1.0
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         -8.0,
+         -8.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": []
+       }
+      ]
+     },
+     {
+      "name": "Btn_FormClose",
+      "active": true,
+      "anchorMin": [
+       1.0,
+       1.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       1.0,
+       1.0
+      ],
+      "sizeDelta": [
+       80.0,
+       48.0
+      ],
+      "anchoredPosition": [
+       -24.0,
+       -20.0
+      ],
+      "children": [
+       {
+        "name": "Txt_FormCloseLabel",
+        "active": true,
+        "anchorMin": [
+         0.0,
+         0.0
+        ],
+        "anchorMax": [
+         1.0,
+         1.0
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         -8.0,
+         -8.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": []
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "bindings": [
+  {
+   "path": "_backButton",
+   "node": "AlgorithmPublicParametersForm/Panel_Frame/Btn_FormBack"
+  },
+  {
+   "path": "_closeButton",
+   "node": "AlgorithmPublicParametersForm/Panel_Frame/Btn_FormClose"
+  },
+  {
+   "path": "_parametersContent",
+   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersParameters/List_PublicParametersParameters/Viewport_PublicParametersParameters/Content_PublicParametersParameters"
+  },
+  {
+   "path": "_parametersBody",
+   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersParameters/List_PublicParametersParameters/Viewport_PublicParametersParameters/Content_PublicParametersParameters/Txt_PublicParametersParametersBody"
+  },
+  {
+   "path": "_parametersTemplate",
+   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersParameters/List_PublicParametersParameters/Viewport_PublicParametersParameters/Content_PublicParametersParameters/Item_PublicParametersParametersTemplate"
+  },
+  {
+   "path": "_impactContent",
+   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersImpact/List_PublicParametersImpact/Viewport_PublicParametersImpact/Content_PublicParametersImpact"
+  },
+  {
+   "path": "_impactBody",
+   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersImpact/List_PublicParametersImpact/Viewport_PublicParametersImpact/Content_PublicParametersImpact/Txt_PublicParametersImpactBody"
+  },
+  {
+   "path": "_impactTemplate",
+   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersImpact/List_PublicParametersImpact/Viewport_PublicParametersImpact/Content_PublicParametersImpact/Item_PublicParametersImpactTemplate"
+  },
+  {
+   "path": "_loadingState",
+   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersLoadingState"
+  },
+  {
+   "path": "_emptyState",
+   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersEmptyState"
+  },
+  {
+   "path": "_errorState",
+   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersErrorState"
+  },
+  {
+   "path": "_successState",
+   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersSuccessState"
+  },
+  {
+   "path": "_disabledState",
+   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersDisabledState"
+  },
+  {
+   "path": "_changeButton",
+   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersActions/Btn_PublicParametersChange"
+  },
+  {
+   "path": "_defaultButton",
+   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersActions/Btn_PublicParametersDefault"
+  },
+  {
+   "path": "_applyButton",
+   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersActions/Btn_PublicParametersApply"
+  },
+  {
+   "path": "_numberValue",
+   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersParameters/List_PublicParametersParameters/Viewport_PublicParametersParameters/Content_PublicParametersParameters/Panel_PublicParametersControls/Panel_PublicParametersNumberValue"
+  },
+  {
+   "path": "_booleanValue",
+   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersParameters/List_PublicParametersParameters/Viewport_PublicParametersParameters/Content_PublicParametersParameters/Panel_PublicParametersControls/Tgl_PublicParametersBooleanValue"
+  }
+ ],
+ "scalars": [],
+ "scriptFields": [],
+ "generatedFrom": "AlgorithmPublicParametersForm prefab split",
+ "formArrays": {},
+ "navigationPageIndex": 0
+}

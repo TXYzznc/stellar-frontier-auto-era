@@ -1,4 +1,4 @@
-﻿using AutoEra.UI;
+using AutoEra.UI;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
@@ -87,7 +87,10 @@ namespace AutoEra.Tests.Editor.UI
             Assert.That(node.GetComponent<AlgorithmNodeItem>(), Is.Not.Null);
             Assert.That(edge.GetComponent<AlgorithmEdgeItem>(), Is.Not.Null);
             Assert.That(node.transform.Find("Grp_AlgorithmNode/Btn_AlgorithmNodeSelect"), Is.Not.Null);
-            Assert.That(edge.transform.Find("Grp_AlgorithmEdge/Btn_AlgorithmEdgeSelect"), Is.Not.Null);
+            Assert.That(edge.transform.Find("Grp_AlgorithmEdge"), Is.Null,
+                "连线 Item 不应再包含覆盖整条边的矩形容器；曲线 Graphic 运行时创建并负责自身命中。");
+            Assert.That(edge.transform.childCount, Is.EqualTo(0),
+                "连线预制体只保留透明 Item 壳，避免矩形占位物参与布局和命中。");
         }
     }
 }

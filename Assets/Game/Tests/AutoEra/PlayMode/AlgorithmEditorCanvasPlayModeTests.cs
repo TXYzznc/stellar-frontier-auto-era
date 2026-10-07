@@ -9,6 +9,7 @@ using AutoEra.World.Region;
 using NUnit.Framework;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
@@ -248,10 +249,13 @@ namespace AutoEra.Tests.PlayMode
                     Assert.That(edgesToSetVar, Is.EqualTo(1), "已占用输入必须保持只有一条边。");
 
                     // ── ⑧ 选边 → 删除按钮可用 → 删除选中 → 边消失。──
-                    Button edgeSelect = FindEdgeSelectButton(graphContent, constantA, setVar);
+                    AlgorithmEdgeItem edgeSelect = FindEdgeItem(graphContent, constantA, setVar);
                     Assert.That(edgeSelect, Is.Not.Null, "画布必须渲染边元素。");
                     Assert.That(deleteButton.interactable, Is.False, "选边之前删除按钮必须禁用。");
-                    edgeSelect.onClick.Invoke();
+                    edgeSelect.Graphic.OnPointerClick(new PointerEventData(EventSystem.current)
+                    {
+                        button = PointerEventData.InputButton.Left
+                    });
                     yield return null;
                     Assert.That(deleteButton.interactable, Is.True, "选中边之后删除按钮必须可用。");
                     deleteButton.onClick.Invoke();
@@ -438,7 +442,7 @@ namespace AutoEra.Tests.PlayMode
         }
 
         /// <summary>按两端节点的中点定位特定边的元素（边元素渲染在两端坐标中点）。</summary>
-        private static Button FindEdgeSelectButton(Transform graphContent, ulong fromId, ulong toId)
+        private static AlgorithmEdgeItem FindEdgeItem(Transform graphContent, ulong fromId, ulong toId)
         {
             Transform from = FindNodeElement(graphContent, "Constant #" + fromId);
             Transform to = FindNodeElement(graphContent, "SetVariable #" + toId);
@@ -455,11 +459,11 @@ namespace AutoEra.Tests.PlayMode
                     continue;
                 }
 
-                Transform edgeGroup = element.Find("Grp_AlgorithmEdge");
-                if (edgeGroup != null && edgeGroup.gameObject.activeSelf
+                AlgorithmEdgeItem edge = element.GetComponent<AlgorithmEdgeItem>();
+                if (edge != null && edge.FromNode == fromId && edge.ToNode == toId
                     && Vector2.Distance(element.GetComponent<RectTransform>().anchoredPosition, mid) < 1f)
                 {
-                    return edgeGroup.Find("Btn_AlgorithmEdgeSelect").GetComponent<Button>();
+                    return edge;
                 }
             }
 

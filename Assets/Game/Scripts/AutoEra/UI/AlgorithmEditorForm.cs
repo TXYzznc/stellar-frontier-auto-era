@@ -31,8 +31,6 @@ namespace AutoEra.UI
     {
         /// <summary>规格页序：0 算法编辑、1 公开参数。</summary>
         public const int PageEditor = 0;
-        public const int PagePublicParameters = 1;
-
         private static readonly int[] NavigationPageIndex = { PageEditor, -1 };
 
         private static readonly UiDetailField[] NoFields = new UiDetailField[0];
@@ -51,12 +49,14 @@ namespace AutoEra.UI
         private (ulong from, string output, ulong to, string input)? _selectedEdge;
         private readonly List<AlgorithmNodeItemObject> _nodeItems = new List<AlgorithmNodeItemObject>(32);
         private readonly List<AlgorithmEdgeItemObject> _edgeItems = new List<AlgorithmEdgeItemObject>(64);
-        private readonly List<AlgorithmGraphEdgeGraphic> _graphEdgeGraphics = new List<AlgorithmGraphEdgeGraphic>(64);
         private readonly Dictionary<ulong, GameObject> _nodeInstances = new Dictionary<ulong, GameObject>(32);
         private readonly Dictionary<(ulong node, string port, bool input), RectTransform> _portButtons =
             new Dictionary<(ulong node, string port, bool input), RectTransform>(64);
         private readonly Dictionary<ulong, Vector2> _graphPositions = new Dictionary<ulong, Vector2>(32);
         private System.Func<ulong, Vector2?> _graphPositionResolver;
+        private AlgorithmEditorVisualStyle _visualStyle;
+        private bool _graphViewInitialized;
+        private int _parametersFormId;
 
         protected override void OnInit(object userData)
         {
@@ -65,11 +65,15 @@ namespace AutoEra.UI
             AddPanelBorder("Panel_AlgorithmEditorCanvas");
             AddPanelBorder("Panel_AlgorithmEditorInspector");
             AddPanelBorder("Panel_AlgorithmEditorProblems");
+            _visualStyle = GetComponent<AlgorithmEditorVisualStyle>();
+            if (_visualStyle == null) _visualStyle = gameObject.AddComponent<AlgorithmEditorVisualStyle>();
+            _visualStyle.Apply(transform);
             _graphPositionResolver = ResolveGraphPosition;
             RectTransform graphViewport = _algorithmGraphContent != null
                 ? _algorithmGraphContent.parent as RectTransform : null;
             if (graphViewport != null)
             {
+                _visualStyle.EnsureGraphBackdrop(graphViewport);
                 // Viewport 原本只有 Mask，没有 Graphic，空白区域不会产生 PointerEvent。
                 // 透明 Image 只负责承接画布背景事件；节点自身的 Graphic 仍优先命中，
                 // 因而不会遮挡节点按钮、端口按钮或其它子对象交互。
@@ -114,12 +118,7 @@ namespace AutoEra.UI
             if (_algorithmEditorValidateButton != null) _algorithmEditorValidateButton.onClick.AddListener(RefreshValidation);
             if (_algorithmEditorDiagnoseButton != null) _algorithmEditorDiagnoseButton.onClick.AddListener(ToggleDiagnosisMode);
             Button parameterButton = FindChild(transform, "Btn_AlgorithmEditorEdit")?.GetComponent<Button>();
-            if (parameterButton != null) parameterButton.onClick.AddListener(() => ShowEditorPage(PagePublicParameters));
-            if (_publicParametersApplyButton != null) _publicParametersApplyButton.onClick.AddListener(OnApplyClicked);
-            if (_publicParametersChangeButton != null) _publicParametersChangeButton.onClick.AddListener(SelectFirstParameter);
-            if (_publicParametersDefaultButton != null) _publicParametersDefaultButton.onClick.AddListener(ResetSelectedParameter);
-            if (_publicParametersNumberValue != null) _publicParametersNumberValue.onEndEdit.AddListener(OnNumberParameterEdited);
-            if (_publicParametersBooleanValue != null) _publicParametersBooleanValue.onValueChanged.AddListener(OnBooleanParameterEdited);
+            if (parameterButton != null) parameterButton.onClick.AddListener(OpenPublicParameters);
             if (_algorithmDiagnosisLocateButton != null) _algorithmDiagnosisLocateButton.onClick.AddListener(OpenDiagnosisTarget);
             if (_algorithmDiagnosisReturnEditButton != null) _algorithmDiagnosisReturnEditButton.onClick.AddListener(() => SetActionGroups(false));
             if (_algorithmDiagnosisNextStepButton != null) _algorithmDiagnosisNextStepButton.onClick.AddListener(SelectNextDiagnosticRun);
@@ -140,8 +139,10 @@ namespace AutoEra.UI
 
         protected override void OnAutoEraOpen()
         {
-            int initialPage = TryGetRequest(out AutoEraUiPageRequest pageRequest) ? pageRequest.Page : PageEditor;
-            ShowPage(_pageRoots, initialPage);
+            _graphViewInitialized = false;
+            ShowPage(_pageRoots, PageEditor);
+            if (_pageRoots != null && _pageRoots.Length > PageEditor && _pageRoots[PageEditor] != null)
+                _visualStyle?.PlayEntrance(_pageRoots[PageEditor]);
             ApplyDefaultFocus(
                 _backButton != null ? _backButton.gameObject : null,
                 _navButtons != null && _navButtons.Length > 0 && _navButtons[0] != null ? _navButtons[0].gameObject : null);
@@ -153,10 +154,18 @@ namespace AutoEra.UI
             Render(_algorithms.Snapshot);
         }
 
-        protected override void OnAutoEraClose(bool isShutdown) => ReleaseAlgorithms();
+        protected override void OnAutoEraClose(bool isShutdown)
+        {
+            CloseAllSubUIForms();
+            _parametersFormId = 0;
+            ReleaseAlgorithms();
+        }
 
         protected override void OnAutoEraRecycle()
         {
+            _graphViewInitialized = false;
+            CloseAllSubUIForms();
+            _parametersFormId = 0;
             ReleaseAlgorithms();
             base.OnAutoEraRecycle();
         }
@@ -228,6 +237,16 @@ namespace AutoEra.UI
             AutoEraUiNavigator.Open(this, UIViews.AlgorithmBindingForm);
         }
 
+        private void OpenPublicParameters()
+        {
+            if (_algorithms == null || _diagnosisMode) return;
+            if (_parametersFormId > 0 && (GF.UI.IsLoadingUIForm(_parametersFormId) || GF.UI.HasUIForm(_parametersFormId))) return;
+            UIParams parameters = UIParams.Create();
+            SessionOrNull?.WriteTo(parameters);
+            parameters.Set(AutoEraUiParamKeys.Request, new AlgorithmPublicParametersForm.Request(_algorithms));
+            _parametersFormId = OpenSubUIForm(UIViews.AlgorithmPublicParametersForm, 0, parameters);
+        }
+
         private void OpenTemplateLibrary()
         {
             Debug.Log("[AutoEra][AlgorithmEditor] 打开模板库：从当前机器上下文选择并实例化算法模板。");
@@ -276,16 +295,6 @@ namespace AutoEra.UI
             SetActionGroups(!_diagnosisMode);
         }
 
-        private void SelectFirstParameter()
-        {
-            if (_algorithms == null || !_algorithms.Snapshot.SelectedInstance.HasValue)
-            {
-                return;
-            }
-
-            SetText(_publicParametersImpactBody, "参数编辑入口已选中；修改值后仍需通过统一应用验证。");
-        }
-
         private void SelectNextDiagnosticRun()
         {
             if (_algorithms != null && _algorithms.SelectNextRun())
@@ -300,38 +309,6 @@ namespace AutoEra.UI
                 SetText(_algorithmEditorProblemsBody, "已切换到上一条运行记录。执行节点状态已同步。");
             else
                 SetText(_algorithmEditorProblemsBody, "已经是最早运行记录，或当前没有运行历史。");
-        }
-
-        private void ResetSelectedParameter()
-        {
-            if (_algorithms == null || !_algorithms.Snapshot.SelectedInstance.HasValue || !_algorithms.Snapshot.SelectedNode.HasValue)
-            {
-                SetText(_publicParametersImpactBody, "请先选择一个公开参数。");
-                return;
-            }
-
-            bool reset = _algorithms.ResetNodeDefault(_algorithms.Snapshot.SelectedInstance.Value.Id,
-                _algorithms.Snapshot.SelectedNode.Value.Id);
-            SetText(_publicParametersImpactBody, reset ? "已恢复到保存版本的默认值，应用前仍可继续修改。" : "该参数没有可恢复的保存默认值。");
-        }
-
-        private void OnNumberParameterEdited(string text)
-        {
-            if (_algorithms == null || !_algorithms.Snapshot.SelectedInstance.HasValue || !_algorithms.Snapshot.SelectedNode.HasValue)
-                return;
-            if (double.TryParse(text, out double number))
-            {
-                _algorithms.SetNodeDefault(_algorithms.Snapshot.SelectedInstance.Value.Id,
-                    _algorithms.Snapshot.SelectedNode.Value.Id, AlgorithmValue.Numeric(number));
-            }
-        }
-
-        private void OnBooleanParameterEdited(bool value)
-        {
-            if (_algorithms == null || !_algorithms.Snapshot.SelectedInstance.HasValue || !_algorithms.Snapshot.SelectedNode.HasValue)
-                return;
-            _algorithms.SetNodeDefault(_algorithms.Snapshot.SelectedInstance.Value.Id,
-                _algorithms.Snapshot.SelectedNode.Value.Id, AlgorithmValue.Bool(value));
         }
 
         private void OnAlgorithmSectionChanged(AlgorithmDomainSection section) => Render(_algorithms.Snapshot);
@@ -676,16 +653,9 @@ namespace AutoEra.UI
                     _algorithmEditorSuccessState, _algorithmEditorDisabledState,
                     _algorithmEditorNodesBody, _algorithmEditorInspectorBody, _algorithmEditorProblemsBody);
 
-                ShowPageUnavailable(reason,
-                    _publicParametersLoadingState, _publicParametersEmptyState, _publicParametersErrorState,
-                    _publicParametersSuccessState, _publicParametersDisabledState,
-                    _publicParametersParametersBody, _publicParametersImpactBody);
-
                 RenderDetailRows(_algorithmEditorNodesTemplate, _algorithmEditorNodesContent, NoFields);
                 RenderDetailRows(_algorithmEditorInspectorTemplate, _algorithmEditorInspectorContent, NoFields);
                 RenderDetailRows(_algorithmEditorProblemsTemplate, _algorithmEditorProblemsContent, NoFields);
-                RenderDetailRows(_publicParametersParametersTemplate, _publicParametersParametersContent, NoFields);
-                RenderDetailRows(_publicParametersImpactTemplate, _publicParametersImpactContent, NoFields);
                 RefreshActionAvailability(snapshot);
                 return;
             }
@@ -720,21 +690,6 @@ namespace AutoEra.UI
                 : hasInstances
                     ? "请选择一个实例查看校验问题。"
                     : AlgorithmReadModels.NoInstanceReason);
-
-            // 公开参数页与编辑页同源：参数是实例草稿的一部分。
-            SetState(_publicParametersLoadingState, false);
-            SetState(_publicParametersEmptyState, !hasInstances);
-            SetState(_publicParametersErrorState, false);
-            SetState(_publicParametersSuccessState, false);
-            SetState(_publicParametersDisabledState, false);
-            RenderParameterRows(snapshot);
-            RenderDetailRows(_publicParametersImpactTemplate, _publicParametersImpactContent, NoFields);
-            SetText(_publicParametersParametersBody, hasInstances
-                ? "选择公开参数行，修改数值或布尔值，再点击应用草稿。"
-                : AlgorithmReadModels.NoInstanceReason);
-            SetText(_publicParametersImpactBody, hasInstances
-                ? "修改只影响草稿；应用时会进行统一校验。"
-                : AlgorithmReadModels.NoInstanceReason);
 
             // 应用按钮随选中与域状态启用/禁用（DisableDomainActions 已把它关掉，这里按真实状态重开）。
             SetApplyButtonInteractable(snapshot);
@@ -774,69 +729,9 @@ namespace AutoEra.UI
             if (_algorithmEditorDiagnoseButton != null) _algorithmEditorDiagnoseButton.interactable = hasInstance;
             Button parameterButton = FindChild(transform, "Btn_AlgorithmEditorEdit")?.GetComponent<Button>();
             if (parameterButton != null) parameterButton.interactable = hasInstance && !_diagnosisMode;
-            if (_publicParametersChangeButton != null) _publicParametersChangeButton.interactable = hasInstance && !_diagnosisMode;
-            if (_publicParametersDefaultButton != null) _publicParametersDefaultButton.interactable = hasInstance && !_diagnosisMode;
-            if (_publicParametersApplyButton != null) _publicParametersApplyButton.interactable = hasInstance && !_diagnosisMode;
             if (_algorithmDiagnosisNextStepButton != null) _algorithmDiagnosisNextStepButton.interactable = hasInstance;
             if (_algorithmDiagnosisPreviousStepButton != null) _algorithmDiagnosisPreviousStepButton.interactable = hasInstance;
             if (_algorithmDiagnosisLocateButton != null) _algorithmDiagnosisLocateButton.interactable = hasInstance;
-        }
-
-        private void RenderParameterRows(AlgorithmDomainSnapshot snapshot)
-        {
-            if (_publicParametersParametersTemplate == null || _publicParametersParametersContent == null || snapshot.GraphNodes == null)
-            {
-                return;
-            }
-
-            var parameters = new List<UiAlgorithmNodeRow>();
-            for (int i = 0; i < snapshot.GraphNodes.Count; i++)
-            {
-                UiAlgorithmNodeRow row = snapshot.GraphNodes[i];
-                if (row.Label.StartsWith("Parameter ", System.StringComparison.OrdinalIgnoreCase)
-                    || row.Label.StartsWith("参数 ", System.StringComparison.OrdinalIgnoreCase))
-                {
-                    parameters.Add(row);
-                }
-            }
-
-            RenderListRows(_publicParametersParametersTemplate, _publicParametersParametersContent, parameters.Count,
-                (index, item) => item.Bind(index, parameters[index].Label,
-                    FormatParameterValue(parameters[index].Default), SelectParameterRow));
-            SetText(_publicParametersParametersBody, parameters.Count == 0 ? "当前算法没有公开参数。" : "选择参数后可修改草稿值。");
-
-            UiAlgorithmNodeRow? selected = snapshot.SelectedNode;
-            if (selected.HasValue && selected.Value.Default != null)
-            {
-                AlgorithmValue value = selected.Value.Default;
-                if (value.Type != null && value.Type.Kind == AlgorithmValueKind.Boolean)
-                {
-                    if (_publicParametersBooleanValue != null) _publicParametersBooleanValue.SetIsOnWithoutNotify(value.Boolean);
-                }
-                else if (_publicParametersNumberValue != null && value.Type != null && value.Type.Kind == AlgorithmValueKind.Number)
-                {
-                    _publicParametersNumberValue.SetTextWithoutNotify(value.Number.ToString("0.##"));
-                }
-            }
-        }
-
-        private void SelectParameterRow(int index)
-        {
-            if (_algorithms == null || !_algorithms.Snapshot.SelectedInstance.HasValue || _algorithms.Snapshot.GraphNodes == null) return;
-            int seen = 0;
-            for (int i = 0; i < _algorithms.Snapshot.GraphNodes.Count; i++)
-            {
-                UiAlgorithmNodeRow row = _algorithms.Snapshot.GraphNodes[i];
-                if (!(row.Label.StartsWith("Parameter ", System.StringComparison.OrdinalIgnoreCase)
-                    || row.Label.StartsWith("参数 ", System.StringComparison.OrdinalIgnoreCase))) continue;
-                if (seen++ == index) { _algorithms.SelectNode(row.Id); return; }
-            }
-        }
-
-        private static string FormatParameterValue(AlgorithmValue value)
-        {
-            if (value == null || value.Type == null) return "—";
-            return value.Type.Kind == AlgorithmValueKind.Boolean ? (value.Boolean ? "真" : "假") : value.Number.ToString("0.##");
         }
 
         /// <summary>
@@ -848,12 +743,6 @@ namespace AutoEra.UI
             {
                 return;
             }
-
-            RectTransform viewport = _algorithmGraphContent.parent as RectTransform;
-            Debug.Log("[AutoEra][AlgorithmEditor] 开始渲染画布：节点=" + snapshot.GraphNodeCount
-                + "，连线=" + snapshot.GraphEdgeCount
-                + "，Content尺寸=" + _algorithmGraphContent.rect.size
-                + "，Viewport尺寸=" + (viewport != null ? viewport.rect.size.ToString() : "<null>"));
 
             RecycleGraphItems();
 
@@ -895,20 +784,20 @@ namespace AutoEra.UI
                 }
                 RenderNodePorts(instance, node);
 
-                if (i == 0)
-                {
-                    Transform nodeGroup = instance.transform.Find("Grp_AlgorithmNode");
-                    Transform nameText = instance.transform.Find("Grp_AlgorithmNode/Btn_AlgorithmNodeSelect/Txt_AlgorithmNodeName");
-                    Debug.Log("[AutoEra][AlgorithmEditor] 首个节点实例：active=" + instance.activeInHierarchy
-                        + "，anchored=" + (rect != null ? rect.anchoredPosition.ToString() : "<null>")
-                        + "，size=" + (rect != null ? rect.rect.size.ToString() : "<null>")
-                        + "，节点组=" + (nodeGroup != null && nodeGroup.gameObject.activeInHierarchy)
-                        + "，名称=" + (nameText != null ? nameText.GetComponent<TMPro.TMP_Text>()?.text : "<null>"));
-                }
             }
+
+            // 端口布局当帧完成后再采样端点，防止首帧和拖拽使用不同的坐标。
+            foreach (GameObject nodeObject in _nodeInstances.Values)
+                LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)nodeObject.transform);
 
             if (snapshot.GraphEdges == null)
             {
+                return;
+            }
+
+            if (_algorithmEdgeItemPrefab == null)
+            {
+                SetText(_algorithmEditorProblemsBody, "连线模板未配置，无法显示图结构。");
                 return;
             }
 
@@ -920,58 +809,59 @@ namespace AutoEra.UI
                     continue;
                 }
 
-                Vector2 edgeCenter = (from + to) * 0.5f;
-                GameObject edgeObject = new GameObject("AlgorithmEdge_" + edge.From + "_" + edge.To,
-                    typeof(RectTransform), typeof(CanvasRenderer), typeof(AlgorithmGraphEdgeGraphic));
-                edgeObject.transform.SetParent(_algorithmGraphContent, false);
-                RectTransform edgeRect = edgeObject.GetComponent<RectTransform>();
-                ConfigureGraphElementRect(edgeRect);
-                edgeRect.anchoredPosition = edgeCenter;
-                AlgorithmGraphEdgeGraphic graphic = edgeObject.GetComponent<AlgorithmGraphEdgeGraphic>();
-                _graphEdgeGraphics.Add(graphic);
-                graphic.raycastTarget = false;
-                graphic.Bind(edge.From, edge.Output, edge.To, edge.Input);
                 bool selected = _selectedEdge.HasValue && _selectedEdge.Value.from == edge.From
                     && _selectedEdge.Value.output == edge.Output && _selectedEdge.Value.to == edge.To
                     && _selectedEdge.Value.input == edge.Input;
-                graphic.SetPoints(ResolvePortPosition(edge.From, edge.Output, false) - edgeCenter,
-                    ResolvePortPosition(edge.To, edge.Input, true) - edgeCenter, selected);
-                GameObject edgeGroup = new GameObject("Grp_AlgorithmEdge", typeof(RectTransform));
-                edgeGroup.transform.SetParent(edgeObject.transform, false);
-                GameObject selectObject = new GameObject("Btn_AlgorithmEdgeSelect", typeof(RectTransform),
-                    typeof(CanvasRenderer), typeof(Image), typeof(Button));
-                selectObject.transform.SetParent(edgeGroup.transform, false);
-                RectTransform selectRect = selectObject.GetComponent<RectTransform>();
-                selectRect.anchorMin = new Vector2(0.5f, 0.5f);
-                selectRect.anchorMax = new Vector2(0.5f, 0.5f);
-                selectRect.sizeDelta = new Vector2(32f, 32f);
-                selectRect.anchoredPosition = Vector2.zero;
-                Image selectImage = selectObject.GetComponent<Image>();
-                selectImage.color = new Color(1f, 1f, 1f, 0f);
-                selectImage.raycastTarget = false;
-                Button selectButton = selectObject.GetComponent<Button>();
-                selectButton.targetGraphic = selectImage;
-                ulong fromId = edge.From, toId = edge.To;
-                string outputPort = edge.Output, inputPort = edge.Input;
-                selectButton.onClick.AddListener(() => OnEdgeSelected(fromId, outputPort, toId, inputPort));
+                AlgorithmEdgeItemObject item = SpawnItem<AlgorithmEdgeItemObject>(_algorithmEdgeItemPrefab,
+                    _algorithmGraphContent);
+                _edgeItems.Add(item);
+                GameObject edgeObject = item.gameObject;
+                RectTransform edgeRect = edgeObject.GetComponent<RectTransform>();
+                if (edgeRect != null) ConfigureGraphElementRect(edgeRect);
+                item.Logic?.Bind(edge.From, edge.Output, edge.To, edge.Input, selected,
+                    OnEdgeSelected);
+                AlgorithmGraphEdgeGraphic graphic = item.Logic?.Graphic;
+                if (graphic == null) continue;
+                item.Logic.SetGeometry(
+                    ResolvePortPosition(edge.From, edge.Output, false),
+                    ResolvePortPosition(edge.To, edge.Input, true),
+                    (from + to) * 0.5f);
                 edgeObject.transform.SetAsFirstSibling();
-                Debug.Log("[AutoEra][AlgorithmEditor] 程序化边=" + edgeObject.name
-                    + "，位置=" + edgeRect.anchoredPosition
-                    + "，中点=" + edgeCenter
-                    + "，组=" + (edgeObject.transform.Find("Grp_AlgorithmEdge") != null)
-                    + "，按钮=" + (edgeObject.transform.Find("Grp_AlgorithmEdge/Btn_AlgorithmEdgeSelect") != null));
             }
 
-            Debug.Log("[AutoEra][AlgorithmEditor] 画布实例汇总：子节点=" + _algorithmGraphContent.childCount);
-            for (int i = 0; i < _algorithmGraphContent.childCount; i++)
+            if (!_graphViewInitialized && _graphPositions.Count > 0)
             {
-                Transform child = _algorithmGraphContent.GetChild(i);
-                Transform nodeGroup = child.Find("Grp_AlgorithmNode");
-                TMP_Text nodeName = child.Find("Grp_AlgorithmNode/Btn_AlgorithmNodeSelect/Txt_AlgorithmNodeName")?.GetComponent<TMP_Text>();
-                Debug.Log("[AutoEra][AlgorithmEditor] 画布子节点[" + i + "]=" + child.name + "，active=" + child.gameObject.activeInHierarchy
-                    + "，nodeGroup=" + (nodeGroup != null && nodeGroup.gameObject.activeSelf)
-                    + "，name=" + (nodeName != null ? nodeName.text : "<null>"));
+                FitInitialGraphView();
+                _graphViewInitialized = true;
             }
+
+        }
+
+        /// <summary>
+        /// 首次进入工作台时把整张图放进视口，避免玩家看到半张节点或立即需要拖动画布。
+        /// 后续拖拽、缩放和定位都保留玩家自己的视图状态。
+        /// </summary>
+        private void FitInitialGraphView()
+        {
+            if (_algorithmGraphContent == null || _graphPositions.Count == 0) return;
+            RectTransform viewport = _algorithmGraphContent.parent as RectTransform;
+            if (viewport == null) return;
+
+            Vector2 min = new Vector2(float.MaxValue, float.MaxValue);
+            Vector2 max = new Vector2(float.MinValue, float.MinValue);
+            foreach (Vector2 position in _graphPositions.Values)
+            {
+                min = Vector2.Min(min, position - new Vector2(140f, 88f));
+                max = Vector2.Max(max, position + new Vector2(140f, 88f));
+            }
+
+            Vector2 bounds = max - min;
+            float width = Mathf.Max(1f, viewport.rect.width - 56f);
+            float height = Mathf.Max(1f, viewport.rect.height - 56f);
+            float fitScale = Mathf.Clamp(Mathf.Min(width / Mathf.Max(1f, bounds.x), height / Mathf.Max(1f, bounds.y)), 0.68f, 1f);
+            Vector2 center = (min + max) * 0.5f;
+            _algorithmGraphContent.localScale = new Vector3(fitScale, fitScale, 1f);
+            _algorithmGraphContent.anchoredPosition = -center * fitScale;
         }
 
         private void RecycleGraphItems()
@@ -986,14 +876,6 @@ namespace AutoEra.UI
             }
             _nodeItems.Clear();
             _edgeItems.Clear();
-            for (int i = 0; i < _graphEdgeGraphics.Count; i++)
-            {
-                if (_graphEdgeGraphics[i] != null)
-                {
-                    Destroy(_graphEdgeGraphics[i].gameObject);
-                }
-            }
-            _graphEdgeGraphics.Clear();
             _nodeInstances.Clear();
             _portButtons.Clear();
             _graphPositions.Clear();
@@ -1040,6 +922,7 @@ namespace AutoEra.UI
                 Transform child = contentNode.GetChild(i);
                 if (child != template)
                 {
+                    child.gameObject.SetActive(false);
                     Destroy(child.gameObject);
                 }
             }
@@ -1054,17 +937,20 @@ namespace AutoEra.UI
                 UiAlgorithmPortRow port = ports[i];
                 GameObject row = Instantiate(template.gameObject, contentNode);
                 row.SetActive(true);
+                bool pending = !isInput && _pendingConnection.HasValue
+                    && _pendingConnection.Value.nodeId == nodeId && _pendingConnection.Value.port == port.Key;
 
                 Transform textTransform = row.transform.Find(buttonName + "/" + textName);
                 TMPro.TMP_Text label = textTransform != null ? textTransform.GetComponent<TMPro.TMP_Text>() : null;
                 if (label != null)
                 {
-                    // 标记用 ASCII（*＝待连源、「已连」＝连接状态）：SIMHEI SDF 动态图集不含
-                    // ▶/● 等几何符号，缺字会被渲染成方块。中文短语短于符号排版也不溢出。
-                    bool pending = !isInput && _pendingConnection.HasValue
-                        && _pendingConnection.Value.nodeId == nodeId && _pendingConnection.Value.port == port.Key;
-                    label.SetText((pending ? "* " : string.Empty) + port.Label + (port.Connected ? " 已连" : string.Empty));
+                    // Shader Graph 风格的端口行只显示端口名；类型和连接状态由彩色 socket 表达，
+                    // 让窄节点仍然保持清晰，不把信息挤成省略号。
+                    label.SetText((pending ? "* " : string.Empty) + port.Key);
                 }
+
+                AlgorithmNodeItem nodeItem = instance.GetComponent<AlgorithmNodeItem>();
+                nodeItem?.ApplyPortVisual(row.transform, port.ValueKind, isInput, port.Connected, pending);
 
                 Transform buttonTransform = row.transform.Find(buttonName);
                 Button button = buttonTransform != null ? buttonTransform.GetComponent<Button>() : null;
@@ -1077,38 +963,6 @@ namespace AutoEra.UI
                         ? (UnityEngine.Events.UnityAction)(() => OnInputPortClicked(id, key))
                         : () => OnOutputPortClicked(id, key));
                 }
-            }
-        }
-
-        /// <summary>节点选择按钮：点选 → SelectNode 供检视器展示。</summary>
-        private void BindNodeSelectButton(GameObject instance, ulong nodeId, bool selected)
-        {
-            Transform buttonTransform = instance.transform.Find("Grp_AlgorithmNode/Btn_AlgorithmNodeSelect");
-            Button button = buttonTransform != null ? buttonTransform.GetComponent<Button>() : null;
-            if (button != null)
-            {
-                Image image = button.GetComponent<Image>();
-                if (image != null) image.color = selected
-                    ? new Color(0.95f, 0.67f, 0.24f, 1f)
-                    : new Color(0.32f, 0.50f, 0.64f, 1f);
-                button.onClick.AddListener(() => OnCanvasNodeClicked(nodeId));
-            }
-        }
-
-        /// <summary>边选择按钮：点选记录完整边身份（「删除选中」按它断开）。</summary>
-        private void BindEdgeSelectButton(GameObject instance, UiAlgorithmEdgeRow edge, bool selected)
-        {
-            Transform buttonTransform = instance.transform.Find("Grp_AlgorithmEdge/Btn_AlgorithmEdgeSelect");
-            Button button = buttonTransform != null ? buttonTransform.GetComponent<Button>() : null;
-            if (button != null)
-            {
-                Image image = button.GetComponent<Image>();
-                if (image != null) image.color = selected
-                    ? new Color(0.95f, 0.67f, 0.24f, 1f)
-                    : new Color(0.32f, 0.50f, 0.64f, 1f);
-                ulong from = edge.From, to = edge.To;
-                string output = edge.Output, input = edge.Input;
-                button.onClick.AddListener(() => OnEdgeSelected(from, output, to, input));
             }
         }
 
@@ -1136,28 +990,15 @@ namespace AutoEra.UI
         private void OnGraphNodeDragging(ulong nodeId, Vector2 position)
         {
             _graphPositions[nodeId] = position;
-            for (int i = 0; i < _graphEdgeGraphics.Count; i++)
+            // Shader Graph 的拖拽只改变相邻边。无关边不重新计算，也不会被错误地平移。
+            for (int i = 0; i < _edgeItems.Count; i++)
             {
-                RefreshProceduralEdge(_graphEdgeGraphics[i]);
+                AlgorithmEdgeItem edge = _edgeItems[i]?.Logic;
+                if (edge == null || !edge.ConnectsNode(nodeId)) continue;
+                edge.SetGeometry(ResolvePortPosition(edge.FromNode, edge.OutputPort, false),
+                    ResolvePortPosition(edge.ToNode, edge.InputPort, true),
+                    (_graphPositions[edge.FromNode] + _graphPositions[edge.ToNode]) * 0.5f);
             }
-        }
-
-        private void RefreshProceduralEdge(AlgorithmGraphEdgeGraphic graphic)
-        {
-            if (graphic == null) return;
-            bool selected = _selectedEdge.HasValue && _selectedEdge.Value.from == graphic.FromNode
-                && _selectedEdge.Value.output == graphic.OutputPort
-                && _selectedEdge.Value.to == graphic.ToNode
-                && _selectedEdge.Value.input == graphic.InputPort;
-            Vector2 from = ResolvePortPosition(graphic.FromNode, graphic.OutputPort, false);
-            Vector2 to = ResolvePortPosition(graphic.ToNode, graphic.InputPort, true);
-            Vector2 center = (_graphPositions.TryGetValue(graphic.FromNode, out Vector2 fromNode)
-                ? fromNode : from) + (_graphPositions.TryGetValue(graphic.ToNode, out Vector2 toNode)
-                ? toNode : to);
-            center *= 0.5f;
-            RectTransform edgeRect = graphic.transform as RectTransform;
-            if (edgeRect != null) edgeRect.anchoredPosition = center;
-            graphic.SetPoints(from - center, to - center, selected);
         }
 
         private Vector2 ResolvePortPosition(ulong nodeId, string portName, bool input)
@@ -1169,11 +1010,8 @@ namespace AutoEra.UI
 
             if (_portButtons.TryGetValue((nodeId, portName, input), out RectTransform button) && button != null)
             {
-                Vector3[] corners = new Vector3[4];
-                button.GetWorldCorners(corners);
-                Vector3 socket = input
-                    ? (corners[0] + corners[1]) * 0.5f
-                    : (corners[2] + corners[3]) * 0.5f;
+                Rect r = button.rect;
+                Vector3 socket = button.TransformPoint(new Vector3(input ? r.xMin + 8f : r.xMax - 8f, r.center.y));
                 return _algorithmGraphContent.InverseTransformPoint(socket);
             }
 
