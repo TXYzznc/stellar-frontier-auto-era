@@ -1,4 +1,5 @@
 using AutoEra.UI.Contracts;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -15,6 +16,28 @@ namespace AutoEra.UI
     /// </summary>
     public sealed partial class FieldHudDetailForm : AutoEraShellFormBase
     {
+        private static readonly UiDetailField[] NoFields = Array.Empty<UiDetailField>();
+
+        private static readonly Dictionary<int, string> PrimaryContentNames = new Dictionary<int, string>
+        {
+            { 6, "Content_MachineHardwareSlots" },
+            { 7, "Content_MachineAlgorithmParameters" },
+            { 8, "Content_MachineDiagnosticsTasks" },
+            { 9, "Content_FarmRecord" },
+            { 10, "Content_ForestRecord" },
+            { 11, "Content_MineralRecord" },
+            { 12, "Content_WaterRecord" },
+            { 13, "Content_PumpProduction" },
+            { 14, "Content_BuildingOverviewIdentity" },
+            { 15, "Content_ConstructionCost" },
+            { 16, "Content_WarehouseBuildingCapacity" },
+            { 17, "Content_GeneratorPower" },
+            { 18, "Content_SolarPower" },
+            { 19, "Content_BatteryStorage" },
+            { 20, "Content_ConveyorState" },
+            { 21, "Content_SensorRecordsSamples" },
+        };
+
         /// <summary>详情侧栏是现场 HUD 的扩展面板，不应暂停镜头移动或世界选取。</summary>
         public override bool BlocksWorldInput => false;
 
@@ -23,23 +46,29 @@ namespace AutoEra.UI
         public Button MachineOverviewDiagnosticButton => FindButton("Btn_MachineOverviewDiagnostic");
         public Button MachineOverviewFocusButton => FindButton("Btn_MachineOverviewFocus");
 
+        private readonly Dictionary<string, Button> _buttonCache = new Dictionary<string, Button>(32, StringComparer.Ordinal);
+        private readonly Dictionary<string, RectTransform> _rectCache = new Dictionary<string, RectTransform>(32, StringComparer.Ordinal);
+        private readonly Dictionary<string, Transform> _transformCache = new Dictionary<string, Transform>(256, StringComparer.Ordinal);
+        private int _machineOverviewFormId;
+        private Button _machineOverviewFocusProxy;
+        private IRegionReadModel _regionReadModel;
+
         private Button FindButton(string name)
         {
-            Button[] buttons = GetComponentsInChildren<Button>(true);
-            for (int i = 0; i < buttons.Length; i++) if (buttons[i].name == name) return buttons[i];
+            if (_buttonCache.TryGetValue(name, out Button cached)) return cached;
             return null;
         }
 
         private RectTransform FindRect(string name)
         {
-            RectTransform[] rects = GetComponentsInChildren<RectTransform>(true);
-            for (int i = 0; i < rects.Length; i++) if (rects[i].name == name) return rects[i];
-            return null;
+            _rectCache.TryGetValue(name, out RectTransform cached);
+            return cached;
         }
 
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
+            CacheVisualReferences();
             EnsurePageRoots();
             Button backButton = FindButton("Btn_FormBack");
             if (backButton != null)
@@ -50,6 +79,45 @@ namespace AutoEra.UI
             BindExitButton("Btn_FormClose");
             BindDetailActions();
             Debug.Log($"[AutoEra][FieldHudDetail] OnInit name={name} pageRoots={(_pageRoots == null ? -1 : _pageRoots.Length)}");
+        }
+
+        private void CacheVisualReferences()
+        {
+            _buttonCache.Clear();
+            Button[] buttons = GetComponentsInChildren<Button>(true);
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                if (buttons[i] != null) _buttonCache[buttons[i].name] = buttons[i];
+            }
+
+            _rectCache.Clear();
+            RectTransform[] rects = GetComponentsInChildren<RectTransform>(true);
+            for (int i = 0; i < rects.Length; i++)
+            {
+                if (rects[i] != null) _rectCache[rects[i].name] = rects[i];
+            }
+
+            _transformCache.Clear();
+            Transform[] transforms = GetComponentsInChildren<Transform>(true);
+            for (int i = 0; i < transforms.Length; i++)
+            {
+                if (transforms[i] != null && !_transformCache.ContainsKey(transforms[i].name))
+                {
+                    _transformCache.Add(transforms[i].name, transforms[i]);
+                }
+            }
+
+            // 机器总览页已经迁移为子 Form；保留一个无视觉代理，兼容旧的外部查询合同，
+            // 让尚未更新的调用方仍然走同一条 FocusSelectedObject 意图路径。
+            if (!_buttonCache.ContainsKey("Btn_MachineOverviewFocus"))
+            {
+                GameObject proxy = new GameObject("Btn_MachineOverviewFocusProxy", typeof(RectTransform), typeof(Button));
+                proxy.transform.SetParent(transform, false);
+                proxy.SetActive(false);
+                _machineOverviewFocusProxy = proxy.GetComponent<Button>();
+                _machineOverviewFocusProxy.onClick.AddListener(FocusSelectedObject);
+                _buttonCache["Btn_MachineOverviewFocus"] = _machineOverviewFocusProxy;
+            }
         }
 
         private void BindDetailActions()
@@ -211,6 +279,9 @@ namespace AutoEra.UI
 
         protected override void OnAutoEraOpen()
         {
+            ReleaseRegionReadModel();
+            _regionReadModel = RegionReadModels.Create(SessionOrNull);
+            _regionReadModel.Changed += OnRegionReadModelChanged;
             EnsurePageRoots();
             Debug.Log($"[AutoEra][FieldHudDetail] OnOpen name={name} pageRoots={(_pageRoots == null ? -1 : _pageRoots.Length)} active={gameObject.activeInHierarchy}");
             // FieldHudForm 通过打开参数传入对象类型对应的规格页。首次打开时还没有
@@ -227,18 +298,53 @@ namespace AutoEra.UI
             }
 
             ApplyDefaultFocus(null, null);
+            RenderCurrentPage();
+        }
+
+        protected override void OnAutoEraClose(bool isShutdown)
+        {
+            CloseAllSubUIForms();
+            _machineOverviewFormId = 0;
+            ReleaseRegionReadModel();
+        }
+
+        protected override void OnAutoEraRecycle()
+        {
+            CloseAllSubUIForms();
+            _machineOverviewFormId = 0;
+            ReleaseRegionReadModel();
+            base.OnAutoEraRecycle();
+        }
+
+        private bool OpenMachineOverviewSubForm()
+        {
+            if (_machineOverviewFormId > 0 && (GF.UI.IsLoadingUIForm(_machineOverviewFormId) || GF.UI.HasUIForm(_machineOverviewFormId))) return true;
+            UIParams parameters = UIParams.Create();
+            SessionOrNull?.WriteTo(parameters);
+            parameters.Set(AutoEraUiParamKeys.Request, new FieldHudMachineOverviewForm.Request(this));
+            _machineOverviewFormId = OpenSubUIForm(UIViews.FieldHudMachineOverviewForm, 0, parameters);
+            return _machineOverviewFormId > 0;
         }
 
         /// <summary>按规格页序切换内容页；越界调用无副作用。</summary>
         public bool ShowFormPage(int page)
         {
             EnsurePageRoots();
+            if (IsMachineOverviewPage(page)) return OpenMachineOverviewSubForm();
+            if (_machineOverviewFormId > 0) CloseSubUIForm(_machineOverviewFormId);
             bool shown = ShowPage(_pageRoots, page);
             GameObject activeRoot = page >= 0 && _pageRoots != null && page < _pageRoots.Length ? _pageRoots[page] : null;
             Debug.Log($"[AutoEra][FieldHudDetail] ShowFormPage page={page} shown={shown} roots={(_pageRoots == null ? -1 : _pageRoots.Length)} activeRoot={(activeRoot == null ? "<null>" : activeRoot.name)} activeSelf={(activeRoot != null && activeRoot.activeSelf)} activeInHierarchy={(activeRoot != null && activeRoot.activeInHierarchy)}");
+            RenderCurrentPage();
             return shown;
         }
         public bool ShowSelectionPage(int page) => ShowFormPage(page);
+
+        private bool IsMachineOverviewPage(int page)
+        {
+            GameObject pageRoot = page >= 0 && _pageRoots != null && page < _pageRoots.Length ? _pageRoots[page] : null;
+            return page == 5 || (pageRoot != null && pageRoot.name == "Panel_PageMachineOverview");
+        }
 
         private void EnsurePageRoots()
         {
@@ -264,28 +370,120 @@ namespace AutoEra.UI
                 return;
             }
 
-            // 规格页序从 5 开始；Grp_PageHost 的最后一个子节点是关闭按钮，不能当页面。
-            List<GameObject> pageChildren = new List<GameObject>(host.childCount);
-            for (int i = 0; i < host.childCount; i++)
+            _pageRoots = new GameObject[22];
+            string[] pageNames =
             {
-                Transform child = host.GetChild(i);
-                if (child != null && child.gameObject != null && child.name != "Btn_FieldClose")
+                "Panel_PageMachineOverview", "Panel_PageMachineHardware", "Panel_PageMachineAlgorithm",
+                "Panel_PageMachineDiagnostics", "Panel_PageFarm", "Panel_PageForest", "Panel_PageMineral",
+                "Panel_PageWater", "Panel_PagePump", "Panel_PageBuildingOverview", "Panel_PageConstruction",
+                "Panel_PageWarehouseBuilding", "Panel_PageGenerator", "Panel_PageSolar", "Panel_PageBattery",
+                "Panel_PageConveyor", "Panel_PageSensorRecords"
+            };
+            for (int i = 0; i < pageNames.Length; i++)
+            {
+                Transform page = host.Find(pageNames[i]);
+                if (page != null) _pageRoots[i + 5] = page.gameObject;
+            }
+
+            // 机器总览页由独立子 Form 按需承载，父壳保留空槽以维持稳定页索引。
+            _pageRoots[5] = null;
+            Debug.Log($"[AutoEra][FieldHudDetail] 从 Grp_PageHost 回填 pageRoots={_pageRoots.Length}");
+        }
+
+        private void OnRegionReadModelChanged(RegionDomainSection section) => RenderCurrentPage();
+
+        private void ReleaseRegionReadModel()
+        {
+            if (_regionReadModel == null) return;
+            _regionReadModel.Changed -= OnRegionReadModelChanged;
+            _regionReadModel.Dispose();
+            _regionReadModel = null;
+        }
+
+        private void RenderCurrentPage()
+        {
+            if (_regionReadModel == null || CurrentPage < 6 || CurrentPage > 21 || CurrentPage == 5)
+            {
+                return;
+            }
+
+            GameObject pageRoot = _pageRoots != null && CurrentPage < _pageRoots.Length ? _pageRoots[CurrentPage] : null;
+            if (pageRoot == null) return;
+
+            string contentName = PrimaryContentNames.TryGetValue(CurrentPage, out string mapped)
+                ? mapped
+                : null;
+            Transform content = FindPageTransform(pageRoot, contentName, "Content_");
+            Transform template = FindPageTransform(pageRoot, null, "Item_");
+            if (template == null || content == null) return;
+
+            RectTransform contentRect = content as RectTransform;
+            GameObject templateObject = template.gameObject;
+            RegionDomainSnapshot snapshot = _regionReadModel.Snapshot;
+            string pageKey = pageRoot.name.StartsWith("Panel_Page", StringComparison.Ordinal)
+                ? pageRoot.name.Substring("Panel_Page".Length)
+                : pageRoot.name;
+            GameObject loading = FindPageObject(pageRoot, "Grp_" + pageKey + "LoadingState");
+            GameObject empty = FindPageObject(pageRoot, "Grp_" + pageKey + "EmptyState");
+            GameObject error = FindPageObject(pageRoot, "Grp_" + pageKey + "ErrorState");
+            GameObject success = FindPageObject(pageRoot, "Grp_" + pageKey + "SuccessState");
+            GameObject disabled = FindPageObject(pageRoot, "Grp_" + pageKey + "DisabledState");
+
+            if (snapshot.State == UiDataState.Unavailable)
+            {
+                ShowPageUnavailable(snapshot.UnavailableReason, loading, empty, error, success, disabled);
+                RenderDetailRows(templateObject, contentRect, NoFields);
+                return;
+            }
+
+            bool hasSelection = snapshot.HasSelection;
+            SetState(loading, false);
+            SetState(error, false);
+            SetState(disabled, false);
+            SetState(success, hasSelection);
+            SetState(empty, !hasSelection);
+            if (hasSelection)
+            {
+                RenderDetailRows(templateObject, contentRect, snapshot.Detail);
+            }
+            else
+            {
+                RenderDetailRows(templateObject, contentRect, NoFields);
+                WriteStateCard(empty, "请选择一个现场对象查看详情。");
+            }
+        }
+
+        private Transform FindPageTransform(GameObject pageRoot, string exactName, string prefix)
+        {
+            if (!string.IsNullOrEmpty(exactName) && _transformCache.TryGetValue(exactName, out Transform exact) && exact.IsChildOf(pageRoot.transform))
+            {
+                return exact;
+            }
+
+            Transform[] transforms = pageRoot.GetComponentsInChildren<Transform>(true);
+            for (int i = 0; i < transforms.Length; i++)
+            {
+                if (!string.IsNullOrEmpty(prefix) && transforms[i].name.StartsWith(prefix, StringComparison.Ordinal))
                 {
-                    pageChildren.Add(child.gameObject);
+                    return transforms[i];
                 }
             }
 
-            _pageRoots = new GameObject[22];
-            for (int i = 0; i < pageChildren.Count && i + 5 < _pageRoots.Length; i++)
+            return null;
+        }
+
+        private static GameObject FindPageObject(GameObject pageRoot, string name)
+        {
+            Transform[] transforms = pageRoot.GetComponentsInChildren<Transform>(true);
+            for (int i = 0; i < transforms.Length; i++)
             {
-                _pageRoots[i + 5] = pageChildren[i];
+                if (transforms[i].name == name) return transforms[i].gameObject;
             }
 
-            Debug.Log($"[AutoEra][FieldHudDetail] 从 Grp_PageHost 回填 pageRoots={_pageRoots.Length} pageChildren={pageChildren.Count}");
+            return null;
         }
 
         protected override void OnOperationPresentationChanged(
             AutoEraUiOperationSnapshot snapshot, AutoEraUiOperationPresentation presentation) { }
     }
 }
-

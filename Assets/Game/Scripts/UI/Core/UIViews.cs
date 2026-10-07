@@ -38,5 +38,8 @@ public enum UIViews : int
 	ProgressReportForm = 6031,
 	OperationFeedbackForm = 6032,
 	FieldHudDetailForm = 6033,
-	FieldHudResidentForm = 6034
+	FieldHudResidentForm = 6034,
+	AlgorithmPublicParametersForm = 6035,
+	BaseCommandEnergyForm = 6036,
+	FieldHudMachineOverviewForm = 6037
 }

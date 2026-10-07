@@ -1,4 +1,6 @@
 using AutoEra.UI.Contracts;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,26 +24,69 @@ namespace AutoEra.UI
         public Button HudHubButton => FindButton("Btn_HudNavigationHub");
         public Button HudMachinesButton => FindButton("Btn_HudNavigationMachines");
 
+        private readonly Dictionary<string, Button> _buttonCache = new Dictionary<string, Button>(16, StringComparer.Ordinal);
+
         private Button FindButton(string name)
         {
-            Button[] buttons = GetComponentsInChildren<Button>(true);
-            for (int i = 0; i < buttons.Length; i++) if (buttons[i].name == name) return buttons[i];
-            return null;
+            _buttonCache.TryGetValue(name, out Button button);
+            return button;
         }
 
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
+            Button[] buttons = GetComponentsInChildren<Button>(true);
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                if (buttons[i] != null) _buttonCache[buttons[i].name] = buttons[i];
+            }
+            EnsurePageRoots();
         }
 
         protected override void OnAutoEraOpen()
         {
+            EnsurePageRoots();
             ApplyDefaultFocus(null, null);
         }
 
         /// <summary>按规格页序切换内容页；越界调用无副作用。</summary>
-        public bool ShowFormPage(int page) => ShowPage(_pageRoots, page);
+        public bool ShowFormPage(int page)
+        {
+            EnsurePageRoots();
+            return ShowPage(_pageRoots, page);
+        }
         public void ShowWorldTime(long worldMilliseconds) { }
+
+        private void EnsurePageRoots()
+        {
+            if (_pageRoots != null && _pageRoots.Length >= 5)
+            {
+                return;
+            }
+
+            Transform host = null;
+            Transform[] transforms = GetComponentsInChildren<Transform>(true);
+            for (int i = 0; i < transforms.Length; i++)
+            {
+                if (transforms[i].name == "Grp_PageHost")
+                {
+                    host = transforms[i];
+                    break;
+                }
+            }
+
+            if (host == null)
+            {
+                Debug.LogError($"[AutoEra][FieldHudResident] 找不到 Grp_PageHost，无法激活 HUD 内容页。form={name}");
+                return;
+            }
+
+            _pageRoots = new GameObject[host.childCount];
+            for (int i = 0; i < host.childCount; i++)
+            {
+                _pageRoots[i] = host.GetChild(i).gameObject;
+            }
+        }
 
         protected override void OnOperationPresentationChanged(
             AutoEraUiOperationSnapshot snapshot, AutoEraUiOperationPresentation presentation) { }

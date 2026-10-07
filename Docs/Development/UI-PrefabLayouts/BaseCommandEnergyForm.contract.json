@@ -1,0 +1,1990 @@
+{
+ "schemaVersion": 3,
+ "form": "BaseCommandEnergyForm",
+ "namespace": "AutoEra.UI",
+ "prefabPath": "Assets/Game/Prefabs/UI/Operations/BaseCommandEnergyForm.prefab",
+ "scriptPath": "Assets/Game/Scripts/AutoEra/UI/BaseCommandEnergyForm.cs",
+ "referenceResolution": [
+  1920,
+  1080
+ ],
+ "root": {
+  "name": "BaseCommandEnergyForm",
+  "active": true,
+  "anchorMin": [
+   0.0,
+   0.0
+  ],
+  "anchorMax": [
+   1.0,
+   1.0
+  ],
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "sizeDelta": [
+   0.0,
+   0.0
+  ],
+  "anchoredPosition": [
+   0.0,
+   0.0
+  ],
+  "children": [
+   {
+    "name": "Bg_InputBlocker(Clone)",
+    "active": true,
+    "anchorMin": [
+     0.0,
+     0.0
+    ],
+    "anchorMax": [
+     1.0,
+     1.0
+    ],
+    "pivot": [
+     0.5,
+     0.5
+    ],
+    "sizeDelta": [
+     0.0,
+     0.0
+    ],
+    "anchoredPosition": [
+     0.0,
+     0.0
+    ],
+    "children": []
+   },
+   {
+    "name": "Panel_Frame",
+    "active": true,
+    "anchorMin": [
+     0.5,
+     0.5
+    ],
+    "anchorMax": [
+     0.5,
+     0.5
+    ],
+    "pivot": [
+     0.5,
+     0.5
+    ],
+    "sizeDelta": [
+     1600.0,
+     900.0
+    ],
+    "anchoredPosition": [
+     0.0,
+     -12.0
+    ],
+    "children": [
+     {
+      "name": "Deco_Frame",
+      "active": true,
+      "anchorMin": [
+       0.0,
+       0.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       0.5,
+       0.5
+      ],
+      "sizeDelta": [
+       0.0,
+       0.0
+      ],
+      "anchoredPosition": [
+       0.0,
+       0.0
+      ],
+      "children": []
+     },
+     {
+      "name": "Txt_FormTitle",
+      "active": true,
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       0.0,
+       1.0
+      ],
+      "pivot": [
+       0.0,
+       1.0
+      ],
+      "sizeDelta": [
+       1300.0,
+       40.0
+      ],
+      "anchoredPosition": [
+       56.0,
+       -20.0
+      ],
+      "children": []
+     },
+     {
+      "name": "Grp_PageHost",
+      "active": true,
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       0.0,
+       1.0
+      ],
+      "pivot": [
+       0.0,
+       1.0
+      ],
+      "sizeDelta": [
+       1488.0,
+       730.0
+      ],
+      "anchoredPosition": [
+       56.0,
+       -140.0
+      ],
+      "children": [
+       {
+        "name": "Panel_PageHubEnergy",
+        "active": false,
+        "anchorMin": [
+         0.0,
+         0.0
+        ],
+        "anchorMax": [
+         1.0,
+         1.0
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         0.0,
+         0.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_HubEnergyTitle",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1472.0,
+           32.0
+          ],
+          "anchoredPosition": [
+           8.0,
+           0.0
+          ],
+          "children": []
+         },
+         {
+          "name": "Grp_HubEnergyActions",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           0.0
+          ],
+          "pivot": [
+           0.5,
+           0.0
+          ],
+          "sizeDelta": [
+           -16.0,
+           48.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": [
+           {
+            "name": "Btn_HubEnergyConfigure",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_HubEnergyConfigureLabel",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": []
+             }
+            ]
+           },
+           {
+            "name": "Btn_HubEnergyLocate",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_HubEnergyLocateLabel",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": []
+             }
+            ]
+           },
+           {
+            "name": "Btn_HubEnergyHistory",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             177.0,
+             48.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_HubEnergyHistoryLabel",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": []
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Panel_HubEnergySummary",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           485.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Txt_HubEnergySummaryHeading",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             461.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             12.0,
+             -8.0
+            ],
+            "children": []
+           },
+           {
+            "name": "List_HubEnergySummary",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -24.0,
+             -52.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             -18.0
+            ],
+            "children": [
+             {
+              "name": "Viewport_HubEnergySummary",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Content_HubEnergySummary",
+                "active": true,
+                "anchorMin": [
+                 0.0,
+                 1.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 1.0
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_HubEnergySummaryBody",
+                  "active": true,
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   461.0,
+                   120.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "children": []
+                 },
+                 {
+                  "name": "Item_HubEnergySummaryTemplate",
+                  "active": false,
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   461.0,
+                   104.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "children": [
+                   {
+                    "name": "Btn_HubEnergySummaryRow",
+                    "active": true,
+                    "anchorMin": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchorMax": [
+                     1.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.5,
+                     0.5
+                    ],
+                    "sizeDelta": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchoredPosition": [
+                     0.0,
+                     0.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Txt_HubEnergySummaryRowLabel",
+                      "active": true,
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ],
+                      "children": []
+                     },
+                     {
+                      "name": "Txt_HubEnergySummaryRowValue",
+                      "active": true,
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       48.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ],
+                      "children": []
+                     }
+                    ]
+                   }
+                  ]
+                 },
+                 {
+                  "name": "Panel_HubEnergyControls",
+                  "active": true,
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   461.0,
+                   160.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "children": [
+                   {
+                    "name": "Tgl_HubEnergyChargingAllowed",
+                    "active": true,
+                    "anchorMin": [
+                     0.0,
+                     1.0
+                    ],
+                    "anchorMax": [
+                     0.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.0,
+                     1.0
+                    ],
+                    "sizeDelta": [
+                     429.0,
+                     48.0
+                    ],
+                    "anchoredPosition": [
+                     16.0,
+                     -8.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Img_HubEnergyChargingAllowedBox",
+                      "active": true,
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       0.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.0,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       32.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ],
+                      "children": [
+                       {
+                        "name": "Icon_HubEnergyChargingAllowedCheck",
+                        "active": true,
+                        "anchorMin": [
+                         0.0,
+                         0.0
+                        ],
+                        "anchorMax": [
+                         1.0,
+                         1.0
+                        ],
+                        "pivot": [
+                         0.5,
+                         0.5
+                        ],
+                        "sizeDelta": [
+                         0.0,
+                         0.0
+                        ],
+                        "anchoredPosition": [
+                         0.0,
+                         0.0
+                        ],
+                        "children": []
+                       }
+                      ]
+                     },
+                     {
+                      "name": "Txt_HubEnergyChargingAllowedLabel",
+                      "active": true,
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.5
+                      ],
+                      "sizeDelta": [
+                       -48.0,
+                       0.0
+                      ],
+                      "anchoredPosition": [
+                       24.0,
+                       0.0
+                      ],
+                      "children": []
+                     }
+                    ]
+                   },
+                   {
+                    "name": "Sld_HubEnergyChargeTarget",
+                    "active": true,
+                    "anchorMin": [
+                     0.0,
+                     1.0
+                    ],
+                    "anchorMax": [
+                     0.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.0,
+                     1.0
+                    ],
+                    "sizeDelta": [
+                     429.0,
+                     56.0
+                    ],
+                    "anchoredPosition": [
+                     16.0,
+                     -80.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Bg_HubEnergyChargeTargetTrack",
+                      "active": true,
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       8.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ],
+                      "children": []
+                     },
+                     {
+                      "name": "Bar_HubEnergyChargeTargetFill",
+                      "active": true,
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       8.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ],
+                      "children": []
+                     },
+                     {
+                      "name": "Img_HubEnergyChargeTargetHandle",
+                      "active": true,
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       0.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.5
+                      ],
+                      "sizeDelta": [
+                       24.0,
+                       24.0
+                      ],
+                      "anchoredPosition": [
+                       12.0,
+                       12.0
+                      ],
+                      "children": []
+                     },
+                     {
+                      "name": "Txt_HubEnergyChargeTargetValue",
+                      "active": true,
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       0.0,
+                       28.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       0.0
+                      ],
+                      "children": []
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Panel_HubEnergyFacilities",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           485.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           501.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Txt_HubEnergyFacilitiesHeading",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             461.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             12.0,
+             -8.0
+            ],
+            "children": []
+           },
+           {
+            "name": "List_HubEnergyFacilities",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -24.0,
+             -52.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             -18.0
+            ],
+            "children": [
+             {
+              "name": "Viewport_HubEnergyFacilities",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Content_HubEnergyFacilities",
+                "active": true,
+                "anchorMin": [
+                 0.0,
+                 1.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 1.0
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_HubEnergyFacilitiesBody",
+                  "active": true,
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   461.0,
+                   120.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "children": []
+                 },
+                 {
+                  "name": "Item_HubEnergyFacilitiesTemplate",
+                  "active": false,
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   461.0,
+                   104.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "children": [
+                   {
+                    "name": "Btn_HubEnergyFacilitiesRow",
+                    "active": true,
+                    "anchorMin": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchorMax": [
+                     1.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.5,
+                     0.5
+                    ],
+                    "sizeDelta": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchoredPosition": [
+                     0.0,
+                     0.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Txt_HubEnergyFacilitiesRowLabel",
+                      "active": true,
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ],
+                      "children": []
+                     },
+                     {
+                      "name": "Txt_HubEnergyFacilitiesRowValue",
+                      "active": true,
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       48.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ],
+                      "children": []
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Panel_HubEnergyConsumers",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           485.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           1002.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Txt_HubEnergyConsumersHeading",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             461.0,
+             32.0
+            ],
+            "anchoredPosition": [
+             12.0,
+             -8.0
+            ],
+            "children": []
+           },
+           {
+            "name": "List_HubEnergyConsumers",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -24.0,
+             -52.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             -18.0
+            ],
+            "children": [
+             {
+              "name": "Viewport_HubEnergyConsumers",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Content_HubEnergyConsumers",
+                "active": true,
+                "anchorMin": [
+                 0.0,
+                 1.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 1.0
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_HubEnergyConsumersBody",
+                  "active": true,
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   461.0,
+                   120.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "children": []
+                 },
+                 {
+                  "name": "Item_HubEnergyConsumersTemplate",
+                  "active": false,
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   0.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.0,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   461.0,
+                   104.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   0.0
+                  ],
+                  "children": [
+                   {
+                    "name": "Btn_HubEnergyConsumersRow",
+                    "active": true,
+                    "anchorMin": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchorMax": [
+                     1.0,
+                     1.0
+                    ],
+                    "pivot": [
+                     0.5,
+                     0.5
+                    ],
+                    "sizeDelta": [
+                     0.0,
+                     0.0
+                    ],
+                    "anchoredPosition": [
+                     0.0,
+                     0.0
+                    ],
+                    "children": [
+                     {
+                      "name": "Txt_HubEnergyConsumersRowLabel",
+                      "active": true,
+                      "anchorMin": [
+                       0.0,
+                       1.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       1.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       1.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       32.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       -8.0
+                      ],
+                      "children": []
+                     },
+                     {
+                      "name": "Txt_HubEnergyConsumersRowValue",
+                      "active": true,
+                      "anchorMin": [
+                       0.0,
+                       0.0
+                      ],
+                      "anchorMax": [
+                       1.0,
+                       0.0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.0
+                      ],
+                      "sizeDelta": [
+                       -24.0,
+                       48.0
+                      ],
+                      "anchoredPosition": [
+                       0.0,
+                       8.0
+                      ],
+                      "children": []
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_HubEnergyLoadingState",
+          "active": false,
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Panel_HubEnergyLoadingMessage",
+            "active": true,
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_HubEnergyLoadingMessage",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": []
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_HubEnergyEmptyState",
+          "active": false,
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Panel_HubEnergyEmptyMessage",
+            "active": true,
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_HubEnergyEmptyMessage",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": []
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_HubEnergyErrorState",
+          "active": false,
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Panel_HubEnergyErrorMessage",
+            "active": true,
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_HubEnergyErrorMessage",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": []
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_HubEnergySuccessState",
+          "active": false,
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Panel_HubEnergySuccessMessage",
+            "active": true,
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_HubEnergySuccessMessage",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": []
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "name": "Grp_HubEnergyDisabledState",
+          "active": false,
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           0.0,
+           1.0
+          ],
+          "pivot": [
+           0.0,
+           1.0
+          ],
+          "sizeDelta": [
+           1488.0,
+           634.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           -36.0
+          ],
+          "children": [
+           {
+            "name": "Panel_HubEnergyDisabledMessage",
+            "active": true,
+            "anchorMin": [
+             0.5,
+             0.5
+            ],
+            "anchorMax": [
+             0.5,
+             0.5
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             520.0,
+             120.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_HubEnergyDisabledMessage",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -24.0,
+               -24.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": []
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Btn_FormBack",
+      "active": true,
+      "anchorMin": [
+       1.0,
+       1.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       1.0,
+       1.0
+      ],
+      "sizeDelta": [
+       88.0,
+       48.0
+      ],
+      "anchoredPosition": [
+       -112.0,
+       -20.0
+      ],
+      "children": [
+       {
+        "name": "Txt_FormBackLabel",
+        "active": true,
+        "anchorMin": [
+         0.0,
+         0.0
+        ],
+        "anchorMax": [
+         1.0,
+         1.0
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         -8.0,
+         -8.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": []
+       }
+      ]
+     },
+     {
+      "name": "Btn_FormClose",
+      "active": true,
+      "anchorMin": [
+       1.0,
+       1.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       1.0,
+       1.0
+      ],
+      "sizeDelta": [
+       80.0,
+       48.0
+      ],
+      "anchoredPosition": [
+       -24.0,
+       -20.0
+      ],
+      "children": [
+       {
+        "name": "Txt_FormCloseLabel",
+        "active": true,
+        "anchorMin": [
+         0.0,
+         0.0
+        ],
+        "anchorMax": [
+         1.0,
+         1.0
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         -8.0,
+         -8.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": []
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "bindings": [
+  {
+   "path": "_backButton",
+   "node": "BaseCommandEnergyForm/Panel_Frame/Btn_FormBack"
+  },
+  {
+   "path": "_closeButton",
+   "node": "BaseCommandEnergyForm/Panel_Frame/Btn_FormClose"
+  },
+  {
+   "path": "_hubEnergyConfigureButton",
+   "node": "BaseCommandEnergyForm/Panel_Frame/Grp_PageHost/Panel_PageHubEnergy/Grp_HubEnergyActions/Btn_HubEnergyConfigure"
+  },
+  {
+   "path": "_hubEnergyChargingAllowedToggle",
+   "node": "BaseCommandEnergyForm/Panel_Frame/Grp_PageHost/Panel_PageHubEnergy/Panel_HubEnergySummary/List_HubEnergySummary/Viewport_HubEnergySummary/Content_HubEnergySummary/Panel_HubEnergyControls/Tgl_HubEnergyChargingAllowed"
+  },
+  {
+   "path": "_hubEnergyChargeTargetSlider",
+   "node": "BaseCommandEnergyForm/Panel_Frame/Grp_PageHost/Panel_PageHubEnergy/Panel_HubEnergySummary/List_HubEnergySummary/Viewport_HubEnergySummary/Content_HubEnergySummary/Panel_HubEnergyControls/Sld_HubEnergyChargeTarget"
+  },
+  {
+   "path": "_hubEnergyHistoryButton",
+   "node": "BaseCommandEnergyForm/Panel_Frame/Grp_PageHost/Panel_PageHubEnergy/Grp_HubEnergyActions/Btn_HubEnergyHistory"
+  },
+  {
+   "path": "_hubEnergySummaryContent",
+   "node": "BaseCommandEnergyForm/Panel_Frame/Grp_PageHost/Panel_PageHubEnergy/Panel_HubEnergySummary/List_HubEnergySummary/Viewport_HubEnergySummary/Content_HubEnergySummary"
+  },
+  {
+   "path": "_hubEnergySummaryBody",
+   "node": "BaseCommandEnergyForm/Panel_Frame/Grp_PageHost/Panel_PageHubEnergy/Panel_HubEnergySummary/List_HubEnergySummary/Viewport_HubEnergySummary/Content_HubEnergySummary/Txt_HubEnergySummaryBody"
+  },
+  {
+   "path": "_hubEnergySummaryTemplate",
+   "node": "BaseCommandEnergyForm/Panel_Frame/Grp_PageHost/Panel_PageHubEnergy/Panel_HubEnergySummary/List_HubEnergySummary/Viewport_HubEnergySummary/Content_HubEnergySummary/Item_HubEnergySummaryTemplate"
+  },
+  {
+   "path": "_hubEnergyFacilitiesContent",
+   "node": "BaseCommandEnergyForm/Panel_Frame/Grp_PageHost/Panel_PageHubEnergy/Panel_HubEnergyFacilities/List_HubEnergyFacilities/Viewport_HubEnergyFacilities/Content_HubEnergyFacilities"
+  },
+  {
+   "path": "_hubEnergyFacilitiesBody",
+   "node": "BaseCommandEnergyForm/Panel_Frame/Grp_PageHost/Panel_PageHubEnergy/Panel_HubEnergyFacilities/List_HubEnergyFacilities/Viewport_HubEnergyFacilities/Content_HubEnergyFacilities/Txt_HubEnergyFacilitiesBody"
+  },
+  {
+   "path": "_hubEnergyFacilitiesTemplate",
+   "node": "BaseCommandEnergyForm/Panel_Frame/Grp_PageHost/Panel_PageHubEnergy/Panel_HubEnergyFacilities/List_HubEnergyFacilities/Viewport_HubEnergyFacilities/Content_HubEnergyFacilities/Item_HubEnergyFacilitiesTemplate"
+  },
+  {
+   "path": "_hubEnergyConsumersContent",
+   "node": "BaseCommandEnergyForm/Panel_Frame/Grp_PageHost/Panel_PageHubEnergy/Panel_HubEnergyConsumers/List_HubEnergyConsumers/Viewport_HubEnergyConsumers/Content_HubEnergyConsumers"
+  },
+  {
+   "path": "_hubEnergyConsumersBody",
+   "node": "BaseCommandEnergyForm/Panel_Frame/Grp_PageHost/Panel_PageHubEnergy/Panel_HubEnergyConsumers/List_HubEnergyConsumers/Viewport_HubEnergyConsumers/Content_HubEnergyConsumers/Txt_HubEnergyConsumersBody"
+  },
+  {
+   "path": "_hubEnergyConsumersTemplate",
+   "node": "BaseCommandEnergyForm/Panel_Frame/Grp_PageHost/Panel_PageHubEnergy/Panel_HubEnergyConsumers/List_HubEnergyConsumers/Viewport_HubEnergyConsumers/Content_HubEnergyConsumers/Item_HubEnergyConsumersTemplate"
+  },
+  {
+   "path": "_hubEnergyLoadingState",
+   "node": "BaseCommandEnergyForm/Panel_Frame/Grp_PageHost/Panel_PageHubEnergy/Grp_HubEnergyLoadingState"
+  },
+  {
+   "path": "_hubEnergyEmptyState",
+   "node": "BaseCommandEnergyForm/Panel_Frame/Grp_PageHost/Panel_PageHubEnergy/Grp_HubEnergyEmptyState"
+  },
+  {
+   "path": "_hubEnergyErrorState",
+   "node": "BaseCommandEnergyForm/Panel_Frame/Grp_PageHost/Panel_PageHubEnergy/Grp_HubEnergyErrorState"
+  },
+  {
+   "path": "_hubEnergySuccessState",
+   "node": "BaseCommandEnergyForm/Panel_Frame/Grp_PageHost/Panel_PageHubEnergy/Grp_HubEnergySuccessState"
+  },
+  {
+   "path": "_hubEnergyDisabledState",
+   "node": "BaseCommandEnergyForm/Panel_Frame/Grp_PageHost/Panel_PageHubEnergy/Grp_HubEnergyDisabledState"
+  }
+ ],
+ "scalars": [],
+ "scriptFields": [],
+ "generatedFrom": "BaseCommandHubForm energy page split",
+ "formArrays": {},
+ "navigationPageIndex": 0
+}

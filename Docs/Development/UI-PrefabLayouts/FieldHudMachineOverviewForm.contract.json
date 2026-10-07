@@ -1,0 +1,1527 @@
+{
+ "schemaVersion": 3,
+ "form": "FieldHudMachineOverviewForm",
+ "namespace": "AutoEra.UI",
+ "prefabPath": "Assets/Game/Prefabs/UI/Operations/FieldHudMachineOverviewForm.prefab",
+ "scriptPath": "Assets/Game/Scripts/AutoEra/UI/FieldHudMachineOverviewForm.cs",
+ "referenceResolution": [
+  1920,
+  1080
+ ],
+ "root": {
+  "name": "FieldHudMachineOverviewForm",
+  "active": true,
+  "anchorMin": [
+   0.0,
+   0.0
+  ],
+  "anchorMax": [
+   1.0,
+   1.0
+  ],
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "sizeDelta": [
+   0.0,
+   0.0
+  ],
+  "anchoredPosition": [
+   0.0,
+   0.0
+  ],
+  "children": [
+   {
+    "name": "Panel_PageMachineOverview",
+    "active": true,
+    "anchorMin": [
+     1.0,
+     1.0
+    ],
+    "anchorMax": [
+     1.0,
+     1.0
+    ],
+    "pivot": [
+     1.0,
+     1.0
+    ],
+    "sizeDelta": [
+     520.0,
+     832.0
+    ],
+    "anchoredPosition": [
+     -24.0,
+     -120.0
+    ],
+    "children": [
+     {
+      "name": "Txt_MachineOverviewTitle",
+      "active": true,
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       0.0,
+       1.0
+      ],
+      "pivot": [
+       0.0,
+       1.0
+      ],
+      "sizeDelta": [
+       432.0,
+       32.0
+      ],
+      "anchoredPosition": [
+       8.0,
+       0.0
+      ],
+      "children": []
+     },
+     {
+      "name": "Grp_MachineOverviewActions",
+      "active": true,
+      "anchorMin": [
+       0.0,
+       0.0
+      ],
+      "anchorMax": [
+       1.0,
+       0.0
+      ],
+      "pivot": [
+       0.5,
+       0.0
+      ],
+      "sizeDelta": [
+       -16.0,
+       272.0
+      ],
+      "anchoredPosition": [
+       0.0,
+       0.0
+      ],
+      "children": [
+       {
+        "name": "Btn_MachineOverviewActivate",
+        "active": true,
+        "anchorMin": [
+         0.0,
+         1.0
+        ],
+        "anchorMax": [
+         0.0,
+         1.0
+        ],
+        "pivot": [
+         0.0,
+         1.0
+        ],
+        "sizeDelta": [
+         248.0,
+         48.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_MachineOverviewActivateLabel",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           1.0
+          ],
+          "pivot": [
+           0.5,
+           0.5
+          ],
+          "sizeDelta": [
+           -16.0,
+           -8.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": []
+         }
+        ]
+       },
+       {
+        "name": "Btn_MachineOverviewSleep",
+        "active": true,
+        "anchorMin": [
+         0.0,
+         1.0
+        ],
+        "anchorMax": [
+         0.0,
+         1.0
+        ],
+        "pivot": [
+         0.0,
+         1.0
+        ],
+        "sizeDelta": [
+         248.0,
+         48.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_MachineOverviewSleepLabel",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           1.0
+          ],
+          "pivot": [
+           0.5,
+           0.5
+          ],
+          "sizeDelta": [
+           -16.0,
+           -8.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": []
+         }
+        ]
+       },
+       {
+        "name": "Btn_MachineOverviewPower",
+        "active": true,
+        "anchorMin": [
+         0.0,
+         1.0
+        ],
+        "anchorMax": [
+         0.0,
+         1.0
+        ],
+        "pivot": [
+         0.0,
+         1.0
+        ],
+        "sizeDelta": [
+         248.0,
+         48.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_MachineOverviewPowerLabel",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           1.0
+          ],
+          "pivot": [
+           0.5,
+           0.5
+          ],
+          "sizeDelta": [
+           -16.0,
+           -8.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": []
+         }
+        ]
+       },
+       {
+        "name": "Btn_MachineOverviewRename",
+        "active": true,
+        "anchorMin": [
+         0.0,
+         1.0
+        ],
+        "anchorMax": [
+         0.0,
+         1.0
+        ],
+        "pivot": [
+         0.0,
+         1.0
+        ],
+        "sizeDelta": [
+         248.0,
+         48.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_MachineOverviewRenameLabel",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           1.0
+          ],
+          "pivot": [
+           0.5,
+           0.5
+          ],
+          "sizeDelta": [
+           -16.0,
+           -8.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": []
+         }
+        ]
+       },
+       {
+        "name": "Btn_MachineOverviewFocus",
+        "active": true,
+        "anchorMin": [
+         0.0,
+         1.0
+        ],
+        "anchorMax": [
+         0.0,
+         1.0
+        ],
+        "pivot": [
+         0.0,
+         1.0
+        ],
+        "sizeDelta": [
+         248.0,
+         48.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_MachineOverviewFocusLabel",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           1.0
+          ],
+          "pivot": [
+           0.5,
+           0.5
+          ],
+          "sizeDelta": [
+           -16.0,
+           -8.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": []
+         }
+        ]
+       },
+       {
+        "name": "Btn_MachineOverviewHardware",
+        "active": true,
+        "anchorMin": [
+         0.0,
+         1.0
+        ],
+        "anchorMax": [
+         0.0,
+         1.0
+        ],
+        "pivot": [
+         0.0,
+         1.0
+        ],
+        "sizeDelta": [
+         248.0,
+         48.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_MachineOverviewHardwareLabel",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           1.0
+          ],
+          "pivot": [
+           0.5,
+           0.5
+          ],
+          "sizeDelta": [
+           -16.0,
+           -8.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": []
+         }
+        ]
+       },
+       {
+        "name": "Btn_MachineOverviewAlgorithm",
+        "active": true,
+        "anchorMin": [
+         0.0,
+         1.0
+        ],
+        "anchorMax": [
+         0.0,
+         1.0
+        ],
+        "pivot": [
+         0.0,
+         1.0
+        ],
+        "sizeDelta": [
+         248.0,
+         48.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_MachineOverviewAlgorithmLabel",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           1.0
+          ],
+          "pivot": [
+           0.5,
+           0.5
+          ],
+          "sizeDelta": [
+           -16.0,
+           -8.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": []
+         }
+        ]
+       },
+       {
+        "name": "Btn_MachineOverviewDiagnostic",
+        "active": true,
+        "anchorMin": [
+         0.0,
+         1.0
+        ],
+        "anchorMax": [
+         0.0,
+         1.0
+        ],
+        "pivot": [
+         0.0,
+         1.0
+        ],
+        "sizeDelta": [
+         248.0,
+         48.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_MachineOverviewDiagnosticLabel",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           1.0
+          ],
+          "pivot": [
+           0.5,
+           0.5
+          ],
+          "sizeDelta": [
+           -16.0,
+           -8.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": []
+         }
+        ]
+       },
+       {
+        "name": "Btn_MachineOverviewRecover",
+        "active": true,
+        "anchorMin": [
+         0.0,
+         1.0
+        ],
+        "anchorMax": [
+         0.0,
+         1.0
+        ],
+        "pivot": [
+         0.0,
+         1.0
+        ],
+        "sizeDelta": [
+         248.0,
+         48.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_MachineOverviewRecoverLabel",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           1.0
+          ],
+          "pivot": [
+           0.5,
+           0.5
+          ],
+          "sizeDelta": [
+           -16.0,
+           -8.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": []
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Panel_MachineOverviewIdentity",
+      "active": true,
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       0.0,
+       1.0
+      ],
+      "pivot": [
+       0.0,
+       1.0
+      ],
+      "sizeDelta": [
+       520.0,
+       250.0
+      ],
+      "anchoredPosition": [
+       0.0,
+       -36.0
+      ],
+      "children": [
+       {
+        "name": "Txt_MachineOverviewIdentityHeading",
+        "active": true,
+        "anchorMin": [
+         0.0,
+         1.0
+        ],
+        "anchorMax": [
+         0.0,
+         1.0
+        ],
+        "pivot": [
+         0.0,
+         1.0
+        ],
+        "sizeDelta": [
+         496.0,
+         32.0
+        ],
+        "anchoredPosition": [
+         12.0,
+         -8.0
+        ],
+        "children": []
+       },
+       {
+        "name": "List_MachineOverviewIdentity",
+        "active": true,
+        "anchorMin": [
+         0.0,
+         0.0
+        ],
+        "anchorMax": [
+         1.0,
+         1.0
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         -24.0,
+         -52.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         -18.0
+        ],
+        "children": [
+         {
+          "name": "Viewport_MachineOverviewIdentity",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           1.0
+          ],
+          "pivot": [
+           0.5,
+           0.5
+          ],
+          "sizeDelta": [
+           0.0,
+           0.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": [
+           {
+            "name": "Content_MachineOverviewIdentity",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             1.0
+            ],
+            "sizeDelta": [
+             0.0,
+             0.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_MachineOverviewIdentityBody",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               1.0
+              ],
+              "anchorMax": [
+               0.0,
+               1.0
+              ],
+              "pivot": [
+               0.0,
+               1.0
+              ],
+              "sizeDelta": [
+               496.0,
+               120.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": []
+             },
+             {
+              "name": "Item_MachineOverviewIdentityTemplate",
+              "active": false,
+              "anchorMin": [
+               0.0,
+               1.0
+              ],
+              "anchorMax": [
+               0.0,
+               1.0
+              ],
+              "pivot": [
+               0.0,
+               1.0
+              ],
+              "sizeDelta": [
+               496.0,
+               104.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Btn_MachineOverviewIdentityRow",
+                "active": true,
+                "anchorMin": [
+                 0.0,
+                 0.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 0.5
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_MachineOverviewIdentityRowLabel",
+                  "active": true,
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   1.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.5,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   -24.0,
+                   32.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   -8.0
+                  ],
+                  "children": []
+                 },
+                 {
+                  "name": "Txt_MachineOverviewIdentityRowValue",
+                  "active": true,
+                  "anchorMin": [
+                   0.0,
+                   0.0
+                  ],
+                  "anchorMax": [
+                   1.0,
+                   0.0
+                  ],
+                  "pivot": [
+                   0.5,
+                   0.0
+                  ],
+                  "sizeDelta": [
+                   -24.0,
+                   48.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   8.0
+                  ],
+                  "children": []
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Panel_MachineOverviewCapacity",
+      "active": true,
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       0.0,
+       1.0
+      ],
+      "pivot": [
+       0.0,
+       1.0
+      ],
+      "sizeDelta": [
+       520.0,
+       250.0
+      ],
+      "anchoredPosition": [
+       0.0,
+       -298.0
+      ],
+      "children": [
+       {
+        "name": "Txt_MachineOverviewCapacityHeading",
+        "active": true,
+        "anchorMin": [
+         0.0,
+         1.0
+        ],
+        "anchorMax": [
+         0.0,
+         1.0
+        ],
+        "pivot": [
+         0.0,
+         1.0
+        ],
+        "sizeDelta": [
+         496.0,
+         32.0
+        ],
+        "anchoredPosition": [
+         12.0,
+         -8.0
+        ],
+        "children": []
+       },
+       {
+        "name": "List_MachineOverviewCapacity",
+        "active": true,
+        "anchorMin": [
+         0.0,
+         0.0
+        ],
+        "anchorMax": [
+         1.0,
+         1.0
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         -24.0,
+         -52.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         -18.0
+        ],
+        "children": [
+         {
+          "name": "Viewport_MachineOverviewCapacity",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           1.0
+          ],
+          "pivot": [
+           0.5,
+           0.5
+          ],
+          "sizeDelta": [
+           0.0,
+           0.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": [
+           {
+            "name": "Content_MachineOverviewCapacity",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             1.0
+            ],
+            "sizeDelta": [
+             0.0,
+             0.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "children": [
+             {
+              "name": "Txt_MachineOverviewCapacityBody",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               1.0
+              ],
+              "anchorMax": [
+               0.0,
+               1.0
+              ],
+              "pivot": [
+               0.0,
+               1.0
+              ],
+              "sizeDelta": [
+               496.0,
+               120.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": []
+             },
+             {
+              "name": "Item_MachineOverviewCapacityTemplate",
+              "active": false,
+              "anchorMin": [
+               0.0,
+               1.0
+              ],
+              "anchorMax": [
+               0.0,
+               1.0
+              ],
+              "pivot": [
+               0.0,
+               1.0
+              ],
+              "sizeDelta": [
+               496.0,
+               104.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": [
+               {
+                "name": "Btn_MachineOverviewCapacityRow",
+                "active": true,
+                "anchorMin": [
+                 0.0,
+                 0.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 0.5
+                ],
+                "sizeDelta": [
+                 0.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 0.0,
+                 0.0
+                ],
+                "children": [
+                 {
+                  "name": "Txt_MachineOverviewCapacityRowLabel",
+                  "active": true,
+                  "anchorMin": [
+                   0.0,
+                   1.0
+                  ],
+                  "anchorMax": [
+                   1.0,
+                   1.0
+                  ],
+                  "pivot": [
+                   0.5,
+                   1.0
+                  ],
+                  "sizeDelta": [
+                   -24.0,
+                   32.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   -8.0
+                  ],
+                  "children": []
+                 },
+                 {
+                  "name": "Txt_MachineOverviewCapacityRowValue",
+                  "active": true,
+                  "anchorMin": [
+                   0.0,
+                   0.0
+                  ],
+                  "anchorMax": [
+                   1.0,
+                   0.0
+                  ],
+                  "pivot": [
+                   0.5,
+                   0.0
+                  ],
+                  "sizeDelta": [
+                   -24.0,
+                   48.0
+                  ],
+                  "anchoredPosition": [
+                   0.0,
+                   8.0
+                  ],
+                  "children": []
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Grp_MachineOverviewLoadingState",
+      "active": false,
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       0.0,
+       1.0
+      ],
+      "pivot": [
+       0.0,
+       1.0
+      ],
+      "sizeDelta": [
+       520.0,
+       512.0
+      ],
+      "anchoredPosition": [
+       0.0,
+       -36.0
+      ],
+      "children": [
+       {
+        "name": "Panel_MachineOverviewLoadingMessage",
+        "active": true,
+        "anchorMin": [
+         0.5,
+         0.5
+        ],
+        "anchorMax": [
+         0.5,
+         0.5
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         504.0,
+         120.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_MachineOverviewLoadingMessage",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           1.0
+          ],
+          "pivot": [
+           0.5,
+           0.5
+          ],
+          "sizeDelta": [
+           -24.0,
+           -24.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": []
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Grp_MachineOverviewEmptyState",
+      "active": false,
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       0.0,
+       1.0
+      ],
+      "pivot": [
+       0.0,
+       1.0
+      ],
+      "sizeDelta": [
+       520.0,
+       512.0
+      ],
+      "anchoredPosition": [
+       0.0,
+       -36.0
+      ],
+      "children": [
+       {
+        "name": "Panel_MachineOverviewEmptyMessage",
+        "active": true,
+        "anchorMin": [
+         0.5,
+         0.5
+        ],
+        "anchorMax": [
+         0.5,
+         0.5
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         504.0,
+         120.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_MachineOverviewEmptyMessage",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           1.0
+          ],
+          "pivot": [
+           0.5,
+           0.5
+          ],
+          "sizeDelta": [
+           -24.0,
+           -24.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": []
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Grp_MachineOverviewErrorState",
+      "active": false,
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       0.0,
+       1.0
+      ],
+      "pivot": [
+       0.0,
+       1.0
+      ],
+      "sizeDelta": [
+       520.0,
+       512.0
+      ],
+      "anchoredPosition": [
+       0.0,
+       -36.0
+      ],
+      "children": [
+       {
+        "name": "Panel_MachineOverviewErrorMessage",
+        "active": true,
+        "anchorMin": [
+         0.5,
+         0.5
+        ],
+        "anchorMax": [
+         0.5,
+         0.5
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         504.0,
+         120.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_MachineOverviewErrorMessage",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           1.0
+          ],
+          "pivot": [
+           0.5,
+           0.5
+          ],
+          "sizeDelta": [
+           -24.0,
+           -24.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": []
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Grp_MachineOverviewSuccessState",
+      "active": false,
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       0.0,
+       1.0
+      ],
+      "pivot": [
+       0.0,
+       1.0
+      ],
+      "sizeDelta": [
+       520.0,
+       512.0
+      ],
+      "anchoredPosition": [
+       0.0,
+       -36.0
+      ],
+      "children": [
+       {
+        "name": "Panel_MachineOverviewSuccessMessage",
+        "active": true,
+        "anchorMin": [
+         0.5,
+         0.5
+        ],
+        "anchorMax": [
+         0.5,
+         0.5
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         504.0,
+         120.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_MachineOverviewSuccessMessage",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           1.0
+          ],
+          "pivot": [
+           0.5,
+           0.5
+          ],
+          "sizeDelta": [
+           -24.0,
+           -24.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": []
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Grp_MachineOverviewDisabledState",
+      "active": false,
+      "anchorMin": [
+       0.0,
+       1.0
+      ],
+      "anchorMax": [
+       0.0,
+       1.0
+      ],
+      "pivot": [
+       0.0,
+       1.0
+      ],
+      "sizeDelta": [
+       520.0,
+       512.0
+      ],
+      "anchoredPosition": [
+       0.0,
+       -36.0
+      ],
+      "children": [
+       {
+        "name": "Panel_MachineOverviewDisabledMessage",
+        "active": true,
+        "anchorMin": [
+         0.5,
+         0.5
+        ],
+        "anchorMax": [
+         0.5,
+         0.5
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         504.0,
+         120.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "children": [
+         {
+          "name": "Txt_MachineOverviewDisabledMessage",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           0.0
+          ],
+          "anchorMax": [
+           1.0,
+           1.0
+          ],
+          "pivot": [
+           0.5,
+           0.5
+          ],
+          "sizeDelta": [
+           -24.0,
+           -24.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "children": []
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Btn_FieldClose",
+    "active": true,
+    "anchorMin": [
+     1.0,
+     1.0
+    ],
+    "anchorMax": [
+     1.0,
+     1.0
+    ],
+    "pivot": [
+     1.0,
+     1.0
+    ],
+    "sizeDelta": [
+     64.0,
+     48.0
+    ],
+    "anchoredPosition": [
+     -25.0,
+     -70.0
+    ],
+    "children": [
+     {
+      "name": "Txt_FieldCloseLabel",
+      "active": true,
+      "anchorMin": [
+       0.0,
+       0.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       0.5,
+       0.5
+      ],
+      "sizeDelta": [
+       -8.0,
+       -8.0
+      ],
+      "anchoredPosition": [
+       0.0,
+       0.0
+      ],
+      "children": []
+     }
+    ]
+   }
+  ]
+ },
+ "bindings": [],
+ "scalars": [],
+ "scriptFields": [],
+ "generatedFrom": "FieldHudDetailForm machine overview split",
+ "formArrays": {},
+ "navigationPageIndex": 0
+}

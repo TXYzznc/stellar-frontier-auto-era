@@ -153,8 +153,40 @@ namespace AutoEra.Editor.UiProto
 
             CheckL1Root(tag, prefab, errors);
             CheckL1Naming(tag, prefab, errors);
-            CheckL2Tree(tag, (JObject)doc["root"], prefab.transform, prefab.name, errors);
-            CheckL3Bindings(tag, doc, prefab, errors);
+            bool runtimeGeneratedPageRoots = doc["runtimeGeneratedPageRoots"]?.Value<bool>() == true;
+            if (runtimeGeneratedPageRoots)
+            {
+                CheckRuntimePageHost(tag, prefab, errors);
+            }
+            else
+            {
+                CheckL2Tree(tag, (JObject)doc["root"], prefab.transform, prefab.name, errors);
+            }
+            CheckL3Bindings(tag, doc, prefab, errors, runtimeGeneratedPageRoots);
+        }
+
+        private static void CheckRuntimePageHost(string tag, GameObject prefab, List<string> errors)
+        {
+            Transform host = prefab.GetComponentsInChildren<Transform>(true)
+                .FirstOrDefault(t => t.name == "Grp_PageHost");
+            if (host == null)
+            {
+                errors.Add($"{tag} L2: runtimeGeneratedPageRoots=true 但找不到 Grp_PageHost");
+                return;
+            }
+
+            if (host.childCount == 0)
+            {
+                errors.Add($"{tag} L2: runtimeGeneratedPageRoots=true 但 Grp_PageHost 没有可生成的页面节点");
+            }
+
+            for (int i = 0; i < host.childCount; i++)
+            {
+                if (host.GetChild(i) == null)
+                {
+                    errors.Add($"{tag} L2: Grp_PageHost 存在空页面节点，索引 {i}");
+                }
+            }
         }
 
         // ------------------------------------------------------------------ L1
@@ -434,7 +466,8 @@ namespace AutoEra.Editor.UiProto
 
         // ------------------------------------------------------------------ L3
 
-        private static void CheckL3Bindings(string tag, JObject doc, GameObject prefab, List<string> errors)
+        private static void CheckL3Bindings(
+            string tag, JObject doc, GameObject prefab, List<string> errors, bool runtimeGeneratedPageRoots)
         {
             string formName = (string)doc["form"];
             Type formType = ResolveType(formName);
@@ -457,6 +490,7 @@ namespace AutoEra.Editor.UiProto
             {
                 string field = (string)binding["path"];
                 string declaredNode = (string)binding["node"];
+                string declaredAsset = (string)binding["asset"];
                 SerializedProperty property = FindProperty(serialized, field);
                 if (property == null)
                 {
@@ -468,6 +502,19 @@ namespace AutoEra.Editor.UiProto
                 if (target == null)
                 {
                     errors.Add($"{tag} L3: 绑定为空：{field} -> {declaredNode}");
+                    continue;
+                }
+
+                // 预制体引用指向独立 UIItem 资源时没有 Form 层级路径，
+                // 用 AssetDatabase 校验资源路径，避免把外部资源误当作子节点。
+                if (!string.IsNullOrEmpty(declaredAsset))
+                {
+                    string actualAsset = AssetDatabase.GetAssetPath(target).Replace('\\', '/');
+                    if (!string.Equals(actualAsset, declaredAsset, StringComparison.Ordinal))
+                    {
+                        errors.Add($"{tag} L3: {field} 资源不一致，契约 {declaredAsset}，实际 {actualAsset}");
+                    }
+
                     continue;
                 }
 
@@ -486,12 +533,13 @@ namespace AutoEra.Editor.UiProto
                 }
             }
 
-            CheckL3ScriptFields(tag, formType, form, doc, errors);
+            CheckL3ScriptFields(tag, formType, form, doc, errors, runtimeGeneratedPageRoots);
         }
 
         /// <summary>Form 声明的每个 SerializeField 都必须被契约覆盖且非空。</summary>
         private static void CheckL3ScriptFields(
-            string tag, Type formType, Component form, JObject doc, List<string> errors)
+            string tag, Type formType, Component form, JObject doc, List<string> errors,
+            bool runtimeGeneratedPageRoots)
         {
             var covered = new HashSet<string>(StringComparer.Ordinal);
             foreach (JObject binding in doc["bindings"] as JArray ?? new JArray())
@@ -507,6 +555,12 @@ namespace AutoEra.Editor.UiProto
             {
                 covered.Add(pair.Key);
             }
+            // 动态分页契约把页根交给 OnInit 从 Grp_PageHost 生成；即使旧版契约未写
+            // formArrays，也要让这个显式声明的运行时字段进入覆盖集合。
+            if (runtimeGeneratedPageRoots)
+            {
+                covered.Add("_pageRoots");
+            }
 
             foreach (FieldInfo field in formType.GetFields(
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
@@ -521,17 +575,20 @@ namespace AutoEra.Editor.UiProto
                 if (field.FieldType.IsArray)
                 {
                     var array = value as Array;
-                    if (array == null || array.Length == 0)
+                    bool generatedPageRoots = runtimeGeneratedPageRoots && field.Name == "_pageRoots";
+                    if (!generatedPageRoots && (array == null || array.Length == 0))
                     {
                         errors.Add($"{tag} L3: SerializeField 数组为空：{field.Name}");
-                        continue;
                     }
 
-                    for (int i = 0; i < array.Length; i++)
+                    if (array != null)
                     {
-                        if (array.GetValue(i) == null)
+                        for (int i = 0; i < array.Length; i++)
                         {
-                            errors.Add($"{tag} L3: SerializeField 数组元素为空：{field.Name}[{i}]");
+                            if (array.GetValue(i) == null)
+                            {
+                                errors.Add($"{tag} L3: SerializeField 数组元素为空：{field.Name}[{i}]");
+                            }
                         }
                     }
                 }

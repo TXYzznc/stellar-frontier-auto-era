@@ -140,6 +140,8 @@ namespace AutoEra.Tests.PlayMode
                         if (detail == null) yield return null;
                     }
                     Assert.That(detail, Is.Not.Null, "选中现场对象后必须加载独立详情 UIForm。");
+                    Assert.That(AutoEraUiRuntime.BlocksWorldInput, Is.False,
+                        "现场机器总览是侧栏子界面，打开后仍必须允许世界交互。");
                     Assert.That(detail.MachineOverviewFocusButton, Is.Not.Null, "机器详情的聚焦按钮必须随详情 Form 迁移。");
                     Assert.That(detail.MachineOverviewFocusButton.interactable, Is.True);
                     Button detailBack = detail.GetComponentsInChildren<Button>(true).FirstOrDefault(button => button != null && button.name == "Btn_FormBack");

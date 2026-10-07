@@ -23,7 +23,7 @@ namespace AutoEra.UI
     /// 界面因此不可能绕过确认改硬件，也不可能自己实现一套「什么时候能改」的判断。
     /// 提交后的状态与原因都从那个 operation 读回来，不是界面自己猜的。
     /// </summary>
-    public sealed partial class OperationDialogForm : AutoEraShellFormBase
+    public sealed partial class OperationDialogForm : AutoEraUIDialogFormBase
     {
         /// <summary>规格页序（`Grp_PageHost` 下内容页的顺序）。</summary>
         public const int PageRename = 0;
