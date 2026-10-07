@@ -15,6 +15,9 @@ namespace AutoEra.UI
     public abstract class AutoEraShellFormBase : AutoEraUiFormBase
     {
         private int _currentPage = -1;
+        private Button[] _cachedButtons = System.Array.Empty<Button>();
+        private readonly Dictionary<GameObject, TMPro.TMP_Text[]> _stateCardTexts =
+            new Dictionary<GameObject, TMPro.TMP_Text[]>();
 
         /// <summary>普通界面只保留一个主要出口；需要独立“关闭”语义的流程显式覆写。</summary>
         protected virtual bool KeepFormCloseButton => false;
@@ -22,6 +25,10 @@ namespace AutoEra.UI
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
+            // Form hierarchies are static after prefab initialization. Cache the
+            // button scan once so unavailable/empty state refreshes do not allocate
+            // a new component array on every read-model notification.
+            _cachedButtons = GetComponentsInChildren<Button>(true);
             if (KeepFormCloseButton)
             {
                 return;
@@ -176,14 +183,19 @@ namespace AutoEra.UI
         /// 这一条与 <see cref="DisableDomainActions"/> 同源——都靠结构名／结构位置，
         /// 因此对尚未接线的页面同样生效。
         /// </summary>
-        protected static void WriteStateCard(GameObject state, string reason)
+        protected void WriteStateCard(GameObject state, string reason)
         {
             if (state == null || string.IsNullOrEmpty(reason))
             {
                 return;
             }
 
-            TMPro.TMP_Text[] texts = state.GetComponentsInChildren<TMPro.TMP_Text>(true);
+            if (!_stateCardTexts.TryGetValue(state, out TMPro.TMP_Text[] texts))
+            {
+                texts = state.GetComponentsInChildren<TMPro.TMP_Text>(true);
+                _stateCardTexts.Add(state, texts);
+            }
+
             for (int i = 0; i < texts.Length; i++)
             {
                 if (texts[i] != null)
@@ -236,10 +248,9 @@ namespace AutoEra.UI
         /// </summary>
         protected void DisableDomainActions()
         {
-            Button[] buttons = GetComponentsInChildren<Button>(true);
-            for (int i = 0; i < buttons.Length; i++)
+            for (int i = 0; i < _cachedButtons.Length; i++)
             {
-                Button button = buttons[i];
+                Button button = _cachedButtons[i];
                 if (button == null || IsSafeExit(button) || IsUnderNavigation(button) || IsInsideItemTemplate(button))
                 {
                     continue;

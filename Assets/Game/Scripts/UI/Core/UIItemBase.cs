@@ -9,6 +9,10 @@ public class UIItemBase : MonoBehaviour, ISerializeFieldTool
 
     private void Awake()
     {
+        // Awake can run on prefabs that were authored before the field generator was
+        // introduced. Treat a missing serialized array as an empty binding set so an
+        // old Item cannot fail before its own logic is initialized.
+        _fields ??= Array.Empty<SerializeFieldData>();
         Array.Clear(_fields, 0, _fields.Length);
         OnInit();
     }
@@ -17,6 +21,7 @@ public class UIItemBase : MonoBehaviour, ISerializeFieldTool
     {
         InitLocalization();
     }
+
     /// <summary>
     /// 更新界面中静态文本的多语言文字
     /// </summary>

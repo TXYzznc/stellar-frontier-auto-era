@@ -169,7 +169,7 @@ public class UIFormBase : UIFormLogic, ISerializeFieldTool
         @params.SortOrder = Params.SortOrder + subUiOrder + 1;
         @params.IsSubUIForm = true;
         var uiformId = GF.UI.OpenUIForm(viewName, @params);
-        m_SubUIForms.Add(uiformId);
+        if (uiformId > 0) m_SubUIForms.Add(uiformId);
         return uiformId;
     }
     /// <summary>
@@ -178,9 +178,8 @@ public class UIFormBase : UIFormLogic, ISerializeFieldTool
     /// <param name="uiformId"></param>
     public void CloseSubUIForm(int uiformId)
     {
-        if (!m_SubUIForms.Contains(uiformId)) return;
-        m_SubUIForms.Remove(uiformId);
-        if (GF.UI.HasUIForm(uiformId))
+        if (m_SubUIForms == null || !m_SubUIForms.Remove(uiformId)) return;
+        if (GF.UI.IsLoadingUIForm(uiformId) || GF.UI.HasUIForm(uiformId))
             GF.UI.CloseUIForm(uiformId);
     }
     /// <summary>
