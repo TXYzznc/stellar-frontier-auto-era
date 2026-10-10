@@ -4,14 +4,14 @@
   "tableName": "BuildingDefinitions",
   "relativePath": "Buildings/BuildingDefinitions",
   "sourceExcel": "GameData/DataTables/Buildings/BuildingDefinitions.xlsx",
-  "sourceExcelLastWriteUtc": null,
+  "sourceExcelLastWriteUtc": "2026-09-23T02:06:50.1660894Z",
   "sourceFingerprint": "B7B9E0F9B4F233A5BB121D019688A5DB9292767EBCEA79840F31EEB3381CA418",
-  "generatedAtUtc": null,
+  "generatedAtUtc": "2026-10-09T16:46:56.3611585Z",
   "tableComment": "Building definitions with construction time, capacity, power consumption and economic data",
   "columns": [
     {
       "index": 1,
-      "key": "Note",
+      "key": "Note1",
       "name": "#",
       "type": "#",
       "comment": "#",
@@ -158,7 +158,7 @@
     {
       "row": 5,
       "enabled": true,
-      "comment": "Warehouse",
+      "comment": null,
       "values": {
         "Id": "50011",
         "ModelId": "5001",
@@ -178,12 +178,31 @@
         "Prefab": "InitialRegion/Warehouse"
       },
       "notes": {},
-      "_cells": []
+      "_cells": [
+        "",
+        "50011",
+        "",
+        "5001",
+        "Building.Warehouse",
+        "0",
+        "120",
+        "0",
+        "0",
+        "0",
+        "",
+        "100",
+        "0",
+        "0",
+        "0.5",
+        "2",
+        "Ready",
+        "InitialRegion/Warehouse"
+      ]
     },
     {
       "row": 6,
       "enabled": true,
-      "comment": "Workshop",
+      "comment": null,
       "values": {
         "Id": "50021",
         "ModelId": "5002",
@@ -203,12 +222,31 @@
         "Prefab": ""
       },
       "notes": {},
-      "_cells": []
+      "_cells": [
+        "",
+        "50021",
+        "",
+        "5002",
+        "Building.Workshop",
+        "180",
+        "0",
+        "2",
+        "0",
+        "0",
+        "",
+        "100",
+        "1500",
+        "1200",
+        "1",
+        "10",
+        "PendingResource",
+        ""
+      ]
     },
     {
       "row": 7,
       "enabled": true,
-      "comment": "BiomassGenerator",
+      "comment": null,
       "values": {
         "Id": "50031",
         "ModelId": "5003",
@@ -228,12 +266,31 @@
         "Prefab": "InitialRegion/Generator"
       },
       "notes": {},
-      "_cells": []
+      "_cells": [
+        "",
+        "50031",
+        "",
+        "5003",
+        "Building.BiomassGenerator",
+        "240",
+        "0",
+        "0",
+        "60",
+        "0",
+        "1 biomass = 60 energy",
+        "100",
+        "2000",
+        "1600",
+        "0.5",
+        "0",
+        "Ready",
+        "InitialRegion/Generator"
+      ]
     },
     {
       "row": 8,
       "enabled": true,
-      "comment": "SolarGenerator",
+      "comment": null,
       "values": {
         "Id": "50041",
         "ModelId": "5004",
@@ -253,12 +310,31 @@
         "Prefab": "InitialRegion/SolarArray"
       },
       "notes": {},
-      "_cells": []
+      "_cells": [
+        "",
+        "50041",
+        "",
+        "5004",
+        "Building.SolarGenerator",
+        "0",
+        "0",
+        "0",
+        "15",
+        "0",
+        "Daytime only",
+        "100",
+        "0",
+        "0",
+        "0",
+        "0",
+        "Ready",
+        "InitialRegion/SolarArray"
+      ]
     },
     {
       "row": 9,
       "enabled": true,
-      "comment": "Battery",
+      "comment": null,
       "values": {
         "Id": "50051",
         "ModelId": "5005",
@@ -278,12 +354,31 @@
         "Prefab": ""
       },
       "notes": {},
-      "_cells": []
+      "_cells": [
+        "",
+        "50051",
+        "",
+        "5005",
+        "Building.Battery",
+        "120",
+        "0",
+        "0",
+        "0",
+        "240",
+        "",
+        "100",
+        "1200",
+        "960",
+        "0.1",
+        "0.1",
+        "PendingResource",
+        ""
+      ]
     },
     {
       "row": 10,
       "enabled": true,
-      "comment": "Pump",
+      "comment": null,
       "values": {
         "Id": "50061",
         "ModelId": "5006",
@@ -303,12 +398,31 @@
         "Prefab": ""
       },
       "notes": {},
-      "_cells": []
+      "_cells": [
+        "",
+        "50061",
+        "",
+        "5006",
+        "Building.Pump",
+        "60",
+        "100",
+        "0",
+        "0",
+        "0",
+        "50 water per 4 minutes",
+        "100",
+        "500",
+        "400",
+        "0.5",
+        "5",
+        "PendingResource",
+        ""
+      ]
     },
     {
       "row": 11,
       "enabled": true,
-      "comment": "Conveyor",
+      "comment": null,
       "values": {
         "Id": "50071",
         "ModelId": "5007",
@@ -327,8 +441,27 @@
         "Availability": "Ready",
         "Prefab": "Buildings/Conveyor"
       },
-      "notes": null,
-      "_cells": []
+      "notes": {},
+      "_cells": [
+        "",
+        "50071",
+        "",
+        "5007",
+        "Building.Conveyor",
+        "30",
+        "0",
+        "0",
+        "0",
+        "0",
+        "",
+        "100",
+        "200",
+        "160",
+        "0.1",
+        "1",
+        "Ready",
+        "Buildings/Conveyor"
+      ]
     }
   ]
 }

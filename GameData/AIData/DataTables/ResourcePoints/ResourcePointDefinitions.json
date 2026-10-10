@@ -4,14 +4,14 @@
   "tableName": "ResourcePointDefinitions",
   "relativePath": "ResourcePoints/ResourcePointDefinitions",
   "sourceExcel": "GameData/DataTables/ResourcePoints/ResourcePointDefinitions.xlsx",
-  "sourceExcelLastWriteUtc": null,
+  "sourceExcelLastWriteUtc": "2026-09-23T02:06:50.1735898Z",
   "sourceFingerprint": "C8184D40AF01C29C2AC69289F3ADD8B250A3BB4DA131D773BE612C98D52C2CEB",
-  "generatedAtUtc": null,
+  "generatedAtUtc": "2026-10-09T16:46:59.3881573Z",
   "tableComment": "Resource point definitions with capacity, cache, production parameters and integrity",
   "columns": [
     {
       "index": 1,
-      "key": "Note",
+      "key": "Note1",
       "name": "#",
       "type": "#",
       "comment": "#",
@@ -110,7 +110,7 @@
     {
       "row": 5,
       "enabled": true,
-      "comment": "Farmland",
+      "comment": null,
       "values": {
         "Id": "60011",
         "ModelId": "6001",
@@ -124,12 +124,25 @@
         "Prefab": "InitialRegion/Farmland"
       },
       "notes": {},
-      "_cells": []
+      "_cells": [
+        "",
+        "60011",
+        "",
+        "6001",
+        "ResourcePoint.Farmland",
+        "10",
+        "60",
+        "N/A",
+        "Batch production, see crop specs",
+        "100",
+        "Ready",
+        "InitialRegion/Farmland"
+      ]
     },
     {
       "row": 6,
       "enabled": true,
-      "comment": "Forest",
+      "comment": null,
       "values": {
         "Id": "60021",
         "ModelId": "6002",
@@ -143,12 +156,25 @@
         "Prefab": "InitialRegion/Forest"
       },
       "notes": {},
-      "_cells": []
+      "_cells": [
+        "",
+        "60021",
+        "",
+        "6002",
+        "ResourcePoint.Forest",
+        "0",
+        "0",
+        "Infinite",
+        "Continuous growth, see cutting specs",
+        "100",
+        "Ready",
+        "InitialRegion/Forest"
+      ]
     },
     {
       "row": 7,
       "enabled": true,
-      "comment": "MineralVein",
+      "comment": null,
       "values": {
         "Id": "60031",
         "ModelId": "6003",
@@ -162,12 +188,25 @@
         "Prefab": "InitialRegion/MineralVein"
       },
       "notes": {},
-      "_cells": []
+      "_cells": [
+        "",
+        "60031",
+        "",
+        "6003",
+        "ResourcePoint.MineralVein",
+        "0",
+        "0",
+        "100",
+        "Drilling damage / MiningResistance",
+        "100",
+        "Ready",
+        "InitialRegion/MineralVein"
+      ]
     },
     {
       "row": 8,
       "enabled": true,
-      "comment": "WaterArea",
+      "comment": null,
       "values": {
         "Id": "60041",
         "ModelId": "6004",
@@ -181,7 +220,20 @@
         "Prefab": "InitialRegion/Water"
       },
       "notes": {},
-      "_cells": []
+      "_cells": [
+        "",
+        "60041",
+        "",
+        "6004",
+        "ResourcePoint.WaterArea",
+        "0",
+        "0",
+        "Infinite",
+        "Source only, extracted by pump building",
+        "100",
+        "Ready",
+        "InitialRegion/Water"
+      ]
     }
   ]
 }
