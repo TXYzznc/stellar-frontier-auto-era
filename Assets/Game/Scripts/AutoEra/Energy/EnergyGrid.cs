@@ -143,7 +143,7 @@ namespace AutoEra.Energy
     /// 它刻意不是 MonoBehaviour、也不持有 Unity 对象：要能在 EditMode 里逐帧推演，
     /// 也要能被离线推进复用（离线只处理有效事件，但同样是「按经过秒数结算」）。
     /// </summary>
-    public sealed class EnergyGrid
+    public sealed partial class EnergyGrid
     {
         private const float Epsilon = 1e-4f;
 
@@ -151,14 +151,27 @@ namespace AutoEra.Energy
         private readonly List<IEnergyStorage> _storages = new List<IEnergyStorage>();
         private readonly List<IEnergyConsumer> _consumers = new List<IEnergyConsumer>();
         private readonly List<PersistentId> _stopped = new List<PersistentId>();
+        private readonly List<Candidate> _candidates = new List<Candidate>();
+        private readonly List<float> _requestedPowers = new List<float>();
+        private readonly IReadOnlyList<IEnergyGenerator> _generatorView;
+        private readonly IReadOnlyList<IEnergyStorage> _storageView;
+        private readonly IReadOnlyList<IEnergyConsumer> _consumerView;
+        private IReadOnlyList<PersistentId> _publishedStops = Array.Empty<PersistentId>();
+        private bool _orderDirty = true;
+        private int _victimCursor;
         private long _queueCounter;
 
-        public IReadOnlyList<IEnergyGenerator> Generators => _generators;
-        public IReadOnlyList<IEnergyStorage> Storages => _storages;
-        public IReadOnlyList<IEnergyConsumer> Consumers => _consumers;
+        public IReadOnlyList<IEnergyGenerator> Generators => _generatorView;
+        public IReadOnlyList<IEnergyStorage> Storages => _storageView;
+        public IReadOnlyList<IEnergyConsumer> Consumers => _consumerView;
+        public EnergyGrid()
+        {
+            _generatorView = _generators.AsReadOnly(); _storageView = _storages.AsReadOnly(); _consumerView = _consumers.AsReadOnly();
+        }
 
         /// <summary>最后一次结算的快照；还没结算过时是零值。</summary>
         public EnergyGridSnapshot Snapshot { get; private set; }
+        public long Revision { get; private set; }
 
         /// <summary>
         /// 登记一台发电设施。**登记顺序就是建造顺序**：多台同类燃料发电站按它依次承担剩余需求。
@@ -182,8 +195,11 @@ namespace AutoEra.Energy
         public void AddConsumer(IEnergyConsumer consumer)
         {
             if (consumer == null) throw new ArgumentNullException(nameof(consumer));
+            for (int i = 0; i < _consumers.Count; i++)
+                if (_consumers[i].Id == consumer.Id) throw new ArgumentException("Consumer identity is already registered.", nameof(consumer));
             consumer.QueueOrder = _queueCounter++;
             _consumers.Add(consumer);
+            _requestedPowers.Add(0f); _orderDirty = true;
         }
 
         /// <summary>
@@ -198,6 +214,7 @@ namespace AutoEra.Energy
             {
                 if (_consumers[i].Id != id) continue;
                 _consumers.RemoveAt(i);
+                _requestedPowers.RemoveAt(i); _orderDirty = true;
                 return true;
             }
 
@@ -213,9 +230,16 @@ namespace AutoEra.Energy
         /// </summary>
         public EnergyGridSnapshot Tick(float elapsedSeconds, bool daylight)
         {
+            if (_ticking) throw new InvalidOperationException("Energy settlement is not reentrant.");
+            _ticking=true;
+            try {return TickCore(elapsedSeconds,daylight);}finally {_ticking=false;}
+        }
+        private EnergyGridSnapshot TickCore(float elapsedSeconds,bool daylight)
+        {
             if (elapsedSeconds < 0f) throw new ArgumentOutOfRangeException(nameof(elapsedSeconds));
             if (float.IsNaN(elapsedSeconds)) throw new ArgumentOutOfRangeException(nameof(elapsedSeconds));
             _stopped.Clear();
+            PrepareCandidates();
 
             // 上一时刻的停机结论不延续：每次结算都重新判定，
             // 否则一次缺电会让对象永久停机，供电恢复后也回不来。
@@ -223,6 +247,7 @@ namespace AutoEra.Energy
             {
                 IEnergyConsumer consumer = _consumers[i];
                 consumer.IsStoppedByShortage = false;
+                _requestedPowers[i] = consumer.IsDemandActive ? Math.Max(0f, consumer.RequestedPower) : 0f;
             }
 
             Plan plan;
@@ -241,7 +266,7 @@ namespace AutoEra.Energy
                     // （按当前契约这不可达——任何请求用电的对象都可被停机——但保留这条分支，
                     //  将来若出现「不可停机的关键负载」，它会给出正确的答案而不是无穷循环。）
                     Apply(elapsedSeconds, plan);
-                    return Snapshot = Build(plan, forceShortfall: true);
+                    return Publish(Build(plan, forceShortfall: true));
                 }
 
                 victim.IsStoppedByShortage = true;
@@ -249,28 +274,64 @@ namespace AutoEra.Energy
             }
 
             Apply(elapsedSeconds, plan);
-            return Snapshot = Build(plan, forceShortfall: false);
+            return Publish(Build(plan, forceShortfall: false));
+        }
+
+        private struct Candidate
+        {
+            public IEnergyConsumer Consumer;
+            public PowerPriority Priority;
+            public long QueueOrder;
+            public int RegistrationIndex;
+        }
+        private sealed class CandidateComparer : IComparer<Candidate>
+        {
+            public static readonly CandidateComparer Instance = new CandidateComparer();
+            public int Compare(Candidate a, Candidate b)
+            {
+                int priority = a.Priority.CompareTo(b.Priority);
+                if (priority != 0) return priority;
+                int queue = b.QueueOrder.CompareTo(a.QueueOrder);
+                return queue != 0 ? queue : a.RegistrationIndex.CompareTo(b.RegistrationIndex);
+            }
+        }
+        private void PrepareCandidates()
+        {
+            if (!_orderDirty)
+                for (int i = 0; i < _candidates.Count; i++)
+                {
+                    Candidate item = _candidates[i];
+                    if (item.Priority != item.Consumer.Priority || item.QueueOrder != item.Consumer.QueueOrder)
+                    { _orderDirty = true; break; }
+                }
+            if (_orderDirty)
+            {
+                _candidates.Clear();
+                for (int i = 0; i < _consumers.Count; i++)
+                {
+                    IEnergyConsumer consumer = _consumers[i];
+                    _candidates.Add(new Candidate { Consumer = consumer, Priority = consumer.Priority, QueueOrder = consumer.QueueOrder, RegistrationIndex = i });
+                }
+                _candidates.Sort(CandidateComparer.Instance); _orderDirty = false;
+            }
+            _victimCursor = 0;
         }
 
         /// <summary>停机顺序：优先级最低的先停；同级按进入供电队列的时间**后进先停**。</summary>
         private IEnergyConsumer NextVictim()
         {
-            IEnergyConsumer worst = null;
-            for (int i = 0; i < _consumers.Count; i++)
+            while (_victimCursor < _candidates.Count)
             {
-                IEnergyConsumer consumer = _consumers[i];
+                IEnergyConsumer consumer = _candidates[_victimCursor++].Consumer;
                 // 不请求用电的对象没有负载可停：把它标成「因缺电停机」是错的，
                 // 界面会因此把「玩家自己关掉的设备」显示成故障。
                 if (consumer.IsStoppedByShortage || !consumer.IsDemandActive) continue;
-                if (worst == null) { worst = consumer; continue; }
-                if (consumer.Priority < worst.Priority) { worst = consumer; continue; }
-                if (consumer.Priority == worst.Priority && consumer.QueueOrder > worst.QueueOrder) worst = consumer;
+                return consumer;
             }
-
-            return worst;
+            return null;
         }
 
-        private sealed class Plan
+        private struct Plan
         {
             public float Load;
             public float Generated;
@@ -295,7 +356,9 @@ namespace AutoEra.Energy
             {
                 IEnergyConsumer consumer = _consumers[i];
                 if (!consumer.IsDemandActive || consumer.IsStoppedByShortage) continue;
-                plan.Load += Math.Max(0f, consumer.RequestedPower);
+                // Keep the original accumulation order for exact shortage decisions, but read
+                // expensive per-component power only once at the beginning of this tick.
+                plan.Load += _requestedPowers[i];
             }
 
             // ② 免费环境能源优先直接满足负载；盈余自动充电、储满后舍弃。
@@ -489,7 +552,7 @@ namespace AutoEra.Energy
                 }
 
                 consumer.IsPowered = true;
-                consumer.ActualPower = Math.Max(0f, consumer.RequestedPower);
+                consumer.ActualPower = _requestedPowers[i];
             }
         }
 
@@ -513,7 +576,25 @@ namespace AutoEra.Energy
             bool hasShortfall = forceShortfall || plan.Shortfall > Epsilon || _stopped.Count > 0;
 
             return new EnergyGridSnapshot(plan.Generated, consumed, stored, capacity, plan.Discarded,
-                charging, discharging, _stopped.ToArray(), hasShortfall);
+                charging, discharging, PublishStops(), hasShortfall);
+        }
+
+        private IReadOnlyList<PersistentId> PublishStops()
+        {
+            bool unchanged = _publishedStops.Count == _stopped.Count;
+            for (int i = 0; unchanged && i < _stopped.Count; i++) unchanged = _publishedStops[i] == _stopped[i];
+            if (!unchanged) _publishedStops = _stopped.Count == 0 ? Array.Empty<PersistentId>() : Array.AsReadOnly(_stopped.ToArray());
+            return _publishedStops;
+        }
+
+        private EnergyGridSnapshot Publish(EnergyGridSnapshot next)
+        {
+            if (Snapshot.GeneratedPower != next.GeneratedPower || Snapshot.ConsumedPower != next.ConsumedPower ||
+                Snapshot.StoredCharge != next.StoredCharge || Snapshot.StorageCapacity != next.StorageCapacity ||
+                Snapshot.DiscardedPower != next.DiscardedPower || Snapshot.ChargingPower != next.ChargingPower ||
+                Snapshot.DischargingPower != next.DischargingPower || Snapshot.HasShortfall != next.HasShortfall ||
+                !ReferenceEquals(Snapshot.StoppedByShortage, next.StoppedByShortage)) Revision++;
+            Snapshot = next; return next;
         }
 
         /// <summary>电量 ＝ 功率 × 秒数 ÷ 60（规格里的统一换算）。</summary>

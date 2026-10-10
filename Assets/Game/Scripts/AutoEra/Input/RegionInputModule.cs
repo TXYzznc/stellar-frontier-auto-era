@@ -210,7 +210,7 @@ namespace AutoEra.Input
         {
             if (_source == null || _scene == null || _scene.Region == null || !_scene.Region.IsActive || _camera == null) return;
             RegionInputFrame frame = _source.Read();
-            bool managementOpen = AutoEraUiRuntime.BlocksWorldInput;
+            bool managementOpen = AutoEraUiRuntime.BlocksWorldInput || _scene.BlocksNewPlayerCommands;
             UpdateFieldAccess(managementOpen);
             if (frame.Cancel)
             {

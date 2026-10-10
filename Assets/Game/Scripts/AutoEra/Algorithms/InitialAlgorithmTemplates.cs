@@ -48,96 +48,75 @@ namespace AutoEra.Algorithms
         }
 
         /// <summary>
-        /// 储量资源开采（DEC-108 / DEC-122）：剩余储量与缓存空间均大于 0 时提交钻探，
-        /// 计划批量取可采数量、缓存空间、默认上限 10 的最小值。
+        /// 储量资源开采（DEC-108/122/192/203）：储量尚有余量、前一钻探任务结束时提交有限批量。
+        /// 批量取储量与默认上限10的最小值；地面显示封顶不限制继续开采。
         /// </summary>
         public static AlgorithmDocument Drilling()
         {
-            var g = new AlgorithmDocument { DocumentId = 1, Revision = 1 };
-            var num = AlgorithmType.Of(AlgorithmValueKind.Number);
-            g.Nodes.Add(new AlgorithmNode { Id = 1, Kind = AlgorithmNodeKind.Startup });
-            g.Nodes.Add(new AlgorithmNode { Id = 2, Kind = AlgorithmNodeKind.Input, BindingKey = "ore", Field = "resource", ValueType = num });
-            g.Nodes.Add(new AlgorithmNode { Id = 3, Kind = AlgorithmNodeKind.Input, BindingKey = "ore_cap", Field = "capacity", ValueType = num });
-            g.Nodes.Add(new AlgorithmNode { Id = 4, Kind = AlgorithmNodeKind.Input, BindingKey = "ore_cached", Field = "cached", ValueType = num });
-            g.Nodes.Add(new AlgorithmNode { Id = 5, Kind = AlgorithmNodeKind.Merge });
-            g.Nodes.Add(new AlgorithmNode { Id = 6, Kind = AlgorithmNodeKind.Arithmetic, Operator = AlgorithmOperator.Subtract, ValueType = num });
-            g.Nodes.Add(new AlgorithmNode { Id = 7, Kind = AlgorithmNodeKind.Arithmetic, Operator = AlgorithmOperator.Minimum, ValueType = num });
-            g.Nodes.Add(new AlgorithmNode { Id = 8, Kind = AlgorithmNodeKind.Arithmetic, Operator = AlgorithmOperator.Minimum, ValueType = num });
-            g.Nodes.Add(new AlgorithmNode { Id = 9, Kind = AlgorithmNodeKind.Parameter, ValueType = num, Default = AlgorithmValue.Numeric(10) });
-            g.Nodes.Add(new AlgorithmNode { Id = 10, Kind = AlgorithmNodeKind.Constant, ValueType = num, Default = AlgorithmValue.Numeric(0) });
-            g.Nodes.Add(new AlgorithmNode { Id = 11, Kind = AlgorithmNodeKind.Compare, Operator = AlgorithmOperator.Greater, ValueType = num });
-            g.Nodes.Add(new AlgorithmNode { Id = 12, Kind = AlgorithmNodeKind.Compare, Operator = AlgorithmOperator.Greater, ValueType = num });
-            g.Nodes.Add(new AlgorithmNode { Id = 13, Kind = AlgorithmNodeKind.Boolean, Operator = AlgorithmOperator.And });
-            g.Nodes.Add(new AlgorithmNode { Id = 14, Kind = AlgorithmNodeKind.Branch });
-            g.Nodes.Add(new AlgorithmNode { Id = 15, Kind = AlgorithmNodeKind.Effector, Action = AlgorithmEffectorAction.Drill, BindingKey = "drill" });
-            g.Edges.Add(new AlgorithmEdge { From = 1, To = 5, Output = "event", Input = "a" });
-            g.Edges.Add(new AlgorithmEdge { From = 2, To = 5, Output = "sampled", Input = "b" });
-            g.Edges.Add(new AlgorithmEdge { From = 5, To = 14, Output = "event", Input = "event" });
+            var g = new AlgorithmDocument { DocumentId = 1, Revision = 2 };
+            g.Nodes.Add(new AlgorithmNode { Id = 1, Kind = AlgorithmNodeKind.Input, BindingKey = "vein", Field = "resource" });
+            g.Nodes.Add(new AlgorithmNode { Id = 2, Kind = AlgorithmNodeKind.Constant, Default = AlgorithmValue.Numeric(0) });
+            g.Nodes.Add(new AlgorithmNode { Id = 3, Kind = AlgorithmNodeKind.Compare, Operator = AlgorithmOperator.Greater });
+            g.Nodes.Add(new AlgorithmNode { Id = 4, Kind = AlgorithmNodeKind.QueryTask, Field = "钻探作业" });
+            g.Nodes.Add(new AlgorithmNode { Id = 5, Kind = AlgorithmNodeKind.Boolean, Operator = AlgorithmOperator.Not });
+            g.Nodes.Add(new AlgorithmNode { Id = 6, Kind = AlgorithmNodeKind.Boolean, Operator = AlgorithmOperator.And });
+            g.Nodes.Add(new AlgorithmNode { Id = 7, Kind = AlgorithmNodeKind.Branch });
+            g.Nodes.Add(new AlgorithmNode { Id = 8, Kind = AlgorithmNodeKind.Parameter, Default = AlgorithmValue.Numeric(10) });
+            g.Nodes.Add(new AlgorithmNode { Id = 9, Kind = AlgorithmNodeKind.Arithmetic, Operator = AlgorithmOperator.Minimum });
+
+            g.Nodes.Add(new AlgorithmNode { Id = 11, Kind = AlgorithmNodeKind.Effector, Action = AlgorithmEffectorAction.Drill, BindingKey = "drill", Field = "钻探作业" });
+            g.Nodes.Add(new AlgorithmNode { Id = 12, Kind = AlgorithmNodeKind.Parameter, Default = AlgorithmValue.Numeric(1) });
+            g.Edges.Add(new AlgorithmEdge { From = 1, To = 3, Input = "a" });
+            g.Edges.Add(new AlgorithmEdge { From = 2, To = 3, Input = "b" });
+            g.Edges.Add(new AlgorithmEdge { From = 4, To = 5, Output = "found", Input = "a" });
             g.Edges.Add(new AlgorithmEdge { From = 3, To = 6, Input = "a" });
-            g.Edges.Add(new AlgorithmEdge { From = 4, To = 6, Input = "b" });
-            g.Edges.Add(new AlgorithmEdge { From = 2, To = 7, Input = "a" });
-            g.Edges.Add(new AlgorithmEdge { From = 6, To = 7, Input = "b" });
-            g.Edges.Add(new AlgorithmEdge { From = 7, To = 8, Input = "a" });
-            g.Edges.Add(new AlgorithmEdge { From = 9, To = 8, Input = "b" });
-            g.Edges.Add(new AlgorithmEdge { From = 2, To = 11, Input = "a" });
-            g.Edges.Add(new AlgorithmEdge { From = 10, To = 11, Input = "b" });
-            g.Edges.Add(new AlgorithmEdge { From = 6, To = 12, Input = "a" });
-            g.Edges.Add(new AlgorithmEdge { From = 10, To = 12, Input = "b" });
-            g.Edges.Add(new AlgorithmEdge { From = 11, To = 13, Input = "a" });
-            g.Edges.Add(new AlgorithmEdge { From = 12, To = 13, Input = "b" });
-            g.Edges.Add(new AlgorithmEdge { From = 13, To = 14, Input = "condition" });
-            g.Edges.Add(new AlgorithmEdge { From = 14, To = 15, Output = "true", Input = "event" });
-            g.Edges.Add(new AlgorithmEdge { From = 8, To = 15, Input = "count" });
+            g.Edges.Add(new AlgorithmEdge { From = 5, To = 6, Input = "b" });
+            g.Edges.Add(new AlgorithmEdge { From = 6, To = 7, Input = "condition" });
+            g.Edges.Add(new AlgorithmEdge { From = 1, To = 7, Output = "sampled", Input = "event" });
+            g.Edges.Add(new AlgorithmEdge { From = 1, To = 9, Input = "a" });
+            g.Edges.Add(new AlgorithmEdge { From = 8, To = 9, Input = "b" });
+            g.Edges.Add(new AlgorithmEdge { From = 7, To = 11, Output = "true", Input = "event" });
+            g.Edges.Add(new AlgorithmEdge { From = 9, To = 11, Input = "count" });
+            g.Edges.Add(new AlgorithmEdge { From = 12, To = 11, Input = "power" });
             return g;
         }
 
         /// <summary>
-        /// 生长资源采集（DEC-108 / DEC-122）：资源点处于可采集阶段、可采数量与缓存空间均大于 0 时提交切割，
-        /// 计划批量取可采数量、缓存空间、默认上限 10 的最小值。
+        /// 生长资源采集（DEC-172～184/203）：成熟树网格选择稳定树引用，前一采伐任务结束后才提交下一棵。
+        /// 地面显示上限不限制生产；模板不恢复已推翻的缓存空间规则。
         /// </summary>
         public static AlgorithmDocument Harvesting()
         {
-            var g = new AlgorithmDocument { DocumentId = 1, Revision = 1 };
-            var num = AlgorithmType.Of(AlgorithmValueKind.Number);
-            g.Nodes.Add(new AlgorithmNode { Id = 1, Kind = AlgorithmNodeKind.Startup });
-            g.Nodes.Add(new AlgorithmNode { Id = 2, Kind = AlgorithmNodeKind.Input, BindingKey = "tree", Field = "resource", ValueType = num });
-            g.Nodes.Add(new AlgorithmNode { Id = 3, Kind = AlgorithmNodeKind.Input, BindingKey = "tree_cap", Field = "capacity", ValueType = num });
-            g.Nodes.Add(new AlgorithmNode { Id = 4, Kind = AlgorithmNodeKind.Input, BindingKey = "tree_cached", Field = "cached", ValueType = num });
-            g.Nodes.Add(new AlgorithmNode { Id = 5, Kind = AlgorithmNodeKind.Input, BindingKey = "tree_ready", Field = "harvestable", ValueType = AlgorithmType.Of(AlgorithmValueKind.Boolean) });
-            g.Nodes.Add(new AlgorithmNode { Id = 6, Kind = AlgorithmNodeKind.Merge });
-            g.Nodes.Add(new AlgorithmNode { Id = 7, Kind = AlgorithmNodeKind.Arithmetic, Operator = AlgorithmOperator.Subtract, ValueType = num });
-            g.Nodes.Add(new AlgorithmNode { Id = 8, Kind = AlgorithmNodeKind.Arithmetic, Operator = AlgorithmOperator.Minimum, ValueType = num });
-            g.Nodes.Add(new AlgorithmNode { Id = 9, Kind = AlgorithmNodeKind.Arithmetic, Operator = AlgorithmOperator.Minimum, ValueType = num });
-            g.Nodes.Add(new AlgorithmNode { Id = 10, Kind = AlgorithmNodeKind.Parameter, ValueType = num, Default = AlgorithmValue.Numeric(10) });
-            g.Nodes.Add(new AlgorithmNode { Id = 11, Kind = AlgorithmNodeKind.Constant, ValueType = num, Default = AlgorithmValue.Numeric(0) });
-            g.Nodes.Add(new AlgorithmNode { Id = 12, Kind = AlgorithmNodeKind.Compare, Operator = AlgorithmOperator.Greater, ValueType = num });
-            g.Nodes.Add(new AlgorithmNode { Id = 13, Kind = AlgorithmNodeKind.Compare, Operator = AlgorithmOperator.Greater, ValueType = num });
-            g.Nodes.Add(new AlgorithmNode { Id = 14, Kind = AlgorithmNodeKind.Boolean, Operator = AlgorithmOperator.And });
-            g.Nodes.Add(new AlgorithmNode { Id = 15, Kind = AlgorithmNodeKind.Boolean, Operator = AlgorithmOperator.And });
-            g.Nodes.Add(new AlgorithmNode { Id = 16, Kind = AlgorithmNodeKind.Branch });
-            g.Nodes.Add(new AlgorithmNode { Id = 17, Kind = AlgorithmNodeKind.Effector, Action = AlgorithmEffectorAction.Cut, BindingKey = "cutter" });
-            g.Edges.Add(new AlgorithmEdge { From = 1, To = 6, Output = "event", Input = "a" });
-            g.Edges.Add(new AlgorithmEdge { From = 2, To = 6, Output = "sampled", Input = "b" });
-            g.Edges.Add(new AlgorithmEdge { From = 6, To = 16, Output = "event", Input = "event" });
-            g.Edges.Add(new AlgorithmEdge { From = 3, To = 7, Input = "a" });
-            g.Edges.Add(new AlgorithmEdge { From = 4, To = 7, Input = "b" });
-            g.Edges.Add(new AlgorithmEdge { From = 2, To = 8, Input = "a" });
-            g.Edges.Add(new AlgorithmEdge { From = 7, To = 8, Input = "b" });
-            g.Edges.Add(new AlgorithmEdge { From = 8, To = 9, Input = "a" });
-            g.Edges.Add(new AlgorithmEdge { From = 10, To = 9, Input = "b" });
-            g.Edges.Add(new AlgorithmEdge { From = 2, To = 12, Input = "a" });
+            var g = new AlgorithmDocument { DocumentId = 1, Revision = 2 };
+            g.Nodes.Add(new AlgorithmNode { Id = 1, Kind = AlgorithmNodeKind.Input, BindingKey = "tree", Field = "trees", ValueType = AlgorithmType.Of(AlgorithmValueKind.TreeGrid) });
+            g.Nodes.Add(WithId(AlgorithmCatalog.DefaultNode(AlgorithmNodeKind.GridFilter), 2));
+            g.Nodes.Add(WithId(AlgorithmCatalog.DefaultNode(AlgorithmNodeKind.GridSelect), 3));
+            g.Nodes.Add(new AlgorithmNode { Id = 4, Kind = AlgorithmNodeKind.Parameter, Default = AlgorithmValue.Numeric(.25) });
+            g.Nodes.Add(new AlgorithmNode { Id = 5, Kind = AlgorithmNodeKind.QueryTask, Field = "采伐作业" });
+            g.Nodes.Add(new AlgorithmNode { Id = 6, Kind = AlgorithmNodeKind.Boolean, Operator = AlgorithmOperator.Not });
+            g.Nodes.Add(new AlgorithmNode { Id = 7, Kind = AlgorithmNodeKind.Branch });
+
+            g.Nodes.Add(new AlgorithmNode { Id = 9, Kind = AlgorithmNodeKind.Effector, Action = AlgorithmEffectorAction.Cut, BindingKey = "saw", Field = "采伐作业" });
+            g.Nodes.Add(new AlgorithmNode { Id = 10, Kind = AlgorithmNodeKind.Boolean, Operator = AlgorithmOperator.And });
+            g.Edges.Add(new AlgorithmEdge { From = 1, To = 2, Input = "grid" });
+            g.Edges.Add(new AlgorithmEdge { From = 2, To = 3, Input = "grid" });
+            g.Edges.Add(new AlgorithmEdge { From = 5, To = 6, Output = "found", Input = "a" });
+            g.Edges.Add(new AlgorithmEdge { From = 6, To = 10, Input = "a" });
+            g.Edges.Add(new AlgorithmEdge { From = 3, To = 10, Output = "valid", Input = "b" });
+            g.Edges.Add(new AlgorithmEdge { From = 10, To = 7, Input = "condition" });
+            g.Edges.Add(new AlgorithmEdge { From = 1, To = 7, Output = "sampled", Input = "event" });
+            g.Edges.Add(new AlgorithmEdge { From = 7, To = 9, Output = "true", Input = "event" });
+            g.Edges.Add(new AlgorithmEdge { From = 3, To = 9, Input = "tree" });
+            g.Nodes.Add(new AlgorithmNode { Id = 11, Kind = AlgorithmNodeKind.GridRead, Field = "ratio" });
+            g.Nodes.Add(new AlgorithmNode { Id = 12, Kind = AlgorithmNodeKind.Arithmetic, Operator = AlgorithmOperator.Minimum });
+            g.Edges.Add(new AlgorithmEdge { From = 1, To = 11, Input = "grid" });
+            g.Edges.Add(new AlgorithmEdge { From = 3, To = 11, Input = "object" });
+            g.Edges.Add(new AlgorithmEdge { From = 4, To = 12, Input = "a" });
             g.Edges.Add(new AlgorithmEdge { From = 11, To = 12, Input = "b" });
-            g.Edges.Add(new AlgorithmEdge { From = 7, To = 13, Input = "a" });
-            g.Edges.Add(new AlgorithmEdge { From = 11, To = 13, Input = "b" });
-            g.Edges.Add(new AlgorithmEdge { From = 12, To = 14, Input = "a" });
-            g.Edges.Add(new AlgorithmEdge { From = 13, To = 14, Input = "b" });
-            g.Edges.Add(new AlgorithmEdge { From = 14, To = 15, Input = "a" });
-            g.Edges.Add(new AlgorithmEdge { From = 5, To = 15, Input = "b" });
-            g.Edges.Add(new AlgorithmEdge { From = 15, To = 16, Input = "condition" });
-            g.Edges.Add(new AlgorithmEdge { From = 16, To = 17, Output = "true", Input = "event" });
-            g.Edges.Add(new AlgorithmEdge { From = 9, To = 17, Input = "count" });
+            g.Edges.Add(new AlgorithmEdge { From = 12, To = 9, Input = "ratio" });
             return g;
         }
+        private static AlgorithmNode WithId(AlgorithmNode node, ulong id) { node.Id = id; return node; }
 
         /// <summary>
         /// 农田基础作业（DEC-107 / DEC-121）：监听启动/恢复与阶段变化，按阶段分派——
@@ -194,7 +173,7 @@ namespace AutoEra.Algorithms
             var origin = new AlgorithmValue { Type = AlgorithmType.Of(AlgorithmValueKind.Position) };
             g.Nodes.Add(new AlgorithmNode { Id = 1, Kind = AlgorithmNodeKind.Startup });
             g.Nodes.Add(new AlgorithmNode { Id = 2, Kind = AlgorithmNodeKind.Input, BindingKey = "source_cached", Field = "cached", ValueType = num });
-            g.Nodes.Add(new AlgorithmNode { Id = 3, Kind = AlgorithmNodeKind.Input, BindingKey = "source_amount", Field = "resource", ValueType = num });
+            g.Nodes.Add(new AlgorithmNode { Id = 3, Kind = AlgorithmNodeKind.Input, BindingKey = "source_amount", Field = "cached", ValueType = num });
             g.Nodes.Add(new AlgorithmNode { Id = 4, Kind = AlgorithmNodeKind.Cargo, Field = "target_item" });
             g.Nodes.Add(new AlgorithmNode { Id = 5, Kind = AlgorithmNodeKind.Parameter, ValueType = AlgorithmType.Of(AlgorithmValueKind.Position), Default = origin.Copy() });
             g.Nodes.Add(new AlgorithmNode { Id = 6, Kind = AlgorithmNodeKind.Parameter, ValueType = AlgorithmType.Of(AlgorithmValueKind.Position), Default = origin.Copy() });
@@ -210,17 +189,18 @@ namespace AutoEra.Algorithms
             g.Nodes.Add(new AlgorithmNode { Id = 16, Kind = AlgorithmNodeKind.Branch });
             g.Nodes.Add(new AlgorithmNode { Id = 17, Kind = AlgorithmNodeKind.SubmitTask, Field = "transport" });
             g.Nodes.Add(new AlgorithmNode { Id = 18, Kind = AlgorithmNodeKind.Branch });
-            g.Nodes.Add(new AlgorithmNode { Id = 19, Kind = AlgorithmNodeKind.Navigate });
-            g.Nodes.Add(new AlgorithmNode { Id = 20, Kind = AlgorithmNodeKind.Effector, Action = AlgorithmEffectorAction.Transfer, BindingKey = "arm" });
+            g.Nodes.Add(new AlgorithmNode { Id = 19, Kind = AlgorithmNodeKind.Navigate, BindingKey = "arm_load" });
+            g.Nodes.Add(new AlgorithmNode { Id = 20, Kind = AlgorithmNodeKind.Effector, Action = AlgorithmEffectorAction.Transfer, BindingKey = "arm_load", Field = "load" });
             g.Nodes.Add(new AlgorithmNode { Id = 21, Kind = AlgorithmNodeKind.Merge });
-            g.Nodes.Add(new AlgorithmNode { Id = 22, Kind = AlgorithmNodeKind.Navigate });
+            g.Nodes.Add(new AlgorithmNode { Id = 22, Kind = AlgorithmNodeKind.Navigate, BindingKey = "arm_unload" });
             g.Nodes.Add(new AlgorithmNode { Id = 23, Kind = AlgorithmNodeKind.Merge });
-            g.Nodes.Add(new AlgorithmNode { Id = 24, Kind = AlgorithmNodeKind.Effector, Action = AlgorithmEffectorAction.Transfer, BindingKey = "arm" });
+            g.Nodes.Add(new AlgorithmNode { Id = 24, Kind = AlgorithmNodeKind.Effector, Action = AlgorithmEffectorAction.Transfer, BindingKey = "arm_unload", Field = "unload" });
             g.Nodes.Add(new AlgorithmNode { Id = 25, Kind = AlgorithmNodeKind.Constant, ValueType = AlgorithmType.Of(AlgorithmValueKind.Number, "s"), Default = AlgorithmValue.Numeric(30, "s") });
             g.Nodes.Add(new AlgorithmNode { Id = 26, Kind = AlgorithmNodeKind.Delay });
-            g.Nodes.Add(new AlgorithmNode { Id = 27, Kind = AlgorithmNodeKind.Navigate });
+            g.Nodes.Add(new AlgorithmNode { Id = 27, Kind = AlgorithmNodeKind.Navigate, BindingKey = "arm_load" });
             g.Nodes.Add(new AlgorithmNode { Id = 28, Kind = AlgorithmNodeKind.Log });
             // 根触发：启动/恢复 + 来源缓存采样。
+            g.Edges.Add(new AlgorithmEdge { From = 8, To = 4, Input = "item" });
             g.Edges.Add(new AlgorithmEdge { From = 1, To = 10, Output = "event", Input = "a" });
             g.Edges.Add(new AlgorithmEdge { From = 2, To = 10, Output = "sampled", Input = "b" });
             g.Edges.Add(new AlgorithmEdge { From = 10, To = 16, Output = "event", Input = "event" });

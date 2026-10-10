@@ -10,25 +10,33 @@ namespace AutoEra.Machines
     {
         private readonly MachineInstance _machine;
         private readonly PersistentIdAllocator _ids;
+        private readonly AutoEraEventService _events;
+        internal long WorldMilliseconds => _events?.WorldMilliseconds ?? 0;
         private readonly Dictionary<PersistentId, IBinding> _effectors = new Dictionary<PersistentId, IBinding>();
         private readonly List<PersistentId> _removed = new List<PersistentId>();
         private bool _synchronizing, _repeat, _disposed;
+        private bool _persistentRestoring, _persistentProjecting;
         private object _navigationOwner;
         private bool _navigationActive;
         public MachineInstance Machine => _machine;
         public MachineTaskQueue Tasks { get; }
         public MachineComputePool Compute { get; }
         public Sensors.MachineSensorSet Sensors { get; }
-        /// <summary>本机货舱（DEC-111）：统一容量单位，第一版由执行上下文持有。</summary>
+        /// <summary>本机货舱（DEC-111）。正式运行借用世界唯一归属权威的投影，独立领域测试可传入隔离货舱。</summary>
         public MachineCargo Cargo { get; }
-        public MachineExecutionContext(MachineInstance machine, PersistentIdAllocator ids, AutoEraEventService events = null)
+        public MachineExecutionContext(MachineInstance machine, PersistentIdAllocator ids, AutoEraEventService events = null, MachineCargo restoredCargo = null)
         {
             _machine = machine ?? throw new ArgumentNullException(nameof(machine));
             _ids = ids ?? throw new ArgumentNullException(nameof(ids));
+            _events = events;
+            if ((restoredCargo == null && machine.UsedCapacity != 0) ||
+                (restoredCargo != null && (restoredCargo.Used != machine.UsedCapacity || restoredCargo.Capacity != machine.TotalCapacity)))
+                throw new ArgumentException("Restored cargo quantities must match the saved machine usage and installed capacity.", nameof(restoredCargo));
             Tasks = new MachineTaskQueue(ids, events, machine.Id); Compute = new MachineComputePool(ids, machine.ComputeCapacity, machine.LogicCapacity);
             Sensors = new Sensors.MachineSensorSet(this);
-            Cargo = new MachineCargo(100);
+            Cargo = restoredCargo ?? new MachineCargo(machine.TotalCapacity);
             _machine.Changed += OnMachineChanged; Compute.Changed += OnComputeChanged;
+            Cargo.Changed += OnCargoChanged;
             Synchronize();
         }
 
@@ -40,6 +48,15 @@ namespace AutoEra.Machines
             var queue = new EffectorBehaviorQueue<T>(_ids, Tasks);
             var binding = new Binding<T>(component, queue, Synchronize);
             _effectors.Add(component.Id, binding); Synchronize(); return queue;
+        }
+
+        public bool UnbindEffector(PersistentId component)
+        {
+            if (!_effectors.TryGetValue(component, out var binding)) return true;
+            if (binding.Active || binding.WaitingCount != 0) return false;
+            binding.Dispose(); _effectors.Remove(component);
+            _machine.SetComponentActivity(component, false); Synchronize();
+            return true;
         }
 
         private void OnMachineChanged(MachineInstance _) => Synchronize();
@@ -59,9 +76,32 @@ namespace AutoEra.Machines
             _navigationActive = false; _navigationOwner = null; Synchronize();
         }
         private void OnComputeChanged(MachineComputePool _) => Synchronize();
+        private void OnCargoChanged(MachineCargo _) => Synchronize();
+        internal void BeginPersistentRestore()
+        {
+            if(_disposed || _persistentRestoring) throw new InvalidOperationException("Invalid candidate restoration scope.");
+            _persistentRestoring=true;
+        }
+        internal void CompletePersistentRestore()
+        {
+            if(!_persistentRestoring) throw new InvalidOperationException("Candidate restoration is not active.");
+            _persistentRestoring=false; _persistentProjecting=true;
+            try { Synchronize(); }
+            catch { _persistentRestoring=true; throw; }
+            finally { _persistentProjecting=false; }
+        }
+        internal void PrepareFailedRestoreDisposal()
+        {
+            if(_persistentRestoring) Compute.SetDispatchEnabled(false);
+        }
+        internal void DiscardFailedRestoreReservations()
+        {
+            if(!_persistentRestoring) throw new InvalidOperationException("Only an unpublished failed candidate can discard unbound reservations.");
+            Compute.DiscardFailedPersistentCandidate();
+        }
         private void Synchronize()
         {
-            if (_disposed) return;
+            if (_disposed || _persistentRestoring) return;
             if (_synchronizing) { _repeat = true; return; }
             _synchronizing = true;
             try
@@ -69,12 +109,18 @@ namespace AutoEra.Machines
                 do
                 {
                     _repeat = false;
-                    Tasks.SetPaused(!_machine.Powered, MachineWaitReason.Power);
-                    Tasks.SetPaused(!_machine.Activated || _machine.RequestedRunState != MachineRunState.Running, MachineWaitReason.Algorithm);
+                    if (!Cargo.TryReconfigure(_machine.TotalCapacity))
+                        throw new InvalidOperationException("Hardware changed below the occupied cargo capacity.");
+                    if (_machine.UsedCapacity != Cargo.Used) _machine.UpdateContainerUsage(Cargo.Used);
+                    if(!_persistentProjecting)
+                    {
+                        Tasks.SetPaused(!_machine.Powered, MachineWaitReason.Power);
+                        Tasks.SetPaused(!_machine.Activated || _machine.RequestedRunState != MachineRunState.Running, MachineWaitReason.Algorithm);
+                    }
                     if (Compute.Capacity != _machine.ComputeCapacity || Compute.LogicCapacity != _machine.LogicCapacity)
                         if (!Compute.TryReconfigure(_machine.ComputeCapacity, _machine.LogicCapacity))
                             throw new InvalidOperationException("Hardware changed while compute/logic reservations were still owned.");
-                    Compute.SetDispatchEnabled(_machine.CanRun);
+                    if(!_persistentProjecting) Compute.SetDispatchEnabled(_machine.CanRun);
                     _machine.UpdateComputeUsage(Compute.Used, Compute.AppliedLogicCost, Compute.WaitingCount);
                     bool active = _navigationActive;
                     // 移动与「效应器在执行动作」是两件事：区域电网按部件逐项求和耗电，
@@ -92,7 +138,7 @@ namespace AutoEra.Machines
                         }
                         bool mayAdvance = _machine.Powered && _machine.Activated && binding.Component.Enabled &&
                             _machine.RequestedRunState != MachineRunState.Sleeping;
-                        binding.SetEnabled(_machine.CanRun && binding.Component.Enabled, mayAdvance);
+                        if(!_persistentProjecting) binding.SetEnabled(_machine.CanRun && binding.Component.Enabled, mayAdvance);
                         // 每个效应器各自的执行状态单独推送：能耗必须按部件求和，
                         // 用一个整机倍率替代正是规格禁止的做法。
                         _machine.SetComponentActivity(binding.Component.Id, binding.Active);
@@ -116,6 +162,7 @@ namespace AutoEra.Machines
             if (Compute.Used != 0 || Compute.WaitingCount != 0) throw new InvalidOperationException("Release compute leases before shutdown.");
             _disposed = true;
             _machine.Changed -= OnMachineChanged; Compute.Changed -= OnComputeChanged;
+            Cargo.Changed -= OnCargoChanged;
             foreach (var binding in _effectors.Values) binding.Dispose();
             _effectors.Clear();
         }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace AutoEra.Machines.Sensors
 {
-    public sealed class MachineSensor : IDisposable
+    public sealed partial class MachineSensor : IDisposable
     {
         private readonly MachineExecutionContext _context;
         private readonly ComponentInstance _component;
@@ -39,7 +39,7 @@ namespace AutoEra.Machines.Sensors
         public void Bind(PersistentObjectReference target)
         {
             if (_disposed) throw new ObjectDisposedException(nameof(MachineSensor));
-            Generation++; Target = target; _next = _now; Release(); SetReason(SensorReadReason.NoTarget);
+            Generation = checked(Generation + 1); Target = target; _next = _now; Release(); SetReason(SensorReadReason.NoTarget);
         }
         public bool TryRead(out SensorSnapshot sample)
         { sample = Reason == SensorReadReason.None && !_disposed ? LastSample : null; return sample != null; }
@@ -69,7 +69,7 @@ namespace AutoEra.Machines.Sensors
             if (!_anchor.TryGetPosition(out var position) || !SoilCellReadout.Finite(position)) { Invalidate(SensorReadReason.AnchorUnavailable); return; }
             if (_lease == null)
                 _context.Compute.Submit(Profile.ComputeCost, ComputeClass.Sampling, WorkPriority.Normal, ComputeMergeKind.SensorSample,
-                    Id, ++_requestVersion, _now, true, out _lease);
+                    Id, _requestVersion = checked(_requestVersion + 1), _now, true, out _lease);
             if (_disposed) { Release(); return; }
             permission = Permission();
             if (permission != SensorReadReason.None) { Invalidate(permission); return; }
@@ -94,7 +94,7 @@ namespace AutoEra.Machines.Sensors
             { Invalidate(SensorReadReason.InvalidData); return; }
             bool changed = Reason != SensorReadReason.None || LastSample == null || LastSample.Version != snapshot.Version;
             LastSample = snapshot; Reason = SensorReadReason.None; _next = _now + Profile.IntervalMilliseconds;
-            var notification = new SensorReadEvent(Id, Target, Generation, ++_sequence, _now, Reason, snapshot);
+            var notification = new SensorReadEvent(Id, Target, Generation, _sequence = checked(_sequence + 1), _now, Reason, snapshot);
             Sampled?.Invoke(notification);
             if (!_disposed && Generation == generation && Reason == SensorReadReason.None && changed) Changed?.Invoke(notification);
             if (!_disposed && Generation == generation) Yield();
@@ -107,7 +107,8 @@ namespace AutoEra.Machines.Sensors
         private void SetReason(SensorReadReason reason)
         {
             if (Reason == reason) return; Reason = reason;
-            Changed?.Invoke(new SensorReadEvent(Id, Target, Generation, ++_sequence, _now, reason, null));
+            if (_sequence == ulong.MaxValue) return;
+            Changed?.Invoke(new SensorReadEvent(Id, Target, Generation, _sequence = checked(_sequence + 1), _now, reason, null));
         }
         private void Release()
         {
@@ -118,7 +119,7 @@ namespace AutoEra.Machines.Sensors
         }
         public void Dispose()
         {
-            if (_disposed) return; _disposed = true; Generation++;
+            if (_disposed) return; _disposed = true; if (Generation != ulong.MaxValue) Generation++;
             _context.Machine.Changed -= OnMachineChanged; Release(); SetReason(SensorReadReason.Disposed);
             Sampled = null; Changed = null;
         }

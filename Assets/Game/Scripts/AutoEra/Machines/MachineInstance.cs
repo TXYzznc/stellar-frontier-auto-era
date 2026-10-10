@@ -18,6 +18,8 @@ namespace AutoEra.Machines
         public PersistentId Id { get; }
         public ComponentDefinition Definition { get; }
         public PersistentId OwnerId { get; internal set; }
+        public PersistentId CargoLotId { get; internal set; }
+        public bool IsInCargo => CargoLotId.IsValid;
         public bool Enabled { get; internal set; } = true;
         internal ComponentInstance(PersistentId id, ComponentDefinition definition) { Id = id; Definition = definition; }
     }
@@ -30,6 +32,8 @@ namespace AutoEra.Machines
         public ulong ModelSerial { get; }
         public string Name { get; internal set; }
         public bool Deployed { get; internal set; }
+        public PersistentId CargoLotId { get; internal set; }
+        public bool IsInCargo => CargoLotId.IsValid;
         // Transient region ownership; neither a second identity nor a saved deployment flag.
         internal object RegionBindingOwner { get; set; }
         public bool Activated { get; private set; }
@@ -44,8 +48,11 @@ namespace AutoEra.Machines
         public int AppliedLogicCost { get; private set; }
         public int ComputeWaitingCount { get; private set; }
         public long Revision { get; private set; }
+        public long EnergyActivityRevision { get; private set; }
         public event Action<MachineInstance> Changed;
+        public event Action<MachineInstance> PersistentConfigurationChanged;
         internal void NotifyChanged() { Revision++; Changed?.Invoke(this); }
+        internal void NotifyConfigurationChanged() { NotifyChanged();PersistentConfigurationChanged?.Invoke(this); }
         public bool Powered => Deployed && PowerSwitchOn && SupplyAvailable && Integrity > 0;
         public bool Connected => Activated && Powered && SignalAvailable;
         public bool CanRun => Activated && Powered && RequestedRunState == MachineRunState.Running;
@@ -65,6 +72,7 @@ namespace AutoEra.Machines
 
         /// <summary>正在执行动作的组件（效应器等），按组件身份记录。</summary>
         private readonly HashSet<PersistentId> _activeComponents = new HashSet<PersistentId>();
+        private readonly Dictionary<PersistentId, double> _workingPowerOverrides = new Dictionary<PersistentId, double>();
 
         /// <summary>
         /// 推送移动状态（执行上下文在导航开始／结束时调用）。
@@ -76,7 +84,9 @@ namespace AutoEra.Machines
         /// </summary>
         public void UpdateNavigationActivity(bool moving)
         {
+            if (IsMoving == moving) return;
             IsMoving = moving;
+            EnergyActivityRevision++;
         }
 
         /// <summary>
@@ -86,8 +96,22 @@ namespace AutoEra.Machines
         public void SetComponentActivity(PersistentId componentId, bool active)
         {
             if (!componentId.IsValid) return;
-            if (active) _activeComponents.Add(componentId);
-            else _activeComponents.Remove(componentId);
+            bool changed = active ? _activeComponents.Add(componentId) : _activeComponents.Remove(componentId);
+            if (changed) EnergyActivityRevision++;
+        }
+        /// <summary>Continuous work uses the configured idle/max endpoints; an operation clears its override at its safe stop.</summary>
+        public bool SetComponentWorkingPower(PersistentId id, double? power)
+        {
+            if (!id.IsValid) return false;
+            if (!power.HasValue)
+            { if (_workingPowerOverrides.Remove(id)) EnergyActivityRevision++; return true; }
+            if (double.IsNaN(power.Value) || double.IsInfinity(power.Value)) return false;
+            ComponentInstance component = null;
+            for (int k = 0; k < _slots.Length; k++) for (int i = 0; i < _slots[k].Length; i++)
+                if (_slots[k][i]?.Id == id) component = _slots[k][i];
+            if (component == null || power.Value < component.Definition.IdlePower || power.Value > component.Definition.WorkingPower) return false;
+            if (_workingPowerOverrides.TryGetValue(id, out var previous) && previous == power.Value) return true;
+            _workingPowerOverrides[id] = power.Value; EnergyActivityRevision++; return true;
         }
 
         /// <summary>该组件此刻是否正在执行动作。</summary>
@@ -170,7 +194,7 @@ namespace AutoEra.Machines
                 case HardwareKind.Core:
                     return ReservedCompute > 0 ? item.Definition.WorkingPower : item.Definition.IdlePower;
                 case HardwareKind.Effector:
-                    return IsComponentActive(item.Id) ? item.Definition.WorkingPower : item.Definition.IdlePower;
+                    return IsComponentActive(item.Id) ? _workingPowerOverrides.TryGetValue(item.Id, out var workPower) ? workPower : item.Definition.WorkingPower : item.Definition.IdlePower;
                 default:
                     return item.Definition.IdlePower;
             }
@@ -213,7 +237,7 @@ namespace AutoEra.Machines
             if (!Deployed) return MachineManagementResult.NotDeployed;
             if (Integrity <= 0) return MachineManagementResult.Destroyed;
             Activated = true;
-            NotifyChanged();
+            NotifyConfigurationChanged();
             return MachineManagementResult.Completed;
         }
 
@@ -225,7 +249,7 @@ namespace AutoEra.Machines
             if (state != MachineRunState.Stopped && !Activated) return MachineManagementResult.NotActivated;
             if (Integrity <= 0) return MachineManagementResult.Destroyed;
             RequestedRunState = state;
-            NotifyChanged();
+            NotifyConfigurationChanged();
             return state == MachineRunState.Stopped && HasActiveBehavior ? MachineManagementResult.WaitingForSafeStop : MachineManagementResult.Completed;
         }
 
@@ -233,7 +257,7 @@ namespace AutoEra.Machines
         {
             if (origin != ManagementOrigin.Field || !Deployed) return MachineManagementResult.InvalidOrigin;
             if (on && Integrity <= 0) return MachineManagementResult.Destroyed;
-            PowerSwitchOn = on; NotifyChanged(); return MachineManagementResult.Completed;
+            PowerSwitchOn = on; NotifyConfigurationChanged(); return MachineManagementResult.Completed;
         }
 
         // External adapters supply facts; this is not an energy grid or signal simulator.
@@ -268,6 +292,12 @@ namespace AutoEra.Machines
             if (used < 0 || used > TotalCapacity) throw new ArgumentOutOfRangeException(nameof(used));
             UsedCapacity = used; NotifyChanged();
         }
+        internal bool SetContainerUsageSilently(int used)
+        {
+            if (used < 0 || used > TotalCapacity) throw new ArgumentOutOfRangeException(nameof(used));
+            if (UsedCapacity == used) return false;
+            UsedCapacity = used; return true;
+        }
         public void UpdateIntegrity(double value)
         {
             if (double.IsNaN(value) || double.IsInfinity(value) || value < 0 || value > Definition.MaximumIntegrity) throw new ArgumentOutOfRangeException(nameof(value));
@@ -288,7 +318,7 @@ namespace AutoEra.Machines
             if (!ValidSlot(kind, index)) return MachineManagementResult.InvalidSlot;
             var item = GetComponent(kind, index);
             if (item == null) return MachineManagementResult.MissingComponent;
-            item.Enabled = enabled; NotifyChanged(); return MachineManagementResult.Completed;
+            item.Enabled = enabled; NotifyConfigurationChanged(); return MachineManagementResult.Completed;
         }
         private MachineManagementResult CheckManagementAccess(ManagementOrigin origin)
         {
@@ -310,14 +340,14 @@ namespace AutoEra.Machines
             if (gate != MachineManagementResult.Completed) return gate;
             var kind = component.Definition.Kind;
             if (!ValidSlot(kind, index)) return MachineManagementResult.InvalidSlot;
-            if (component.OwnerId.IsValid) return MachineManagementResult.AlreadyInstalled;
+            if (component.OwnerId.IsValid || component.IsInCargo || IsInCargo) return MachineManagementResult.AlreadyInstalled;
             if (_slots[(int)kind][index] != null) return MachineManagementResult.Occupied;
             if ((long)TotalCapacity + component.Definition.AddedCapacity > int.MaxValue ||
                 (long)ComputeCapacity + component.Definition.ComputeCapacity > int.MaxValue ||
                 (long)LogicCapacity + component.Definition.LogicCapacity > int.MaxValue)
                 return MachineManagementResult.InvalidState;
             _slots[(int)kind][index] = component; component.OwnerId = Id;
-            NotifyChanged();
+            NotifyConfigurationChanged();
             return MachineManagementResult.Completed;
         }
         internal MachineManagementResult Remove(ManagementOrigin origin, HardwareKind kind, int index)
@@ -332,7 +362,7 @@ namespace AutoEra.Machines
             if (item.Definition.Kind == HardwareKind.Core && ComputeWaitingCount > 0) return MachineManagementResult.ComputeInUse;
             if (LogicCapacity - item.Definition.LogicCapacity < AppliedLogicCost) return MachineManagementResult.LogicCapacityInUse;
             _slots[(int)kind][index] = null; item.OwnerId = PersistentId.Invalid;
-            NotifyChanged();
+            NotifyConfigurationChanged();
             return MachineManagementResult.Completed;
         }
 
@@ -384,7 +414,7 @@ namespace AutoEra.Machines
                 }
             }
 
-            NotifyChanged();
+            NotifyConfigurationChanged();
             return MachineManagementResult.Completed;
         }
     }

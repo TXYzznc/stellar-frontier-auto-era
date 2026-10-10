@@ -19,7 +19,7 @@ namespace AutoEra.Machines
         {
             EnsureActive();
             if (!_hardwareOperations.TryGetValue(id, out var operation))
-            { operation = new MachineHardwareOperation(this); _hardwareOperations.Add(id, operation); }
+            { operation = new MachineHardwareOperation(this); operation.PersistentIntentChanged += OnHardwareIntentChanged; _hardwareOperations.Add(id, operation); }
             return operation;
         }
         public IEnumerable<MachineInstance> Machines => _machines.Values;
@@ -28,9 +28,22 @@ namespace AutoEra.Machines
         public bool IsActive => !_disposed;
         public event Action<MachineRoster> Disposed;
         public event Action Changed;
-        private void OnMachineChanged(MachineInstance machine) => Changed?.Invoke();
+        public event Action<MachineInstance> DeploymentChanged;
+        public event Action PersistentConfigurationChanged;
+        public long Revision { get; private set; }
+        private void NotifyRosterChanged() { Revision++; Changed?.Invoke(); }
+        private void OnMachineChanged(MachineInstance machine) => NotifyRosterChanged();
+        private void OnConfigurationChanged(MachineInstance machine) => PersistentConfigurationChanged?.Invoke();
+        private void OnHardwareIntentChanged() => PersistentConfigurationChanged?.Invoke();
+        internal void DiscardPendingHardwareIntents()
+        {
+            foreach (var operation in _hardwareOperations.Values) operation.Dispose();
+            _hardwareOperations.Clear();
+        }
         private void EnsureActive() { if (_disposed) throw new ObjectDisposedException(nameof(MachineRoster)); }
         public bool TryGet(PersistentId id, out MachineInstance machine) => _machines.TryGetValue(id, out machine);
+        public bool TryGetComponent(PersistentId id, out ComponentInstance component) => _components.TryGetValue(id, out component);
+        internal void NotifyCargoCustodyChanged() => NotifyRosterChanged();
 
         public MachineRoster(PersistentIdAllocator ids, PersistentObjectRegistry registry)
         { _ids = ids ?? throw new ArgumentNullException(nameof(ids)); _registry = registry ?? throw new ArgumentNullException(nameof(registry)); }
@@ -54,7 +67,8 @@ namespace AutoEra.Machines
             if (_registry.TryRegister(id, PersistentObjectKind.Machine, machine) != PersistentRegistryResult.Success)
                 throw new InvalidOperationException("Machine registration failed.");
             _machines.Add(id, machine); _names.Add(name); _serials[definition.Id] = serial;
-            machine.Changed += OnMachineChanged; Changed?.Invoke();
+            machine.Changed += OnMachineChanged;machine.PersistentConfigurationChanged+=OnConfigurationChanged; NotifyRosterChanged();
+            PersistentConfigurationChanged?.Invoke();
             return machine;
         }
 
@@ -65,7 +79,8 @@ namespace AutoEra.Machines
             if (!_ids.TryAllocate(out var id)) throw new InvalidOperationException("Identity space exhausted.");
             var component = new ComponentInstance(id, definition);
             _components.Add(id, component);
-            Changed?.Invoke();
+            NotifyRosterChanged();
+            PersistentConfigurationChanged?.Invoke();
             return component;
         }
 
@@ -77,15 +92,15 @@ namespace AutoEra.Machines
             foreach (char character in name) if (char.IsControl(character)) return MachineManagementResult.InvalidName;
             if (machine.Name == name) return MachineManagementResult.Completed;
             if (!_names.Add(name)) return MachineManagementResult.DuplicateName;
-            _names.Remove(machine.Name); machine.Name = name; machine.NotifyChanged();
+            _names.Remove(machine.Name); machine.Name = name; machine.NotifyConfigurationChanged();
             return MachineManagementResult.Completed;
         }
 
         public MachineManagementResult Deploy(PersistentId id)
         {
-            if (!_machines.TryGetValue(id, out var machine) || machine.Deployed) return MachineManagementResult.InvalidState;
+            if (!_machines.TryGetValue(id, out var machine) || machine.Deployed || machine.IsInCargo) return MachineManagementResult.InvalidState;
             if (machine.Integrity <= 0) return MachineManagementResult.Destroyed;
-            machine.Deployed = true; machine.NotifyChanged(); return MachineManagementResult.Completed;
+            machine.Deployed = true; machine.NotifyChanged(); DeploymentChanged?.Invoke(machine); return MachineManagementResult.Completed;
         }
 
         public MachineManagementResult Install(PersistentId machineId, ManagementOrigin origin, PersistentId componentId, int index)
@@ -132,6 +147,7 @@ namespace AutoEra.Machines
             machine.Deployed = false;
             machine.UpdateEnvironment(false, false);
             machine.NotifyChanged();
+            DeploymentChanged?.Invoke(machine);
             return MachineManagementResult.Completed;
         }
 
@@ -139,15 +155,17 @@ namespace AutoEra.Machines
         {
             if (_disposed) return;
             _disposed = true;
-            foreach (var operation in _hardwareOperations.Values) operation.Dispose();
-            _hardwareOperations.Clear();
+            DiscardPendingHardwareIntents();
             foreach (var machine in _machines.Values)
             {
                 machine.Changed -= OnMachineChanged;
+                machine.PersistentConfigurationChanged-=OnConfigurationChanged;
                 _registry.TryUnregister(machine.Id, PersistentObjectKind.Machine, machine);
             }
             _machines.Clear(); _components.Clear(); _names.Clear();
             Changed = null;
+            PersistentConfigurationChanged=null;
+            DeploymentChanged = null;
             var disposed = Disposed;
             Disposed = null;
             disposed?.Invoke(this);

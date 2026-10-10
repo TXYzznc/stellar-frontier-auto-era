@@ -6,7 +6,7 @@ namespace AutoEra.Events
     /// Monotonic session-scoped allocator for correlation IDs. Main-thread only; it is
     /// deliberately independent of the persistent identity allocator.
     /// </summary>
-    public sealed class CorrelationAllocator
+    public sealed partial class CorrelationAllocator
     {
         private ulong _nextValue = 1UL;
 

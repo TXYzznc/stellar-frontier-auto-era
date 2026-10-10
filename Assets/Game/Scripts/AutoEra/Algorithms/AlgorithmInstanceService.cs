@@ -63,27 +63,36 @@ namespace AutoEra.Algorithms
     }
 
     /// <summary>One machine. UI observers never own pending requests or running state.</summary>
-    public sealed class AlgorithmInstanceService : IDisposable
+    public sealed partial class AlgorithmInstanceService : IDisposable
     {
         private readonly PersistentIdAllocator _ids;
         private readonly MachineComputePool _compute;
         private readonly Func<ulong> _hardwareRevision;
         private readonly Func<AlgorithmDocument, bool> _bindingsValid;
+        private readonly Func<bool> _machineSafe;
         private readonly Dictionary<ulong, Entry> _entries = new Dictionary<ulong, Entry>();
+        private readonly List<Entry> _ordered = new List<Entry>();
+        private bool _orderDirty;
         private readonly List<AlgorithmRuntime> _restartPaused = new List<AlgorithmRuntime>();
         private Entry _publishing;
+        private long _now;
         private bool _disposed;
         public event Action Changed;
-        public AlgorithmInstanceService(PersistentIdAllocator ids, MachineComputePool compute, Func<ulong> hardwareRevision, Func<AlgorithmDocument, bool> bindingsValid)
+        public event Action PersistentApplied;
+        public AlgorithmInstanceService(PersistentIdAllocator ids, MachineComputePool compute, Func<ulong> hardwareRevision, Func<AlgorithmDocument, bool> bindingsValid,
+            Func<bool> machineSafe = null)
         { _ids = ids ?? throw new ArgumentNullException(nameof(ids)); _compute = compute ?? throw new ArgumentNullException(nameof(compute));
             _hardwareRevision = hardwareRevision ?? throw new ArgumentNullException(nameof(hardwareRevision));
-            _bindingsValid = bindingsValid ?? throw new ArgumentNullException(nameof(bindingsValid)); }
+            _bindingsValid = bindingsValid ?? throw new ArgumentNullException(nameof(bindingsValid));
+            _machineSafe = machineSafe; }
         public bool Add(AlgorithmRuntime runtime)
         {
             if (_disposed || runtime == null || _entries.ContainsKey(runtime.InstanceId.Value) || !runtime.IsSafe) return false;
             int cost = TotalCost() + runtime.LogicCost;
             if (!_compute.TryApplyLogicCost(cost)) return false;
             var doc = runtime.CopyApplied(); _entries.Add(runtime.InstanceId.Value, new Entry { Runtime = runtime, Draft = doc, Saved = doc.Copy() });
+            runtime.Changed += OnRuntimeChanged;
+            _orderDirty = true;
             // 新增实例同样是一次状态变化，必须发事件：否则订阅者（界面的读模型）会一直停在
             // 「这台机器没有实例」上，直到别的操作恰好触发一次 Changed。
             // 这条曾经漏过一次：数据对了、界面却是旧状态，看起来像界面没接线。
@@ -105,6 +114,7 @@ namespace AutoEra.Algorithms
             }
 
             _entries.Add(draft.DocumentId, new Entry { Runtime = null, Draft = draft.Copy(), Saved = draft.Copy() });
+            _orderDirty = true;
             Changed?.Invoke();
             return true;
         }
@@ -128,6 +138,82 @@ namespace AutoEra.Algorithms
             }
 
             entry.Runtime = runtime;
+            runtime.Changed += OnRuntimeChanged;
+            Changed?.Invoke();
+            return true;
+        }
+
+        public int AvailableLogicCapacity => Math.Max(0, _compute.LogicCapacity - TotalCost());
+        internal bool HasRuntime(ulong id) => _entries.TryGetValue(id, out var entry) && entry.Runtime != null;
+        internal bool OwnsRuntime(ulong id, AlgorithmRuntime runtime)
+            => _entries.TryGetValue(id, out var entry) && ReferenceEquals(entry.Runtime, runtime);
+
+        public bool TryReadDraft(ulong id, out AlgorithmDocument draft)
+        {
+            draft = null;
+            if (_disposed || !_entries.TryGetValue(id, out var entry)) return false;
+            draft = entry.Draft.Copy();
+            return true;
+        }
+
+        /// <summary>提交机器级预备运行时。先校验全部条件，绑定成功后才发布状态变化。</summary>
+        internal bool CommitActivation(ulong id, ulong revision, ulong hardware, AlgorithmRuntime runtime,
+            Action attach, long now, out string reason)
+        {
+            reason = null;
+            if (_disposed || runtime == null || runtime.InstanceId.Value != id ||
+                !_entries.TryGetValue(id, out var entry) || entry.Runtime != null || entry.Draft.Revision != revision ||
+                runtime.Revision != revision || _hardwareRevision() != hardware)
+            { reason = "StaleRevision"; return false; }
+            if (!_bindingsValid(entry.Draft.Copy())) { reason = "HardwareOrBindingChanged"; return false; }
+            if (!runtime.IsSafe || runtime.LogicCost > AvailableLogicCapacity)
+            { reason = "LogicCapacityExceeded"; return false; }
+            int previousCost = TotalCost();
+            if (!_compute.TryApplyLogicCost(previousCost + runtime.LogicCost))
+            { reason = "LogicCapacityExceeded"; return false; }
+            if (!_entries.TryGetValue(id, out var current) || !ReferenceEquals(current, entry) ||
+                entry.Draft.Revision != revision || _hardwareRevision() != hardware)
+            {
+                _compute.TryApplyLogicCost(previousCost);
+                reason = "StaleRevision";
+                return false;
+            }
+            try
+            {
+                attach();
+                entry.Runtime = runtime;
+                runtime.Changed += OnRuntimeChanged;
+                foreach (var node in runtime.CopyApplied().Nodes)
+                    if (!node.Deleted && node.Kind == AlgorithmNodeKind.Startup)
+                        runtime.Enqueue(new AlgorithmTrigger { NodeId = node.Id, Revision = runtime.Revision,
+                            Generation = runtime.Generation, Time = now });
+            }
+            catch
+            {
+                runtime.Changed -= OnRuntimeChanged;
+                entry.Runtime = null;
+                _compute.TryApplyLogicCost(previousCost);
+                throw;
+            }
+            PersistentApplied?.Invoke();Changed?.Invoke();
+            return true;
+        }
+
+        internal bool Remove(ulong id, Action detach)
+        {
+            if (_disposed || !_entries.TryGetValue(id, out var entry)) return false;
+            if (ReferenceEquals(_publishing, entry))
+            {
+                foreach (var paused in _restartPaused) paused.SetPaused(false, _now, AlgorithmPauseReason.Application);
+                _restartPaused.Clear(); _publishing = null;
+            }
+            else if (entry.Runtime != null) _restartPaused.Remove(entry.Runtime);
+            _entries.Remove(id);
+            _orderDirty = true;
+            if (entry.Runtime != null) entry.Runtime.Changed -= OnRuntimeChanged;
+            entry.Runtime?.Dispose();
+            detach();
+            _compute.TryApplyLogicCost(TotalCost());
             Changed?.Invoke();
             return true;
         }
@@ -372,6 +458,14 @@ namespace AutoEra.Algorithms
         public void Pump(long now)
         {
             if (_disposed) return;
+            _now = now;
+            if (_orderDirty)
+            {
+                _ordered.Clear();
+                foreach (var entry in _entries.Values) _ordered.Add(entry);
+                _ordered.Sort((a, b) => a.Draft.DocumentId.CompareTo(b.Draft.DocumentId));
+                _orderDirty = false;
+            }
             if (_publishing != null)
             {
                 var entry = _publishing; var request = entry.Request;
@@ -384,19 +478,24 @@ namespace AutoEra.Algorithms
                 }
                 else { request.State = AlgorithmApplyState.Rejected; if (request.Reason == null) request.Reason = "SafePointLost"; }
                 foreach (var runtime in _restartPaused) runtime.SetPaused(false, now, AlgorithmPauseReason.Application);
-                _restartPaused.Clear(); _publishing = null; Changed?.Invoke();
+                _restartPaused.Clear(); _publishing = null;
+                if(request.State==AlgorithmApplyState.Succeeded)PersistentApplied?.Invoke();
+                Changed?.Invoke();
                 return;
             }
-            foreach (var entry in _entries.Values) entry.Runtime?.Pump(now);
-            foreach (var entry in _entries.Values)
+            foreach (var entry in _ordered)
+                if (_entries.TryGetValue(entry.Draft.DocumentId, out var current) && ReferenceEquals(entry, current)) entry.Runtime?.Pump(now);
+            foreach (var entry in _ordered)
             {
+                if (!_entries.TryGetValue(entry.Draft.DocumentId, out var current) || !ReferenceEquals(entry, current)) continue;
                 var request = entry.Request;
                 if (request?.State != AlgorithmApplyState.WaitingSafePoint) continue;
                 if (!Validate(entry, request, out _)) { request.State = AlgorithmApplyState.Rejected; Changed?.Invoke(); continue; }
                 bool safe = entry.Runtime?.IsSafe ?? false;
                 if (!request.ParametersOnly)
                 {
-                    foreach (var other in _entries.Values) safe = safe && (other.Runtime?.IsSafe ?? false);
+                    safe = safe && (_machineSafe?.Invoke() ?? true);
+                    foreach (var other in _entries.Values) safe = safe && (other.Runtime?.IsSafe ?? true);
                 }
 
                 if (!safe) continue;
@@ -459,13 +558,16 @@ namespace AutoEra.Algorithms
         public void Dispose()
         {
             if (_disposed) return; _disposed=true;
-            foreach(var entry in _entries.Values) entry.Runtime?.Dispose();
-            _entries.Clear(); _compute.TryApplyLogicCost(0); Changed=null;
+            foreach(var entry in _entries.Values)
+                if (entry.Runtime != null) { entry.Runtime.Changed -= OnRuntimeChanged; entry.Runtime.Dispose(); }
+            _entries.Clear(); _ordered.Clear(); _restartPaused.Clear(); _publishing = null;
+            _compute.TryApplyLogicCost(0); Changed=null;PersistentApplied=null;
         }
         private sealed class Entry { internal AlgorithmRuntime Runtime; internal AlgorithmDocument Draft,Saved; internal AlgorithmApplyRequest Request; }
+        private void OnRuntimeChanged() { if (!_disposed) Changed?.Invoke(); }
     }
 
-    public sealed class AlgorithmTemplateLibrary
+    public sealed partial class AlgorithmTemplateLibrary
     {
         private readonly PersistentIdAllocator _ids;
         private readonly Dictionary<ulong,Template> _items=new Dictionary<ulong,Template>();

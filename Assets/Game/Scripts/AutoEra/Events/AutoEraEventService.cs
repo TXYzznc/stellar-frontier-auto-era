@@ -9,12 +9,12 @@ namespace AutoEra.Events
     /// Session-owned accountability service. Commands open correlations, facts carry them to
     /// the bus and the journal resolves one trigger to its source and final outcome.
     /// </summary>
-    public sealed class AutoEraEventService : IDisposable
+    public sealed partial class AutoEraEventService : IDisposable
     {
         public const int DefaultJournalCapacity = 512;
 
         private readonly WorldClock _clock;
-        private readonly IEventPublisher _publisher;
+        private IEventPublisher _publisher;
         private readonly EventJournal _journal;
         private readonly CorrelationAllocator _correlations = new CorrelationAllocator();
         private bool _isDisposed;
@@ -27,6 +27,7 @@ namespace AutoEra.Events
         }
 
         public EventJournal Journal => _journal;
+        internal long WorldMilliseconds => _clock.WorldMilliseconds;
 
         /// <summary>Opens a command correlation. Commands never reach the event bus.</summary>
         public CorrelationId OpenCommand(EventDomain domain, PersistentId source, string action)

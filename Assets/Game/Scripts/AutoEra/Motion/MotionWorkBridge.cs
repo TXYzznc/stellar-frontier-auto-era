@@ -76,10 +76,13 @@ namespace AutoEra.Motion
             _executionId = executionId; if (!_executor.TryPrepare(executionId, joints)) throw new InvalidOperationException("Motion channels are unavailable.");
             _navigation.Ended += OnEnded;
         }
+        private MotionWorkBridge() { State = MotionExecutionState.Completed; }
+        /// <summary>Stationary production shares work ownership without inventing a navigation motion execution.</summary>
+        public static MotionWorkBridge ForWorkReservation() => new MotionWorkBridge();
 
         public bool Begin(PersistentId task)
         {
-            if (_disposed || !task.IsValid || _navigation.CurrentTaskId != task || State != MotionExecutionState.Prepared) return false;
+            if (_disposed || _navigation == null || !task.IsValid || _navigation.CurrentTaskId != task || State != MotionExecutionState.Prepared) return false;
             if (!_executor.TryTransition(_executionId, MotionExecutionState.Prepared, MotionExecutionState.Running)) return false;
             State = MotionExecutionState.Running; return true;
         }
@@ -98,12 +101,12 @@ namespace AutoEra.Motion
 
         public void Dispose()
         {
-            if (_disposed) return; _disposed = true; _navigation.Ended -= OnEnded;
+            if (_disposed) return; _disposed = true; if (_navigation != null) _navigation.Ended -= OnEnded;
             if (_workQueue != null && _workMachine.IsValid) _workQueue.Release(_workMachine);
             DetachQueue();
             if (State == MotionExecutionState.Running || State == MotionExecutionState.Recovering)
             { _executor.TryTransition(_executionId, State, MotionExecutionState.Cancelled); State = MotionExecutionState.Cancelled; }
-            _executor.TryRelease(_executionId);
+            _executor?.TryRelease(_executionId);
         }
     }
 }

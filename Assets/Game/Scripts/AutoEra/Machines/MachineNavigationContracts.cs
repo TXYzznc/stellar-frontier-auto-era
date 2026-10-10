@@ -52,7 +52,7 @@ namespace AutoEra.Machines
         void Align(float yaw, float degreesPerSecond, float deltaSeconds);
     }
 
-    public sealed class MachineNavigationTarget
+    public sealed partial class MachineNavigationTarget
     {
         public InitialRegion Region { get; }
         public PersistentId ObjectId { get; }

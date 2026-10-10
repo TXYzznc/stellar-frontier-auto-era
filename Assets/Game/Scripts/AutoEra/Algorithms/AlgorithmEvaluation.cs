@@ -5,7 +5,7 @@ namespace AutoEra.Algorithms
 {
     public sealed class AlgorithmTrigger
     {
-        public ulong NodeId, RootNodeId, Revision, Generation, Sequence, TaskId, SourceId, BindingGeneration, SourceTargetId;
+        public ulong InstanceId, NodeId, RootNodeId, Revision, Generation, Sequence, TaskId, SourceId, BindingGeneration, SourceTargetId;
         public string Port = "event";
         public long Time;
         public bool Continuous;
@@ -13,7 +13,7 @@ namespace AutoEra.Algorithms
         public AlgorithmTrigger Copy()
         {
             var copy = new AlgorithmTrigger { NodeId = NodeId, Revision = Revision, Generation = Generation, Sequence = Sequence, TaskId = TaskId, Port = Port, Time = Time,
-                Continuous = Continuous, RootNodeId = RootNodeId, SourceId = SourceId, BindingGeneration = BindingGeneration, SourceTargetId = SourceTargetId };
+                Continuous = Continuous, InstanceId = InstanceId, RootNodeId = RootNodeId, SourceId = SourceId, BindingGeneration = BindingGeneration, SourceTargetId = SourceTargetId };
             foreach (var pair in Inputs) copy.Inputs.Add(pair.Key, pair.Value.Copy());
             return copy;
         }
@@ -110,14 +110,14 @@ namespace AutoEra.Algorithms
                     case AlgorithmNodeKind.SetVariable:
                         _batch.Writes[node.StateKey] = Read(node, "value").Copy(); _cache.Clear(); break;
                     case AlgorithmNodeKind.Navigate:
-                        _batch.Intents.Add(new AlgorithmIntent { NodeId = node.Id, Kind = node.Kind, Value = Read(node, "target").Copy() }); break;
+                        _batch.Intents.Add(new AlgorithmIntent { NodeId = node.Id, Kind = node.Kind, BindingKey = node.BindingKey, Value = Read(node, "target").Copy() }); break;
                     case AlgorithmNodeKind.Delay:
                         var seconds = Read(node, "seconds");
                         if (seconds.Number <= 0) throw new EvaluationFailure(node.Id, "DelayMustBePositive");
                         _batch.Intents.Add(new AlgorithmIntent { NodeId = node.Id, Kind = node.Kind, Value = seconds.Copy() }); break;
                     case AlgorithmNodeKind.Log: _batch.Intents.Add(new AlgorithmIntent { NodeId = node.Id, Kind = node.Kind }); break;
                     case AlgorithmNodeKind.Effector:
-                        _batch.Intents.Add(new AlgorithmIntent { NodeId = node.Id, Kind = node.Kind, Action = node.Action, Parameters = ReadParameters(node), BindingKey = node.BindingKey }); break;
+                        _batch.Intents.Add(new AlgorithmIntent { NodeId = node.Id, Kind = node.Kind, Action = node.Action, Parameters = ReadParameters(node), BindingKey = node.BindingKey, Field = node.Field }); break;
                     case AlgorithmNodeKind.SubmitTask:
                         _batch.Intents.Add(new AlgorithmIntent { NodeId = node.Id, Kind = node.Kind, Field = node.Field }); break;
                     case AlgorithmNodeKind.CancelTask:
@@ -197,9 +197,16 @@ namespace AutoEra.Algorithms
                     bool first = Read(node, "a").Boolean;
                     result = AlgorithmValue.Bool(node.Operator == AlgorithmOperator.Not ? !first : node.Operator == AlgorithmOperator.And ? first & Read(node, "b").Boolean : first | Read(node, "b").Boolean); break;
                 case AlgorithmNodeKind.Cargo:
-                    result = _cargoReader?.Invoke(port, node.Field);
+                    string cargoItem = _inputs.ContainsKey(Key(node.Id,"item")) ? Read(node,"item").EnumValue.ToString(System.Globalization.CultureInfo.InvariantCulture) : node.Field;
+                    result = _cargoReader?.Invoke(port, cargoItem);
                     if (result == null) result = new AlgorithmValue { Type = port == "has_item" ? AlgorithmType.Of(AlgorithmValueKind.Boolean) : AlgorithmType.Of(AlgorithmValueKind.Number), IsValid = false };
                     break;
+                case AlgorithmNodeKind.GridFilter: result = AlgorithmGridOperations.Filter(Read(node, "grid"), node.Field); break;
+                case AlgorithmNodeKind.GridSelect:
+                    result = AlgorithmGridOperations.Select(Read(node, "grid"));
+                    if (port == "valid") result = AlgorithmValue.Bool(result.IsValid);
+                    break;
+                case AlgorithmNodeKind.GridRead: result = AlgorithmGridOperations.Read(Read(node, "grid"), Read(node, "object"), node.Field); break;
                 case AlgorithmNodeKind.QueryTask:
                     var queried = _taskQuerier?.Invoke(node.Field);
                     if (queried == null) result = new AlgorithmValue { Type = port == "found" ? AlgorithmType.Of(AlgorithmValueKind.Boolean) : AlgorithmType.Of(AlgorithmValueKind.Object), IsValid = false };

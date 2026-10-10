@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace AutoEra.Algorithms
 {
     public enum AlgorithmValueKind { Boolean, Number, Enumeration, Object, Objects, Position, Event, Communication, SoilGrid, CropGrid, TreeGrid }
-    public enum AlgorithmNodeKind { Constant, Parameter, Input, Startup, Arithmetic, Compare, Boolean, Branch, Merge, Variable, SetVariable, Delay, Navigate, Effector, SubmitTask, QueryTask, CancelTask, Hysteresis, Log, Cargo }
+    public enum AlgorithmNodeKind { Constant, Parameter, Input, Startup, Arithmetic, Compare, Boolean, Branch, Merge, Variable, SetVariable, Delay, Navigate, Effector, SubmitTask, QueryTask, CancelTask, Hysteresis, Log, Cargo, GridFilter, GridSelect, GridRead }
     public enum AlgorithmOperator { Add, Subtract, Multiply, Divide, Minimum, Maximum, Equal, NotEqual, Less, Greater, LessOrEqual, GreaterOrEqual, And, Or, Not }
     public enum AlgorithmEffectorAction { Spray, ModifySpray, StopSpray, Sow, Harvest, Clean, Transfer, Cut, Drill }
 
@@ -30,10 +30,11 @@ namespace AutoEra.Algorithms
         public bool Boolean;
         public int EnumValue;
         public ulong ObjectId;
+        public AlgorithmTreeGrid Trees;
         public double X, Y, Z;
         public bool IsValid = true;
         public AlgorithmValue Copy() => new AlgorithmValue { Type = Type?.Copy(), Number = Number, Boolean = Boolean,
-            EnumValue = EnumValue, ObjectId = ObjectId, X = X, Y = Y, Z = Z, IsValid = IsValid };
+            EnumValue = EnumValue, ObjectId = ObjectId, Trees = Trees, X = X, Y = Y, Z = Z, IsValid = IsValid };
         public static AlgorithmValue Numeric(double value, string unit = "") => new AlgorithmValue { Number = value, Type = AlgorithmType.Of(AlgorithmValueKind.Number, unit) };
         public static AlgorithmValue Bool(bool value) => new AlgorithmValue { Boolean = value, Type = AlgorithmType.Of(AlgorithmValueKind.Boolean) };
     }

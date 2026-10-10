@@ -30,7 +30,7 @@ namespace AutoEra.Machines
     }
 
     /// <summary>Task causality, not a global one-action lock. Several tasks may have active children.</summary>
-    public sealed class MachineTaskQueue
+    public sealed partial class MachineTaskQueue
     {
         public const int WaitingCapacity = 32;
         private readonly PersistentIdAllocator _ids;
@@ -178,15 +178,17 @@ namespace AutoEra.Machines
     public sealed class EffectorBehaviorParameters
     {
         public string Action;
+        public string TransferMode;
         public PersistentObjectReference Target;
         public readonly Dictionary<string, double> Numbers = new Dictionary<string, double>();
+        public readonly Dictionary<string, PersistentObjectReference> Objects = new Dictionary<string, PersistentObjectReference>();
         public int Enumeration;
         public bool Flag;
         public EffectorBehaviorParameters(string action) { Action = action; }
     }
 
     /// <summary>One installed active effector. The parameter type belongs to that action, never to an algorithm graph.</summary>
-    public sealed class EffectorBehaviorQueue<TParameters>
+    public sealed partial class EffectorBehaviorQueue<TParameters>
     {
         public const int WaitingCapacity = 16;
         private readonly PersistentIdAllocator _ids;

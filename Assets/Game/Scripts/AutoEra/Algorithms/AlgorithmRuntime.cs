@@ -23,9 +23,12 @@ namespace AutoEra.Algorithms
         private readonly AlgorithmTrigger _trigger;
         private readonly ulong[] _path;
         private readonly Dictionary<ulong, AlgorithmValue> _nodeValues;
+        private readonly AlgorithmPlan _executedPlan;
         public string Error { get; }
         public ulong FailedNode { get; }
         public int Cost { get; }
+        public ulong Revision => _trigger.Revision;
+        public AlgorithmDocument CopyExecutedDocument() => _executedPlan.CopyDocument();
         public ulong RunId { get; }
         public AlgorithmTrigger CopyTrigger() => _trigger.Copy();
         public ulong[] CopyPath() => (ulong[])_path.Clone();
@@ -35,8 +38,9 @@ namespace AutoEra.Algorithms
             foreach (var pair in _nodeValues) copy.Add(pair.Key, pair.Value.Copy());
             return copy;
         }
-        internal AlgorithmRunRecord(ulong runId, AlgorithmTrigger trigger, AlgorithmBatch batch)
+        internal AlgorithmRunRecord(ulong runId, AlgorithmTrigger trigger, AlgorithmBatch batch, AlgorithmPlan executedPlan)
         {
+            _executedPlan = executedPlan;
             RunId = runId; _trigger = trigger.Copy(); _path = batch.Path.ToArray(); Error = batch.Error; FailedNode = batch.FailedNode; Cost = batch.Cost;
             _nodeValues = new Dictionary<ulong, AlgorithmValue>(batch.NodeValues.Count);
             foreach (var pair in batch.NodeValues) _nodeValues.Add(pair.Key, pair.Value.Copy());
@@ -44,7 +48,7 @@ namespace AutoEra.Algorithms
     }
 
     /// <summary>Explicit world-clock pump; no frame-wide graph traversal and no world changes in evaluation.</summary>
-    public sealed class AlgorithmRuntime : IDisposable
+    public sealed partial class AlgorithmRuntime : IDisposable
     {
         private AlgorithmPlan _plan;
         private AlgorithmEvaluation _evaluator;
@@ -108,7 +112,8 @@ namespace AutoEra.Algorithms
             name => _sink.TryQueryTask(name, out var task) ? task : null);
         public bool Enqueue(AlgorithmTrigger trigger)
         {
-            if (_disposed || Invalid || trigger == null || trigger.Revision != Revision || trigger.Generation != Generation) return false;
+            if (_disposed || Invalid || trigger == null || trigger.Revision != Revision || trigger.Generation != Generation ||
+                (trigger.InstanceId != 0 && trigger.InstanceId != InstanceId.Value)) return false;
             if (trigger.Continuous)
             {
                 bool replaced = false;
@@ -126,10 +131,26 @@ namespace AutoEra.Algorithms
                 if (replaced) return true;
             }
             if (_events.Count >= 32) { LastReason = "EventQueueFull"; Changed?.Invoke(); return false; }
-            var snapshot = trigger.Copy(); if (snapshot.RootNodeId == 0) snapshot.RootNodeId = snapshot.NodeId;
+            var snapshot = trigger.Copy(); snapshot.InstanceId = InstanceId.Value;
+            if (snapshot.RootNodeId == 0) snapshot.RootNodeId = snapshot.NodeId;
             _events.Enqueue(snapshot); return true;
         }
         public AlgorithmRunRecord[] History() => _history.ToArray();
+        /// <summary>端点重绑定只丢弃该源的旧通知与延迟，不取消其他实例或其他组件的工作。</summary>
+        internal void DiscardStaleSensorEvents(ulong component, ulong target, ulong generation)
+        {
+            bool Stale(AlgorithmTrigger trigger) => trigger.SourceId == component &&
+                (trigger.SourceTargetId != target || trigger.BindingGeneration != generation);
+            int count = _events.Count;
+            for (int i = 0; i < count; i++)
+            {
+                var trigger = _events.Dequeue();
+                if (Stale(trigger)) _sink.EndBatch(trigger); else _events.Enqueue(trigger);
+            }
+            for (int i = _delays.Count - 1; i >= 0; i--)
+                if (Stale(_delays[i].Trigger))
+                { var item = _delays[i]; _delays.RemoveAt(i); ReleaseLease(item.Lease); _sink.EndBatch(item.Trigger); }
+        }
         public Dictionary<string, AlgorithmValue> CopyState()
         { var copy = new Dictionary<string, AlgorithmValue>(StringComparer.Ordinal); foreach (var item in _state) copy.Add(item.Key, item.Value.Copy()); return copy; }
         public void Pump(long now)
@@ -210,7 +231,7 @@ namespace AutoEra.Algorithms
             LastReason = _batch.Error;
             Invalid = _batch.Error != null && _batch.Error != "InputUnavailable" && _batch.Error != "ComputeQueueFull";
             if (_history.Count == 50) _history.Dequeue();
-            _history.Enqueue(new AlgorithmRunRecord(++_runSequence, _current, _batch));
+            _history.Enqueue(new AlgorithmRunRecord(++_runSequence, _current, _batch, _plan));
             var finished = _current;
             var lease = _lease; _lease = null; _current = null; _batch = null;
             if (lease != null) { if (lease.State == ComputeState.Running) _compute.Release(lease.Id); else _compute.CancelWaiting(lease.Id); }

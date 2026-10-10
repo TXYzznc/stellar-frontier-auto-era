@@ -5,7 +5,8 @@ namespace AutoEra.Events
 {
     /// <summary>
     /// A session-scoped trigger identity. Zero is reserved for an unresolved correlation.
-    /// Correlation IDs are runtime diagnostics and are never persisted.
+    /// B47 world checkpoints preserve these diagnostics and their allocator for causal continuity.
+    /// They remain independent of permanent object IDs.
     /// </summary>
     [Serializable]
     public readonly struct CorrelationId : IEquatable<CorrelationId>, IComparable<CorrelationId>

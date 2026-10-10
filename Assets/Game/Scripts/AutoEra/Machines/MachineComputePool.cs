@@ -27,7 +27,7 @@ namespace AutoEra.Machines
     }
 
     /// <summary>Event-driven leases over the sum of installed cores. It does not evaluate algorithm graphs.</summary>
-    public sealed class MachineComputePool
+    public sealed partial class MachineComputePool
     {
         public const int WaitingCapacity = 64;
         private readonly PersistentIdAllocator _ids;

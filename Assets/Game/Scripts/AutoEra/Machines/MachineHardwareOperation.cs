@@ -5,6 +5,15 @@ namespace AutoEra.Machines
 {
     public enum HardwareOperationState { Idle, Waiting, Completed, Rejected, Cancelled }
 
+    public sealed class HardwareOperationSnapshot
+    {
+        public ulong Machine, Component, RequestVersion;
+        public int Slot;
+        public HardwareKind Kind;
+        public ManagementOrigin Origin;
+        public bool Remove, RemoveAll;
+    }
+
     /// <summary>One already-confirmed management intent. No device, UI, timer, or simulated work completion.</summary>
     public sealed class MachineHardwareOperation : IDisposable
     {
@@ -20,6 +29,7 @@ namespace AutoEra.Machines
         public MachineManagementResult Result { get; private set; }
         public ulong RequestVersion { get; private set; }
         public event Action<MachineHardwareOperation> Changed;
+        internal event Action PersistentIntentChanged;
         public MachineHardwareOperation(MachineRoster roster) { _roster = roster ?? throw new ArgumentNullException(nameof(roster)); }
 
         public bool Begin(PersistentId machineId, ManagementOrigin origin, bool remove, HardwareKind kind, int slot, PersistentId componentId)
@@ -50,6 +60,7 @@ namespace AutoEra.Machines
             { Complete(HardwareOperationState.Rejected, stop); return true; }
             State = HardwareOperationState.Waiting; Result = MachineManagementResult.WaitingForSafeStop;
             _machine.Changed += OnMachineChanged;
+            PersistentIntentChanged?.Invoke();
             TryApply();
             if (State == HardwareOperationState.Waiting) Changed?.Invoke(this);
             return true;
@@ -83,9 +94,34 @@ namespace AutoEra.Machines
             return true;
         }
         private void Complete(HardwareOperationState state, MachineManagementResult result)
-        { Unsubscribe(); State = state; Result = result; Changed?.Invoke(this); }
+        {
+            bool hadIntent = State == HardwareOperationState.Waiting;
+            Unsubscribe(); State = state; Result = result;
+            if (hadIntent) PersistentIntentChanged?.Invoke();
+            Changed?.Invoke(this);
+        }
+
+        internal HardwareOperationSnapshot CapturePersistentIntent()
+        {
+            if (_applying) throw new InvalidOperationException("Hardware intent is being committed.");
+            if (State != HardwareOperationState.Waiting) return null;
+            var component = _remove && !_removeAll ? _machine.GetComponent(_kind, _slot)?.Id ?? PersistentId.Invalid : _component;
+            return new HardwareOperationSnapshot { Machine = _machine.Id.Value, Component = component.Value,
+                RequestVersion = RequestVersion, Slot = _slot, Kind = _kind, Origin = _origin, Remove = _remove, RemoveAll = _removeAll };
+        }
+
+        internal void RestorePersistentIntent(HardwareOperationSnapshot saved, MachineInstance machine)
+        {
+            if (_disposed || State != HardwareOperationState.Idle || saved == null || machine == null)
+                throw new InvalidOperationException("Hardware intent restore requires a fresh coordinator.");
+            _machine = machine; _component = new PersistentId(saved.Component); _slot = saved.Slot; _kind = saved.Kind;
+            _origin = saved.Origin; _remove = saved.Remove; _removeAll = saved.RemoveAll; RequestVersion = saved.RequestVersion;
+            State = HardwareOperationState.Waiting; Result = MachineManagementResult.WaitingForSafeStop;
+            // Do not issue Stop, replay Begin, increment the request, or apply before the restored behavior ends.
+            _machine.Changed += OnMachineChanged;
+        }
         private void Unsubscribe() { if (_machine != null) _machine.Changed -= OnMachineChanged; }
         public void Dispose()
-        { Unsubscribe(); if (State == HardwareOperationState.Waiting) State = HardwareOperationState.Cancelled; Changed = null; _disposed = true; }
+        { Unsubscribe(); if (State == HardwareOperationState.Waiting) State = HardwareOperationState.Cancelled; Changed = null; PersistentIntentChanged = null; _disposed = true; }
     }
 }

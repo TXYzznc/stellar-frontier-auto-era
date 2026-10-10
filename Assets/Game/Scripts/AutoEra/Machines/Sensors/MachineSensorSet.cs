@@ -14,6 +14,14 @@ namespace AutoEra.Machines.Sensors
         private bool _ticking;
         private bool _disposed;
         internal MachineSensorSet(MachineExecutionContext context) { _context = context; }
+        public int Count => _sensors.Count;
+        public bool TryGet(PersistentId component, out MachineSensor sensor) => _sensors.TryGetValue(component, out sensor);
+        public bool Remove(PersistentId component)
+        {
+            if (!_sensors.TryGetValue(component, out var sensor)) return false;
+            _sensors.Remove(component); sensor.Dispose(); _ordered.Remove(sensor);
+            return true;
+        }
         public MachineSensor Bind(ComponentInstance component, SensorProfile profile, ISensorEnvironment environment, ISensorAnchor anchor)
         {
             if (_disposed) throw new ObjectDisposedException(nameof(MachineSensorSet));

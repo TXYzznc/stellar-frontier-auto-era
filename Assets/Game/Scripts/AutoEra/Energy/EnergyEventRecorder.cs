@@ -200,7 +200,7 @@ namespace AutoEra.Energy
     /// 用法：每次结算之后调用 <see cref="Capture"/>，把新事件追加到调用方给的列表里。
     /// 它内部只保留「上一次是什么状态」，因此内存恒定，也不会每帧分配。
     /// </summary>
-    public sealed class EnergyEventRecorder
+    public sealed partial class EnergyEventRecorder
     {
         private readonly HashSet<PersistentId> _stopped = new HashSet<PersistentId>();
         private readonly HashSet<PersistentId> _stoppedNow = new HashSet<PersistentId>();

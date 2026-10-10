@@ -4,13 +4,14 @@ using AutoEra.World.Identity;
 
 namespace AutoEra.Machines
 {
-    // In-memory recovery contract only. No disk format or running-behavior checkpoint is introduced.
+    // Configuration facts; complete world persistence separately owns running behavior checkpoints.
     public sealed class MachineRosterSnapshot
     {
         public ulong AllocatedThrough;
         public KeyValuePair<int, ulong>[] HistoricalCounts;
         public MachineRecord[] Machines;
         public ComponentRecord[] Components;
+        public HardwareOperationSnapshot[] PendingHardware = Array.Empty<HardwareOperationSnapshot>();
 
         public sealed class MachineRecord
         {
@@ -32,6 +33,13 @@ namespace AutoEra.Machines
     public sealed partial class MachineRoster
     {
         public MachineRosterSnapshot CaptureConfiguration()
+            => CaptureConfiguration(false);
+
+        /// <summary>Capture only as part of a world snapshot that also preserves every task and physical authority.</summary>
+        public MachineRosterSnapshot CapturePersistentConfiguration()
+            => CaptureConfiguration(true);
+
+        private MachineRosterSnapshot CaptureConfiguration(bool includeBehavior)
         {
             EnsureActive();
             var machines = new List<MachineRosterSnapshot.MachineRecord>();
@@ -39,7 +47,7 @@ namespace AutoEra.Machines
             var slots = new Dictionary<PersistentId, int>();
             foreach (var machine in _machines.Values)
             {
-                if (machine.HasActiveBehavior) throw new InvalidOperationException("Capture requires a safe behavior checkpoint.");
+                if (machine.HasActiveBehavior && !includeBehavior) throw new InvalidOperationException("Capture requires a safe behavior checkpoint.");
                 machines.Add(new MachineRosterSnapshot.MachineRecord { Id = machine.Id.Value, Serial = machine.ModelSerial,
                     ModelId = machine.Definition.Id, Level = machine.Definition.Level, Name = machine.Name,
                     Deployed = machine.Deployed, Activated = machine.Activated, PowerSwitch = machine.PowerSwitchOn,
@@ -60,8 +68,53 @@ namespace AutoEra.Machines
             components.Sort((a, b) => a.Id.CompareTo(b.Id));
             var history = new List<KeyValuePair<int, ulong>>(_serials);
             history.Sort((a, b) => a.Key.CompareTo(b.Key));
+            var pending = new List<HardwareOperationSnapshot>();
+            foreach (var operation in _hardwareOperations.Values)
+            {
+                var intent = operation.CapturePersistentIntent();
+                if (intent != null) pending.Add(intent);
+            }
+            pending.Sort((a, b) => a.Machine.CompareTo(b.Machine));
             return new MachineRosterSnapshot { AllocatedThrough = _ids.IsExhausted ? ulong.MaxValue : _ids.NextId.Value - 1,
-                HistoricalCounts = history.ToArray(), Machines = machines.ToArray(), Components = components.ToArray() };
+                HistoricalCounts = history.ToArray(), Machines = machines.ToArray(), Components = components.ToArray(), PendingHardware = pending.ToArray() };
+        }
+
+        /// <summary>Called only after every machine's tasks, leases and physical behavior have been restored.</summary>
+        public void RestorePersistentHardwareIntents(HardwareOperationSnapshot[] saved)
+        {
+            EnsureActive();
+            if (saved == null || _hardwareOperations.Count != 0) throw new ArgumentException("Hardware coordinators are not fresh.");
+            var machines = new HashSet<ulong>();
+            foreach (var row in saved)
+            {
+                if (row == null || row.RequestVersion == 0 || !machines.Add(row.Machine) ||
+                    !TryGet(new PersistentId(row.Machine), out var machine) || !machine.HasActiveBehavior ||
+                    machine.RequestedRunState != MachineRunState.Stopped || machine.Integrity <= 0 ||
+                    (machine.Deployed ? row.Origin != ManagementOrigin.Field : row.Origin != ManagementOrigin.Library))
+                    throw new ArgumentException("Invalid pending hardware owner or safe-stop state.");
+                if (row.RemoveAll)
+                {
+                    if (!row.Remove || row.Origin != ManagementOrigin.Library || row.Component != 0 || row.Slot != -1 || row.Kind != default)
+                        throw new ArgumentException("Invalid remove-all intent.");
+                    continue;
+                }
+                var kind = row.Kind;
+                if (!row.Remove)
+                {
+                    if (!TryGetComponent(new PersistentId(row.Component), out var component)) throw new ArgumentException("Missing hardware intent component.");
+                    kind = component.Definition.Kind; // Install historically ignores the UI's kind argument.
+                }
+                int slots = kind == HardwareKind.Sensor ? machine.Definition.SensorSlots : kind == HardwareKind.Core ? machine.Definition.CoreSlots :
+                    kind == HardwareKind.Effector ? machine.Definition.EffectorSlots : -1;
+                if (row.Slot < 0 || row.Slot >= slots || row.Remove && (machine.GetComponent(kind, row.Slot)?.Id.Value ?? 0) != row.Component)
+                    throw new ArgumentException("Invalid hardware intent slot or original component.");
+            }
+            // Validate the entire batch before adding subscriptions; no intent executes during restoration.
+            foreach (var row in saved)
+            {
+                TryGet(new PersistentId(row.Machine), out var machine);
+                GetHardwareOperation(machine.Id).RestorePersistentIntent(row, machine);
+            }
         }
 
         public void RestoreConfiguration(MachineRosterSnapshot snapshot, Func<int, int, MachineDefinition> machineDefinition,
@@ -70,7 +123,7 @@ namespace AutoEra.Machines
             EnsureActive();
             if (_machines.Count != 0 || _components.Count != 0 || _serials.Count != 0)
                 throw new InvalidOperationException("Restore requires an empty roster.");
-            if (snapshot?.Machines == null || snapshot.Components == null || snapshot.HistoricalCounts == null ||
+            if (snapshot?.Machines == null || snapshot.Components == null || snapshot.HistoricalCounts == null || snapshot.PendingHardware == null ||
                 machineDefinition == null || componentDefinition == null) throw new ArgumentException("Incomplete snapshot.");
             var machines = new Dictionary<PersistentId, MachineInstance>();
             var components = new Dictionary<PersistentId, ComponentInstance>();
@@ -140,11 +193,12 @@ namespace AutoEra.Machines
                 throw;
             }
             if (snapshot.AllocatedThrough != 0) _ids.TryRestore(new PersistentId(snapshot.AllocatedThrough));
-            foreach (var pair in machines) { _machines.Add(pair.Key, pair.Value); pair.Value.Changed += OnMachineChanged; }
+            foreach (var pair in machines) { _machines.Add(pair.Key, pair.Value); pair.Value.Changed += OnMachineChanged;pair.Value.PersistentConfigurationChanged+=OnConfigurationChanged; }
             foreach (var pair in components) _components.Add(pair.Key, pair.Value);
             foreach (var name in names) _names.Add(name);
             foreach (var pair in history) _serials.Add(pair.Key, pair.Value);
-            Changed?.Invoke();
+            NotifyRosterChanged();
+            foreach (var machine in machines.Values) DeploymentChanged?.Invoke(machine);
         }
     }
 }

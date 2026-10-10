@@ -39,6 +39,9 @@ namespace AutoEra.Algorithms
                 case AlgorithmNodeKind.Boolean:
                     node.Operator = AlgorithmOperator.And;
                     break;
+                case AlgorithmNodeKind.GridFilter: node.ValueType = AlgorithmType.Of(AlgorithmValueKind.TreeGrid); node.Field = "mature"; break;
+                case AlgorithmNodeKind.GridSelect: node.ValueType = new AlgorithmType { Kind = AlgorithmValueKind.Object, ObjectCategory = "Tree" }; break;
+                case AlgorithmNodeKind.GridRead: node.ValueType = AlgorithmType.Of(AlgorithmValueKind.Number, "m"); node.Field = "height"; break;
             }
 
             return node;
@@ -52,6 +55,9 @@ namespace AutoEra.Algorithms
             {
                 case AlgorithmNodeKind.Arithmetic:
                 case AlgorithmNodeKind.Compare: return new[] { new AlgorithmPort("a", value), new AlgorithmPort("b", value) };
+                case AlgorithmNodeKind.GridFilter:
+                case AlgorithmNodeKind.GridSelect: return new[] { new AlgorithmPort("grid", AlgorithmType.Of(AlgorithmValueKind.TreeGrid)) };
+                case AlgorithmNodeKind.GridRead: return new[] { new AlgorithmPort("grid", AlgorithmType.Of(AlgorithmValueKind.TreeGrid)), new AlgorithmPort("object", new AlgorithmType { Kind = AlgorithmValueKind.Object, ObjectCategory = "Tree" }) };
                 case AlgorithmNodeKind.Boolean: return node.Operator == AlgorithmOperator.Not ? new[] { new AlgorithmPort("a", boolean) } : new[] { new AlgorithmPort("a", boolean), new AlgorithmPort("b", boolean) };
                 case AlgorithmNodeKind.Branch: return new[] { new AlgorithmPort("event", signal), new AlgorithmPort("condition", boolean) };
                 case AlgorithmNodeKind.Merge: return new[] { new AlgorithmPort("a", signal, false), new AlgorithmPort("b", signal, false) };
@@ -64,7 +70,7 @@ namespace AutoEra.Algorithms
                 case AlgorithmNodeKind.CancelTask: return new[] { new AlgorithmPort("event", signal), new AlgorithmPort("task", AlgorithmType.Of(AlgorithmValueKind.Object)) };
                 case AlgorithmNodeKind.Hysteresis: return new[] { new AlgorithmPort("event", signal), new AlgorithmPort("value", AlgorithmType.Of(AlgorithmValueKind.Number)), new AlgorithmPort("on", AlgorithmType.Of(AlgorithmValueKind.Number)), new AlgorithmPort("off", AlgorithmType.Of(AlgorithmValueKind.Number)) };
                 case AlgorithmNodeKind.Log: return new[] { new AlgorithmPort("event", signal) };
-                case AlgorithmNodeKind.Cargo: return new[] { new AlgorithmPort("event", signal, false) };
+                case AlgorithmNodeKind.Cargo: return new[] { new AlgorithmPort("event", signal, false), new AlgorithmPort("item", AlgorithmType.Of(AlgorithmValueKind.Enumeration), false) };
                 default: return Array.Empty<AlgorithmPort>();
             }
         }
@@ -82,9 +88,11 @@ namespace AutoEra.Algorithms
                 case AlgorithmEffectorAction.Sow:
                     return new[] { new AlgorithmPort("event", signal), new AlgorithmPort("count", AlgorithmType.Of(AlgorithmValueKind.Number)), new AlgorithmPort("crop", AlgorithmType.Of(AlgorithmValueKind.Enumeration), false) };
                 case AlgorithmEffectorAction.Harvest:
-                case AlgorithmEffectorAction.Cut:
-                case AlgorithmEffectorAction.Drill:
                     return new[] { new AlgorithmPort("event", signal), new AlgorithmPort("count", AlgorithmType.Of(AlgorithmValueKind.Number)) };
+                case AlgorithmEffectorAction.Cut:
+                    return new[] { new AlgorithmPort("event", signal), new AlgorithmPort("tree", new AlgorithmType { Kind = AlgorithmValueKind.Object, ObjectCategory = "Tree" }), new AlgorithmPort("ratio", AlgorithmType.Of(AlgorithmValueKind.Number), false) };
+                case AlgorithmEffectorAction.Drill:
+                    return new[] { new AlgorithmPort("event", signal), new AlgorithmPort("count", AlgorithmType.Of(AlgorithmValueKind.Number)), new AlgorithmPort("power", AlgorithmType.Of(AlgorithmValueKind.Number), false) };
                 case AlgorithmEffectorAction.Clean:
                     return new[] { new AlgorithmPort("event", signal) };
                 case AlgorithmEffectorAction.Transfer:
@@ -106,6 +114,7 @@ namespace AutoEra.Algorithms
                 case AlgorithmNodeKind.Effector: return EffectorOutputs();
                 case AlgorithmNodeKind.SubmitTask: return new[] { new AlgorithmPort("accepted", signal), new AlgorithmPort("task", AlgorithmType.Of(AlgorithmValueKind.Object)) };
                 case AlgorithmNodeKind.QueryTask: return new[] { new AlgorithmPort("found", AlgorithmType.Of(AlgorithmValueKind.Boolean)), new AlgorithmPort("task", AlgorithmType.Of(AlgorithmValueKind.Object)) };
+                case AlgorithmNodeKind.GridSelect: return new[] { new AlgorithmPort("value", node.ValueType), new AlgorithmPort("valid", AlgorithmType.Of(AlgorithmValueKind.Boolean)) };
                 case AlgorithmNodeKind.CancelTask: return new[] { new AlgorithmPort("accepted", signal) };
                 case AlgorithmNodeKind.Hysteresis: return new[] { new AlgorithmPort("value", AlgorithmType.Of(AlgorithmValueKind.Boolean)), new AlgorithmPort("event", signal) };
                 case AlgorithmNodeKind.Input: return new[] { new AlgorithmPort("value", node.ValueType), new AlgorithmPort("sampled", signal), new AlgorithmPort("valid", AlgorithmType.Of(AlgorithmValueKind.Boolean)) };

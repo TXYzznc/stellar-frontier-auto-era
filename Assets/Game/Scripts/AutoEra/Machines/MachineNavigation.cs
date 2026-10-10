@@ -6,7 +6,7 @@ using UnityEngine;
 namespace AutoEra.Machines
 {
     /// <summary>One carrier actuator. Task causality and compute remain owned by the execution context.</summary>
-    public sealed class MachineNavigation : IDisposable
+    public sealed partial class MachineNavigation : IDisposable
     {
         private readonly MachineExecutionContext _context;
         private readonly IMachineNavigationDriver _driver;
@@ -53,6 +53,7 @@ namespace AutoEra.Machines
             _waitingTarget = target.WaitingPosition.HasValue ? new MachineNavigationTarget(target.Region, target.WaitingPosition.Value) : null;
             _workWaiting = false; _waitSettled = false;
             _lastPlan = now - _settings.ReplanSeconds; _workSince = now; _blockedSince = -1;
+            _blockedElapsedCarry = 0;
             _progressPosition = _driver.Position; _active = true; _needsPlan = true;
             Outcome = null; PathWarning = false; WorkWaitPrompt = false; PlanCount = 0;
             State = target.WorkQueue == null ? MachineNavigationState.Planning : MachineNavigationState.WaitingWork;
@@ -73,7 +74,7 @@ namespace AutoEra.Machines
             if (!_context.Machine.CanRun)
             { Pause(); return; }
             if (State == MachineNavigationState.Paused)
-            { _lastProgress = now; _blockedSince = -1; _needsPlan = true; }
+            { _lastProgress = now; _blockedSince = -1; _blockedElapsedCarry = 0; _needsPlan = true; }
 
             if (_target.WorkQueue != null)
             {
@@ -99,7 +100,7 @@ namespace AutoEra.Machines
                     if (_workWaiting)
                     {
                         _driver.Stop(); _workWaiting = false; _waitSettled = false; _needsPlan = true;
-                        Release(ref _planning); _lastPlan = now - _settings.ReplanSeconds; _blockedSince = -1;
+                        Release(ref _planning); _lastPlan = now - _settings.ReplanSeconds; _blockedSince = -1; _blockedElapsedCarry = 0;
                     }
                     WorkWaitPrompt = false;
                 }
@@ -107,8 +108,8 @@ namespace AutoEra.Machines
 
             if (_blockedSince >= 0 && !_workWaiting)
             {
-                PathWarning = now - _blockedSince >= _settings.WarningSeconds;
-                if (now - _blockedSince >= _settings.FailureSeconds) { Finish(BehaviorOutcome.Failed); return; }
+                PathWarning = now - _blockedSince + _blockedElapsedCarry >= _settings.WarningSeconds;
+                if (now - _blockedSince + _blockedElapsedCarry >= _settings.FailureSeconds) { Finish(BehaviorOutcome.Failed); return; }
             }
             if (_needsPlan)
             {
@@ -147,7 +148,7 @@ namespace AutoEra.Machines
             { _driver.Stop(); if (_workWaiting) SettleWaiting(); else { Block(now); _needsPlan = true; } return; }
             if (Vector3.Distance(position, _progressPosition) >= _settings.EffectiveDisplacement)
             {
-                _progressPosition = position; _lastProgress = now; _blockedSince = -1; PathWarning = false;
+                _progressPosition = position; _lastProgress = now; _blockedSince = -1; _blockedElapsedCarry = 0; PathWarning = false;
             }
             else if (now - _lastProgress >= _settings.ReplanSeconds)
             { _driver.Stop(); if (_workWaiting) SettleWaiting(); else { Block(_lastProgress); _needsPlan = true; } return; }
@@ -170,7 +171,7 @@ namespace AutoEra.Machines
         {
             if (request == null)
                 _context.Compute.Submit(cost, category, _priority, merge, _context.Machine.Id,
-                    ++_version, (long)(_now * 1000), false, out request);
+                    ++_version, _context.WorldMilliseconds, false, out request);
             return request != null && request.State == ComputeState.Running;
         }
         private void Release(ref ComputeRequest request)
@@ -180,7 +181,7 @@ namespace AutoEra.Machines
             if (owned.State == ComputeState.Waiting) _context.Compute.CancelWaiting(owned.Id);
             else if (owned.State == ComputeState.Running) _context.Compute.Release(owned.Id);
         }
-        private void Block(double since) { if (_blockedSince < 0) _blockedSince = since; }
+        private void Block(double since) { if (_blockedSince < 0) { _blockedSince = since; _blockedElapsedCarry = 0; } }
         private void SettleWaiting()
         { _driver.Stop(); _waitSettled = true; State = MachineNavigationState.WaitingWork; Release(ref _moving); }
         private void Pause()

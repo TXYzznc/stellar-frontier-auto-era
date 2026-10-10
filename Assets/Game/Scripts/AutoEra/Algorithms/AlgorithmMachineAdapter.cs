@@ -9,22 +9,38 @@ using UnityEngine;
 namespace AutoEra.Algorithms
 {
     /// <summary>Consumes existing authorities. No movement, sensor readings or results are simulated here.</summary>
-    public sealed class AlgorithmMachineAdapter : IAlgorithmCommandSink, IDisposable
+    public sealed partial class AlgorithmMachineAdapter : IAlgorithmCommandSink, IDisposable
     {
         private readonly MachineExecutionContext _context;
         private readonly MachineNavigation _navigation;
         private readonly InitialRegion _region;
+        private readonly IReadOnlyDictionary<PersistentId, AutoEra.Logistics.RegionTransferEndpoint> _transferEndpoints;
         private readonly List<Pending> _waiting = new List<Pending>();
         private readonly List<SensorSubscription> _sensors = new List<SensorSubscription>();
         private readonly List<MachineSensor> _registeredSensors = new List<MachineSensor>();
         private readonly HashSet<PersistentId> _ownedTasks = new HashSet<PersistentId>();
+        private readonly Dictionary<PersistentId, ulong> _taskOwners = new Dictionary<PersistentId, ulong>();
+        private readonly Dictionary<ulong, AlgorithmRuntime> _runtimes = new Dictionary<ulong, AlgorithmRuntime>();
+        private readonly Queue<PendingResult> _results = new Queue<PendingResult>();
         private readonly Dictionary<PersistentId, EffectorBehaviorQueue<EffectorBehaviorParameters>> _effectors = new Dictionary<PersistentId, EffectorBehaviorQueue<EffectorBehaviorParameters>>();
+        private readonly Dictionary<PersistentId, ComponentInstance> _effectorComponents = new Dictionary<PersistentId, ComponentInstance>();
+        private readonly Dictionary<PersistentId, ulong> _effectorGenerations = new Dictionary<PersistentId, ulong>();
+        public Func<PersistentId, AlgorithmEffectorAction, bool> CanExecuteEffector { get; set; }
+        public string LastCommandUnavailableReason { get; private set; }
         private readonly List<EffectorPending> _effectorPending = new List<EffectorPending>();
         private Pending _active;
         private AlgorithmRuntime _runtime;
         private bool _disposed;
         private long _now;
-        public bool IsSafe => _active == null && _waiting.Count == 0 && (_navigation == null || !_navigation.IsActive);
+        public bool IsSafe
+        {
+            get
+            {
+                if (_active != null || _waiting.Count != 0 || _effectorPending.Count != 0 || _results.Count != 0 || (_navigation != null && _navigation.IsActive)) return false;
+                foreach (var queue in _effectors.Values) if (queue.Current != null || queue.WaitingCount != 0) return false;
+                return true;
+            }
+        }
         public event Action<ulong, PersistentId, string> Result;
 
         /// <summary>
@@ -35,33 +51,69 @@ namespace AutoEra.Algorithms
         public bool HasNavigation => _navigation != null;
 
         /// <summary>
-        /// 是否已绑定活动运行时。适配器当前是**单运行时**（一个 <c>_runtime</c> 字段，<see cref="Attach"/> 只允许一次）：
-        /// 一台机器当前只服务一个活动算法实例；多实例并行激活需要适配器重构，属后续批。
+        /// 是否已绑定任何活动实例。各实例使用隔离的命令入口，共享本机任务、导航与算力权威。
         /// </summary>
-        public bool HasRuntime => _runtime != null;
+        public bool HasRuntime => _runtimes.Count != 0;
 
-        public AlgorithmMachineAdapter(MachineExecutionContext context, MachineNavigation navigation, InitialRegion region)
+        public IAlgorithmCommandSink CreateInstanceSink(ulong instanceId)
+        {
+            if (_disposed || instanceId == 0) throw new InvalidOperationException("Active adapter and instance identity required.");
+            return new InstanceSink(this, instanceId);
+        }
+
+        public AlgorithmMachineAdapter(MachineExecutionContext context, MachineNavigation navigation, InitialRegion region,
+            IReadOnlyDictionary<PersistentId, AutoEra.Logistics.RegionTransferEndpoint> transferEndpoints = null)
         {
             _context = context; _navigation = navigation; _region = region;
+            _transferEndpoints = transferEndpoints;
             if (_navigation != null) _navigation.Ended += OnNavigationEnded;
+            _context.Machine.Changed += OnMachineChanged;
         }
         public void Attach(AlgorithmRuntime runtime)
         {
-            if (_runtime != null) throw new InvalidOperationException("Already attached.");
-            _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
-            _runtime.AppliedChanged += RebindApplied;
-            _context.Machine.Changed += OnMachineChanged;
+            if (_disposed || runtime == null || _runtimes.ContainsKey(runtime.InstanceId.Value))
+                throw new InvalidOperationException("Active adapter and unique runtime required.");
+            _runtimes.Add(runtime.InstanceId.Value, runtime);
+            if (_runtime == null) _runtime = runtime;
+            runtime.AppliedChanged += RebindApplied;
             OnMachineChanged(_context.Machine);
+            RebindApplied();
         }
-        private void OnMachineChanged(MachineInstance machine) => _runtime?.SetPaused(!machine.CanRun, _now, AlgorithmPauseReason.Machine);
-        private static bool Matches(MachineSensor sensor, AlgorithmBinding binding) =>
+        public bool DetachInstance(ulong instanceId)
+        {
+            if (!_runtimes.TryGetValue(instanceId, out var runtime)) return false;
+            CancelInstance(instanceId);
+            runtime.AppliedChanged -= RebindApplied;
+            _runtimes.Remove(instanceId);
+            if (ReferenceEquals(_runtime, runtime))
+            {
+                _runtime = null;
+                foreach (var candidate in _runtimes.Values) { _runtime = candidate; break; }
+            }
+            RebindApplied();
+            return true;
+        }
+        private void OnMachineChanged(MachineInstance machine)
+        {
+            foreach (var runtime in _runtimes.Values)
+                runtime.SetPaused(!machine.CanRun, _now, AlgorithmPauseReason.Machine);
+        }
+
+        private AlgorithmRuntime FindRuntime(AlgorithmTrigger trigger) => trigger.InstanceId == 0
+            ? _runtime : (_runtimes.TryGetValue(trigger.InstanceId, out var runtime) ? runtime : null);
+        private bool Matches(MachineSensor sensor, AlgorithmBinding binding) =>
             binding.ComponentId == sensor.Id.Value && binding.TargetId == sensor.Target.Id.Value && binding.Generation == sensor.Generation &&
+            _region.TryGet(sensor.Target.Id, out var target) && target.Kind == sensor.Target.ExpectedKind &&
             sensor.Reason != SensorReadReason.NotInstalled && sensor.Reason != SensorReadReason.Disposed && sensor.Reason != SensorReadReason.TargetMissing;
         private void RebindApplied()
         {
             foreach (var subscription in _sensors) subscription.Dispose();
             _sensors.Clear();
-            var graph = _runtime.CopyApplied();
+            foreach (var runtime in _runtimes.Values) BindAppliedSensors(runtime);
+        }
+        private void BindAppliedSensors(AlgorithmRuntime runtime)
+        {
+            var graph = runtime.CopyApplied();
             var bySensor = new Dictionary<(ulong component, ulong target, ulong generation), List<FieldBinding>>();
             foreach (var node in graph.Nodes)
             {
@@ -77,7 +129,7 @@ namespace AutoEra.Algorithms
                 var key = (sensor.Id.Value, sensor.Target.Id.Value, sensor.Generation);
                 if (!bySensor.TryGetValue(key, out var fields) || fields.Count == 0) continue;
                 if (sensor.Reason == SensorReadReason.NotInstalled || sensor.Reason == SensorReadReason.Disposed || sensor.Reason == SensorReadReason.TargetMissing) continue;
-                _sensors.Add(new SensorSubscription(this, sensor, fields));
+                _sensors.Add(new SensorSubscription(this, runtime, sensor, fields));
             }
         }
         public void BindResourceAmount(MachineSensor sensor, ulong nodeId, string bindingKey)
@@ -88,7 +140,25 @@ namespace AutoEra.Algorithms
             var node = graph.Nodes.Find(n => n.Id == nodeId && n.Kind == AlgorithmNodeKind.Input && n.BindingKey == bindingKey);
             if (node == null || slot == null || slot.ComponentId != sensor.Id.Value || slot.TargetId != sensor.Target.Id.Value || slot.Generation != sensor.Generation)
                 throw new ArgumentException("Explicit applied sensor identity and generation must match.");
-            if (!_registeredSensors.Contains(sensor)) _registeredSensors.Add(sensor);
+            RegisterSensor(sensor);
+        }
+        public void RegisterSensor(MachineSensor sensor)
+        {
+            if (_disposed || sensor == null || _registeredSensors.Contains(sensor)) return;
+            _registeredSensors.Add(sensor); RebindApplied();
+        }
+        public void UnregisterSensor(MachineSensor sensor)
+        {
+            if (!_registeredSensors.Remove(sensor)) return;
+            foreach (var runtime in _runtimes.Values) runtime.DiscardStaleSensorEvents(sensor.Id.Value, 0, ulong.MaxValue);
+            RebindApplied();
+        }
+        public void RefreshSensorBindings()
+        {
+            if (_disposed) return;
+            foreach (var runtime in _runtimes.Values)
+                foreach (var sensor in _registeredSensors)
+                    runtime.DiscardStaleSensorEvents(sensor.Id.Value, sensor.Target.Id.Value, sensor.Generation);
             RebindApplied();
         }
         public bool ValidateBindings(AlgorithmDocument document)
@@ -98,7 +168,18 @@ namespace AutoEra.Algorithms
             {
                 bool found = false;
                 foreach (var sensor in _registeredSensors) if (Matches(sensor, binding)) { found = true; break; }
+                var id = new PersistentId(binding.ComponentId);
+                if (!found && _effectorComponents.TryGetValue(id, out var component) && component.OwnerId == _context.Machine.Id &&
+                    _effectorGenerations[id] == binding.Generation && _region.TryGet(new PersistentId(binding.TargetId), out _)) found = true;
                 if (!found) return false;
+            }
+            foreach (var node in document.Nodes)
+            {
+                if (node.Deleted || (node.Kind != AlgorithmNodeKind.Input && node.Kind != AlgorithmNodeKind.Effector)) continue;
+                var binding = document.Bindings.Find(b => b.Key == node.BindingKey);
+                if (binding == null) return false;
+                if (node.Kind == AlgorithmNodeKind.Input && !_registeredSensors.Exists(s => Matches(s, binding))) return false;
+                if (node.Kind == AlgorithmNodeKind.Effector && !_effectors.ContainsKey(new PersistentId(binding.ComponentId))) return false;
             }
             return true;
         }
@@ -121,8 +202,19 @@ namespace AutoEra.Algorithms
                 if (_context.Tasks.Submit("Algorithm " + trigger.NodeId, WorkPriority.Normal, out task) != QueueAdmission.Accepted)
                 { Publish(trigger, intent.NodeId, PersistentId.Invalid, "rejected"); return trigger.TaskId; }
                 _ownedTasks.Add(task.Id);
+                _taskOwners[task.Id] = trigger.InstanceId != 0 ? trigger.InstanceId : (_runtime?.InstanceId.Value ?? 0);
             }
-            _waiting.Add(new Pending { Trigger = trigger.Copy(), NodeId = intent.NodeId, Task = task.Id, Position = new Vector3((float)intent.Value.X, (float)intent.Value.Y, (float)intent.Value.Z) });
+            float? facing = null;
+            AutoEra.Logistics.TransportResponsibilityLedger transport = null;
+            if (intent.BindingKey == "arm_load" || intent.BindingKey == "arm_unload")
+            {
+                var binding = FindRuntime(trigger)?.CopyApplied()?.Bindings.Find(b => b.Key == intent.BindingKey);
+                if (binding == null || _transferEndpoints == null || !_transferEndpoints.TryGetValue(new PersistentId(binding.TargetId),out var endpoint) || !endpoint.IsAvailable)
+                { LastCommandUnavailableReason="显式装卸停靠点已失效"; Publish(trigger,intent.NodeId,task.Id,"targetInvalid"); TryClose(task.Id); return task.Id.Value; }
+                facing = endpoint.FacingYaw;
+                transport = endpoint.World.Resources.Transport;
+            }
+            _waiting.Add(new Pending { Trigger = trigger.Copy(), NodeId = intent.NodeId, Task = task.Id, Position = new Vector3((float)intent.Value.X, (float)intent.Value.Y, (float)intent.Value.Z), FacingYaw = facing, Transport = transport });
             Publish(trigger,intent.NodeId,task.Id,"accepted");
             return task.Id.Value;
         }
@@ -148,39 +240,75 @@ namespace AutoEra.Algorithms
             { task = new AlgorithmValue { Type = type, ObjectId = 0, IsValid = true }; return true; }
             task = new AlgorithmValue { Type = type, ObjectId = record.Id.Value, IsValid = true }; return true;
         }
-        public void RegisterEffector(ComponentInstance component, EffectorBehaviorQueue<EffectorBehaviorParameters> queue)
+        public void RegisterEffector(ComponentInstance component, EffectorBehaviorQueue<EffectorBehaviorParameters> queue, ulong generation = 1)
         {
             if (_disposed || component == null || queue == null) return;
-            if (_effectors.TryGetValue(component.Id, out var existing) && existing != null) existing.Ended -= OnEffectorEnded;
+            if (_effectors.TryGetValue(component.Id, out var existing) && existing != null)
+            { existing.Ended -= OnEffectorEnded; existing.Started -= OnEffectorStarted; }
             _effectors[component.Id] = queue;
+            _effectorComponents[component.Id] = component; _effectorGenerations[component.Id] = generation;
             queue.Ended += OnEffectorEnded;
+            queue.Started += OnEffectorStarted;
+        }
+        public void UnregisterEffector(PersistentId component)
+        {
+            if (_effectors.TryGetValue(component, out var queue)) { queue.Ended -= OnEffectorEnded; queue.Started -= OnEffectorStarted; }
+            _effectors.Remove(component); _effectorComponents.Remove(component); _effectorGenerations.Remove(component);
         }
         private ulong SubmitEffector(AlgorithmTrigger trigger, AlgorithmIntent intent)
         {
             if (string.IsNullOrEmpty(intent.BindingKey) || intent.Action == null)
             { Publish(trigger, intent.NodeId, new PersistentId(trigger.TaskId), "rejected"); return trigger.TaskId; }
-            var graph = _runtime?.CopyApplied();
+            var graph = FindRuntime(trigger)?.CopyApplied();
             var binding = graph?.Bindings.Find(b => b.Key == intent.BindingKey);
             if (binding == null || binding.ComponentId == 0 || binding.TargetId == 0 || !_effectors.TryGetValue(new PersistentId(binding.ComponentId), out var queue))
             { Publish(trigger, intent.NodeId, new PersistentId(trigger.TaskId), "rejected"); return trigger.TaskId; }
-            var task = EnsureRunningTask(trigger);
+            var componentId = new PersistentId(binding.ComponentId);
+            if (_effectorComponents[componentId].OwnerId != _context.Machine.Id || _effectorGenerations[componentId] != binding.Generation ||
+                !_region.TryGet(new PersistentId(binding.TargetId), out var target))
+            { LastCommandUnavailableReason = "组件或目标绑定已失效"; Publish(trigger, intent.NodeId, new PersistentId(trigger.TaskId), "targetInvalid"); return trigger.TaskId; }
+            if (!Enum.IsDefined(typeof(AlgorithmEffectorAction), intent.Action.Value) ||
+                (CanExecuteEffector != null && !CanExecuteEffector(componentId, intent.Action.Value)))
+            { LastCommandUnavailableReason = "该动作尚未接入执行器"; Publish(trigger, intent.NodeId, new PersistentId(trigger.TaskId), "rejected"); return trigger.TaskId; }
+            LastCommandUnavailableReason = null;
+            var task = EnsureRunningTask(trigger, intent.Field == "resource" ? null : intent.Field);
             if (task == null) { Publish(trigger, intent.NodeId, PersistentId.Invalid, "rejected"); return trigger.TaskId; }
             var parameters = new EffectorBehaviorParameters(intent.Action.Value.ToString())
-            { Target = new PersistentObjectReference(new PersistentId(binding.TargetId), PersistentObjectKind.ResourcePoint) };
+            { Target = new PersistentObjectReference(target.Id, target.Kind) };
+            if (intent.Action == AlgorithmEffectorAction.Transfer)
+            {
+                parameters.TransferMode = intent.Field;
+                var source = graph.Bindings.Find(b => b.Key == "arm_load"); var destination = graph.Bindings.Find(b => b.Key == "arm_unload");
+                if (source == null || destination == null || source.ComponentId != componentId.Value || destination.ComponentId != componentId.Value ||
+                    source.Generation != binding.Generation || destination.Generation != binding.Generation ||
+                    !_region.TryGet(new PersistentId(source.TargetId),out var from) || !_region.TryGet(new PersistentId(destination.TargetId),out var to))
+                { LastCommandUnavailableReason = "运输来源或目的地绑定失效"; Publish(trigger,intent.NodeId,task.Id,"targetInvalid"); return task.Id.Value; }
+                parameters.Objects["source"] = new PersistentObjectReference(from.Id,from.Kind);
+                parameters.Objects["destination"] = new PersistentObjectReference(to.Id,to.Kind);
+            }
             foreach (var pair in intent.Parameters ?? new Dictionary<string, AlgorithmValue>())
             {
                 var value = pair.Value;
                 if (value.Type.Kind == AlgorithmValueKind.Number) parameters.Numbers[pair.Key] = value.Number;
                 else if (value.Type.Kind == AlgorithmValueKind.Enumeration) parameters.Enumeration = value.EnumValue;
                 else if (value.Type.Kind == AlgorithmValueKind.Boolean) parameters.Flag = value.Boolean;
+                else if (value.Type.Kind == AlgorithmValueKind.Object && value.Type.ObjectCategory == "Tree")
+                    parameters.Objects[pair.Key] = new PersistentObjectReference(new PersistentId(value.ObjectId), PersistentObjectKind.Tree);
             }
-            var admission = queue.Submit(task.Id, new PersistentId(trigger.SourceId), new PersistentId(intent.NodeId), parameters.Target,
+            var admission = queue.Submit(task.Id, new PersistentId(trigger.InstanceId != 0 ? trigger.InstanceId : _runtime.InstanceId.Value), new PersistentId(intent.NodeId), parameters.Target,
                 WorkPriority.Normal, InterruptionRule.SafePoint, parameters, out var request);
             if (admission != QueueAdmission.Accepted)
             { Publish(trigger, intent.NodeId, task.Id, "rejected"); return task.Id.Value; }
             _effectorPending.Add(new EffectorPending { Trigger = trigger.Copy(), NodeId = intent.NodeId, Task = task.Id, Behavior = request.Id });
             Publish(trigger, intent.NodeId, task.Id, "accepted");
+            if (ReferenceEquals(queue.Current, request)) Publish(trigger, intent.NodeId, task.Id, "started");
             return task.Id.Value;
+        }
+        private void OnEffectorStarted(BehaviorRequest<EffectorBehaviorParameters> request)
+        {
+            if (_disposed) return;
+            foreach (var pending in _effectorPending)
+                if (pending.Behavior == request.Id) { Publish(pending.Trigger, pending.NodeId, pending.Task, "started"); break; }
         }
         private ulong SubmitTaskNode(AlgorithmTrigger trigger, AlgorithmIntent intent)
         {
@@ -197,6 +325,7 @@ namespace AutoEra.Algorithms
             {
                 if (_context.Tasks.Submit(string.IsNullOrEmpty(taskName) ? "Algorithm " + trigger.NodeId : taskName, WorkPriority.Normal, out task) != QueueAdmission.Accepted) return null;
                 _ownedTasks.Add(task.Id);
+                _taskOwners[task.Id] = trigger.InstanceId != 0 ? trigger.InstanceId : (_runtime?.InstanceId.Value ?? 0);
             }
             if (task.State == MachineTaskState.Queued) _context.Tasks.TryStart(task.Id);
             return task.State == MachineTaskState.Running ? task : null;
@@ -228,7 +357,9 @@ namespace AutoEra.Algorithms
         {
             _now = now;
             if (!_disposed) OnMachineChanged(_context.Machine);
+            FlushResults();
             if (_disposed || _active != null || _waiting.Count == 0 || !_region.IsActive) return;
+            if (_navigation != null && _navigation.IsActive) return;
             var pending = _waiting[0];
             if (!_context.Tasks.TryGet(pending.Task, out var task)) { _waiting.RemoveAt(0); Publish(pending.Trigger, pending.NodeId, pending.Task, "cancelled"); return; }
             if (task.State == MachineTaskState.Queued && !_context.Tasks.TryStart(task.Id)) return;
@@ -240,7 +371,7 @@ namespace AutoEra.Algorithms
                 _active = null; _context.Tasks.Cancel(task.Id); Publish(pending.Trigger, pending.NodeId, task.Id, "rejected"); return;
             }
 
-            var admission = _navigation.Start(task.Id, new MachineNavigationTarget(_region, pending.Position), navigationSeconds);
+            var admission = _navigation.Start(task.Id, new MachineNavigationTarget(_region, pending.Position, pending.FacingYaw), navigationSeconds);
             if (admission != NavigationAdmission.Accepted)
             {
                 _active = null; _context.Tasks.Cancel(task.Id); Publish(pending.Trigger, pending.NodeId, task.Id, "rejected");
@@ -261,15 +392,40 @@ namespace AutoEra.Algorithms
                 case BehaviorOutcome.TargetInvalid: port="targetInvalid";break;
                 default: port="failed";break;
             }
+            if (navigation.Outcome != BehaviorOutcome.Completed)
+                active.Transport?.ReportNavigationFailure(active.Task,
+                    navigation.Outcome == BehaviorOutcome.Cancelled || navigation.Outcome == BehaviorOutcome.Preempted,
+                    navigation.Outcome == BehaviorOutcome.TargetInvalid ? "导航目标已失效，货物等待交付" : navigation.Outcome == BehaviorOutcome.Cancelled || navigation.Outcome == BehaviorOutcome.Preempted ? "导航已中止，货物等待交付" : "导航未到达停靠点，货物等待交付");
             Publish(active.Trigger, active.NodeId, active.Task, port);
             TryClose(active.Task);
         }
         private void Publish(AlgorithmTrigger source, ulong node, PersistentId task, string port)
         {
-            Result?.Invoke(node, task, port);
-            if (_runtime == null || _disposed) return;
+            if (_disposed) return;
+            var runtime = FindRuntime(source);
             var next = source.Copy(); next.NodeId = node; next.Port = port; next.TaskId = task.Value; next.Time = _now;
-            if (!_runtime.Enqueue(next)) TryClose(task);
+            if (runtime != null) _results.Enqueue(new PendingResult { Runtime = runtime, Trigger = next, Task = task });
+        }
+        /// <summary>在求值前同步暂停原因和上一步结果；事件回调自身不递归求值。</summary>
+        public void BeginWorldStep(long now)
+        {
+            if (_disposed) return;
+            _now = now;
+            OnMachineChanged(_context.Machine);
+            FlushResults();
+        }
+        internal void SetWorldTime(long now) { _now = now; }
+        private void FlushResults()
+        {
+            int count = _results.Count;
+            for (int i = 0; i < count && !_disposed; i++)
+            {
+                var result = _results.Dequeue();
+                if (!_runtimes.TryGetValue(result.Runtime.InstanceId.Value, out var current) ||
+                    !ReferenceEquals(current, result.Runtime)) { TryClose(result.Task); continue; }
+                if (!current.Enqueue(result.Trigger)) TryClose(result.Task);
+                Result?.Invoke(result.Trigger.NodeId, result.Task, result.Trigger.Port);
+            }
         }
         public void EndBatch(AlgorithmTrigger trigger) { if (trigger.TaskId != 0) TryClose(new PersistentId(trigger.TaskId)); }
         private void TryClose(PersistentId task)
@@ -277,8 +433,10 @@ namespace AutoEra.Algorithms
             if (!task.IsValid || !_ownedTasks.Contains(task)) return;
             if (_active != null && _active.Task == task) return;
             foreach (var pending in _waiting) if (pending.Task == task) return;
-            if (_runtime != null && _runtime.HasTaskWork(task.Value)) return;
-            _context.Tasks.CloseChain(task); _ownedTasks.Remove(task);
+            foreach (var pending in _effectorPending) if (pending.Task == task) return;
+            foreach (var pending in _results) if (pending.Task == task) return;
+            if (_taskOwners.TryGetValue(task, out var owner) && _runtimes.TryGetValue(owner, out var runtime) && runtime.HasTaskWork(task.Value)) return;
+            _context.Tasks.CloseChain(task); _ownedTasks.Remove(task); _taskOwners.Remove(task);
         }
         public void Cancel()
         {
@@ -287,38 +445,85 @@ namespace AutoEra.Algorithms
             if (_active != null && _navigation != null) _navigation.Cancel();
             foreach (var task in new List<PersistentId>(_ownedTasks)) _context.Tasks.Cancel(task);
             _ownedTasks.Clear();
+            _taskOwners.Clear();
+            _effectorPending.Clear();
+            _results.Clear();
+        }
+        private bool IsInstanceSafe(ulong instanceId)
+        {
+            if (_active != null && _taskOwners.TryGetValue(_active.Task, out var owner) && owner == instanceId) return false;
+            foreach (var pending in _waiting) if (pending.Trigger.InstanceId == instanceId) return false;
+            foreach (var pending in _effectorPending) if (pending.Trigger.InstanceId == instanceId) return false;
+            foreach (var pending in _results) if (pending.Runtime.InstanceId.Value == instanceId) return false;
+            return true;
+        }
+        private void CancelInstance(ulong instanceId)
+        {
+            if (_active != null && _taskOwners.TryGetValue(_active.Task, out var activeOwner) && activeOwner == instanceId)
+                _navigation?.Cancel();
+            for (int i = _waiting.Count - 1; i >= 0; i--)
+                if (_waiting[i].Trigger.InstanceId == instanceId) _waiting.RemoveAt(i);
+            for (int i = _effectorPending.Count - 1; i >= 0; i--)
+                if (_effectorPending[i].Trigger.InstanceId == instanceId) _effectorPending.RemoveAt(i);
+            var owned = new List<PersistentId>();
+            foreach (var pair in _taskOwners) if (pair.Value == instanceId) owned.Add(pair.Key);
+            foreach (var task in owned) { _context.Tasks.Cancel(task); _ownedTasks.Remove(task); _taskOwners.Remove(task); }
+            int count = _results.Count;
+            for (int i = 0; i < count; i++)
+            {
+                var result = _results.Dequeue();
+                if (result.Runtime.InstanceId.Value != instanceId) _results.Enqueue(result);
+            }
         }
         public void Dispose()
         {
             if (_disposed) return; _disposed = true; Cancel();
             if (_navigation != null) _navigation.Ended -= OnNavigationEnded;
             _context.Machine.Changed -= OnMachineChanged;
-            if (_runtime != null) _runtime.AppliedChanged -= RebindApplied;
+            foreach (var runtime in _runtimes.Values) runtime.AppliedChanged -= RebindApplied;
+            _runtimes.Clear(); _runtime = null;
             foreach (var sensor in _sensors) sensor.Dispose(); _sensors.Clear(); _registeredSensors.Clear();
-            foreach (var queue in _effectors.Values) queue.Ended -= OnEffectorEnded; _effectors.Clear(); _effectorPending.Clear();
+            foreach (var queue in _effectors.Values) { queue.Ended -= OnEffectorEnded; queue.Started -= OnEffectorStarted; }
+            _effectors.Clear(); _effectorComponents.Clear(); _effectorGenerations.Clear(); _effectorPending.Clear();
+            CanExecuteEffector = null;
             Result = null;
         }
-        private sealed class Pending { internal AlgorithmTrigger Trigger; internal ulong NodeId; internal PersistentId Task; internal Vector3 Position; }
+        private sealed class Pending { internal AlgorithmTrigger Trigger; internal ulong NodeId; internal PersistentId Task; internal Vector3 Position; internal float? FacingYaw; internal AutoEra.Logistics.TransportResponsibilityLedger Transport; }
         private sealed class EffectorPending { internal AlgorithmTrigger Trigger; internal ulong NodeId; internal PersistentId Task; internal PersistentId Behavior; }
+        private sealed class PendingResult { internal AlgorithmRuntime Runtime; internal AlgorithmTrigger Trigger; internal PersistentId Task; }
+        private sealed class InstanceSink : IAlgorithmCommandSink
+        {
+            private readonly AlgorithmMachineAdapter _owner;
+            private readonly ulong _id;
+            internal InstanceSink(AlgorithmMachineAdapter owner, ulong id) { _owner = owner; _id = id; }
+            public bool IsSafe => _owner.IsInstanceSafe(_id);
+            public ulong Submit(AlgorithmTrigger trigger, AlgorithmIntent intent)
+            { trigger.InstanceId = _id; return _owner.Submit(trigger, intent); }
+            public void EndBatch(AlgorithmTrigger trigger) => _owner.EndBatch(trigger);
+            public void Cancel() => _owner.CancelInstance(_id);
+            public bool TryReadCargo(string field, string itemType, out AlgorithmValue value) => _owner.TryReadCargo(field, itemType, out value);
+            public bool TryQueryTask(string name, out AlgorithmValue task) => _owner.TryQueryTask(name, out task);
+        }
         private sealed class FieldBinding { internal ulong Node; internal string Key; internal string Field; }
         private sealed class SensorSubscription : IDisposable
         {
             private readonly AlgorithmMachineAdapter _owner;
+            private readonly AlgorithmRuntime _runtime;
             private readonly MachineSensor _sensor;
             private readonly ulong _generation;
             private readonly List<FieldBinding> _fields;
-            internal SensorSubscription(AlgorithmMachineAdapter owner, MachineSensor sensor, List<FieldBinding> fields)
-            { _owner = owner; _sensor = sensor; _fields = fields; _generation = sensor.Generation; sensor.Sampled += OnSample; }
+            internal SensorSubscription(AlgorithmMachineAdapter owner, AlgorithmRuntime runtime, MachineSensor sensor, List<FieldBinding> fields)
+            { _owner = owner; _runtime = runtime; _sensor = sensor; _fields = fields; _generation = sensor.Generation; sensor.Sampled += OnSample; }
             private void OnSample(SensorReadEvent sample)
             {
                 if (_owner._disposed || sample.Generation != _generation || _sensor.Generation != _generation || !_sensor.TryRead(out var current) || !ReferenceEquals(current, sample.Snapshot)) return;
-                var runtime = _owner._runtime;
+                var runtime = _runtime;
                 foreach (var field in _fields)
                 {
                     var trigger = new AlgorithmTrigger { NodeId = field.Node, Port = "sampled", Revision = runtime.Revision, Generation = runtime.Generation, Sequence = sample.Sequence, Time = sample.WorldMilliseconds,
                         SourceId = sample.SensorId.Value, SourceTargetId = sample.Target.Id.Value, BindingGeneration = sample.Generation };
                     foreach (var f in _fields)
-                        trigger.Inputs.Add(f.Key, ReadField(f.Field, sample.Snapshot));
+                        trigger.Inputs[f.Key] = ReadField(f.Field, sample.Snapshot);
                     runtime.Enqueue(trigger);
                 }
             }
@@ -326,6 +531,11 @@ namespace AutoEra.Algorithms
             {
                 switch (field)
                 {
+                    case "trees": return new AlgorithmValue { Type = AlgorithmType.Of(AlgorithmValueKind.TreeGrid), Trees = snapshot.Trees == null ? null : new AlgorithmTreeGrid(snapshot.Trees), IsValid = snapshot.Trees != null };
+                    case "mature_count":
+                        int matureCount = 0;
+                        if (snapshot.Trees != null) foreach (var tree in snapshot.Trees) if (tree.Stage == AutoEra.ResourcePoints.TreeStage.Mature) matureCount++;
+                        return new AlgorithmValue { Type = AlgorithmType.Of(AlgorithmValueKind.Number), Number = matureCount, IsValid = snapshot.Trees != null };
                     case "moisture":
                         var valid = snapshot.TryGetWeightedMoisture(out var moisture);
                         return new AlgorithmValue { Type = AlgorithmType.Of(AlgorithmValueKind.Number, "humidity"), Number = valid ? moisture : 0, IsValid = valid };
@@ -343,10 +553,11 @@ namespace AutoEra.Algorithms
                         return AlgorithmValue.Bool(snapshot.PublicStatus == "成熟");
                     case "cleanup":
                         return AlgorithmValue.Bool(snapshot.PublicStatus == "待清理");
-                    default:
+                    case "resource":
                         var resource = AlgorithmValue.Numeric(snapshot.ResourceAmount ?? 0, "");
                         resource.IsValid = snapshot.ResourceAmount.HasValue && !snapshot.Infinite;
                         return resource;
+                    default: return new AlgorithmValue { IsValid = false };
                 }
             }
             public void Dispose() { _sensor.Sampled -= OnSample; }

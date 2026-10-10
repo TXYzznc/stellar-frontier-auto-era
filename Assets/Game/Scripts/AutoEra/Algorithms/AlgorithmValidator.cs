@@ -71,10 +71,19 @@ namespace AutoEra.Algorithms
                 if (!Enum.IsDefined(typeof(AlgorithmOperator),node.Operator)) issues.Add(new AlgorithmIssue("UnknownOperator",node.Id));
                 if (node.ValueType.Kind == AlgorithmValueKind.Event && (node.Kind == AlgorithmNodeKind.Constant || node.Kind == AlgorithmNodeKind.Parameter || node.Kind == AlgorithmNodeKind.Variable))
                     issues.Add(new AlgorithmIssue("EventIsNotAValue",node.Id));
-                if (node.ValueType.Kind == AlgorithmValueKind.Objects || node.ValueType.Kind >= AlgorithmValueKind.Communication)
+                if (node.ValueType.Kind == AlgorithmValueKind.Objects || node.ValueType.Kind >= AlgorithmValueKind.Communication && node.ValueType.Kind != AlgorithmValueKind.TreeGrid)
                     issues.Add(new AlgorithmIssue("StructuredEndpointNotImplemented", node.Id));
                 if (node.Kind == AlgorithmNodeKind.Arithmetic && (node.ValueType.Kind != AlgorithmValueKind.Number || node.Operator > AlgorithmOperator.Maximum))
                     issues.Add(new AlgorithmIssue("ArithmeticOperator", node.Id));
+                if (node.Kind == AlgorithmNodeKind.GridFilter && (!AlgorithmGridOperations.IsFilter(node.Field) || node.ValueType.Kind != AlgorithmValueKind.TreeGrid)) issues.Add(new AlgorithmIssue("UnsupportedGridOperation", node.Id));
+                if (node.Kind == AlgorithmNodeKind.GridSelect && (node.ValueType.Kind != AlgorithmValueKind.Object || node.ValueType.ObjectCategory != "Tree")) issues.Add(new AlgorithmIssue("UnsupportedGridOperation", node.Id));
+                if (node.Kind == AlgorithmNodeKind.GridRead && !AlgorithmGridOperations.IsField(node.Field)) issues.Add(new AlgorithmIssue("UnsupportedGridOperation", node.Id));
+                if (node.Kind == AlgorithmNodeKind.GridRead && AlgorithmGridOperations.IsField(node.Field))
+                {
+                    var expected = AlgorithmGridOperations.FieldType(node.Field);
+                    if (!AlgorithmCatalog.Compatible(expected, node.ValueType) || !AlgorithmCatalog.Compatible(node.ValueType, expected))
+                        issues.Add(new AlgorithmIssue("TypeUnitCapabilityMismatch", node.Id, "value"));
+                }
                 if (node.Kind == AlgorithmNodeKind.Arithmetic && (node.Operator == AlgorithmOperator.Multiply || node.Operator == AlgorithmOperator.Divide) && !string.IsNullOrEmpty(node.ValueType.Unit))
                     issues.Add(new AlgorithmIssue("UnsupportedCompoundDimension", node.Id));
                 if (node.Kind == AlgorithmNodeKind.Compare && (node.Operator < AlgorithmOperator.Equal || node.Operator > AlgorithmOperator.GreaterOrEqual ||

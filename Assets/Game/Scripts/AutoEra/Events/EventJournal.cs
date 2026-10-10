@@ -57,7 +57,7 @@ namespace AutoEra.Events
     /// Fixed-capacity ring buffer of journal records. Preallocated storage, constant memory,
     /// oldest records are overwritten. Appends and scans are main-thread only.
     /// </summary>
-    public sealed class EventJournal
+    public sealed partial class EventJournal
     {
         private readonly EventJournalRecord[] _records;
         private int _head;
@@ -83,6 +83,7 @@ namespace AutoEra.Events
         /// <summary>Monotonic dispatch sequence, independent of ring wraparound.</summary>
         public ulong NextSequence()
         {
+            if (_appended == ulong.MaxValue) throw new InvalidOperationException("Event sequence allocation exhausted.");
             return ++_appended;
         }
 
