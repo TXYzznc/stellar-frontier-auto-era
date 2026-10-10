@@ -20,36 +20,36 @@ namespace AutoEra.PCG
         {
             [Tooltip("显示名（如 黄铁矿 / 蓝晶簇）")]
             [FormerlySerializedAs("displayName")]
-            public string DisplayName = "矿物";
+            [InspectorName("显示名称")] public string DisplayName = "矿物";
 
             [Tooltip("true=晶簇（尖刺晶体），false=矿石簇（多矿块聚集）")]
             [FormerlySerializedAs("isCrystal")]
-            public bool IsCrystal = false;
+            [InspectorName("是否为晶簇")] public bool IsCrystal = false;
 
             [Tooltip("矿石簇形态（IsCrystal=false 时有效）")]
             [FormerlySerializedAs("oreType")]
-            public OreType OreKind = OreType.Cubic;
+            [InspectorName("矿石形态")] public OreType OreKind = OreType.Cubic;
 
             [Tooltip("材质资产（为空则用该矿物类型默认色临时材质）")]
             [FormerlySerializedAs("material")]
-            public Material Material;
+            [InspectorName("材质")] public Material Material;
 
             [Tooltip("出现概率权重（越大越常出现）")]
             [FormerlySerializedAs("weight")]
-            public float Weight = 1f;
+            [InspectorName("出现权重")] public float Weight = 1f;
 
             [Tooltip("每个矿山该矿物的簇数（一个矿山对应 5~10 个矿石对象）")]
             [FormerlySerializedAs("clusterCount")]
-            public int ClusterCount = 7;
+            [InspectorName("簇数量")] public int ClusterCount = 7;
 
             [Header("占地大小（正方形，Unity 单位）")]
             [Tooltip("占地最小边长（米）。生成时在 min~max 间随机取值，按 mesh 实际尺寸反算缩放。")]
             [FormerlySerializedAs("footprintMin")]
-            public float FootprintMin = 0.5f;
+            [InspectorName("最小占地边长")] public float FootprintMin = 0.5f;
 
             [Tooltip("占地最大边长（米）")]
             [FormerlySerializedAs("footprintMax")]
-            public float FootprintMax = 1f;
+            [InspectorName("最大占地边长")] public float FootprintMax = 1f;
 
             /// <summary>在 FootprintMin~FootprintMax 间随机取一个占地边长（米）。</summary>
             public float RandomFootprint(System.Random rng)
@@ -66,7 +66,7 @@ namespace AutoEra.PCG
 
         [Tooltip("矿物种类与概率列表")]
         [FormerlySerializedAs("entries")]
-        public List<OreEntry> Entries = new List<OreEntry>();
+        [InspectorName("矿物种类与权重")] public List<OreEntry> Entries = new List<OreEntry>();
 
         /// <summary>按 Weight 加权随机选取一种矿物；Entries 为空返回 null。</summary>
         public OreEntry PickRandom(System.Random rng)

@@ -1,0 +1,624 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfd0a7acc18399b4ca75cae61ce9184d, type: 3}
+  m_Name: EnvironmentWorld
+  m_EditorClassIdentifier:
+  MultiBiome: 1
+  BiomeScale: 1100
+  LandscapeScale: 0.25
+  ReliefScale: 1.1
+  HeightOrigin: -12
+  PreserveConstructionRegion: 1
+  ConstructionRegion:
+    serializedVersion: 2
+    x: -40
+    y: -40
+    width: 80
+    height: 80
+  ConstructionBlend: 24
+  ConstructionEdgeNoise: 0.35
+  ConstructionRelief: 0
+  ConstructionBaseHeight: 0
+  StartClimateBias: 0.7
+  AutomaticRebase: 0
+  CameraMinSize: 10
+  CameraMaxSize: 20
+  InitialCameraSize: 14
+  InitialCameraFocus: {x: 8, y: 12}
+  DecorationHeightEnvelope: 14
+  LavaMaterial: {fileID: 2100000, guid: 249d145065b2ccc4ab95e9da84d3ced2, type: 2}
+  MarshWaterMaterial: {fileID: 2100000, guid: a05b0c4faee512b4cbdbb367b067fc83, type: 2}
+  DryGrassMaterial: {fileID: 2100000, guid: dc3085b01663fe5478c01ff5e0db252d, type: 2}
+  MarshGrassMaterial: {fileID: 2100000, guid: 65a5c8a53c7173941b1102cbe419035e, type: 2}
+  SnowGrassMaterial: {fileID: 2100000, guid: 39ee13d6c6eda31408c904cabd11bb52, type: 2}
+  ReedMaterial: {fileID: 2100000, guid: e3a2a58b39e129c498c0e48f46742563, type: 2}
+  DeadwoodMaterial: {fileID: 2100000, guid: f6f0e1a16cd8c7444bad9fc3b0ceb2a8, type: 2}
+  ReedMesh: {fileID: 4300000, guid: 00ef3cb6c339ec643afb79443de584d8, type: 2}
+  DeadwoodMesh: {fileID: 4300000, guid: 5d6822bb85034864b9dc28a84fd09c00, type: 2}
+  BiomeRockMaterials:
+  - {fileID: 2100000, guid: 04a3a0d9269cf694ebf86a3ababec193, type: 2}
+  - {fileID: 2100000, guid: 7a724848b5341334ba3cf4f235999656, type: 2}
+  - {fileID: 2100000, guid: 0b086c7c93c71ae4cb4d94628ac53279, type: 2}
+  - {fileID: 2100000, guid: 21697f8f111a837448200ccc8f42464b, type: 2}
+  - {fileID: 2100000, guid: fe80b0552283105489b0ed6a5df3c93b, type: 2}
+  SnowTrees:
+  - Parts:
+    - Mesh: {fileID: 2158654988587662686, guid: 73a4a0a13d6dbe847af58a99d3a6bb5b,
+        type: 3}
+      Material: {fileID: 2100000, guid: 3ca509e3c230ac14e8b644738a775245, type: 2}
+      Submesh: 0
+      LocalMatrix:
+        e00: 1
+        e01: 0
+        e02: 0
+        e03: 0
+        e10: 0
+        e11: 1
+        e12: 0
+        e13: 0
+        e20: 0
+        e21: 0
+        e22: 1
+        e23: 0
+        e30: 0
+        e31: 0
+        e32: 0
+        e33: 1
+    - Mesh: {fileID: 2158654988587662686, guid: 73a4a0a13d6dbe847af58a99d3a6bb5b,
+        type: 3}
+      Material: {fileID: 2100000, guid: bcb834e6fec6d5c44b98c6168e2649d8, type: 2}
+      Submesh: 1
+      LocalMatrix:
+        e00: 1
+        e01: 0
+        e02: 0
+        e03: 0
+        e10: 0
+        e11: 1
+        e12: 0
+        e13: 0
+        e20: 0
+        e21: 0
+        e22: 1
+        e23: 0
+        e30: 0
+        e31: 0
+        e32: 0
+        e33: 1
+    Height: 22.111708
+    BaseY: -0.20999908
+  - Parts:
+    - Mesh: {fileID: -696401014060296779, guid: 77eca1e256aedad4daa096f74f203aa2,
+        type: 3}
+      Material: {fileID: 2100000, guid: 3ca509e3c230ac14e8b644738a775245, type: 2}
+      Submesh: 0
+      LocalMatrix:
+        e00: 1
+        e01: 0
+        e02: 0
+        e03: 0
+        e10: 0
+        e11: 1
+        e12: 0
+        e13: 0
+        e20: 0
+        e21: 0
+        e22: 1
+        e23: -1.8751539
+        e30: 0
+        e31: 0
+        e32: 0
+        e33: 1
+    - Mesh: {fileID: -696401014060296779, guid: 77eca1e256aedad4daa096f74f203aa2,
+        type: 3}
+      Material: {fileID: 2100000, guid: e057a3f6104823344933cf42324ae49d, type: 2}
+      Submesh: 1
+      LocalMatrix:
+        e00: 1
+        e01: 0
+        e02: 0
+        e03: 0
+        e10: 0
+        e11: 1
+        e12: 0
+        e13: 0
+        e20: 0
+        e21: 0
+        e22: 1
+        e23: -1.8751539
+        e30: 0
+        e31: 0
+        e32: 0
+        e33: 1
+    Height: 21.09207
+    BaseY: -0.9390774
+  - Parts:
+    - Mesh: {fileID: -6963484238481974665, guid: 3be84bf8189c6cd458ae0ece3d1a0ce7,
+        type: 3}
+      Material: {fileID: 2100000, guid: 83dc46df6dc9ee84da21ea9afcabf74b, type: 2}
+      Submesh: 0
+      LocalMatrix:
+        e00: 1
+        e01: 0
+        e02: 0
+        e03: 0
+        e10: 0
+        e11: 1
+        e12: 0
+        e13: 0
+        e20: 0
+        e21: 0
+        e22: 1
+        e23: 0
+        e30: 0
+        e31: 0
+        e32: 0
+        e33: 1
+    - Mesh: {fileID: -6963484238481974665, guid: 3be84bf8189c6cd458ae0ece3d1a0ce7,
+        type: 3}
+      Material: {fileID: 2100000, guid: 330f57fd5e1c7014fad8ad3ea253a27c, type: 2}
+      Submesh: 1
+      LocalMatrix:
+        e00: 1
+        e01: 0
+        e02: 0
+        e03: 0
+        e10: 0
+        e11: 1
+        e12: 0
+        e13: 0
+        e20: 0
+        e21: 0
+        e22: 1
+        e23: 0
+        e30: 0
+        e31: 0
+        e32: 0
+        e33: 1
+    Height: 29.761068
+    BaseY: -0.38400078
+  DryBushes:
+  - Parts:
+    - Mesh: {fileID: 9145173497422338224, guid: 13e9ed28f4cffa241860b9fede3b7b46,
+        type: 3}
+      Material: {fileID: 2100000, guid: 53078977e4373a24ab3ba6790112c83e, type: 2}
+      Submesh: 0
+      LocalMatrix:
+        e00: 0.8
+        e01: 0
+        e02: 0
+        e03: 0
+        e10: 0
+        e11: 0.8
+        e12: 0
+        e13: 0
+        e20: 0
+        e21: 0
+        e22: 0.8
+        e23: 0
+        e30: 0
+        e31: 0
+        e32: 0
+        e33: 1
+    Height: 1.610677
+    BaseY: -0.123458445
+  - Parts:
+    - Mesh: {fileID: -2656025908302770090, guid: d1222890a83fcb743b57619436fce79b,
+        type: 3}
+      Material: {fileID: 2100000, guid: 1dc3bc00c17204444a548345081469ae, type: 2}
+      Submesh: 0
+      LocalMatrix:
+        e00: 0.7
+        e01: 0
+        e02: 0
+        e03: 0
+        e10: 0
+        e11: 0.7
+        e12: 0
+        e13: 0
+        e20: 0
+        e21: 0
+        e22: 0.7
+        e23: 0
+        e30: 0
+        e31: 0
+        e32: 0
+        e33: 1
+    Height: 1.5594461
+    BaseY: -0.16334277
+  Landmarks:
+  - Name: Meadow / interaction
+    Biome: 0
+    Position: {x: 8, y: 12}
+    ViewSize: 14
+  - Name: Desert / main
+    Biome: 1
+    Position: {x: -154, y: 425.00003}
+    ViewSize: 28
+  - Name: Mountains / main
+    Biome: 2
+    Position: {x: 230, y: -215}
+    ViewSize: 28
+  - Name: Water / main
+    Biome: 3
+    Position: {x: 101.133316, y: 43.85401}
+    ViewSize: 28
+  - Name: Marsh / main
+    Biome: 4
+    Position: {x: -27.013523, y: -89.9194}
+    ViewSize: 28
+  - Name: Volcano / main
+    Biome: 5
+    Position: {x: -25.721172, y: 165.20099}
+    ViewSize: 28
+  - Name: Snow / main
+    Biome: 6
+    Position: {x: 101.99999, y: 233}
+    ViewSize: 28
+  - Name: Meadow / local A
+    Biome: 0
+    Position: {x: 20, y: 17.5}
+    ViewSize: 20
+  - Name: Meadow / local B
+    Biome: 0
+    Position: {x: -4, y: 6.5}
+    ViewSize: 24
+  - Name: Desert / local A
+    Biome: 1
+    Position: {x: -142, y: 430.49997}
+    ViewSize: 20
+  - Name: Desert / local B
+    Biome: 1
+    Position: {x: -166, y: 419.5}
+    ViewSize: 24
+  - Name: Mountains / local A
+    Biome: 2
+    Position: {x: 242.00002, y: -209.50002}
+    ViewSize: 20
+  - Name: Mountains / local B
+    Biome: 2
+    Position: {x: 218, y: -220.5}
+    ViewSize: 24
+  - Name: Water / local A
+    Biome: 3
+    Position: {x: 113.13332, y: 49.35401}
+    ViewSize: 20
+  - Name: Water / local B
+    Biome: 3
+    Position: {x: 89.133316, y: 38.35401}
+    ViewSize: 24
+  - Name: Marsh / local A
+    Biome: 4
+    Position: {x: -15.013525, y: -84.41941}
+    ViewSize: 20
+  - Name: Marsh / local B
+    Biome: 4
+    Position: {x: -39.013523, y: -95.4194}
+    ViewSize: 24
+  - Name: Volcano / local A
+    Biome: 5
+    Position: {x: -13.721172, y: 170.70099}
+    ViewSize: 20
+  - Name: Volcano / local B
+    Biome: 5
+    Position: {x: -37.721176, y: 159.70099}
+    ViewSize: 24
+  - Name: Snow / local A
+    Biome: 6
+    Position: {x: 114, y: 238.50002}
+    ViewSize: 20
+  - Name: Snow / local B
+    Biome: 6
+    Position: {x: 90, y: 227.49998}
+    ViewSize: 24
+  - Name: Desert oasis
+    Biome: 1
+    Position: {x: -216.91876, y: 424.95288}
+    ViewSize: 36
+  - Name: Snow volcano
+    Biome: 5
+    Position: {x: -21.908953, y: 230.2406}
+    ViewSize: 36
+  - Name: Meadow - Desert
+    Biome: 0
+    Position: {x: -762, y: -1015}
+    ViewSize: 36
+  - Name: Hills - Mountains
+    Biome: 0
+    Position: {x: -698, y: -1015}
+    ViewSize: 36
+  - Name: Rock - Volcano
+    Biome: 2
+    Position: {x: -666, y: -983}
+    ViewSize: 36
+  - Name: Rock - Snow
+    Biome: 2
+    Position: {x: -826, y: -919.00006}
+    ViewSize: 36
+  - Name: Meadow - Marsh
+    Biome: 0
+    Position: {x: -698, y: -471.00003}
+    ViewSize: 36
+  ReservedSpaces:
+  - Name: "\u57FA\u7840\u4ED3\u5E93"
+    Center: {x: 0, y: -14}
+    Start: {x: 0, y: 0}
+    End: {x: 0, y: 0}
+    PadRadius: 5.8
+    RouteHalfWidth: 0
+  - Name: "\u519C\u7530"
+    Center: {x: -12, y: 0}
+    Start: {x: 0, y: 0}
+    End: {x: 0, y: 0}
+    PadRadius: 6.4568543
+    RouteHalfWidth: 0
+  - Name: "\u4EBA\u5DE5\u6797"
+    Center: {x: 12, y: 0}
+    Start: {x: 0, y: 0}
+    End: {x: 0, y: 0}
+    PadRadius: 6.4568543
+    RouteHalfWidth: 0
+  - Name: "\u5730\u8868\u77FF\u8109"
+    Center: {x: -12, y: 14}
+    Start: {x: 0, y: 0}
+    End: {x: 0, y: 0}
+    PadRadius: 7.2031245
+    RouteHalfWidth: 0
+  - Name: "\u6C34\u57DF"
+    Center: {x: 12, y: 14}
+    Start: {x: 0, y: 0}
+    End: {x: 0, y: 0}
+    PadRadius: 5.8
+    RouteHalfWidth: 0
+  - Name: "\u751F\u7269\u8D28\u53D1\u7535\u673A"
+    Center: {x: -12, y: -14}
+    Start: {x: 0, y: 0}
+    End: {x: 0, y: 0}
+    PadRadius: 3.3
+    RouteHalfWidth: 0
+  - Name: "\u592A\u9633\u80FD\u9635\u5217"
+    Center: {x: 12, y: -14}
+    Start: {x: 0, y: 0}
+    End: {x: 0, y: 0}
+    PadRadius: 3.628427
+    RouteHalfWidth: 0
+  SecondaryEffects: 1
+  Seed: 20261008
+  ChunkSize: 64
+  HeightResolution: 65
+  AlphaResolution: 64
+  HeightScale: 96
+  WaterLevel: 5.5
+  DisplayMargin: 20
+  PrepareMargin: 64
+  EvictMargin: 96
+  RetainSeconds: 2
+  MaxDisplayedChunks: 128
+  MaxCachedChunks: 256
+  MaxConcurrentDataJobs: 2
+  FrameBudgetMs: 3
+  GrassSpacing: 0.28
+  GrassMinHeight: 0.65
+  GrassMaxHeight: 1.1
+  GrassDrawDistance: 130
+  RecoverySeconds: 12
+  MaxTrailCells: 32768
+  TrailResolution: 256
+  TrailPixelSize: 1
+  TerrainLayers:
+  - {fileID: 8574412962073106934, guid: cf67c8785719a6a4fb85bece1bd2015d, type: 2}
+  - {fileID: 8574412962073106934, guid: c9ce98a9c2a49bf4a97569d73d29946d, type: 2}
+  - {fileID: 8574412962073106934, guid: dae4208e908e94d42a14fd6f421e3d3b, type: 2}
+  - {fileID: 8574412962073106934, guid: 1489ac90ff4cc5146a30de49e29b3fa7, type: 2}
+  - {fileID: 8574412962073106934, guid: 17f032e01c5377144ae736bb1d13f460, type: 2}
+  - {fileID: 8574412962073106934, guid: ef5ea8142e063ae4a8f7a41180a90988, type: 2}
+  - {fileID: 8574412962073106934, guid: 3fb199544c2b1264ebf0620a76d33dd5, type: 2}
+  - {fileID: 8574412962073106934, guid: 6676808c2fccbec488268de9a47347d8, type: 2}
+  TerrainMaterial: {fileID: 2100000, guid: be7679ff4ee71754d88d5e2f9f93c1d3, type: 2}
+  WaterMaterial: {fileID: 2100000, guid: 7cab7e97de619954eb33e2a1c3442f94, type: 2}
+  GrassMaterial: {fileID: 2100000, guid: 670267f25be7f36448a703d33659a246, type: 2}
+  GrassMesh: {fileID: 4300000, guid: a03f92b9a65b42b4c80921b689180f7d, type: 2}
+  RockMaterial: {fileID: 2100000, guid: 00fdbcfd9bf9acb408ec44b4be8c9392, type: 2}
+  RockMeshes:
+  - {fileID: 4300000, guid: 64e8173f31884f341aa5bc10674f116a, type: 2}
+  - {fileID: 4300000, guid: 062a7d358f4009d4b83bcbac2db6b034, type: 2}
+  - {fileID: 4300000, guid: ae3737a32194cfa4184f3ebe935b91a1, type: 2}
+  - {fileID: 4300000, guid: 2035c26ef44833b46b9fd582a080e73c, type: 2}
+  - {fileID: 4300000, guid: bcc8ae0b4e1808a44b80cbc9f25c1d54, type: 2}
+  - {fileID: 4300000, guid: db1d08e6fa4a362468ddf71fd95c9524, type: 2}
+  - {fileID: 4300000, guid: 83131da420b88e54f95cb1759e993e07, type: 2}
+  - {fileID: 4300000, guid: 4fe14285f17c9764981912c2b93f3cf4, type: 2}
+  Trees:
+  - Parts:
+    - Mesh: {fileID: 2158654988587662686, guid: 73a4a0a13d6dbe847af58a99d3a6bb5b,
+        type: 3}
+      Material: {fileID: 2100000, guid: 3ca509e3c230ac14e8b644738a775245, type: 2}
+      Submesh: 0
+      LocalMatrix:
+        e00: 1
+        e01: 0
+        e02: 0
+        e03: 0
+        e10: 0
+        e11: 1
+        e12: 0
+        e13: 0
+        e20: 0
+        e21: 0
+        e22: 1
+        e23: 0
+        e30: 0
+        e31: 0
+        e32: 0
+        e33: 1
+    - Mesh: {fileID: 2158654988587662686, guid: 73a4a0a13d6dbe847af58a99d3a6bb5b,
+        type: 3}
+      Material: {fileID: 2100000, guid: 3870a6d7eca95df4caff65b4baa400a9, type: 2}
+      Submesh: 1
+      LocalMatrix:
+        e00: 1
+        e01: 0
+        e02: 0
+        e03: 0
+        e10: 0
+        e11: 1
+        e12: 0
+        e13: 0
+        e20: 0
+        e21: 0
+        e22: 1
+        e23: 0
+        e30: 0
+        e31: 0
+        e32: 0
+        e33: 1
+    Height: 22.111708
+    BaseY: -0.20999908
+  - Parts:
+    - Mesh: {fileID: -696401014060296779, guid: 77eca1e256aedad4daa096f74f203aa2,
+        type: 3}
+      Material: {fileID: 2100000, guid: 3ca509e3c230ac14e8b644738a775245, type: 2}
+      Submesh: 0
+      LocalMatrix:
+        e00: 1
+        e01: 0
+        e02: 0
+        e03: 0
+        e10: 0
+        e11: 1
+        e12: 0
+        e13: 0
+        e20: 0
+        e21: 0
+        e22: 1
+        e23: -1.8751539
+        e30: 0
+        e31: 0
+        e32: 0
+        e33: 1
+    - Mesh: {fileID: -696401014060296779, guid: 77eca1e256aedad4daa096f74f203aa2,
+        type: 3}
+      Material: {fileID: 2100000, guid: 3870a6d7eca95df4caff65b4baa400a9, type: 2}
+      Submesh: 1
+      LocalMatrix:
+        e00: 1
+        e01: 0
+        e02: 0
+        e03: 0
+        e10: 0
+        e11: 1
+        e12: 0
+        e13: 0
+        e20: 0
+        e21: 0
+        e22: 1
+        e23: -1.8751539
+        e30: 0
+        e31: 0
+        e32: 0
+        e33: 1
+    Height: 21.09207
+    BaseY: -0.9390774
+  - Parts:
+    - Mesh: {fileID: -6963484238481974665, guid: 3be84bf8189c6cd458ae0ece3d1a0ce7,
+        type: 3}
+      Material: {fileID: 2100000, guid: 83dc46df6dc9ee84da21ea9afcabf74b, type: 2}
+      Submesh: 0
+      LocalMatrix:
+        e00: 1
+        e01: 0
+        e02: 0
+        e03: 0
+        e10: 0
+        e11: 1
+        e12: 0
+        e13: 0
+        e20: 0
+        e21: 0
+        e22: 1
+        e23: 0
+        e30: 0
+        e31: 0
+        e32: 0
+        e33: 1
+    - Mesh: {fileID: -6963484238481974665, guid: 3be84bf8189c6cd458ae0ece3d1a0ce7,
+        type: 3}
+      Material: {fileID: 2100000, guid: e78682da19bb8f14f930afe543664e5b, type: 2}
+      Submesh: 1
+      LocalMatrix:
+        e00: 1
+        e01: 0
+        e02: 0
+        e03: 0
+        e10: 0
+        e11: 1
+        e12: 0
+        e13: 0
+        e20: 0
+        e21: 0
+        e22: 1
+        e23: 0
+        e30: 0
+        e31: 0
+        e32: 0
+        e33: 1
+    Height: 29.761068
+    BaseY: -0.38400078
+  Bushes:
+  - Parts:
+    - Mesh: {fileID: 9145173497422338224, guid: 13e9ed28f4cffa241860b9fede3b7b46,
+        type: 3}
+      Material: {fileID: 2100000, guid: 4a249c5bad25f9a4687fffab1c6dcab0, type: 2}
+      Submesh: 0
+      LocalMatrix:
+        e00: 0.8
+        e01: 0
+        e02: 0
+        e03: 0
+        e10: 0
+        e11: 0.8
+        e12: 0
+        e13: 0
+        e20: 0
+        e21: 0
+        e22: 0.8
+        e23: 0
+        e30: 0
+        e31: 0
+        e32: 0
+        e33: 1
+    Height: 1.610677
+    BaseY: -0.123458445
+  - Parts:
+    - Mesh: {fileID: -2656025908302770090, guid: d1222890a83fcb743b57619436fce79b,
+        type: 3}
+      Material: {fileID: 2100000, guid: 5889c248b9e00864896dc9bc613d289c, type: 2}
+      Submesh: 0
+      LocalMatrix:
+        e00: 0.7
+        e01: 0
+        e02: 0
+        e03: 0
+        e10: 0
+        e11: 0.7
+        e12: 0
+        e13: 0
+        e20: 0
+        e21: 0
+        e22: 0.7
+        e23: 0
+        e30: 0
+        e31: 0
+        e32: 0
+        e33: 1
+    Height: 1.5594461
+    BaseY: -0.16334277

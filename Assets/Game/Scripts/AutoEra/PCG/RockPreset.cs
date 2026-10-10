@@ -15,31 +15,31 @@ namespace AutoEra.PCG
     {
         [Header("岩石（噪声位移 + Y 压扁）")]
         [FormerlySerializedAs("rockCount")]
-        public int RockCount = 8;
+        [InspectorName("岩石变体数量")] public int RockCount = 8;
         [FormerlySerializedAs("subdivisions")]
-        public int Subdivisions = 3;
+        [InspectorName("细分级数")] public int Subdivisions = 3;
         [Tooltip("噪声强度范围：X=最小 Y=最大")]
         [FormerlySerializedAs("noiseRange")]
-        public Vector2 NoiseRange = new Vector2(0.4f, 0.9f);
+        [InspectorName("噪声强度范围")] public Vector2 NoiseRange = new Vector2(0.4f, 0.9f);
         [Tooltip("Y 压扁范围：X=最小 Y=最大")]
         [FormerlySerializedAs("squashRange")]
-        public Vector2 SquashRange = new Vector2(0.5f, 0.85f);
+        [InspectorName("纵向压扁范围")] public Vector2 SquashRange = new Vector2(0.5f, 0.85f);
         [Header("材质（可选）")]
         [Tooltip("直接引用材质资产（颜色/金属度/平滑度/Shader 都由材质决定）；为空则回退用下方 color/metallic/smoothness 生成临时材质")]
         [FormerlySerializedAs("material")]
-        public Material Material;
+        [InspectorName("材质")] public Material Material;
         [FormerlySerializedAs("color")]
-        public Color Color = new Color(0.46f, 0.44f, 0.41f, 1f);
+        [InspectorName("颜色")] public Color Color = new Color(0.46f, 0.44f, 0.41f, 1f);
         [Range(0f, 1f)] [FormerlySerializedAs("metallic")]
-        public float Metallic = 0f;
+        [InspectorName("金属度")] public float Metallic = 0f;
         [Range(0f, 1f)] [FormerlySerializedAs("smoothness")]
-        public float Smoothness = 0.18f;
+        [InspectorName("光滑度")] public float Smoothness = 0.18f;
         [Header("占地大小（正方形，Unity 单位）")]
         [Tooltip("占地边长范围：X=最小 Y=最大（米）。生成时按 mesh 实际尺寸反算缩放。")]
         [FormerlySerializedAs("footprintRange")]
-        public Vector2 FootprintRange = new Vector2(1f, 2f);
+        [InspectorName("占地边长范围")] public Vector2 FootprintRange = new Vector2(1f, 2f);
         [FormerlySerializedAs("seed")]
-        public int Seed = 20260930;
+        [InspectorName("随机种子")] public int Seed = 20260930;
 
         /// <summary>按参数动态生成第 variantIndex 个岩石 mesh（范围值随机，不依赖 Prefab）。</summary>
         public Mesh CreateRockMesh(int variantIndex)

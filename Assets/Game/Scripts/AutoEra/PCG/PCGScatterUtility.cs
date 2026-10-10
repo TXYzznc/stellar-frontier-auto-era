@@ -13,8 +13,8 @@ namespace AutoEra.PCG
         [System.Serializable]
         public sealed class RockVariety
         {
-            public RockPreset Preset;
-            public float Weight = 1f;
+            [InspectorName("岩石预设")] public RockPreset Preset;
+            [InspectorName("出现权重")] public float Weight = 1f;
         }
 
         /// <summary>泊松盘采样：在 width×depth 平面内生成最小间距 minDist 的均匀分布点。</summary>

@@ -9,11 +9,11 @@ namespace AutoEra.PCG
     /// </summary>
     public enum OreType
     {
-        Rubble = 0,     // 不规则碎石（通用矿石 / 铁矿碎块）
-        Cubic = 1,      // 立方块（黄铁矿、方铅矿）
-        Columnar = 2,   // 柱状晶簇（石英、电气石）
-        Platy = 3,      // 片状堆叠（云母、石墨）
-        Botryoidal = 4  // 葡萄串（赤铁矿、孔雀石、玛瑙）
+        [InspectorName("不规则碎石")] Rubble = 0,     // 不规则碎石（通用矿石 / 铁矿碎块）
+        [InspectorName("立方块")] Cubic = 1,      // 立方块（黄铁矿、方铅矿）
+        [InspectorName("柱状晶簇")] Columnar = 2,   // 柱状晶簇（石英、电气石）
+        [InspectorName("片状堆叠")] Platy = 3,      // 片状堆叠（云母、石墨）
+        [InspectorName("葡萄串")] Botryoidal = 4  // 葡萄串（赤铁矿、孔雀石、玛瑙）
     }
 
     /// <summary>

@@ -10,24 +10,24 @@ namespace AutoEra.PCG
     /// </summary>
     public sealed class RuntimeScatterer : MonoBehaviour
     {
-        [Header("散布区域（相对组件中心，xz 平面）")]
-        [SerializeField] private Vector2 _area = new Vector2(80f, 80f);
-        [SerializeField] private float _density = 0.05f;       // 每平方米实例数
-        [SerializeField] private float _minDistance = 1.5f;    // 泊松盘最小间距
-        [SerializeField] private int _seed = 20261001;
+        [Header("散布区域（相对组件中心，XZ 平面）")]
+        [InspectorName("散布区域大小"), SerializeField] private Vector2 _area = new Vector2(80f, 80f);
+        [InspectorName("散布密度"), SerializeField] private float _density = 0.05f;
+        [InspectorName("最小间距"), SerializeField] private float _minDistance = 1.5f;
+        [InspectorName("随机种子"), SerializeField] private int _seed = 20261001;
 
         [Header("岩石")]
-        [SerializeField] private List<PCGScatterUtility.RockVariety> _rockVarieties = new List<PCGScatterUtility.RockVariety>();
-        [SerializeField] private float _rockShare = 0.3f;      // 岩石占实例的比例（0~1，仅在同时有植株时生效）
-        [SerializeField] private float _rockSinkMin = 0.1f;    // 岩石下沉下限（下表面至少埋入量）
+        [InspectorName("岩石种类"), SerializeField] private List<PCGScatterUtility.RockVariety> _rockVarieties = new List<PCGScatterUtility.RockVariety>();
+        [InspectorName("岩石占比"), SerializeField] private float _rockShare = 0.3f;
+        [InspectorName("岩石最小下沉量"), SerializeField] private float _rockSinkMin = 0.1f;
 
         [Header("植株")]
-        [SerializeField] private List<GameObject> _vegetationPrefabs = new List<GameObject>();
+        [InspectorName("植被预制体"), SerializeField] private List<GameObject> _vegetationPrefabs = new List<GameObject>();
 
         [Header("地表对齐")]
-        [SerializeField] private bool _alignToSurface = false;
-        [SerializeField] private float _maxSlope = 30f;
-        [SerializeField] private bool _buildOnStart = true;
+        [InspectorName("贴合地表"), SerializeField] private bool _alignToSurface = false;
+        [InspectorName("最大坡度"), SerializeField] private float _maxSlope = 30f;
+        [InspectorName("启动时生成"), SerializeField] private bool _buildOnStart = true;
 
         private readonly List<GameObject> _spawned = new List<GameObject>();
 

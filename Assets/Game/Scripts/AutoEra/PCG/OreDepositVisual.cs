@@ -11,14 +11,14 @@ namespace AutoEra.PCG
     public sealed class OreDepositVisual : MonoBehaviour
     {
         [Header("矿石概率配置")]
-        [SerializeField] private OreDistributionConfig _distribution;
+        [InspectorName("矿石概率配置"), SerializeField] private OreDistributionConfig _distribution;
 
         [Header("占地与生成")]
-        [SerializeField] private Vector2 _footprint = new Vector2(10f, 8f);
-        [SerializeField] private int _seed = 20261001;
-        [SerializeField] private int _oreCount = 8;
-        [SerializeField] private float _edgeMargin = 0.5f;
-        [SerializeField] private bool _buildOnStart = true;
+        [InspectorName("占地范围"), SerializeField] private Vector2 _footprint = new Vector2(10f, 8f);
+        [InspectorName("随机种子"), SerializeField] private int _seed = 20261001;
+        [InspectorName("矿石数量"), SerializeField] private int _oreCount = 8;
+        [InspectorName("边缘留白"), SerializeField] private float _edgeMargin = 0.5f;
+        [InspectorName("启动时生成"), SerializeField] private bool _buildOnStart = true;
 
         private readonly List<GameObject> _spawned = new List<GameObject>();
 
