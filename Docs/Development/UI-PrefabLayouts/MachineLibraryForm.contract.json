@@ -108,12 +108,12 @@
      0.5
     ],
     "sizeDelta": [
-     1600.0,
-     900.0
+     1680,
+     900
     ],
     "anchoredPosition": [
-     0.0,
-     0.0
+     0,
+     0
     ],
     "children": [
      {
@@ -450,24 +450,24 @@
          }
         ],
         "anchorMin": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchorMax": [
-         1.0,
-         1.0
+         1,
+         1
         ],
         "pivot": [
          0.5,
          0.5
         ],
         "sizeDelta": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchoredPosition": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "children": [
          {
@@ -475,7 +475,7 @@
           "components": [
            {
             "type": "TextMeshProUGUI",
-            "text": "未部署机器整备",
+            "text": "机器整备",
             "fontSize": 28.0,
             "color": [
              0.941176,
@@ -933,7 +933,7 @@
               "components": [
                {
                 "type": "TextMeshProUGUI",
-                "text": "出售空载完好载体",
+                "text": "出售载体",
                 "fontSize": 22.0,
                 "color": [
                  0.941176,
@@ -1061,35 +1061,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.08,
+             0.14,
+             0.17,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           485.0,
-           634.0
+           440,
+           570
           ],
           "anchoredPosition": [
-           0.0,
-           -36.0
+           0,
+           -42
           ],
           "children": [
            {
@@ -1111,24 +1111,24 @@
              }
             ],
             "anchorMin": [
-             0.0,
-             1.0
+             0,
+             1
             ],
             "anchorMax": [
-             0.0,
-             1.0
+             1,
+             1
             ],
             "pivot": [
-             0.0,
-             1.0
+             0.5,
+             1
             ],
             "sizeDelta": [
-             461.0,
-             32.0
+             -24,
+             32
             ],
             "anchoredPosition": [
-             12.0,
-             -8.0
+             0,
+             -10
             ]
            },
            {
@@ -1197,7 +1197,11 @@
                   "type": "VerticalLayoutGroup",
                   "spacing": 8.0,
                   "ChildForceExpandWidth": true,
-                  "ChildForceExpandHeight": false
+                  "ChildForceExpandHeight": false,
+                  "childControlWidth": true,
+                  "childControlHeight": true,
+                  "childForceExpandWidth": true,
+                  "childForceExpandHeight": false
                  },
                  {
                   "type": "ContentSizeFitter",
@@ -1231,8 +1235,8 @@
                   "components": [
                    {
                     "type": "TextMeshProUGUI",
-                    "text": "独立实例名称、型号、等级、部署状态",
-                    "fontSize": 22.0,
+                    "text": "载体参数与当前能力",
+                    "fontSize": 20,
                     "color": [
                      0.941176,
                      0.94902,
@@ -1245,29 +1249,32 @@
                    },
                    {
                     "type": "LayoutElement",
-                    "minHeight": 120.0
+                    "minHeight": 56,
+                    "preferredHeight": 56,
+                    "preferredWidth": 276,
+                    "flexibleWidth": 1
                    }
                   ],
                   "controlledBy": "group",
                   "anchorMin": [
-                   0.0,
-                   1.0
+                   0,
+                   1
                   ],
                   "anchorMax": [
-                   0.0,
-                   1.0
+                   1,
+                   1
                   ],
                   "pivot": [
-                   0.0,
-                   1.0
+                   0.5,
+                   1
                   ],
                   "sizeDelta": [
-                   461.0,
-                   120.0
+                   276,
+                   56
                   ],
                   "anchoredPosition": [
-                   0.0,
-                   0.0
+                   0,
+                   0
                   ]
                  },
                  {
@@ -1286,29 +1293,33 @@
                     "preserveAspect": false
                    },
                    {
-                    "type": "LayoutElement"
+                    "type": "LayoutElement",
+                    "minHeight": 104,
+                    "preferredHeight": 104,
+                    "preferredWidth": 276,
+                    "flexibleWidth": 1
                    }
                   ],
                   "controlledBy": "group",
                   "anchorMin": [
-                   0.0,
-                   1.0
+                   0,
+                   1
                   ],
                   "anchorMax": [
-                   0.0,
-                   1.0
+                   1,
+                   1
                   ],
                   "pivot": [
-                   0.0,
-                   1.0
+                   0.5,
+                   1
                   ],
                   "sizeDelta": [
-                   461.0,
-                   104.0
+                   276,
+                   104
                   ],
                   "anchoredPosition": [
-                   0.0,
-                   0.0
+                   0,
+                   0
                   ],
                   "active": false,
                   "children": [
@@ -1360,7 +1371,7 @@
                        {
                         "type": "TextMeshProUGUI",
                         "text": "名称：—",
-                        "fontSize": 22.0,
+                        "fontSize": 20,
                         "color": [
                          0.941176,
                          0.94902,
@@ -1373,24 +1384,24 @@
                        }
                       ],
                       "anchorMin": [
-                       0.0,
-                       1.0
+                       0,
+                       1
                       ],
                       "anchorMax": [
-                       1.0,
-                       1.0
+                       1,
+                       1
                       ],
                       "pivot": [
                        0.5,
-                       1.0
+                       1
                       ],
                       "sizeDelta": [
-                       -24.0,
-                       32.0
+                       -24,
+                       26
                       ],
                       "anchoredPosition": [
-                       0.0,
-                       -8.0
+                       0,
+                       -6
                       ]
                      },
                      {
@@ -1399,7 +1410,7 @@
                        {
                         "type": "TextMeshProUGUI",
                         "text": "值、状态、时间：—",
-                        "fontSize": 20.0,
+                        "fontSize": 20,
                         "color": [
                          0.941176,
                          0.94902,
@@ -1412,24 +1423,24 @@
                        }
                       ],
                       "anchorMin": [
-                       0.0,
-                       0.0
+                       0,
+                       0
                       ],
                       "anchorMax": [
-                       1.0,
-                       0.0
+                       1,
+                       0
                       ],
                       "pivot": [
                        0.5,
-                       0.0
+                       0
                       ],
                       "sizeDelta": [
-                       -24.0,
-                       48.0
+                       -24,
+                       62
                       ],
                       "anchoredPosition": [
-                       0.0,
-                       8.0
+                       0,
+                       8
                       ]
                      }
                     ]
@@ -1450,35 +1461,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.092,
+             0.15200000000000002,
+             0.18200000000000002,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           485.0,
-           634.0
+           440,
+           570
           ],
           "anchoredPosition": [
-           501.0,
-           -36.0
+           468,
+           -42
           ],
           "children": [
            {
@@ -1500,24 +1511,24 @@
              }
             ],
             "anchorMin": [
-             0.0,
-             1.0
+             0,
+             1
             ],
             "anchorMax": [
-             0.0,
-             1.0
+             1,
+             1
             ],
             "pivot": [
-             0.0,
-             1.0
+             0.5,
+             1
             ],
             "sizeDelta": [
-             461.0,
-             32.0
+             -24,
+             32
             ],
             "anchoredPosition": [
-             12.0,
-             -8.0
+             0,
+             -10
             ]
            },
            {
@@ -1586,7 +1597,11 @@
                   "type": "VerticalLayoutGroup",
                   "spacing": 8.0,
                   "ChildForceExpandWidth": true,
-                  "ChildForceExpandHeight": false
+                  "ChildForceExpandHeight": false,
+                  "childControlWidth": true,
+                  "childControlHeight": true,
+                  "childForceExpandWidth": true,
+                  "childForceExpandHeight": false
                  },
                  {
                   "type": "ContentSizeFitter",
@@ -1620,8 +1635,8 @@
                   "components": [
                    {
                     "type": "TextMeshProUGUI",
-                    "text": "实际槽位及组件",
-                    "fontSize": 22.0,
+                    "text": "选择槽位，安装或拆卸组件。",
+                    "fontSize": 20,
                     "color": [
                      0.941176,
                      0.94902,
@@ -1634,29 +1649,32 @@
                    },
                    {
                     "type": "LayoutElement",
-                    "minHeight": 120.0
+                    "minHeight": 56,
+                    "preferredHeight": 56,
+                    "preferredWidth": 512,
+                    "flexibleWidth": 1
                    }
                   ],
                   "controlledBy": "group",
                   "anchorMin": [
-                   0.0,
-                   1.0
+                   0,
+                   1
                   ],
                   "anchorMax": [
-                   0.0,
-                   1.0
+                   1,
+                   1
                   ],
                   "pivot": [
-                   0.0,
-                   1.0
+                   0.5,
+                   1
                   ],
                   "sizeDelta": [
-                   461.0,
-                   120.0
+                   512,
+                   56
                   ],
                   "anchoredPosition": [
-                   0.0,
-                   0.0
+                   0,
+                   0
                   ]
                  },
                  {
@@ -1675,29 +1693,33 @@
                     "preserveAspect": false
                    },
                    {
-                    "type": "LayoutElement"
+                    "type": "LayoutElement",
+                    "minHeight": 76,
+                    "preferredHeight": 76,
+                    "preferredWidth": 512,
+                    "flexibleWidth": 1
                    }
                   ],
                   "controlledBy": "group",
                   "anchorMin": [
-                   0.0,
-                   1.0
+                   0,
+                   1
                   ],
                   "anchorMax": [
-                   0.0,
-                   1.0
+                   1,
+                   1
                   ],
                   "pivot": [
-                   0.0,
-                   1.0
+                   0.5,
+                   1
                   ],
                   "sizeDelta": [
-                   461.0,
-                   104.0
+                   512,
+                   76
                   ],
                   "anchoredPosition": [
-                   0.0,
-                   0.0
+                   0,
+                   0
                   ],
                   "active": false,
                   "children": [
@@ -1749,7 +1771,7 @@
                        {
                         "type": "TextMeshProUGUI",
                         "text": "名称：—",
-                        "fontSize": 22.0,
+                        "fontSize": 20,
                         "color": [
                          0.941176,
                          0.94902,
@@ -1762,24 +1784,24 @@
                        }
                       ],
                       "anchorMin": [
-                       0.0,
-                       1.0
+                       0,
+                       1
                       ],
                       "anchorMax": [
-                       1.0,
-                       1.0
+                       1,
+                       1
                       ],
                       "pivot": [
                        0.5,
-                       1.0
+                       1
                       ],
                       "sizeDelta": [
-                       -24.0,
-                       32.0
+                       -24,
+                       26
                       ],
                       "anchoredPosition": [
-                       0.0,
-                       -8.0
+                       0,
+                       -6
                       ]
                      },
                      {
@@ -1788,7 +1810,7 @@
                        {
                         "type": "TextMeshProUGUI",
                         "text": "值、状态、时间：—",
-                        "fontSize": 20.0,
+                        "fontSize": 20,
                         "color": [
                          0.941176,
                          0.94902,
@@ -1801,24 +1823,24 @@
                        }
                       ],
                       "anchorMin": [
-                       0.0,
-                       0.0
+                       0,
+                       0
                       ],
                       "anchorMax": [
-                       1.0,
-                       0.0
+                       1,
+                       0
                       ],
                       "pivot": [
                        0.5,
-                       0.0
+                       0
                       ],
                       "sizeDelta": [
-                       -24.0,
-                       48.0
+                       -24,
+                       34
                       ],
                       "anchoredPosition": [
-                       0.0,
-                       8.0
+                       0,
+                       8
                       ]
                      }
                     ]
@@ -1839,35 +1861,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.10400000000000001,
+             0.164,
+             0.194,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           485.0,
-           634.0
+           440,
+           570
           ],
           "anchoredPosition": [
-           1002.0,
-           -36.0
+           936,
+           -42
           ],
           "children": [
            {
@@ -1889,24 +1911,24 @@
              }
             ],
             "anchorMin": [
-             0.0,
-             1.0
+             0,
+             1
             ],
             "anchorMax": [
-             0.0,
-             1.0
+             1,
+             1
             ],
             "pivot": [
-             0.0,
-             1.0
+             0.5,
+             1
             ],
             "sizeDelta": [
-             461.0,
-             32.0
+             -24,
+             32
             ],
             "anchoredPosition": [
-             12.0,
-             -8.0
+             0,
+             -10
             ]
            },
            {
@@ -1975,7 +1997,11 @@
                   "type": "VerticalLayoutGroup",
                   "spacing": 8.0,
                   "ChildForceExpandWidth": true,
-                  "ChildForceExpandHeight": false
+                  "ChildForceExpandHeight": false,
+                  "childControlWidth": true,
+                  "childControlHeight": true,
+                  "childForceExpandWidth": true,
+                  "childForceExpandHeight": false
                  },
                  {
                   "type": "ContentSizeFitter",
@@ -2009,8 +2035,8 @@
                   "components": [
                    {
                     "type": "TextMeshProUGUI",
-                    "text": "硬件配置",
-                    "fontSize": 22.0,
+                    "text": "部署前检查与限制",
+                    "fontSize": 20,
                     "color": [
                      0.941176,
                      0.94902,
@@ -2023,29 +2049,32 @@
                    },
                    {
                     "type": "LayoutElement",
-                    "minHeight": 120.0
+                    "minHeight": 56,
+                    "preferredHeight": 56,
+                    "preferredWidth": 276,
+                    "flexibleWidth": 1
                    }
                   ],
                   "controlledBy": "group",
                   "anchorMin": [
-                   0.0,
-                   1.0
+                   0,
+                   1
                   ],
                   "anchorMax": [
-                   0.0,
-                   1.0
+                   1,
+                   1
                   ],
                   "pivot": [
-                   0.0,
-                   1.0
+                   0.5,
+                   1
                   ],
                   "sizeDelta": [
-                   461.0,
-                   120.0
+                   276,
+                   56
                   ],
                   "anchoredPosition": [
-                   0.0,
-                   0.0
+                   0,
+                   0
                   ]
                  },
                  {
@@ -2064,29 +2093,33 @@
                     "preserveAspect": false
                    },
                    {
-                    "type": "LayoutElement"
+                    "type": "LayoutElement",
+                    "minHeight": 128,
+                    "preferredHeight": 128,
+                    "preferredWidth": 276,
+                    "flexibleWidth": 1
                    }
                   ],
                   "controlledBy": "group",
                   "anchorMin": [
-                   0.0,
-                   1.0
+                   0,
+                   1
                   ],
                   "anchorMax": [
-                   0.0,
-                   1.0
+                   1,
+                   1
                   ],
                   "pivot": [
-                   0.0,
-                   1.0
+                   0.5,
+                   1
                   ],
                   "sizeDelta": [
-                   461.0,
-                   104.0
+                   276,
+                   128
                   ],
                   "anchoredPosition": [
-                   0.0,
-                   0.0
+                   0,
+                   0
                   ],
                   "active": false,
                   "children": [
@@ -2138,7 +2171,7 @@
                        {
                         "type": "TextMeshProUGUI",
                         "text": "名称：—",
-                        "fontSize": 22.0,
+                        "fontSize": 20,
                         "color": [
                          0.941176,
                          0.94902,
@@ -2151,24 +2184,24 @@
                        }
                       ],
                       "anchorMin": [
-                       0.0,
-                       1.0
+                       0,
+                       1
                       ],
                       "anchorMax": [
-                       1.0,
-                       1.0
+                       1,
+                       1
                       ],
                       "pivot": [
                        0.5,
-                       1.0
+                       1
                       ],
                       "sizeDelta": [
-                       -24.0,
-                       32.0
+                       -24,
+                       26
                       ],
                       "anchoredPosition": [
-                       0.0,
-                       -8.0
+                       0,
+                       -6
                       ]
                      },
                      {
@@ -2177,7 +2210,7 @@
                        {
                         "type": "TextMeshProUGUI",
                         "text": "值、状态、时间：—",
-                        "fontSize": 20.0,
+                        "fontSize": 20,
                         "color": [
                          0.941176,
                          0.94902,
@@ -2190,24 +2223,24 @@
                        }
                       ],
                       "anchorMin": [
-                       0.0,
-                       0.0
+                       0,
+                       0
                       ],
                       "anchorMax": [
-                       1.0,
-                       0.0
+                       1,
+                       0
                       ],
                       "pivot": [
                        0.5,
-                       0.0
+                       0
                       ],
                       "sizeDelta": [
-                       -24.0,
-                       48.0
+                       -24,
+                       86
                       ],
                       "anchoredPosition": [
-                       0.0,
-                       8.0
+                       0,
+                       8
                       ]
                      }
                     ]
@@ -2746,6 +2779,186 @@
             ]
            }
           ]
+         },
+         {
+          "name": "Panel_MachinePreparationDisplay",
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.11599999999999999,
+             0.17600000000000002,
+             0.20600000000000002,
+             1
+            ],
+            "raycastTarget": true
+           }
+          ],
+          "children": [
+           {
+            "name": "Txt_MachinePreparationDisplayHeading",
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "设备展示",
+              "fontSize": 22,
+              "color": [
+               0.94,
+               0.95,
+               0.96,
+               1
+              ],
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+              "raycastTarget": false,
+              "wordWrap": true
+             }
+            ],
+            "children": [],
+            "sizeDelta": [
+             580,
+             40
+            ],
+            "anchoredPosition": [
+             20,
+             -20
+            ],
+            "anchorMin": [
+             0,
+             1
+            ],
+            "anchorMax": [
+             0,
+             1
+            ],
+            "pivot": [
+             0,
+             1
+            ]
+           },
+           {
+            "name": "Grp_MachinePreparationDisplayVisual",
+            "components": [],
+            "children": [
+             {
+              "name": "Img_MachinePreparationDisplayPlaceholder",
+              "components": [
+               {
+                "type": "Image",
+                "color": [
+                 0.18,
+                 0.21,
+                 0.24,
+                 1
+                ],
+                "raycastTarget": false,
+                "preserveAspect": true
+               }
+              ],
+              "children": [],
+              "sizeDelta": [
+               180,
+               230
+              ],
+              "anchoredPosition": [
+               0,
+               0
+              ],
+              "anchorMin": [
+               0.5,
+               0.5
+              ],
+              "anchorMax": [
+               0.5,
+               0.5
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ]
+             }
+            ],
+            "sizeDelta": [
+             540,
+             420
+            ],
+            "anchoredPosition": [
+             40,
+             -90
+            ],
+            "anchorMin": [
+             0,
+             1
+            ],
+            "anchorMax": [
+             0,
+             1
+            ],
+            "pivot": [
+             0,
+             1
+            ]
+           },
+           {
+            "name": "Txt_MachinePreparationDisplayCaption",
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "机器展示占位\n正式资源待制作",
+              "fontSize": 20,
+              "color": [
+               0.68,
+               0.71,
+               0.75,
+               1
+              ],
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+              "raycastTarget": false,
+              "wordWrap": true
+             }
+            ],
+            "children": [],
+            "sizeDelta": [
+             580,
+             64
+            ],
+            "anchoredPosition": [
+             20,
+             -528
+            ],
+            "anchorMin": [
+             0,
+             1
+            ],
+            "anchorMax": [
+             0,
+             1
+            ],
+            "pivot": [
+             0,
+             1
+            ]
+           }
+          ],
+          "sizeDelta": [
+           440,
+           570
+          ],
+          "anchoredPosition": [
+           1404,
+           -42
+          ],
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ]
          }
         ]
        },
@@ -2766,24 +2979,24 @@
          }
         ],
         "anchorMin": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchorMax": [
-         1.0,
-         1.0
+         1,
+         1
         ],
         "pivot": [
          0.5,
          0.5
         ],
         "sizeDelta": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchoredPosition": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "children": [
          {
@@ -3293,35 +3506,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.08,
+             0.14,
+             0.17,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           565.0,
-           634.0
+           500,
+           570
           ],
           "anchoredPosition": [
-           0.0,
-           -36.0
+           0,
+           -42
           ],
           "children": [
            {
@@ -3682,35 +3895,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.092,
+             0.15200000000000002,
+             0.18200000000000002,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           907.0,
-           634.0
+           960,
+           570
           ],
           "anchoredPosition": [
-           581.0,
-           -36.0
+           528,
+           -42
           ],
           "children": [
            {
@@ -4610,24 +4823,24 @@
          }
         ],
         "anchorMin": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchorMax": [
-         1.0,
-         1.0
+         1,
+         1
         ],
         "pivot": [
          0.5,
          0.5
         ],
         "sizeDelta": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchoredPosition": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "children": [
          {
@@ -5053,35 +5266,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.08,
+             0.14,
+             0.17,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           565.0,
-           634.0
+           500,
+           570
           ],
           "anchoredPosition": [
-           0.0,
-           -36.0
+           0,
+           -42
           ],
           "children": [
            {
@@ -5442,35 +5655,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.092,
+             0.15200000000000002,
+             0.18200000000000002,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           907.0,
-           634.0
+           960,
+           570
           ],
           "anchoredPosition": [
-           581.0,
-           -36.0
+           528,
+           -42
           ],
           "children": [
            {
@@ -6829,5 +7042,6 @@
  "navigationPageIndex": [
   1,
   2
- ]
+ ],
+ "layoutMigration": "b52: family-specific structure rollout; preserve serialized bindings and functional page routes"
 }

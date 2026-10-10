@@ -348,10 +348,19 @@ namespace AutoEra.Editor.UiProto
             bool declaredGroup = spec["controlledBy"] != null &&
                 string.Equals((string)spec["controlledBy"], "group", StringComparison.Ordinal);
             bool parentDriven = actual.parent != null && actual.parent.GetComponent<LayoutGroup>() != null;
+            var slider = actual.GetComponentInParent<Slider>(true);
+            bool sliderDriven = slider != null && (slider.fillRect == rect || slider.handleRect == rect);
+            bool declaredSlider = string.Equals((string)spec["controlledBy"], "slider", StringComparison.Ordinal);
+            if (declaredSlider && !sliderDriven)
+                errors.Add($"{tag} L2: {path} 声明Slider驱动，但未绑定为填充或拖动柄");
             if (!declaredGroup && !parentDriven)
             {
-                CompareVector(tag, path, "anchorMin", rect.anchorMin, spec["anchorMin"], errors);
-                CompareVector(tag, path, "anchorMax", rect.anchorMax, spec["anchorMax"], errors);
+                // Slider驱动填充/柄的锚点；pivot、尺寸偏移和位置仍必须满足合同。
+                if (!sliderDriven)
+                {
+                    CompareVector(tag, path, "anchorMin", rect.anchorMin, spec["anchorMin"], errors);
+                    CompareVector(tag, path, "anchorMax", rect.anchorMax, spec["anchorMax"], errors);
+                }
                 CompareVector(tag, path, "pivot", rect.pivot, spec["pivot"], errors);
                 CompareVector(tag, path, "sizeDelta", rect.sizeDelta, spec["sizeDelta"], errors);
                 CompareVector(tag, path, "anchoredPosition", rect.anchoredPosition, spec["anchoredPosition"], errors);

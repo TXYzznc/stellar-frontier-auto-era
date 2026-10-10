@@ -278,6 +278,30 @@ namespace AutoEra.Tests.Editor
             Assert.Fail("整备页缺少行：" + label);
             return null;
         }
+        [Test]
+        public void PackagedCarrier_LeavesMachineLibrarySelectionAndReturnsWithTheSameIdentity()
+        {
+            using (var context = ContextWithWorld(out var world))
+            {
+                var machine = world.Machines.Create(Definition());
+                world.Resources.Configure(new AutoEra.Logistics.ResourceItemCatalog(new[] {
+                    new AutoEra.Logistics.ResourceItemDefinition("carrier", AutoEra.Buildings.CargoItemClass.MachineCarrier, machine.Definition.Id) }));
+                var authority = world.Resources.Authority;
+                world.IdAllocator.TryAllocate(out var source); world.IdAllocator.TryAllocate(out var destination);
+                var ground = authority.RegisterContainer(new AutoEra.Logistics.CargoOwner(AutoEra.Logistics.CargoOwnerKind.WorldFree, source), AutoEra.Logistics.CargoContainerKind.WorldFree, long.MaxValue);
+                var warehouse = authority.RegisterContainer(new AutoEra.Logistics.CargoOwner(AutoEra.Logistics.CargoOwnerKind.Receiver, destination), AutoEra.Logistics.CargoContainerKind.Warehouse, 120);
+                using (var model = MachineReadModels.Create(AutoEraUiSession.ForWorld(context, world)))
+                {
+                    Assert.That(model.Select(machine.Id), Is.True); Assert.That(model.Snapshot.Count, Is.EqualTo(1));
+                    Assert.That(authority.TryMint(ground.Owner, "carrier", 1, out var lot, out var reason, machine.Id), Is.True, reason);
+                    Assert.That(model.Snapshot.Count, Is.Zero); Assert.That(model.SelectedId.IsValid, Is.False); Assert.That(model.Select(machine.Id), Is.False);
+                    world.IdAllocator.TryAllocate(out var tx); world.IdAllocator.TryAllocate(out var task);
+                    Assert.That(authority.TryReserve(tx, task, lot.Id, lot.Version, warehouse.Owner, warehouse.Generation, 1, out var token, out reason), Is.True, reason);
+                    authority.Commit(token, 1, 1); Assert.That(model.Snapshot.Count, Is.EqualTo(1));
+                    Assert.That(model.Snapshot.Machines[0].Id, Is.EqualTo(machine.Id)); Assert.That(model.Select(machine.Id), Is.True);
+                }
+            }
+        }
 
     }
 }

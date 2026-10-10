@@ -10,34 +10,2381 @@
  ],
  "root": {
   "name": "FieldHudResidentForm",
+  "active": true,
+  "anchorMin": [
+   0,
+   0
+  ],
+  "anchorMax": [
+   1,
+   1
+  ],
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "sizeDelta": [
+   0,
+   0
+  ],
+  "anchoredPosition": [
+   0,
+   0
+  ],
   "components": [
-   {
-    "type": "FieldHudResidentForm"
-   },
    {
     "type": "CanvasGroup"
    }
   ],
   "children": [
    {
-    "name": "Panel_PageHudStatus",
-    "components": []
-   },
-   {
-    "name": "Panel_PageHudTracker",
-    "components": []
-   },
-   {
-    "name": "Panel_PageHudAlerts",
-    "components": []
-   },
-   {
-    "name": "Panel_PageHudNavigation",
-    "components": []
-   },
-   {
-    "name": "Panel_PageHudSave",
-    "components": []
+    "name": "Grp_PageHost",
+    "active": true,
+    "anchorMin": [
+     0.0,
+     0.0
+    ],
+    "anchorMax": [
+     1.0,
+     1.0
+    ],
+    "pivot": [
+     0.5,
+     0.5
+    ],
+    "sizeDelta": [
+     0.0,
+     0.0
+    ],
+    "anchoredPosition": [
+     0.0,
+     0.0
+    ],
+    "components": [],
+    "children": [
+     {
+      "name": "Panel_PageHudStatus",
+      "active": true,
+      "anchorMin": [
+       0,
+       1
+      ],
+      "anchorMax": [
+       1,
+       1
+      ],
+      "pivot": [
+       0.5,
+       1
+      ],
+      "sizeDelta": [
+       -48,
+       80
+      ],
+      "anchoredPosition": [
+       0,
+       -20
+      ],
+      "components": [
+       {
+        "type": "Image",
+        "color": [
+         0.12549,
+         0.141176,
+         0.164706,
+         1.0
+        ],
+        "imageType": 1,
+        "raycastTarget": false,
+        "preserveAspect": false
+       }
+      ],
+      "children": [
+       {
+        "name": "Grp_HudStatusContent",
+        "active": true,
+        "anchorMin": [
+         0,
+         1
+        ],
+        "anchorMax": [
+         0,
+         1
+        ],
+        "pivot": [
+         0,
+         1
+        ],
+        "sizeDelta": [
+         800,
+         56
+        ],
+        "anchoredPosition": [
+         20,
+         -12
+        ],
+        "components": [],
+        "children": [
+         {
+          "name": "Txt_HudStatusResources",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           380,
+           52
+          ],
+          "anchoredPosition": [
+           0,
+           0
+          ],
+          "components": [
+           {
+            "type": "TextMeshProUGUI",
+            "text": "资源总览\n数据尚未接入",
+            "fontSize": 22.0,
+            "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+            "color": [
+             0.941176,
+             0.94902,
+             0.956863,
+             1.0
+            ],
+            "raycastTarget": false,
+            "wordWrap": true
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": []
+         },
+         {
+          "name": "Txt_HudStatusSystems",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           400,
+           52
+          ],
+          "anchoredPosition": [
+           400,
+           0
+          ],
+          "components": [
+           {
+            "type": "TextMeshProUGUI",
+            "text": "系统状态\n请从中枢查看详情",
+            "fontSize": 22.0,
+            "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+            "color": [
+             0.941176,
+             0.94902,
+             0.956863,
+             1.0
+            ],
+            "raycastTarget": false,
+            "wordWrap": true
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": []
+         }
+        ],
+        "removeComponents": [
+         "HorizontalLayoutGroup",
+         "VerticalLayoutGroup",
+         "GridLayoutGroup"
+        ]
+       },
+       {
+        "name": "Grp_HudStatusActions",
+        "active": true,
+        "anchorMin": [
+         0,
+         1
+        ],
+        "anchorMax": [
+         0,
+         1
+        ],
+        "pivot": [
+         0,
+         1
+        ],
+        "sizeDelta": [
+         576,
+         48
+        ],
+        "anchoredPosition": [
+         840,
+         -16
+        ],
+        "components": [],
+        "children": [
+         {
+          "name": "Btn_HudStatusGrowth",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           136,
+           48
+          ],
+          "anchoredPosition": [
+           0,
+           0
+          ],
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.321569,
+             0.498039,
+             0.639216,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": true,
+            "preserveAspect": false
+           },
+           {
+            "type": "Button",
+            "interactable": false
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": [
+           {
+            "name": "Txt_HudStatusGrowthLabel",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -16.0,
+             -8.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "成长",
+              "fontSize": 22.0,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true
+             }
+            ],
+            "children": []
+           }
+          ]
+         },
+         {
+          "name": "Btn_HudStatusCompute",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           136,
+           48
+          ],
+          "anchoredPosition": [
+           144,
+           0
+          ],
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.321569,
+             0.498039,
+             0.639216,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": true,
+            "preserveAspect": false
+           },
+           {
+            "type": "Button",
+            "interactable": false
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": [
+           {
+            "name": "Txt_HudStatusComputeLabel",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -16.0,
+             -8.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "算力对象",
+              "fontSize": 22.0,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true
+             }
+            ],
+            "children": []
+           }
+          ]
+         },
+         {
+          "name": "Btn_HudStatusEnergy",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           136,
+           48
+          ],
+          "anchoredPosition": [
+           288,
+           0
+          ],
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.321569,
+             0.498039,
+             0.639216,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": true,
+            "preserveAspect": false
+           },
+           {
+            "type": "Button",
+            "interactable": false
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": [
+           {
+            "name": "Txt_HudStatusEnergyLabel",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -16.0,
+             -8.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "能源",
+              "fontSize": 22.0,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true
+             }
+            ],
+            "children": []
+           }
+          ]
+         },
+         {
+          "name": "Btn_HudStatusResource",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           136,
+           48
+          ],
+          "anchoredPosition": [
+           432,
+           0
+          ],
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.321569,
+             0.498039,
+             0.639216,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": true,
+            "preserveAspect": false
+           },
+           {
+            "type": "Button",
+            "interactable": false
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": [
+           {
+            "name": "Txt_HudStatusResourceLabel",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -16.0,
+             -8.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "资源详情",
+              "fontSize": 22.0,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true
+             }
+            ],
+            "children": []
+           }
+          ]
+         }
+        ],
+        "removeComponents": [
+         "HorizontalLayoutGroup",
+         "VerticalLayoutGroup",
+         "GridLayoutGroup"
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Panel_PageHudTracker",
+      "active": true,
+      "anchorMin": [
+       0,
+       1
+      ],
+      "anchorMax": [
+       0,
+       1
+      ],
+      "pivot": [
+       0,
+       1
+      ],
+      "sizeDelta": [
+       344,
+       196
+      ],
+      "anchoredPosition": [
+       24,
+       -116
+      ],
+      "components": [
+       {
+        "type": "Image",
+        "color": [
+         0.12549,
+         0.141176,
+         0.164706,
+         1.0
+        ],
+        "imageType": 1,
+        "raycastTarget": false,
+        "preserveAspect": false
+       }
+      ],
+      "children": [
+       {
+        "name": "Grp_HudTrackerContent",
+        "active": true,
+        "anchorMin": [
+         0,
+         1
+        ],
+        "anchorMax": [
+         0,
+         1
+        ],
+        "pivot": [
+         0,
+         1
+        ],
+        "sizeDelta": [
+         312,
+         112
+        ],
+        "anchoredPosition": [
+         16,
+         -12
+        ],
+        "components": [],
+        "children": [
+         {
+          "name": "Txt_HudTrackerObjective",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           312,
+           48
+          ],
+          "anchoredPosition": [
+           0,
+           0
+          ],
+          "components": [
+           {
+            "type": "TextMeshProUGUI",
+            "text": "当前目标\n任务追踪尚未接入",
+            "fontSize": 22.0,
+            "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+            "color": [
+             0.941176,
+             0.94902,
+             0.956863,
+             1.0
+            ],
+            "raycastTarget": false,
+            "wordWrap": true
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": []
+         },
+         {
+          "name": "Txt_HudTrackerGuide",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           312,
+           52
+          ],
+          "anchoredPosition": [
+           0,
+           -54
+          ],
+          "components": [
+           {
+            "type": "TextMeshProUGUI",
+            "text": "引导信息待接入",
+            "fontSize": 22.0,
+            "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+            "color": [
+             0.941176,
+             0.94902,
+             0.956863,
+             1.0
+            ],
+            "raycastTarget": false,
+            "wordWrap": true
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": []
+         }
+        ],
+        "removeComponents": [
+         "HorizontalLayoutGroup",
+         "VerticalLayoutGroup",
+         "GridLayoutGroup"
+        ]
+       },
+       {
+        "name": "Grp_HudTrackerActions",
+        "active": true,
+        "anchorMin": [
+         0,
+         1
+        ],
+        "anchorMax": [
+         0,
+         1
+        ],
+        "pivot": [
+         0,
+         1
+        ],
+        "sizeDelta": [
+         312,
+         44
+        ],
+        "anchoredPosition": [
+         16,
+         -140
+        ],
+        "components": [],
+        "children": [
+         {
+          "name": "Btn_HudTrackerTask",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           96,
+           44
+          ],
+          "anchoredPosition": [
+           0,
+           0
+          ],
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.321569,
+             0.498039,
+             0.639216,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": true,
+            "preserveAspect": false
+           },
+           {
+            "type": "Button",
+            "interactable": false
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": [
+           {
+            "name": "Txt_HudTrackerTaskLabel",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -16.0,
+             -8.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "任务",
+              "fontSize": 22.0,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true
+             }
+            ],
+            "children": []
+           }
+          ]
+         },
+         {
+          "name": "Btn_HudTrackerGuide",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           96,
+           44
+          ],
+          "anchoredPosition": [
+           108,
+           0
+          ],
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.321569,
+             0.498039,
+             0.639216,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": true,
+            "preserveAspect": false
+           },
+           {
+            "type": "Button",
+            "interactable": false
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": [
+           {
+            "name": "Txt_HudTrackerGuideLabel",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -16.0,
+             -8.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "引导",
+              "fontSize": 22.0,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true
+             }
+            ],
+            "children": []
+           }
+          ]
+         },
+         {
+          "name": "Btn_HudTrackerLocate",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           96,
+           44
+          ],
+          "anchoredPosition": [
+           216,
+           0
+          ],
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.321569,
+             0.498039,
+             0.639216,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": true,
+            "preserveAspect": false
+           },
+           {
+            "type": "Button",
+            "interactable": false
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": [
+           {
+            "name": "Txt_HudTrackerLocateLabel",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -16.0,
+             -8.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "定位",
+              "fontSize": 22.0,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true
+             }
+            ],
+            "children": []
+           }
+          ]
+         }
+        ],
+        "removeComponents": [
+         "HorizontalLayoutGroup",
+         "VerticalLayoutGroup",
+         "GridLayoutGroup"
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Panel_PageHudAlerts",
+      "active": true,
+      "anchorMin": [
+       0.5,
+       1
+      ],
+      "anchorMax": [
+       0.5,
+       1
+      ],
+      "pivot": [
+       0.5,
+       1
+      ],
+      "sizeDelta": [
+       480,
+       108
+      ],
+      "anchoredPosition": [
+       -100,
+       -116
+      ],
+      "components": [
+       {
+        "type": "Image",
+        "color": [
+         0.12549,
+         0.141176,
+         0.164706,
+         1.0
+        ],
+        "imageType": 1,
+        "raycastTarget": false,
+        "preserveAspect": false
+       }
+      ],
+      "children": [
+       {
+        "name": "Grp_HudAlertsContent",
+        "active": true,
+        "anchorMin": [
+         0,
+         1
+        ],
+        "anchorMax": [
+         0,
+         1
+        ],
+        "pivot": [
+         0,
+         1
+        ],
+        "sizeDelta": [
+         280,
+         84
+        ],
+        "anchoredPosition": [
+         16,
+         -12
+        ],
+        "components": [],
+        "children": [
+         {
+          "name": "Txt_HudAlertsHighest",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           280,
+           36
+          ],
+          "anchoredPosition": [
+           0,
+           0
+          ],
+          "components": [
+           {
+            "type": "TextMeshProUGUI",
+            "text": "警报摘要尚未接入",
+            "fontSize": 22.0,
+            "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+            "color": [
+             0.941176,
+             0.94902,
+             0.956863,
+             1.0
+            ],
+            "raycastTarget": false,
+            "wordWrap": true
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": []
+         },
+         {
+          "name": "Txt_HudAlertsChanges",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           280,
+           36
+          ],
+          "anchoredPosition": [
+           0,
+           -44
+          ],
+          "components": [
+           {
+            "type": "TextMeshProUGUI",
+            "text": "状态变化待接入",
+            "fontSize": 22.0,
+            "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+            "color": [
+             0.941176,
+             0.94902,
+             0.956863,
+             1.0
+            ],
+            "raycastTarget": false,
+            "wordWrap": true
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": []
+         }
+        ],
+        "removeComponents": [
+         "HorizontalLayoutGroup",
+         "VerticalLayoutGroup",
+         "GridLayoutGroup"
+        ]
+       },
+       {
+        "name": "Grp_HudAlertsActions",
+        "active": true,
+        "anchorMin": [
+         0,
+         1
+        ],
+        "anchorMax": [
+         0,
+         1
+        ],
+        "pivot": [
+         0,
+         1
+        ],
+        "sizeDelta": [
+         144,
+         84
+        ],
+        "anchoredPosition": [
+         320,
+         -12
+        ],
+        "components": [],
+        "children": [
+         {
+          "name": "Btn_HudAlertsOpen",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           144,
+           36
+          ],
+          "anchoredPosition": [
+           0,
+           0
+          ],
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.321569,
+             0.498039,
+             0.639216,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": true,
+            "preserveAspect": false
+           },
+           {
+            "type": "Button",
+            "interactable": false
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": [
+           {
+            "name": "Txt_HudAlertsOpenLabel",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -16.0,
+             -8.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "警报列表",
+              "fontSize": 22.0,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true
+             }
+            ],
+            "children": []
+           }
+          ]
+         },
+         {
+          "name": "Btn_HudAlertsLocate",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           144,
+           36
+          ],
+          "anchoredPosition": [
+           0,
+           -44
+          ],
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.321569,
+             0.498039,
+             0.639216,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": true,
+            "preserveAspect": false
+           },
+           {
+            "type": "Button",
+            "interactable": false
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": [
+           {
+            "name": "Txt_HudAlertsLocateLabel",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -16.0,
+             -8.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "定位来源",
+              "fontSize": 22.0,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true
+             }
+            ],
+            "children": []
+           }
+          ]
+         }
+        ],
+        "removeComponents": [
+         "HorizontalLayoutGroup",
+         "VerticalLayoutGroup",
+         "GridLayoutGroup"
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Panel_PageHudNavigation",
+      "active": true,
+      "anchorMin": [
+       0,
+       0
+      ],
+      "anchorMax": [
+       0,
+       0
+      ],
+      "pivot": [
+       0,
+       0
+      ],
+      "sizeDelta": [
+       1280,
+       72
+      ],
+      "anchoredPosition": [
+       24,
+       24
+      ],
+      "components": [
+       {
+        "type": "Image",
+        "color": [
+         0.12549,
+         0.141176,
+         0.164706,
+         1.0
+        ],
+        "imageType": 1,
+        "raycastTarget": false,
+        "preserveAspect": false
+       }
+      ],
+      "children": [
+       {
+        "name": "Grp_HudNavigationContent",
+        "active": true,
+        "anchorMin": [
+         0.0,
+         1.0
+        ],
+        "anchorMax": [
+         1.0,
+         1.0
+        ],
+        "pivot": [
+         0.5,
+         1.0
+        ],
+        "sizeDelta": [
+         -16.0,
+         20.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         -4.0
+        ],
+        "components": [
+         {
+          "type": "HorizontalLayoutGroup"
+         }
+        ],
+        "children": []
+       },
+       {
+        "name": "Grp_HudNavigationActions",
+        "active": true,
+        "anchorMin": [
+         0,
+         1
+        ],
+        "anchorMax": [
+         0,
+         1
+        ],
+        "pivot": [
+         0,
+         1
+        ],
+        "sizeDelta": [
+         1248,
+         48
+        ],
+        "anchoredPosition": [
+         16,
+         -12
+        ],
+        "components": [],
+        "children": [
+         {
+          "name": "Btn_HudNavigationBuild",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           168,
+           48
+          ],
+          "anchoredPosition": [
+           360,
+           0
+          ],
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.321569,
+             0.498039,
+             0.639216,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": true,
+            "preserveAspect": false
+           },
+           {
+            "type": "Button",
+            "interactable": false
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": [
+           {
+            "name": "Txt_HudNavigationBuildLabel",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -16.0,
+             -8.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "建造",
+              "fontSize": 22.0,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true
+             }
+            ],
+            "children": []
+           }
+          ]
+         },
+         {
+          "name": "Btn_HudNavigationShop",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           168,
+           48
+          ],
+          "anchoredPosition": [
+           720,
+           0
+          ],
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.321569,
+             0.498039,
+             0.639216,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": true,
+            "preserveAspect": false
+           },
+           {
+            "type": "Button",
+            "interactable": false
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": [
+           {
+            "name": "Txt_HudNavigationShopLabel",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -16.0,
+             -8.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "商店",
+              "fontSize": 22.0,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true
+             }
+            ],
+            "children": []
+           }
+          ]
+         },
+         {
+          "name": "Btn_HudNavigationComponents",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           168,
+           48
+          ],
+          "anchoredPosition": [
+           540,
+           0
+          ],
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.321569,
+             0.498039,
+             0.639216,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": true,
+            "preserveAspect": false
+           },
+           {
+            "type": "Button",
+            "interactable": false
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": [
+           {
+            "name": "Txt_HudNavigationComponentsLabel",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -16.0,
+             -8.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "组件库",
+              "fontSize": 22.0,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true
+             }
+            ],
+            "children": []
+           }
+          ]
+         },
+         {
+          "name": "Btn_HudNavigationMachines",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           168,
+           48
+          ],
+          "anchoredPosition": [
+           180,
+           0
+          ],
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.321569,
+             0.498039,
+             0.639216,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": true,
+            "preserveAspect": false
+           },
+           {
+            "type": "Button",
+            "interactable": true
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": [
+           {
+            "name": "Txt_HudNavigationMachinesLabel",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -16.0,
+             -8.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "机器库",
+              "fontSize": 22.0,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true
+             }
+            ],
+            "children": []
+           }
+          ]
+         },
+         {
+          "name": "Btn_HudNavigationHub",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           168,
+           48
+          ],
+          "anchoredPosition": [
+           0,
+           0
+          ],
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.321569,
+             0.498039,
+             0.639216,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": true,
+            "preserveAspect": false
+           },
+           {
+            "type": "Button",
+            "interactable": true
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": [
+           {
+            "name": "Txt_HudNavigationHubLabel",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -16.0,
+             -8.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "基地中枢",
+              "fontSize": 22.0,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true
+             }
+            ],
+            "children": []
+           }
+          ]
+         },
+         {
+          "name": "Btn_HudNavigationTasks",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           168,
+           48
+          ],
+          "anchoredPosition": [
+           900,
+           0
+          ],
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.321569,
+             0.498039,
+             0.639216,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": true,
+            "preserveAspect": false
+           },
+           {
+            "type": "Button",
+            "interactable": false
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": [
+           {
+            "name": "Txt_HudNavigationTasksLabel",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -16.0,
+             -8.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "任务",
+              "fontSize": 22.0,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true
+             }
+            ],
+            "children": []
+           }
+          ]
+         },
+         {
+          "name": "Btn_HudNavigationSystem",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           168,
+           48
+          ],
+          "anchoredPosition": [
+           1080,
+           0
+          ],
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.321569,
+             0.498039,
+             0.639216,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": true,
+            "preserveAspect": false
+           },
+           {
+            "type": "Button",
+            "interactable": false
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": [
+           {
+            "name": "Txt_HudNavigationSystemLabel",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -16.0,
+             -8.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "系统",
+              "fontSize": 22.0,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true
+             }
+            ],
+            "children": []
+           }
+          ]
+         }
+        ],
+        "removeComponents": [
+         "HorizontalLayoutGroup",
+         "VerticalLayoutGroup",
+         "GridLayoutGroup"
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Panel_PageHudSave",
+      "active": true,
+      "anchorMin": [
+       0,
+       0
+      ],
+      "anchorMax": [
+       0,
+       0
+      ],
+      "pivot": [
+       0,
+       0
+      ],
+      "sizeDelta": [
+       320,
+       96
+      ],
+      "anchoredPosition": [
+       24,
+       112
+      ],
+      "components": [
+       {
+        "type": "Image",
+        "color": [
+         0.12549,
+         0.141176,
+         0.164706,
+         1.0
+        ],
+        "imageType": 1,
+        "raycastTarget": false,
+        "preserveAspect": false
+       }
+      ],
+      "children": [
+       {
+        "name": "Grp_HudSaveContent",
+        "active": true,
+        "anchorMin": [
+         0,
+         1
+        ],
+        "anchorMax": [
+         0,
+         1
+        ],
+        "pivot": [
+         0,
+         1
+        ],
+        "sizeDelta": [
+         192,
+         72
+        ],
+        "anchoredPosition": [
+         16,
+         -12
+        ],
+        "components": [],
+        "children": [
+         {
+          "name": "Txt_HudSaveSave",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           192,
+           72
+          ],
+          "anchoredPosition": [
+           0,
+           0
+          ],
+          "components": [
+           {
+            "type": "TextMeshProUGUI",
+            "text": "保存状态\n等待正式流程",
+            "fontSize": 22.0,
+            "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+            "color": [
+             0.941176,
+             0.94902,
+             0.956863,
+             1.0
+            ],
+            "raycastTarget": false,
+            "wordWrap": true
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": []
+         }
+        ],
+        "removeComponents": [
+         "HorizontalLayoutGroup",
+         "VerticalLayoutGroup",
+         "GridLayoutGroup"
+        ]
+       },
+       {
+        "name": "Grp_HudSaveActions",
+        "active": true,
+        "anchorMin": [
+         0,
+         1
+        ],
+        "anchorMax": [
+         0,
+         1
+        ],
+        "pivot": [
+         0,
+         1
+        ],
+        "sizeDelta": [
+         88,
+         48
+        ],
+        "anchoredPosition": [
+         216,
+         -24
+        ],
+        "components": [],
+        "children": [
+         {
+          "name": "Btn_HudSaveDetails",
+          "active": true,
+          "anchorMin": [
+           0,
+           1
+          ],
+          "anchorMax": [
+           0,
+           1
+          ],
+          "pivot": [
+           0,
+           1
+          ],
+          "sizeDelta": [
+           88,
+           48
+          ],
+          "anchoredPosition": [
+           0,
+           0
+          ],
+          "components": [
+           {
+            "type": "Image",
+            "color": [
+             0.321569,
+             0.498039,
+             0.639216,
+             1.0
+            ],
+            "imageType": 1,
+            "raycastTarget": true,
+            "preserveAspect": false
+           },
+           {
+            "type": "Button",
+            "interactable": false
+           },
+           {
+            "type": "LayoutElement"
+           }
+          ],
+          "children": [
+           {
+            "name": "Txt_HudSaveDetailsLabel",
+            "active": true,
+            "anchorMin": [
+             0.0,
+             0.0
+            ],
+            "anchorMax": [
+             1.0,
+             1.0
+            ],
+            "pivot": [
+             0.5,
+             0.5
+            ],
+            "sizeDelta": [
+             -16.0,
+             -8.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "components": [
+             {
+              "type": "TextMeshProUGUI",
+              "text": "详情",
+              "fontSize": 22.0,
+              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+              "color": [
+               0.941176,
+               0.94902,
+               0.956863,
+               1.0
+              ],
+              "raycastTarget": false,
+              "wordWrap": true
+             }
+            ],
+            "children": []
+           }
+          ]
+         }
+        ],
+        "removeComponents": [
+         "HorizontalLayoutGroup",
+         "VerticalLayoutGroup",
+         "GridLayoutGroup"
+        ]
+       }
+      ]
+     }
+    ]
    }
   ]
  },
@@ -46,7 +2393,28 @@
  "scriptFields": [],
  "generatedFrom": "FieldHudResidentForm prefab",
  "formArrays": {
-  "_pageRoots": []
+  "_pageRoots": [
+   {
+    "node": "FieldHudResidentForm/Grp_PageHost/Panel_PageHudStatus",
+    "kind": "GameObject"
+   },
+   {
+    "node": "FieldHudResidentForm/Grp_PageHost/Panel_PageHudTracker",
+    "kind": "GameObject"
+   },
+   {
+    "node": "FieldHudResidentForm/Grp_PageHost/Panel_PageHudAlerts",
+    "kind": "GameObject"
+   },
+   {
+    "node": "FieldHudResidentForm/Grp_PageHost/Panel_PageHudNavigation",
+    "kind": "GameObject"
+   },
+   {
+    "node": "FieldHudResidentForm/Grp_PageHost/Panel_PageHudSave",
+    "kind": "GameObject"
+   }
+  ]
  },
- "runtimeGeneratedPageRoots": true
+ "layoutMigration": "b52: family-specific structure rollout; preserve serialized bindings and functional page routes"
 }

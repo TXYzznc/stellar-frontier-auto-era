@@ -109,12 +109,12 @@
      0.5
     ],
     "sizeDelta": [
-     1600.0,
-     900.0
+     1720,
+     900
     ],
     "anchoredPosition": [
-     0.0,
-     -12.0
+     0,
+     0
     ],
     "children": [
      {
@@ -725,24 +725,24 @@
          }
         ],
         "anchorMin": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchorMax": [
-         1.0,
-         1.0
+         1,
+         1
         ],
         "pivot": [
          0.5,
          0.5
         ],
         "sizeDelta": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchoredPosition": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "children": [
          {
@@ -750,7 +750,7 @@
           "components": [
            {
             "type": "TextMeshProUGUI",
-            "text": "总览",
+            "text": "基地概况",
             "fontSize": 28.0,
             "color": [
              0.941176,
@@ -786,507 +786,40 @@
           "children": []
          },
          {
-          "name": "Grp_HubOverviewActions",
-          "components": [
-           {
-            "type": "GridLayoutGroup",
-            "constraint": 1,
-            "ChildForceExpandWidth": false,
-            "ChildForceExpandHeight": false,
-            "constraintCount": 8,
-            "cellSize": [
-             177.0,
-             48.0
-            ],
-            "spacing": [
-             8.0,
-             8.0
-            ]
-           }
-          ],
-          "anchorMin": [
-           0.0,
-           0.0
-          ],
-          "anchorMax": [
-           1.0,
-           0.0
-          ],
-          "pivot": [
-           0.5,
-           0.0
-          ],
-          "sizeDelta": [
-           -16.0,
-           48.0
-          ],
-          "anchoredPosition": [
-           0.0,
-           0.0
-          ],
-          "children": [
-           {
-            "name": "Btn_HubOverviewObjects",
-            "components": [
-             {
-              "type": "Image",
-              "color": [
-               0.321569,
-               0.498039,
-               0.639216,
-               1.0
-              ],
-              "imageType": 1,
-              "raycastTarget": true,
-              "preserveAspect": false
-             },
-             {
-              "type": "Button",
-              "transition": 1,
-              "interactable": true
-             }
-            ],
-            "controlledBy": "group",
-            "anchorMin": [
-             0.0,
-             1.0
-            ],
-            "anchorMax": [
-             0.0,
-             1.0
-            ],
-            "pivot": [
-             0.0,
-             1.0
-            ],
-            "sizeDelta": [
-             177.0,
-             48.0
-            ],
-            "anchoredPosition": [
-             0.0,
-             0.0
-            ],
-            "children": [
-             {
-              "name": "Txt_HubOverviewObjectsLabel",
-              "components": [
-               {
-                "type": "TextMeshProUGUI",
-                "text": "查看运行对象",
-                "fontSize": 22.0,
-                "color": [
-                 0.941176,
-                 0.94902,
-                 0.956863,
-                 1.0
-                ],
-                "raycastTarget": false,
-                "wordWrap": true,
-                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-               }
-              ],
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               -16.0,
-               -8.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ],
-              "children": []
-             }
-            ]
-           },
-           {
-            "name": "Btn_HubOverviewEnergy",
-            "components": [
-             {
-              "type": "Image",
-              "color": [
-               0.321569,
-               0.498039,
-               0.639216,
-               1.0
-              ],
-              "imageType": 1,
-              "raycastTarget": true,
-              "preserveAspect": false
-             },
-             {
-              "type": "Button",
-              "transition": 1,
-              "interactable": true
-             }
-            ],
-            "controlledBy": "group",
-            "anchorMin": [
-             0.0,
-             1.0
-            ],
-            "anchorMax": [
-             0.0,
-             1.0
-            ],
-            "pivot": [
-             0.0,
-             1.0
-            ],
-            "sizeDelta": [
-             177.0,
-             48.0
-            ],
-            "anchoredPosition": [
-             0.0,
-             0.0
-            ],
-            "children": [
-             {
-              "name": "Txt_HubOverviewEnergyLabel",
-              "components": [
-               {
-                "type": "TextMeshProUGUI",
-                "text": "查看能源",
-                "fontSize": 22.0,
-                "color": [
-                 0.941176,
-                 0.94902,
-                 0.956863,
-                 1.0
-                ],
-                "raycastTarget": false,
-                "wordWrap": true,
-                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-               }
-              ],
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               -16.0,
-               -8.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ],
-              "children": []
-             }
-            ]
-           },
-           {
-            "name": "Btn_HubOverviewTasks",
-            "components": [
-             {
-              "type": "Image",
-              "color": [
-               0.321569,
-               0.498039,
-               0.639216,
-               1.0
-              ],
-              "imageType": 1,
-              "raycastTarget": true,
-              "preserveAspect": false
-             },
-             {
-              "type": "Button",
-              "transition": 1,
-              "interactable": true
-             }
-            ],
-            "controlledBy": "group",
-            "anchorMin": [
-             0.0,
-             1.0
-            ],
-            "anchorMax": [
-             0.0,
-             1.0
-            ],
-            "pivot": [
-             0.0,
-             1.0
-            ],
-            "sizeDelta": [
-             177.0,
-             48.0
-            ],
-            "anchoredPosition": [
-             0.0,
-             0.0
-            ],
-            "children": [
-             {
-              "name": "Txt_HubOverviewTasksLabel",
-              "components": [
-               {
-                "type": "TextMeshProUGUI",
-                "text": "查看待办",
-                "fontSize": 22.0,
-                "color": [
-                 0.941176,
-                 0.94902,
-                 0.956863,
-                 1.0
-                ],
-                "raycastTarget": false,
-                "wordWrap": true,
-                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-               }
-              ],
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               -16.0,
-               -8.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ],
-              "children": []
-             }
-            ]
-           },
-           {
-            "name": "Btn_HubOverviewStats",
-            "components": [
-             {
-              "type": "Image",
-              "color": [
-               0.321569,
-               0.498039,
-               0.639216,
-               1.0
-              ],
-              "imageType": 1,
-              "raycastTarget": true,
-              "preserveAspect": false
-             },
-             {
-              "type": "Button",
-              "transition": 1,
-              "interactable": true
-             }
-            ],
-            "controlledBy": "group",
-            "anchorMin": [
-             0.0,
-             1.0
-            ],
-            "anchorMax": [
-             0.0,
-             1.0
-            ],
-            "pivot": [
-             0.0,
-             1.0
-            ],
-            "sizeDelta": [
-             177.0,
-             48.0
-            ],
-            "anchoredPosition": [
-             0.0,
-             0.0
-            ],
-            "children": [
-             {
-              "name": "Txt_HubOverviewStatsLabel",
-              "components": [
-               {
-                "type": "TextMeshProUGUI",
-                "text": "查看统计",
-                "fontSize": 22.0,
-                "color": [
-                 0.941176,
-                 0.94902,
-                 0.956863,
-                 1.0
-                ],
-                "raycastTarget": false,
-                "wordWrap": true,
-                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-               }
-              ],
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               -16.0,
-               -8.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ],
-              "children": []
-             }
-            ]
-           },
-           {
-            "name": "Btn_HubOverviewSupply",
-            "components": [
-             {
-              "type": "Image",
-              "color": [
-               0.321569,
-               0.498039,
-               0.639216,
-               1.0
-              ],
-              "imageType": 1,
-              "raycastTarget": true,
-              "preserveAspect": false
-             },
-             {
-              "type": "Button",
-              "transition": 1,
-              "interactable": true
-             }
-            ],
-            "controlledBy": "group",
-            "anchorMin": [
-             0.0,
-             1.0
-            ],
-            "anchorMax": [
-             0.0,
-             1.0
-            ],
-            "pivot": [
-             0.0,
-             1.0
-            ],
-            "sizeDelta": [
-             177.0,
-             48.0
-            ],
-            "anchoredPosition": [
-             0.0,
-             0.0
-            ],
-            "children": [
-             {
-              "name": "Txt_HubOverviewSupplyLabel",
-              "components": [
-               {
-                "type": "TextMeshProUGUI",
-                "text": "领取日常补给",
-                "fontSize": 22.0,
-                "color": [
-                 0.941176,
-                 0.94902,
-                 0.956863,
-                 1.0
-                ],
-                "raycastTarget": false,
-                "wordWrap": true,
-                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-               }
-              ],
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               -16.0,
-               -8.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ],
-              "children": []
-             }
-            ]
-           }
-          ]
-         },
-         {
           "name": "Panel_HubOverviewEconomy",
           "components": [
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.16,
+             0.13,
+             0.09,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           485.0,
-           634.0
+           460,
+           570
           ],
           "anchoredPosition": [
-           0.0,
-           -36.0
+           0,
+           -42
           ],
           "children": [
            {
@@ -1308,24 +841,24 @@
              }
             ],
             "anchorMin": [
-             0.0,
-             1.0
+             0,
+             1
             ],
             "anchorMax": [
-             0.0,
-             1.0
+             1,
+             1
             ],
             "pivot": [
-             0.0,
-             1.0
+             0.5,
+             1
             ],
             "sizeDelta": [
-             461.0,
-             32.0
+             -24,
+             32
             ],
             "anchoredPosition": [
-             12.0,
-             -8.0
+             0,
+             -10
             ],
             "children": []
            },
@@ -1340,24 +873,24 @@
              }
             ],
             "anchorMin": [
-             0.0,
-             0.0
+             0,
+             0
             ],
             "anchorMax": [
-             1.0,
-             1.0
+             1,
+             1
             ],
             "pivot": [
              0.5,
              0.5
             ],
             "sizeDelta": [
-             -24.0,
-             -52.0
+             -32,
+             -120
             ],
             "anchoredPosition": [
-             0.0,
-             -18.0
+             0,
+             14
             ],
             "children": [
              {
@@ -1429,8 +962,8 @@
                   "components": [
                    {
                     "type": "TextMeshProUGUI",
-                    "text": "中枢等级／经验",
-                    "fontSize": 22.0,
+                    "text": "基地等级、经济与成长摘要尚未接入。",
+                    "fontSize": 20,
                     "color": [
                      0.941176,
                      0.94902,
@@ -1651,35 +1184,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.17200000000000001,
+             0.14200000000000002,
+             0.102,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           485.0,
-           634.0
+           460,
+           570
           ],
           "anchoredPosition": [
-           501.0,
-           -36.0
+           484,
+           -42
           ],
           "children": [
            {
@@ -1701,24 +1234,24 @@
              }
             ],
             "anchorMin": [
-             0.0,
-             1.0
+             0,
+             1
             ],
             "anchorMax": [
-             0.0,
-             1.0
+             1,
+             1
             ],
             "pivot": [
-             0.0,
-             1.0
+             0.5,
+             1
             ],
             "sizeDelta": [
-             461.0,
-             32.0
+             -24,
+             32
             ],
             "anchoredPosition": [
-             12.0,
-             -8.0
+             0,
+             -10
             ],
             "children": []
            },
@@ -1733,24 +1266,24 @@
              }
             ],
             "anchorMin": [
-             0.0,
-             0.0
+             0,
+             0
             ],
             "anchorMax": [
-             1.0,
-             1.0
+             1,
+             1
             ],
             "pivot": [
              0.5,
              0.5
             ],
             "sizeDelta": [
-             -24.0,
-             -52.0
+             -32,
+             -120
             ],
             "anchoredPosition": [
-             0.0,
-             -18.0
+             0,
+             14
             ],
             "children": [
              {
@@ -1822,8 +1355,8 @@
                   "components": [
                    {
                     "type": "TextMeshProUGUI",
-                    "text": "机器运行／休眠／异常数量",
-                    "fontSize": 22.0,
+                    "text": "运行对象与能源详情可从下方入口查看。",
+                    "fontSize": 20,
                     "color": [
                      0.941176,
                      0.94902,
@@ -2044,35 +1577,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.184,
+             0.154,
+             0.11399999999999999,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           485.0,
-           634.0
+           460,
+           570
           ],
           "anchoredPosition": [
-           1002.0,
-           -36.0
+           968,
+           -42
           ],
           "children": [
            {
@@ -2094,24 +1627,24 @@
              }
             ],
             "anchorMin": [
-             0.0,
-             1.0
+             0,
+             1
             ],
             "anchorMax": [
-             0.0,
-             1.0
+             1,
+             1
             ],
             "pivot": [
-             0.0,
-             1.0
+             0.5,
+             1
             ],
             "sizeDelta": [
-             461.0,
-             32.0
+             -24,
+             32
             ],
             "anchoredPosition": [
-             12.0,
-             -8.0
+             0,
+             -10
             ],
             "children": []
            },
@@ -2126,24 +1659,24 @@
              }
             ],
             "anchorMin": [
-             0.0,
-             0.0
+             0,
+             0
             ],
             "anchorMax": [
-             1.0,
-             1.0
+             1,
+             1
             ],
             "pivot": [
              0.5,
              0.5
             ],
             "sizeDelta": [
-             -24.0,
-             -52.0
+             -32,
+             -120
             ],
             "anchoredPosition": [
-             0.0,
-             -18.0
+             0,
+             14
             ],
             "children": [
              {
@@ -2215,8 +1748,8 @@
                   "components": [
                    {
                     "type": "TextMeshProUGUI",
-                    "text": "最近活跃警报",
-                    "fontSize": 22.0,
+                    "text": "待办与日常补给摘要尚未接入。",
+                    "fontSize": 20,
                     "color": [
                      0.941176,
                      0.94902,
@@ -2960,6 +2493,463 @@
             ]
            }
           ]
+         },
+         {
+          "name": "Grp_HubOverviewActions",
+          "components": [],
+          "anchorMin": [
+           0,
+           0
+          ],
+          "anchorMax": [
+           1,
+           1
+          ],
+          "pivot": [
+           0.5,
+           0.5
+          ],
+          "sizeDelta": [
+           0,
+           0
+          ],
+          "anchoredPosition": [
+           0,
+           0
+          ],
+          "children": [
+           {
+            "name": "Btn_HubOverviewObjects",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0,
+             1
+            ],
+            "anchorMax": [
+             0,
+             1
+            ],
+            "pivot": [
+             0,
+             1
+            ],
+            "sizeDelta": [
+             184,
+             48
+            ],
+            "anchoredPosition": [
+             24,
+             -594
+            ],
+            "children": [
+             {
+              "name": "Txt_HubOverviewObjectsLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "查看运行对象",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": []
+             }
+            ]
+           },
+           {
+            "name": "Btn_HubOverviewEnergy",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0,
+             1
+            ],
+            "anchorMax": [
+             0,
+             1
+            ],
+            "pivot": [
+             0,
+             1
+            ],
+            "sizeDelta": [
+             184,
+             48
+            ],
+            "anchoredPosition": [
+             220,
+             -594
+            ],
+            "children": [
+             {
+              "name": "Txt_HubOverviewEnergyLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "查看能源",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": []
+             }
+            ]
+           },
+           {
+            "name": "Btn_HubOverviewTasks",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0,
+             1
+            ],
+            "anchorMax": [
+             0,
+             1
+            ],
+            "pivot": [
+             0,
+             1
+            ],
+            "sizeDelta": [
+             184,
+             48
+            ],
+            "anchoredPosition": [
+             920,
+             -542
+            ],
+            "children": [
+             {
+              "name": "Txt_HubOverviewTasksLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "查看待办",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": []
+             }
+            ]
+           },
+           {
+            "name": "Btn_HubOverviewStats",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0,
+             1
+            ],
+            "anchorMax": [
+             0,
+             1
+            ],
+            "pivot": [
+             0,
+             1
+            ],
+            "sizeDelta": [
+             184,
+             48
+            ],
+            "anchoredPosition": [
+             24,
+             -320
+            ],
+            "children": [
+             {
+              "name": "Txt_HubOverviewStatsLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "查看统计",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": []
+             }
+            ]
+           },
+           {
+            "name": "Btn_HubOverviewSupply",
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.321569,
+               0.498039,
+               0.639216,
+               1.0
+              ],
+              "imageType": 1,
+              "raycastTarget": true,
+              "preserveAspect": false
+             },
+             {
+              "type": "Button",
+              "transition": 1,
+              "interactable": true
+             }
+            ],
+            "controlledBy": "group",
+            "anchorMin": [
+             0,
+             1
+            ],
+            "anchorMax": [
+             0,
+             1
+            ],
+            "pivot": [
+             0,
+             1
+            ],
+            "sizeDelta": [
+             184,
+             48
+            ],
+            "anchoredPosition": [
+             920,
+             -598
+            ],
+            "children": [
+             {
+              "name": "Txt_HubOverviewSupplyLabel",
+              "components": [
+               {
+                "type": "TextMeshProUGUI",
+                "text": "领取日常补给",
+                "fontSize": 22.0,
+                "color": [
+                 0.941176,
+                 0.94902,
+                 0.956863,
+                 1.0
+                ],
+                "raycastTarget": false,
+                "wordWrap": true,
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+               }
+              ],
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               -16.0,
+               -8.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "children": []
+             }
+            ]
+           }
+          ],
+          "removeComponents": [
+           "HorizontalLayoutGroup",
+           "VerticalLayoutGroup",
+           "GridLayoutGroup"
+          ],
+          "lastSibling": true
          }
         ]
        },
@@ -2980,24 +2970,24 @@
          }
         ],
         "anchorMin": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchorMax": [
-         1.0,
-         1.0
+         1,
+         1
         ],
         "pivot": [
          0.5,
          0.5
         ],
         "sizeDelta": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchoredPosition": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "children": [
          {
@@ -3428,35 +3418,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.16,
+             0.13,
+             0.09,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           565.0,
-           634.0
+           460,
+           570
           ],
           "anchoredPosition": [
-           0.0,
-           -36.0
+           0,
+           -42
           ],
           "children": [
            {
@@ -3821,35 +3811,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.17200000000000001,
+             0.14200000000000002,
+             0.102,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           907.0,
-           634.0
+           1000,
+           570
           ],
           "anchoredPosition": [
-           581.0,
-           -36.0
+           484,
+           -42
           ],
           "children": [
            {
@@ -4758,24 +4748,24 @@
          }
         ],
         "anchorMin": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchorMax": [
-         1.0,
-         1.0
+         1,
+         1
         ],
         "pivot": [
          0.5,
          0.5
         ],
         "sizeDelta": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchoredPosition": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "children": [
          {
@@ -5121,35 +5111,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.16,
+             0.13,
+             0.09,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           565.0,
-           634.0
+           460,
+           570
           ],
           "anchoredPosition": [
-           0.0,
-           -36.0
+           0,
+           -42
           ],
           "children": [
            {
@@ -5709,35 +5699,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.17200000000000001,
+             0.14200000000000002,
+             0.102,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           907.0,
-           634.0
+           1000,
+           570
           ],
           "anchoredPosition": [
-           581.0,
-           -36.0
+           484,
+           -42
           ],
           "children": [
            {
@@ -6646,24 +6636,24 @@
          }
         ],
         "anchorMin": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchorMax": [
-         1.0,
-         1.0
+         1,
+         1
         ],
         "pivot": [
          0.5,
          0.5
         ],
         "sizeDelta": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchoredPosition": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "children": [
          {
@@ -7179,35 +7169,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.16,
+             0.13,
+             0.09,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           485.0,
-           634.0
+           460,
+           570
           ],
           "anchoredPosition": [
-           0.0,
-           -36.0
+           0,
+           -42
           ],
           "children": [
            {
@@ -7572,35 +7562,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.17200000000000001,
+             0.14200000000000002,
+             0.102,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           485.0,
-           634.0
+           460,
+           570
           ],
           "anchoredPosition": [
-           501.0,
-           -36.0
+           484,
+           -42
           ],
           "children": [
            {
@@ -7965,35 +7955,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.184,
+             0.154,
+             0.11399999999999999,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           485.0,
-           634.0
+           460,
+           570
           ],
           "anchoredPosition": [
-           1002.0,
-           -36.0
+           968,
+           -42
           ],
           "children": [
            {
@@ -8902,24 +8892,24 @@
          }
         ],
         "anchorMin": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchorMax": [
-         1.0,
-         1.0
+         1,
+         1
         ],
         "pivot": [
          0.5,
          0.5
         ],
         "sizeDelta": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchoredPosition": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "children": [
          {
@@ -9265,35 +9255,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.16,
+             0.13,
+             0.09,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           485.0,
-           634.0
+           460,
+           570
           ],
           "anchoredPosition": [
-           0.0,
-           -36.0
+           0,
+           -42
           ],
           "children": [
            {
@@ -9658,35 +9648,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.17200000000000001,
+             0.14200000000000002,
+             0.102,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           485.0,
-           634.0
+           460,
+           570
           ],
           "anchoredPosition": [
-           501.0,
-           -36.0
+           484,
+           -42
           ],
           "children": [
            {
@@ -10051,35 +10041,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.184,
+             0.154,
+             0.11399999999999999,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           485.0,
-           634.0
+           460,
+           570
           ],
           "anchoredPosition": [
-           1002.0,
-           -36.0
+           968,
+           -42
           ],
           "children": [
            {
@@ -10988,24 +10978,24 @@
          }
         ],
         "anchorMin": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchorMax": [
-         1.0,
-         1.0
+         1,
+         1
         ],
         "pivot": [
          0.5,
          0.5
         ],
         "sizeDelta": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchoredPosition": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "children": [
          {
@@ -11521,35 +11511,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.16,
+             0.13,
+             0.09,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           485.0,
-           634.0
+           460,
+           570
           ],
           "anchoredPosition": [
-           0.0,
-           -36.0
+           0,
+           -42
           ],
           "children": [
            {
@@ -11914,35 +11904,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.17200000000000001,
+             0.14200000000000002,
+             0.102,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           485.0,
-           634.0
+           460,
+           570
           ],
           "anchoredPosition": [
-           501.0,
-           -36.0
+           484,
+           -42
           ],
           "children": [
            {
@@ -12307,35 +12297,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.184,
+             0.154,
+             0.11399999999999999,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           485.0,
-           634.0
+           460,
+           570
           ],
           "anchoredPosition": [
-           1002.0,
-           -36.0
+           968,
+           -42
           ],
           "children": [
            {
@@ -13872,5 +13862,6 @@
   2,
   3,
   4
- ]
+ ],
+ "layoutMigration": "b52: family-specific structure rollout; preserve serialized bindings and functional page routes"
 }

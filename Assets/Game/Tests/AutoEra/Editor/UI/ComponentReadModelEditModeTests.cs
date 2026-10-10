@@ -297,6 +297,30 @@ namespace AutoEra.Tests.Editor
             for (int i = 0; i < fields.Count; i++) labels[i] = fields[i].Label;
             return labels;
         }
+        [Test]
+        public void PackagedComponent_IsUnavailableInLooseLibraryUntilTheActualWarehouseReturnsItsIdentity()
+        {
+            using (var fixture = new Fixture())
+            {
+                fixture.World.Resources.Configure(new AutoEra.Logistics.ResourceItemCatalog(new[] {
+                    new AutoEra.Logistics.ResourceItemDefinition("30029", AutoEra.Buildings.CargoItemClass.Component, 2001) }));
+                var authority = fixture.World.Resources.Authority; var component = fixture.CreateCore();
+                fixture.World.IdAllocator.TryAllocate(out var groundId); fixture.World.IdAllocator.TryAllocate(out var warehouseId);
+                var ground = authority.RegisterContainer(new AutoEra.Logistics.CargoOwner(AutoEra.Logistics.CargoOwnerKind.WorldFree, groundId), AutoEra.Logistics.CargoContainerKind.WorldFree, long.MaxValue);
+                var warehouse = authority.RegisterContainer(new AutoEra.Logistics.CargoOwner(AutoEra.Logistics.CargoOwnerKind.Receiver, warehouseId), AutoEra.Logistics.CargoContainerKind.Warehouse, 120);
+                using (var model = ComponentReadModels.Create(fixture.Session(), Catalog()))
+                {
+                    Assert.That(model.Select(component.Id), Is.True); Assert.That(model.Snapshot.LooseCount, Is.EqualTo(1));
+                    Assert.That(authority.TryMint(ground.Owner, "30029", 1, out var lot, out var reason, component.Id), Is.True, reason);
+                    Assert.That(model.Snapshot.LooseCount, Is.Zero); Assert.That(model.Snapshot.HasSelection, Is.False); Assert.That(model.Select(component.Id), Is.False);
+                    fixture.World.IdAllocator.TryAllocate(out var tx); fixture.World.IdAllocator.TryAllocate(out var task);
+                    Assert.That(authority.TryReserve(tx, task, lot.Id, lot.Version, warehouse.Owner, warehouse.Generation, 1, out var token, out reason), Is.True, reason);
+                    authority.Commit(token, 1, 1);
+                    Assert.That(model.Snapshot.LooseCount, Is.EqualTo(1)); Assert.That(model.Snapshot.Loose[0].Id, Is.EqualTo(component.Id));
+                    Assert.That(model.Select(component.Id), Is.True);
+                }
+            }
+        }
 
         private static string Value(System.Collections.Generic.IReadOnlyList<UiDetailField> fields, string label)
         {

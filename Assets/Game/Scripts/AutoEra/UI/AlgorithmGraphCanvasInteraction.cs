@@ -8,7 +8,7 @@ namespace AutoEra.UI
     public sealed class AlgorithmGraphCanvasInteraction : MonoBehaviour,
         IScrollHandler, IPointerDownHandler, IPointerUpHandler, IDragHandler
     {
-        [SerializeField] private float _minZoom = 0.5f;
+        [SerializeField] private float _minZoom = 0.25f;
         [SerializeField] private float _maxZoom = 2f;
         [SerializeField] private float _zoomStep = 0.1f;
 
@@ -40,7 +40,7 @@ namespace AutoEra.UI
 
             float oldZoom = Zoom;
             float newZoom = Mathf.Clamp(oldZoom + (eventData.scrollDelta.y > 0f ? _zoomStep : -_zoomStep),
-                _minZoom, _maxZoom);
+                Mathf.Min(_minZoom, oldZoom), _maxZoom);
             if (Mathf.Approximately(oldZoom, newZoom)) return;
 
             if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(

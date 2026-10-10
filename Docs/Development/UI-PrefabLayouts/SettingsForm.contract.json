@@ -108,12 +108,12 @@
      0.5
     ],
     "sizeDelta": [
-     1600.0,
-     900.0
+     1520,
+     840
     ],
     "anchoredPosition": [
-     0.0,
-     0.0
+     0,
+     0
     ],
     "children": [
      {
@@ -539,24 +539,24 @@
          }
         ],
         "anchorMin": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchorMax": [
-         1.0,
-         1.0
+         1,
+         1
         ],
         "pivot": [
          0.5,
          0.5
         ],
         "sizeDelta": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchoredPosition": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "children": [
          {
@@ -898,35 +898,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.13,
+             0.12,
+             0.16,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           736.0,
-           634.0
+           620,
+           570
           ],
           "anchoredPosition": [
-           0.0,
-           -36.0
+           0,
+           -42
           ],
           "children": [
            {
@@ -1319,6 +1319,17 @@
                     "components": [
                      {
                       "type": "Slider"
+                     },
+                     {
+                      "type": "Image",
+                      "color": [
+                       0,
+                       0,
+                       0,
+                       0
+                      ],
+                      "imageType": 0,
+                      "raycastTarget": true
                      }
                     ],
                     "anchorMin": [
@@ -1380,82 +1391,6 @@
                       ]
                      },
                      {
-                      "name": "Bar_AudioSettingsMainVolumeFill",
-                      "components": [
-                       {
-                        "type": "Image",
-                        "color": [
-                         0.12549,
-                         0.141176,
-                         0.164706,
-                         1.0
-                        ],
-                        "imageType": 1,
-                        "raycastTarget": false,
-                        "preserveAspect": false,
-                        "fillMethod": 0,
-                        "fillAmount": 1
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       1.0,
-                       0.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.0
-                      ],
-                      "sizeDelta": [
-                       -24.0,
-                       8.0
-                      ],
-                      "anchoredPosition": [
-                       0.0,
-                       8.0
-                      ]
-                     },
-                     {
-                      "name": "Img_AudioSettingsMainVolumeHandle",
-                      "components": [
-                       {
-                        "type": "Image",
-                        "color": [
-                         0.003922,
-                         0.003922,
-                         0.003922,
-                         1
-                        ],
-                        "imageType": 0,
-                        "raycastTarget": false,
-                        "preserveAspect": true
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       0.0,
-                       0.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.5
-                      ],
-                      "sizeDelta": [
-                       24.0,
-                       24.0
-                      ],
-                      "anchoredPosition": [
-                       12.0,
-                       12.0
-                      ]
-                     },
-                     {
                       "name": "Txt_AudioSettingsMainVolumeValue",
                       "components": [
                        {
@@ -1493,6 +1428,136 @@
                        0.0,
                        0.0
                       ]
+                     },
+                     {
+                      "name": "Grp_AudioSettingsMainVolumeFillArea",
+                      "components": [],
+                      "children": [
+                       {
+                        "name": "Bar_AudioSettingsMainVolumeFill",
+                        "components": [
+                         {
+                          "type": "Image",
+                          "color": [
+                           0.32156863,
+                           0.49019608,
+                           0.61960784,
+                           1
+                          ],
+                          "imageType": 0,
+                          "raycastTarget": false,
+                          "preserveAspect": false,
+                          "fillMethod": 0,
+                          "fillAmount": 1
+                         }
+                        ],
+                        "anchorMin": [
+                         0,
+                         0
+                        ],
+                        "anchorMax": [
+                         1,
+                         1
+                        ],
+                        "pivot": [
+                         0.5,
+                         0.5
+                        ],
+                        "sizeDelta": [
+                         0,
+                         0
+                        ],
+                        "anchoredPosition": [
+                         0,
+                         0
+                        ],
+                        "controlledBy": "slider"
+                       }
+                      ],
+                      "anchorMin": [
+                       0,
+                       0
+                      ],
+                      "anchorMax": [
+                       1,
+                       0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.5
+                      ],
+                      "sizeDelta": [
+                       -24,
+                       8
+                      ],
+                      "anchoredPosition": [
+                       0,
+                       12
+                      ]
+                     },
+                     {
+                      "name": "Grp_AudioSettingsMainVolumeHandleArea",
+                      "components": [],
+                      "children": [
+                       {
+                        "name": "Img_AudioSettingsMainVolumeHandle",
+                        "components": [
+                         {
+                          "type": "Image",
+                          "color": [
+                           0.941176,
+                           0.94902,
+                           0.956863,
+                           1
+                          ],
+                          "imageType": 0,
+                          "raycastTarget": false,
+                          "preserveAspect": true
+                         }
+                        ],
+                        "anchorMin": [
+                         0,
+                         0
+                        ],
+                        "anchorMax": [
+                         0,
+                         1
+                        ],
+                        "pivot": [
+                         0.5,
+                         0.5
+                        ],
+                        "sizeDelta": [
+                         24,
+                         0
+                        ],
+                        "anchoredPosition": [
+                         0,
+                         0
+                        ],
+                        "controlledBy": "slider"
+                       }
+                      ],
+                      "anchorMin": [
+                       0,
+                       0
+                      ],
+                      "anchorMax": [
+                       1,
+                       0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.5
+                      ],
+                      "sizeDelta": [
+                       -24,
+                       24
+                      ],
+                      "anchoredPosition": [
+                       0,
+                       12
+                      ]
                      }
                     ]
                    },
@@ -1501,6 +1566,17 @@
                     "components": [
                      {
                       "type": "Slider"
+                     },
+                     {
+                      "type": "Image",
+                      "color": [
+                       0,
+                       0,
+                       0,
+                       0
+                      ],
+                      "imageType": 0,
+                      "raycastTarget": true
                      }
                     ],
                     "anchorMin": [
@@ -1562,82 +1638,6 @@
                       ]
                      },
                      {
-                      "name": "Bar_AudioSettingsMusicVolumeFill",
-                      "components": [
-                       {
-                        "type": "Image",
-                        "color": [
-                         0.12549,
-                         0.141176,
-                         0.164706,
-                         1.0
-                        ],
-                        "imageType": 1,
-                        "raycastTarget": false,
-                        "preserveAspect": false,
-                        "fillMethod": 0,
-                        "fillAmount": 1
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       1.0,
-                       0.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.0
-                      ],
-                      "sizeDelta": [
-                       -24.0,
-                       8.0
-                      ],
-                      "anchoredPosition": [
-                       0.0,
-                       8.0
-                      ]
-                     },
-                     {
-                      "name": "Img_AudioSettingsMusicVolumeHandle",
-                      "components": [
-                       {
-                        "type": "Image",
-                        "color": [
-                         0.003922,
-                         0.003922,
-                         0.003922,
-                         1
-                        ],
-                        "imageType": 0,
-                        "raycastTarget": false,
-                        "preserveAspect": true
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       0.0,
-                       0.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.5
-                      ],
-                      "sizeDelta": [
-                       24.0,
-                       24.0
-                      ],
-                      "anchoredPosition": [
-                       12.0,
-                       12.0
-                      ]
-                     },
-                     {
                       "name": "Txt_AudioSettingsMusicVolumeValue",
                       "components": [
                        {
@@ -1675,6 +1675,136 @@
                        0.0,
                        0.0
                       ]
+                     },
+                     {
+                      "name": "Grp_AudioSettingsMusicVolumeFillArea",
+                      "components": [],
+                      "children": [
+                       {
+                        "name": "Bar_AudioSettingsMusicVolumeFill",
+                        "components": [
+                         {
+                          "type": "Image",
+                          "color": [
+                           0.32156863,
+                           0.49019608,
+                           0.61960784,
+                           1
+                          ],
+                          "imageType": 0,
+                          "raycastTarget": false,
+                          "preserveAspect": false,
+                          "fillMethod": 0,
+                          "fillAmount": 1
+                         }
+                        ],
+                        "anchorMin": [
+                         0,
+                         0
+                        ],
+                        "anchorMax": [
+                         1,
+                         1
+                        ],
+                        "pivot": [
+                         0.5,
+                         0.5
+                        ],
+                        "sizeDelta": [
+                         0,
+                         0
+                        ],
+                        "anchoredPosition": [
+                         0,
+                         0
+                        ],
+                        "controlledBy": "slider"
+                       }
+                      ],
+                      "anchorMin": [
+                       0,
+                       0
+                      ],
+                      "anchorMax": [
+                       1,
+                       0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.5
+                      ],
+                      "sizeDelta": [
+                       -24,
+                       8
+                      ],
+                      "anchoredPosition": [
+                       0,
+                       12
+                      ]
+                     },
+                     {
+                      "name": "Grp_AudioSettingsMusicVolumeHandleArea",
+                      "components": [],
+                      "children": [
+                       {
+                        "name": "Img_AudioSettingsMusicVolumeHandle",
+                        "components": [
+                         {
+                          "type": "Image",
+                          "color": [
+                           0.941176,
+                           0.94902,
+                           0.956863,
+                           1
+                          ],
+                          "imageType": 0,
+                          "raycastTarget": false,
+                          "preserveAspect": true
+                         }
+                        ],
+                        "anchorMin": [
+                         0,
+                         0
+                        ],
+                        "anchorMax": [
+                         0,
+                         1
+                        ],
+                        "pivot": [
+                         0.5,
+                         0.5
+                        ],
+                        "sizeDelta": [
+                         24,
+                         0
+                        ],
+                        "anchoredPosition": [
+                         0,
+                         0
+                        ],
+                        "controlledBy": "slider"
+                       }
+                      ],
+                      "anchorMin": [
+                       0,
+                       0
+                      ],
+                      "anchorMax": [
+                       1,
+                       0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.5
+                      ],
+                      "sizeDelta": [
+                       -24,
+                       24
+                      ],
+                      "anchoredPosition": [
+                       0,
+                       12
+                      ]
                      }
                     ]
                    },
@@ -1683,6 +1813,17 @@
                     "components": [
                      {
                       "type": "Slider"
+                     },
+                     {
+                      "type": "Image",
+                      "color": [
+                       0,
+                       0,
+                       0,
+                       0
+                      ],
+                      "imageType": 0,
+                      "raycastTarget": true
                      }
                     ],
                     "anchorMin": [
@@ -1744,82 +1885,6 @@
                       ]
                      },
                      {
-                      "name": "Bar_AudioSettingsAmbientVolumeFill",
-                      "components": [
-                       {
-                        "type": "Image",
-                        "color": [
-                         0.12549,
-                         0.141176,
-                         0.164706,
-                         1.0
-                        ],
-                        "imageType": 1,
-                        "raycastTarget": false,
-                        "preserveAspect": false,
-                        "fillMethod": 0,
-                        "fillAmount": 1
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       1.0,
-                       0.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.0
-                      ],
-                      "sizeDelta": [
-                       -24.0,
-                       8.0
-                      ],
-                      "anchoredPosition": [
-                       0.0,
-                       8.0
-                      ]
-                     },
-                     {
-                      "name": "Img_AudioSettingsAmbientVolumeHandle",
-                      "components": [
-                       {
-                        "type": "Image",
-                        "color": [
-                         0.003922,
-                         0.003922,
-                         0.003922,
-                         1
-                        ],
-                        "imageType": 0,
-                        "raycastTarget": false,
-                        "preserveAspect": true
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       0.0,
-                       0.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.5
-                      ],
-                      "sizeDelta": [
-                       24.0,
-                       24.0
-                      ],
-                      "anchoredPosition": [
-                       12.0,
-                       12.0
-                      ]
-                     },
-                     {
                       "name": "Txt_AudioSettingsAmbientVolumeValue",
                       "components": [
                        {
@@ -1857,6 +1922,136 @@
                        0.0,
                        0.0
                       ]
+                     },
+                     {
+                      "name": "Grp_AudioSettingsAmbientVolumeFillArea",
+                      "components": [],
+                      "children": [
+                       {
+                        "name": "Bar_AudioSettingsAmbientVolumeFill",
+                        "components": [
+                         {
+                          "type": "Image",
+                          "color": [
+                           0.32156863,
+                           0.49019608,
+                           0.61960784,
+                           1
+                          ],
+                          "imageType": 0,
+                          "raycastTarget": false,
+                          "preserveAspect": false,
+                          "fillMethod": 0,
+                          "fillAmount": 1
+                         }
+                        ],
+                        "anchorMin": [
+                         0,
+                         0
+                        ],
+                        "anchorMax": [
+                         1,
+                         1
+                        ],
+                        "pivot": [
+                         0.5,
+                         0.5
+                        ],
+                        "sizeDelta": [
+                         0,
+                         0
+                        ],
+                        "anchoredPosition": [
+                         0,
+                         0
+                        ],
+                        "controlledBy": "slider"
+                       }
+                      ],
+                      "anchorMin": [
+                       0,
+                       0
+                      ],
+                      "anchorMax": [
+                       1,
+                       0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.5
+                      ],
+                      "sizeDelta": [
+                       -24,
+                       8
+                      ],
+                      "anchoredPosition": [
+                       0,
+                       12
+                      ]
+                     },
+                     {
+                      "name": "Grp_AudioSettingsAmbientVolumeHandleArea",
+                      "components": [],
+                      "children": [
+                       {
+                        "name": "Img_AudioSettingsAmbientVolumeHandle",
+                        "components": [
+                         {
+                          "type": "Image",
+                          "color": [
+                           0.941176,
+                           0.94902,
+                           0.956863,
+                           1
+                          ],
+                          "imageType": 0,
+                          "raycastTarget": false,
+                          "preserveAspect": true
+                         }
+                        ],
+                        "anchorMin": [
+                         0,
+                         0
+                        ],
+                        "anchorMax": [
+                         0,
+                         1
+                        ],
+                        "pivot": [
+                         0.5,
+                         0.5
+                        ],
+                        "sizeDelta": [
+                         24,
+                         0
+                        ],
+                        "anchoredPosition": [
+                         0,
+                         0
+                        ],
+                        "controlledBy": "slider"
+                       }
+                      ],
+                      "anchorMin": [
+                       0,
+                       0
+                      ],
+                      "anchorMax": [
+                       1,
+                       0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.5
+                      ],
+                      "sizeDelta": [
+                       -24,
+                       24
+                      ],
+                      "anchoredPosition": [
+                       0,
+                       12
+                      ]
                      }
                     ]
                    },
@@ -1865,6 +2060,17 @@
                     "components": [
                      {
                       "type": "Slider"
+                     },
+                     {
+                      "type": "Image",
+                      "color": [
+                       0,
+                       0,
+                       0,
+                       0
+                      ],
+                      "imageType": 0,
+                      "raycastTarget": true
                      }
                     ],
                     "anchorMin": [
@@ -1926,82 +2132,6 @@
                       ]
                      },
                      {
-                      "name": "Bar_AudioSettingsMachineVolumeFill",
-                      "components": [
-                       {
-                        "type": "Image",
-                        "color": [
-                         0.12549,
-                         0.141176,
-                         0.164706,
-                         1.0
-                        ],
-                        "imageType": 1,
-                        "raycastTarget": false,
-                        "preserveAspect": false,
-                        "fillMethod": 0,
-                        "fillAmount": 1
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       1.0,
-                       0.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.0
-                      ],
-                      "sizeDelta": [
-                       -24.0,
-                       8.0
-                      ],
-                      "anchoredPosition": [
-                       0.0,
-                       8.0
-                      ]
-                     },
-                     {
-                      "name": "Img_AudioSettingsMachineVolumeHandle",
-                      "components": [
-                       {
-                        "type": "Image",
-                        "color": [
-                         0.003922,
-                         0.003922,
-                         0.003922,
-                         1
-                        ],
-                        "imageType": 0,
-                        "raycastTarget": false,
-                        "preserveAspect": true
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       0.0,
-                       0.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.5
-                      ],
-                      "sizeDelta": [
-                       24.0,
-                       24.0
-                      ],
-                      "anchoredPosition": [
-                       12.0,
-                       12.0
-                      ]
-                     },
-                     {
                       "name": "Txt_AudioSettingsMachineVolumeValue",
                       "components": [
                        {
@@ -2039,6 +2169,136 @@
                        0.0,
                        0.0
                       ]
+                     },
+                     {
+                      "name": "Grp_AudioSettingsMachineVolumeFillArea",
+                      "components": [],
+                      "children": [
+                       {
+                        "name": "Bar_AudioSettingsMachineVolumeFill",
+                        "components": [
+                         {
+                          "type": "Image",
+                          "color": [
+                           0.32156863,
+                           0.49019608,
+                           0.61960784,
+                           1
+                          ],
+                          "imageType": 0,
+                          "raycastTarget": false,
+                          "preserveAspect": false,
+                          "fillMethod": 0,
+                          "fillAmount": 1
+                         }
+                        ],
+                        "anchorMin": [
+                         0,
+                         0
+                        ],
+                        "anchorMax": [
+                         1,
+                         1
+                        ],
+                        "pivot": [
+                         0.5,
+                         0.5
+                        ],
+                        "sizeDelta": [
+                         0,
+                         0
+                        ],
+                        "anchoredPosition": [
+                         0,
+                         0
+                        ],
+                        "controlledBy": "slider"
+                       }
+                      ],
+                      "anchorMin": [
+                       0,
+                       0
+                      ],
+                      "anchorMax": [
+                       1,
+                       0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.5
+                      ],
+                      "sizeDelta": [
+                       -24,
+                       8
+                      ],
+                      "anchoredPosition": [
+                       0,
+                       12
+                      ]
+                     },
+                     {
+                      "name": "Grp_AudioSettingsMachineVolumeHandleArea",
+                      "components": [],
+                      "children": [
+                       {
+                        "name": "Img_AudioSettingsMachineVolumeHandle",
+                        "components": [
+                         {
+                          "type": "Image",
+                          "color": [
+                           0.941176,
+                           0.94902,
+                           0.956863,
+                           1
+                          ],
+                          "imageType": 0,
+                          "raycastTarget": false,
+                          "preserveAspect": true
+                         }
+                        ],
+                        "anchorMin": [
+                         0,
+                         0
+                        ],
+                        "anchorMax": [
+                         0,
+                         1
+                        ],
+                        "pivot": [
+                         0.5,
+                         0.5
+                        ],
+                        "sizeDelta": [
+                         24,
+                         0
+                        ],
+                        "anchoredPosition": [
+                         0,
+                         0
+                        ],
+                        "controlledBy": "slider"
+                       }
+                      ],
+                      "anchorMin": [
+                       0,
+                       0
+                      ],
+                      "anchorMax": [
+                       1,
+                       0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.5
+                      ],
+                      "sizeDelta": [
+                       -24,
+                       24
+                      ],
+                      "anchoredPosition": [
+                       0,
+                       12
+                      ]
                      }
                     ]
                    },
@@ -2047,6 +2307,17 @@
                     "components": [
                      {
                       "type": "Slider"
+                     },
+                     {
+                      "type": "Image",
+                      "color": [
+                       0,
+                       0,
+                       0,
+                       0
+                      ],
+                      "imageType": 0,
+                      "raycastTarget": true
                      }
                     ],
                     "anchorMin": [
@@ -2108,82 +2379,6 @@
                       ]
                      },
                      {
-                      "name": "Bar_AudioSettingsUiVolumeFill",
-                      "components": [
-                       {
-                        "type": "Image",
-                        "color": [
-                         0.12549,
-                         0.141176,
-                         0.164706,
-                         1.0
-                        ],
-                        "imageType": 1,
-                        "raycastTarget": false,
-                        "preserveAspect": false,
-                        "fillMethod": 0,
-                        "fillAmount": 1
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       1.0,
-                       0.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.0
-                      ],
-                      "sizeDelta": [
-                       -24.0,
-                       8.0
-                      ],
-                      "anchoredPosition": [
-                       0.0,
-                       8.0
-                      ]
-                     },
-                     {
-                      "name": "Img_AudioSettingsUiVolumeHandle",
-                      "components": [
-                       {
-                        "type": "Image",
-                        "color": [
-                         0.003922,
-                         0.003922,
-                         0.003922,
-                         1
-                        ],
-                        "imageType": 0,
-                        "raycastTarget": false,
-                        "preserveAspect": true
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       0.0,
-                       0.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.5
-                      ],
-                      "sizeDelta": [
-                       24.0,
-                       24.0
-                      ],
-                      "anchoredPosition": [
-                       12.0,
-                       12.0
-                      ]
-                     },
-                     {
                       "name": "Txt_AudioSettingsUiVolumeValue",
                       "components": [
                        {
@@ -2221,6 +2416,136 @@
                        0.0,
                        0.0
                       ]
+                     },
+                     {
+                      "name": "Grp_AudioSettingsUiVolumeFillArea",
+                      "components": [],
+                      "children": [
+                       {
+                        "name": "Bar_AudioSettingsUiVolumeFill",
+                        "components": [
+                         {
+                          "type": "Image",
+                          "color": [
+                           0.32156863,
+                           0.49019608,
+                           0.61960784,
+                           1
+                          ],
+                          "imageType": 0,
+                          "raycastTarget": false,
+                          "preserveAspect": false,
+                          "fillMethod": 0,
+                          "fillAmount": 1
+                         }
+                        ],
+                        "anchorMin": [
+                         0,
+                         0
+                        ],
+                        "anchorMax": [
+                         1,
+                         1
+                        ],
+                        "pivot": [
+                         0.5,
+                         0.5
+                        ],
+                        "sizeDelta": [
+                         0,
+                         0
+                        ],
+                        "anchoredPosition": [
+                         0,
+                         0
+                        ],
+                        "controlledBy": "slider"
+                       }
+                      ],
+                      "anchorMin": [
+                       0,
+                       0
+                      ],
+                      "anchorMax": [
+                       1,
+                       0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.5
+                      ],
+                      "sizeDelta": [
+                       -24,
+                       8
+                      ],
+                      "anchoredPosition": [
+                       0,
+                       12
+                      ]
+                     },
+                     {
+                      "name": "Grp_AudioSettingsUiVolumeHandleArea",
+                      "components": [],
+                      "children": [
+                       {
+                        "name": "Img_AudioSettingsUiVolumeHandle",
+                        "components": [
+                         {
+                          "type": "Image",
+                          "color": [
+                           0.941176,
+                           0.94902,
+                           0.956863,
+                           1
+                          ],
+                          "imageType": 0,
+                          "raycastTarget": false,
+                          "preserveAspect": true
+                         }
+                        ],
+                        "anchorMin": [
+                         0,
+                         0
+                        ],
+                        "anchorMax": [
+                         0,
+                         1
+                        ],
+                        "pivot": [
+                         0.5,
+                         0.5
+                        ],
+                        "sizeDelta": [
+                         24,
+                         0
+                        ],
+                        "anchoredPosition": [
+                         0,
+                         0
+                        ],
+                        "controlledBy": "slider"
+                       }
+                      ],
+                      "anchorMin": [
+                       0,
+                       0
+                      ],
+                      "anchorMax": [
+                       1,
+                       0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.5
+                      ],
+                      "sizeDelta": [
+                       -24,
+                       24
+                      ],
+                      "anchoredPosition": [
+                       0,
+                       12
+                      ]
                      }
                     ]
                    }
@@ -2240,35 +2565,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.14200000000000002,
+             0.132,
+             0.17200000000000001,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           736.0,
-           634.0
+           800,
+           570
           ],
           "anchoredPosition": [
-           752.0,
-           -36.0
+           648,
+           -42
           ],
           "children": [
            {
@@ -3167,24 +3492,24 @@
          }
         ],
         "anchorMin": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchorMax": [
-         1.0,
-         1.0
+         1,
+         1
         ],
         "pivot": [
          0.5,
          0.5
         ],
         "sizeDelta": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchoredPosition": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "children": [
          {
@@ -3526,35 +3851,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.13,
+             0.12,
+             0.16,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           736.0,
-           634.0
+           620,
+           570
           ],
           "anchoredPosition": [
-           0.0,
-           -36.0
+           0,
+           -42
           ],
           "children": [
            {
@@ -3947,6 +4272,17 @@
                     "components": [
                      {
                       "type": "Slider"
+                     },
+                     {
+                      "type": "Image",
+                      "color": [
+                       0,
+                       0,
+                       0,
+                       0
+                      ],
+                      "imageType": 0,
+                      "raycastTarget": true
                      }
                     ],
                     "anchorMin": [
@@ -4008,82 +4344,6 @@
                       ]
                      },
                      {
-                      "name": "Bar_ControlSettingsPanSpeedFill",
-                      "components": [
-                       {
-                        "type": "Image",
-                        "color": [
-                         0.12549,
-                         0.141176,
-                         0.164706,
-                         1.0
-                        ],
-                        "imageType": 1,
-                        "raycastTarget": false,
-                        "preserveAspect": false,
-                        "fillMethod": 0,
-                        "fillAmount": 1
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       1.0,
-                       0.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.0
-                      ],
-                      "sizeDelta": [
-                       -24.0,
-                       8.0
-                      ],
-                      "anchoredPosition": [
-                       0.0,
-                       8.0
-                      ]
-                     },
-                     {
-                      "name": "Img_ControlSettingsPanSpeedHandle",
-                      "components": [
-                       {
-                        "type": "Image",
-                        "color": [
-                         0.003922,
-                         0.003922,
-                         0.003922,
-                         1
-                        ],
-                        "imageType": 0,
-                        "raycastTarget": false,
-                        "preserveAspect": true
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       0.0,
-                       0.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.5
-                      ],
-                      "sizeDelta": [
-                       24.0,
-                       24.0
-                      ],
-                      "anchoredPosition": [
-                       12.0,
-                       12.0
-                      ]
-                     },
-                     {
                       "name": "Txt_ControlSettingsPanSpeedValue",
                       "components": [
                        {
@@ -4121,6 +4381,136 @@
                        0.0,
                        0.0
                       ]
+                     },
+                     {
+                      "name": "Grp_ControlSettingsPanSpeedFillArea",
+                      "components": [],
+                      "children": [
+                       {
+                        "name": "Bar_ControlSettingsPanSpeedFill",
+                        "components": [
+                         {
+                          "type": "Image",
+                          "color": [
+                           0.32156863,
+                           0.49019608,
+                           0.61960784,
+                           1
+                          ],
+                          "imageType": 0,
+                          "raycastTarget": false,
+                          "preserveAspect": false,
+                          "fillMethod": 0,
+                          "fillAmount": 1
+                         }
+                        ],
+                        "anchorMin": [
+                         0,
+                         0
+                        ],
+                        "anchorMax": [
+                         1,
+                         1
+                        ],
+                        "pivot": [
+                         0.5,
+                         0.5
+                        ],
+                        "sizeDelta": [
+                         0,
+                         0
+                        ],
+                        "anchoredPosition": [
+                         0,
+                         0
+                        ],
+                        "controlledBy": "slider"
+                       }
+                      ],
+                      "anchorMin": [
+                       0,
+                       0
+                      ],
+                      "anchorMax": [
+                       1,
+                       0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.5
+                      ],
+                      "sizeDelta": [
+                       -24,
+                       8
+                      ],
+                      "anchoredPosition": [
+                       0,
+                       12
+                      ]
+                     },
+                     {
+                      "name": "Grp_ControlSettingsPanSpeedHandleArea",
+                      "components": [],
+                      "children": [
+                       {
+                        "name": "Img_ControlSettingsPanSpeedHandle",
+                        "components": [
+                         {
+                          "type": "Image",
+                          "color": [
+                           0.941176,
+                           0.94902,
+                           0.956863,
+                           1
+                          ],
+                          "imageType": 0,
+                          "raycastTarget": false,
+                          "preserveAspect": true
+                         }
+                        ],
+                        "anchorMin": [
+                         0,
+                         0
+                        ],
+                        "anchorMax": [
+                         0,
+                         1
+                        ],
+                        "pivot": [
+                         0.5,
+                         0.5
+                        ],
+                        "sizeDelta": [
+                         24,
+                         0
+                        ],
+                        "anchoredPosition": [
+                         0,
+                         0
+                        ],
+                        "controlledBy": "slider"
+                       }
+                      ],
+                      "anchorMin": [
+                       0,
+                       0
+                      ],
+                      "anchorMax": [
+                       1,
+                       0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.5
+                      ],
+                      "sizeDelta": [
+                       -24,
+                       24
+                      ],
+                      "anchoredPosition": [
+                       0,
+                       12
+                      ]
                      }
                     ]
                    },
@@ -4129,6 +4519,17 @@
                     "components": [
                      {
                       "type": "Slider"
+                     },
+                     {
+                      "type": "Image",
+                      "color": [
+                       0,
+                       0,
+                       0,
+                       0
+                      ],
+                      "imageType": 0,
+                      "raycastTarget": true
                      }
                     ],
                     "anchorMin": [
@@ -4190,82 +4591,6 @@
                       ]
                      },
                      {
-                      "name": "Bar_ControlSettingsRotateSpeedFill",
-                      "components": [
-                       {
-                        "type": "Image",
-                        "color": [
-                         0.12549,
-                         0.141176,
-                         0.164706,
-                         1.0
-                        ],
-                        "imageType": 1,
-                        "raycastTarget": false,
-                        "preserveAspect": false,
-                        "fillMethod": 0,
-                        "fillAmount": 1
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       1.0,
-                       0.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.0
-                      ],
-                      "sizeDelta": [
-                       -24.0,
-                       8.0
-                      ],
-                      "anchoredPosition": [
-                       0.0,
-                       8.0
-                      ]
-                     },
-                     {
-                      "name": "Img_ControlSettingsRotateSpeedHandle",
-                      "components": [
-                       {
-                        "type": "Image",
-                        "color": [
-                         0.003922,
-                         0.003922,
-                         0.003922,
-                         1
-                        ],
-                        "imageType": 0,
-                        "raycastTarget": false,
-                        "preserveAspect": true
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       0.0,
-                       0.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.5
-                      ],
-                      "sizeDelta": [
-                       24.0,
-                       24.0
-                      ],
-                      "anchoredPosition": [
-                       12.0,
-                       12.0
-                      ]
-                     },
-                     {
                       "name": "Txt_ControlSettingsRotateSpeedValue",
                       "components": [
                        {
@@ -4303,6 +4628,136 @@
                        0.0,
                        0.0
                       ]
+                     },
+                     {
+                      "name": "Grp_ControlSettingsRotateSpeedFillArea",
+                      "components": [],
+                      "children": [
+                       {
+                        "name": "Bar_ControlSettingsRotateSpeedFill",
+                        "components": [
+                         {
+                          "type": "Image",
+                          "color": [
+                           0.32156863,
+                           0.49019608,
+                           0.61960784,
+                           1
+                          ],
+                          "imageType": 0,
+                          "raycastTarget": false,
+                          "preserveAspect": false,
+                          "fillMethod": 0,
+                          "fillAmount": 1
+                         }
+                        ],
+                        "anchorMin": [
+                         0,
+                         0
+                        ],
+                        "anchorMax": [
+                         1,
+                         1
+                        ],
+                        "pivot": [
+                         0.5,
+                         0.5
+                        ],
+                        "sizeDelta": [
+                         0,
+                         0
+                        ],
+                        "anchoredPosition": [
+                         0,
+                         0
+                        ],
+                        "controlledBy": "slider"
+                       }
+                      ],
+                      "anchorMin": [
+                       0,
+                       0
+                      ],
+                      "anchorMax": [
+                       1,
+                       0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.5
+                      ],
+                      "sizeDelta": [
+                       -24,
+                       8
+                      ],
+                      "anchoredPosition": [
+                       0,
+                       12
+                      ]
+                     },
+                     {
+                      "name": "Grp_ControlSettingsRotateSpeedHandleArea",
+                      "components": [],
+                      "children": [
+                       {
+                        "name": "Img_ControlSettingsRotateSpeedHandle",
+                        "components": [
+                         {
+                          "type": "Image",
+                          "color": [
+                           0.941176,
+                           0.94902,
+                           0.956863,
+                           1
+                          ],
+                          "imageType": 0,
+                          "raycastTarget": false,
+                          "preserveAspect": true
+                         }
+                        ],
+                        "anchorMin": [
+                         0,
+                         0
+                        ],
+                        "anchorMax": [
+                         0,
+                         1
+                        ],
+                        "pivot": [
+                         0.5,
+                         0.5
+                        ],
+                        "sizeDelta": [
+                         24,
+                         0
+                        ],
+                        "anchoredPosition": [
+                         0,
+                         0
+                        ],
+                        "controlledBy": "slider"
+                       }
+                      ],
+                      "anchorMin": [
+                       0,
+                       0
+                      ],
+                      "anchorMax": [
+                       1,
+                       0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.5
+                      ],
+                      "sizeDelta": [
+                       -24,
+                       24
+                      ],
+                      "anchoredPosition": [
+                       0,
+                       12
+                      ]
                      }
                     ]
                    },
@@ -4311,6 +4766,17 @@
                     "components": [
                      {
                       "type": "Slider"
+                     },
+                     {
+                      "type": "Image",
+                      "color": [
+                       0,
+                       0,
+                       0,
+                       0
+                      ],
+                      "imageType": 0,
+                      "raycastTarget": true
                      }
                     ],
                     "anchorMin": [
@@ -4372,82 +4838,6 @@
                       ]
                      },
                      {
-                      "name": "Bar_ControlSettingsZoomSpeedFill",
-                      "components": [
-                       {
-                        "type": "Image",
-                        "color": [
-                         0.12549,
-                         0.141176,
-                         0.164706,
-                         1.0
-                        ],
-                        "imageType": 1,
-                        "raycastTarget": false,
-                        "preserveAspect": false,
-                        "fillMethod": 0,
-                        "fillAmount": 1
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       1.0,
-                       0.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.0
-                      ],
-                      "sizeDelta": [
-                       -24.0,
-                       8.0
-                      ],
-                      "anchoredPosition": [
-                       0.0,
-                       8.0
-                      ]
-                     },
-                     {
-                      "name": "Img_ControlSettingsZoomSpeedHandle",
-                      "components": [
-                       {
-                        "type": "Image",
-                        "color": [
-                         0.003922,
-                         0.003922,
-                         0.003922,
-                         1
-                        ],
-                        "imageType": 0,
-                        "raycastTarget": false,
-                        "preserveAspect": true
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       0.0,
-                       0.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.5
-                      ],
-                      "sizeDelta": [
-                       24.0,
-                       24.0
-                      ],
-                      "anchoredPosition": [
-                       12.0,
-                       12.0
-                      ]
-                     },
-                     {
                       "name": "Txt_ControlSettingsZoomSpeedValue",
                       "components": [
                        {
@@ -4485,6 +4875,136 @@
                        0.0,
                        0.0
                       ]
+                     },
+                     {
+                      "name": "Grp_ControlSettingsZoomSpeedFillArea",
+                      "components": [],
+                      "children": [
+                       {
+                        "name": "Bar_ControlSettingsZoomSpeedFill",
+                        "components": [
+                         {
+                          "type": "Image",
+                          "color": [
+                           0.32156863,
+                           0.49019608,
+                           0.61960784,
+                           1
+                          ],
+                          "imageType": 0,
+                          "raycastTarget": false,
+                          "preserveAspect": false,
+                          "fillMethod": 0,
+                          "fillAmount": 1
+                         }
+                        ],
+                        "anchorMin": [
+                         0,
+                         0
+                        ],
+                        "anchorMax": [
+                         1,
+                         1
+                        ],
+                        "pivot": [
+                         0.5,
+                         0.5
+                        ],
+                        "sizeDelta": [
+                         0,
+                         0
+                        ],
+                        "anchoredPosition": [
+                         0,
+                         0
+                        ],
+                        "controlledBy": "slider"
+                       }
+                      ],
+                      "anchorMin": [
+                       0,
+                       0
+                      ],
+                      "anchorMax": [
+                       1,
+                       0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.5
+                      ],
+                      "sizeDelta": [
+                       -24,
+                       8
+                      ],
+                      "anchoredPosition": [
+                       0,
+                       12
+                      ]
+                     },
+                     {
+                      "name": "Grp_ControlSettingsZoomSpeedHandleArea",
+                      "components": [],
+                      "children": [
+                       {
+                        "name": "Img_ControlSettingsZoomSpeedHandle",
+                        "components": [
+                         {
+                          "type": "Image",
+                          "color": [
+                           0.941176,
+                           0.94902,
+                           0.956863,
+                           1
+                          ],
+                          "imageType": 0,
+                          "raycastTarget": false,
+                          "preserveAspect": true
+                         }
+                        ],
+                        "anchorMin": [
+                         0,
+                         0
+                        ],
+                        "anchorMax": [
+                         0,
+                         1
+                        ],
+                        "pivot": [
+                         0.5,
+                         0.5
+                        ],
+                        "sizeDelta": [
+                         24,
+                         0
+                        ],
+                        "anchoredPosition": [
+                         0,
+                         0
+                        ],
+                        "controlledBy": "slider"
+                       }
+                      ],
+                      "anchorMin": [
+                       0,
+                       0
+                      ],
+                      "anchorMax": [
+                       1,
+                       0
+                      ],
+                      "pivot": [
+                       0.5,
+                       0.5
+                      ],
+                      "sizeDelta": [
+                       -24,
+                       24
+                      ],
+                      "anchoredPosition": [
+                       0,
+                       12
+                      ]
                      }
                     ]
                    },
@@ -4493,6 +5013,17 @@
                     "components": [
                      {
                       "type": "Toggle"
+                     },
+                     {
+                      "type": "Image",
+                      "color": [
+                       0,
+                       0,
+                       0,
+                       0
+                      ],
+                      "imageType": 0,
+                      "raycastTarget": true
                      }
                     ],
                     "anchorMin": [
@@ -4522,9 +5053,9 @@
                        {
                         "type": "Image",
                         "color": [
-                         0.003922,
-                         0.003922,
-                         0.003922,
+                         0.32156863,
+                         0.49019608,
+                         0.61960784,
                          1
                         ],
                         "imageType": 0,
@@ -4559,9 +5090,9 @@
                          {
                           "type": "Image",
                           "color": [
-                           0.003922,
-                           0.003922,
-                           0.003922,
+                           0.941176,
+                           0.94902,
+                           0.956863,
                            1
                           ],
                           "imageType": 0,
@@ -4638,6 +5169,17 @@
                     "components": [
                      {
                       "type": "Toggle"
+                     },
+                     {
+                      "type": "Image",
+                      "color": [
+                       0,
+                       0,
+                       0,
+                       0
+                      ],
+                      "imageType": 0,
+                      "raycastTarget": true
                      }
                     ],
                     "anchorMin": [
@@ -4667,9 +5209,9 @@
                        {
                         "type": "Image",
                         "color": [
-                         0.003922,
-                         0.003922,
-                         0.003922,
+                         0.32156863,
+                         0.49019608,
+                         0.61960784,
                          1
                         ],
                         "imageType": 0,
@@ -4704,9 +5246,9 @@
                          {
                           "type": "Image",
                           "color": [
-                           0.003922,
-                           0.003922,
-                           0.003922,
+                           0.941176,
+                           0.94902,
+                           0.956863,
                            1
                           ],
                           "imageType": 0,
@@ -4794,35 +5336,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.14200000000000002,
+             0.132,
+             0.17200000000000001,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           736.0,
-           634.0
+           800,
+           570
           ],
           "anchoredPosition": [
-           752.0,
-           -36.0
+           648,
+           -42
           ],
           "children": [
            {
@@ -5722,24 +6264,24 @@
          }
         ],
         "anchorMin": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchorMax": [
-         1.0,
-         1.0
+         1,
+         1
         ],
         "pivot": [
          0.5,
          0.5
         ],
         "sizeDelta": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchoredPosition": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "children": [
          {
@@ -6165,35 +6707,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.13,
+             0.12,
+             0.16,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           736.0,
-           634.0
+           620,
+           570
           ],
           "anchoredPosition": [
-           0.0,
-           -36.0
+           0,
+           -42
           ],
           "children": [
            {
@@ -7284,35 +7826,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.14200000000000002,
+             0.132,
+             0.17200000000000001,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           736.0,
-           634.0
+           800,
+           570
           ],
           "anchoredPosition": [
-           752.0,
-           -36.0
+           648,
+           -42
           ],
           "children": [
            {
@@ -9607,5 +10149,6 @@
   0,
   1,
   2
- ]
+ ],
+ "layoutMigration": "b52: family-specific structure rollout; preserve serialized bindings and functional page routes"
 }

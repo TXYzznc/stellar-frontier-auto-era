@@ -109,7 +109,7 @@ namespace AutoEra.UI
 
             SetState(FindChild(page, "Grp_MachineOverviewLoadingState")?.gameObject, false);
             SetState(FindChild(page, "Grp_MachineOverviewErrorState")?.gameObject, false);
-            SetState(FindChild(page, "Grp_MachineOverviewSuccessState")?.gameObject, snapshot.HasSelection);
+            SetState(FindChild(page, "Grp_MachineOverviewSuccessState")?.gameObject, false);
             SetState(FindChild(page, "Grp_MachineOverviewEmptyState")?.gameObject, !snapshot.HasSelection && snapshot.State != UiDataState.Unavailable);
             SetState(FindChild(page, "Grp_MachineOverviewDisabledState")?.gameObject, snapshot.State == UiDataState.Unavailable);
 

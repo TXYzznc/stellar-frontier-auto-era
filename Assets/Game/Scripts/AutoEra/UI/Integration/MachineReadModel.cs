@@ -153,6 +153,7 @@ namespace AutoEra.UI
     {
         private readonly MachineRoster _roster;
         private readonly MachineCatalog _catalog;
+        private readonly AutoEra.Logistics.TransportResponsibilityLedger _transport;
         private readonly List<UiMachineRow> _rows = new List<UiMachineRow>();
         private readonly List<UiDetailField> _detail = new List<UiDetailField>(16);
         private readonly List<UiDetailField> _carrier = new List<UiDetailField>(8);
@@ -162,11 +163,13 @@ namespace AutoEra.UI
         private PersistentId _selected = PersistentId.Invalid;
         private bool _disposed;
 
-        public MachineReadModel(MachineRoster roster, MachineCatalog catalog = null)
+        public MachineReadModel(MachineRoster roster, MachineCatalog catalog = null, AutoEra.Logistics.TransportResponsibilityLedger transport = null)
         {
             _roster = roster ?? throw new ArgumentNullException(nameof(roster));
             _catalog = catalog;
+            _transport = transport;
             _roster.Changed += OnRosterChanged;
+            if (_transport != null) _transport.Changed += OnTransportChanged;
             Rebuild();
         }
 
@@ -179,7 +182,7 @@ namespace AutoEra.UI
         public bool Select(PersistentId id)
         {
             if (_disposed) return false;
-            if (!_roster.TryGet(id, out _)) return false;
+            if (!_roster.TryGet(id, out var machine) || machine.IsInCargo) return false;
             if (_selected == id) return true;
             _selected = id;
             RebuildDetail();
@@ -200,6 +203,7 @@ namespace AutoEra.UI
             if (_disposed) return;
             _disposed = true;
             _roster.Changed -= OnRosterChanged;
+            if (_transport != null) _transport.Changed -= OnTransportChanged;
             Changed = null;
             _rows.Clear();
             _detail.Clear();
@@ -208,13 +212,20 @@ namespace AutoEra.UI
             _readiness.Clear();
         }
 
+        private void OnTransportChanged()
+        {
+            if (_disposed || !_selected.IsValid) return;
+            RebuildDetail();
+            Changed?.Invoke(MachineDomainSection.Detail);
+        }
+
         private void OnRosterChanged()
         {
             if (_disposed) return;
 
             Rebuild();
             // 选中对象可能已被移除：失效时明确清掉，不自动改选另一台。
-            if (_selected.IsValid && !_roster.TryGet(_selected, out _))
+            if (_selected.IsValid && (!_roster.TryGet(_selected, out var selected) || selected.IsInCargo))
             {
                 _selected = PersistentId.Invalid;
             }
@@ -228,6 +239,7 @@ namespace AutoEra.UI
             _rows.Clear();
             foreach (MachineInstance machine in _roster.Machines)
             {
+                if (machine.IsInCargo) continue;
                 _rows.Add(new UiMachineRow(machine.Id, machine.Name, AutoEraUiFormat.MachineSummary(machine), machine.Deployed));
             }
 
@@ -268,6 +280,32 @@ namespace AutoEra.UI
             _detail.Add(new UiDetailField("算力", AutoEraUiFormat.Count(machine.ComputeCapacity) + " / 已用 " + AutoEraUiFormat.Count(machine.UsedCapacity)));
             _detail.Add(new UiDetailField("逻辑", AutoEraUiFormat.Count(machine.LogicCapacity)));
             _detail.Add(new UiDetailField("容量", AutoEraUiFormat.Count(machine.TotalCapacity)));
+            if (_transport == null) return;
+            foreach (var value in _transport.Capture())
+            {
+                if (value.Machine != machine.Id || value.Pending <= 0) continue;
+                _detail.Add(new UiDetailField("运输任务", value.Task.ToString()));
+                _detail.Add(new UiDetailField("运输来源", value.Source.ToString()));
+                _detail.Add(new UiDetailField("交付目标", value.Destination.ToString()));
+                _detail.Add(new UiDetailField("运输物品", value.Item));
+                _detail.Add(new UiDetailField("装卸请求 / 已预留", value.RequestedUnits + " / " + value.ReservedUnits));
+                _detail.Add(new UiDetailField("已装 / 已交付 / 待交付", value.Loaded + " / " + value.Delivered + " / " + value.Pending));
+                _detail.Add(new UiDetailField("运输状态", TransportPhaseText(value.Phase)));
+                if (!string.IsNullOrWhiteSpace(value.Reason)) _detail.Add(new UiDetailField("最近运输原因", value.Reason));
+            }
+        }
+
+        private static string TransportPhaseText(AutoEra.Logistics.TransportPhase phase)
+        {
+            switch (phase)
+            {
+                case AutoEra.Logistics.TransportPhase.Loading: return "装货";
+                case AutoEra.Logistics.TransportPhase.Unloading: return "卸货";
+                case AutoEra.Logistics.TransportPhase.Carrying: return "运输中";
+                case AutoEra.Logistics.TransportPhase.Cancelled: return "已取消，等待交付";
+                case AutoEra.Logistics.TransportPhase.Delivered: return "已交付";
+                default: return "等待恢复";
+            }
         }
 
         /// <summary>整备页·载体概况（规格 05-机器整备：独立实例名称、型号、等级、部署状态；容量与兼容安装位）。</summary>
@@ -381,7 +419,7 @@ namespace AutoEra.UI
             int loose = 0;
             foreach (ComponentInstance component in _roster.Components)
             {
-                if (!component.OwnerId.IsValid)
+                if (!component.OwnerId.IsValid && !component.IsInCargo)
                 {
                     loose++;
                 }
@@ -492,7 +530,7 @@ namespace AutoEra.UI
                 }
             }
 
-            return new MachineReadModel(session.World.Machines, catalog);
+            return new MachineReadModel(session.World.Machines, catalog, session.World.Resources.Transport);
         }
     }
 }

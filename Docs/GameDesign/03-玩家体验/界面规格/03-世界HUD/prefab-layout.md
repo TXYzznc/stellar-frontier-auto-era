@@ -175,3 +175,7 @@ Panel_PageHudSave [Image]
 | Btn_HudSaveDetails | min(0,1) max(0,1); pivot(0,1); sizeDelta(356,48)初始化; pos(0,0)初始化; LayoutElement preferred(356,48); 最终位置/尺寸由组驱动 | group | Button + Image；失败时打开02-系统菜单保留失败说明 |
 | Txt_HudSaveDetailsLabel | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-16,-8); pos(0,0) | absolute | TextMeshProUGUI；查看保存状态 |
 | Txt_HudSaveStatus | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(-16,36); pos(0,-4) | absolute | TextMeshProUGUI；无数据／保存失败等；仅替代对应文本区显示，正常隐藏 |
+
+## 2026-10-09 B51 代表结构覆盖
+
+本批仅覆盖机器整备、HUD 常驻与机器现场概况、中枢总览。下列旧表中对应目标工作区的尺寸由 [B51 完整节点布局](../../../../../openspec/changes/b51-ui-representative-layout-prototypes/art/prefab-layout.md) 及同名 UI-PrefabLayouts contract.json 取代；其余页不变。正式美术未制作，1920×1080 原型等待用户验收。

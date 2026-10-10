@@ -25,6 +25,9 @@ namespace AutoEra.UI
         private bool _pointerOver;
         private bool _pointerDown;
         public ulong NodeId => _nodeId;
+        public UiAlgorithmNodeDiagnostic Diagnostic { get; private set; }
+        public void SetDiagnostic(UiAlgorithmNodeDiagnostic value)
+        { Diagnostic = value; ApplyVisualState(false); }
 
         protected override void OnInit()
         {
@@ -57,7 +60,7 @@ namespace AutoEra.UI
             for (int i = 0; i < portTexts.Length; i++)
             {
                 if (portTexts[i] == _nameLabel) continue;
-                portTexts[i].fontSize = 16f;
+                portTexts[i].fontSize = 18f;
                 portTexts[i].enableWordWrapping = false;
                 portTexts[i].overflowMode = TextOverflowModes.Ellipsis;
                 portTexts[i].color = new Color(0.72f, 0.86f, 0.94f, 1f);
@@ -86,7 +89,7 @@ namespace AutoEra.UI
             if (label != null)
             {
                 label.alignment = input ? TextAlignmentOptions.Left : TextAlignmentOptions.Right;
-                label.margin = input ? new Vector4(22f, 0f, 6f, 0f) : new Vector4(6f, 0f, 22f, 0f);
+                label.margin = Vector4.zero;
                 label.color = new Color(0.78f, 0.88f, 0.94f, 1f);
             }
 
@@ -113,7 +116,7 @@ namespace AutoEra.UI
             socketObject.transform.SetParent(button, false);
             RectTransform rect = socketObject.transform as RectTransform;
             rect.anchorMin = rect.anchorMax = rect.pivot = input ? new Vector2(0f, 0.5f) : new Vector2(1f, 0.5f);
-            rect.anchoredPosition = input ? new Vector2(8f, 0f) : new Vector2(-8f, 0f);
+            rect.anchoredPosition = input ? new Vector2(12f, 0f) : new Vector2(-12f, 0f);
             rect.sizeDelta = new Vector2(20f, 20f);
         }
 
@@ -142,6 +145,7 @@ namespace AutoEra.UI
             _selected = onSelected;
             _moved = onMoved;
             _selectedState = selected;
+            Diagnostic = UiAlgorithmNodeDiagnostic.None;
             _pointerOver = false;
             _pointerDown = false;
             if (_nameLabel != null) _nameLabel.SetText(label ?? string.Empty);
@@ -205,13 +209,15 @@ namespace AutoEra.UI
                 : _pointerOver
                     ? new Color(0.42f, 0.88f, 1f, 1f)
                     : new Color(0.22f, 0.70f, 0.92f, 0.9f);
+            if (Diagnostic == UiAlgorithmNodeDiagnostic.Failed) accent = new Color(1f, .31f, .32f, 1f);
+            else if (Diagnostic == UiAlgorithmNodeDiagnostic.Executed) accent = new Color(.38f, .9f, .56f, 1f);
             if (_headerAccent != null) _headerAccent.color = accent;
             if (_sideAccent != null) _sideAccent.color = accent;
 
             if (_selectOutline != null)
             {
-                _selectOutline.enabled = _selectedState || _pointerOver;
-                _selectOutline.effectColor = _selectedState
+                _selectOutline.enabled = _selectedState || _pointerOver || Diagnostic != UiAlgorithmNodeDiagnostic.None;
+                _selectOutline.effectColor = Diagnostic != UiAlgorithmNodeDiagnostic.None ? accent : _selectedState
                     ? new Color(1f, 0.72f, 0.28f, 0.95f)
                     : new Color(0.52f, 0.86f, 1f, 0.85f);
             }

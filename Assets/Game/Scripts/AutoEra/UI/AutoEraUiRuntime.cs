@@ -37,9 +37,14 @@ namespace AutoEra.UI
         {
             if (s_instance == this)
             {
+                AutoEraUiNavigator.ReleasePendingNavigation();
                 s_instance = null;
             }
         }
+
+        private void Update() => AutoEraUiNavigator.PollPendingNavigation();
+
+        internal static void TrackPendingNavigation() => EnsureInstance();
 
         public bool Dispatch(AutoEraUiIntent intent)
         {

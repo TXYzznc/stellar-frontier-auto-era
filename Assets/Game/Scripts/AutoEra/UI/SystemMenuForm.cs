@@ -53,6 +53,7 @@ namespace AutoEra.UI
         {
             if (TryGetSession(out AutoEraUiSession session) && session.Application != null)
             {
+                if(session.Application.SaveExit!=null) { OpenExitFlow();return; }
                 session.Application.RequestReturnToMenu();
             }
 

@@ -171,6 +171,56 @@ namespace AutoEra.UI
         private EnergyDomainSnapshot _snapshot;
         private int _selected = -1;
         private bool _disposed;
+        private long _gridRevision = -1, _rosterRevision = -1;
+        private int _lastSelection = -2;
+        private bool _lastDaylight, _hasInputs;
+        private readonly List<FacilityInput> _facilityInputs = new List<FacilityInput>();
+        private readonly List<ActivityInput> _activityInputs = new List<ActivityInput>();
+
+        private readonly struct FacilityInput
+        {
+            private readonly bool _on, _charging;
+            private readonly float _fuel, _ratio, _output, _charge, _power;
+            private readonly StorageState _state;
+            public FacilityInput(RegionEnergyFacility facility)
+            {
+                var generator = facility.Generator; var storage = facility.Storage;
+                _on = generator?.IsOn ?? false; _charging = generator?.AllowsCharging ?? false;
+                _fuel = generator?.FuelEnergyAvailable ?? 0; _ratio = generator?.ChargeTargetRatio ?? 0;
+                _output = generator?.ActualOutputPower ?? 0; _charge = storage?.Charge ?? 0;
+                _power = storage?.ActualPower ?? 0; _state = storage?.State ?? StorageState.Idle;
+            }
+            public bool Same(FacilityInput other) => _on == other._on && _charging == other._charging && _fuel == other._fuel &&
+                _ratio == other._ratio && _output == other._output && _charge == other._charge && _power == other._power && _state == other._state;
+        }
+        private readonly struct ActivityInput
+        {
+            private readonly PersistentId _id;
+            private readonly long _revision;
+            private readonly PowerPriority _priority;
+            public ActivityInput(IEnergyConsumer consumer)
+            { _id = consumer.Id; _revision = consumer is MachineEnergyConsumer machine ? machine.Machine.EnergyActivityRevision : 0; _priority = consumer.Priority; }
+            public bool Same(ActivityInput other) => _id == other._id && _revision == other._revision && _priority == other._priority;
+        }
+        private bool InputsUnchanged()
+        {
+            if (!_hasInputs || _gridRevision != _energy.Grid.Revision || _rosterRevision != (_machines?.Revision ?? 0) ||
+                _lastSelection != _selected || _lastDaylight != _energy.LastDaylight ||
+                _facilityInputs.Count != _energy.Facilities.Count || _activityInputs.Count != _energy.Grid.Consumers.Count) return false;
+            for (int i = 0; i < _facilityInputs.Count; i++)
+                if (!_facilityInputs[i].Same(new FacilityInput(_energy.Facilities[i]))) return false;
+            for (int i = 0; i < _activityInputs.Count; i++)
+                if (!_activityInputs[i].Same(new ActivityInput(_energy.Grid.Consumers[i]))) return false;
+            return true;
+        }
+        private void CaptureInputs()
+        {
+            _gridRevision = _energy.Grid.Revision; _rosterRevision = _machines?.Revision ?? 0;
+            _lastSelection = _selected; _lastDaylight = _energy.LastDaylight; _hasInputs = true;
+            _facilityInputs.Clear(); _activityInputs.Clear();
+            for (int i = 0; i < _energy.Facilities.Count; i++) _facilityInputs.Add(new FacilityInput(_energy.Facilities[i]));
+            for (int i = 0; i < _energy.Grid.Consumers.Count; i++) _activityInputs.Add(new ActivityInput(_energy.Grid.Consumers[i]));
+        }
 
         public RegionEnergyReadModel(RegionEnergyService energy, MachineRoster machines)
         {
@@ -186,10 +236,12 @@ namespace AutoEra.UI
         public void Refresh()
         {
             if (_disposed) return;
+            if (InputsUnchanged()) return;
             if (!_energy.HasSupply)
             {
                 // 区域里没有声明任何能源设施：这是可展示的事实，不是错误。
                 _snapshot = EnergyDomainSnapshot.Unavailable(NoFacilitiesReason);
+                CaptureInputs();
                 Changed?.Invoke();
                 return;
             }
@@ -201,6 +253,7 @@ namespace AutoEra.UI
 
             _snapshot = new EnergyDomainSnapshot(UiDataState.Ready, null,
                 _summary.ToArray(), _facilities.ToArray(), _consumers.ToArray(), _selected);
+            CaptureInputs();
             Changed?.Invoke();
         }
 
@@ -388,7 +441,7 @@ namespace AutoEra.UI
                 _consumers.Add(new UiEnergyConsumerRow(machine.Id, machine.Name, "机器",
                     State(machine, consumer, tracked),
                     tracked ? consumer.ActualPower : 0f,
-                    PriorityLabel(RegionEnergyService.DefaultMachinePriority),
+                    PriorityLabel(tracked ? consumer.Priority : RegionEnergyService.DefaultMachinePriority),
                     tracked && consumer.IsStoppedByShortage));
             }
         }

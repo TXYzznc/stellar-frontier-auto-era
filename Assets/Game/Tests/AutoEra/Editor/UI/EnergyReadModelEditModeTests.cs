@@ -31,6 +31,47 @@ namespace AutoEra.Tests.Editor
     /// </summary>
     public sealed class EnergyReadModelEditModeTests
     {
+        [Test]
+        public void StableRefresh_ReusesSnapshotWithoutAllocatingOrNotifying()
+        {
+            using (var probe = Unity.Profiling.ProfilerRecorder.StartNew(Unity.Profiling.ProfilerCategory.Internal,
+                "GC.Alloc", 8, Unity.Profiling.ProfilerRecorderOptions.CollectOnlyOnCurrentThread))
+            {
+                var allocation = new byte[1024]; System.GC.KeepAlive(allocation); probe.Stop();
+                Assert.That(probe.Count, Is.GreaterThan(0));
+            }
+            _energy.Register(Facility(RegionEnergyFacilityKind.EnvironmentGenerator, "太阳能板", rated: 15f));
+            _energy.Tick(0L, 0f);
+            using var model = Model(); int changes = 0; model.Changed += () => changes++;
+            var summary = model.Snapshot.Summary;
+            for (int i = 0; i < 20; i++) model.Refresh();
+            using (var recorder = Unity.Profiling.ProfilerRecorder.StartNew(Unity.Profiling.ProfilerCategory.Internal,
+                "GC.Alloc", 1024, Unity.Profiling.ProfilerRecorderOptions.CollectOnlyOnCurrentThread))
+            {
+                for (int i = 0; i < 500; i++) model.Refresh();
+                recorder.Stop(); Assert.That(recorder.Count, Is.Zero);
+            }
+            Assert.That(model.Snapshot.Summary, Is.SameAs(summary)); Assert.That(changes, Is.Zero);
+            _energy.Tick(17L * 60L * 1000L, 0f); model.Refresh();
+            Assert.That(changes, Is.EqualTo(1)); Assert.That(model.Snapshot.Summary, Is.Not.SameAs(summary));
+        }
+
+        [Test]
+        public void ActivityAndPriorityChanges_AreVisibleEvenWithoutExtraSettlement()
+        {
+            _energy.Register(Facility(RegionEnergyFacilityKind.EnvironmentGenerator, "太阳能板", rated: 15f));
+            var machine = _world.Machines.Create(Definition()); _world.Machines.Deploy(machine.Id);
+            _energy.Reconcile(_world.Machines); _energy.Tick(0, 0); _energy.ApplySupply();
+            using var model = Model();
+            machine.UpdateNavigationActivity(true);
+            _energy.TryGetConsumer(machine.Id, out var consumer); consumer.Priority = PowerPriority.Critical;
+            var snapshot = _energy.Snapshot;
+            model.Refresh();
+            Assert.That(model.Snapshot.Consumers[0].State, Is.EqualTo("移动中"));
+            Assert.That(model.Snapshot.Consumers[0].Priority, Is.EqualTo("关键设备"));
+            Assert.That(_energy.Snapshot.ConsumedPower, Is.EqualTo(snapshot.ConsumedPower), "UI refresh must not settle time.");
+        }
+
         private static readonly PersistentId FacilityId = new PersistentId(5001);
 
         private readonly List<GameObject> _hosts = new List<GameObject>();

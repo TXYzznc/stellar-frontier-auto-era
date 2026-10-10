@@ -438,7 +438,9 @@ namespace AutoEra.UI
                 {
                     if (sliders[i] != null)
                     {
-                        sliders[i].SetValueWithoutNotify(_settings.Audio.GetBus(AudioSliderBuses[i]));
+                        float value = _settings.Audio.GetBus(AudioSliderBuses[i]);
+                        sliders[i].SetValueWithoutNotify(value);
+                        SyncSliderLabel(sliders[i], (value * 100f).ToString("0") + "%");
                     }
                 }
             }
@@ -508,6 +510,7 @@ namespace AutoEra.UI
                     if (sliders[i] != null)
                     {
                         sliders[i].SetValueWithoutNotify(values[i]);
+                        SyncSliderLabel(sliders[i], values[i].ToString("0.##"));
                     }
                 }
 
@@ -549,9 +552,8 @@ namespace AutoEra.UI
             "修改后立即生效并写入本机设置；若写入失败会保留内存中的值并说明重启可能丢失。";
 
         /// <summary>
-        /// 未接线分页的整页呈现：Disabled + 原因；已接线分页则是 Success。
-        /// 这里刻意**不复用** `DisableDomainActions()`——它按结构名禁用页面上除出口以外的所有按钮，
-        /// 而显示与性能分页的按钮正是本页现在唯一真实可用的动作。
+        /// 不可用分页显示 Disabled 与原因；正常分页直接显示真实正文和控件。
+        /// 状态卡覆盖正文，正常状态不能启用 Success 占位卡。
         /// </summary>
         private void RenderUnavailablePage(bool unavailable, string reason,
             GameObject loadingState, GameObject emptyState, GameObject errorState,
@@ -562,7 +564,8 @@ namespace AutoEra.UI
             SetState(emptyState, false);
             SetState(errorState, false);
             SetState(disabledState, unavailable);
-            SetState(successState, !unavailable);
+            SetState(successState, false);
+            if (unavailable) WriteStateCard(disabledState, reason);
 
             for (int i = 0; i < bodies.Length; i++)
             {
@@ -571,6 +574,21 @@ namespace AutoEra.UI
                     bodies[i].SetText(reason ?? string.Empty);
                 }
             }
+        }
+
+        private readonly System.Collections.Generic.Dictionary<Slider, TMPro.TMP_Text> _sliderLabels =
+            new System.Collections.Generic.Dictionary<Slider, TMPro.TMP_Text>();
+
+        private void SyncSliderLabel(Slider slider, string value)
+        {
+            if (!_sliderLabels.TryGetValue(slider, out var label))
+            {
+                label = slider.GetComponentInChildren<TMPro.TMP_Text>(true);
+                _sliderLabels.Add(slider, label);
+            }
+            if (label == null) return;
+            int separator = label.text.IndexOf('：');
+            if (separator >= 0) label.SetText(label.text.Substring(0, separator + 1) + value);
         }
 
         private void SetDisplayOptionsInteractable(bool value)

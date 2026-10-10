@@ -135,30 +135,40 @@ Panel_PageAudioSettings [Image]
               Txt_AudioSettingsVolumesRowLabel [TextMeshProUGUI]
               Txt_AudioSettingsVolumesRowValue [TextMeshProUGUI]
           Panel_AudioSettingsControls [Image + LayoutElement]
-            Sld_AudioSettingsMainVolume [Slider]
+            Sld_AudioSettingsMainVolume [Slider + Image透明输入命中]
               Bg_AudioSettingsMainVolumeTrack [Image]
-              Bar_AudioSettingsMainVolumeFill [Image(Filled)]
-              Img_AudioSettingsMainVolumeHandle [Image]
+              Grp_AudioSettingsMainVolumeFillArea [RectTransform]
+                Bar_AudioSettingsMainVolumeFill [Image(Simple)]
+              Grp_AudioSettingsMainVolumeHandleArea [RectTransform]
+                Img_AudioSettingsMainVolumeHandle [Image]
               Txt_AudioSettingsMainVolumeValue [TextMeshProUGUI]
-            Sld_AudioSettingsMusicVolume [Slider]
+            Sld_AudioSettingsMusicVolume [Slider + Image透明输入命中]
               Bg_AudioSettingsMusicVolumeTrack [Image]
-              Bar_AudioSettingsMusicVolumeFill [Image(Filled)]
-              Img_AudioSettingsMusicVolumeHandle [Image]
+              Grp_AudioSettingsMusicVolumeFillArea [RectTransform]
+                Bar_AudioSettingsMusicVolumeFill [Image(Simple)]
+              Grp_AudioSettingsMusicVolumeHandleArea [RectTransform]
+                Img_AudioSettingsMusicVolumeHandle [Image]
               Txt_AudioSettingsMusicVolumeValue [TextMeshProUGUI]
-            Sld_AudioSettingsAmbientVolume [Slider]
+            Sld_AudioSettingsAmbientVolume [Slider + Image透明输入命中]
               Bg_AudioSettingsAmbientVolumeTrack [Image]
-              Bar_AudioSettingsAmbientVolumeFill [Image(Filled)]
-              Img_AudioSettingsAmbientVolumeHandle [Image]
+              Grp_AudioSettingsAmbientVolumeFillArea [RectTransform]
+                Bar_AudioSettingsAmbientVolumeFill [Image(Simple)]
+              Grp_AudioSettingsAmbientVolumeHandleArea [RectTransform]
+                Img_AudioSettingsAmbientVolumeHandle [Image]
               Txt_AudioSettingsAmbientVolumeValue [TextMeshProUGUI]
-            Sld_AudioSettingsMachineVolume [Slider]
+            Sld_AudioSettingsMachineVolume [Slider + Image透明输入命中]
               Bg_AudioSettingsMachineVolumeTrack [Image]
-              Bar_AudioSettingsMachineVolumeFill [Image(Filled)]
-              Img_AudioSettingsMachineVolumeHandle [Image]
+              Grp_AudioSettingsMachineVolumeFillArea [RectTransform]
+                Bar_AudioSettingsMachineVolumeFill [Image(Simple)]
+              Grp_AudioSettingsMachineVolumeHandleArea [RectTransform]
+                Img_AudioSettingsMachineVolumeHandle [Image]
               Txt_AudioSettingsMachineVolumeValue [TextMeshProUGUI]
-            Sld_AudioSettingsUiVolume [Slider]
+            Sld_AudioSettingsUiVolume [Slider + Image透明输入命中]
               Bg_AudioSettingsUiVolumeTrack [Image]
-              Bar_AudioSettingsUiVolumeFill [Image(Filled)]
-              Img_AudioSettingsUiVolumeHandle [Image]
+              Grp_AudioSettingsUiVolumeFillArea [RectTransform]
+                Bar_AudioSettingsUiVolumeFill [Image(Simple)]
+              Grp_AudioSettingsUiVolumeHandleArea [RectTransform]
+                Img_AudioSettingsUiVolumeHandle [Image]
               Txt_AudioSettingsUiVolumeValue [TextMeshProUGUI]
   Panel_AudioSettingsPersistence [Image]
     Txt_AudioSettingsPersistenceHeading [TextMeshProUGUI]
@@ -211,28 +221,28 @@ Panel_PageAudioSettings [Image]
 | Panel_AudioSettingsControls | min(0,1) max(0,1); pivot(0,1); sizeDelta(712,376)初始化; pos(0,0)初始化; LayoutElement preferred(712,376); 最终位置/尺寸由组驱动 | group | Image + LayoutElement；真实输入字段 |
 | Sld_AudioSettingsMainVolume | min(0,1) max(0,1); pivot(0,1); sizeDelta(680,56); pos(16,-8) | absolute | Slider；主音量 |
 | Bg_AudioSettingsMainVolumeTrack | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,8); pos(0,8) | absolute | Image；轨道 |
-| Bar_AudioSettingsMainVolumeFill | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,8); pos(0,8) | absolute | Image(Filled)；Slider.fillRect驱动 |
-| Img_AudioSettingsMainVolumeHandle | min(0,0) max(0,0); pivot(0.5,0.5); sizeDelta(24,24); pos(12,12) | absolute | Image；Slider.handleRect驱动位置 |
+| Bar_AudioSettingsMainVolumeFill | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | slider | Image(Simple); parent=Grp_AudioSettingsMainVolumeFillArea；Slider驱动横向填充 |
+| Img_AudioSettingsMainVolumeHandle | min(0,0) max(0,1); pivot(0.5,0.5); sizeDelta(24,0); pos(0,0) | slider | Image；parent=Grp_AudioSettingsMainVolumeHandleArea；Slider驱动横向位置 |
 | Txt_AudioSettingsMainVolumeValue | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,28); pos(0,0) | absolute | TextMeshProUGUI；主音量：— |
 | Sld_AudioSettingsMusicVolume | min(0,1) max(0,1); pivot(0,1); sizeDelta(680,56); pos(16,-80) | absolute | Slider；音乐 |
 | Bg_AudioSettingsMusicVolumeTrack | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,8); pos(0,8) | absolute | Image；轨道 |
-| Bar_AudioSettingsMusicVolumeFill | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,8); pos(0,8) | absolute | Image(Filled)；Slider.fillRect驱动 |
-| Img_AudioSettingsMusicVolumeHandle | min(0,0) max(0,0); pivot(0.5,0.5); sizeDelta(24,24); pos(12,12) | absolute | Image；Slider.handleRect驱动位置 |
+| Bar_AudioSettingsMusicVolumeFill | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | slider | Image(Simple); parent=Grp_AudioSettingsMusicVolumeFillArea；Slider驱动横向填充 |
+| Img_AudioSettingsMusicVolumeHandle | min(0,0) max(0,1); pivot(0.5,0.5); sizeDelta(24,0); pos(0,0) | slider | Image；parent=Grp_AudioSettingsMusicVolumeHandleArea；Slider驱动横向位置 |
 | Txt_AudioSettingsMusicVolumeValue | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,28); pos(0,0) | absolute | TextMeshProUGUI；音乐：— |
 | Sld_AudioSettingsAmbientVolume | min(0,1) max(0,1); pivot(0,1); sizeDelta(680,56); pos(16,-152) | absolute | Slider；环境 |
 | Bg_AudioSettingsAmbientVolumeTrack | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,8); pos(0,8) | absolute | Image；轨道 |
-| Bar_AudioSettingsAmbientVolumeFill | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,8); pos(0,8) | absolute | Image(Filled)；Slider.fillRect驱动 |
-| Img_AudioSettingsAmbientVolumeHandle | min(0,0) max(0,0); pivot(0.5,0.5); sizeDelta(24,24); pos(12,12) | absolute | Image；Slider.handleRect驱动位置 |
+| Bar_AudioSettingsAmbientVolumeFill | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | slider | Image(Simple); parent=Grp_AudioSettingsAmbientVolumeFillArea；Slider驱动横向填充 |
+| Img_AudioSettingsAmbientVolumeHandle | min(0,0) max(0,1); pivot(0.5,0.5); sizeDelta(24,0); pos(0,0) | slider | Image；parent=Grp_AudioSettingsAmbientVolumeHandleArea；Slider驱动横向位置 |
 | Txt_AudioSettingsAmbientVolumeValue | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,28); pos(0,0) | absolute | TextMeshProUGUI；环境：— |
 | Sld_AudioSettingsMachineVolume | min(0,1) max(0,1); pivot(0,1); sizeDelta(680,56); pos(16,-224) | absolute | Slider；机器与生产 |
 | Bg_AudioSettingsMachineVolumeTrack | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,8); pos(0,8) | absolute | Image；轨道 |
-| Bar_AudioSettingsMachineVolumeFill | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,8); pos(0,8) | absolute | Image(Filled)；Slider.fillRect驱动 |
-| Img_AudioSettingsMachineVolumeHandle | min(0,0) max(0,0); pivot(0.5,0.5); sizeDelta(24,24); pos(12,12) | absolute | Image；Slider.handleRect驱动位置 |
+| Bar_AudioSettingsMachineVolumeFill | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | slider | Image(Simple); parent=Grp_AudioSettingsMachineVolumeFillArea；Slider驱动横向填充 |
+| Img_AudioSettingsMachineVolumeHandle | min(0,0) max(0,1); pivot(0.5,0.5); sizeDelta(24,0); pos(0,0) | slider | Image；parent=Grp_AudioSettingsMachineVolumeHandleArea；Slider驱动横向位置 |
 | Txt_AudioSettingsMachineVolumeValue | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,28); pos(0,0) | absolute | TextMeshProUGUI；机器与生产：— |
 | Sld_AudioSettingsUiVolume | min(0,1) max(0,1); pivot(0,1); sizeDelta(680,56); pos(16,-296) | absolute | Slider；UI与警报 |
 | Bg_AudioSettingsUiVolumeTrack | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,8); pos(0,8) | absolute | Image；轨道 |
-| Bar_AudioSettingsUiVolumeFill | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,8); pos(0,8) | absolute | Image(Filled)；Slider.fillRect驱动 |
-| Img_AudioSettingsUiVolumeHandle | min(0,0) max(0,0); pivot(0.5,0.5); sizeDelta(24,24); pos(12,12) | absolute | Image；Slider.handleRect驱动位置 |
+| Bar_AudioSettingsUiVolumeFill | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | slider | Image(Simple); parent=Grp_AudioSettingsUiVolumeFillArea；Slider驱动横向填充 |
+| Img_AudioSettingsUiVolumeHandle | min(0,0) max(0,1); pivot(0.5,0.5); sizeDelta(24,0); pos(0,0) | slider | Image；parent=Grp_AudioSettingsUiVolumeHandleArea；Slider驱动横向位置 |
 | Txt_AudioSettingsUiVolumeValue | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,28); pos(0,0) | absolute | TextMeshProUGUI；UI与警报：— |
 | Panel_AudioSettingsPersistence | min(0,1) max(0,1); pivot(0,1); sizeDelta(736,634); pos(752,-36) | absolute | Image；本机配置状态 |
 | Txt_AudioSettingsPersistenceHeading | min(0,1) max(0,1); pivot(0,1); sizeDelta(712,32); pos(12,-8) | absolute | TextMeshProUGUI；本机配置状态 |
@@ -285,26 +295,32 @@ Panel_PageControlSettings [Image]
               Txt_ControlSettingsCameraRowLabel [TextMeshProUGUI]
               Txt_ControlSettingsCameraRowValue [TextMeshProUGUI]
           Panel_ControlSettingsControls [Image + LayoutElement]
-            Sld_ControlSettingsPanSpeed [Slider]
+            Sld_ControlSettingsPanSpeed [Slider + Image透明输入命中]
               Bg_ControlSettingsPanSpeedTrack [Image]
-              Bar_ControlSettingsPanSpeedFill [Image(Filled)]
-              Img_ControlSettingsPanSpeedHandle [Image]
+              Grp_ControlSettingsPanSpeedFillArea [RectTransform]
+                Bar_ControlSettingsPanSpeedFill [Image(Simple)]
+              Grp_ControlSettingsPanSpeedHandleArea [RectTransform]
+                Img_ControlSettingsPanSpeedHandle [Image]
               Txt_ControlSettingsPanSpeedValue [TextMeshProUGUI]
-            Sld_ControlSettingsRotateSpeed [Slider]
+            Sld_ControlSettingsRotateSpeed [Slider + Image透明输入命中]
               Bg_ControlSettingsRotateSpeedTrack [Image]
-              Bar_ControlSettingsRotateSpeedFill [Image(Filled)]
-              Img_ControlSettingsRotateSpeedHandle [Image]
+              Grp_ControlSettingsRotateSpeedFillArea [RectTransform]
+                Bar_ControlSettingsRotateSpeedFill [Image(Simple)]
+              Grp_ControlSettingsRotateSpeedHandleArea [RectTransform]
+                Img_ControlSettingsRotateSpeedHandle [Image]
               Txt_ControlSettingsRotateSpeedValue [TextMeshProUGUI]
-            Sld_ControlSettingsZoomSpeed [Slider]
+            Sld_ControlSettingsZoomSpeed [Slider + Image透明输入命中]
               Bg_ControlSettingsZoomSpeedTrack [Image]
-              Bar_ControlSettingsZoomSpeedFill [Image(Filled)]
-              Img_ControlSettingsZoomSpeedHandle [Image]
+              Grp_ControlSettingsZoomSpeedFillArea [RectTransform]
+                Bar_ControlSettingsZoomSpeedFill [Image(Simple)]
+              Grp_ControlSettingsZoomSpeedHandleArea [RectTransform]
+                Img_ControlSettingsZoomSpeedHandle [Image]
               Txt_ControlSettingsZoomSpeedValue [TextMeshProUGUI]
-            Tgl_ControlSettingsInvertHorizontal [Toggle]
+            Tgl_ControlSettingsInvertHorizontal [Toggle + Image透明输入命中]
               Img_ControlSettingsInvertHorizontalBox [Image]
                 Icon_ControlSettingsInvertHorizontalCheck [Image]
               Txt_ControlSettingsInvertHorizontalLabel [TextMeshProUGUI]
-            Tgl_ControlSettingsInvertVertical [Toggle]
+            Tgl_ControlSettingsInvertVertical [Toggle + Image透明输入命中]
               Img_ControlSettingsInvertVerticalBox [Image]
                 Icon_ControlSettingsInvertVerticalCheck [Image]
               Txt_ControlSettingsInvertVerticalLabel [TextMeshProUGUI]
@@ -359,18 +375,18 @@ Panel_PageControlSettings [Image]
 | Panel_ControlSettingsControls | min(0,1) max(0,1); pivot(0,1); sizeDelta(712,376)初始化; pos(0,0)初始化; LayoutElement preferred(712,376); 最终位置/尺寸由组驱动 | group | Image + LayoutElement；真实输入字段 |
 | Sld_ControlSettingsPanSpeed | min(0,1) max(0,1); pivot(0,1); sizeDelta(680,56); pos(16,-8) | absolute | Slider；平移速度 |
 | Bg_ControlSettingsPanSpeedTrack | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,8); pos(0,8) | absolute | Image；轨道 |
-| Bar_ControlSettingsPanSpeedFill | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,8); pos(0,8) | absolute | Image(Filled)；Slider.fillRect驱动 |
-| Img_ControlSettingsPanSpeedHandle | min(0,0) max(0,0); pivot(0.5,0.5); sizeDelta(24,24); pos(12,12) | absolute | Image；Slider.handleRect驱动位置 |
+| Bar_ControlSettingsPanSpeedFill | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | slider | Image(Simple); parent=Grp_ControlSettingsPanSpeedFillArea；Slider驱动横向填充 |
+| Img_ControlSettingsPanSpeedHandle | min(0,0) max(0,1); pivot(0.5,0.5); sizeDelta(24,0); pos(0,0) | slider | Image；parent=Grp_ControlSettingsPanSpeedHandleArea；Slider驱动横向位置 |
 | Txt_ControlSettingsPanSpeedValue | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,28); pos(0,0) | absolute | TextMeshProUGUI；平移速度：— |
 | Sld_ControlSettingsRotateSpeed | min(0,1) max(0,1); pivot(0,1); sizeDelta(680,56); pos(16,-80) | absolute | Slider；旋转速度／灵敏度 |
 | Bg_ControlSettingsRotateSpeedTrack | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,8); pos(0,8) | absolute | Image；轨道 |
-| Bar_ControlSettingsRotateSpeedFill | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,8); pos(0,8) | absolute | Image(Filled)；Slider.fillRect驱动 |
-| Img_ControlSettingsRotateSpeedHandle | min(0,0) max(0,0); pivot(0.5,0.5); sizeDelta(24,24); pos(12,12) | absolute | Image；Slider.handleRect驱动位置 |
+| Bar_ControlSettingsRotateSpeedFill | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | slider | Image(Simple); parent=Grp_ControlSettingsRotateSpeedFillArea；Slider驱动横向填充 |
+| Img_ControlSettingsRotateSpeedHandle | min(0,0) max(0,1); pivot(0.5,0.5); sizeDelta(24,0); pos(0,0) | slider | Image；parent=Grp_ControlSettingsRotateSpeedHandleArea；Slider驱动横向位置 |
 | Txt_ControlSettingsRotateSpeedValue | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,28); pos(0,0) | absolute | TextMeshProUGUI；旋转速度／灵敏度：— |
 | Sld_ControlSettingsZoomSpeed | min(0,1) max(0,1); pivot(0,1); sizeDelta(680,56); pos(16,-152) | absolute | Slider；滚轮缩放速度 |
 | Bg_ControlSettingsZoomSpeedTrack | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,8); pos(0,8) | absolute | Image；轨道 |
-| Bar_ControlSettingsZoomSpeedFill | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,8); pos(0,8) | absolute | Image(Filled)；Slider.fillRect驱动 |
-| Img_ControlSettingsZoomSpeedHandle | min(0,0) max(0,0); pivot(0.5,0.5); sizeDelta(24,24); pos(12,12) | absolute | Image；Slider.handleRect驱动位置 |
+| Bar_ControlSettingsZoomSpeedFill | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | slider | Image(Simple); parent=Grp_ControlSettingsZoomSpeedFillArea；Slider驱动横向填充 |
+| Img_ControlSettingsZoomSpeedHandle | min(0,0) max(0,1); pivot(0.5,0.5); sizeDelta(24,0); pos(0,0) | slider | Image；parent=Grp_ControlSettingsZoomSpeedHandleArea；Slider驱动横向位置 |
 | Txt_ControlSettingsZoomSpeedValue | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,28); pos(0,0) | absolute | TextMeshProUGUI；滚轮缩放速度：— |
 | Tgl_ControlSettingsInvertHorizontal | min(0,1) max(0,1); pivot(0,1); sizeDelta(680,48); pos(16,-224) | absolute | Toggle；水平反转 |
 | Img_ControlSettingsInvertHorizontalBox | min(0,1) max(0,1); pivot(0,1); sizeDelta(32,32); pos(0,-8) | absolute | Image；开关背景 |
@@ -681,3 +697,35 @@ Panel_PageExitFlow [Image]
 | Grp_ExitFlowDisabledState | min(0,1) max(0,1); pivot(0,1); sizeDelta(848,534); pos(0,-36) | absolute | 无Graphic；默认inactive；区域状态互斥，不覆盖底部返回 |
 | Panel_ExitFlowDisabledMessage | min(0.5,0.5) max(0.5,0.5); pivot(0.5,0.5); sizeDelta(520,120); pos(0,0) | absolute | Image；状态背景 |
 | Txt_ExitFlowDisabledMessage | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-24); pos(0,0) | absolute | TextMeshProUGUI；Disabled：— |
+
+### 2026-10-09 B50 设置滑杆接线修复
+
+沿用上表的根节点、680×56滑杆及现有几何。8个Slider的fillRect/handleRect/targetGraphic须分别指向同名Bar_*Fill、Img_*Handle及其Image，由契约生成器接线；填充Image使用Simple类型及现有按钮蓝色，横向填充由Slider驱动，柄使用正文浅色；命中由Slider根透明Image承担。数值标签随真实读模型更新。正常Ready正文不启用Success占位卡；Unavailable卡显示真实原因。契约JSON与生成器为可重建依据，修复菜单仅作用于SettingsForm。
+
+
+#### 滑杆区域容器增量表
+
+| 节点 | RectTransform | 布局控制 | 合同 |
+|---|---|---|---|
+| Grp_AudioSettingsMainVolumeFillArea | min(0,0) max(1,0); pivot(0.5,0.5); sizeDelta(-24,8); pos(0,12) | absolute | 填充区，无Graphic |
+| Grp_AudioSettingsMainVolumeHandleArea | min(0,0) max(1,0); pivot(0.5,0.5); sizeDelta(-24,24); pos(0,12) | absolute | 拖动区，无Graphic |
+| Grp_AudioSettingsMusicVolumeFillArea | min(0,0) max(1,0); pivot(0.5,0.5); sizeDelta(-24,8); pos(0,12) | absolute | 填充区，无Graphic |
+| Grp_AudioSettingsMusicVolumeHandleArea | min(0,0) max(1,0); pivot(0.5,0.5); sizeDelta(-24,24); pos(0,12) | absolute | 拖动区，无Graphic |
+| Grp_AudioSettingsAmbientVolumeFillArea | min(0,0) max(1,0); pivot(0.5,0.5); sizeDelta(-24,8); pos(0,12) | absolute | 填充区，无Graphic |
+| Grp_AudioSettingsAmbientVolumeHandleArea | min(0,0) max(1,0); pivot(0.5,0.5); sizeDelta(-24,24); pos(0,12) | absolute | 拖动区，无Graphic |
+| Grp_AudioSettingsMachineVolumeFillArea | min(0,0) max(1,0); pivot(0.5,0.5); sizeDelta(-24,8); pos(0,12) | absolute | 填充区，无Graphic |
+| Grp_AudioSettingsMachineVolumeHandleArea | min(0,0) max(1,0); pivot(0.5,0.5); sizeDelta(-24,24); pos(0,12) | absolute | 拖动区，无Graphic |
+| Grp_AudioSettingsUiVolumeFillArea | min(0,0) max(1,0); pivot(0.5,0.5); sizeDelta(-24,8); pos(0,12) | absolute | 填充区，无Graphic |
+| Grp_AudioSettingsUiVolumeHandleArea | min(0,0) max(1,0); pivot(0.5,0.5); sizeDelta(-24,24); pos(0,12) | absolute | 拖动区，无Graphic |
+| Grp_ControlSettingsPanSpeedFillArea | min(0,0) max(1,0); pivot(0.5,0.5); sizeDelta(-24,8); pos(0,12) | absolute | 填充区，无Graphic |
+| Grp_ControlSettingsPanSpeedHandleArea | min(0,0) max(1,0); pivot(0.5,0.5); sizeDelta(-24,24); pos(0,12) | absolute | 拖动区，无Graphic |
+| Grp_ControlSettingsRotateSpeedFillArea | min(0,0) max(1,0); pivot(0.5,0.5); sizeDelta(-24,8); pos(0,12) | absolute | 填充区，无Graphic |
+| Grp_ControlSettingsRotateSpeedHandleArea | min(0,0) max(1,0); pivot(0.5,0.5); sizeDelta(-24,24); pos(0,12) | absolute | 拖动区，无Graphic |
+| Grp_ControlSettingsZoomSpeedFillArea | min(0,0) max(1,0); pivot(0.5,0.5); sizeDelta(-24,8); pos(0,12) | absolute | 填充区，无Graphic |
+| Grp_ControlSettingsZoomSpeedHandleArea | min(0,0) max(1,0); pivot(0.5,0.5); sizeDelta(-24,24); pos(0,12) | absolute | 拖动区，无Graphic |
+
+原生截图复核补充：Slider会驱动图形两轴锚点，填充和柄必须分别处于上述8像素/24像素高的专用区域；根节点与680×56输入几何保持。新增16个区域容器，禁止直接把填充/柄挂在Slider根下。
+
+水平/垂直反转开关沿用32×32 Box及其Check子节点，分别绑定targetGraphic和graphic；Box沿用按钮蓝色，Check沿用浅色正文，开关显隐由Toggle驱动。
+
+输入命中补充：Sld_/Tgl_根各挂透明Image（raycastTarget=true），被动Img_*Handle/Box和Icon_*Check均raycastTarget=false。Slider绑定fillRect/handleRect并拥有其锚点；对应contract controlledBy=slider，固定pivot/sizeDelta/position及区域容器仍须校验。

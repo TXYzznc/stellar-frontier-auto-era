@@ -134,7 +134,7 @@ Panel_PageAlgorithmEditor [Image]
 | Txt_AlgorithmEditorDiagnoseLabel | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-16,-8); pos(0,0) | absolute | TextMeshProUGUI；切换诊断模式 |
 | Btn_AlgorithmEditorTemplate | min(0,1) max(0,1); pivot(0,1); sizeDelta(183,48)初始化; pos(0,0)初始化; LayoutElement preferred(183,48); 最终位置/尺寸由组驱动 | group | Button + Image；清除实例绑定后保存玩家模板，重名覆盖走强确认 |
 | Txt_AlgorithmEditorTemplateLabel | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-16,-8); pos(0,0) | absolute | TextMeshProUGUI；保存为模板 |
-| Panel_AlgorithmEditorNodes | min(0,1) max(0,1); pivot(0,1); sizeDelta(320,478); pos(0,-124) | absolute | Image；节点库 |
+| Panel_AlgorithmEditorNodes | min(0,0) max(0,1); pivot(0,1); sizeDelta(320,-352); pos(0,-124) | absolute | Image；节点库 |
 | Txt_AlgorithmEditorNodesHeading | min(0,1) max(0,1); pivot(0,1); sizeDelta(256,32); pos(12,-8) | absolute | TextMeshProUGUI；节点库 |
 | List_AlgorithmEditorNodes | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-52); pos(0,-18) | absolute | ScrollRect vertical=true horizontal=false；正文／真实记录 |
 | Viewport_AlgorithmEditorNodes | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | RectMask2D；裁切 |
@@ -149,9 +149,9 @@ Panel_PageAlgorithmEditor [Image]
 | Grp_AlgorithmEditorNodeSearchTextViewport | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-8); pos(0,0) | absolute | RectMask2D；textViewport，无Graphic |
 | Txt_AlgorithmEditorNodeSearchValue | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | TextMeshProUGUI；— |
 | Txt_AlgorithmEditorNodeSearchPlaceholder | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | TextMeshProUGUI；搜索节点 |
-| Panel_AlgorithmEditorCanvas | min(0,1) max(0,1); pivot(0,1); sizeDelta(1048,478); pos(336,-124) | absolute | Image；节点画布 |
+| Panel_AlgorithmEditorCanvas | min(0,0) max(1,1); pivot(0,1); sizeDelta(-680,-352); pos(336,-124) | absolute | Image；节点画布 |
 | Txt_AlgorithmEditorCanvasHeading | min(0,1) max(0,1); pivot(0,1); sizeDelta(1088,32); pos(12,-8) | absolute | TextMeshProUGUI；节点画布 |
-| Panel_AlgorithmEditorInspector | min(0,1) max(0,1); pivot(0,1); sizeDelta(328,478); pos(1400,-124) | absolute | Image；节点检查器 |
+| Panel_AlgorithmEditorInspector | min(1,0) max(1,1); pivot(1,1); sizeDelta(328,-352); pos(0,-124) | absolute | Image；节点检查器 |
 | Txt_AlgorithmEditorInspectorHeading | min(0,1) max(0,1); pivot(0,1); sizeDelta(280,32); pos(12,-8) | absolute | TextMeshProUGUI；节点检查器 |
 | List_AlgorithmEditorInspector | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-52); pos(0,-18) | absolute | ScrollRect vertical=true horizontal=false；正文／真实记录 |
 | Viewport_AlgorithmEditorInspector | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | RectMask2D；裁切 |
@@ -161,7 +161,7 @@ Panel_PageAlgorithmEditor [Image]
 | Btn_AlgorithmEditorInspectorRow | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | Button + Image；选中当前行稳定ID，更新详情；纯段落行禁用选择 |
 | Txt_AlgorithmEditorInspectorRowLabel | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(-24,32); pos(0,-8) | absolute | TextMeshProUGUI；名称：— |
 | Txt_AlgorithmEditorInspectorRowValue | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,48); pos(0,8) | absolute | TextMeshProUGUI；值、状态、时间：— |
-| Panel_AlgorithmEditorProblems | min(0,1) max(0,1); pivot(0,1); sizeDelta(1728,152); pos(0,-618) | absolute | Image；验证问题 |
+| Panel_AlgorithmEditorProblems | min(0,0) max(1,0); pivot(0,0); sizeDelta(0,152); pos(0,60) | absolute | Image；验证问题 |
 | Txt_AlgorithmEditorProblemsHeading | min(0,1) max(0,1); pivot(0,1); sizeDelta(1704,32); pos(12,-8) | absolute | TextMeshProUGUI；验证问题 |
 | List_AlgorithmEditorProblems | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-52); pos(0,-18) | absolute | ScrollRect vertical=true horizontal=false；正文／真实记录 |
 | Viewport_AlgorithmEditorProblems | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | RectMask2D；裁切 |
@@ -171,7 +171,7 @@ Panel_PageAlgorithmEditor [Image]
 | Btn_AlgorithmEditorProblemsRow | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | Button + Image；选中当前行稳定ID，更新详情；纯段落行禁用选择 |
 | Txt_AlgorithmEditorProblemsRowLabel | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(-24,32); pos(0,-8) | absolute | TextMeshProUGUI；名称：— |
 | Txt_AlgorithmEditorProblemsRowValue | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,48); pos(0,8) | absolute | TextMeshProUGUI；值、状态、时间：— |
-| Panel_AlgorithmEditorToolbar | min(0,1) max(0,1); pivot(0,1); sizeDelta(1728,72); pos(0,-36) | absolute | Image；算法状态 |
+| Panel_AlgorithmEditorToolbar | min(0,1) max(1,1); pivot(0,1); sizeDelta(0,72); pos(0,-36) | absolute | Image；算法状态 |
 | Txt_AlgorithmEditorToolbarHeading | min(0,1) max(0,1); pivot(0,1); sizeDelta(1704,32); pos(12,-8) | absolute | TextMeshProUGUI；算法状态 |
 | Grp_AlgorithmEditorLoadingState | min(0,1) max(0,1); pivot(0,1); sizeDelta(1728,734); pos(0,-36) | absolute | 无Graphic；默认inactive；区域状态互斥，不覆盖底部返回 |
 | Panel_AlgorithmEditorLoadingMessage | min(0.5,0.5) max(0.5,0.5); pivot(0.5,0.5); sizeDelta(520,120); pos(0,0) | absolute | Image；状态背景 |
@@ -194,20 +194,20 @@ Panel_PageAlgorithmEditor [Image]
 | Item_AlgorithmGraphElementTemplate | min(0,1) max(0,1); pivot(0,1); sizeDelta(240,168); pos(0,0)初始化 | group | LayoutElement + Image；默认inactive；统一图元素模板：节点或连线；位置由GraphLayoutGroup及图快照驱动 |
 | Grp_AlgorithmNode | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | 无Graphic；节点模式启用，连线模式隐藏 |
 | Btn_AlgorithmNodeSelect | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | Button + Image；选择节点；拖拽意图修改草稿图坐标 |
-| Txt_AlgorithmNodeName | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(-24,36); pos(0,-12) | absolute | TextMeshProUGUI；节点名：— |
-| List_AlgorithmInputPorts | min(0,0.5) max(0,0.5); pivot(0,0.5); sizeDelta(136,104); pos(0,-16) | absolute | ScrollRect vertical=true；端口列表 |
+| Txt_AlgorithmNodeName | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(-24,32); pos(0,-8) | absolute | TextMeshProUGUI fontSize=20；单行省略；节点名 |
+| List_AlgorithmInputPorts | min(0,0) max(0.5,1); pivot(0.5,0.5); sizeDelta(-20,-56); pos(2,-18) | absolute | ScrollRect horizontal=false vertical=false；节点高度随端口数增长，全部端口可见 |
 | Viewport_AlgorithmInputPorts | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | RectMask2D；端口裁切 |
-| Content_AlgorithmInputPorts | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred；端口按模型稳定排序 |
-| Item_AlgorithmInputPortTemplate | min(0,1) max(0,1); pivot(0,1); sizeDelta(136,28); pos(0,0)初始化 | group | LayoutElement + Image；默认inactive；LayoutElement preferred=(136,28)；端口真实数据 |
+| Content_AlgorithmInputPorts | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=2 padding=0 childControlWidth=true childControlHeight=true childForceExpandWidth=true childForceExpandHeight=false + ContentSizeFitter horizontal=Unconstrained vertical=Preferred；只驱动内容高度 |
+| Item_AlgorithmInputPortTemplate | min(0,1) max(0,1); pivot(0,1); sizeDelta(130,26)初始化; pos(0,0)初始化 | group | LayoutElement minHeight=26 preferredHeight=26 flexibleHeight=0 minWidth=0 preferredWidth=-1 flexibleWidth=1；默认inactive；宽高由父组驱动 |
 | Btn_AlgorithmInputPort | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | Button + Image；选择端口建立／断开连接；兼容性验证 |
-| Txt_AlgorithmInputPort | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | TextMeshProUGUI；端口名；类型与连接状态由彩色 socket 表达 |
-| Img_AlgorithmPortSocket | input anchor(0,0.5); output anchor(1,0.5); sizeDelta(20,20); offset(±8,0) | runtime child | AlgorithmPortSocketGraphic；由 AlgorithmNodeItem 从端口模板补齐；颜色按 Event／Boolean／Number／Enumeration／Object／Position 等类型变化，连接后增强内圈 |
-| List_AlgorithmOutputPorts | min(1,0.5) max(1,0.5); pivot(1,0.5); sizeDelta(136,104); pos(0,-16) | absolute | ScrollRect vertical=true；端口列表 |
+| Txt_AlgorithmInputPort | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-32,0); pos(10,0) | absolute | TextMeshProUGUI fontSize=18；单行省略；端口中文名称；socket表示类型与连接状态 |
+| Img_AlgorithmPortSocket | input anchor(0,0.5); output anchor(1,0.5); sizeDelta(20,20); offset(±12,0) | runtime child | AlgorithmPortSocketGraphic；由 AlgorithmNodeItem 从端口模板补齐；颜色按 Event／Boolean／Number／Enumeration／Object／Position 等类型变化，连接后增强内圈 |
+| List_AlgorithmOutputPorts | min(0.5,0) max(1,1); pivot(0.5,0.5); sizeDelta(-20,-56); pos(-2,-18) | absolute | ScrollRect horizontal=false vertical=false；节点高度随端口数增长，全部端口可见 |
 | Viewport_AlgorithmOutputPorts | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | RectMask2D；端口裁切 |
-| Content_AlgorithmOutputPorts | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred；端口按模型稳定排序 |
-| Item_AlgorithmOutputPortTemplate | min(0,1) max(0,1); pivot(0,1); sizeDelta(136,28); pos(0,0)初始化 | group | LayoutElement + Image；默认inactive；LayoutElement preferred=(136,28)；端口真实数据 |
+| Content_AlgorithmOutputPorts | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=2 padding=0 childControlWidth=true childControlHeight=true childForceExpandWidth=true childForceExpandHeight=false + ContentSizeFitter horizontal=Unconstrained vertical=Preferred；只驱动内容高度 |
+| Item_AlgorithmOutputPortTemplate | min(0,1) max(0,1); pivot(0,1); sizeDelta(130,26)初始化; pos(0,0)初始化 | group | LayoutElement minHeight=26 preferredHeight=26 flexibleHeight=0 minWidth=0 preferredWidth=-1 flexibleWidth=1；默认inactive；宽高由父组驱动 |
 | Btn_AlgorithmOutputPort | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | Button + Image；选择端口建立／断开连接；兼容性验证 |
-| Txt_AlgorithmOutputPort | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | TextMeshProUGUI；端口名；输出侧右对齐，类型与连接状态由彩色 socket 表达 |
+| Txt_AlgorithmOutputPort | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-32,0); pos(-10,0) | absolute | TextMeshProUGUI fontSize=18；单行省略；端口中文名称；socket表示类型与连接状态 |
 | AlgorithmGraphEdgeGraphic | runtime bounds + 64px padding; pivot(0.5,0.5) | runtime child | MaskableGraphic；贝塞尔曲线视觉与曲线距离命中；raycastTarget=true；不使用矩形选择代理 |
 | Txt_AlgorithmToolbarStatus | min(0,1) max(0,1); pivot(0,1); sizeDelta(1704,28); pos(12,-40) | absolute | TextMeshProUGUI；算法／机器／容量／草稿／运行版本：— |
 | Grp_AlgorithmDiagnosisActions | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-16,48); pos(0,0) | absolute | HorizontalLayoutGroup spacing=8；诊断启用时替代Grp_AlgorithmEditorActions，编辑时隐藏 |
@@ -237,12 +237,12 @@ Panel_AlgorithmEditorToolbar
 
 | 节点 | RectTransform | 控制 | 组件／展示／行为 |
 |---|---|---|---|
-| Grp_AlgorithmDraftTools | min(1,1) max(1,1); pivot(1,1); sizeDelta(360,32); pos(-12,-4) | absolute | HorizontalLayoutGroup spacing=8；无Graphic |
-| Btn_AlgorithmUndo | min(0,1) max(0,1); pivot(0,1); sizeDelta(112,32)初始化; pos(0,0)初始化 | group | Button + Image + LayoutElement preferred=(112,32)；撤销草稿；无历史时禁用 |
+| Grp_AlgorithmDraftTools | min(1,1) max(1,1); pivot(1,1); sizeDelta(360,32); pos(-12,-4) | absolute | HorizontalLayoutGroup spacing=8 childControlWidth=true childControlHeight=true childForceExpandWidth=false childForceExpandHeight=false；无Graphic |
+| Btn_AlgorithmUndo | min(0,1) max(0,1); pivot(0,1); sizeDelta(100,32)初始化; pos(0,0)初始化 | group | Button + Image + LayoutElement preferred=(100,32) minHeight=32 flexibleHeight=0；撤销草稿；无历史时禁用 |
 | Txt_AlgorithmUndoLabel | min(0,0) max(1,1); pivot(.5,.5); sizeDelta(-8,-4); pos(0,0) | absolute | TextMeshProUGUI；撤销 |
-| Btn_AlgorithmRedo | min(0,1) max(0,1); pivot(0,1); sizeDelta(112,32)初始化; pos(0,0)初始化 | group | Button + Image + LayoutElement preferred=(112,32)；重做草稿；无历史时禁用 |
+| Btn_AlgorithmRedo | min(0,1) max(0,1); pivot(0,1); sizeDelta(100,32)初始化; pos(0,0)初始化 | group | Button + Image + LayoutElement preferred=(100,32) minHeight=32 flexibleHeight=0；重做草稿；无历史时禁用 |
 | Txt_AlgorithmRedoLabel | min(0,0) max(1,1); pivot(.5,.5); sizeDelta(-8,-4); pos(0,0) | absolute | TextMeshProUGUI；重做 |
-| Btn_AlgorithmDeleteSelected | min(0,1) max(0,1); pivot(0,1); sizeDelta(112,32)初始化; pos(0,0)初始化 | group | Button + Image + LayoutElement preferred=(112,32)；删除选中节点／连线，仅修改草稿 |
+| Btn_AlgorithmDeleteSelected | min(0,1) max(0,1); pivot(0,1); sizeDelta(140,32)初始化; pos(0,0)初始化 | group | Button + Image + LayoutElement preferred=(140,32) minHeight=32 flexibleHeight=0；删除选中节点／连线，仅修改草稿 |
 | Txt_AlgorithmDeleteSelectedLabel | min(0,0) max(1,1); pivot(.5,.5); sizeDelta(-8,-4); pos(0,0) | absolute | TextMeshProUGUI；删除选中 |
 
 Txt_AlgorithmEditorToolbarHeading的宽度在本补充覆盖为400（左上位置仍(12,-8)、高32），为右侧工具留出空间。
@@ -372,3 +372,170 @@ Panel_PagePublicParameters [Image]
 ## AlgorithmEditor 视觉补充
 
 `Panel_AlgorithmEditorCanvas` 的运行时视图由 `AlgorithmGraphBackdrop` 绘制低对比网格、中心轴和角标；`AlgorithmGraphInteractionHint` 只做说明，不参与射线。`AlgorithmEditorVisualStyle` 在 Form 初始化时统一设置面板颜色、区域强调线、阴影、按钮状态和进入过渡。动态节点 Item 默认 280×176，端口行 136×28；节点 Item 自己负责悬停、按压、选中状态与状态色带，Form 不重复创建这些表现对象。
+
+## B42 工作台局部布局差异（2026-10-08）
+
+运行验收仅1920×1080。根节点Stretch且不新增CanvasScaler，沿用GF统一Canvas。独立AlgorithmNodeItem宽300；高度由AlgorithmGraphPortView计算：max(100,58+max(输入数,输出数)×28)。图坐标仍由运行视图唯一驱动，不挂LayoutGroup或ContentSizeFitter。端口内容仅Fitter驱动高度，父列表不控制该轴；端口行宽高仅父VerticalLayoutGroup驱动。
+
+以下覆盖共享外壳的本Form差异，并由ui_spec_to_contract.py自动合并；其他Form继承原共享外壳。基础契约生成后仍需运行既有独立Item/视觉接线迁移，再运行“修正算法工作台布局”；本节不声明通用生成器能够复刻历史人工视觉加工。
+
+```ui-contract-overrides
+{
+  "AlgorithmEditorForm": {
+    "Panel_Frame": {
+      "anchorMin": [
+        0,
+        0
+      ],
+      "anchorMax": [
+        1,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sizeDelta": [
+        -80,
+        -80
+      ],
+      "anchoredPosition": [
+        0,
+        0
+      ]
+    },
+    "Grp_PageHost": {
+      "anchorMin": [
+        0,
+        0
+      ],
+      "anchorMax": [
+        1,
+        1
+      ],
+      "pivot": [
+        0,
+        1
+      ],
+      "sizeDelta": [
+        -112,
+        -170
+      ],
+      "anchoredPosition": [
+        56,
+        -140
+      ]
+    },
+    "Panel_AlgorithmEditorNodes": {
+      "anchorMin": [
+        0,
+        0
+      ],
+      "anchorMax": [
+        0,
+        1
+      ],
+      "pivot": [
+        0,
+        1
+      ],
+      "sizeDelta": [
+        320,
+        -352
+      ],
+      "anchoredPosition": [
+        0,
+        -124
+      ]
+    },
+    "Panel_AlgorithmEditorCanvas": {
+      "anchorMin": [
+        0,
+        0
+      ],
+      "anchorMax": [
+        1,
+        1
+      ],
+      "pivot": [
+        0,
+        1
+      ],
+      "sizeDelta": [
+        -680,
+        -352
+      ],
+      "anchoredPosition": [
+        336,
+        -124
+      ]
+    },
+    "Panel_AlgorithmEditorInspector": {
+      "anchorMin": [
+        1,
+        0
+      ],
+      "anchorMax": [
+        1,
+        1
+      ],
+      "pivot": [
+        1,
+        1
+      ],
+      "sizeDelta": [
+        328,
+        -352
+      ],
+      "anchoredPosition": [
+        0,
+        -124
+      ]
+    },
+    "Panel_AlgorithmEditorProblems": {
+      "anchorMin": [
+        0,
+        0
+      ],
+      "anchorMax": [
+        1,
+        0
+      ],
+      "pivot": [
+        0,
+        0
+      ],
+      "sizeDelta": [
+        0,
+        152
+      ],
+      "anchoredPosition": [
+        0,
+        60
+      ]
+    },
+    "Panel_AlgorithmEditorToolbar": {
+      "anchorMin": [
+        0,
+        1
+      ],
+      "anchorMax": [
+        1,
+        1
+      ],
+      "pivot": [
+        0,
+        1
+      ],
+      "sizeDelta": [
+        0,
+        72
+      ],
+      "anchoredPosition": [
+        0,
+        -36
+      ]
+    }
+  }
+}
+```

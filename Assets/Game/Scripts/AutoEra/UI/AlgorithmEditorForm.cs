@@ -186,6 +186,8 @@ namespace AutoEra.UI
         private void SetActionGroups(bool diagnosis)
         {
             _diagnosisMode = diagnosis;
+            _graphViewInitialized = false;
+            _algorithms?.SetDiagnosticView(diagnosis);
             if (_pageRoots == null || _pageRoots.Length <= PageEditor || _pageRoots[PageEditor] == null)
             {
                 return;
@@ -196,6 +198,8 @@ namespace AutoEra.UI
             Transform diagnosisActions = FindChild(_pageRoots[PageEditor].transform, "Grp_AlgorithmDiagnosisActions");
             if (editorActions != null) editorActions.gameObject.SetActive(!diagnosis);
             if (diagnosisActions != null) diagnosisActions.gameObject.SetActive(diagnosis);
+            var draftTools = FindChild(_pageRoots[PageEditor].transform, "Grp_AlgorithmDraftTools");
+            if (draftTools != null) draftTools.gameObject.SetActive(!diagnosis);
             if (_algorithmEditorDiagnoseButton != null)
             {
                 TMPro.TMP_Text label = _algorithmEditorDiagnoseButton.transform.Find("Txt_AlgorithmEditorDiagnoseLabel")?.GetComponent<TMPro.TMP_Text>();
@@ -241,10 +245,7 @@ namespace AutoEra.UI
         {
             if (_algorithms == null || _diagnosisMode) return;
             if (_parametersFormId > 0 && (GF.UI.IsLoadingUIForm(_parametersFormId) || GF.UI.HasUIForm(_parametersFormId))) return;
-            UIParams parameters = UIParams.Create();
-            SessionOrNull?.WriteTo(parameters);
-            parameters.Set(AutoEraUiParamKeys.Request, new AlgorithmPublicParametersForm.Request(_algorithms));
-            _parametersFormId = OpenSubUIForm(UIViews.AlgorithmPublicParametersForm, 0, parameters);
+            _parametersFormId = AutoEraUiNavigator.OpenSub(this, UIViews.AlgorithmPublicParametersForm, new AlgorithmPublicParametersForm.Request(_algorithms));
         }
 
         private void OpenTemplateLibrary()
@@ -261,7 +262,7 @@ namespace AutoEra.UI
         private void OpenDiagnosisTarget()
         {
             FocusSelectedGraphObject();
-            AutoEraUiNavigator.Open(this, UIViews.FieldHudDetailForm, new AutoEraUiPageRequest(5));
+            AutoEraUiNavigator.OpenSub(this, UIViews.FieldHudDetailForm, new AutoEraUiPageRequest(5));
         }
 
         /// <summary>把当前选中节点或连线带到画布视口中心。</summary>
@@ -665,6 +666,7 @@ namespace AutoEra.UI
 
             SetState(_algorithmEditorLoadingState, false);
             SetState(_algorithmEditorEmptyState, !hasInstances);
+            SetText(FindChild(transform, "Txt_AlgorithmEditorEmptyMessage")?.GetComponent<TMP_Text>(), "尚无算法实例，请从模板库创建。");
             SetState(_algorithmEditorErrorState, false);
             // Ready 表示数据已加载，不是运行成功；全屏状态卡片会遮住画布，Ready 时必须隐藏。
             SetState(_algorithmEditorSuccessState, false);
@@ -701,6 +703,11 @@ namespace AutoEra.UI
 
             RefreshDraftToolButtons(snapshot);
             RefreshActionAvailability(snapshot);
+            SetText(FindChild(transform, "Txt_AlgorithmToolbarStatus")?.GetComponent<TMP_Text>(), snapshot.SelectedInstance.HasValue
+                ? snapshot.MachineName + " · 草稿 r" + snapshot.SelectedInstance.Value.DraftRevision
+                    + " · 运行 r" + snapshot.SelectedInstance.Value.AppliedRevision
+                    + (_diagnosisMode ? " · 查看记录 r" + snapshot.GraphRevision : string.Empty)
+                : "请选择模板并在这台机器上创建实例。");
             UpdateEditorTitle(snapshot);
         }
 
@@ -711,7 +718,7 @@ namespace AutoEra.UI
             {
                 string state = snapshot.State == UiDataState.Ready
                     ? "已加载 · 节点 " + snapshot.GraphNodeCount + " · 连线 " + (snapshot.GraphEdges == null ? 0 : snapshot.GraphEdges.Count)
-                    : snapshot.State.ToString();
+                    : snapshot.State == UiDataState.Empty ? "尚无实例" : "暂不可用";
                 title.SetText("算法编辑模式｜" + (_diagnosisMode ? "诊断" : "编辑") + " · " + state);
             }
             Debug.Log("[AutoEra][AlgorithmEditor] 快照：状态=" + snapshot.State
@@ -776,6 +783,7 @@ namespace AutoEra.UI
                 item.Logic?.Bind(node.Id, node.Label,
                     snapshot.SelectedNode.HasValue && snapshot.SelectedNode.Value.Id == node.Id,
                     OnCanvasNodeClicked, OnGraphNodeMoved);
+                item.Logic?.SetDiagnostic(node.Diagnostic);
                 AlgorithmGraphNodeDragHandler drag = instance.GetComponent<AlgorithmGraphNodeDragHandler>();
                 if (drag != null)
                 {
@@ -849,16 +857,18 @@ namespace AutoEra.UI
 
             Vector2 min = new Vector2(float.MaxValue, float.MaxValue);
             Vector2 max = new Vector2(float.MinValue, float.MinValue);
-            foreach (Vector2 position in _graphPositions.Values)
+            foreach (var pair in _graphPositions)
             {
-                min = Vector2.Min(min, position - new Vector2(140f, 88f));
-                max = Vector2.Max(max, position + new Vector2(140f, 88f));
+                var half = _nodeInstances.TryGetValue(pair.Key, out var view)
+                    ? ((RectTransform)view.transform).sizeDelta * .5f : new Vector2(150f, 50f);
+                min = Vector2.Min(min, pair.Value - half);
+                max = Vector2.Max(max, pair.Value + half);
             }
 
             Vector2 bounds = max - min;
             float width = Mathf.Max(1f, viewport.rect.width - 56f);
             float height = Mathf.Max(1f, viewport.rect.height - 56f);
-            float fitScale = Mathf.Clamp(Mathf.Min(width / Mathf.Max(1f, bounds.x), height / Mathf.Max(1f, bounds.y)), 0.68f, 1f);
+            float fitScale = Mathf.Min(1f, width / Mathf.Max(1f, bounds.x), height / Mathf.Max(1f, bounds.y));
             Vector2 center = (min + max) * 0.5f;
             _algorithmGraphContent.localScale = new Vector3(fitScale, fitScale, 1f);
             _algorithmGraphContent.anchoredPosition = -center * fitScale;
@@ -896,6 +906,7 @@ namespace AutoEra.UI
         /// <summary>渲染节点元素上的输入/输出端口列表（模板行：端口名 + 连接状态）。</summary>
         private void RenderNodePorts(GameObject instance, UiAlgorithmNodeRow node)
         {
+            AlgorithmGraphPortView.Resize(instance, node);
             RenderPortList(
                 instance, "Grp_AlgorithmNode/List_AlgorithmInputPorts/Viewport_AlgorithmInputPorts/Content_AlgorithmInputPorts",
                 "Item_AlgorithmInputPortTemplate", "Btn_AlgorithmInputPort", "Txt_AlgorithmInputPort",
@@ -909,62 +920,13 @@ namespace AutoEra.UI
         private void RenderPortList(GameObject instance, string contentPath, string templateName,
             string buttonName, string textName, IReadOnlyList<UiAlgorithmPortRow> ports, ulong nodeId, bool isInput)
         {
-            Transform contentNode = instance.transform.Find(contentPath);
-            Transform template = contentNode != null ? contentNode.Find(templateName) : null;
-            if (contentNode == null || template == null)
-            {
-                return;
-            }
-
-            // 清空旧行（保留模板自身）。
-            for (int i = contentNode.childCount - 1; i >= 0; i--)
-            {
-                Transform child = contentNode.GetChild(i);
-                if (child != template)
-                {
-                    child.gameObject.SetActive(false);
-                    Destroy(child.gameObject);
-                }
-            }
-
-            if (ports == null)
-            {
-                return;
-            }
-
-            for (int i = 0; i < ports.Count; i++)
-            {
-                UiAlgorithmPortRow port = ports[i];
-                GameObject row = Instantiate(template.gameObject, contentNode);
-                row.SetActive(true);
-                bool pending = !isInput && _pendingConnection.HasValue
-                    && _pendingConnection.Value.nodeId == nodeId && _pendingConnection.Value.port == port.Key;
-
-                Transform textTransform = row.transform.Find(buttonName + "/" + textName);
-                TMPro.TMP_Text label = textTransform != null ? textTransform.GetComponent<TMPro.TMP_Text>() : null;
-                if (label != null)
-                {
-                    // Shader Graph 风格的端口行只显示端口名；类型和连接状态由彩色 socket 表达，
-                    // 让窄节点仍然保持清晰，不把信息挤成省略号。
-                    label.SetText((pending ? "* " : string.Empty) + port.Key);
-                }
-
-                AlgorithmNodeItem nodeItem = instance.GetComponent<AlgorithmNodeItem>();
-                nodeItem?.ApplyPortVisual(row.transform, port.ValueKind, isInput, port.Connected, pending);
-
-                Transform buttonTransform = row.transform.Find(buttonName);
-                Button button = buttonTransform != null ? buttonTransform.GetComponent<Button>() : null;
-                if (button != null)
-                {
-                    _portButtons[(nodeId, port.Key, isInput)] = button.transform as RectTransform;
-                    ulong id = nodeId;
-                    string key = port.Key;
-                    button.onClick.AddListener(isInput
-                        ? (UnityEngine.Events.UnityAction)(() => OnInputPortClicked(id, key))
-                        : () => OnOutputPortClicked(id, key));
-                }
-            }
+            AlgorithmGraphPortView.Render(instance, contentPath, templateName, buttonName, textName,
+                ports, nodeId, isInput, _portButtons, _pendingConnection?.nodeId ?? 0,
+                _pendingConnection?.port, OnGraphPortClicked);
         }
+
+        private void OnGraphPortClicked(ulong node, string port, bool input)
+        { if (input) OnInputPortClicked(node, port); else OnOutputPortClicked(node, port); }
 
         /// <summary>画布节点拖拽松手 → 写回 MoveNode（新坐标）。</summary>
         private void OnGraphNodeMoved(ulong nodeId, Vector2 position)
@@ -1011,7 +973,7 @@ namespace AutoEra.UI
             if (_portButtons.TryGetValue((nodeId, portName, input), out RectTransform button) && button != null)
             {
                 Rect r = button.rect;
-                Vector3 socket = button.TransformPoint(new Vector3(input ? r.xMin + 8f : r.xMax - 8f, r.center.y));
+                Vector3 socket = button.TransformPoint(new Vector3(input ? r.xMin + 12f : r.xMax - 12f, r.center.y));
                 return _algorithmGraphContent.InverseTransformPoint(socket);
             }
 
@@ -1081,7 +1043,9 @@ namespace AutoEra.UI
             AlgorithmApplyState state = snapshot.SelectedInstance.Value.RequestState;
             // 无请求＝可应用；待确认警告＝可确认；等待安全点/应用中＝禁用等待。
             _algorithmEditorApplyButton.interactable =
-                state == AlgorithmApplyState.None || state == AlgorithmApplyState.AwaitingWarningConfirmation;
+                state == AlgorithmApplyState.AwaitingWarningConfirmation ||
+                ((snapshot.SelectedInstance.Value.AppliedRevision == 0 || snapshot.SelectedInstance.Value.DraftRevision > snapshot.SelectedInstance.Value.AppliedRevision)
+                 && state != AlgorithmApplyState.WaitingSafePoint && state != AlgorithmApplyState.Applying);
         }
 
         private static void SetText(TMPro.TMP_Text text, string value)
@@ -1101,6 +1065,7 @@ namespace AutoEra.UI
         private static IReadOnlyList<UiDetailField> BuildInspectorDetail(AlgorithmDomainSnapshot snapshot)
         {
             var list = new List<UiDetailField>(16);
+            AlgorithmDiagnosticPresentation.AppendDetail(list, snapshot);
             if (snapshot.Detail != null)
             {
                 for (int i = 0; i < snapshot.Detail.Count; i++)

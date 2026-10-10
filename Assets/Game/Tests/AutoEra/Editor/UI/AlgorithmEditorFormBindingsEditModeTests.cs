@@ -21,6 +21,60 @@ namespace AutoEra.Tests.Editor.UI
             "Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorToolbar/Grp_AlgorithmDraftTools";
 
         [Test]
+        public void Workbench_UsesInheritedCanvasAndSingleAxisSizingOwners()
+        {
+            var form = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath);
+            var root = (RectTransform)form.transform;
+            Assert.That(root.anchorMin, Is.EqualTo(Vector2.zero)); Assert.That(root.anchorMax, Is.EqualTo(Vector2.one));
+            Assert.That(form.GetComponentsInChildren<CanvasScaler>(true), Is.Empty, "Scaling belongs to GF's shared canvas.");
+            var frame = (RectTransform)root.Find("Panel_Frame");
+            Assert.That(frame.anchorMin, Is.EqualTo(Vector2.zero)); Assert.That(frame.anchorMax, Is.EqualTo(Vector2.one));
+            var tools = root.Find(ToolbarPath).GetComponent<HorizontalLayoutGroup>();
+            Assert.That(tools.childControlHeight, Is.True);
+            foreach (Transform button in tools.transform)
+            {
+                var element = button.GetComponent<LayoutElement>();
+                Assert.That(element, Is.Not.Null);
+                Assert.That(element.preferredHeight, Is.LessThanOrEqualTo(((RectTransform)tools.transform).sizeDelta.y));
+                Assert.That(button.GetComponent<ContentSizeFitter>(), Is.Null, "The toolbar owns button dimensions.");
+            }
+            var node = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Game/Prefabs/UI/Item/AlgorithmNodeItem.prefab");
+            Assert.That(node.GetComponent<ContentSizeFitter>(), Is.Null);
+            foreach (var fitter in node.GetComponentsInChildren<ContentSizeFitter>(true))
+            {
+                Assert.That(fitter.horizontalFit, Is.EqualTo(ContentSizeFitter.FitMode.Unconstrained));
+                Assert.That(fitter.verticalFit, Is.EqualTo(ContentSizeFitter.FitMode.PreferredSize));
+                var parent = fitter.transform.parent.GetComponent<HorizontalOrVerticalLayoutGroup>();
+                Assert.That(parent == null || !parent.childControlHeight, Is.True, "A parent must not also control fitted height.");
+                var group = fitter.GetComponent<VerticalLayoutGroup>();
+                Assert.That(group.childControlHeight, Is.True); Assert.That(group.childForceExpandHeight, Is.False);
+            }
+        }
+
+        [Test]
+        public void MultiPortNode_ContainsEveryPortWithoutNestedScrolling()
+        {
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Game/Prefabs/UI/Item/AlgorithmNodeItem.prefab");
+            var instance = Object.Instantiate(prefab); instance.SetActive(true);
+            try
+            {
+                var rect = (RectTransform)instance.transform;
+                rect.sizeDelta = new Vector2(AlgorithmGraphPortView.NodeWidth, AlgorithmGraphPortView.Height(2, 14));
+                foreach (var scroll in instance.GetComponentsInChildren<ScrollRect>(true))
+                {
+                    Assert.That(scroll.horizontal || scroll.vertical, Is.False);
+                    var template = scroll.content.GetChild(0).gameObject;
+                    for (int i = 0; i < 14; i++) { var row = Object.Instantiate(template, scroll.content); row.SetActive(true); }
+                    LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
+                    Assert.That(scroll.content.rect.height, Is.LessThanOrEqualTo(scroll.viewport.rect.height + .1f), "All port rows must fit the viewport.");
+                    var title = instance.GetComponentInChildren<TMPro.TMP_Text>();
+                    Assert.That(title, Is.Not.Null);
+                }
+            }
+            finally { Object.DestroyImmediate(instance); }
+        }
+
+        [Test]
         public void AllWiredFields_HaveConcreteReferences()
         {
             GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath);

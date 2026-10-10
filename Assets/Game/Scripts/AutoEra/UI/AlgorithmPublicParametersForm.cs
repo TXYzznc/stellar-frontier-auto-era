@@ -149,9 +149,11 @@ namespace AutoEra.UI
             {
                 if (_booleanValue != null) _booleanValue.SetIsOnWithoutNotify(value.Boolean);
             }
-            else if (_numberValue != null && value.Type != null && value.Type.Kind == AlgorithmValueKind.Number)
+            else if (_numberValue != null && value.Type != null)
             {
-                _numberValue.SetTextWithoutNotify(value.Number.ToString("0.##"));
+                _numberValue.contentType=TMP_InputField.ContentType.Standard;
+                _numberValue.SetTextWithoutNotify(AlgorithmParameterText.Format(value));
+                SetText(_impactBody,value.Type.Kind==AlgorithmValueKind.Position?"位置按 x, y, z 输入；坐标仍需合法停靠。":value.Type.Kind==AlgorithmValueKind.Enumeration?"物品参数输入实际物品编号，例如木材30002、矿石30003。":"修改只影响草稿；应用时进行统一校验。");
             }
         }
 
@@ -204,9 +206,11 @@ namespace AutoEra.UI
         private void OnNumberParameterEdited(string text)
         {
             if (_algorithms == null || !_algorithms.Snapshot.SelectedInstance.HasValue
-                || !_algorithms.Snapshot.SelectedNode.HasValue || !double.TryParse(text, out double number)) return;
+                || !_algorithms.Snapshot.SelectedNode.HasValue) return;
+            var type=_algorithms.Snapshot.SelectedNode.Value.Default?.Type;
+            if(!AlgorithmParameterText.TryParse(type,text,out var value)) { SetText(_impactBody,"输入格式无效：数值需有限，枚举需整数，位置需 x, y, z。"); return; }
             _algorithms.SetNodeDefault(_algorithms.Snapshot.SelectedInstance.Value.Id,
-                _algorithms.Snapshot.SelectedNode.Value.Id, AlgorithmValue.Numeric(number));
+                _algorithms.Snapshot.SelectedNode.Value.Id, value);
         }
 
         private void OnBooleanParameterEdited(bool value)
@@ -230,7 +234,7 @@ namespace AutoEra.UI
         private static string FormatParameterValue(AlgorithmValue value)
         {
             if (value == null || value.Type == null) return "—";
-            return value.Type.Kind == AlgorithmValueKind.Boolean ? (value.Boolean ? "真" : "假") : value.Number.ToString("0.##");
+            return AlgorithmParameterText.Format(value);
         }
 
         private static void SetText(TMP_Text text, string value)

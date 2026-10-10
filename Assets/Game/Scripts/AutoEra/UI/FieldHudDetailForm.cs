@@ -282,6 +282,7 @@ namespace AutoEra.UI
             ReleaseRegionReadModel();
             _regionReadModel = RegionReadModels.Create(SessionOrNull);
             _regionReadModel.Changed += OnRegionReadModelChanged;
+            ObserveProduction();
             EnsurePageRoots();
             Debug.Log($"[AutoEra][FieldHudDetail] OnOpen name={name} pageRoots={(_pageRoots == null ? -1 : _pageRoots.Length)} active={gameObject.activeInHierarchy}");
             // FieldHudForm 通过打开参数传入对象类型对应的规格页。首次打开时还没有
@@ -319,10 +320,7 @@ namespace AutoEra.UI
         private bool OpenMachineOverviewSubForm()
         {
             if (_machineOverviewFormId > 0 && (GF.UI.IsLoadingUIForm(_machineOverviewFormId) || GF.UI.HasUIForm(_machineOverviewFormId))) return true;
-            UIParams parameters = UIParams.Create();
-            SessionOrNull?.WriteTo(parameters);
-            parameters.Set(AutoEraUiParamKeys.Request, new FieldHudMachineOverviewForm.Request(this));
-            _machineOverviewFormId = OpenSubUIForm(UIViews.FieldHudMachineOverviewForm, 0, parameters);
+            _machineOverviewFormId = AutoEraUiNavigator.OpenSub(this, UIViews.FieldHudMachineOverviewForm, new FieldHudMachineOverviewForm.Request(this));
             return _machineOverviewFormId > 0;
         }
 
@@ -390,10 +388,12 @@ namespace AutoEra.UI
             Debug.Log($"[AutoEra][FieldHudDetail] 从 Grp_PageHost 回填 pageRoots={_pageRoots.Length}");
         }
 
-        private void OnRegionReadModelChanged(RegionDomainSection section) => RenderCurrentPage();
+        private void OnRegionReadModelChanged(RegionDomainSection section)
+        { if(CurrentPage==10 || CurrentPage==11) _productionDirty=true; else RenderCurrentPage(); }
 
         private void ReleaseRegionReadModel()
         {
+            ReleaseProductionObservation();
             if (_regionReadModel == null) return;
             _regionReadModel.Changed -= OnRegionReadModelChanged;
             _regionReadModel.Dispose();
@@ -409,6 +409,8 @@ namespace AutoEra.UI
 
             GameObject pageRoot = _pageRoots != null && CurrentPage < _pageRoots.Length ? _pageRoots[CurrentPage] : null;
             if (pageRoot == null) return;
+            if(CurrentPage==10 || CurrentPage==11)
+            { _productionDirty=!RenderProductionPage(pageRoot,_regionReadModel.Snapshot); return; }
 
             string contentName = PrimaryContentNames.TryGetValue(CurrentPage, out string mapped)
                 ? mapped
@@ -440,7 +442,7 @@ namespace AutoEra.UI
             SetState(loading, false);
             SetState(error, false);
             SetState(disabled, false);
-            SetState(success, hasSelection);
+            SetState(success, false);
             SetState(empty, !hasSelection);
             if (hasSelection)
             {

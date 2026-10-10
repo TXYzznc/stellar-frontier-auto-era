@@ -612,7 +612,7 @@ namespace AutoEra.Tests.Editor
         }
 
         [Test]
-        public void MachineDomain_DraftInstance_ExposesPendingBindings_AndRebindMarksBound()
+        public void MachineDomain_DraftInstance_ExposesPendingBindings_AndRejectsInventedEndpoints()
         {
             using (var fixture = new Fixture())
             {
@@ -641,7 +641,8 @@ namespace AutoEra.Tests.Editor
                     }
 
                     string key = snapshot.PendingBindings[0].BindingKey;
-                    Assert.That(machine.Rebind(instanceId, key, 90, 91, 1), Is.True, "Rebind 应成功。");
+                    Assert.That(machine.Rebind(instanceId, key, 90, 91, 1), Is.False, "不存在的组件和目标不能写入草稿绑定。");
+                    Assert.That(machine.Snapshot.CommandUnavailableReason, Is.Not.Empty);
 
                     snapshot = machine.Snapshot;
                     bool found = false;
@@ -649,13 +650,13 @@ namespace AutoEra.Tests.Editor
                     {
                         if (snapshot.PendingBindings[i].BindingKey == key)
                         {
-                            Assert.That(snapshot.PendingBindings[i].Bound, Is.True);
-                            Assert.That(snapshot.PendingBindings[i].ComponentId, Is.EqualTo(90UL));
+                            Assert.That(snapshot.PendingBindings[i].Bound, Is.False);
+                            Assert.That(snapshot.PendingBindings[i].ComponentId, Is.Zero);
                             found = true;
                         }
                     }
 
-                    Assert.That(found, Is.True, "绑定后的端点必须仍在清单里且标注已绑定。");
+                    Assert.That(found, Is.True, "被拒绝的端点仍在清单里等待真实绑定。");
                 }
             }
         }
@@ -667,7 +668,7 @@ namespace AutoEra.Tests.Editor
             {
                 fixture.InstallCore();
                 fixture.Deploy();
-                fixture.AttachRuntime();
+                RegionMachineRuntime runtime = fixture.AttachRuntime();
                 fixture.Select();
 
                 ulong instanceId;
@@ -686,11 +687,17 @@ namespace AutoEra.Tests.Editor
                     AlgorithmDomainSnapshot snapshot = machine.Snapshot;
                     for (int i = 0; i < snapshot.PendingBindings.Count; i++)
                     {
-                        Assert.That(machine.Rebind(instanceId, snapshot.PendingBindings[i].BindingKey, 90 + (ulong)i, 91, 1), Is.True);
+                        Assert.That(machine.Rebind(instanceId, snapshot.PendingBindings[i].BindingKey, 90 + (ulong)i, 91, 1), Is.False);
                     }
 
-                    // 绑定完整：激活成功，实例从「草稿」进入「已应用 r1」。
+                    // 只有数值身份而无真实硬件/提供者，仍必须拒绝。
+                    Assert.That(machine.ActivateDraft(instanceId), Is.False, "虚构绑定不能通过生产激活。");
+                    var valid = AlgorithmExecutionEditModeTests.Graph();
+                    valid.DocumentId = instanceId;
+                    Assert.That(runtime.Instances.Edit(instanceId, runtime.Instances.ReadDraft(instanceId).Revision, valid), Is.True);
+                    // 有效无绑定图经读模型委托机器级激活。
                     Assert.That(machine.ActivateDraft(instanceId), Is.True, "绑定完整草稿应能激活。");
+                    Assert.That(machine.Snapshot.CommandUnavailableReason, Is.Null, "Successful retry must clear an earlier command error.");
 
                     snapshot = machine.Snapshot;
                     Assert.That(snapshot.InstanceCount, Is.EqualTo(1));
@@ -707,7 +714,7 @@ namespace AutoEra.Tests.Editor
             {
                 fixture.InstallCore();
                 fixture.Deploy();
-                fixture.AttachRuntime();
+                RegionMachineRuntime runtime = fixture.AttachRuntime();
                 fixture.Select();
 
                 ulong instanceId;
@@ -732,15 +739,21 @@ namespace AutoEra.Tests.Editor
                     AlgorithmDomainSnapshot snapshot = machine.Snapshot;
                     for (int i = 0; i < snapshot.PendingBindings.Count; i++)
                     {
-                        Assert.That(machine.Rebind(instanceId, snapshot.PendingBindings[i].BindingKey, 90 + (ulong)i, 91, 1), Is.True);
+                        Assert.That(machine.Rebind(instanceId, snapshot.PendingBindings[i].BindingKey, 90 + (ulong)i, 91, 1), Is.False);
                     }
 
-                    Assert.That(machine.Apply(instanceId), Is.True, "绑定完整草稿 Apply 应激活。");
+                    Assert.That(machine.Apply(instanceId), Is.False, "虚构绑定 Apply 必须拒绝。");
+                    var valid = AlgorithmExecutionEditModeTests.Graph();
+                    valid.DocumentId = instanceId;
+                    Assert.That(runtime.Instances.Edit(instanceId, runtime.Instances.ReadDraft(instanceId).Revision, valid), Is.True);
+                    Assert.That(machine.Apply(instanceId), Is.True, "有效草稿 Apply 应激活。");
                     snapshot = machine.Snapshot;
                     Assert.That(snapshot.Instances[0].AppliedRevision, Is.GreaterThan(0UL));
 
-                    // 激活后再改一个绑定（草稿领先）→ Apply 走 Apply 请求。
-                    Assert.That(machine.Rebind(instanceId, snapshot.PendingBindings[0].BindingKey, 99, 91, 2), Is.True);
+                    // 激活后改数值（草稿领先）→ Apply 走应用请求。
+                    var changed = runtime.Instances.ReadDraft(instanceId);
+                    changed.Nodes[1].Default.Number = 20;
+                    Assert.That(runtime.Instances.Edit(instanceId, changed.Revision, changed), Is.True);
                     Assert.That(machine.Apply(instanceId), Is.True, "已激活实例草稿领先 Apply 应创建应用请求。");
                 }
             }
@@ -1129,6 +1142,60 @@ namespace AutoEra.Tests.Editor
         /// 用不可移动型号是刻意的：它不需要导航面，也就把「算力与传感器与移动无关」这条
         /// 顺带钉住——算法域在这台机器上同样成立。
         /// </summary>
+        [Test]
+        public void DiagnosticRecord_RetainsExecutedRevisionAndValues_WhenDraftChanges()
+        {
+            using (var fixture = new Fixture())
+            {
+                fixture.InstallCore(); fixture.Deploy(); var runtime = fixture.AttachRuntime(); fixture.Select();
+                fixture.Machine.Activate(ManagementOrigin.Field); fixture.Machine.UpdateEnvironment(true, true);
+                fixture.Machine.SetRunState(ManagementOrigin.Field, MachineRunState.Running);
+                var graph = AlgorithmExecutionEditModeTests.Graph(); graph.DocumentId = 700;
+                runtime.Instances.AddDraft(graph); Assert.That(runtime.TryActivateDraft(700, out _), Is.True);
+                using (var model = AlgorithmReadModels.Create(fixture.Session()))
+                {
+                    fixture.Advance(10);
+                    Assert.That(model.Snapshot.LatestRun.HasValue, Is.True, "Run notification must update the UI without a manual Refresh.");
+                    var record = runtime.Instances.ReadHistory(700)[0];
+                    var old = record.CopyExecutedDocument(); old.Nodes.Clear();
+                    Assert.That(record.CopyExecutedDocument().Nodes, Is.Not.Empty, "Returned documents must not mutate recorded history.");
+                    var draft = runtime.Instances.ReadDraft(700); draft.Nodes[1].Default.Number = 42;
+                    Assert.That(runtime.Instances.Edit(700, draft.Revision, draft), Is.True);
+                    Assert.That(model.Snapshot.GraphRevision, Is.EqualTo(2));
+                    foreach (var node in model.Snapshot.GraphNodes) Assert.That(node.Diagnostic, Is.EqualTo(UiAlgorithmNodeDiagnostic.None));
+                    model.SetDiagnosticView(true);
+                    Assert.That(model.Snapshot.GraphRevision, Is.EqualTo(record.Revision));
+                    Assert.That(model.Snapshot.LatestRun.Value.WorldMilliseconds, Is.EqualTo(record.CopyTrigger().Time));
+                    Assert.That(model.SelectNode(2), Is.True);
+                    Assert.That(model.Snapshot.NodeDetail, Has.Some.Matches<UiDetailField>(f => f.Label == "当时值"));
+                    model.SetDiagnosticView(false);
+                    Assert.That(model.Snapshot.NodeDetail, Has.None.Matches<UiDetailField>(f => f.Label == "当时值"));
+                }
+            }
+        }
+
+        [Test]
+        public void InvalidDraftApply_PreservesRunningRevisionAndReportsReadableReason()
+        {
+            using (var fixture = new Fixture())
+            {
+                fixture.InstallCore(); fixture.Deploy(); var runtime = fixture.AttachRuntime(); fixture.Select();
+                var graph = AlgorithmExecutionEditModeTests.Graph(); graph.DocumentId = 700;
+                runtime.Instances.AddDraft(graph); Assert.That(runtime.TryActivateDraft(700, out _), Is.True);
+                using (var model = AlgorithmReadModels.Create(fixture.Session()))
+                {
+                    Assert.That(model.Connect(700, 2, "value", 3, "event"), Is.False, "Number cannot connect to Event.");
+                    var draft = runtime.Instances.ReadDraft(700); draft.Edges.RemoveAll(e => e.To == 3 && e.Input == "event");
+                    draft.Edges.Add(new AlgorithmEdge { From = 2, Output = "value", To = 3, Input = "event" });
+                    Assert.That(runtime.Instances.Edit(700, draft.Revision, draft), Is.True);
+                    Assert.That(model.Apply(700), Is.True, "A request is created; its validation result must be Rejected.");
+                    Assert.That(model.Snapshot.SelectedInstance.Value.AppliedRevision, Is.EqualTo(1));
+                    Assert.That(model.Snapshot.SelectedInstance.Value.RequestState, Is.EqualTo(AlgorithmApplyState.Rejected));
+                    Assert.That(model.Snapshot.Issues, Has.Some.Matches<UiAlgorithmIssueRow>(r => r.Label.Contains("兼容")));
+                }
+            }
+        }
+
         private sealed class Fixture : System.IDisposable
         {
             private readonly RegionMachineRuntimeRegistry _runtimes;
@@ -1176,6 +1243,7 @@ namespace AutoEra.Tests.Editor
             public void Select() => Assert.That(Region.Select(Machine.Id, false), Is.True);
 
             public AutoEraUiSession Session() => AutoEraUiSession.ForWorld(Context, World, Region, null, _runtimes);
+            public void Advance(long now) => _runtimes.AdvanceWorldStep(now, 1);
 
             public void Dispose()
             {

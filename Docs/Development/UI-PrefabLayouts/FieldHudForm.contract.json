@@ -1,77 +1,78 @@
 {
-  "schemaVersion": 3,
-  "form": "FieldHudForm",
-  "namespace": "AutoEra.UI",
-  "prefabPath": "Assets/Game/Prefabs/UI/Hud/FieldHudForm.prefab",
-  "scriptPath": "Assets/Game/Scripts/AutoEra/UI/FieldHudForm.cs",
-  "referenceResolution": [
-    1920,
-    1080
+ "schemaVersion": 3,
+ "form": "FieldHudForm",
+ "namespace": "AutoEra.UI",
+ "prefabPath": "Assets/Game/Prefabs/UI/Hud/FieldHudForm.prefab",
+ "scriptPath": "Assets/Game/Scripts/AutoEra/UI/FieldHudForm.cs",
+ "referenceResolution": [
+  1920,
+  1080
+ ],
+ "root": {
+  "name": "FieldHudForm",
+  "components": [
+   {
+    "type": "FieldHudForm"
+   },
+   {
+    "type": "CanvasGroup",
+    "alpha": 1.0,
+    "interactable": true,
+    "blocksRaycasts": true
+   }
   ],
-  "root": {
-    "name": "FieldHudForm",
-    "components": [
-      {
-        "type": "FieldHudForm"
-      },
-      {
-        "type": "CanvasGroup",
-        "alpha": 1.0,
-        "interactable": true,
-        "blocksRaycasts": true
-      }
-    ],
+  "anchorMin": [
+   0.0,
+   0.0
+  ],
+  "anchorMax": [
+   1.0,
+   1.0
+  ],
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "sizeDelta": [
+   0.0,
+   0.0
+  ],
+  "anchoredPosition": [
+   0.0,
+   0.0
+  ],
+  "children": [
+   {
+    "name": "Grp_PageHost",
+    "components": [],
     "anchorMin": [
-      0.0,
-      0.0
+     0.0,
+     0.0
     ],
     "anchorMax": [
-      1.0,
-      1.0
+     1.0,
+     1.0
     ],
     "pivot": [
-      0.5,
-      0.5
+     0.5,
+     0.5
     ],
     "sizeDelta": [
-      0.0,
-      0.0
+     0.0,
+     0.0
     ],
     "anchoredPosition": [
-      0.0,
-      0.0
+     0.0,
+     0.0
     ],
-    "children": [
-      {
-        "name": "Grp_PageHost",
-        "components": [],
-        "anchorMin": [
-          0.0,
-          0.0
-        ],
-        "anchorMax": [
-          1.0,
-          1.0
-        ],
-        "pivot": [
-          0.5,
-          0.5
-        ],
-        "sizeDelta": [
-          0.0,
-          0.0
-        ],
-        "anchoredPosition": [
-          0.0,
-          0.0
-        ],
-        "children": []
-      }
-    ]
-  },
-  "bindings": [],
-  "scalars": [],
-  "scriptFields": [],
-  "generatedFrom": "b39 FieldHud router decomposition",
-  "formArrays": {}
+    "children": []
+   }
+  ]
+ },
+ "bindings": [],
+ "scalars": [],
+ "scriptFields": [],
+ "generatedFrom": "b39 FieldHud router decomposition",
+ "formArrays": {},
+ "layoutMigration": "b52: family-specific structure rollout; preserve serialized bindings and functional page routes"
 }

@@ -106,6 +106,18 @@ namespace AutoEra.UI
             // 能源系统详情是二级页（顶栏没有它的一级入口）：总览页的「查看能源」是它的入口。
             if (_hubOverviewEnergyButton != null)
                 _hubOverviewEnergyButton.onClick.AddListener(() => ShowHubPage(PageEnergy));
+            BindOverviewNavigation("Btn_HubOverviewObjects", PageObjects);
+            BindOverviewNavigation("Btn_HubOverviewTasks", PageTasks);
+            BindOverviewNavigation("Btn_HubOverviewStats", PageStatistics);
+            var supply = transform.Find("Panel_Frame/Grp_PageHost/Panel_PageHubOverview/Grp_HubOverviewActions/Btn_HubOverviewSupply");
+            if (supply != null && supply.TryGetComponent(out Button supplyButton)) supplyButton.interactable = false;
+        }
+
+        private void BindOverviewNavigation(string name, int page)
+        {
+            var target = transform.Find("Panel_Frame/Grp_PageHost/Panel_PageHubOverview/Grp_HubOverviewActions/" + name);
+            if (target != null && target.TryGetComponent(out Button button))
+                button.onClick.AddListener(() => ShowHubPage(page));
         }
 
         protected override void OnAutoEraOpen()
@@ -257,10 +269,7 @@ namespace AutoEra.UI
             if (_energyReadModel == null) return false;
             if (_energyFormId > 0 && (GF.UI.IsLoadingUIForm(_energyFormId) || GF.UI.HasUIForm(_energyFormId)))
                 return true;
-            UIParams parameters = UIParams.Create();
-            SessionOrNull?.WriteTo(parameters);
-            parameters.Set(AutoEraUiParamKeys.Request, new BaseCommandEnergyForm.Request(_energyReadModel));
-            _energyFormId = OpenSubUIForm(UIViews.BaseCommandEnergyForm, 0, parameters);
+            _energyFormId = AutoEraUiNavigator.OpenSub(this, UIViews.BaseCommandEnergyForm, new BaseCommandEnergyForm.Request(_energyReadModel));
             return _energyFormId > 0;
         }
 

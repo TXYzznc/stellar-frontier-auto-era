@@ -89,7 +89,7 @@ namespace AutoEra.UI
                 : "已应用 r" + AppliedRevision + (HasUnappliedDraft ? "（未应用）" : string.Empty))
             + " ／ 草稿 r" + DraftRevision
             + " ／ 逻辑算力 " + LogicCost
-            + (RequestState == AlgorithmApplyState.None ? string.Empty : " ／ 请求 " + RequestState);
+            + (RequestState == AlgorithmApplyState.None ? string.Empty : " ／ " + AlgorithmUiMessages.ApplyState(RequestState, RequestReason));
     }
 
     /// <summary>图节点在最近一次运行里的执行状态（诊断读路径）。</summary>
@@ -149,22 +149,34 @@ namespace AutoEra.UI
     public readonly struct UiAlgorithmRunRow
     {
         public UiAlgorithmRunRow(ulong runId, string error, ulong failedNode, int cost,
-            IReadOnlyDictionary<ulong, AlgorithmValue> nodeValues = null)
+            IReadOnlyDictionary<ulong, AlgorithmValue> nodeValues = null, AlgorithmTrigger trigger = null)
         {
             RunId = runId;
             Error = error;
             FailedNode = failedNode;
             Cost = cost;
             NodeValues = nodeValues;
+            Revision = trigger?.Revision ?? 0; TaskId = trigger?.TaskId ?? 0;
+            WorldMilliseconds = trigger?.Time ?? 0; SourceId = trigger?.SourceId ?? 0;
+            SourceTargetId = trigger?.SourceTargetId ?? 0; BindingGeneration = trigger?.BindingGeneration ?? 0;
+            ResultPort = trigger?.Port; Inputs = trigger?.Copy().Inputs;
         }
 
         public ulong RunId { get; }
         public string Error { get; }
         public ulong FailedNode { get; }
         public int Cost { get; }
+        public ulong Revision { get; }
+        public ulong TaskId { get; }
+        public long WorldMilliseconds { get; }
+        public ulong SourceId { get; }
+        public ulong SourceTargetId { get; }
+        public ulong BindingGeneration { get; }
+        public string ResultPort { get; }
+        public IReadOnlyDictionary<string, AlgorithmValue> Inputs { get; }
         public bool Succeeded => string.IsNullOrEmpty(Error);
         public string Label => "运行 #" + RunId;
-        public string Status => (Succeeded ? "正常" : "错误：" + Error) + " ／ 瞬时成本 " + Cost;
+        public string Status => (Succeeded ? "正常" : AlgorithmUiMessages.Reason(Error)) + " ／ r" + Revision + " ／ 成本 " + Cost;
 
         /// <summary>最近一次运行里各值节点的「当时值」快照（节点 Id → 主输出值），供诊断按值细节。</summary>
         public IReadOnlyDictionary<ulong, AlgorithmValue> NodeValues { get; }
@@ -277,6 +289,9 @@ namespace AutoEra.UI
                 case AlgorithmNodeKind.Hysteresis: return "滞回";
                 case AlgorithmNodeKind.Log: return "日志";
                 case AlgorithmNodeKind.Cargo: return "货舱";
+                case AlgorithmNodeKind.GridFilter: return "网格筛选";
+                case AlgorithmNodeKind.GridSelect: return "网格选择";
+                case AlgorithmNodeKind.GridRead: return "网格读取";
                 default: return kind.ToString();
             }
         }
@@ -299,6 +314,9 @@ namespace AutoEra.UI
                 case AlgorithmNodeKind.Variable:
                 case AlgorithmNodeKind.SetVariable:
                 case AlgorithmNodeKind.Cargo:
+                case AlgorithmNodeKind.GridFilter:
+                case AlgorithmNodeKind.GridSelect:
+                case AlgorithmNodeKind.GridRead:
                     return "状态";
                 case AlgorithmNodeKind.Startup:
                 case AlgorithmNodeKind.Branch:
@@ -335,7 +353,7 @@ namespace AutoEra.UI
         public ulong NodeId { get; }
         public string PortId { get; }
         public bool IsError => Severity == AlgorithmIssueSeverity.Error;
-        public string Label => (IsError ? "错误" : "警告") + " · " + Code;
+        public string Label => (IsError ? "错误" : "警告") + " · " + AlgorithmUiMessages.Reason(Code);
         public string Status =>
             "节点 #" + (NodeId == 0 ? "—" : NodeId.ToString())
             + (string.IsNullOrEmpty(PortId) ? string.Empty : " ／ 端口 " + PortId);
@@ -371,7 +389,8 @@ namespace AutoEra.UI
                 : (string.IsNullOrEmpty(Action) ? "效应器" : Action);
 
         public string Label => (Kind == AlgorithmNodeKind.Input ? "传感器" : "效应器") + " · " + BindingKey;
-        public string Status => Bound ? "已绑定 #" + ComponentId + " → #" + TargetId : "待绑定";
+        public string Status => Bound ? "已绑定 #" + ComponentId + " → #" + TargetId
+            : ComponentId != 0 ? "已选组件 #" + ComponentId + "，请选择目标" : "待绑定";
     }
 
     /// <summary>机器上已安装、可被算法端点绑定的一行候选组件（传感器/效应器）。</summary>
@@ -420,7 +439,8 @@ namespace AutoEra.UI
             IReadOnlyList<UiAlgorithmComponentCandidate> componentCandidates = null,
             IReadOnlyList<UiAlgorithmNodeKindRow> nodeKinds = null,
             IReadOnlyList<UiAlgorithmRunRow> runs = null,
-            int selectedRunIndex = -1)
+            int selectedRunIndex = -1, bool diagnosticView = false, ulong graphRevision = 0,
+            string commandUnavailableReason = null)
         {
             State = state;
             UnavailableReason = unavailableReason;
@@ -443,6 +463,7 @@ namespace AutoEra.UI
             NodeKinds = nodeKinds ?? AlgorithmNodeLibrary.Rows;
             Runs = runs;
             SelectedRunIndex = selectedRunIndex;
+            DiagnosticView = diagnosticView; GraphRevision = graphRevision; CommandUnavailableReason = commandUnavailableReason;
         }
 
         public UiDataState State { get; }
@@ -510,6 +531,9 @@ namespace AutoEra.UI
         public UiAlgorithmRunRow? LatestRun { get; }
         public IReadOnlyList<UiAlgorithmRunRow> Runs { get; }
         public int SelectedRunIndex { get; }
+        public bool DiagnosticView { get; }
+        public ulong GraphRevision { get; }
+        public string CommandUnavailableReason { get; }
 
         /// <summary>选中实例草稿的绑定端点（Input/Effector 的 BindingKey 与绑定状态）；无实例/库页为 null。</summary>
         public IReadOnlyList<UiAlgorithmBindingRow> PendingBindings { get; }
@@ -625,9 +649,8 @@ namespace AutoEra.UI
         bool Rebind(ulong instanceId, string bindingKey, ulong componentId, ulong targetId, ulong generation);
 
         /// <summary>
-        /// 把「绑定完整且校验通过」的草稿实例编译为运行时（写路径「激活」）。机器域读草稿 →
-        /// <c>TryCompile</c>（真实算力容量，template:false）→ 构造运行时（adapter 作 sink）→
-        /// <c>Adapter.Attach</c> → <c>CompileDraft</c>；库页/不可用域返回 false。
+        /// 把有效草稿交给机器运行时原子激活；读模型不创建、绑定或拥有运行实例。
+        /// 机器级入口校验实际绑定、硬件修订和剩余逻辑容量；库页/不可用域返回false。
         /// </summary>
         bool ActivateDraft(ulong instanceId);
 
@@ -668,6 +691,8 @@ namespace AutoEra.UI
         bool ResetNodeDefault(ulong instanceId, ulong nodeId);
         bool SelectPreviousRun();
         bool SelectNextRun();
+        bool SetDiagnosticView(bool enabled);
+        IReadOnlyList<UiAlgorithmTargetCandidate> ReadBindingTargets(ulong componentId);
     }
 
     /// <summary>
@@ -704,6 +729,9 @@ namespace AutoEra.UI
         private UiAlgorithmRunRow? _latestRun;
         private readonly List<UiAlgorithmRunRow> _runs = new List<UiAlgorithmRunRow>(8);
         private int _selectedRunIndex = -1;
+        private bool _diagnosticView, _followLatestRun = true;
+        private ulong _selectedRunId, _graphRevision;
+        private string _commandUnavailableReason;
         private bool _autoSelectPending = true;
         private bool _disposed;
 
@@ -760,6 +788,7 @@ namespace AutoEra.UI
             _autoSelectPending = false;
             _selectedNodeIndex = -1;
             _selectedRunIndex = -1;
+            _followLatestRun = true; _selectedRunId = 0;
             Publish(AlgorithmDomainSection.Detail);
             return true;
         }
@@ -802,7 +831,7 @@ namespace AutoEra.UI
         /// <summary>按 BindingKey 更新草稿绑定；实例不存在或修订不匹配时返回 false。</summary>
         public bool Rebind(ulong instanceId, string bindingKey, ulong componentId, ulong targetId, ulong generation)
         {
-            if (_disposed || _instances == null)
+            if (_disposed || _instances == null || !_instances.HasInstance(instanceId))
             {
                 return false;
             }
@@ -813,32 +842,35 @@ namespace AutoEra.UI
                 return false;
             }
 
+            var node = draft.Nodes.Find(n => !n.Deleted && n.BindingKey == bindingKey &&
+                (n.Kind == AlgorithmNodeKind.Input || n.Kind == AlgorithmNodeKind.Effector));
+            if (node == null) return false;
+            var kind = node.Kind == AlgorithmNodeKind.Input ? HardwareKind.Sensor : HardwareKind.Effector;
+            bool installed = false;
+            for (int slot = 0; slot < Runtime.Context.Machine.Definition.SlotCount(kind); slot++)
+            {
+                var component = Runtime.Context.Machine.GetComponent(kind, slot);
+                if (component?.Id.Value == componentId && (kind != HardwareKind.Effector || component.Definition.HasBehavior)) { installed = true; break; }
+            }
+            if (!installed) { _commandUnavailableReason = "请选择机器上已安装的对应组件。"; Publish(); return false; }
+            if (targetId != 0)
+            {
+                if (!Runtime.Hardware.TryBindEndpoint(new PersistentId(componentId), new PersistentId(targetId), out generation, out var reason))
+                { _commandUnavailableReason = reason; Publish(); return false; }
+            }
+            else generation = 0;
+            _commandUnavailableReason = null;
             return _instances.Rebind(instanceId, draft.Revision, bindingKey, componentId, targetId, generation);
         }
 
-        /// <summary>把校验通过的草稿编译为运行时并激活；校验失败、域缺 adapter/算力池、或已有活动实例时返回 false。</summary>
+        /// <summary>委托机器级入口激活草稿；失败不改变旧实例及其归属。</summary>
         public bool ActivateDraft(ulong instanceId)
         {
-            if (_disposed || _instances == null || Runtime.Adapter == null || Runtime.Adapter.HasRuntime ||
-                Runtime.Context == null || Runtime.Context.Compute == null)
-            {
-                return false;
-            }
-
-            AlgorithmDocument draft = _instances.ReadDraft(instanceId);
-            if (draft == null)
-            {
-                return false;
-            }
-
-            if (!AlgorithmValidator.TryCompile(draft, Runtime.Context.Compute.LogicCapacity, out AlgorithmPlan plan, out _, false))
-            {
-                return false;
-            }
-
-            var runtime = new AlgorithmRuntime(new PersistentId(instanceId), plan, Runtime.Context.Compute, Runtime.Adapter);
-            Runtime.Adapter.Attach(runtime);
-            return _instances.CompileDraft(instanceId, runtime);
+            if (_disposed || Runtime == null) return false;
+            bool result = Runtime.TryActivateDraft(instanceId, out var reason);
+            _commandUnavailableReason = result ? null : AlgorithmUiMessages.Reason(reason);
+            Publish();
+            return result;
         }
 
         /// <summary>统一应用：草稿实例首次应用＝激活；已激活实例且草稿领先＝Apply；无事可做返回 false。</summary>
@@ -870,7 +902,9 @@ namespace AutoEra.UI
                 return ActivateDraft(instanceId);
             }
 
-            return _instances.Apply(instanceId, info.Value.DraftRevision, info.Value.AppliedRevision, out _);
+            bool requested = Runtime.TryApplyDraft(instanceId, info.Value.DraftRevision, info.Value.AppliedRevision, out var request);
+            _commandUnavailableReason = requested ? AlgorithmUiMessages.Reason(request.Reason) : "草稿或应用状态已变化，请检查后重试。";
+            Publish(); return requested;
         }
 
         /// <summary>确认应用请求的警告；实例不存在或请求状态不符时返回 false。</summary>
@@ -989,6 +1023,7 @@ namespace AutoEra.UI
         {
             if (_runs.Count == 0 || _selectedRunIndex <= 0) return false;
             _selectedRunIndex--;
+            _followLatestRun = false; _selectedRunId = _runs[_selectedRunIndex].RunId;
             Publish(AlgorithmDomainSection.Detail);
             return true;
         }
@@ -997,8 +1032,24 @@ namespace AutoEra.UI
         {
             if (_runs.Count == 0 || _selectedRunIndex >= _runs.Count - 1) return false;
             _selectedRunIndex++;
+            _selectedRunId = _runs[_selectedRunIndex].RunId; _followLatestRun = _selectedRunIndex == _runs.Count - 1;
             Publish(AlgorithmDomainSection.Detail);
             return true;
+        }
+
+        public bool SetDiagnosticView(bool enabled)
+        {
+            if (_disposed) return false;
+            if (_diagnosticView == enabled) return true;
+            _diagnosticView = enabled; _selectedNodeIndex = -1; Publish(AlgorithmDomainSection.Detail); return true;
+        }
+        public IReadOnlyList<UiAlgorithmTargetCandidate> ReadBindingTargets(ulong componentId)
+        {
+            var result = new List<UiAlgorithmTargetCandidate>();
+            if (_disposed) return result;
+            foreach (var item in Runtime.Hardware.ReadBindingTargets(new PersistentId(componentId)))
+                result.Add(new UiAlgorithmTargetCandidate(item.Id.Value, item.Name, item.PublicStatus));
+            return result;
         }
 
         public void Dispose()
@@ -1077,7 +1128,9 @@ namespace AutoEra.UI
                 latestRun: _latestRun,
                 pendingBindings: _bindings.ToArray(),
                 componentCandidates: _componentCandidates.ToArray(),
-                runs: _runs.ToArray(), selectedRunIndex: _selectedRunIndex);
+                runs: _runs.ToArray(), selectedRunIndex: _selectedRunIndex,
+                diagnosticView: _diagnosticView, graphRevision: _graphRevision,
+                commandUnavailableReason: _commandUnavailableReason ?? Runtime.Adapter.LastCommandUnavailableReason);
 
             Changed?.Invoke(section);
         }
@@ -1146,9 +1199,7 @@ namespace AutoEra.UI
                 _detail.Add(new UiDetailField("草稿版本", "r" + row.DraftRevision + (row.HasUnappliedDraft ? "（未应用）" : "（与已应用一致）")));
                 _detail.Add(new UiDetailField("已保存版本", "r" + row.SavedRevision));
                 _detail.Add(new UiDetailField("逻辑算力", row.LogicCost.ToString()));
-                _detail.Add(new UiDetailField("应用请求", row.RequestState == AlgorithmApplyState.None
-                    ? "无"
-                    : row.RequestState + (string.IsNullOrEmpty(row.RequestReason) ? string.Empty : "：" + row.RequestReason)));
+                _detail.Add(new UiDetailField("应用请求", AlgorithmUiMessages.ApplyState(row.RequestState, row.RequestReason)));
                 return;
             }
 
@@ -1188,15 +1239,18 @@ namespace AutoEra.UI
             var executedPath = new HashSet<ulong>();
             ulong failedNode = 0;
             AlgorithmRunRecord[] history = _instances.ReadHistory(_rows[_selectedIndex].Id);
+            AlgorithmDocument captured = null;
             if (history != null && history.Length > 0)
             {
                 for (int i = 0; i < history.Length; i++)
                 {
                     AlgorithmRunRecord record = history[i];
-                    _runs.Add(new UiAlgorithmRunRow(record.RunId, record.Error, record.FailedNode, record.Cost, record.CopyNodeValues()));
+                    _runs.Add(new UiAlgorithmRunRow(record.RunId, record.Error, record.FailedNode, record.Cost, record.CopyNodeValues(), record.CopyTrigger()));
                 }
-                if (_selectedRunIndex < 0 || _selectedRunIndex >= _runs.Count) _selectedRunIndex = _runs.Count - 1;
+                _selectedRunIndex = _followLatestRun ? _runs.Count - 1 : _runs.FindIndex(r => r.RunId == _selectedRunId);
+                if (_selectedRunIndex < 0) _selectedRunIndex = _runs.Count - 1;
                 AlgorithmRunRecord latest = history[_selectedRunIndex];
+                _selectedRunId = latest.RunId; captured = latest.CopyExecutedDocument();
                 failedNode = latest.FailedNode;
                 ulong[] path = latest.CopyPath();
                 for (int i = 0; i < path.Length; i++)
@@ -1205,8 +1259,13 @@ namespace AutoEra.UI
                 }
 
                 _latestRun = new UiAlgorithmRunRow(latest.RunId, latest.Error, latest.FailedNode, latest.Cost,
-                    latest.CopyNodeValues());
+                    latest.CopyNodeValues(), latest.CopyTrigger());
             }
+
+            // 编辑看草稿，诊断看选定记录的不可变执行计划；旧修订不能标记当前草稿为已执行。
+            if (_diagnosticView && captured != null) draft = captured;
+            else if (captured != null && captured.Revision != draft.Revision) { executedPath.Clear(); failedNode = 0; }
+            _graphRevision = draft.Revision;
 
             var nodesById = new Dictionary<ulong, AlgorithmNode>();
             if (draft.Nodes != null)
@@ -1279,10 +1338,10 @@ namespace AutoEra.UI
                     }
 
                     AlgorithmBinding binding = draft.Bindings.Find(b => b != null && b.Key == node.BindingKey);
-                    bool bound = binding != null && binding.ComponentId != 0;
+                    bool bound = binding != null && binding.ComponentId != 0 && binding.TargetId != 0;
                     _bindings.Add(new UiAlgorithmBindingRow(
                         node.BindingKey, node.Kind, node.Field, node.Action.ToString(),
-                        bound, bound ? binding.ComponentId : 0, bound ? binding.TargetId : 0));
+                        bound, binding?.ComponentId ?? 0, binding?.TargetId ?? 0));
                 }
             }
 
@@ -1383,7 +1442,7 @@ namespace AutoEra.UI
             }
 
             // 诊断按值细节：最近运行里该节点的当时值（与「默认值」当前值对比）。
-            if (_latestRun.HasValue && _latestRun.Value.NodeValues != null
+            if (_latestRun.HasValue && (_diagnosticView || _graphRevision == _latestRun.Value.Revision) && _latestRun.Value.NodeValues != null
                 && _latestRun.Value.NodeValues.TryGetValue(node.Id, out AlgorithmValue thenValue))
             {
                 _nodeDetail.Add(new UiDetailField("当时值", FormatValue(thenValue)));
@@ -1599,6 +1658,8 @@ namespace AutoEra.UI
         public bool ResetNodeDefault(ulong instanceId, ulong nodeId) => false;
         public bool SelectPreviousRun() => false;
         public bool SelectNextRun() => false;
+        public bool SetDiagnosticView(bool enabled) => false;
+        public IReadOnlyList<UiAlgorithmTargetCandidate> ReadBindingTargets(ulong componentId) => Array.Empty<UiAlgorithmTargetCandidate>();
 
         public void Dispose()
         {
@@ -1690,7 +1751,7 @@ namespace AutoEra.UI
 
         /// <summary>机器运行时存在、但还没有任何算法实例。</summary>
         public const string NoInstanceReason =
-            "这台机器还没有算法实例：实例由模板实例化创建，而「模板 → 实例」的创建入口尚未接线。";
+            "这台机器还没有算法实例，请打开模板库选择模板并创建实例。";
 
         /// <summary>
         /// 建立算法读模型。
@@ -1838,6 +1899,8 @@ namespace AutoEra.UI
         public bool ResetNodeDefault(ulong instanceId, ulong nodeId) => false;
         public bool SelectPreviousRun() => false;
         public bool SelectNextRun() => false;
+        public bool SetDiagnosticView(bool enabled) => false;
+        public IReadOnlyList<UiAlgorithmTargetCandidate> ReadBindingTargets(ulong componentId) => Array.Empty<UiAlgorithmTargetCandidate>();
 
         public void Dispose() { }
     }

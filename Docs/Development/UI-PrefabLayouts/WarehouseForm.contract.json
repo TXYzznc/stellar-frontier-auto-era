@@ -108,12 +108,12 @@
      0.5
     ],
     "sizeDelta": [
-     1600.0,
-     900.0
+     1760,
+     900
     ],
     "anchoredPosition": [
-     0.0,
-     0.0
+     0,
+     0
     ],
     "children": [
      {
@@ -272,24 +272,24 @@
          }
         ],
         "anchorMin": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchorMax": [
-         1.0,
-         1.0
+         1,
+         1
         ],
         "pivot": [
          0.5,
          0.5
         ],
         "sizeDelta": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchoredPosition": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "children": [
          {
@@ -631,35 +631,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.08,
+             0.15,
+             0.12,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           565.0,
-           634.0
+           430,
+           570
           ],
           "anchoredPosition": [
-           0.0,
-           -36.0
+           0,
+           -42
           ],
           "children": [
            {
@@ -765,9 +765,11 @@
                 "components": [
                  {
                   "type": "VerticalLayoutGroup",
-                  "spacing": 8.0,
+                  "spacing": 4.0,
                   "ChildForceExpandWidth": true,
-                  "ChildForceExpandHeight": false
+                  "ChildForceExpandHeight": false,
+                  "ChildControlWidth": true,
+                  "ChildControlHeight": true
                  },
                  {
                   "type": "ContentSizeFitter",
@@ -802,7 +804,7 @@
                    {
                     "type": "TextMeshProUGUI",
                     "text": "物品类别",
-                    "fontSize": 22.0,
+                    "fontSize": 16.0,
                     "color": [
                      0.941176,
                      0.94902,
@@ -815,7 +817,10 @@
                    },
                    {
                     "type": "LayoutElement",
-                    "minHeight": 120.0
+                    "minHeight": 36.0,
+                    "preferredHeight": 36.0,
+                    "flexibleHeight": 0.0,
+                    "preferredWidth": 541.0
                    }
                   ],
                   "controlledBy": "group",
@@ -856,7 +861,12 @@
                     "preserveAspect": false
                    },
                    {
-                    "type": "LayoutElement"
+                    "type": "LayoutElement",
+                    "minHeight": 44.0,
+                    "preferredHeight": 44.0,
+                    "preferredWidth": -1.0,
+                    "flexibleWidth": 1.0,
+                    "flexibleHeight": 0.0
                    }
                   ],
                   "controlledBy": "group",
@@ -865,16 +875,16 @@
                    1.0
                   ],
                   "anchorMax": [
-                   0.0,
+                   1.0,
                    1.0
                   ],
                   "pivot": [
-                   0.0,
+                   0.5,
                    1.0
                   ],
                   "sizeDelta": [
-                   541.0,
-                   104.0
+                   0.0,
+                   44.0
                   ],
                   "anchoredPosition": [
                    0.0,
@@ -930,7 +940,7 @@
                        {
                         "type": "TextMeshProUGUI",
                         "text": "名称：—",
-                        "fontSize": 22.0,
+                        "fontSize": 16.0,
                         "color": [
                          0.941176,
                          0.94902,
@@ -939,28 +949,31 @@
                         ],
                         "raycastTarget": false,
                         "wordWrap": true,
-                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                        "alignment": "MidlineLeft",
+                        "enableWordWrapping": true,
+                        "overflowMode": "Ellipsis"
                        }
                       ],
                       "anchorMin": [
                        0.0,
-                       1.0
+                       0.5
                       ],
                       "anchorMax": [
-                       1.0,
-                       1.0
+                       0.42,
+                       0.5
                       ],
                       "pivot": [
-                       0.5,
-                       1.0
+                       0.0,
+                       0.5
                       ],
                       "sizeDelta": [
                        -24.0,
                        32.0
                       ],
                       "anchoredPosition": [
-                       0.0,
-                       -8.0
+                       12.0,
+                       0.0
                       ]
                      },
                      {
@@ -969,7 +982,7 @@
                        {
                         "type": "TextMeshProUGUI",
                         "text": "值、状态、时间：—",
-                        "fontSize": 20.0,
+                        "fontSize": 16.0,
                         "color": [
                          0.941176,
                          0.94902,
@@ -978,28 +991,31 @@
                         ],
                         "raycastTarget": false,
                         "wordWrap": true,
-                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                        "alignment": "MidlineLeft",
+                        "enableWordWrapping": true,
+                        "overflowMode": "Ellipsis"
                        }
                       ],
                       "anchorMin": [
-                       0.0,
-                       0.0
+                       0.42,
+                       0.5
                       ],
                       "anchorMax": [
                        1.0,
-                       0.0
+                       0.5
                       ],
                       "pivot": [
-                       0.5,
-                       0.0
+                       0.0,
+                       0.5
                       ],
                       "sizeDelta": [
                        -24.0,
-                       48.0
+                       32.0
                       ],
                       "anchoredPosition": [
-                       0.0,
-                       8.0
+                       12.0,
+                       0.0
                       ]
                      }
                     ]
@@ -1020,35 +1036,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.092,
+             0.162,
+             0.132,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           907.0,
-           634.0
+           1030,
+           570
           ],
           "anchoredPosition": [
-           581.0,
-           -36.0
+           454,
+           -42
           ],
           "children": [
            {
@@ -1154,9 +1170,11 @@
                 "components": [
                  {
                   "type": "VerticalLayoutGroup",
-                  "spacing": 8.0,
+                  "spacing": 4.0,
                   "ChildForceExpandWidth": true,
-                  "ChildForceExpandHeight": false
+                  "ChildForceExpandHeight": false,
+                  "ChildControlWidth": true,
+                  "ChildControlHeight": true
                  },
                  {
                   "type": "ContentSizeFitter",
@@ -1191,7 +1209,7 @@
                    {
                     "type": "TextMeshProUGUI",
                     "text": "名称、用途、标签",
-                    "fontSize": 22.0,
+                    "fontSize": 16.0,
                     "color": [
                      0.941176,
                      0.94902,
@@ -1204,7 +1222,10 @@
                    },
                    {
                     "type": "LayoutElement",
-                    "minHeight": 120.0
+                    "minHeight": 36.0,
+                    "preferredHeight": 36.0,
+                    "flexibleHeight": 0.0,
+                    "preferredWidth": 883.0
                    }
                   ],
                   "controlledBy": "group",
@@ -1245,7 +1266,12 @@
                     "preserveAspect": false
                    },
                    {
-                    "type": "LayoutElement"
+                    "type": "LayoutElement",
+                    "minHeight": 44.0,
+                    "preferredHeight": 44.0,
+                    "preferredWidth": -1.0,
+                    "flexibleWidth": 1.0,
+                    "flexibleHeight": 0.0
                    }
                   ],
                   "controlledBy": "group",
@@ -1254,16 +1280,16 @@
                    1.0
                   ],
                   "anchorMax": [
-                   0.0,
+                   1.0,
                    1.0
                   ],
                   "pivot": [
-                   0.0,
+                   0.5,
                    1.0
                   ],
                   "sizeDelta": [
-                   883.0,
-                   104.0
+                   0.0,
+                   44.0
                   ],
                   "anchoredPosition": [
                    0.0,
@@ -1319,7 +1345,7 @@
                        {
                         "type": "TextMeshProUGUI",
                         "text": "名称：—",
-                        "fontSize": 22.0,
+                        "fontSize": 16.0,
                         "color": [
                          0.941176,
                          0.94902,
@@ -1328,28 +1354,31 @@
                         ],
                         "raycastTarget": false,
                         "wordWrap": true,
-                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                        "alignment": "MidlineLeft",
+                        "enableWordWrapping": true,
+                        "overflowMode": "Ellipsis"
                        }
                       ],
                       "anchorMin": [
                        0.0,
-                       1.0
+                       0.5
                       ],
                       "anchorMax": [
-                       1.0,
-                       1.0
+                       0.42,
+                       0.5
                       ],
                       "pivot": [
-                       0.5,
-                       1.0
+                       0.0,
+                       0.5
                       ],
                       "sizeDelta": [
                        -24.0,
                        32.0
                       ],
                       "anchoredPosition": [
-                       0.0,
-                       -8.0
+                       12.0,
+                       0.0
                       ]
                      },
                      {
@@ -1358,7 +1387,7 @@
                        {
                         "type": "TextMeshProUGUI",
                         "text": "值、状态、时间：—",
-                        "fontSize": 20.0,
+                        "fontSize": 16.0,
                         "color": [
                          0.941176,
                          0.94902,
@@ -1367,28 +1396,31 @@
                         ],
                         "raycastTarget": false,
                         "wordWrap": true,
-                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                        "alignment": "MidlineLeft",
+                        "enableWordWrapping": true,
+                        "overflowMode": "Ellipsis"
                        }
                       ],
                       "anchorMin": [
-                       0.0,
-                       0.0
+                       0.42,
+                       0.5
                       ],
                       "anchorMax": [
                        1.0,
-                       0.0
+                       0.5
                       ],
                       "pivot": [
-                       0.5,
-                       0.0
+                       0.0,
+                       0.5
                       ],
                       "sizeDelta": [
                        -24.0,
-                       48.0
+                       32.0
                       ],
                       "anchoredPosition": [
-                       0.0,
-                       8.0
+                       12.0,
+                       0.0
                       ]
                      }
                     ]
@@ -1947,24 +1979,24 @@
          }
         ],
         "anchorMin": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchorMax": [
-         1.0,
-         1.0
+         1,
+         1
         ],
         "pivot": [
          0.5,
          0.5
         ],
         "sizeDelta": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchoredPosition": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "children": [
          {
@@ -2222,35 +2254,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.08,
+             0.15,
+             0.12,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           565.0,
-           634.0
+           430,
+           570
           ],
           "anchoredPosition": [
-           0.0,
-           -36.0
+           0,
+           -42
           ],
           "children": [
            {
@@ -2356,9 +2388,11 @@
                 "components": [
                  {
                   "type": "VerticalLayoutGroup",
-                  "spacing": 8.0,
+                  "spacing": 4.0,
                   "ChildForceExpandWidth": true,
-                  "ChildForceExpandHeight": false
+                  "ChildForceExpandHeight": false,
+                  "ChildControlWidth": true,
+                  "ChildControlHeight": true
                  },
                  {
                   "type": "ContentSizeFitter",
@@ -2393,7 +2427,7 @@
                    {
                     "type": "TextMeshProUGUI",
                     "text": "名称、说明、标签、品质／等级、用途",
-                    "fontSize": 22.0,
+                    "fontSize": 16.0,
                     "color": [
                      0.941176,
                      0.94902,
@@ -2406,7 +2440,10 @@
                    },
                    {
                     "type": "LayoutElement",
-                    "minHeight": 120.0
+                    "minHeight": 36.0,
+                    "preferredHeight": 36.0,
+                    "flexibleHeight": 0.0,
+                    "preferredWidth": 541.0
                    }
                   ],
                   "controlledBy": "group",
@@ -2447,7 +2484,12 @@
                     "preserveAspect": false
                    },
                    {
-                    "type": "LayoutElement"
+                    "type": "LayoutElement",
+                    "minHeight": 44.0,
+                    "preferredHeight": 44.0,
+                    "preferredWidth": -1.0,
+                    "flexibleWidth": 1.0,
+                    "flexibleHeight": 0.0
                    }
                   ],
                   "controlledBy": "group",
@@ -2456,16 +2498,16 @@
                    1.0
                   ],
                   "anchorMax": [
-                   0.0,
+                   1.0,
                    1.0
                   ],
                   "pivot": [
-                   0.0,
+                   0.5,
                    1.0
                   ],
                   "sizeDelta": [
-                   541.0,
-                   104.0
+                   0.0,
+                   44.0
                   ],
                   "anchoredPosition": [
                    0.0,
@@ -2521,7 +2563,7 @@
                        {
                         "type": "TextMeshProUGUI",
                         "text": "名称：—",
-                        "fontSize": 22.0,
+                        "fontSize": 16.0,
                         "color": [
                          0.941176,
                          0.94902,
@@ -2530,28 +2572,31 @@
                         ],
                         "raycastTarget": false,
                         "wordWrap": true,
-                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                        "alignment": "MidlineLeft",
+                        "enableWordWrapping": true,
+                        "overflowMode": "Ellipsis"
                        }
                       ],
                       "anchorMin": [
                        0.0,
-                       1.0
+                       0.5
                       ],
                       "anchorMax": [
-                       1.0,
-                       1.0
+                       0.42,
+                       0.5
                       ],
                       "pivot": [
-                       0.5,
-                       1.0
+                       0.0,
+                       0.5
                       ],
                       "sizeDelta": [
                        -24.0,
                        32.0
                       ],
                       "anchoredPosition": [
-                       0.0,
-                       -8.0
+                       12.0,
+                       0.0
                       ]
                      },
                      {
@@ -2560,7 +2605,7 @@
                        {
                         "type": "TextMeshProUGUI",
                         "text": "值、状态、时间：—",
-                        "fontSize": 20.0,
+                        "fontSize": 16.0,
                         "color": [
                          0.941176,
                          0.94902,
@@ -2569,28 +2614,31 @@
                         ],
                         "raycastTarget": false,
                         "wordWrap": true,
-                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                        "alignment": "MidlineLeft",
+                        "enableWordWrapping": true,
+                        "overflowMode": "Ellipsis"
                        }
                       ],
                       "anchorMin": [
-                       0.0,
-                       0.0
+                       0.42,
+                       0.5
                       ],
                       "anchorMax": [
                        1.0,
-                       0.0
+                       0.5
                       ],
                       "pivot": [
-                       0.5,
-                       0.0
+                       0.0,
+                       0.5
                       ],
                       "sizeDelta": [
                        -24.0,
-                       48.0
+                       32.0
                       ],
                       "anchoredPosition": [
-                       0.0,
-                       8.0
+                       12.0,
+                       0.0
                       ]
                      }
                     ]
@@ -2611,35 +2659,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.092,
+             0.162,
+             0.132,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           907.0,
-           634.0
+           1030,
+           570
           ],
           "anchoredPosition": [
-           581.0,
-           -36.0
+           454,
+           -42
           ],
           "children": [
            {
@@ -2745,9 +2793,11 @@
                 "components": [
                  {
                   "type": "VerticalLayoutGroup",
-                  "spacing": 8.0,
+                  "spacing": 4.0,
                   "ChildForceExpandWidth": true,
-                  "ChildForceExpandHeight": false
+                  "ChildForceExpandHeight": false,
+                  "ChildControlWidth": true,
+                  "ChildControlHeight": true
                  },
                  {
                   "type": "ContentSizeFitter",
@@ -2782,7 +2832,7 @@
                    {
                     "type": "TextMeshProUGUI",
                     "text": "当前数量",
-                    "fontSize": 22.0,
+                    "fontSize": 16.0,
                     "color": [
                      0.941176,
                      0.94902,
@@ -2795,7 +2845,10 @@
                    },
                    {
                     "type": "LayoutElement",
-                    "minHeight": 120.0
+                    "minHeight": 36.0,
+                    "preferredHeight": 36.0,
+                    "flexibleHeight": 0.0,
+                    "preferredWidth": 883.0
                    }
                   ],
                   "controlledBy": "group",
@@ -2836,7 +2889,12 @@
                     "preserveAspect": false
                    },
                    {
-                    "type": "LayoutElement"
+                    "type": "LayoutElement",
+                    "minHeight": 44.0,
+                    "preferredHeight": 44.0,
+                    "preferredWidth": -1.0,
+                    "flexibleWidth": 1.0,
+                    "flexibleHeight": 0.0
                    }
                   ],
                   "controlledBy": "group",
@@ -2845,16 +2903,16 @@
                    1.0
                   ],
                   "anchorMax": [
-                   0.0,
+                   1.0,
                    1.0
                   ],
                   "pivot": [
-                   0.0,
+                   0.5,
                    1.0
                   ],
                   "sizeDelta": [
-                   883.0,
-                   104.0
+                   0.0,
+                   44.0
                   ],
                   "anchoredPosition": [
                    0.0,
@@ -2910,7 +2968,7 @@
                        {
                         "type": "TextMeshProUGUI",
                         "text": "名称：—",
-                        "fontSize": 22.0,
+                        "fontSize": 16.0,
                         "color": [
                          0.941176,
                          0.94902,
@@ -2919,28 +2977,31 @@
                         ],
                         "raycastTarget": false,
                         "wordWrap": true,
-                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                        "alignment": "MidlineLeft",
+                        "enableWordWrapping": true,
+                        "overflowMode": "Ellipsis"
                        }
                       ],
                       "anchorMin": [
                        0.0,
-                       1.0
+                       0.5
                       ],
                       "anchorMax": [
-                       1.0,
-                       1.0
+                       0.42,
+                       0.5
                       ],
                       "pivot": [
-                       0.5,
-                       1.0
+                       0.0,
+                       0.5
                       ],
                       "sizeDelta": [
                        -24.0,
                        32.0
                       ],
                       "anchoredPosition": [
-                       0.0,
-                       -8.0
+                       12.0,
+                       0.0
                       ]
                      },
                      {
@@ -2949,7 +3010,7 @@
                        {
                         "type": "TextMeshProUGUI",
                         "text": "值、状态、时间：—",
-                        "fontSize": 20.0,
+                        "fontSize": 16.0,
                         "color": [
                          0.941176,
                          0.94902,
@@ -2958,28 +3019,31 @@
                         ],
                         "raycastTarget": false,
                         "wordWrap": true,
-                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                        "alignment": "MidlineLeft",
+                        "enableWordWrapping": true,
+                        "overflowMode": "Ellipsis"
                        }
                       ],
                       "anchorMin": [
-                       0.0,
-                       0.0
+                       0.42,
+                       0.5
                       ],
                       "anchorMax": [
                        1.0,
-                       0.0
+                       0.5
                       ],
                       "pivot": [
-                       0.5,
-                       0.0
+                       0.0,
+                       0.5
                       ],
                       "sizeDelta": [
                        -24.0,
-                       48.0
+                       32.0
                       ],
                       "anchoredPosition": [
-                       0.0,
-                       8.0
+                       12.0,
+                       0.0
                       ]
                      }
                     ]
@@ -3539,24 +3603,24 @@
          }
         ],
         "anchorMin": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchorMax": [
-         1.0,
-         1.0
+         1,
+         1
         ],
         "pivot": [
          0.5,
          0.5
         ],
         "sizeDelta": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "anchoredPosition": [
-         0.0,
-         0.0
+         0,
+         0
         ],
         "children": [
          {
@@ -3898,35 +3962,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.08,
+             0.15,
+             0.12,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           565.0,
-           634.0
+           430,
+           570
           ],
           "anchoredPosition": [
-           0.0,
-           -36.0
+           0,
+           -42
           ],
           "children": [
            {
@@ -4032,9 +4096,11 @@
                 "components": [
                  {
                   "type": "VerticalLayoutGroup",
-                  "spacing": 8.0,
+                  "spacing": 4.0,
                   "ChildForceExpandWidth": true,
-                  "ChildForceExpandHeight": false
+                  "ChildForceExpandHeight": false,
+                  "ChildControlWidth": true,
+                  "ChildControlHeight": true
                  },
                  {
                   "type": "ContentSizeFitter",
@@ -4069,7 +4135,7 @@
                    {
                     "type": "TextMeshProUGUI",
                     "text": "时间",
-                    "fontSize": 22.0,
+                    "fontSize": 16.0,
                     "color": [
                      0.941176,
                      0.94902,
@@ -4082,7 +4148,10 @@
                    },
                    {
                     "type": "LayoutElement",
-                    "minHeight": 120.0
+                    "minHeight": 36.0,
+                    "preferredHeight": 36.0,
+                    "flexibleHeight": 0.0,
+                    "preferredWidth": 541.0
                    }
                   ],
                   "controlledBy": "group",
@@ -4123,7 +4192,12 @@
                     "preserveAspect": false
                    },
                    {
-                    "type": "LayoutElement"
+                    "type": "LayoutElement",
+                    "minHeight": 44.0,
+                    "preferredHeight": 44.0,
+                    "preferredWidth": -1.0,
+                    "flexibleWidth": 1.0,
+                    "flexibleHeight": 0.0
                    }
                   ],
                   "controlledBy": "group",
@@ -4132,16 +4206,16 @@
                    1.0
                   ],
                   "anchorMax": [
-                   0.0,
+                   1.0,
                    1.0
                   ],
                   "pivot": [
-                   0.0,
+                   0.5,
                    1.0
                   ],
                   "sizeDelta": [
-                   541.0,
-                   104.0
+                   0.0,
+                   44.0
                   ],
                   "anchoredPosition": [
                    0.0,
@@ -4197,7 +4271,7 @@
                        {
                         "type": "TextMeshProUGUI",
                         "text": "名称：—",
-                        "fontSize": 22.0,
+                        "fontSize": 16.0,
                         "color": [
                          0.941176,
                          0.94902,
@@ -4206,28 +4280,31 @@
                         ],
                         "raycastTarget": false,
                         "wordWrap": true,
-                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                        "alignment": "MidlineLeft",
+                        "enableWordWrapping": true,
+                        "overflowMode": "Ellipsis"
                        }
                       ],
                       "anchorMin": [
                        0.0,
-                       1.0
+                       0.5
                       ],
                       "anchorMax": [
-                       1.0,
-                       1.0
+                       0.42,
+                       0.5
                       ],
                       "pivot": [
-                       0.5,
-                       1.0
+                       0.0,
+                       0.5
                       ],
                       "sizeDelta": [
                        -24.0,
                        32.0
                       ],
                       "anchoredPosition": [
-                       0.0,
-                       -8.0
+                       12.0,
+                       0.0
                       ]
                      },
                      {
@@ -4236,7 +4313,7 @@
                        {
                         "type": "TextMeshProUGUI",
                         "text": "值、状态、时间：—",
-                        "fontSize": 20.0,
+                        "fontSize": 16.0,
                         "color": [
                          0.941176,
                          0.94902,
@@ -4245,28 +4322,31 @@
                         ],
                         "raycastTarget": false,
                         "wordWrap": true,
-                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                        "alignment": "MidlineLeft",
+                        "enableWordWrapping": true,
+                        "overflowMode": "Ellipsis"
                        }
                       ],
                       "anchorMin": [
-                       0.0,
-                       0.0
+                       0.42,
+                       0.5
                       ],
                       "anchorMax": [
                        1.0,
-                       0.0
+                       0.5
                       ],
                       "pivot": [
-                       0.5,
-                       0.0
+                       0.0,
+                       0.5
                       ],
                       "sizeDelta": [
                        -24.0,
-                       48.0
+                       32.0
                       ],
                       "anchoredPosition": [
-                       0.0,
-                       8.0
+                       12.0,
+                       0.0
                       ]
                      }
                     ]
@@ -4287,35 +4367,35 @@
            {
             "type": "Image",
             "color": [
-             0.12549,
-             0.141176,
-             0.164706,
-             1.0
+             0.092,
+             0.162,
+             0.132,
+             1
             ],
             "imageType": 1,
-            "raycastTarget": false,
+            "raycastTarget": true,
             "preserveAspect": false
            }
           ],
           "anchorMin": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "anchorMax": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "pivot": [
-           0.0,
-           1.0
+           0,
+           1
           ],
           "sizeDelta": [
-           907.0,
-           634.0
+           1030,
+           570
           ],
           "anchoredPosition": [
-           581.0,
-           -36.0
+           454,
+           -42
           ],
           "children": [
            {
@@ -4421,9 +4501,11 @@
                 "components": [
                  {
                   "type": "VerticalLayoutGroup",
-                  "spacing": 8.0,
+                  "spacing": 4.0,
                   "ChildForceExpandWidth": true,
-                  "ChildForceExpandHeight": false
+                  "ChildForceExpandHeight": false,
+                  "ChildControlWidth": true,
+                  "ChildControlHeight": true
                  },
                  {
                   "type": "ContentSizeFitter",
@@ -4458,7 +4540,7 @@
                    {
                     "type": "TextMeshProUGUI",
                     "text": "物品",
-                    "fontSize": 22.0,
+                    "fontSize": 16.0,
                     "color": [
                      0.941176,
                      0.94902,
@@ -4471,7 +4553,10 @@
                    },
                    {
                     "type": "LayoutElement",
-                    "minHeight": 120.0
+                    "minHeight": 36.0,
+                    "preferredHeight": 36.0,
+                    "flexibleHeight": 0.0,
+                    "preferredWidth": 883.0
                    }
                   ],
                   "controlledBy": "group",
@@ -4512,7 +4597,12 @@
                     "preserveAspect": false
                    },
                    {
-                    "type": "LayoutElement"
+                    "type": "LayoutElement",
+                    "minHeight": 44.0,
+                    "preferredHeight": 44.0,
+                    "preferredWidth": -1.0,
+                    "flexibleWidth": 1.0,
+                    "flexibleHeight": 0.0
                    }
                   ],
                   "controlledBy": "group",
@@ -4521,16 +4611,16 @@
                    1.0
                   ],
                   "anchorMax": [
-                   0.0,
+                   1.0,
                    1.0
                   ],
                   "pivot": [
-                   0.0,
+                   0.5,
                    1.0
                   ],
                   "sizeDelta": [
-                   883.0,
-                   104.0
+                   0.0,
+                   44.0
                   ],
                   "anchoredPosition": [
                    0.0,
@@ -4586,7 +4676,7 @@
                        {
                         "type": "TextMeshProUGUI",
                         "text": "名称：—",
-                        "fontSize": 22.0,
+                        "fontSize": 16.0,
                         "color": [
                          0.941176,
                          0.94902,
@@ -4595,28 +4685,31 @@
                         ],
                         "raycastTarget": false,
                         "wordWrap": true,
-                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                        "alignment": "MidlineLeft",
+                        "enableWordWrapping": true,
+                        "overflowMode": "Ellipsis"
                        }
                       ],
                       "anchorMin": [
                        0.0,
-                       1.0
+                       0.5
                       ],
                       "anchorMax": [
-                       1.0,
-                       1.0
+                       0.42,
+                       0.5
                       ],
                       "pivot": [
-                       0.5,
-                       1.0
+                       0.0,
+                       0.5
                       ],
                       "sizeDelta": [
                        -24.0,
                        32.0
                       ],
                       "anchoredPosition": [
-                       0.0,
-                       -8.0
+                       12.0,
+                       0.0
                       ]
                      },
                      {
@@ -4625,7 +4718,7 @@
                        {
                         "type": "TextMeshProUGUI",
                         "text": "值、状态、时间：—",
-                        "fontSize": 20.0,
+                        "fontSize": 16.0,
                         "color": [
                          0.941176,
                          0.94902,
@@ -4634,28 +4727,31 @@
                         ],
                         "raycastTarget": false,
                         "wordWrap": true,
-                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                        "alignment": "MidlineLeft",
+                        "enableWordWrapping": true,
+                        "overflowMode": "Ellipsis"
                        }
                       ],
                       "anchorMin": [
-                       0.0,
-                       0.0
+                       0.42,
+                       0.5
                       ],
                       "anchorMax": [
                        1.0,
-                       0.0
+                       0.5
                       ],
                       "pivot": [
-                       0.5,
-                       0.0
+                       0.0,
+                       0.5
                       ],
                       "sizeDelta": [
                        -24.0,
-                       48.0
+                       32.0
                       ],
                       "anchoredPosition": [
-                       0.0,
-                       8.0
+                       12.0,
+                       0.0
                       ]
                      }
                     ]
@@ -5570,5 +5666,6 @@
     "kind": "GameObject"
    }
   ]
- }
+ },
+ "layoutMigration": "b52: family-specific structure rollout; preserve serialized bindings and functional page routes"
 }

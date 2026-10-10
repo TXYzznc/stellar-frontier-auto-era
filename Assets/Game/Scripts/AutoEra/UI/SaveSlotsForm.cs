@@ -18,8 +18,7 @@ namespace AutoEra.UI
     /// 读模型背后是文件系统且**没有领域推送**，所以这里只有「打开时读一次 + 操作后显式刷新」，
     /// 不假装有事件流。
     ///
-    /// 读档与建档需要世界进度层把存档内容解释成世界状态，该层尚未接入，因此这两个按钮
-    /// 被**禁用并写明原因**——按规格「不存在／无权限时禁用写操作并说明」，不给假按钮。
+    /// 读档与建档经过应用级WorldSlotFlow；完整领域、开局或离线能力未就绪时禁用并显示原因。
     /// </summary>
     public sealed partial class SaveSlotsForm : AutoEraShellFormBase
     {
@@ -48,6 +47,9 @@ namespace AutoEra.UI
             if (_createButton != null) _createButton.onClick.AddListener(() => ShowSlotPage(PageNewProgress));
             if (_saveDetailDeleteButton != null) _saveDetailDeleteButton.onClick.AddListener(DeleteSelectedSlot);
             if (_saveDetailRecoverButton != null) _saveDetailRecoverButton.onClick.AddListener(RecoverSelectedSlot);
+            if (_continueButton != null) _continueButton.onClick.AddListener(ContinueSelectedSlot);
+            if (_saveDetailContinueButton != null) _saveDetailContinueButton.onClick.AddListener(ContinueSelectedSlot);
+            if (_newProgressCreateButton != null) _newProgressCreateButton.onClick.AddListener(CreateSelectedSlot);
         }
 
         protected override void OnAutoEraOpen()
@@ -119,6 +121,9 @@ namespace AutoEra.UI
                 return;
             }
 
+            if(session.Application?.CurrentSlotIndex==index || session.Application?.BlocksNewWorldCommands==true)
+            { ShowEntryFailure("当前活动槽位不能在运行或保存过程中删除，请先保存退出。");return; }
+
             session.SaveSlots.Delete(index);
             _saveSlots.ClearSelection();
             _saveSlots.Refresh();
@@ -128,7 +133,32 @@ namespace AutoEra.UI
         /// 恢复 = 重新读取：<see cref="AutoEra.Save.SaveSlotService.Read"/> 在主文件损坏时
         /// 已经会回退到备份，所以这里不需要另写一条恢复逻辑，只要把最新结果重新读回来。
         /// </summary>
-        private void RecoverSelectedSlot() => _saveSlots?.Refresh();
+        private void RecoverSelectedSlot()
+        {
+            if(_saveSlots?.Snapshot.HasSelection==true)AutoEraUiNavigator.Open(this,UIViews.SaveRecoveryForm,new AutoEraUiSaveSlotRequest(_saveSlots.SelectedIndex));
+        }
+        private void ContinueSelectedSlot()
+        {
+            if(_saveSlots?.Snapshot.HasSelection!=true || !TryGetSession(out AutoEraUiSession session) || session.Application==null)return;
+            int slot=_saveSlots.SelectedIndex;
+            if(session.SaveSlots.Read(slot).IsFromBackup) { RecoverSelectedSlot();return; }
+            if(session.Application.Slots.TryRequestContinue(slot,out var reason))CloseSelf();
+            else ShowEntryFailure(reason);
+        }
+        private void CreateSelectedSlot()
+        {
+            if(!TryGetSession(out AutoEraUiSession session) || session.Application==null)return;
+            int slot=_saveSlots?.SelectedIndex ?? -1;
+            if(slot<0)for(int i=0;i<SaveSlotService.SlotCount;i++)if(session.SaveSlots.Read(i).Status==SaveSlotReadStatus.Empty && !session.SaveSlots.HasBackup(i)) {slot=i;break;}
+            if(session.Application.Slots.TryRequestNew(slot,out var reason))CloseSelf();
+            else ShowEntryFailure(reason);
+        }
+        private void ShowEntryFailure(string reason)
+        {
+            _newProgressTargetBody?.SetText(reason);
+            _saveSlotsPreviewBody?.SetText(reason);
+            _saveDetailHealthBody?.SetText(reason);
+        }
 
         private void OnSaveSlotSectionChanged(SaveSlotDomainSection section)
         {
@@ -145,6 +175,7 @@ namespace AutoEra.UI
             {
                 RenderSlotDetail(_saveSlots.Snapshot);
             }
+            ApplyWriteAvailability();
         }
 
         // -------------------------------------------------- 槽位列表页
@@ -288,18 +319,20 @@ namespace AutoEra.UI
         private void ApplyWriteAvailability()
         {
             // 需要世界进度层的三个入口：读取当前槽、从详情读取、创建新进度。
-            SetInteractable(_continueButton, false);
-            SetInteractable(_saveDetailContinueButton, false);
-            SetInteractable(_newProgressCreateButton, false);
+            var flow=TryGetSession(out AutoEraUiSession session) ? session.Application?.Slots : null;
+            bool selected=_saveSlots?.Snapshot.HasSelection==true;
+            SetInteractable(_continueButton, selected && flow?.CanRequestContinue==true);
+            SetInteractable(_saveDetailContinueButton, selected && flow?.CanRequestContinue==true);
+            SetInteractable(_newProgressCreateButton, flow?.CanRequestNew==true);
 
             if (_newProgressTargetBody != null)
             {
-                _newProgressTargetBody.SetText(ProgressLayerMissing);
+                _newProgressTargetBody.SetText(flow?.CanRequestNew==true ? "仅在空槽位创建新进度，现有进度不会被覆盖。" : flow?.NewProgressUnavailableReason ?? ProgressLayerMissing);
             }
 
             if (_newProgressConsequencesBody != null)
             {
-                _newProgressConsequencesBody.SetText("本页只说明将要发生什么，不执行创建。");
+                _newProgressConsequencesBody.SetText(flow?.CanRequestNew==true ? "新进度按正式开局配置初始化，完成首份完整存档后可继续。" : "前置尚未就绪，本页不执行创建。");
             }
         }
 

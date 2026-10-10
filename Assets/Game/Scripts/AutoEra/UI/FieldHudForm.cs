@@ -31,7 +31,7 @@ namespace AutoEra.UI
             AutoEraUiSession session = SessionOrNull;
             BindRegion(session?.Region);
             _regionInput = session?.RegionInput;
-            _residentFormSerialId = AutoEraUiNavigator.Open(this, UIViews.FieldHudResidentForm);
+            _residentFormSerialId = AutoEraUiNavigator.OpenSub(this, UIViews.FieldHudResidentForm, null, 0);
             OpenFieldPageForSelection();
         }
 
@@ -48,9 +48,8 @@ namespace AutoEra.UI
             if (_region != null) _region.SelectionChanged -= OnRegionSelectionChanged;
             _region = null;
             _regionInput = null;
-            AutoEraUiNavigator.Close(_detailFormSerialId);
+            CloseFieldDetail();
             AutoEraUiNavigator.Close(_residentFormSerialId);
-            _detailFormSerialId = 0;
             _residentFormSerialId = 0;
             _openFieldPage = -1;
             _lastDetailSelectionId = PersistentId.Invalid;
@@ -94,10 +93,23 @@ namespace AutoEra.UI
             }
             else
             {
-                _detailFormSerialId = AutoEraUiNavigator.Open(this, UIViews.FieldHudDetailForm, new AutoEraUiPageRequest(pageIndex));
+                CloseFieldDetail();
+                // 两个 Form 都拥有 overrideSorting Canvas，普通 Open 会给它们相同的
+                // 表/组默认排序。详情通过 HUD 子界面合同取得更高的相对排序，
+                // 不再依赖同序 Canvas 的绘制顺序。
+                _detailFormSerialId = AutoEraUiNavigator.OpenSub(this, UIViews.FieldHudDetailForm,
+                    new AutoEraUiPageRequest(pageIndex), 1);
                 Debug.Log($"[AutoEra][FieldHud] 打开详情 Form serial={_detailFormSerialId} page={pageIndex}");
             }
             return _detailFormSerialId > 0;
+        }
+
+        private void CloseFieldDetail()
+        {
+            // 导航器负责取消冷加载、回收参数并保留正常关闭动画；父 Form 的
+            // UIFormBase.OnClose 会统一清理子界面登记，避免这里重复硬关闭。
+            AutoEraUiNavigator.Close(_detailFormSerialId);
+            _detailFormSerialId = 0;
         }
 
         private void OnRegionSelectionChanged() => OpenFieldPageForSelection();
@@ -111,8 +123,7 @@ namespace AutoEra.UI
             Debug.Log($"[AutoEra][FieldHud] selection={selected} resolvedPage={page} detailSerial={_detailFormSerialId}");
             if (page < 0)
             {
-                AutoEraUiNavigator.Close(_detailFormSerialId);
-                _detailFormSerialId = 0;
+                CloseFieldDetail();
                 _openFieldPage = -1;
                 return;
             }

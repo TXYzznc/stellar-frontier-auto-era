@@ -608,22 +608,22 @@ Panel_PageInventory [Image]
 | Txt_InventoryCatalogHeading | min(0,1) max(0,1); pivot(0,1); sizeDelta(541,32); pos(12,-8) | absolute | TextMeshProUGUI；分类库存 |
 | List_InventoryCatalog | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-52); pos(0,-18) | absolute | ScrollRect vertical=true horizontal=false；正文／真实记录 |
 | Viewport_InventoryCatalog | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | RectMask2D；裁切 |
-| Content_InventoryCatalog | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=8 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 |
-| Txt_InventoryCatalogBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(541,120)初始化; pos(0,0)初始化; LayoutElement preferred(541,120); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高；物品类别；同类型同品质／等级堆叠；数量；容量占用 |
-| Item_InventoryCatalogTemplate | min(0,1) max(0,1); pivot(0,1); sizeDelta(541,104)初始化; pos(0,0)初始化; LayoutElement preferred(541,104); 最终位置/尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
+| Content_InventoryCatalog | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 ；childControlWidth/Height=true；不扩展子项高度 |
+| Txt_InventoryCatalogBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(541,120)初始化; pos(0,0)初始化; LayoutElement preferred(auto,36); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高；物品类别；同类型同品质／等级堆叠；数量；容量占用 ；LayoutElement minHeight=preferredHeight=36；字号16 |
+| Item_InventoryCatalogTemplate | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,44)初始化; pos(0,0)初始化; LayoutElement minHeight=preferredHeight=44 flexibleWidth=1；最终尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
 | Btn_InventoryCatalogRow | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | Button + Image；选中当前行稳定ID，更新详情；纯段落行禁用选择 |
-| Txt_InventoryCatalogRowLabel | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(-24,32); pos(0,-8) | absolute | TextMeshProUGUI；名称：— |
-| Txt_InventoryCatalogRowValue | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,48); pos(0,8) | absolute | TextMeshProUGUI；值、状态、时间：— |
+| Txt_InventoryCatalogRowLabel | min(0,0.5) max(0.42,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；名称：— ；字号16；左对齐；溢出省略 |
+| Txt_InventoryCatalogRowValue | min(0.42,0.5) max(1,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；值、状态、时间：— ；字号16；左对齐；溢出省略 |
 | Panel_InventoryDetail | min(0,1) max(0,1); pivot(0,1); sizeDelta(907,634); pos(581,-36) | absolute | Image；物品摘要 |
 | Txt_InventoryDetailHeading | min(0,1) max(0,1); pivot(0,1); sizeDelta(883,32); pos(12,-8) | absolute | TextMeshProUGUI；物品摘要 |
 | List_InventoryDetail | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-52); pos(0,-18) | absolute | ScrollRect vertical=true horizontal=false；正文／真实记录 |
 | Viewport_InventoryDetail | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | RectMask2D；裁切 |
-| Content_InventoryDetail | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=8 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 |
-| Txt_InventoryDetailBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(883,120)初始化; pos(0,0)初始化; LayoutElement preferred(883,120); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高；名称、用途、标签；实际回收价；数量；是否可出售 |
-| Item_InventoryDetailTemplate | min(0,1) max(0,1); pivot(0,1); sizeDelta(883,104)初始化; pos(0,0)初始化; LayoutElement preferred(883,104); 最终位置/尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
+| Content_InventoryDetail | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 ；childControlWidth/Height=true；不扩展子项高度 |
+| Txt_InventoryDetailBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(883,120)初始化; pos(0,0)初始化; LayoutElement preferred(auto,36); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高；名称、用途、标签；实际回收价；数量；是否可出售 ；LayoutElement minHeight=preferredHeight=36；字号16 |
+| Item_InventoryDetailTemplate | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,44)初始化; pos(0,0)初始化; LayoutElement minHeight=preferredHeight=44 flexibleWidth=1；最终尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
 | Btn_InventoryDetailRow | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | Button + Image；选中当前行稳定ID，更新详情；纯段落行禁用选择 |
-| Txt_InventoryDetailRowLabel | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(-24,32); pos(0,-8) | absolute | TextMeshProUGUI；名称：— |
-| Txt_InventoryDetailRowValue | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,48); pos(0,8) | absolute | TextMeshProUGUI；值、状态、时间：— |
+| Txt_InventoryDetailRowLabel | min(0,0.5) max(0.42,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；名称：— ；字号16；左对齐；溢出省略 |
+| Txt_InventoryDetailRowValue | min(0.42,0.5) max(1,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；值、状态、时间：— ；字号16；左对齐；溢出省略 |
 | Grp_InventoryLoadingState | min(0,1) max(0,1); pivot(0,1); sizeDelta(1488,634); pos(0,-36) | absolute | 无Graphic；默认inactive；区域状态互斥，不覆盖底部返回 |
 | Panel_InventoryLoadingMessage | min(0.5,0.5) max(0.5,0.5); pivot(0.5,0.5); sizeDelta(520,120); pos(0,0) | absolute | Image；状态背景 |
 | Txt_InventoryLoadingMessage | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-24); pos(0,0) | absolute | TextMeshProUGUI；Loading：— |
@@ -702,22 +702,22 @@ Panel_PageItemDetail [Image]
 | Txt_ItemDetailItemHeading | min(0,1) max(0,1); pivot(0,1); sizeDelta(541,32); pos(12,-8) | absolute | TextMeshProUGUI；物品说明 |
 | List_ItemDetailItem | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-52); pos(0,-18) | absolute | ScrollRect vertical=true horizontal=false；正文／真实记录 |
 | Viewport_ItemDetailItem | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | RectMask2D；裁切 |
-| Content_ItemDetailItem | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=8 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 |
-| Txt_ItemDetailItemBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(541,120)初始化; pos(0,0)初始化; LayoutElement preferred(541,120); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高；名称、说明、标签、品质／等级、用途 |
-| Item_ItemDetailItemTemplate | min(0,1) max(0,1); pivot(0,1); sizeDelta(541,104)初始化; pos(0,0)初始化; LayoutElement preferred(541,104); 最终位置/尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
+| Content_ItemDetailItem | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 ；childControlWidth/Height=true；不扩展子项高度 |
+| Txt_ItemDetailItemBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(541,120)初始化; pos(0,0)初始化; LayoutElement preferred(auto,36); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高；名称、说明、标签、品质／等级、用途 ；LayoutElement minHeight=preferredHeight=36；字号16 |
+| Item_ItemDetailItemTemplate | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,44)初始化; pos(0,0)初始化; LayoutElement minHeight=preferredHeight=44 flexibleWidth=1；最终尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
 | Btn_ItemDetailItemRow | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | Button + Image；选中当前行稳定ID，更新详情；纯段落行禁用选择 |
-| Txt_ItemDetailItemRowLabel | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(-24,32); pos(0,-8) | absolute | TextMeshProUGUI；名称：— |
-| Txt_ItemDetailItemRowValue | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,48); pos(0,8) | absolute | TextMeshProUGUI；值、状态、时间：— |
+| Txt_ItemDetailItemRowLabel | min(0,0.5) max(0.42,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；名称：— ；字号16；左对齐；溢出省略 |
+| Txt_ItemDetailItemRowValue | min(0.42,0.5) max(1,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；值、状态、时间：— ；字号16；左对齐；溢出省略 |
 | Panel_ItemDetailStock | min(0,1) max(0,1); pivot(0,1); sizeDelta(907,634); pos(581,-36) | absolute | Image；数量与回收 |
 | Txt_ItemDetailStockHeading | min(0,1) max(0,1); pivot(0,1); sizeDelta(883,32); pos(12,-8) | absolute | TextMeshProUGUI；数量与回收 |
 | List_ItemDetailStock | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-52); pos(0,-18) | absolute | ScrollRect vertical=true horizontal=false；正文／真实记录 |
 | Viewport_ItemDetailStock | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | RectMask2D；裁切 |
-| Content_ItemDetailStock | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=8 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 |
-| Txt_ItemDetailStockBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(883,120)初始化; pos(0,0)初始化; LayoutElement preferred(883,120); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高；当前数量；所在仓库；实际回收单价；出售条件 |
-| Item_ItemDetailStockTemplate | min(0,1) max(0,1); pivot(0,1); sizeDelta(883,104)初始化; pos(0,0)初始化; LayoutElement preferred(883,104); 最终位置/尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
+| Content_ItemDetailStock | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 ；childControlWidth/Height=true；不扩展子项高度 |
+| Txt_ItemDetailStockBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(883,120)初始化; pos(0,0)初始化; LayoutElement preferred(auto,36); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高；当前数量；所在仓库；实际回收单价；出售条件 ；LayoutElement minHeight=preferredHeight=36；字号16 |
+| Item_ItemDetailStockTemplate | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,44)初始化; pos(0,0)初始化; LayoutElement minHeight=preferredHeight=44 flexibleWidth=1；最终尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
 | Btn_ItemDetailStockRow | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | Button + Image；选中当前行稳定ID，更新详情；纯段落行禁用选择 |
-| Txt_ItemDetailStockRowLabel | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(-24,32); pos(0,-8) | absolute | TextMeshProUGUI；名称：— |
-| Txt_ItemDetailStockRowValue | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,48); pos(0,8) | absolute | TextMeshProUGUI；值、状态、时间：— |
+| Txt_ItemDetailStockRowLabel | min(0,0.5) max(0.42,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；名称：— ；字号16；左对齐；溢出省略 |
+| Txt_ItemDetailStockRowValue | min(0.42,0.5) max(1,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；值、状态、时间：— ；字号16；左对齐；溢出省略 |
 | Grp_ItemDetailLoadingState | min(0,1) max(0,1); pivot(0,1); sizeDelta(1488,634); pos(0,-36) | absolute | 无Graphic；默认inactive；区域状态互斥，不覆盖底部返回 |
 | Panel_ItemDetailLoadingMessage | min(0.5,0.5) max(0.5,0.5); pivot(0.5,0.5); sizeDelta(520,120); pos(0,0) | absolute | Image；状态背景 |
 | Txt_ItemDetailLoadingMessage | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-24); pos(0,0) | absolute | TextMeshProUGUI；Loading：— |
@@ -800,22 +800,22 @@ Panel_PageWarehouseRecords [Image]
 | Txt_WarehouseRecordsEventsHeading | min(0,1) max(0,1); pivot(0,1); sizeDelta(541,32); pos(12,-8) | absolute | TextMeshProUGUI；事件列表 |
 | List_WarehouseRecordsEvents | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-52); pos(0,-18) | absolute | ScrollRect vertical=true horizontal=false；正文／真实记录 |
 | Viewport_WarehouseRecordsEvents | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | RectMask2D；裁切 |
-| Content_WarehouseRecordsEvents | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=8 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 |
-| Txt_WarehouseRecordsEventsBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(541,120)初始化; pos(0,0)初始化; LayoutElement preferred(541,120); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高；时间；来源；入库、自动分类、卸货失败；数量与结果 |
-| Item_WarehouseRecordsEventsTemplate | min(0,1) max(0,1); pivot(0,1); sizeDelta(541,104)初始化; pos(0,0)初始化; LayoutElement preferred(541,104); 最终位置/尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
+| Content_WarehouseRecordsEvents | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 ；childControlWidth/Height=true；不扩展子项高度 |
+| Txt_WarehouseRecordsEventsBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(541,120)初始化; pos(0,0)初始化; LayoutElement preferred(auto,36); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高；时间；来源；入库、自动分类、卸货失败；数量与结果 ；LayoutElement minHeight=preferredHeight=36；字号16 |
+| Item_WarehouseRecordsEventsTemplate | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,44)初始化; pos(0,0)初始化; LayoutElement minHeight=preferredHeight=44 flexibleWidth=1；最终尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
 | Btn_WarehouseRecordsEventsRow | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | Button + Image；选中当前行稳定ID，更新详情；纯段落行禁用选择 |
-| Txt_WarehouseRecordsEventsRowLabel | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(-24,32); pos(0,-8) | absolute | TextMeshProUGUI；名称：— |
-| Txt_WarehouseRecordsEventsRowValue | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,48); pos(0,8) | absolute | TextMeshProUGUI；值、状态、时间：— |
+| Txt_WarehouseRecordsEventsRowLabel | min(0,0.5) max(0.42,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；名称：— ；字号16；左对齐；溢出省略 |
+| Txt_WarehouseRecordsEventsRowValue | min(0.42,0.5) max(1,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；值、状态、时间：— ；字号16；左对齐；溢出省略 |
 | Panel_WarehouseRecordsDetail | min(0,1) max(0,1); pivot(0,1); sizeDelta(907,634); pos(581,-36) | absolute | Image；事件详情 |
 | Txt_WarehouseRecordsDetailHeading | min(0,1) max(0,1); pivot(0,1); sizeDelta(883,32); pos(12,-8) | absolute | TextMeshProUGUI；事件详情 |
 | List_WarehouseRecordsDetail | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-52); pos(0,-18) | absolute | ScrollRect vertical=true horizontal=false；正文／真实记录 |
 | Viewport_WarehouseRecordsDetail | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | RectMask2D；裁切 |
-| Content_WarehouseRecordsDetail | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=8 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 |
-| Txt_WarehouseRecordsDetailBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(883,120)初始化; pos(0,0)初始化; LayoutElement preferred(883,120); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高；物品；分类后去向；机器／请求关联；失败原因 |
-| Item_WarehouseRecordsDetailTemplate | min(0,1) max(0,1); pivot(0,1); sizeDelta(883,104)初始化; pos(0,0)初始化; LayoutElement preferred(883,104); 最终位置/尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
+| Content_WarehouseRecordsDetail | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 ；childControlWidth/Height=true；不扩展子项高度 |
+| Txt_WarehouseRecordsDetailBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(883,120)初始化; pos(0,0)初始化; LayoutElement preferred(auto,36); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高；物品；分类后去向；机器／请求关联；失败原因 ；LayoutElement minHeight=preferredHeight=36；字号16 |
+| Item_WarehouseRecordsDetailTemplate | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,44)初始化; pos(0,0)初始化; LayoutElement minHeight=preferredHeight=44 flexibleWidth=1；最终尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
 | Btn_WarehouseRecordsDetailRow | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | Button + Image；选中当前行稳定ID，更新详情；纯段落行禁用选择 |
-| Txt_WarehouseRecordsDetailRowLabel | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(-24,32); pos(0,-8) | absolute | TextMeshProUGUI；名称：— |
-| Txt_WarehouseRecordsDetailRowValue | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,48); pos(0,8) | absolute | TextMeshProUGUI；值、状态、时间：— |
+| Txt_WarehouseRecordsDetailRowLabel | min(0,0.5) max(0.42,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；名称：— ；字号16；左对齐；溢出省略 |
+| Txt_WarehouseRecordsDetailRowValue | min(0.42,0.5) max(1,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；值、状态、时间：— ；字号16；左对齐；溢出省略 |
 | Grp_WarehouseRecordsLoadingState | min(0,1) max(0,1); pivot(0,1); sizeDelta(1488,634); pos(0,-36) | absolute | 无Graphic；默认inactive；区域状态互斥，不覆盖底部返回 |
 | Panel_WarehouseRecordsLoadingMessage | min(0.5,0.5) max(0.5,0.5); pivot(0.5,0.5); sizeDelta(520,120); pos(0,0) | absolute | Image；状态背景 |
 | Txt_WarehouseRecordsLoadingMessage | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-24); pos(0,0) | absolute | TextMeshProUGUI；Loading：— |
@@ -1137,3 +1137,7 @@ Panel_PageTemplateDetail [Image]
 | Grp_TemplateDetailDisabledState | min(0,1) max(0,1); pivot(0,1); sizeDelta(1488,634); pos(0,-36) | absolute | 无Graphic；默认inactive；区域状态互斥，不覆盖底部返回 |
 | Panel_TemplateDetailDisabledMessage | min(0.5,0.5) max(0.5,0.5); pivot(0.5,0.5); sizeDelta(520,120); pos(0,0) | absolute | Image；状态背景 |
 | Txt_TemplateDetailDisabledMessage | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-24); pos(0,0) | absolute | TextMeshProUGUI；Disabled：— |
+
+## 2026-10-09 B51 代表结构覆盖
+
+本批仅覆盖机器整备、HUD 常驻与机器现场概况、中枢总览。下列旧表中对应目标工作区的尺寸由 [B51 完整节点布局](../../../../../openspec/changes/b51-ui-representative-layout-prototypes/art/prefab-layout.md) 及同名 UI-PrefabLayouts contract.json 取代；其余页不变。正式美术未制作，1920×1080 原型等待用户验收。

@@ -14,7 +14,7 @@ namespace AutoEra.UI
     ///
     /// 候选来自「机器上已安装、可被算法端点绑定的组件」（传感器读输入、效应器执行动作），
     /// 由机器域算法读模型 <c>AlgorithmDomainSnapshot.ComponentCandidates</c> 提供；
-    /// 按端点类别筛选候选，点选回写 <c>Rebind</c>（组件 Id；目标对象由后续世界对象选择器补齐）。
+    /// 按端点类别筛选组件，再列出该组件支持的区域目标；通过生产绑定入口取得实际绑定代次。
     /// </summary>
     public sealed partial class NodeComponentPickerForm : AutoEraShellFormBase
     {
@@ -26,6 +26,8 @@ namespace AutoEra.UI
         private IAlgorithmReadModel _algorithms;
         private AutoEraAlgorithmBindingPickRequest _request;
         private readonly List<UiAlgorithmComponentCandidate> _visibleCandidates = new List<UiAlgorithmComponentCandidate>(8);
+        private ulong _componentId;
+        private IReadOnlyList<UiAlgorithmTargetCandidate> _targets;
 
         protected override void OnInit(object userData)
         {
@@ -37,6 +39,8 @@ namespace AutoEra.UI
 
         protected override void OnAutoEraOpen()
         {
+            _request = TryGetRequest(out AutoEraAlgorithmBindingPickRequest request) ? request : null;
+            _componentId = 0; _targets = null;
             ShowPage(_pageRoots, PageNodeComponentPicker);
             ApplyDefaultFocus(_backButton != null ? _backButton.gameObject : null, null);
 
@@ -79,6 +83,7 @@ namespace AutoEra.UI
 
         private void Render(AlgorithmDomainSnapshot snapshot)
         {
+            if (_componentId != 0) { RenderTargets(); return; }
             if (snapshot.State == UiDataState.Unavailable)
             {
                 ShowPageUnavailable(snapshot.UnavailableReason ?? "候选组件暂不可用。",
@@ -139,8 +144,27 @@ namespace AutoEra.UI
                 return;
             }
 
-            _algorithms.Rebind(_request.InstanceId, _request.BindingKey, _visibleCandidates[index].ComponentId, 0, 1);
-            RequestCancel();
+            ulong component = _visibleCandidates[index].ComponentId;
+            if (!_algorithms.Rebind(_request.InstanceId, _request.BindingKey, component, 0, 0))
+            { SetText(_nodeComponentPickerCandidatesBody, _algorithms.Snapshot.CommandUnavailableReason ?? "组件已变化，请重试。"); return; }
+            _componentId = component; RenderTargets();
+        }
+        private void RenderTargets()
+        {
+            _targets = _algorithms.ReadBindingTargets(_componentId);
+            SetState(_nodeComponentPickerEmptyState, _targets.Count == 0);
+            SetState(_nodeComponentPickerSuccessState, false);
+            RenderListRows(_nodeComponentPickerCandidatesTemplate, _nodeComponentPickerCandidatesContent, _targets.Count,
+                (index, item) => item.Bind(index, _targets[index].Name, _targets[index].Status, OnTargetClicked));
+            SetText(_nodeComponentPickerCandidatesBody, _targets.Count == 0
+                ? "当前区域没有支持此组件的目标；组件选择已保留，可返回检查。"
+                : "已选组件，接下来选择它要读取或作业的目标。");
+        }
+        private void OnTargetClicked(int index)
+        {
+            if (_targets == null || index < 0 || index >= _targets.Count) return;
+            if (_algorithms.Rebind(_request.InstanceId, _request.BindingKey, _componentId, _targets[index].Id, 0)) RequestCancel();
+            else SetText(_nodeComponentPickerCandidatesBody, _algorithms.Snapshot.CommandUnavailableReason ?? "目标已变化，请重新选择。");
         }
 
         private static bool MatchesKind(HardwareKind hardwareKind, AlgorithmNodeKind nodeKind)

@@ -721,3 +721,7 @@ Panel_PageHubStats [Image]
 | Grp_HubStatsDisabledState | min(0,1) max(0,1); pivot(0,1); sizeDelta(1488,634); pos(0,-36) | absolute | 无Graphic；默认inactive；区域状态互斥，不覆盖底部返回 |
 | Panel_HubStatsDisabledMessage | min(0.5,0.5) max(0.5,0.5); pivot(0.5,0.5); sizeDelta(520,120); pos(0,0) | absolute | Image；状态背景 |
 | Txt_HubStatsDisabledMessage | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-24); pos(0,0) | absolute | TextMeshProUGUI；Disabled：— |
+
+## 2026-10-09 B51 代表结构覆盖
+
+本批仅覆盖机器整备、HUD 常驻与机器现场概况、中枢总览。下列旧表中对应目标工作区的尺寸由 [B51 完整节点布局](../../../../../openspec/changes/b51-ui-representative-layout-prototypes/art/prefab-layout.md) 及同名 UI-PrefabLayouts contract.json 取代；其余页不变。正式美术未制作，1920×1080 原型等待用户验收。

@@ -4,9 +4,9 @@
   "tableName": "UITable",
   "relativePath": "Core/UITable",
   "sourceExcel": "GameData/DataTables/Core/UITable.xlsx",
-  "sourceExcelLastWriteUtc": "2026-09-10T07:29:54.6267475Z",
-  "sourceFingerprint": "C6AC8C91EA7470FAD3A25F2D5E898BB7B9CACE4DFFB74F8B48A29525774B3A35",
-  "generatedAtUtc": "2026-09-10T07:29:55.1187490Z",
+  "sourceExcelLastWriteUtc": "2026-10-09T16:33:29.9444198Z",
+  "sourceFingerprint": "980EBD7EE2D7F719AE9EF6A1B009C6051234652038675E41BECC0ADD91709CF2",
+  "generatedAtUtc": "2026-10-09T16:46:58.3691577Z",
   "tableComment": "UI table",
   "columns": [
     {
@@ -76,7 +76,7 @@
   ],
   "rows": [
     {
-      "row": 7,
+      "row": 5,
       "enabled": true,
       "comment": null,
       "values": {
@@ -102,33 +102,33 @@
       ]
     },
     {
-      "row": 5,
+      "row": 6,
       "enabled": true,
       "comment": null,
       "values": {
         "Id": "6001",
         "SortOrder": "0",
-        "UIPrefab": "Operations/FieldHudForm",
+        "UIPrefab": "Hud/FieldHudForm",
         "PauseCoveredUI": "false",
         "UIGroupId": "1",
         "EscapeClose": "false"
       },
       "notes": {
-        "Note3": "ART-006 field HUD"
+        "Note3": "现场 HUD"
       },
       "_cells": [
         "",
         "6001",
-        "ART-006 field HUD",
+        "现场 HUD",
         "0",
-        "Operations/FieldHudForm",
+        "Hud/FieldHudForm",
         "false",
         "1",
         "false"
       ]
     },
     {
-      "row": 6,
+      "row": 7,
       "enabled": true,
       "comment": null,
       "values": {
@@ -140,15 +140,925 @@
         "EscapeClose": "true"
       },
       "notes": {
-        "Note3": "ART-006 base command hub"
+        "Note3": "基地中枢"
       },
       "_cells": [
         "",
         "6002",
-        "ART-006 base command hub",
+        "基地中枢",
         "100",
         "Operations/BaseCommandHubForm",
         "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 8,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6003",
+        "SortOrder": "0",
+        "UIPrefab": "Startup/SaveSlotsForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "存档槽列表"
+      },
+      "_cells": [
+        "",
+        "6003",
+        "存档槽列表",
+        "0",
+        "Startup/SaveSlotsForm",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 9,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6004",
+        "SortOrder": "0",
+        "UIPrefab": "Startup/SaveRecoveryForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "损坏存档恢复"
+      },
+      "_cells": [
+        "",
+        "6004",
+        "损坏存档恢复",
+        "0",
+        "Startup/SaveRecoveryForm",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 10,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6005",
+        "SortOrder": "0",
+        "UIPrefab": "System/SystemMenuForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "游戏内系统菜单"
+      },
+      "_cells": [
+        "",
+        "6005",
+        "游戏内系统菜单",
+        "0",
+        "System/SystemMenuForm",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 11,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6006",
+        "SortOrder": "0",
+        "UIPrefab": "System/SettingsForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "设置"
+      },
+      "_cells": [
+        "",
+        "6006",
+        "设置",
+        "0",
+        "System/SettingsForm",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 12,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6007",
+        "SortOrder": "0",
+        "UIPrefab": "System/ExitFlowForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "2",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "退出流程"
+      },
+      "_cells": [
+        "",
+        "6007",
+        "退出流程",
+        "0",
+        "System/ExitFlowForm",
+        "true",
+        "2",
+        "true"
+      ]
+    },
+    {
+      "row": 13,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6008",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/MachineLibraryForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "机器库"
+      },
+      "_cells": [
+        "",
+        "6008",
+        "机器库",
+        "0",
+        "Operations/MachineLibraryForm",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 14,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6009",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/WorkshopForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "制造工坊"
+      },
+      "_cells": [
+        "",
+        "6009",
+        "制造工坊",
+        "0",
+        "Operations/WorkshopForm",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 15,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6010",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/ComponentLibraryForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "组件库"
+      },
+      "_cells": [
+        "",
+        "6010",
+        "组件库",
+        "0",
+        "Operations/ComponentLibraryForm",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 16,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6011",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/WarehouseForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "仓库"
+      },
+      "_cells": [
+        "",
+        "6011",
+        "仓库",
+        "0",
+        "Operations/WarehouseForm",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 17,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6012",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/AlgorithmLibraryForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "算法模板库"
+      },
+      "_cells": [
+        "",
+        "6012",
+        "算法模板库",
+        "0",
+        "Operations/AlgorithmLibraryForm",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 18,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6013",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/ShopForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "商店"
+      },
+      "_cells": [
+        "",
+        "6013",
+        "商店",
+        "0",
+        "Operations/ShopForm",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 19,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6014",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/BuildCatalogForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "建筑图纸"
+      },
+      "_cells": [
+        "",
+        "6014",
+        "建筑图纸",
+        "0",
+        "Operations/BuildCatalogForm",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 20,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6015",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/UpgradeForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "升级与改装"
+      },
+      "_cells": [
+        "",
+        "6015",
+        "升级与改装",
+        "0",
+        "Operations/UpgradeForm",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 21,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6016",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/ComponentPickerForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "2",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "组件选择器"
+      },
+      "_cells": [
+        "",
+        "6016",
+        "组件选择器",
+        "0",
+        "Operations/ComponentPickerForm",
+        "true",
+        "2",
+        "true"
+      ]
+    },
+    {
+      "row": 22,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6017",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/AlgorithmBindingForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "2",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "模板集中待绑定"
+      },
+      "_cells": [
+        "",
+        "6017",
+        "模板集中待绑定",
+        "0",
+        "Operations/AlgorithmBindingForm",
+        "true",
+        "2",
+        "true"
+      ]
+    },
+    {
+      "row": 23,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6018",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/NodeComponentPickerForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "2",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "节点组件选择器"
+      },
+      "_cells": [
+        "",
+        "6018",
+        "节点组件选择器",
+        "0",
+        "Operations/NodeComponentPickerForm",
+        "true",
+        "2",
+        "true"
+      ]
+    },
+    {
+      "row": 24,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6019",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/WorldObjectPickerForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "2",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "世界对象选择器"
+      },
+      "_cells": [
+        "",
+        "6019",
+        "世界对象选择器",
+        "0",
+        "Operations/WorldObjectPickerForm",
+        "true",
+        "2",
+        "true"
+      ]
+    },
+    {
+      "row": 25,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6020",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/AlgorithmEditorForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "算法工作台"
+      },
+      "_cells": [
+        "",
+        "6020",
+        "算法工作台",
+        "0",
+        "Operations/AlgorithmEditorForm",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 26,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6021",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/WorldPlacementForm",
+        "PauseCoveredUI": "false",
+        "UIGroupId": "1",
+        "EscapeClose": "false"
+      },
+      "notes": {
+        "Note3": "世界放置与定位"
+      },
+      "_cells": [
+        "",
+        "6021",
+        "世界放置与定位",
+        "0",
+        "Operations/WorldPlacementForm",
+        "false",
+        "1",
+        "false"
+      ]
+    },
+    {
+      "row": 27,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6022",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/QuestForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "主线任务"
+      },
+      "_cells": [
+        "",
+        "6022",
+        "主线任务",
+        "0",
+        "Operations/QuestForm",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 28,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6023",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/AlertForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "警报"
+      },
+      "_cells": [
+        "",
+        "6023",
+        "警报",
+        "0",
+        "Operations/AlertForm",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 29,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6024",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/RecordReaderForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "记录阅读"
+      },
+      "_cells": [
+        "",
+        "6024",
+        "记录阅读",
+        "0",
+        "Operations/RecordReaderForm",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 30,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6025",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/TutorialForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "基础引导"
+      },
+      "_cells": [
+        "",
+        "6025",
+        "基础引导",
+        "0",
+        "Operations/TutorialForm",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 31,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6026",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/FeatureHelpForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "新功能说明"
+      },
+      "_cells": [
+        "",
+        "6026",
+        "新功能说明",
+        "0",
+        "Operations/FeatureHelpForm",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 32,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6027",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/HelpForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "帮助"
+      },
+      "_cells": [
+        "",
+        "6027",
+        "帮助",
+        "0",
+        "Operations/HelpForm",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 33,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6028",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/RuleHelpForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "通用规则说明"
+      },
+      "_cells": [
+        "",
+        "6028",
+        "通用规则说明",
+        "0",
+        "Operations/RuleHelpForm",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 34,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6029",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/CropKnowledgeForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "作物图鉴"
+      },
+      "_cells": [
+        "",
+        "6029",
+        "作物图鉴",
+        "0",
+        "Operations/CropKnowledgeForm",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 35,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6030",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/OperationDialogForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "2",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "操作确认"
+      },
+      "_cells": [
+        "",
+        "6030",
+        "操作确认",
+        "0",
+        "Operations/OperationDialogForm",
+        "true",
+        "2",
+        "true"
+      ]
+    },
+    {
+      "row": 36,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6031",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/ProgressReportForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "3",
+        "EscapeClose": "false"
+      },
+      "notes": {
+        "Note3": "进度与报告"
+      },
+      "_cells": [
+        "",
+        "6031",
+        "进度与报告",
+        "0",
+        "Operations/ProgressReportForm",
+        "true",
+        "3",
+        "false"
+      ]
+    },
+    {
+      "row": 37,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6032",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/OperationFeedbackForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "3",
+        "EscapeClose": "false"
+      },
+      "notes": {
+        "Note3": "操作反馈"
+      },
+      "_cells": [
+        "",
+        "6032",
+        "操作反馈",
+        "0",
+        "Operations/OperationFeedbackForm",
+        "true",
+        "3",
+        "false"
+      ]
+    },
+    {
+      "row": 38,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6033",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/FieldHudDetailForm",
+        "PauseCoveredUI": "False",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "现场详情"
+      },
+      "_cells": [
+        "",
+        "6033",
+        "现场详情",
+        "0",
+        "Operations/FieldHudDetailForm",
+        "False",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 39,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6034",
+        "SortOrder": "0",
+        "UIPrefab": "Hud/FieldHudResidentForm",
+        "PauseCoveredUI": "false",
+        "UIGroupId": "1",
+        "EscapeClose": "false"
+      },
+      "notes": {
+        "Note3": "常驻现场 HUD"
+      },
+      "_cells": [
+        "",
+        "6034",
+        "常驻现场 HUD",
+        "0",
+        "Hud/FieldHudResidentForm",
+        "false",
+        "1",
+        "false"
+      ]
+    },
+    {
+      "row": 40,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6035",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/AlgorithmPublicParametersForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "算法公开参数"
+      },
+      "_cells": [
+        "",
+        "6035",
+        "算法公开参数",
+        "0",
+        "Operations/AlgorithmPublicParametersForm",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 41,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6036",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/BaseCommandEnergyForm",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "基地中枢能源"
+      },
+      "_cells": [
+        "",
+        "6036",
+        "基地中枢能源",
+        "0",
+        "Operations/BaseCommandEnergyForm",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 42,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6037",
+        "SortOrder": "0",
+        "UIPrefab": "Operations/FieldHudMachineOverviewForm",
+        "PauseCoveredUI": "False",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "现场机器总览"
+      },
+      "_cells": [
+        "",
+        "6037",
+        "现场机器总览",
+        "0",
+        "Operations/FieldHudMachineOverviewForm",
+        "False",
         "1",
         "true"
       ]

@@ -81,6 +81,86 @@ namespace AutoEra.Editor.UiProto
             RefreshBindingsOnly(DefaultContractPath);
         }
 
+        [MenuItem("Game Framework/AutoEra/UI/修复设置页控件接线", priority = 2004)]
+        public static void RepairSettingsControls()
+        {
+            if (EditorApplication.isPlaying) throw new InvalidOperationException("请停止 Play Mode 后修复资产。");
+            JObject doc = LoadContract(ContractDirectory + "/SettingsForm.contract.json");
+            string path = RequireString(doc, "prefabPath");
+            GameObject root = PrefabUtility.LoadPrefabContents(path);
+            try
+            {
+                EnsureSettingsSliderAreas(root);
+                var index = new Dictionary<string, GameObject>(StringComparer.Ordinal);
+                IndexPaths(root, null, index);
+                RepairSliderGraphics((JObject)doc["root"], root.name, index);
+                WireInteractiveControls(root);
+                PrefabUtility.SaveAsPrefabAsset(root, path, out bool success);
+                if (!success) throw new InvalidOperationException("设置页资产保存失败。");
+                AssetDatabase.SaveAssets();
+                Debug.Log("[AutoEraUiPrefabGenerator] 设置页滑杆已按契约修复。");
+            }
+            finally { PrefabUtility.UnloadPrefabContents(root); }
+        }
+
+        private static void RepairSliderGraphics(JObject node, string path, Dictionary<string, GameObject> index)
+        {
+            string name = RequireString(node, "name");
+            if (name.StartsWith("Sld_AudioSettings", StringComparison.Ordinal) || name.StartsWith("Sld_ControlSettings", StringComparison.Ordinal)
+                || name.StartsWith("Grp_AudioSettings", StringComparison.Ordinal) && name.EndsWith("Area", StringComparison.Ordinal)
+                || name.StartsWith("Grp_ControlSettings", StringComparison.Ordinal) && name.EndsWith("Area", StringComparison.Ordinal)
+                || name.StartsWith("Bar_", StringComparison.Ordinal) && name.EndsWith("Fill", StringComparison.Ordinal)
+                || name.StartsWith("Img_", StringComparison.Ordinal) && name.EndsWith("Handle", StringComparison.Ordinal))
+            {
+                Undo.RecordObject(index[path].GetComponent<RectTransform>(), "修复设置页滑杆布局");
+                ApplyRect(index[path].GetComponent<RectTransform>(), node);
+            }
+            if ((name.StartsWith("Bar_AudioSettings", StringComparison.Ordinal) || name.StartsWith("Bar_ControlSettings", StringComparison.Ordinal)) && name.EndsWith("Fill", StringComparison.Ordinal)
+                || (name.StartsWith("Img_AudioSettings", StringComparison.Ordinal) || name.StartsWith("Img_ControlSettings", StringComparison.Ordinal)) && name.EndsWith("Handle", StringComparison.Ordinal)
+                || name.StartsWith("Img_ControlSettingsInvert", StringComparison.Ordinal) && name.EndsWith("Box", StringComparison.Ordinal)
+                || name.StartsWith("Icon_ControlSettingsInvert", StringComparison.Ordinal) && name.EndsWith("Check", StringComparison.Ordinal)
+                || name.StartsWith("Sld_AudioSettings", StringComparison.Ordinal) || name.StartsWith("Sld_ControlSettings", StringComparison.Ordinal)
+                || name.StartsWith("Tgl_ControlSettingsInvert", StringComparison.Ordinal))
+            {
+                var go = index[path];
+                foreach (JObject spec in (JArray)node["components"])
+                    if ((string)spec["type"] == "Image")
+                    {
+                        var image = go.GetComponent<Image>() ?? Undo.AddComponent<Image>(go);
+                        Undo.RecordObject(image, "修复设置页控件图形");
+                        ApplyComponent(image, spec, go);
+                    }
+            }
+            if (node["children"] is JArray children)
+                foreach (JObject child in children)
+                    RepairSliderGraphics(child, path + "/" + RequireString(child, "name"), index);
+        }
+
+        private static void EnsureSettingsSliderAreas(GameObject root)
+        {
+            foreach (var slider in root.GetComponentsInChildren<Slider>(true))
+            {
+                if (!slider.name.StartsWith("Sld_AudioSettings", StringComparison.Ordinal) && !slider.name.StartsWith("Sld_ControlSettings", StringComparison.Ordinal)) continue;
+                string name = slider.name.Substring(4);
+                foreach (string kind in new[] { "Fill", "Handle" })
+                {
+                    string areaName = "Grp_" + name + kind + "Area";
+                    Transform area = slider.transform.Find(areaName);
+                    if (area == null)
+                    {
+                        var go = new GameObject(areaName, typeof(RectTransform));
+                        Undo.RegisterCreatedObjectUndo(go, "创建滑杆图形区域");
+                        Undo.SetTransformParent(go.transform, slider.transform, "创建滑杆图形区域");
+                        area = go.transform;
+                    }
+                    string graphicName = (kind == "Fill" ? "Bar_" : "Img_") + name + kind;
+                    Transform graphic = slider.transform.Find(graphicName) ?? area.Find(graphicName);
+                    if (graphic == null) throw new InvalidOperationException("设置滑杆图形缺失：" + graphicName);
+                    if (graphic.parent != area) Undo.SetTransformParent(graphic, area, "移动滑杆图形到专用区域");
+                }
+            }
+        }
+
         /// <summary>Rebuild every page that ships a contract, one file per page.</summary>
         [MenuItem("Game Framework/AutoEra/UI/从契约重建所有页面", priority = 2002)]
         public static void RebuildAllContracts()
@@ -158,6 +238,53 @@ namespace AutoEra.Editor.UiProto
                 {
                     UnityEngine.Object.DestroyImmediate(root);
                 }
+            }
+        }
+
+        /// <summary>Apply authored layout to an existing prefab without replacing its components or references.</summary>
+        public static void ApplyExistingLayout(string contractPath)
+        {
+            if (EditorApplication.isPlaying) throw new InvalidOperationException("请停止 Play Mode 后修改布局。");
+            JObject doc = LoadContract(contractPath);
+            string path = RequireString(doc, "prefabPath");
+            GameObject root = PrefabUtility.LoadPrefabContents(path);
+            try
+            {
+                ApplyExistingNode(root, (JObject)doc["root"]);
+                var index = new Dictionary<string, GameObject>(StringComparer.Ordinal);
+                IndexPaths(root, null, index);
+                ApplyBindings(doc, EnsureFormComponent(root, doc), index, root.name);
+                PrefabUtility.SaveAsPrefabAsset(root, path, out bool saved);
+                if (!saved) throw new InvalidOperationException("布局保存失败：" + path);
+            }
+            finally { PrefabUtility.UnloadPrefabContents(root); }
+        }
+
+        private static void ApplyExistingNode(GameObject go, JObject node)
+        {
+            ApplyRect(go.GetComponent<RectTransform>(), node);
+            if (node["active"] != null) go.SetActive((bool)node["active"]);
+            if (node["removeComponents"] is JArray removed)
+                foreach (string typeName in removed)
+                {
+                    if (!WellKnownTypes.TryGetValue(typeName, out Type type))
+                        throw new InvalidOperationException("不支持移除组件：" + typeName);
+                    Component component = go.GetComponent(type);
+                    if (component != null) UnityEngine.Object.DestroyImmediate(component);
+                }
+            if (node["components"] is JArray specs)
+                foreach (JObject spec in specs) AddComponent(go, spec);
+            if (node["children"] is JArray children)
+            {
+                foreach (JObject child in children)
+                {
+                    Transform target = go.transform.Find(RequireString(child, "name"));
+                    if (target == null) BuildNode(child, go.transform);
+                    else ApplyExistingNode(target.gameObject, child);
+                }
+                foreach (JObject child in children)
+                    if (child["lastSibling"]?.Value<bool>() == true)
+                        go.transform.Find(RequireString(child, "name")).SetAsLastSibling();
             }
         }
 
@@ -463,6 +590,37 @@ namespace AutoEra.Editor.UiProto
                 Transform content = FindDescendant(scroll.transform, "Content_");
                 if (viewport != null) scroll.viewport = viewport as RectTransform;
                 if (content != null) scroll.content = content as RectTransform;
+            }
+        }
+
+        private static void WireInteractiveControls(GameObject root)
+        {
+            foreach (var slider in root.GetComponentsInChildren<Slider>(true))
+            {
+                if (!slider.name.StartsWith("Sld_", StringComparison.Ordinal)) continue;
+                string name = slider.name.Substring(4);
+                Transform fill = slider.transform.Find("Grp_" + name + "FillArea/Bar_" + name + "Fill") ?? slider.transform.Find("Bar_" + name + "Fill");
+                Transform handle = slider.transform.Find("Grp_" + name + "HandleArea/Img_" + name + "Handle") ?? slider.transform.Find("Img_" + name + "Handle");
+                if (fill == null || handle == null) continue;
+                Undo.RecordObject(slider, "绑定滑杆图形");
+                var serialized = new SerializedObject(slider);
+                serialized.FindProperty("m_FillRect").objectReferenceValue = fill as RectTransform;
+                serialized.FindProperty("m_HandleRect").objectReferenceValue = handle as RectTransform;
+                serialized.FindProperty("m_TargetGraphic").objectReferenceValue = handle.GetComponent<Graphic>();
+                serialized.ApplyModifiedProperties();
+            }
+            foreach (var toggle in root.GetComponentsInChildren<Toggle>(true))
+            {
+                if (!toggle.name.StartsWith("Tgl_", StringComparison.Ordinal)) continue;
+                string name = toggle.name.Substring(4);
+                Transform box = toggle.transform.Find("Img_" + name + "Box");
+                Transform check = box != null ? box.Find("Icon_" + name + "Check") : null;
+                if (check == null) continue;
+                Undo.RecordObject(toggle, "绑定开关图形");
+                var serialized = new SerializedObject(toggle);
+                serialized.FindProperty("graphic").objectReferenceValue = check.GetComponent<Graphic>();
+                serialized.FindProperty("m_TargetGraphic").objectReferenceValue = box.GetComponent<Graphic>();
+                serialized.ApplyModifiedProperties();
             }
         }
 
@@ -780,6 +938,7 @@ namespace AutoEra.Editor.UiProto
         private static void SavePrefab(GameObject root, string prefabPath)
         {
             WireScrollRects(root);
+            WireInteractiveControls(root);
 
             // 产出即幂等：布局组驱动值 + TMP 惰性缓存在保存前先算定，否则预制体一被打开
             // （Prefab Mode 会分配 Canvas 并跑布局）就会自己变脏，Auto Save 开着就会写回资产。

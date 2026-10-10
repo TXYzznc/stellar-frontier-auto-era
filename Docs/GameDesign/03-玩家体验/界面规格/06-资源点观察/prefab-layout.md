@@ -146,8 +146,8 @@ Panel_PageForest [Image]
     Txt_ForestPublicHeading [TextMeshProUGUI]
     List_ForestPublic [ScrollRect vertical=true horizontal=false]
       Viewport_ForestPublic [RectMask2D]
-        Content_ForestPublic [VerticalLayoutGroup spacing=8 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained]
-          Txt_ForestPublicBody [TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高]
+        Content_ForestPublic [VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained]
+          Txt_ForestPublicBody [TextMeshProUGUI + LayoutElement minHeight=24 preferredHeight=24 flexibleHeight=0 字号16]
           Item_ForestPublicTemplate [LayoutElement + Image；默认inactive]
             Btn_ForestPublicRow [Button + Image]
               Txt_ForestPublicRowLabel [TextMeshProUGUI]
@@ -156,8 +156,8 @@ Panel_PageForest [Image]
     Txt_ForestSensorHeading [TextMeshProUGUI]
     List_ForestSensor [ScrollRect vertical=true horizontal=false]
       Viewport_ForestSensor [RectMask2D]
-        Content_ForestSensor [VerticalLayoutGroup spacing=8 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained]
-          Txt_ForestSensorBody [TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高]
+        Content_ForestSensor [VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained]
+          Txt_ForestSensorBody [TextMeshProUGUI + LayoutElement minHeight=24 preferredHeight=24 flexibleHeight=0 字号16]
           Item_ForestSensorTemplate [LayoutElement + Image；默认inactive]
             Btn_ForestSensorRow [Button + Image]
               Txt_ForestSensorRowLabel [TextMeshProUGUI]
@@ -166,8 +166,8 @@ Panel_PageForest [Image]
     Txt_ForestRecordHeading [TextMeshProUGUI]
     List_ForestRecord [ScrollRect vertical=true horizontal=false]
       Viewport_ForestRecord [RectMask2D]
-        Content_ForestRecord [VerticalLayoutGroup spacing=8 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained]
-          Txt_ForestRecordBody [TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高]
+        Content_ForestRecord [VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained]
+          Txt_ForestRecordBody [TextMeshProUGUI + LayoutElement minHeight=24 preferredHeight=24 flexibleHeight=0 字号16]
           Item_ForestRecordTemplate [LayoutElement + Image；默认inactive]
             Btn_ForestRecordRow [Button + Image]
               Txt_ForestRecordRowLabel [TextMeshProUGUI]
@@ -206,32 +206,32 @@ Panel_PageForest [Image]
 | Txt_ForestPublicHeading | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,32); pos(12,-8) | absolute | TextMeshProUGUI；公开状态 |
 | List_ForestPublic | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-52); pos(0,-18) | absolute | ScrollRect vertical=true horizontal=false；正文／真实记录 |
 | Viewport_ForestPublic | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | RectMask2D；裁切 |
-| Content_ForestPublic | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=8 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 |
-| Txt_ForestPublicBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,120)初始化; pos(0,0)初始化; LayoutElement preferred(496,120); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高；阶段；生长进度；可采集数量；恢复速度；缓存及阻塞 |
-| Item_ForestPublicTemplate | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,104)初始化; pos(0,0)初始化; LayoutElement preferred(496,104); 最终位置/尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
+| Content_ForestPublic | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 |
+| Txt_ForestPublicBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,120)初始化; pos(0,0)初始化; LayoutElement preferred(auto,24); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=24 preferredHeight=24 flexibleHeight=0 字号16；阶段；生长进度；可采集数量；恢复速度；缓存及阻塞 |
+| Item_ForestPublicTemplate | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,44)初始化; pos(0,0)初始化; LayoutElement minHeight=preferredHeight=44 flexibleWidth=1；最终尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
 | Btn_ForestPublicRow | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | Button + Image；选中当前行稳定ID，更新详情；纯段落行禁用选择 |
-| Txt_ForestPublicRowLabel | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(-24,32); pos(0,-8) | absolute | TextMeshProUGUI；名称：— |
-| Txt_ForestPublicRowValue | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,48); pos(0,8) | absolute | TextMeshProUGUI；值、状态、时间：— |
+| Txt_ForestPublicRowLabel | min(0,0.5) max(0.42,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；名称：— ；字号16；左对齐；溢出省略 |
+| Txt_ForestPublicRowValue | min(0.42,0.5) max(1,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；值、状态、时间：— ；字号16；左对齐；溢出省略 |
 | Panel_ForestSensor | min(0,1) max(0,1); pivot(0,1); sizeDelta(520,218); pos(0,-266) | absolute | Image；关联传感数据 |
 | Txt_ForestSensorHeading | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,32); pos(12,-8) | absolute | TextMeshProUGUI；关联传感数据 |
 | List_ForestSensor | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-52); pos(0,-18) | absolute | ScrollRect vertical=true horizontal=false；正文／真实记录 |
 | Viewport_ForestSensor | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | RectMask2D；裁切 |
-| Content_ForestSensor | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=8 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 |
-| Txt_ForestSensorBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,120)初始化; pos(0,0)初始化; LayoutElement preferred(496,120); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高；有效采样；来源机器／传感器；采样时刻；失效说明 |
-| Item_ForestSensorTemplate | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,104)初始化; pos(0,0)初始化; LayoutElement preferred(496,104); 最终位置/尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
+| Content_ForestSensor | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 |
+| Txt_ForestSensorBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,120)初始化; pos(0,0)初始化; LayoutElement preferred(auto,24); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=24 preferredHeight=24 flexibleHeight=0 字号16；有效采样；来源机器／传感器；采样时刻；失效说明 |
+| Item_ForestSensorTemplate | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,44)初始化; pos(0,0)初始化; LayoutElement minHeight=preferredHeight=44 flexibleWidth=1；最终尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
 | Btn_ForestSensorRow | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | Button + Image；选中当前行稳定ID，更新详情；纯段落行禁用选择 |
-| Txt_ForestSensorRowLabel | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(-24,32); pos(0,-8) | absolute | TextMeshProUGUI；名称：— |
-| Txt_ForestSensorRowValue | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,48); pos(0,8) | absolute | TextMeshProUGUI；值、状态、时间：— |
+| Txt_ForestSensorRowLabel | min(0,0.5) max(0.42,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；名称：— ；字号16；左对齐；溢出省略 |
+| Txt_ForestSensorRowValue | min(0.42,0.5) max(1,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；值、状态、时间：— ；字号16；左对齐；溢出省略 |
 | Panel_ForestRecord | min(0,1) max(0,1); pivot(0,1); sizeDelta(520,218); pos(0,-496) | absolute | Image；生产记录与规则 |
 | Txt_ForestRecordHeading | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,32); pos(12,-8) | absolute | TextMeshProUGUI；生产记录与规则 |
 | List_ForestRecord | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-52); pos(0,-18) | absolute | ScrollRect vertical=true horizontal=false；正文／真实记录 |
 | Viewport_ForestRecord | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | RectMask2D；裁切 |
-| Content_ForestRecord | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=8 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 |
-| Txt_ForestRecordBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,120)初始化; pos(0,0)初始化; LayoutElement preferred(496,120); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高；阻塞；生产事件；自然语言作业描述；规则描述ID |
-| Item_ForestRecordTemplate | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,104)初始化; pos(0,0)初始化; LayoutElement preferred(496,104); 最终位置/尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
+| Content_ForestRecord | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 |
+| Txt_ForestRecordBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,120)初始化; pos(0,0)初始化; LayoutElement preferred(auto,24); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=24 preferredHeight=24 flexibleHeight=0 字号16；阻塞；生产事件；自然语言作业描述；规则描述ID |
+| Item_ForestRecordTemplate | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,44)初始化; pos(0,0)初始化; LayoutElement minHeight=preferredHeight=44 flexibleWidth=1；最终尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
 | Btn_ForestRecordRow | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | Button + Image；选中当前行稳定ID，更新详情；纯段落行禁用选择 |
-| Txt_ForestRecordRowLabel | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(-24,32); pos(0,-8) | absolute | TextMeshProUGUI；名称：— |
-| Txt_ForestRecordRowValue | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,48); pos(0,8) | absolute | TextMeshProUGUI；值、状态、时间：— |
+| Txt_ForestRecordRowLabel | min(0,0.5) max(0.42,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；名称：— ；字号16；左对齐；溢出省略 |
+| Txt_ForestRecordRowValue | min(0.42,0.5) max(1,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；值、状态、时间：— ；字号16；左对齐；溢出省略 |
 | Grp_ForestLoadingState | min(0,1) max(0,1); pivot(0,1); sizeDelta(520,680); pos(0,-36) | absolute | 无Graphic；默认inactive；区域状态互斥，不覆盖底部返回 |
 | Panel_ForestLoadingMessage | min(0.5,0.5) max(0.5,0.5); pivot(0.5,0.5); sizeDelta(504,120); pos(0,0) | absolute | Image；状态背景 |
 | Txt_ForestLoadingMessage | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-24); pos(0,0) | absolute | TextMeshProUGUI；Loading：— |
@@ -268,8 +268,8 @@ Panel_PageMineral [Image]
     Txt_MineralPublicHeading [TextMeshProUGUI]
     List_MineralPublic [ScrollRect vertical=true horizontal=false]
       Viewport_MineralPublic [RectMask2D]
-        Content_MineralPublic [VerticalLayoutGroup spacing=8 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained]
-          Txt_MineralPublicBody [TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高]
+        Content_MineralPublic [VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained]
+          Txt_MineralPublicBody [TextMeshProUGUI + LayoutElement minHeight=24 preferredHeight=24 flexibleHeight=0 字号16]
           Item_MineralPublicTemplate [LayoutElement + Image；默认inactive]
             Btn_MineralPublicRow [Button + Image]
               Txt_MineralPublicRowLabel [TextMeshProUGUI]
@@ -278,8 +278,8 @@ Panel_PageMineral [Image]
     Txt_MineralSensorHeading [TextMeshProUGUI]
     List_MineralSensor [ScrollRect vertical=true horizontal=false]
       Viewport_MineralSensor [RectMask2D]
-        Content_MineralSensor [VerticalLayoutGroup spacing=8 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained]
-          Txt_MineralSensorBody [TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高]
+        Content_MineralSensor [VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained]
+          Txt_MineralSensorBody [TextMeshProUGUI + LayoutElement minHeight=24 preferredHeight=24 flexibleHeight=0 字号16]
           Item_MineralSensorTemplate [LayoutElement + Image；默认inactive]
             Btn_MineralSensorRow [Button + Image]
               Txt_MineralSensorRowLabel [TextMeshProUGUI]
@@ -288,8 +288,8 @@ Panel_PageMineral [Image]
     Txt_MineralRecordHeading [TextMeshProUGUI]
     List_MineralRecord [ScrollRect vertical=true horizontal=false]
       Viewport_MineralRecord [RectMask2D]
-        Content_MineralRecord [VerticalLayoutGroup spacing=8 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained]
-          Txt_MineralRecordBody [TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高]
+        Content_MineralRecord [VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained]
+          Txt_MineralRecordBody [TextMeshProUGUI + LayoutElement minHeight=24 preferredHeight=24 flexibleHeight=0 字号16]
           Item_MineralRecordTemplate [LayoutElement + Image；默认inactive]
             Btn_MineralRecordRow [Button + Image]
               Txt_MineralRecordRowLabel [TextMeshProUGUI]
@@ -328,32 +328,32 @@ Panel_PageMineral [Image]
 | Txt_MineralPublicHeading | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,32); pos(12,-8) | absolute | TextMeshProUGUI；公开状态 |
 | List_MineralPublic | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-52); pos(0,-18) | absolute | ScrollRect vertical=true horizontal=false；正文／真实记录 |
 | Viewport_MineralPublic | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | RectMask2D；裁切 |
-| Content_MineralPublic | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=8 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 |
-| Txt_MineralPublicBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,120)初始化; pos(0,0)初始化; LayoutElement preferred(496,120); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高；剩余储量；可开采数量；耗尽状态；缓存容量及阻塞 |
-| Item_MineralPublicTemplate | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,104)初始化; pos(0,0)初始化; LayoutElement preferred(496,104); 最终位置/尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
+| Content_MineralPublic | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 |
+| Txt_MineralPublicBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,120)初始化; pos(0,0)初始化; LayoutElement preferred(auto,24); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=24 preferredHeight=24 flexibleHeight=0 字号16；剩余储量；可开采数量；耗尽状态；缓存容量及阻塞 |
+| Item_MineralPublicTemplate | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,44)初始化; pos(0,0)初始化; LayoutElement minHeight=preferredHeight=44 flexibleWidth=1；最终尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
 | Btn_MineralPublicRow | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | Button + Image；选中当前行稳定ID，更新详情；纯段落行禁用选择 |
-| Txt_MineralPublicRowLabel | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(-24,32); pos(0,-8) | absolute | TextMeshProUGUI；名称：— |
-| Txt_MineralPublicRowValue | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,48); pos(0,8) | absolute | TextMeshProUGUI；值、状态、时间：— |
+| Txt_MineralPublicRowLabel | min(0,0.5) max(0.42,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；名称：— ；字号16；左对齐；溢出省略 |
+| Txt_MineralPublicRowValue | min(0.42,0.5) max(1,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；值、状态、时间：— ；字号16；左对齐；溢出省略 |
 | Panel_MineralSensor | min(0,1) max(0,1); pivot(0,1); sizeDelta(520,218); pos(0,-266) | absolute | Image；关联传感数据 |
 | Txt_MineralSensorHeading | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,32); pos(12,-8) | absolute | TextMeshProUGUI；关联传感数据 |
 | List_MineralSensor | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-52); pos(0,-18) | absolute | ScrollRect vertical=true horizontal=false；正文／真实记录 |
 | Viewport_MineralSensor | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | RectMask2D；裁切 |
-| Content_MineralSensor | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=8 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 |
-| Txt_MineralSensorBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,120)初始化; pos(0,0)初始化; LayoutElement preferred(496,120); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高；有效采样；来源机器／传感器；采样时刻；失效说明 |
-| Item_MineralSensorTemplate | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,104)初始化; pos(0,0)初始化; LayoutElement preferred(496,104); 最终位置/尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
+| Content_MineralSensor | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 |
+| Txt_MineralSensorBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,120)初始化; pos(0,0)初始化; LayoutElement preferred(auto,24); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=24 preferredHeight=24 flexibleHeight=0 字号16；有效采样；来源机器／传感器；采样时刻；失效说明 |
+| Item_MineralSensorTemplate | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,44)初始化; pos(0,0)初始化; LayoutElement minHeight=preferredHeight=44 flexibleWidth=1；最终尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
 | Btn_MineralSensorRow | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | Button + Image；选中当前行稳定ID，更新详情；纯段落行禁用选择 |
-| Txt_MineralSensorRowLabel | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(-24,32); pos(0,-8) | absolute | TextMeshProUGUI；名称：— |
-| Txt_MineralSensorRowValue | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,48); pos(0,8) | absolute | TextMeshProUGUI；值、状态、时间：— |
+| Txt_MineralSensorRowLabel | min(0,0.5) max(0.42,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；名称：— ；字号16；左对齐；溢出省略 |
+| Txt_MineralSensorRowValue | min(0.42,0.5) max(1,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；值、状态、时间：— ；字号16；左对齐；溢出省略 |
 | Panel_MineralRecord | min(0,1) max(0,1); pivot(0,1); sizeDelta(520,218); pos(0,-496) | absolute | Image；生产记录与规则 |
 | Txt_MineralRecordHeading | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,32); pos(12,-8) | absolute | TextMeshProUGUI；生产记录与规则 |
 | List_MineralRecord | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-52); pos(0,-18) | absolute | ScrollRect vertical=true horizontal=false；正文／真实记录 |
 | Viewport_MineralRecord | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | RectMask2D；裁切 |
-| Content_MineralRecord | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=8 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 |
-| Txt_MineralRecordBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,120)初始化; pos(0,0)初始化; LayoutElement preferred(496,120); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=120 preferredHeight=实际文本行高；阻塞；生产事件；自然语言作业描述；规则描述ID |
-| Item_MineralRecordTemplate | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,104)初始化; pos(0,0)初始化; LayoutElement preferred(496,104); 最终位置/尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
+| Content_MineralRecord | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,0); pos(0,0) | absolute | VerticalLayoutGroup spacing=4 + ContentSizeFitter vertical=Preferred horizontal=Unconstrained；单层自适应 |
+| Txt_MineralRecordBody | min(0,1) max(0,1); pivot(0,1); sizeDelta(496,120)初始化; pos(0,0)初始化; LayoutElement preferred(auto,24); 最终位置/尺寸由组驱动 | group | TextMeshProUGUI + LayoutElement minHeight=24 preferredHeight=24 flexibleHeight=0 字号16；阻塞；生产事件；自然语言作业描述；规则描述ID |
+| Item_MineralRecordTemplate | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(0,44)初始化; pos(0,0)初始化; LayoutElement minHeight=preferredHeight=44 flexibleWidth=1；最终尺寸由组驱动 | group | LayoutElement + Image；默认inactive；真实记录／候选条目模板 |
 | Btn_MineralRecordRow | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(0,0); pos(0,0) | absolute | Button + Image；选中当前行稳定ID，更新详情；纯段落行禁用选择 |
-| Txt_MineralRecordRowLabel | min(0,1) max(1,1); pivot(0.5,1); sizeDelta(-24,32); pos(0,-8) | absolute | TextMeshProUGUI；名称：— |
-| Txt_MineralRecordRowValue | min(0,0) max(1,0); pivot(0.5,0); sizeDelta(-24,48); pos(0,8) | absolute | TextMeshProUGUI；值、状态、时间：— |
+| Txt_MineralRecordRowLabel | min(0,0.5) max(0.42,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；名称：— ；字号16；左对齐；溢出省略 |
+| Txt_MineralRecordRowValue | min(0.42,0.5) max(1,0.5); pivot(0,0.5); sizeDelta(-24,32); pos(12,0) | absolute | TextMeshProUGUI；值、状态、时间：— ；字号16；左对齐；溢出省略 |
 | Grp_MineralLoadingState | min(0,1) max(0,1); pivot(0,1); sizeDelta(520,680); pos(0,-36) | absolute | 无Graphic；默认inactive；区域状态互斥，不覆盖底部返回 |
 | Panel_MineralLoadingMessage | min(0.5,0.5) max(0.5,0.5); pivot(0.5,0.5); sizeDelta(504,120); pos(0,0) | absolute | Image；状态背景 |
 | Txt_MineralLoadingMessage | min(0,0) max(1,1); pivot(0.5,0.5); sizeDelta(-24,-24); pos(0,0) | absolute | TextMeshProUGUI；Loading：— |

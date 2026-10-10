@@ -306,12 +306,12 @@ namespace AutoEra.UI
             SetState(_machinePreparationLoadingState, false);
             SetState(_machinePreparationErrorState, false);
             SetState(_machinePreparationEmptyState, !hasSelection);
-            SetState(_machinePreparationSuccessState, hasSelection);
+            SetState(_machinePreparationSuccessState, false);
             SetState(_machinePreparationDisabledState, snapshot.State == UiDataState.Unavailable);
 
-            SetBody(_machinePreparationCarrierBody, snapshot, AssemblyMissing);
+            SetBody(_machinePreparationCarrierBody, snapshot, "载体参数与当前能力");
             SetBody(_machinePreparationAssemblyBody, snapshot, AssemblyHint());
-            SetBody(_machinePreparationReadinessBody, snapshot, AssemblyMissing);
+            SetBody(_machinePreparationReadinessBody, snapshot, "部署前检查与限制");
 
             RenderDetailRows(_machinePreparationCarrierTemplate, _machinePreparationCarrierContent,
                 hasSelection ? snapshot.Carrier : NoFields);
@@ -341,12 +341,8 @@ namespace AutoEra.UI
         /// <summary>整备页正文：说清「怎么操作」以及两条路各自通向哪里。</summary>
         private string AssemblyHint() => HasSlotSelection
             ? "已选槽位：" + AutoEraUiFormat.Slot(_selectedSlotKind, _selectedSlotIndex)
-              + "。选中后「安装或拆卸」会按格子分流：已占用的格子去 17-硬件修改确认（拆下），"
-              + "空格子去 12-组件选择器（挑一件后同样进 17 确认）。"
-              + "「一键卸下」作用于整台机器，不走槽位选择。"
-            : "选中一行槽位后再决定装或拆；安装／拆卸都要经 17-硬件修改确认。"
-              + "「一键卸下」不需要先选槽位，它把整台机器上装着的组件一起原子回库。"
-              + "升级走 11-载体升级、改名走 17-重命名、出售走 17-交易确认——这些尚未接线。";
+              + "。可安装或拆卸组件；提交前需确认。"
+            : "选择槽位，安装或拆卸组件。一键卸下会移除全部已装组件。";
 
         /// <summary>
         /// 整备页三个槽位动作按钮的可点性。
@@ -647,7 +643,7 @@ namespace AutoEra.UI
                 return;
             }
 
-            AutoEraUiNavigator.Open(this, UIViews.WorldPlacementForm,
+            AutoEraUiNavigator.OpenSub(this, UIViews.WorldPlacementForm,
                 new AutoEraUiPageRequest(WorldPlacementForm.PageMachineDeployment, _machines.SelectedId));
         }
 

@@ -347,7 +347,7 @@ namespace AutoEra.UI
             // 散件：在花名册里、但没有归属机器。
             foreach (ComponentInstance component in _roster.Components)
             {
-                if (component.OwnerId.IsValid)
+                if (component.OwnerId.IsValid || component.IsInCargo)
                 {
                     continue;
                 }

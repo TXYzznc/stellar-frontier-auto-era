@@ -37,7 +37,10 @@ namespace AutoEra.UI
         /// <summary>按规格页序切换内容页；越界调用无副作用。</summary>
         public bool ShowFormPage(int page) => ShowPage(_pageRoots, page);
 
-        private void RequestCancel() => TryHandleIntent(AutoEraUiIntent.Cancel);
+        // UITable intentionally disables EscapeClose for report pages, so the explicit
+        // Back/Close buttons must close the form directly instead of routing through
+        // TryHandleIntent(Cancel), which honours the EscapeClose gate.
+        private void RequestCancel() => CloseSelf();
 
         protected override void OnOperationPresentationChanged(
             AutoEraUiOperationSnapshot snapshot, AutoEraUiOperationPresentation presentation) { }

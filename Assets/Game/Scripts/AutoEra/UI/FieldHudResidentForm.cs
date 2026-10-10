@@ -40,12 +40,21 @@ namespace AutoEra.UI
             {
                 if (buttons[i] != null) _buttonCache[buttons[i].name] = buttons[i];
             }
+            BindNavigation("Btn_HudNavigationHub", UIViews.BaseCommandHubForm);
+            BindNavigation("Btn_HudNavigationMachines", UIViews.MachineLibraryForm);
             EnsurePageRoots();
+        }
+
+        private void BindNavigation(string buttonName, UIViews view)
+        {
+            Button button = FindButton(buttonName);
+            if (button != null) button.onClick.AddListener(() => AutoEraUiNavigator.Open(this, view));
         }
 
         protected override void OnAutoEraOpen()
         {
             EnsurePageRoots();
+            ShowAllModules();
             ApplyDefaultFocus(null, null);
         }
 
@@ -53,7 +62,16 @@ namespace AutoEra.UI
         public bool ShowFormPage(int page)
         {
             EnsurePageRoots();
-            return ShowPage(_pageRoots, page);
+            if (_pageRoots == null || page < 0 || page >= _pageRoots.Length) return false;
+            ShowAllModules();
+            return true;
+        }
+
+        private void ShowAllModules()
+        {
+            if (_pageRoots == null) return;
+            for (int i = 0; i < _pageRoots.Length; i++)
+                if (_pageRoots[i] != null) _pageRoots[i].SetActive(true);
         }
         public void ShowWorldTime(long worldMilliseconds) { }
 

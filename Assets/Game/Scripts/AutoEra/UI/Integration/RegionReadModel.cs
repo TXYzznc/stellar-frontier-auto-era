@@ -148,6 +148,7 @@ namespace AutoEra.UI
     internal sealed class RegionReadModel : IRegionReadModel
     {
         private readonly InitialRegion _region;
+        private readonly AutoEra.ResourcePoints.ResourceProductionWorldService _production;
         private readonly List<UiRegionObjectRow> _objects = new List<UiRegionObjectRow>(32);
         private readonly List<UiRegionObjectRow> _machines = new List<UiRegionObjectRow>(16);
         private readonly List<UiRegionObjectRow> _sites = new List<UiRegionObjectRow>(32);
@@ -158,9 +159,10 @@ namespace AutoEra.UI
         private PersistentId _selected = PersistentId.Invalid;
         private bool _disposed;
 
-        public RegionReadModel(InitialRegion region)
+        public RegionReadModel(InitialRegion region, AutoEra.ResourcePoints.ResourceProductionWorldService production = null)
         {
             _region = region ?? throw new ArgumentNullException(nameof(region));
+            _production = production;
             _region.ObjectsChanged += OnRegionObjectsChanged;
             _region.SelectionChanged += OnRegionSelectionChanged;
             Refresh();
@@ -324,7 +326,7 @@ namespace AutoEra.UI
         }
 
         /// <summary>把对象的公开信息写进字段列表；选中详情与「按 Id 取详情」共用这一份逻辑。</summary>
-        private static void AppendDetail(RegionObject obj, List<UiDetailField> target)
+        private void AppendDetail(RegionObject obj, List<UiDetailField> target)
         {
             target.Add(new UiDetailField("名称", obj.Name));
             target.Add(new UiDetailField("类别", DescribeKind(obj)));
@@ -350,6 +352,18 @@ namespace AutoEra.UI
             if (!string.IsNullOrEmpty(obj.WorkSummary))
             {
                 target.Add(new UiDetailField("作业", obj.WorkSummary));
+            }
+            if (_production != null && _production.TryGetForest(obj.Id, out var forest))
+            {
+                target.Add(new UiDetailField("成熟树木", forest.MatureCount.ToString()));
+                target.Add(new UiDetailField("树木总数", forest.Count.ToString()));
+                target.Add(new UiDetailField("待运木材", forest.CachedUnits.ToString()));
+            }
+            if (_production != null && _production.TryGetMineral(obj.Id, out var mineral))
+            {
+                target.Add(new UiDetailField("剩余矿量", mineral.RemainingUnits.ToString()));
+                target.Add(new UiDetailField("累计采出", mineral.ProducedUnits.ToString()));
+                target.Add(new UiDetailField("待运矿石", mineral.CachedUnits.ToString()));
             }
         }
 
@@ -404,7 +418,7 @@ namespace AutoEra.UI
                 return new UnavailableRegionReadModel("区域尚未加载或已经卸载：现场数据暂不可用。");
             }
 
-            return new RegionReadModel(session.Region);
+            return new RegionReadModel(session.Region, session.World.Production);
         }
 
         /// <summary>

@@ -28,7 +28,7 @@ namespace AutoEra.UI
         public event Action Changed;
         public bool IsValid => !_disposed && _roster.IsActive && _machine != null &&
             _roster.TryGet(_machine.Id, out var current) && ReferenceEquals(current, _machine);
-        public bool CanManage => IsValid && (Origin == ManagementOrigin.Field ? _machine.Deployed :
+        public bool CanManage => IsValid && !_machine.IsInCargo && (Origin == ManagementOrigin.Field ? _machine.Deployed :
             Origin == ManagementOrigin.Hub ? _machine.Connected : Origin == ManagementOrigin.Library && !_machine.Deployed);
         public bool IsWaiting => _operation.State == HardwareOperationState.Waiting;
         public bool IsRemoval => _remove;
@@ -55,7 +55,7 @@ namespace AutoEra.UI
             if (!CanChangeHardware || IsWaiting || slot < 0 || slot >= _machine.Definition.SlotCount(kind)) return;
             Kind = kind; Slot = slot; _candidate = PersistentId.Invalid; _candidates.Clear();
             foreach (var item in _roster.Components)
-                if (item.Definition.Kind == kind) _candidates.Add(item);
+                if (item.Definition.Kind == kind && !item.IsInCargo) _candidates.Add(item);
             _candidates.Sort((a, b) => a.Id.Value.CompareTo(b.Id.Value));
             Layer = _machine.GetComponent(kind, slot) == null ? MachinePanelLayer.Picker : MachinePanelLayer.Hardware; Changed?.Invoke();
         }
@@ -63,7 +63,7 @@ namespace AutoEra.UI
         {
             if (Layer != MachinePanelLayer.Picker || !CanChangeHardware) return false;
             foreach (var item in _candidates)
-                if (item.Id == id && !item.OwnerId.IsValid) { _candidate = id; Changed?.Invoke(); return true; }
+                if (item.Id == id && !item.OwnerId.IsValid && !item.IsInCargo) { _candidate = id; Changed?.Invoke(); return true; }
             return false;
         }
         public ComponentInstance SelectedComponent
@@ -83,7 +83,7 @@ namespace AutoEra.UI
             compute = logic = capacity = 0;
             if (!CanChangeHardware) return false;
             ComponentInstance item = _remove ? _machine.GetComponent(Kind, Slot) : SelectedComponent;
-            if (item == null || (!_remove && (item.OwnerId.IsValid || _machine.GetComponent(Kind, Slot) != null))) return false;
+            if (item == null || (!_remove && (item.OwnerId.IsValid || item.IsInCargo || _machine.GetComponent(Kind, Slot) != null))) return false;
             int sign = _remove ? -1 : 1;
             compute = _machine.ComputeCapacity + sign * item.Definition.ComputeCapacity;
             logic = _machine.LogicCapacity + sign * item.Definition.LogicCapacity;
