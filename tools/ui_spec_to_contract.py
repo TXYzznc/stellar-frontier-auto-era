@@ -1212,6 +1212,7 @@ def main() -> int:
 
         fam_key = page_family.get(Path(fdef["pages"][0]["href"]).stem, "00") if fdef["pages"] else "00"
         contract = build_form_contract(form_name, fdef, page_nodes, shell["shellRows"], fam_key)
+        apply_form_overrides(contract, form_name, spec_dir)
 
         # 清理辅助字段
         for pg in contract["root"].get("children", []):
@@ -1242,6 +1243,22 @@ def main() -> int:
         print(f"{name:34} {n:5} 节点  {path}")
     print(f"\n{'干跑' if args.dry_run else '已写出'} {written if not args.dry_run else len(report)} 个契约")
     return 0
+
+
+def apply_form_overrides(contract: dict, form_name: str, spec_dir: Path) -> None:
+    """Apply explicit form-local layout differences; shared shell remains the default."""
+    def nodes(node):
+        yield node
+        for child in node.get("children", []):
+            yield from nodes(child)
+    for source in sorted(spec_dir.glob("*/prefab-layout.md")):
+        for block in re.findall(r"```ui-contract-overrides\s*\n(.*?)\n```", source.read_text(encoding="utf-8"), re.S):
+            overrides = json.loads(block).get(form_name, {})
+            for name, properties in overrides.items():
+                matches = [node for node in nodes(contract["root"]) if node["name"] == name]
+                if len(matches) != 1:
+                    raise ValueError(f"{source}: {form_name}/{name} must identify exactly one node")
+                matches[0].update(properties)
 
 
 def count_nodes(node: dict) -> int:

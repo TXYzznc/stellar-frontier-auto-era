@@ -38,6 +38,7 @@ TYPE_BY_KIND = {
 # 手写脚本：它们的 .cs 带流程接入点，生成器不碰；但 .Fields.cs 仍然生成。
 # 逐域接入时把该域的 Form 加进来即可——生成器继续供字段，业务逻辑手写。
 HANDWRITTEN = {
+    "WarehouseForm",
     "MainMenuForm", "SaveSlotsForm", "SaveRecoveryForm", "BaseCommandHubForm", "FieldHudForm",
     "SystemMenuForm", "ExitFlowForm", "MachineLibraryForm",
     "AlgorithmEditorForm", "AlgorithmLibraryForm", "AlgorithmBindingForm", "NodeComponentPickerForm",
@@ -65,7 +66,7 @@ HANDWRITTEN = {
 # 判断依据是「该界面依赖的领域服务在生产里没有创建者」，而不是「界面没人写」：
 #   * 组件域：UpgradeForm（ComponentPickerForm 已接入——候选是组件库的散件，
 #     占用与槽位来自机器实例，两半都在生产里，见 HANDWRITTEN 的说明）
-#   * 库存与交易：WarehouseForm / ShopForm
+#   * 交易：ShopForm（WarehouseForm 已接入真实库存）
 #   * 建造与工坊：BuildCatalogForm / WorkshopForm
 #   * 任务：QuestForm（AlertForm 已接入，见 HANDWRITTEN）
 #   * 用户设置：设置域的三页里只有「显示与性能」已接线，但 NOT_WIRED 是**整页级**判定，
@@ -76,7 +77,6 @@ HANDWRITTEN = {
 # 由调用方传参驱动，不依赖任何领域服务，因此保持空骨架即可。
 NOT_WIRED: dict[str, str] = {
     "UpgradeForm": "机器改装与组件域尚未接入运行路径：改装项与代价无法计算。",
-    "WarehouseForm": "库存域尚未接入运行路径：物品定义与库存账本都还没有创建者。",
     "ShopForm": "交易域尚未接入运行路径：报价与结算服务都还没有创建者。",
     "BuildCatalogForm": "建造图纸域尚未接入运行路径：图纸目录与解锁状态没有数据来源。",
     "WorkshopForm": "工坊与配方域尚未接入运行路径：配方、队列与产出都没有创建者。",

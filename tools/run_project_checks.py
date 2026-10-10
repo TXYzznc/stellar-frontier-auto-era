@@ -3,7 +3,7 @@
 
 把五类检查串成一套可重复执行的入口：
 
-1) 编译检查（Unity 8092 编译 0 error）
+1) 编译检查（已核验 Unity 实例编译 0 error）
 2) 引用检查（悬空资源/GUID 引用）
 3) AppConfigs 检查（数据表/配置/语言/流程引用齐全）
 4) 资源表检查（衔接 GameData/AIData/Reports 校验报告）
@@ -85,8 +85,8 @@ def check_compile(port: int) -> Check:
     data = parse_json(proc)
     if isinstance(data, dict) and "count" in data:
         count = data.get("count", -1)
-        return Check("编译检查 (Unity 8092)", count == 0, f"compile errors = {count}")
-    return Check("编译检查 (Unity 8092)", False, f"无法查询编译错误: {data}")
+        return Check(f"编译检查 (Unity {port})", count == 0, f"compile errors = {count}")
+    return Check(f"编译检查 (Unity {port})", False, f"无法查询编译错误: {data}")
 
 
 def check_references(port: int) -> Check:
