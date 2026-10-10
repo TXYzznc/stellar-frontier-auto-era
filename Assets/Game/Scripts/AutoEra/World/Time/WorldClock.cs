@@ -24,6 +24,13 @@ namespace AutoEra.World.Time
 
         public double FractionalMilliseconds => _fractionalMilliseconds;
 
+        internal void RestorePersistentFraction(double value)
+        {
+            if (double.IsNaN(value) || double.IsInfinity(value) || value < 0d || value >= 1d)
+                throw new ArgumentOutOfRangeException(nameof(value));
+            _fractionalMilliseconds = value;
+        }
+
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         /// <summary>Developer-only input scaling; never changes the normal player's clock rules.</summary>
         public bool TryAdvanceDevelopmentRealtimeSeconds(double elapsedSeconds, double multiplier)

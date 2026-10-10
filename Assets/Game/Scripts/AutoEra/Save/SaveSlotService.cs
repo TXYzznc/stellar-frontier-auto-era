@@ -97,6 +97,16 @@ namespace AutoEra.Save
             return Write(slotIndex, summary, worldTimeMilliseconds, contentJson, offlineSettlementPending);
         }
 
+        /// <summary>Offline checkpoints retain their locked UTC watermark; IO time cannot change the settlement interval.</summary>
+        public bool OverwriteAtUtc(int slotIndex, string summary, long worldTimeMilliseconds, string contentJson,
+            bool offlineSettlementPending, DateTimeOffset savedUtc)
+        {
+            ValidateSlotIndex(slotIndex);
+            long ticks = savedUtc.UtcDateTime.Ticks;
+            if (ticks <= 0) throw new ArgumentOutOfRangeException(nameof(savedUtc));
+            return Write(slotIndex, summary, worldTimeMilliseconds, contentJson, offlineSettlementPending, ticks);
+        }
+
         /// <summary>Reads a slot. See <see cref="SaveSlotReadStatus"/> for the possible outcomes.</summary>
         public SaveSlotReadResult Read(int slotIndex)
         {
@@ -349,14 +359,14 @@ namespace AutoEra.Save
         // ---------------------------------------------------------------- 写
 
         private bool Write(int slotIndex, string summary, long worldTimeMilliseconds, string contentJson,
-            bool offlineSettlementPending)
+            bool offlineSettlementPending, long? savedUtcTicks = null)
         {
             string content = contentJson ?? string.Empty;
             var record = new SaveSlotRecord
             {
                 Version = SaveSlotRecord.CurrentVersion,
                 SlotIndex = slotIndex,
-                SavedUtcTicks = _utcNow().ToUniversalTime().Ticks,
+                SavedUtcTicks = savedUtcTicks ?? _utcNow().ToUniversalTime().Ticks,
                 WorldTimeMilliseconds = worldTimeMilliseconds,
                 Summary = summary ?? string.Empty,
                 ContentLength = content.Length,
