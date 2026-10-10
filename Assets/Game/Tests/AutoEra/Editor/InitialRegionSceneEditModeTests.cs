@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System;
+using System.Collections;
 using AutoEra.Input;
 using AutoEra.World;
 using AutoEra.World.Region;
@@ -8,25 +10,45 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
+using UnityEngine.TestTools;
 
 namespace AutoEra.Tests.Editor
 {
     public sealed class InitialRegionSceneEditModeTests
     {
-        [Test]
-        public void SavedRegion_RegistersAndReleasesActualViews_AndSelectionIsIsolated()
+        [UnityTest,Timeout(300000)]
+        public IEnumerator SavedRegion_RegistersAndReleasesActualViews_AndSelectionIsIsolated()
         {
-            Scene previous = SceneManager.GetActiveScene();
-            Scene scene = EditorSceneManager.OpenScene("Assets/Game/Scene/InitialRegion.unity", OpenSceneMode.Additive);
+            const string launch="Assets/Game/Scene/Launch.unity";
+            if(!SceneManager.GetSceneByPath(launch).isLoaded && string.IsNullOrEmpty(SceneManager.GetActiveScene().path))
+                SceneManager.SetActiveScene(EditorSceneManager.OpenScene(launch,OpenSceneMode.Additive));
+            yield return new EnterPlayMode();
+            double deadline=Time.realtimeSinceStartupAsDouble+90;
+            while(!AutoEra.Machines.MachineCatalog.IsGameDataLoaded && Time.realtimeSinceStartupAsDouble<deadline)yield return null;
+            Assert.That(AutoEra.Machines.MachineCatalog.IsGameDataLoaded,Is.True,"Formal game data load timeout.");
+            var loading=EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Game/Scene/InitialRegion.unity",new LoadSceneParameters(LoadSceneMode.Additive));
+            while(!loading.isDone && Time.realtimeSinceStartupAsDouble<deadline)yield return null;
+            Assert.That(loading.isDone,Is.True);
+            var ui=UnityGameFramework.Runtime.GameEntry.GetComponent<UnityGameFramework.Runtime.UIComponent>();
+            foreach(var form in ui.GetAllLoadedUIForms())if(form.Logic is AutoEra.UI.MainMenuForm)ui.CloseUIForm(form.SerialId);
+            Scene scene=SceneManager.GetSceneByPath("Assets/Game/Scene/InitialRegion.unity");
             try
             {
                 InitialRegionScene entry = scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<InitialRegionScene>(true)).Single();
                 using (var session = new AutoEraWorldSessionFactory().Create(0))
                 {
                     entry.Initialize(session);
+                    if(entry.Environment!=null)
+                    {
+                        deadline=Time.realtimeSinceStartupAsDouble+60;
+                        while(!entry.Environment.World.InitialReady&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;
+                        Assert.That(entry.Environment.World.InitialReady,Is.True,"Formal PCG ground load timeout.");
+                    }
                     Assert.That(entry.Region.Count, Is.EqualTo(7));
-                    Assert.That(session.ObjectRegistry.Count, Is.EqualTo(7));
+                    Assert.That(session.ObjectRegistry.Count, Is.GreaterThanOrEqualTo(entry.Region.Count),"Production tree identities also belong to the registry.");
+                    var originalIds=entry.Region.Objects.Select(o=>o.Id).ToArray();
                     RegionInputModule input = entry.GetComponent<RegionInputModule>();
+                    input.enabled=false; // Explicit Tick assertions must not race automatic per-frame input.
                     Camera camera = entry.GetComponent<RegionCameraController>().ViewCamera;
                     var source = new FixedSource();
                     input.SetSource(source);
@@ -39,12 +61,17 @@ namespace AutoEra.Tests.Editor
                     input.Tick(1, true);
                     Assert.That(camera.transform.position, Is.EqualTo(before), "UI must block camera movement.");
                     input.Tick(1, false);
+                    if(entry.Environment!=null)
+                    {
+                        deadline=Time.realtimeSinceStartupAsDouble+60;
+                        while(camera.transform.position==before&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;
+                    }
                     Assert.That(camera.transform.position, Is.Not.EqualTo(before));
                     Assert.That(source.Reads, Is.EqualTo(2));
                     entry.Advance(.5);
                     Assert.That(session.Clock.WorldMilliseconds, Is.EqualTo(500));
                     entry.Release();
-                    Assert.That(session.ObjectRegistry.Count, Is.Zero);
+                    foreach(var id in originalIds)Assert.That(session.ObjectRegistry.TryGetKind(id,out _),Is.False,"Released seed identity remains registered.");
                     entry.Initialize(session);
                     Assert.That(entry.Region.Objects.All(o => o.Id.Value > 7), Is.True);
                     entry.Release();
@@ -64,9 +91,9 @@ namespace AutoEra.Tests.Editor
             }
             finally
             {
-                EditorSceneManager.CloseScene(scene, true);
-                if (previous.IsValid() && previous.isLoaded) SceneManager.SetActiveScene(previous);
+                if(scene.IsValid() && scene.isLoaded)SceneManager.UnloadSceneAsync(scene);
             }
+            yield return new ExitPlayMode();
         }
 
         private sealed class FixedSource : IRegionInputSource

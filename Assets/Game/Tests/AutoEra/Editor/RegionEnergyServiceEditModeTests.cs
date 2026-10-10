@@ -25,6 +25,53 @@ namespace AutoEra.Tests.Editor
     /// </summary>
     public sealed class RegionEnergyServiceEditModeTests
     {
+        [Test]
+        public void SwitchingRoster_ReplacesEqualIdsAndDetachesThePreviousWorld()
+        {
+            using var first = new AutoAraSession(); using var second = new AutoAraSession();
+            using var service = new RegionEnergyService();
+            var a = Deployed(first.Session); var b = Deployed(second.Session);
+            Assert.That(a.Id, Is.EqualTo(b.Id));
+            service.Reconcile(first.Session.Machines); service.Reconcile(second.Session.Machines);
+            service.TryGetConsumer(b.Id, out var consumer); Assert.That(consumer.Machine, Is.SameAs(b));
+            first.Session.Machines.RecoverToLibrary(a.Id, ManagementOrigin.Field);
+            Assert.That(service.MachineCount, Is.EqualTo(1));
+            second.Session.Dispose(); Assert.That(service.MachineCount, Is.Zero);
+        }
+
+        [Test]
+        public void RestoredDeployment_IsTrackedAfterTheAtomicRosterCommit()
+        {
+            using var source = new AutoAraSession(); using var target = new AutoAraSession();
+            var machine = Deployed(source.Session); var snapshot = source.Session.Machines.CaptureConfiguration();
+            using var service = new RegionEnergyService(); service.Reconcile(target.Session.Machines);
+            target.Session.Machines.RestoreConfiguration(snapshot, (_, __) => Definition(), (_, __) => null);
+            Assert.That(service.MachineCount, Is.EqualTo(1));
+            Assert.That(service.Tracks(machine.Id), Is.True);
+        }
+
+        [Test]
+        public void Lifecycle_TracksDeploymentWithoutRepeatedReconcileAndUnsubscribesOnRelease()
+        {
+            using var session = new AutoAraSession();
+            var roster = session.Session.Machines;
+            using var service = new RegionEnergyService();
+            service.Reconcile(roster);
+            var machine = roster.Create(Definition());
+            roster.Deploy(machine.Id);
+            Assert.That(service.MachineCount, Is.EqualTo(1));
+            Assert.That(service.TryGetConsumer(machine.Id, out var consumer), Is.True);
+            long queue = consumer.QueueOrder;
+            for (int i = 0; i < 100; i++) service.Reconcile(roster);
+            Assert.That(consumer.QueueOrder, Is.EqualTo(queue));
+            Assert.That(roster.RecoverToLibrary(machine.Id, ManagementOrigin.Field), Is.EqualTo(MachineManagementResult.Completed));
+            Assert.That(service.MachineCount, Is.Zero);
+            roster.Deploy(machine.Id); Assert.That(service.MachineCount, Is.EqualTo(1));
+            service.Dispose(); Assert.That(service.MachineCount, Is.Zero);
+            roster.RecoverToLibrary(machine.Id, ManagementOrigin.Field); roster.Deploy(machine.Id);
+            Assert.That(service.MachineCount, Is.Zero, "Disposed region must not receive roster lifecycle events.");
+        }
+
         private static readonly PersistentId FacilityId = new PersistentId(5001);
 
         private readonly List<GameObject> _hosts = new List<GameObject>();

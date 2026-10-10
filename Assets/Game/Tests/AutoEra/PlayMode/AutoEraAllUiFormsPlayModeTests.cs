@@ -37,7 +37,7 @@ namespace AutoEra.Tests.PlayMode
                     continue;
                 }
 
-                yield return WaitForForm(serialId, expectedLoaded: true);
+                yield return WaitForForm(serialId, expectedLoaded: true, context: view.ToString());
 
                 if (!GF.UI.HasUIForm(serialId))
                 {
@@ -81,7 +81,7 @@ namespace AutoEra.Tests.PlayMode
                 {
                     GF.UI.CloseUIForm(serialId);
                 }
-                yield return WaitForForm(serialId, expectedLoaded: false);
+                yield return WaitForForm(serialId, expectedLoaded: false, context: view.ToString());
 
                 if (GF.UI.HasUIForm(serialId))
                 {
@@ -127,7 +127,7 @@ namespace AutoEra.Tests.PlayMode
             Assert.Fail("GF UI 运行时或必需的 UI 数据表在 600 帧内没有就绪。");
         }
 
-        private static IEnumerator WaitForForm(int serialId, bool expectedLoaded)
+        private static IEnumerator WaitForForm(int serialId, bool expectedLoaded, string context = null)
         {
             const int maxFrames = 300;
             for (int frame = 0; frame < maxFrames; frame++)
@@ -140,7 +140,7 @@ namespace AutoEra.Tests.PlayMode
                 yield return null;
             }
 
-            Assert.Fail($"UI form serial {serialId} 在 300 帧内没有到达 loaded={expectedLoaded}。");
+            Assert.Fail($"UI form {context ?? "<unknown>"} serial {serialId} 在 300 帧内没有到达 loaded={expectedLoaded}。");
         }
     }
 }

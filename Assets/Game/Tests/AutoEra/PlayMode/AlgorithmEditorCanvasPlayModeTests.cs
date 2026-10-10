@@ -431,8 +431,7 @@ namespace AutoEra.Tests.PlayMode
                     continue;
                 }
 
-                TMP_Text label = row.Find("Btn_AlgorithmInputPort/Txt_AlgorithmInputPort").GetComponent<TMP_Text>();
-                if (label != null && label.text.StartsWith(portKey))
+                if (row.name == "Item_AlgorithmInputPortTemplate(" + portKey + ")")
                 {
                     return row.Find("Btn_AlgorithmInputPort").GetComponent<Button>();
                 }

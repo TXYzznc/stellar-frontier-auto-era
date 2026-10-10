@@ -176,8 +176,26 @@ namespace AutoEra.Tests.PlayMode
             Assert.That(detail.BuildingOverviewIdentityContent, Is.Not.Null, "建筑详情内容必须在独立详情 Form 中。");
             Assert.That(detail.BuildingOverviewIdentityContent.childCount, Is.GreaterThan(1),
                 "建筑详情必须渲染出选中对象的公开状态，而不是只留模板。");
+            Assert.That(detail.SortOrder, Is.GreaterThan(resident.SortOrder),
+                "对象详情必须使用高于常驻现场 HUD 的相对 Canvas 排序，不能依赖异步加载顺序。");
             // HUD 是「常驻模块 + 互斥侧栏」模型，不走 ShowPage，因此没有页选择可等。
             yield return WaitFrames(5);
+
+            // 即使常驻 HUD 因重开或重新挂父节点而排到最后，详情仍必须最后绘制。
+            int residentSibling = resident.transform.GetSiblingIndex();
+            resident.transform.SetAsLastSibling();
+            Canvas.ForceUpdateCanvases();
+            try
+            {
+                Canvas residentCanvas = resident.GetComponent<Canvas>();
+                Canvas detailCanvas = detail.GetComponent<Canvas>();
+                Assert.That(detailCanvas.renderOrder, Is.GreaterThan(residentCanvas.renderOrder),
+                    "详情 Canvas 的实际绘制顺序必须高于常驻 HUD，与 Hierarchy 兄弟顺序无关。");
+            }
+            finally
+            {
+                resident.transform.SetSiblingIndex(residentSibling);
+            }
 
             resident.HudHubButton.onClick.Invoke();
             BaseCommandHubForm hub = null;
@@ -216,8 +234,14 @@ namespace AutoEra.Tests.PlayMode
             // 事件域是唯一「世界会话一建好就已经活着」的域，所以这个入口必须读出真实记录，
             // 而不是像算法／传感那样只能陈述原因——这是它值得单独断言的理由。
             Assert.That(detail.FarmRecordButton, Is.Not.Null, "Btn_FarmRecord 必须在独立详情 Form 中。");
-            Assert.That(detail.MachineOverviewDiagnosticButton, Is.Not.Null,
-                "Btn_MachineOverviewDiagnostic 必须在独立详情 Form 中。");
+            Assert.That(detail.ShowSelectionPage(5), Is.True);
+            FieldHudMachineOverviewForm overview = null;
+            yield return WaitForLogic<FieldHudMachineOverviewForm>(found => overview = found, "FieldHudMachineOverviewForm");
+            Assert.That(overview.GetComponentsInChildren<UnityEngine.UI.Button>(true)
+                .FirstOrDefault(button => button.name == "Btn_MachineOverviewDiagnostic"), Is.Not.Null,
+                "诊断入口属于已提取的机器总览子 Form。");
+            AutoEraUiNavigator.Close(overview.Id);
+            yield return WaitForLogicGone<FieldHudMachineOverviewForm>("FieldHudMachineOverviewForm");
             detail.FarmRecordButton.onClick.Invoke();
             RecordReaderForm reader = null;
             yield return WaitForLogic<RecordReaderForm>(found => reader = found, "RecordReaderForm");

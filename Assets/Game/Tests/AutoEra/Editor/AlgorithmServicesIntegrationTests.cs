@@ -90,7 +90,8 @@ namespace AutoEra.Tests.Editor
                     until=Time.realtimeSinceStartupAsDouble+20;while(hud==null&&Time.realtimeSinceStartupAsDouble<until)yield return null;
                     Assert.That(hud,Is.Not.Null);entry.BindHud(hud);hud.SetFieldAccess(true,false);
                     long now=entry.WorldMilliseconds;sensor.Tick(now);Assert.That(sensor.TryRead(out _),Is.True);
-                    runtime.Pump(now);adapter.Pump(now,Time.realtimeSinceStartupAsDouble);Assert.That(nav.IsActive,Is.True);
+                    runtime.Pump(now);adapter.Pump(now,Time.realtimeSinceStartupAsDouble);
+                    Assert.That(nav.IsActive,Is.True,"Runtime reason: "+runtime.LastReason+"; navigation: "+nav.State);
                     // Closing the observer UI cannot cancel the accepted navigation.
                     uiComponent.CloseUIForm(serial);serial=-1;Assert.That(nav.IsActive,Is.True);
                     // Same target, new binding generation: old graph subscription cannot fire again.
@@ -119,10 +120,10 @@ namespace AutoEra.Tests.Editor
         }
         private static AlgorithmDocument Graph(ulong id,ulong component,ulong target,ulong generation)
         {
-            var g=new AlgorithmDocument { DocumentId=id };var number=AlgorithmType.Of(AlgorithmValueKind.Number,"resource");
+            var g=new AlgorithmDocument { DocumentId=id };var number=AlgorithmType.Of(AlgorithmValueKind.Number);
             g.Bindings.Add(new AlgorithmBinding { Key="amount",ComponentId=component,TargetId=target,Generation=generation,Type=number.Copy() });
             g.Nodes.Add(new AlgorithmNode { Id=1,Kind=AlgorithmNodeKind.Input,BindingKey="amount",ValueType=number.Copy() });
-            g.Nodes.Add(new AlgorithmNode { Id=2,Kind=AlgorithmNodeKind.Constant,ValueType=number.Copy(),Default=AlgorithmValue.Numeric(0,"resource") });
+            g.Nodes.Add(new AlgorithmNode { Id=2,Kind=AlgorithmNodeKind.Constant,ValueType=number.Copy(),Default=AlgorithmValue.Numeric(0) });
             g.Nodes.Add(new AlgorithmNode { Id=3,Kind=AlgorithmNodeKind.Compare,Operator=AlgorithmOperator.Greater,ValueType=number.Copy() });
             g.Nodes.Add(new AlgorithmNode { Id=4,Kind=AlgorithmNodeKind.Branch });g.Nodes.Add(new AlgorithmNode { Id=5,Kind=AlgorithmNodeKind.Navigate });
             g.Nodes.Add(new AlgorithmNode { Id=6,Kind=AlgorithmNodeKind.Constant,ValueType=AlgorithmType.Of(AlgorithmValueKind.Position),Default=new AlgorithmValue { Type=AlgorithmType.Of(AlgorithmValueKind.Position),X=28,Z=-25 } });

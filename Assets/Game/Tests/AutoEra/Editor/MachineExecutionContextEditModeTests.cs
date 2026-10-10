@@ -8,6 +8,41 @@ namespace AutoEra.Tests.Editor
     public sealed class MachineExecutionContextEditModeTests
     {
         [Test]
+        public void CargoRestore_RejectsMissingContentsWithoutErasingSavedUsage()
+        {
+            var ids = new PersistentIdAllocator(); var roster = new MachineRoster(ids, new PersistentObjectRegistry(ids));
+            var machine = roster.Create(new MachineDefinition(1, "Fixture", 1, 0, 0, 0, 20, true, true, 100));
+            machine.UpdateContainerUsage(4);
+            Assert.Throws<System.ArgumentException>(() => new MachineExecutionContext(machine, ids));
+            Assert.That(machine.UsedCapacity, Is.EqualTo(4));
+            var cargo = new MachineCargo(20); cargo.TryLoad("ore", 4);
+            using var context = new MachineExecutionContext(machine, ids, restoredCargo: cargo);
+            Assert.That(context.Cargo.Count("ore"), Is.EqualTo(4));
+            context.Cargo.TryUnload("ore", 1); Assert.That(machine.UsedCapacity, Is.EqualTo(3));
+        }
+
+        [Test]
+        public void Cargo_UsesInstalledCapacityAndPreventsLoadedHardwareRemoval()
+        {
+            var ids = new PersistentIdAllocator(); var roster = new MachineRoster(ids, new PersistentObjectRegistry(ids));
+            var machine = roster.Create(new MachineDefinition(1, "Fixture", 1, 0, 0, 1, 20, true, true, 100));
+            var cargoPart = roster.CreateComponent(new ComponentDefinition(3, HardwareKind.Effector, 1, 30, 0, 0, false));
+            using var context = new MachineExecutionContext(machine, ids);
+            Assert.That(context.Cargo.Capacity, Is.EqualTo(20));
+            Assert.That(roster.Install(machine.Id, ManagementOrigin.Library, cargoPart.Id, 0), Is.EqualTo(MachineManagementResult.Completed));
+            Assert.That(context.Cargo.Capacity, Is.EqualTo(50));
+            Assert.That(context.Cargo.TryLoad("ore", 25), Is.True);
+            Assert.That(machine.UsedCapacity, Is.EqualTo(25));
+            Assert.That(roster.Remove(machine.Id, ManagementOrigin.Library, HardwareKind.Effector, 0), Is.EqualTo(MachineManagementResult.CapacityInUse));
+            Assert.That(context.Cargo.Capacity, Is.EqualTo(50)); Assert.That(context.Cargo.Count("ore"), Is.EqualTo(25));
+            context.Cargo.TryUnload("ore", 5);
+            Assert.That(machine.UsedCapacity, Is.EqualTo(20));
+            Assert.That(roster.Remove(machine.Id, ManagementOrigin.Library, HardwareKind.Effector, 0), Is.EqualTo(MachineManagementResult.Completed));
+            Assert.That(context.Cargo.Capacity, Is.EqualTo(20)); Assert.That(context.Cargo.Remaining, Is.Zero);
+            Assert.That(context.Cargo.TryLoad("ore", 1), Is.False);
+        }
+
+        [Test]
         public void SafeStop_AllowsPhysicalTailAndOnlyThenCommitsHardwareRemoval()
         {
             var ids = new PersistentIdAllocator(); var roster = new MachineRoster(ids, new PersistentObjectRegistry(ids));

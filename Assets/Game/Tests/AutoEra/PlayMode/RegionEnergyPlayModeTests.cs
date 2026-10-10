@@ -45,6 +45,7 @@ namespace AutoEra.Tests.PlayMode
         {
             yield return EnsureLaunchSceneLoaded();
             yield return WaitForRuntimeReady();
+            Assert.That(Screen.width, Is.EqualTo(1920)); Assert.That(Screen.height, Is.EqualTo(1080));
 
             double until = Time.realtimeSinceStartupAsDouble + 30;
             while (!MachineCatalog.IsGameDataLoaded && Time.realtimeSinceStartupAsDouble < until) yield return null;

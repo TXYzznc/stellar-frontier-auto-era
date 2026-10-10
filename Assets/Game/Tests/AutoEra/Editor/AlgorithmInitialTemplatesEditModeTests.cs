@@ -21,7 +21,9 @@ namespace AutoEra.Tests.Editor
         {
             var g = InitialAlgorithmTemplates.Drilling();
             Assert.That(AlgorithmValidator.TryCompile(g, 100, out var plan, out var issues, true), Is.True, "储量开采模板应可通过模板编译");
-            Assert.That(plan.LogicCost, Is.EqualTo(15));
+            Assert.That(plan.LogicCost, Is.EqualTo(14), "最新统一数值规格：有限储量开采14点；复用行为自动创建任务，不恢复缓存满停产。");
+            Assert.That(g.Nodes.Any(n => n.Field == "capacity"), Is.False);
+            Assert.That(g.Nodes.Any(n => n.Kind == AlgorithmNodeKind.QueryTask), Is.True);
             Assert.That(issues.Count, Is.EqualTo(0));
         }
 
@@ -30,7 +32,9 @@ namespace AutoEra.Tests.Editor
         {
             var g = InitialAlgorithmTemplates.Harvesting();
             Assert.That(AlgorithmValidator.TryCompile(g, 100, out var plan, out var issues, true), Is.True, "生长采集模板应可通过模板编译");
-            Assert.That(plan.LogicCost, Is.EqualTo(17));
+            Assert.That(plan.LogicCost, Is.EqualTo(14), "最新统一数值规格：生长资源采集14点；保留活动任务守卫及真实树引用。");
+            Assert.That(g.Nodes.Any(n => n.Kind == AlgorithmNodeKind.GridSelect), Is.True);
+            Assert.That(g.Nodes.Any(n => n.Field == "capacity"), Is.False);
             Assert.That(issues.Count, Is.EqualTo(0));
         }
 
