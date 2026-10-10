@@ -39,5 +39,3 @@
 #### Scenario: Compare implementations
 - **WHEN** 在相同10/50/100台负载场景比较优化前后
 - **THEN** 记录硬件、构建、采样时长、CPU分位数和GC；不得仅以截图FPS宣称优化成功。
-
-

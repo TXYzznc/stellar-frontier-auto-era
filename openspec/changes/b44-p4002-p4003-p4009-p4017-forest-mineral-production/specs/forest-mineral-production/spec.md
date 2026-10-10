@@ -43,5 +43,3 @@
 #### Scenario: Production updates sensor
 - **WHEN** 一次合法产出或耗尽提交发生
 - **THEN** 相应状态在后续采样可见并可触发算法，日志能追溯任务和行为。
-
-

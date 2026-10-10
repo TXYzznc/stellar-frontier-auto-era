@@ -30,4 +30,3 @@ Original anime industrial frontier machine concept, one general-purpose wheeled 
 - 轮胎接地、底盘间隙、维修舱和核心舱有真实结构。
 - 橙色只形成作业焦点，没有把整台机器变成橙色主体。
 - 通过后才允许制作 moving、working、blocked 状态板和正式 3D 三视图；样例本身不代表高模已验收。
-

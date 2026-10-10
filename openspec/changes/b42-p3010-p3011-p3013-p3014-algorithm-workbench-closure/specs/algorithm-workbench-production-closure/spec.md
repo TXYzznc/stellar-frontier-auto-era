@@ -39,5 +39,3 @@
 #### Scenario: Run template end to end
 - **WHEN** 玩家从模板建立实例、绑定、应用并触发真实任务
 - **THEN** 正式宿主执行且产生可诊断结果，测试未手动Pump或伪造完成事件。
-
-

@@ -47,5 +47,3 @@
 #### Scenario: Offline work pending
 - **WHEN** 有效存档尚有离线结算进度
 - **THEN** 进入结算流程，完成前不得开放世界操作或悄悄忽略离线时间。
-
-

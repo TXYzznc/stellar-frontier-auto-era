@@ -54,5 +54,3 @@
 #### Scenario: Budget spread over frames
 - **WHEN** 长离线需要多个帧处理
 - **THEN** 界面持续响应且进度真实，不能进入未结算世界；完成后仅开放一次。
-
-

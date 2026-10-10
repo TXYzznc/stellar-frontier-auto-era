@@ -31,4 +31,3 @@ Create an original anime industrial science-fiction management game world HUD co
 - 动态文字、数字、进度、连线、警报计数全部留给程序绘制；效果图只提供空槽和结构。
 - 若生图模型无法稳定表达层级，必须拆成“世界底图”和“UI 叠加构图”两次生成再合成，不能把错误层级当作可接受样例。
 - 未通过时标记 REJECTED-LAYERING 或 REJECTED-STYLE 并保留原图；通过后标记 PROMPT-READY，仍不代表 Unity 接入或运行时排序已验收。
-

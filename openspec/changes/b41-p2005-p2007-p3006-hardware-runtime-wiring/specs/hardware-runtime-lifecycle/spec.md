@@ -43,5 +43,3 @@
 #### Scenario: Visual instance absent
 - **WHEN** 合法行为执行时其表现对象未加载
 - **THEN** 领域按合同处理，明确表现缺失；不得凭渲染状态增加或减少资源。
-
-

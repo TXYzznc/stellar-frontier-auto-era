@@ -30,4 +30,3 @@ Original anime industrial frontier building concept: a shoreline water pump in a
 - 画面表现无限浅层水域，没有枯竭、污染或储量耗尽暗示。
 - 机器样例的暖白／深蓝灰／橙色关系在建筑上保持一致。
 - 通过后再制作 pumping、full、no-water 状态；no-water 只表示管路或目标失效，不表示浅层水域被抽干。
-

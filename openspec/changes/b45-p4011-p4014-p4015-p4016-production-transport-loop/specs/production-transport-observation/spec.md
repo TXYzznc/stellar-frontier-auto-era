@@ -43,5 +43,3 @@
 #### Scenario: Missing other production domains
 - **WHEN** 两类资源循环通过但水泵、农业或P4-020尚未完成
 - **THEN** 记录本批子集通过，保留G4完整前置未满足状态。
-
-

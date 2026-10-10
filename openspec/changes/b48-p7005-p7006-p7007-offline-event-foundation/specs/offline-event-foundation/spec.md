@@ -47,5 +47,3 @@
 #### Scenario: No progress algorithm
 - **WHEN** 某算法不断生成无进展事件
 - **THEN** 按批准的保护规则单独停止并报警，其他领域可继续结算。
-
-

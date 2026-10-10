@@ -47,4 +47,3 @@
 #### Scenario: Proxy is culled
 - **WHEN** 货物视觉代理因LOD或卸载不显示
 - **THEN** 库存、拥有者和待解决交付责任均保持不变。
-
