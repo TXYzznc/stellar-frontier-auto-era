@@ -1,0 +1,11 @@
+# B42 实施前核验
+
+B40/B41已完成，有正式宿主与原生XML证据。用户已授权实施；8091为主工程，Unity2022.3.62f3c1，UI运行验收仅1920×1080，结构保持GF统一缩放和RectTransform适配。工作簿只读，Git索引不操作。
+
+允许：AlgorithmEditorForm、AlgorithmNodeItem、AlgorithmGraphCanvasInteraction、AlgorithmReadModel、NodeComponentPickerForm及本批UI视图/诊断辅助类型；AlgorithmRuntime运行记录捕获及AlgorithmInstanceService运行变更通知的局部接入；AlgorithmEditorPrefabMigration；AlgorithmEditorForm/AlgorithmNodeItem/AlgorithmEdgeItem三个现有Prefab及对应契约/生成源；AutoEra测试、本change文档和总计划。禁止ScriptsBuiltin、asmdef、依赖配置及其他UI资产。节点选择器复用现有列表，不改其Prefab。
+
+快速执行候选检查：历史修订、目标绑定与布局责任包含专业判断，当前8091测试场景不可安全拆分，主窗口直接实施并复核。
+
+基线：Prefab绑定3/3、读模型32/32、真实画布交互1/1。JSON、Unity原生XML、布局导出和基线截图在evidence；基线截图分辨率以实际文件记录，不作为本批1920×1080验收。历史测试使用服务组合输入，不视为正常玩家入口或整个G3通过。新增结构验证必须在停止Play Mode后普通编译。
+
+生成源写范围补充：13-算法工作台/prefab-layout.md、tools/ui_spec_to_contract.py的通用Form局部覆盖读取（无业务硬编码）；RegionHardwareRuntime仅新增现有端点的只读目标枚举查询。

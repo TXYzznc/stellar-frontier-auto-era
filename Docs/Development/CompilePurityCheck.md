@@ -1,3 +1,5 @@
+> 2026-10-09 更新：本轮主工程已核验端口8091。后续会话先核验工程身份，再显式传入实际端口；脚本历史默认值不能代替身份核验。健康检查通过不等于正式开局、完整离线或G8通过。
+
 # 编译与框架纯度检查入口
 
 本文件是 P0-013 交付的「编译与框架纯度检查」可重复执行入口说明。它把项目层的五类
@@ -5,25 +7,25 @@
 
 ## 前置条件
 
-- Unity Editor 已启动并监听 REST 端口 8092（`GET http://127.0.0.1:8092/health` 返回 200）。
+- Unity Editor 已启动并监听 REST 端口 8091（`GET http://127.0.0.1:8091/health` 返回 200）。
 - Python 3 已安装，且具备 `yaml`（PyYAML）依赖（框架纯度审计使用）。
 - 工作目录为仓库根。
 
 ## 入口命令
 
 ```powershell
-python tools/run_project_checks.py
+python tools/run_project_checks.py --port 8091
 ```
 
-可选 `--port <n>` 指定 Unity REST 端口（默认 8092）。退出码 0 表示五类检查全部通过，
+可选 `--port <n>` 指定 Unity REST 端口（历史默认8092；本轮必须显式传入8091）。退出码 0 表示五类检查全部通过，
 非 0 表示至少一项未通过（详见下文「既有发现」）。
 
 ## 五类检查
 
 | # | 检查 | 手段 | 通过判据 |
 |---|------|------|----------|
-| 1 | 编译检查 | Unity 8092 `debug_get_errors` | 编译错误数 = 0 |
-| 2 | 引用检查 | Unity 8092 `cleaner_find_missing_references` | 缺失脚本/引用 = 0 |
+| 1 | 编译检查 | Unity 8091 `debug_get_errors` | 编译错误数 = 0 |
+| 2 | 引用检查 | Unity 8091 `cleaner_find_missing_references` | 缺失脚本/引用 = 0 |
 | 3 | AppConfigs 检查 | 本地解析 `Assets/Game/ScriptableAssets/Core/AppConfigs.asset` | 全部数据表/配置/语言引用文件存在，流程非空 |
 | 4 | 资源表检查 | Unity 菜单「Game Framework/GameTools/AI Data/Validate DataTables Json」+ 读取 `GameData/AIData/Reports/` 最新校验报告 | failureCount = 0 且 successCount > 0 |
 | 5 | 框架纯度检查 | `tools/audit_framework_purity.py`（产品模式）+ `tools/audit_project_boundaries.py` | 两项审计均无发现 |
@@ -32,16 +34,16 @@ python tools/run_project_checks.py
 
 ```powershell
 # 1 编译检查
-python .agents/skills/unity-skills/scripts/unity_skills.py debug_get_errors --port=8092
-python .agents/skills/unity-skills/scripts/unity_skills.py debug_check_compilation --port=8092
+python .agents/skills/unity-skills/scripts/unity_skills.py debug_get_errors --port=8091
+python .agents/skills/unity-skills/scripts/unity_skills.py debug_check_compilation --port=8091
 
 # 2 引用检查
-python .agents/skills/unity-skills/scripts/unity_skills.py cleaner_find_missing_references --port=8092
+python .agents/skills/unity-skills/scripts/unity_skills.py cleaner_find_missing_references --port=8091
 
 # 3 AppConfigs 检查（并入入口脚本，无独立命令；由 run_project_checks.py 解析 .asset）
 
 # 4 资源表检查
-python .agents/skills/unity-skills/scripts/unity_skills.py editor_execute_menu "menuPath=Game Framework/GameTools/AI Data/Validate DataTables Json" --port=8092
+python .agents/skills/unity-skills/scripts/unity_skills.py editor_execute_menu "menuPath=Game Framework/GameTools/AI Data/Validate DataTables Json" --port=8091
 # 之后读取 GameData/AIData/Reports/validate-data-tables-json_*.json 的 successCount/failureCount
 
 # 5 框架纯度检查
@@ -91,3 +93,7 @@ P0-013 交付时第 5 项框架纯度审计报告了 5 项既有发现（unity-s
 - 第 1–5 项全绿 = 编译、引用、AppConfigs、资源表、框架纯度全部健康，退出码 0。
 - 第 5 项为 FAIL 时，先核对是否为已知回归；出现新路径时按
   [ProjectBaseline.md](./ProjectBaseline.md) 的边界判断是否属于产品回归并另行处置。
+
+## 2026-10-09本轮验证
+
+已核验8091主工程，入口显式--port8091，5/5 PASS；编译0错误、缺失引用0、数据表12/12。B50相关51项原生回归、11批OpenSpec严格校验通过。全量UI门1仍有WarehouseForm六项既有L5宽度声明问题，Settings新增项已清零；健康门不代替该布局门或正式开局/离线/Player性能门。参见[当前功能证据索引](FunctionalEvidenceIndex-20261009.md)。

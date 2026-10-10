@@ -1,0 +1,46 @@
+# B47 实施前核验
+
+用户已授权依序实施总计划。当前Active B47，后续B48/B49/B50；无待用户决定。主工程Unity2022.3.62f3c1、Windows10、UnitySkills8091。已退出Play Mode，按普通编译验证结构变化；conventions、客户端/QA职责、既有OpenSpec与save-serialization技能已读取。
+
+B40/B41/B42正式宿主、硬件生命周期与算法工作台已通过；B43/B44/B45资源权威、真实生产运输增量已通过，B45最终114项原生测试和健康5/5。既有SaveSlotService提供外层校验与三份滚动备份，保留外层版本。完整G2/G3/G7及农业/水泵、制造/成长等原始前置不由本次增量自动验收。
+
+快速执行候选：领域快照、安全边界、恢复顺序与当前独占Unity现场包含未冻结的专业实现判断，无法安全机械拆交，由已授权主对话直接实施，不委派子agent。codebase-memory既有AutoEra查询为空/未更新，源码定位使用产品目录内最小rg。
+
+已知缺口：MachineRosterSnapshot要求无活动行为；AlgorithmMemorySnapshot仅内存恢复且拒绝有TaskId的待处理事件，运行服务重建为空闲。B47明确替代这一早期限制，需保存任务/算法责任后再恢复；不得清空任务或取消工作来伪造安全快照。
+
+格式：ContentJson内部worldSchemaVersion与明确领域段目录；仅领域DTO，不序列化Unity对象、借用服务或delegate；沿用已有Newtonsoft，不添加包，TypeNameHandling保持None。主线程安全点复制不可变输入，后台仅序列化/文件IO；单槽单写，按捕获修订确认，快照后新变化仍脏。
+
+允许范围（逐单元实现后补实际文件索引）：
+
+- Save/新增世界快照DTO、格式验证/恢复事务与串行保存协调，SaveSlotService仅必要写入边界/注入测试点。
+- Application/AutoEraApplicationContext.cs；World/AutoEraWorldSession.cs、AutoEraWorldSessionFactory.cs：隔离候选、当前槽/保存协调、提交活动世界与对称释放。
+- Machines/MachineRosterSnapshot.cs、MachineScheduling.cs、MachineExecutionContext.cs、MachineNavigation.cs及必要领域持久化partial：纯事实捕获与恢复，不持久化运行服务。
+- Algorithms/AlgorithmMemorySnapshot.cs、AlgorithmRuntime.cs、AlgorithmInstanceService.cs、AlgorithmMachineAdapter.cs及必要持久化partial：实例/变量/事件/延迟/历史/待应用请求和结果责任。
+- World/Region/InitialRegion.cs、InitialRegionScene.cs、RegionMachineRuntime.cs、RegionMachineRuntimeRegistry.cs及必要领域持久化partial：安全边界与先身份后引用恢复。
+- Procedures/AutoEraMainMenuProcedure.cs、AutoEraWorldProcedure.cs及必要入口请求；UI/MainMenuForm.cs、SaveSlotsForm.cs、SaveRecoveryForm.cs、ExitFlowForm.cs、SystemMenuForm.cs与Integration只读保存状态。
+- 初始世界配置仅采用正式设计确认内容；资产绑定需Unity原生Editor迁移并事先列精确路径，禁止凭空给免费林木/矿石工具。正常综合入口存在未就绪领域时保留真实依赖，不用GM代替。
+- 本批Editor专项/正式宿主测试、change证据和总计划增量同步；涉及资源/生产/能源完整跨域段的执行归属B48/B49，不把缺段恢复成默认空值。
+
+禁止：ScriptsBuiltin、asmdef/依赖/FSR、用户xlsx写入、Git索引/提交、手改Unity YAML、使用真实用户存档做故障试验、静默备份回退、Startup重播、同槽并行写入、缺必需领域段时发布空世界。UI运行仅1920×1080，Prefab节点仍按语义布局检查。
+
+追加D4必要路径：Events/AutoEraEventService.cs、EventJournal.cs、CorrelationAllocator.cs、CorrelationId.cs及EventServiceSnapshot.cs。B47已批准保存事件序号与因果责任，明确替代CorrelationId早期“永不持久化”的内存阶段注释；保持独立的关联ID空间、唯一序号及原事件规则，不把诊断ID当永久对象ID。候选恢复不广播旧事实，完成后才接正式publisher。
+
+追加D1/D4算法值序列化范围：Algorithms/AlgorithmGridOperations.cs和ResourcePoints/ForestProduction.cs仅补已有只读树网格/TreeReadout的JSON构造器；不修改树木成长、伤害或生产数量规则。新增AlgorithmPersistentSnapshot.cs负责纯领域DTO及历史/待应用请求复制；物理责任另由完整世界源采集，不以放宽内存快照安全门代替物理恢复。
+
+追加D4行为/算力所有权单元：Machines/EffectorBehaviorSnapshot.cs、MachineNavigationSnapshot.cs、MachineComputeSnapshot.cs，Machines/Sensors/MachineSensor.cs与MachineSensorSnapshot.cs，以及AlgorithmPreparedSnapshot.cs；已有MachineScheduling、MachineNavigationContracts、MachineComputePool只增加partial接入。保存行为原ID/参数/取消标记、导航实际位置及阻塞剩余时长、传感绑定代次/通知序号/下一采样和算力队列/预留。纯求值已经完成但等待算力的批次保存准备好的Writes/Intents，不重新读货舱求值；保持原Apply及内存checkpoint的IsSafe门。该单元涉及专业判断与同一Unity现场，快速执行不能安全拆交，继续由当前主对话实施。
+
+导航算力请求原EnqueuedAt使用Editor进程realtime而非世界时刻，会令合法存档的请求时间超过worldMilliseconds。Machines/MachineExecutionContext借用既有事件服务的世界时钟，Navigation只改请求入队时间；移动/超时物理计时仍按现有规则，未改变数值。Events/AutoEraEventService仅增加内部世界时刻读口。Sensors序号/绑定代次达到上限不得环绕为复用身份，释放时不制造重复通知。
+
+追加D3/D4区域与物理责任单元：World/Region/InitialRegionSnapshot.cs、RegionWorkQueue.cs和RegionWorkQueueSnapshot.cs；Algorithms/AlgorithmMachineAdapterSnapshot.cs；World/Region/RegionEffectorOperationSnapshot.cs；Resources/ResourceTransferEffectorExecutor.cs、CargoOwnershipAuthority.cs与TransportResponsibility.cs；ResourcePoints/ProductionEffectorExecutor.cs、ResourceProductionWorldService.cs与MineralProduction.cs。区域恢复原ID、原姿态、附件关系及优先级/FIFO；候选不录入开局模板。适配器保存待导航、行为关联、未送达结果和任务归属，恢复映射新运行代次后在正常世界步按原FIFO交付。操作恢复只借用已经恢复的原预留/生产责任，不能调用TryStart重新开户；货物、产量和能源完整段仍由B48实现。新增读取方法仅为原责任验证，不改变数量规则。此单元仍有专业恢复顺序判断与独占Unity现场，直接实施并专业复核，不拆快速执行包。
+
+追加D4宿主组合单元：Machines/MachineExecutionContext.cs、MachineComputeSnapshot.cs；World/Region/RegionHardwareRuntime.cs、RegionHardwareSnapshot.cs、RegionMachineRuntime.cs、RegionMachineRuntimeSnapshot.cs、RegionMachineRuntimeRegistry.cs、RegionMachineRuntimeRegistrySnapshot.cs、RegionSensorReadProvider.cs、RegionPublicProviderSnapshot.cs。恢复期间抑制派发及公开投影，全部责任绑定后再投影；失败候选释放未接回所有者的算力预留，原世界不受影响。捕获拒绝推进回调中的中间态，保存通用公开提供者的读数版本和脏缓存。此组合涉及恢复次序及失败清理专业判断，与当前Unity现场不可安全拆分，继续直接执行；相关回归和证据整理与该单元连贯复核，不另行派发。
+
+追加D1/D3世界事务单元：Save/WorldPersistenceProfile.cs、WorldSnapshotIdentityValidator.cs、WorldRestoreTransaction.cs；World/Time/WorldClock.cs保存不足1毫秒的累积量；Application/AutoEraApplicationContext.cs接入当前槽位、保存协调器和候选提交。领域桥要求显式版本/原身份/恢复接口，货物和能源缺段不得发布默认世界。场景资产保存原对象ID、原种子序号/机器定义资产及内容版本，由实际场景核对。世界层统一验证跨模块永久ID，模板局部节点ID与关联/运行序号不混入永久ID。此单元含领域引用与提交失败策略专业判断，快速执行不可安全拆交，直接实施专项测试后继续正式入口。
+
+追加D2/D5场景与退出单元：World/Region/InitialRegionScenePersistence.cs、InitialRegionEntity.cs；ResourcePoints/RegionProductionFacility.cs；Save/WorldSaveExitController.cs；UI/ExitFlowForm.cs、SystemMenuForm.cs；Input/RegionInputModule.cs及既有WorldProcedure。显式领域桥在设施事实绑定后、机器运行恢复前补齐能源/公开状态；恢复设施必须存在原数量权威，不能新建默认仓库或树林。输入仅追加已有抽象边界的保存锁。退出先阻止新命令，完整捕获后冻结模拟，实际写入完成才返回菜单；失败重试/返回游戏/两次点击明确强退。此单元涉及异步实体生命周期、退出竞争与当前Unity现场，继续直接实施专业复核，不拆快速执行包。
+
+追加槽位门与回归路径：Save/WorldSlotFlow.cs、UI/SaveSlotsForm.cs及既有MainMenu/WorldProcedure；ResourcePoints/TreeFallSimulation.cs；Tests/AutoEra/Editor/InitialRegionSceneEditModeTests.cs。槽位准备候选时核对外层/内层时刻，锁定本次目标UTC与原保存时刻；备份需确认，未就绪离线不能跳过。正式开局初始化由IWorldProgressSetup提供，缺农业/水泵等前置仍保留门禁。原场景测试更新为正式加载数据表的原生UnityTest，并包含实际UI遮挡准备；发现树倒伏局部物理场景固定名与异步卸载冲突，改为每个模拟独立场景名，不改变物理参数。该组合仍包含生命周期和依赖判断，由主对话直接实施专业复核。
+
+追加关键保存事件：Save/WorldCriticalSaveBinding.cs；Machines/MachineInstance.cs、MachineRoster.cs及已有RosterSnapshot；Algorithms/AlgorithmInstanceService.cs、World/Region/RegionMachineRuntimeRegistry.cs。只在成功管理/硬件/算法应用及部署变化后请求保存，不用高频运行投影通知触发文件IO；绑定对称释放。此单元含成功事务边界与重入/释放专业判断，直接实施并运行专项及受影响回归。核对还发现硬件协调器等待安全停机时的已确认意图未进入快照，需要在后续同批持久化单元补齐，不能只保留“已请求停止”的机器状态。
+
+追加待停机硬件意图及退出清理单元：Machines/MachineHardwareOperation.cs、MachineRoster.cs、MachineRosterSnapshot.cs；Save/WorldRestoreTransaction.cs与WorldSnapshotIdentityValidator.cs；World/AutoEraWorldSession.cs、World/Region/InitialRegionScene.cs、Events/EventServiceSnapshot.cs及WorldProcedure。快照保留原机器/部件/槽位、请求版本及来源，全部行为恢复后才静默挂回等待请求，不重发Stop、不调用Begin、不提前应用；整批验证失败无部分订阅，取消原版本请求也进入关键保存。未发布候选与正常场景销毁前先解除待修改意图，避免清理行为触发硬件提交。离开世界关闭所有借用该世界的产品UI，并在任何清理事件前解除publisher。该单元含原请求语义、失败清理顺序及独占Unity现场，快速执行不可安全拆交，由当前主对话实施与复核。

@@ -1,0 +1,21 @@
+# B48 实施前核验
+
+2026-10-08，用户已授权全批实施；专业职责由主对话执行，无子agent。Unity2022.3.62f3c1，8091，Editor结构修改前退出Play Mode；普通编译，不改FSR、依赖或程序集。沿用已读取conventions、OpenSpec、Unity及保存序列化规范。
+
+B43最小归属事务、B44林矿真实生产、B45运输责任、B46能源热路径和B47核心快照/候选已通过原生验证。B47完整领域和综合入口未完成，已单独入队B49之后复验。本批不实现缺失的农业/水泵、经济购买、施工制造或任务成长来绕过G5/G6；必需能力缺失继续拒绝完整玩家进度，不能保存空段伪称完整。
+
+第一执行单元允许精确路径：Resources/CargoOwnershipAuthority.cs、CargoOwnershipSnapshot.cs、ResourceWorldService.cs、ResourceWorldSnapshot.cs、TransportResponsibility.cs、TransportResponsibilitySnapshot.cs；ResourcePoints/ForestProduction.cs、MineralProduction.cs、ResourceProductionWorldService.cs及ProductionWorldSnapshot.cs；Energy/FirstVersionEnergyFacilities.cs及EnergyPersistenceSnapshot.cs；World/Region/RegionEnergyService.cs、RegionEnergyFacility.cs及必要能源/公开提供者持久化partial；Save/GameplayWorldDomainPersistence.cs。新增产品类型仅AutoEra命名空间。必要范围差异先追加本清单。
+
+调度单元：World/Time/OfflineEventScheduler.cs及OfflineEventSnapshot.cs、Save/OfflineDomainSnapshotContracts.cs；复用WorldEventSortKey/WorldClock，保存类型化负载和原排序身份，不保存委托或Unity对象。具体下一事件接入归B49。
+
+D6执行补充：World/Time/OfflineAlgorithmProtection.cs，只检测同一世界毫秒内同算法/代次/原因重现同一业务进展修订的确定性零时间循环，由真实算法适配器提供包含全部业务依赖的修订并负责单独暂停/报警。不引入新的“每秒多少次”或次数阈值；资源小数累积等真实进展必须改变修订，不能误判。检查点保留观测与保护标志。未提供真实观测/停止合同的算法事件拒绝进入完整离线执行。
+
+生产快照增补精确路径：ResourcePoints/ForestMineralProductionConfig.cs，仅将既有ProductionRules声明为partial以导出其不可变配置事实，不改已批准的试玩参数或作者配置。
+
+能源增补精确路径：Energy/EnergyGrid.cs，仅partial和结算重入围栏；World/Region/RegionEnergyPersistence.cs负责场景设施借用原领域对象；不重跑Tick来恢复读模型或重新分配供电队列。服务/设施声明partial，必要新增状态记录完整结算时刻，不改变能源公式。
+
+静默场景增补：Energy/EnergyEventRecorder.cs（partial，保存原跨越记忆）；ResourcePoints/RegionProductionFacility.cs、ProductionFacilityPublicSnapshot.cs及ProductionTreePresentation.cs（绑定展示时禁止结算，不清空原传感缓存）；World/Region/InitialRegionScenePersistence.cs（候选能源接纳）。仍不改Unity资产YAML或玩法数值。
+
+验证：当前受影响资源/林矿/运输/能源基线先原生复跑；新增领域快照、版本/守恒/幂等及OfflineEventDeterminismEditModeTests。普通编译成功后发现测试，再启动NativeRunner；最终XML确认通过。每个单元结束复核source/evidence后继续，不在自然阶段暂停。尚未冻结的恢复次序、派发与结算判断及独占Unity现场不可安全拆交，快速执行候选例外由主对话直接实施专业复核；机械回归与该单元连贯，不额外派发。
+
+禁止ScriptsBuiltin、用户xlsx写入、Git索引/提交、手改Unity YAML、真实玩家存档故障注入、重播Startup、重新铸造货物、补发已提交收益、按平均利润乘离线时间及逐帧物理离线。UI运行只1920×1080，Prefab结构仍按语义适配。

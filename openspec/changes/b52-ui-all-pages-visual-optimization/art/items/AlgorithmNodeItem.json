@@ -1,0 +1,605 @@
+{
+ "prefabPath": "Assets/Game/Prefabs/UI/Item/AlgorithmNodeItem.prefab",
+ "root": {
+  "name": "AlgorithmNodeItem",
+  "active": false,
+  "anchorMin": [
+   0,
+   1
+  ],
+  "anchorMax": [
+   0,
+   1
+  ],
+  "pivot": [
+   0,
+   1
+  ],
+  "sizeDelta": [
+   320,
+   108
+  ],
+  "anchoredPosition": [
+   0,
+   0
+  ],
+  "components": [
+   {
+    "type": "Image",
+    "color": [
+     0.12549,
+     0.141176,
+     0.164706,
+     1.0
+    ],
+    "raycastTarget": false
+   },
+   {
+    "type": "LayoutElement",
+    "minWidth": -1.0,
+    "minHeight": -1.0,
+    "preferredWidth": -1.0,
+    "preferredHeight": -1.0,
+    "flexibleWidth": -1.0,
+    "flexibleHeight": -1.0,
+    "ignoreLayout": false
+   }
+  ],
+  "children": [
+   {
+    "name": "Grp_AlgorithmNode",
+    "active": true,
+    "anchorMin": [
+     0.0,
+     0.0
+    ],
+    "anchorMax": [
+     1.0,
+     1.0
+    ],
+    "pivot": [
+     0.5,
+     0.5
+    ],
+    "sizeDelta": [
+     0.0,
+     0.0
+    ],
+    "anchoredPosition": [
+     0.0,
+     0.0
+    ],
+    "components": [],
+    "children": [
+     {
+      "name": "Btn_AlgorithmNodeSelect",
+      "active": true,
+      "anchorMin": [
+       0.0,
+       0.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       0.5,
+       0.5
+      ],
+      "sizeDelta": [
+       0.0,
+       0.0
+      ],
+      "anchoredPosition": [
+       0.0,
+       0.0
+      ],
+      "components": [
+       {
+        "type": "Image",
+        "color": [
+         0.08,
+         0.2,
+         0.32,
+         1.0
+        ],
+        "raycastTarget": true
+       },
+       {
+        "type": "Button"
+       }
+      ],
+      "children": [
+       {
+        "name": "Txt_AlgorithmNodeName",
+        "active": true,
+        "anchorMin": [
+         0.0,
+         1.0
+        ],
+        "anchorMax": [
+         1.0,
+         1.0
+        ],
+        "pivot": [
+         0.5,
+         1.0
+        ],
+        "sizeDelta": [
+         -24.0,
+         32.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         -8.0
+        ],
+        "components": [
+         {
+          "type": "TextMeshProUGUI",
+          "text": "节点名：—",
+          "fontSize": 20.0,
+          "raycastTarget": false,
+          "wordWrap": false
+         }
+        ],
+        "children": []
+       }
+      ]
+     },
+     {
+      "name": "List_AlgorithmInputPorts",
+      "active": true,
+      "anchorMin": [
+       0.0,
+       0.0
+      ],
+      "anchorMax": [
+       0.5,
+       1.0
+      ],
+      "pivot": [
+       0.5,
+       0.5
+      ],
+      "sizeDelta": [
+       -20.0,
+       -56.0
+      ],
+      "anchoredPosition": [
+       2.0,
+       -18.0
+      ],
+      "components": [
+       {
+        "type": "ScrollRect"
+       }
+      ],
+      "children": [
+       {
+        "name": "Viewport_AlgorithmInputPorts",
+        "active": true,
+        "anchorMin": [
+         0.0,
+         0.0
+        ],
+        "anchorMax": [
+         1.0,
+         1.0
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         0.0,
+         0.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "components": [
+         {
+          "type": "RectMask2D"
+         }
+        ],
+        "children": [
+         {
+          "name": "Content_AlgorithmInputPorts",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           1.0,
+           1.0
+          ],
+          "pivot": [
+           0.5,
+           1.0
+          ],
+          "sizeDelta": [
+           0.0,
+           0.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "components": [
+           {
+            "type": "VerticalLayoutGroup",
+            "spacing": 2.0,
+            "childControlWidth": true,
+            "childControlHeight": true,
+            "childForceExpandWidth": true,
+            "childForceExpandHeight": false
+           },
+           {
+            "type": "ContentSizeFitter",
+            "horizontalFit": 0,
+            "verticalFit": 2
+           }
+          ],
+          "children": [
+           {
+            "name": "Item_AlgorithmInputPortTemplate",
+            "active": false,
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             136.0,
+             28.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "raycastTarget": false
+             },
+             {
+              "type": "LayoutElement",
+              "minWidth": 0.0,
+              "minHeight": 26.0,
+              "preferredWidth": -1.0,
+              "preferredHeight": 26.0,
+              "flexibleWidth": 1.0,
+              "flexibleHeight": 0.0,
+              "ignoreLayout": false
+             }
+            ],
+            "children": [
+             {
+              "name": "Btn_AlgorithmInputPort",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "components": [
+               {
+                "type": "Image",
+                "color": [
+                 0.321569,
+                 0.498039,
+                 0.639216,
+                 1.0
+                ],
+                "raycastTarget": true
+               },
+               {
+                "type": "Button"
+               }
+              ],
+              "children": [
+               {
+                "name": "Txt_AlgorithmInputPort",
+                "active": true,
+                "anchorMin": [
+                 0.0,
+                 0.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 0.5
+                ],
+                "sizeDelta": [
+                 -32.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 10.0,
+                 0.0
+                ],
+                "components": [
+                 {
+                  "type": "TextMeshProUGUI",
+                  "text": "端口名／类型：—",
+                  "fontSize": 18.0,
+                  "raycastTarget": false,
+                  "wordWrap": false
+                 }
+                ],
+                "children": []
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "List_AlgorithmOutputPorts",
+      "active": true,
+      "anchorMin": [
+       0.5,
+       0.0
+      ],
+      "anchorMax": [
+       1.0,
+       1.0
+      ],
+      "pivot": [
+       0.5,
+       0.5
+      ],
+      "sizeDelta": [
+       -20.0,
+       -56.0
+      ],
+      "anchoredPosition": [
+       -2.0,
+       -18.0
+      ],
+      "components": [
+       {
+        "type": "ScrollRect"
+       }
+      ],
+      "children": [
+       {
+        "name": "Viewport_AlgorithmOutputPorts",
+        "active": true,
+        "anchorMin": [
+         0.0,
+         0.0
+        ],
+        "anchorMax": [
+         1.0,
+         1.0
+        ],
+        "pivot": [
+         0.5,
+         0.5
+        ],
+        "sizeDelta": [
+         0.0,
+         0.0
+        ],
+        "anchoredPosition": [
+         0.0,
+         0.0
+        ],
+        "components": [
+         {
+          "type": "RectMask2D"
+         }
+        ],
+        "children": [
+         {
+          "name": "Content_AlgorithmOutputPorts",
+          "active": true,
+          "anchorMin": [
+           0.0,
+           1.0
+          ],
+          "anchorMax": [
+           1.0,
+           1.0
+          ],
+          "pivot": [
+           0.5,
+           1.0
+          ],
+          "sizeDelta": [
+           0.0,
+           0.0
+          ],
+          "anchoredPosition": [
+           0.0,
+           0.0
+          ],
+          "components": [
+           {
+            "type": "VerticalLayoutGroup",
+            "spacing": 2.0,
+            "childControlWidth": true,
+            "childControlHeight": true,
+            "childForceExpandWidth": true,
+            "childForceExpandHeight": false
+           },
+           {
+            "type": "ContentSizeFitter",
+            "horizontalFit": 0,
+            "verticalFit": 2
+           }
+          ],
+          "children": [
+           {
+            "name": "Item_AlgorithmOutputPortTemplate",
+            "active": false,
+            "anchorMin": [
+             0.0,
+             1.0
+            ],
+            "anchorMax": [
+             0.0,
+             1.0
+            ],
+            "pivot": [
+             0.0,
+             1.0
+            ],
+            "sizeDelta": [
+             136.0,
+             28.0
+            ],
+            "anchoredPosition": [
+             0.0,
+             0.0
+            ],
+            "components": [
+             {
+              "type": "Image",
+              "color": [
+               0.12549,
+               0.141176,
+               0.164706,
+               1.0
+              ],
+              "raycastTarget": false
+             },
+             {
+              "type": "LayoutElement",
+              "minWidth": 0.0,
+              "minHeight": 26.0,
+              "preferredWidth": -1.0,
+              "preferredHeight": 26.0,
+              "flexibleWidth": 1.0,
+              "flexibleHeight": 0.0,
+              "ignoreLayout": false
+             }
+            ],
+            "children": [
+             {
+              "name": "Btn_AlgorithmOutputPort",
+              "active": true,
+              "anchorMin": [
+               0.0,
+               0.0
+              ],
+              "anchorMax": [
+               1.0,
+               1.0
+              ],
+              "pivot": [
+               0.5,
+               0.5
+              ],
+              "sizeDelta": [
+               0.0,
+               0.0
+              ],
+              "anchoredPosition": [
+               0.0,
+               0.0
+              ],
+              "components": [
+               {
+                "type": "Image",
+                "color": [
+                 0.321569,
+                 0.498039,
+                 0.639216,
+                 1.0
+                ],
+                "raycastTarget": true
+               },
+               {
+                "type": "Button"
+               }
+              ],
+              "children": [
+               {
+                "name": "Txt_AlgorithmOutputPort",
+                "active": true,
+                "anchorMin": [
+                 0.0,
+                 0.0
+                ],
+                "anchorMax": [
+                 1.0,
+                 1.0
+                ],
+                "pivot": [
+                 0.5,
+                 0.5
+                ],
+                "sizeDelta": [
+                 -32.0,
+                 0.0
+                ],
+                "anchoredPosition": [
+                 -10.0,
+                 0.0
+                ],
+                "components": [
+                 {
+                  "type": "TextMeshProUGUI",
+                  "text": "端口名／类型：—",
+                  "fontSize": 18.0,
+                  "raycastTarget": false,
+                  "wordWrap": false
+                 }
+                ],
+                "children": []
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}
