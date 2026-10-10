@@ -19,4 +19,3 @@
 - [代表验收清单](../../openspec/changes/b51-ui-representative-layout-prototypes/art/acceptance.md)：用户评审范围、证据含义与通过记录。
 
 旧 B47～B50 的业务集成和性能阻塞保持独立；结构或美术通过不能替代真实运行领域验收。
-
