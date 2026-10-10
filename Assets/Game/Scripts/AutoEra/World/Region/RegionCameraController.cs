@@ -14,8 +14,10 @@ namespace AutoEra.World.Region
         [SerializeField] private float _zoomSpeed = RegionCameraParameters.DefaultZoomSpeed;
         [SerializeField] private bool _invertHorizontal;
         [SerializeField] private bool _invertVertical;
+        private RegionEnvironmentController _environment;
         public Camera ViewCamera => _camera;
-        public Vector3 FocusPosition => _focus;
+        public Vector3 FocusPosition => _environment!=null&&_environment.World!=null?_environment.FocusPosition:_focus;
+        internal void BindEnvironment(RegionEnvironmentController environment)=>_environment=environment;
 
         /// <summary>
         /// 镜头参数（设置页的写入目标）。赋值一律进区间：
@@ -57,6 +59,11 @@ namespace AutoEra.World.Region
         {
             float horizontal = _invertHorizontal ? -1f : 1f;
             float vertical = _invertVertical ? -1f : 1f;
+            if(_environment!=null&&_environment.World!=null)
+            {
+                _environment.Apply(pan,orbit,zoom,seconds,_panSpeed,_rotationSpeed,_zoomSpeed,horizontal,vertical);
+                return;
+            }
             _yaw += orbit.x * _rotationSpeed * horizontal;
             _pitch = Mathf.Clamp(_pitch - orbit.y * _rotationSpeed * vertical, 25, 80);
             _distance = Mathf.Clamp(_distance - zoom * _zoomSpeed * vertical, 8, 65);
@@ -67,7 +74,11 @@ namespace AutoEra.World.Region
             RefreshPose();
         }
 
-        public void Focus(Vector3 position) { _focus = position; RefreshPose(); }
+        public void Focus(Vector3 position)
+        {
+            if(_environment!=null&&_environment.World!=null){_environment.Focus(position);return;}
+            _focus = position; RefreshPose();
+        }
 
         private void RefreshPose()
         {

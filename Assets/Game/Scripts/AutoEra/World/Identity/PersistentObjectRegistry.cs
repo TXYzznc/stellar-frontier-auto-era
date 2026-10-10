@@ -11,6 +11,9 @@ namespace AutoEra.World.Identity
         ResourcePoint,
         Task,
         Behavior,
+        CargoLot,
+        ResourceTransaction,
+        Tree,
     }
 
     public enum PersistentRegistryResult
@@ -41,6 +44,12 @@ namespace AutoEra.World.Identity
         }
 
         public int Count => _entries.Count;
+        public bool TryGetKind(PersistentId id, out PersistentObjectKind kind)
+        {
+            kind = PersistentObjectKind.None;
+            if (!_entries.TryGetValue(id, out var entry)) return false;
+            kind = entry.Kind; return true;
+        }
 
         public PersistentRegistryResult TryRegister(PersistentId id, PersistentObjectKind kind, object instance)
         {

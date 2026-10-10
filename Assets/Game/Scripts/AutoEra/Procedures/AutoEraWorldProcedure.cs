@@ -15,13 +15,22 @@ namespace AutoEra.Procedures
         private InitialRegionScene _entry;
         private int _uiId = -1, _version;
         private bool _active, _return;
+        private bool _worldReady;
+        private AutoEra.Save.WorldSlotEntryRequest _slotRequest;
         protected override void OnEnter(IFsm<IProcedureManager> owner)
         {
             base.OnEnter(owner);
             if (!AutoEraProcedureContextSlot.TryGet(owner, out _context)) throw new InvalidOperationException("Application context missing.");
             AutoEraRuntimeSettings settings = AutoEraRuntimeSettings.Load(key => GF.Config.GetString(key));
-            if (!_context.TryCreateWorldSession(settings.InitialMilliseconds, out var session)) throw new InvalidOperationException("World session already exists.");
-            _active = true; _return = false;
+            _active = true; _return = false;_worldReady=false;
+            _context.Slots.TryConsume(out _slotRequest);
+            AutoEra.World.AutoEraWorldSession session;
+            if(_slotRequest?.Candidate!=null)session=_slotRequest.Candidate.World;
+            else
+            {
+                if (!_context.TryCreateWorldSession(settings.InitialMilliseconds, out session)) throw new InvalidOperationException("World session already exists.");
+                if(_slotRequest!=null && !_slotRequest.Setup.TryInitializeNew(session,out var reason)) { Fail(reason);return; }
+            }
             int version = ++_version;
             _context.SceneFlow.Load(settings.WorldScene, scene =>
             {
@@ -37,9 +46,20 @@ namespace AutoEra.Procedures
                     }
                     if (_entry == null) throw new InvalidOperationException("InitialRegion entry missing.");
                     var regionInput = _entry.GetComponent<AutoEra.Input.RegionInputModule>();
-                    _entry.InitializeRuntime(session, () =>
+                    Action ready = () =>
                     {
                     if (!_active || version != _version) return;
+                    if(_slotRequest!=null)
+                    {
+                        _entry.BindPersistence(_slotRequest.Persistence);
+                        if(_slotRequest.IsNew && !_slotRequest.Persistence.TryBindScene(_entry,null,out var domainReason)) {Fail(domainReason);return;}
+                        bool attached=_slotRequest.Candidate!=null ? _context.TryCommitRestoredWorld(_slotRequest.Candidate,_slotRequest.SlotIndex,_entry) :
+                            _context.TryAttachWorldSaving(_slotRequest.SlotIndex,_entry);
+                        if(!attached) { Fail("完整世界保存会话接入失败");return; }
+                        _entry.BindSaveRequests(_context.SaveCoordinator);
+                        if(_slotRequest.IsNew)_context.SaveCoordinator.MarkDirty(true);
+                    }
+                    _worldReady=true;
                     // 本机保存的镜头参数要在**镜头刚建好**时推上去：玩家可能在主菜单里就调过，
                     // 那时现场还没有镜头。漏掉这一步的表现是「设置保存了、进区域却还是默认手感」，
                     // 而且只有打开一次设置页才会生效——那等于让界面替保存撒谎。
@@ -59,7 +79,16 @@ namespace AutoEra.Procedures
                         if (_active && version == _version && _entry != null) _entry.BindHud((FieldHudForm)logic);
                     };
                     _uiId = GF.UI.OpenUIForm(UIViews.FieldHudForm, parameters);
-                    }, Fail);
+                    };
+                    if(_slotRequest?.Candidate!=null)
+                        _entry.InitializePersistent(_slotRequest.Candidate,_slotRequest.Persistence,()=>
+                        {
+                            if(!_active || version!=_version)return;
+                            if(_slotRequest.RequiresOffline)
+                                _slotRequest.Setup.BeginOfflineContinuation(_slotRequest.Candidate,_entry,_slotRequest,ready,Fail);
+                            else ready();
+                        },Fail);
+                    else _entry.InitializeRuntime(session,ready,Fail);
                 }
                 catch (Exception exception) { Fail(exception.Message); }
             }, Fail);
@@ -75,16 +104,32 @@ namespace AutoEra.Procedures
         {
             base.OnUpdate(owner, elapsed, realElapsed);
             if (_return || (_context != null && _context.ConsumeReturnToMenuRequest())) { ChangeState<AutoEraMainMenuProcedure>(owner); return; }
-            _entry?.Advance(realElapsed);
+            if(_entry!=null)_entry.BlocksNewPlayerCommands=_context?.BlocksNewWorldCommands==true;
+            if(_worldReady && _context?.FreezesWorldSimulation!=true)
+            {
+                _entry?.Advance(realElapsed);
+                if(_entry!=null && realElapsed>0)_context?.SaveCoordinator?.MarkDirty();
+            }
+            _context?.SaveExit?.Pump(realElapsed);
+            if(_context?.SaveExit?.State==AutoEra.Save.WorldSaveExitState.Completed || _context?.SaveExit?.State==AutoEra.Save.WorldSaveExitState.Forced)
+                _return=true;
         }
         protected override void OnLeave(IFsm<IProcedureManager> owner, bool shutdown)
         {
             _active = false; _version++;
+            _worldReady=false;
             _context?.SceneFlow.Cancel();
+            var leavingWorld=_context?.ActiveWorldSession ?? _slotRequest?.Candidate?.World;
+            if(leavingWorld?.IsActive==true)leavingWorld.Events.SuspendPublisher();
+            if(leavingWorld!=null && GF.UI!=null)
+                foreach(var form in GF.UI.GetAllLoadedUIForms())
+                    if(form.Logic is AutoEraUiFormBase productForm && ReferenceEquals(productForm.SessionOrNull?.World,leavingWorld))
+                        GF.UI.CloseUIForm(form.SerialId);
             // 同 MainMenuProcedure：UI 组件可能已先关闭，直接 CloseUIForm 会抛异常。
             if (_uiId >= 0 && GF.UI != null && GF.UI.HasUIForm(_uiId)) GF.UI.CloseUIForm(_uiId);
             _uiId = -1;
             _entry?.Release(); _entry = null;
+            _slotRequest?.Dispose();_slotRequest=null;
             _context?.ReleaseActiveWorldSession();
             base.OnLeave(owner, shutdown);
         }

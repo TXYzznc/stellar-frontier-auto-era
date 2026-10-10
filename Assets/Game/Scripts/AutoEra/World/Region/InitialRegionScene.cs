@@ -10,7 +10,7 @@ using UnityEngine;
 namespace AutoEra.World.Region
 {
     /// <summary>Explicit world-procedure scene entry; does not create a global world or use scene searches.</summary>
-    public sealed class InitialRegionScene : MonoBehaviour
+    public sealed partial class InitialRegionScene : MonoBehaviour, IRegionNavigationObstacles
     {
         [SerializeField] private Rect _bounds = new Rect(-40, -40, 80, 80);
         [SerializeField] private RegionObjectView[] _objects;
@@ -32,6 +32,17 @@ namespace AutoEra.World.Region
         private AutoEraWorldSession _session;
         private FieldHudForm _hud;
         private long _lastDisplayedSecond = -1;
+        private bool _advancing;
+        private readonly List<AutoEra.ResourcePoints.RegionProductionFacility> _productionFacilities = new List<AutoEra.ResourcePoints.RegionProductionFacility>();
+        private readonly Dictionary<PersistentId, AutoEra.ResourcePoints.RegionProductionFacility> _productionTargets = new Dictionary<PersistentId, AutoEra.ResourcePoints.RegionProductionFacility>();
+        private AutoEra.ResourcePoints.RegionProductionTools _productionTools;
+        private AutoEra.ResourcePoints.TreeFallSimulation _treeFalls;
+        public long NavigationRevision { get { long value = 0; foreach (var facility in _productionFacilities) if (facility != null) value += facility.NavigationRevision; return value; } }
+        public void CollectObstacles(List<Bounds> destination)
+        { foreach (var facility in _productionFacilities) if (facility != null) facility.CollectObstacles(destination); }
+        public AutoEra.ResourcePoints.RegionProductionTools ProductionTools => _productionTools;
+        private readonly Dictionary<PersistentId,AutoEra.Logistics.RegionTransferEndpoint> _transferEndpoints = new Dictionary<PersistentId,AutoEra.Logistics.RegionTransferEndpoint>();
+        public bool TryGetTransferEndpoint(PersistentId id,out AutoEra.Logistics.RegionTransferEndpoint endpoint) => _transferEndpoints.TryGetValue(id,out endpoint);
         public InitialRegion Region { get; private set; }
         public RegionNavigation Navigation { get; private set; }
         public long WorldMilliseconds => _session != null && _session.IsActive ? _session.Clock.WorldMilliseconds : 0;
@@ -94,6 +105,7 @@ namespace AutoEra.World.Region
             if (_objects == null || _entityPrefabs == null || _objects.Length != _entityPrefabs.Length || _objects.Length == 0)
                 throw new InvalidOperationException("Region entity configuration missing.");
             _session = session;
+            if (!session.Resources.CatalogReady) session.Resources.Configure(AutoEra.Logistics.ResourceItemCatalog.FromLoadedGameData());
             Region = new InitialRegion(session, _bounds);
             int version = ++_entityVersion;
             _failure = failed;
@@ -102,8 +114,10 @@ namespace AutoEra.World.Region
             int remaining = _objects.Length;
             try
             {
+                BeginEnvironment();
                 for (int i = 0; i < _objects.Length; i++)
                 {
+                    int seedIndex = i;
                     RegionObjectView seed = _objects[i];
                     if (seed == null || string.IsNullOrWhiteSpace(_entityPrefabs[i])) throw new InvalidOperationException("Missing region seed.");
                     seed.gameObject.SetActive(false);
@@ -118,8 +132,11 @@ namespace AutoEra.World.Region
                         try
                         {
                             ((InitialRegionEntity)logic).Bind(Region);
+                            RegisterPersistentView(((InitialRegionEntity)logic).View,seedIndex,_entityPrefabs[seedIndex]);
                             AttachEnergyFacility((InitialRegionEntity)logic);
-                            if (--remaining == 0) { InitializeNavigation(); ready?.Invoke(); }
+                            AttachWarehouse(((InitialRegionEntity)logic).View);
+                            AttachProduction(((InitialRegionEntity)logic).View);
+                            if (--remaining == 0) { InitializeNavigation(); EnvironmentReady(ready,failed); }
                         }
                         catch (Exception error) { _failure?.Invoke(error.Message); }
                     };
@@ -143,14 +160,18 @@ namespace AutoEra.World.Region
             if (Region != null) throw new InvalidOperationException("Region scene is already initialized.");
             if (session == null || !session.IsActive) throw new ArgumentException("An active world session is required.");
             _session = session;
+            if (!session.Resources.CatalogReady) session.Resources.Configure(AutoEra.Logistics.ResourceItemCatalog.FromLoadedGameData());
             Region = new InitialRegion(session, _bounds);
             try
             {
                 if (_objects == null || _objects.Length == 0) throw new InvalidOperationException("Region content is not configured.");
+                BeginEnvironment();
                 foreach (RegionObjectView view in _objects)
                 {
                     if (view == null) throw new InvalidOperationException("Region content has a missing view.");
                     view.Initialize(Region);
+                    AttachWarehouse(view);
+                    AttachProduction(view);
                 }
                 InitializeNavigation();
             }
@@ -170,7 +191,9 @@ namespace AutoEra.World.Region
         {
             if (_navigationGround != null)
             {
-                Navigation = new RegionNavigation(Region, _navigationGround, _navigationRadius, _navigationHeight);
+                Navigation = new RegionNavigation(Region, _navigationGround, _navigationRadius, _navigationHeight, this);
+                if (UnityEngine.Application.isPlaying)
+                { _treeFalls = new AutoEra.ResourcePoints.TreeFallSimulation(_navigationGround); foreach (var facility in _productionFacilities) facility.BindFalls(_treeFalls); }
                 if (!Navigation.RebuildIfNeeded()) throw new InvalidOperationException(Navigation.Error);
             }
 
@@ -178,12 +201,41 @@ namespace AutoEra.World.Region
             // 同样需要算力池、任务队列与传感器，导航只是其中一项能力。
             _runtimes?.Dispose();
             _runtimes = new RegionMachineRuntimeRegistry(
-                _session, Region, Navigation, new AutoEra.Machines.MachineNavigationSettings(), _wheelRadius, _wheelBase);
+                _session, Region, Navigation, new AutoEra.Machines.MachineNavigationSettings(), _wheelRadius, _wheelBase,
+                AutoEra.Machines.Sensors.SensorCatalog.FromLoadedGameData(),_transferEndpoints);
+            foreach (var facility in _productionFacilities) _runtimes.SensorEnvironment.ReplacePublicProvider(facility);
+            if (_productionFacilities.Count > 0 || _transferEndpoints.Count > 0)
+            {
+                _productionTools = new AutoEra.ResourcePoints.RegionProductionTools(Region, _entityGroup, _productionFacilities);
+                _runtimes.Effectors.Register(new AutoEra.ResourcePoints.ProductionEffectorExecutor(Region, _productionTargets, _productionTools));
+                _runtimes.Effectors.Register(new AutoEra.Logistics.ResourceTransferEffectorExecutor(Region,_transferEndpoints,_productionTools));
+            }
 
             // 警报账本与区域同寿命：它记的是**本区域**的问题，跨区域沿用会把 A 区的故障算到 B 区头上。
             _alerts?.Clear();
             _alerts = new AutoEra.Alerts.AutoEraAlertService();
             _alertMonitor = new AutoEra.Alerts.RegionAlertMonitor(_alerts);
+        }
+        private void AttachWarehouse(RegionObjectView view, bool persistent = false)
+        {
+            var warehouse = view.GetComponent<RegionWarehouseFacility>();
+            if (warehouse != null)
+            {
+                if(persistent && !_session.Resources.Authority.TryReadContainer(new AutoEra.Logistics.CargoOwner(AutoEra.Logistics.CargoOwnerKind.Receiver,view.Model.Id),out _))
+                    throw new InvalidOperationException("Saved warehouse authority is missing.");
+                warehouse.Initialize(_session.Resources, Region, view.Model);
+            }
+        }
+        private void AttachProduction(RegionObjectView view, bool persistent = false)
+        {
+            var facility = view.GetComponent<AutoEra.ResourcePoints.RegionProductionFacility>();
+            if (facility != null)
+            {
+                if(persistent) facility.InitializePersistent(_session,Region,view.Model);else facility.Initialize(_session, Region, view.Model);
+                _productionFacilities.Add(facility); _productionTargets.Add(view.Model.Id, facility);
+            }
+            var transfer = view.GetComponent<AutoEra.Logistics.RegionTransferEndpoint>();
+            if (transfer != null) { transfer.Initialize(_session,Region,view.Model); _transferEndpoints.Add(view.Model.Id,transfer); }
         }
 
         // ------------------------------------------------------- 区域电网
@@ -226,6 +278,7 @@ namespace AutoEra.World.Region
                 { reason = "该机器尚未部署到本区域，不能建立运行时"; return false; }
 
             RegionObjectView view = FindMachineView(id);
+            if (view != null) _productionTools?.RegisterMachineView(machine, view.gameObject);
             return _runtimes.TryAttach(machine, view != null ? view.gameObject : null, out _, out reason);
         }
 
@@ -270,10 +323,16 @@ namespace AutoEra.World.Region
 
                 try
                 {
-                    ((InitialRegionMachineEntity)logic).Bind(Region, id);
+                    var machineEntity = (InitialRegionMachineEntity)logic;
+                    machineEntity.Bind(Region, id);
+                    AttachEnvironmentReceiver(machineEntity.View);
+                    RegisterPersistentView(machineEntity.View,-1,machine.Definition.Prefab);
                     // 视图就绪后紧接着建立运行时：导航绑定需要实体 GameObject，
                     // 而运行时又必须先于导航绑定存在，所以两件事必须在这一个回调里按顺序发生。
-                    TryAttachMachineRuntime(id, out _);
+                    // GF is still inside OnShow here; HasEntity/GetEntity need not expose the
+                    // instance until the callback returns. Use the already-bound explicit view.
+                    _productionTools?.RegisterMachineView(machine, machineEntity.View.gameObject);
+                    _runtimes?.TryAttach(machine, machineEntity.View.gameObject, out _, out _);
                 }
                 catch (Exception error)
                 {
@@ -323,8 +382,15 @@ namespace AutoEra.World.Region
 
         public void Advance(double realSeconds)
         {
+            if (_advancing) return;
+            _advancing = true;
+            try { AdvanceCore(realSeconds); }
+            finally { _advancing = false; }
+        }
+
+        private void AdvanceCore(double realSeconds)
+        {
             if (_session == null || !_session.IsActive) { Release(); return; }
-            Navigation?.Tick(UnityEngine.Time.realtimeSinceStartupAsDouble, (float)realSeconds);
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             bool advanced = _session.Clock.TryAdvanceDevelopmentRealtimeSeconds(realSeconds, _developmentTimeMultiplier);
 #else
@@ -332,11 +398,19 @@ namespace AutoEra.World.Region
 #endif
             if (!advanced)
                 throw new ArgumentOutOfRangeException(nameof(realSeconds));
+            _runtimes?.SetWorldTime(_session.Clock.WorldMilliseconds);
+            _productionTools?.Reconcile();
+            AdvanceEnergy(_session.Clock.WorldMilliseconds, realSeconds);
+            Navigation?.Tick(UnityEngine.Time.realtimeSinceStartupAsDouble, (float)realSeconds);
+            _session.Production.Advance(_session.Clock.WorldMilliseconds);
+            _treeFalls?.Advance(realSeconds);
+            for (int i = 0; i < _productionFacilities.Count; i++)
+                if (_productionFacilities[i] != null) _productionFacilities[i].Refresh(_session.Clock.WorldMilliseconds);
             long second = _session.Clock.WorldMilliseconds / 1000;
             long sensorTime = _session.Clock.WorldMilliseconds;
             int sensorCount = _sensorSets.Count;
             for (int i = 0; i < sensorCount && i < _sensorSets.Count; i++) _sensorSets[i].Tick(sensorTime);
-            AdvanceEnergy(_session.Clock.WorldMilliseconds, realSeconds);
+            _runtimes?.AdvanceWorldStep(sensorTime, UnityEngine.Time.realtimeSinceStartupAsDouble);
             AdvanceAlerts();
             if (_hud != null && second != _lastDisplayedSecond)
             {
@@ -436,12 +510,21 @@ namespace AutoEra.World.Region
 
         public void Release()
         {
+            _environment?.End();
+            _criticalSaving?.Dispose();_criticalSaving=null;
+            _session?.Machines.DiscardPendingHardwareIntents();
             foreach (var sensors in _sensorSets) sensors.Dispose();
             _sensorSets.Clear();
             // 先回收机器实体（它们的视图要退订），再拆运行时，最后放导航。
             ReleaseMachineEntities();
             _runtimes?.Dispose();
             _runtimes = null;
+            _productionTools?.Dispose(); _productionTools = null;
+            foreach (var endpoint in _transferEndpoints.Values) if (endpoint != null) endpoint.Release(); _transferEndpoints.Clear();
+            foreach (var facility in _productionFacilities) if (facility != null) facility.Release();
+            _productionFacilities.Clear(); _productionTargets.Clear();
+            _treeFalls?.Dispose(); _treeFalls = null;
+            _energy?.Dispose();
             _energy = null;
             _energyRecorder?.Reset();
             _energyRecorder = null;
@@ -453,7 +536,7 @@ namespace AutoEra.World.Region
             Navigation?.Dispose(); Navigation = null;
             _entityVersion++;
             _failure = null;
-            if (_entityEvents) { GF.Event.Unsubscribe(ShowEntityFailureEventArgs.EventId, OnEntityFailure); _entityEvents = false; }
+            if (_entityEvents) { if (GF.Event != null && GF.Event.Check(ShowEntityFailureEventArgs.EventId, OnEntityFailure)) GF.Event.Unsubscribe(ShowEntityFailureEventArgs.EventId, OnEntityFailure); _entityEvents = false; }
             foreach (int id in _entityIds) GF.Entity.HideEntitySafe(id);
             _entityIds.Clear();
             foreach (EntityParams parameters in _pendingEntities.Values) ReferencePool.Release(parameters);
@@ -464,6 +547,7 @@ namespace AutoEra.World.Region
             Region?.Dispose();
             Region = null;
             _session = null;
+            ClearPersistenceBinding();
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             _developmentTimeMultiplier = 1d;
 #endif

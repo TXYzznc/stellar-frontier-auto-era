@@ -13,8 +13,15 @@ namespace AutoEra.World.Region
             if (region == null || !region.IsActive) throw new InvalidOperationException("Region is not active.");
             View.Initialize(region);
         }
+        public void BindPersistent(InitialRegion region,Identity.PersistentId id)
+        {
+            if(region==null || !region.IsActive)throw new InvalidOperationException("Region is not active.");
+            View.BindDeployed(region,id);
+        }
         protected override void OnHide(bool isShutdown, object userData)
         {
+            GetComponent<AutoEra.ResourcePoints.RegionProductionFacility>()?.Release();
+            GetComponent<AutoEra.Logistics.RegionTransferEndpoint>()?.Release();
             View.Release();
             base.OnHide(isShutdown, userData);
         }

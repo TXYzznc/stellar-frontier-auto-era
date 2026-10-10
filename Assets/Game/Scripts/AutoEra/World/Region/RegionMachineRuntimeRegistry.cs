@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AutoEra.Algorithms;
 using AutoEra.Machines;
+using AutoEra.Machines.Sensors;
 using AutoEra.World.Identity;
 using UnityEngine;
 
@@ -11,23 +12,29 @@ namespace AutoEra.World.Region
     /// 区域级机器运行时注册表：按机器身份持有 <see cref="RegionMachineRuntime"/>，
     /// 在区域释放时统一销毁。
     ///
-    /// **运行时不进存档**（design.md D4）：这里没有任何序列化状态，区域就绪后
-    /// 只凭「花名册说这台机器已部署 + 区域里有它的对象」就能重建，重建后机器回到空闲态。
-    /// 这条性质由 `MachineDeploymentRuntimeEditModeTests` 的重建用例守着。
+    /// 运行服务本身不进存档。普通部署从配置重建；B47正式恢复另从领域快照恢复任务、
+    /// 算法与物理责任，不将活动工作重建为空闲，也不发送Startup。
     ///
     /// 导航绑定刻意放在这里而不是 Flow 里：`RegionNavigation.Bind` 的第一个参数就是
     /// `MachineExecutionContext`，所以「运行时创建」必然先于「导航绑定」——
     /// 两者必须在同一个地方按顺序发生，分到两个类里只会制造一个假的依赖方向。
     /// </summary>
-    public sealed class RegionMachineRuntimeRegistry : IDisposable
+    public sealed partial class RegionMachineRuntimeRegistry : IDisposable
     {
+        private readonly IReadOnlyDictionary<PersistentId, AutoEra.Logistics.RegionTransferEndpoint> _transferEndpoints;
         private readonly AutoEraWorldSession _session;
         private readonly InitialRegion _region;
         private readonly RegionNavigation _navigation;
         private readonly MachineNavigationSettings _navigationSettings;
         private readonly float _wheelRadius;
         private readonly float _wheelBase;
+        private readonly SensorCatalog _sensorCatalog;
+        public RegionSensorEnvironment SensorEnvironment { get; }
+        public RegionEffectorExecutorRegistry Effectors { get; } = new RegionEffectorExecutorRegistry();
         private readonly Dictionary<PersistentId, RegionMachineRuntime> _runtimes = new Dictionary<PersistentId, RegionMachineRuntime>();
+        private readonly List<RegionMachineRuntime> _ordered = new List<RegionMachineRuntime>();
+        private readonly List<PersistentId> _pendingDetach = new List<PersistentId>();
+        private bool _orderDirty, _advancing;
         private bool _disposed;
 
         public RegionMachineRuntimeRegistry(
@@ -36,7 +43,9 @@ namespace AutoEra.World.Region
             RegionNavigation navigation,
             MachineNavigationSettings navigationSettings,
             float wheelRadius,
-            float wheelBase)
+            float wheelBase,
+            SensorCatalog sensorCatalog = null,
+            IReadOnlyDictionary<PersistentId, AutoEra.Logistics.RegionTransferEndpoint> transferEndpoints = null)
         {
             _session = session ?? throw new ArgumentNullException(nameof(session));
             _region = region ?? throw new ArgumentNullException(nameof(region));
@@ -44,6 +53,9 @@ namespace AutoEra.World.Region
             _navigationSettings = navigationSettings;
             _wheelRadius = wheelRadius;
             _wheelBase = wheelBase;
+            _sensorCatalog = sensorCatalog;
+            _transferEndpoints = transferEndpoints;
+            SensorEnvironment = new RegionSensorEnvironment(region, true);
         }
 
         /// <summary>已建立的运行时数量。</summary>
@@ -53,8 +65,17 @@ namespace AutoEra.World.Region
         public RegionNavigation Navigation => _navigation;
 
         public IEnumerable<RegionMachineRuntime> Runtimes => _runtimes.Values;
+        public event Action<RegionMachineRuntime> RuntimeAdded,RuntimeRemoved;
 
         public bool TryGet(PersistentId id, out RegionMachineRuntime runtime) => _runtimes.TryGetValue(id, out runtime);
+
+        /// <summary>先同步业务时刻，随后能源/导航通知才能记录本步时间；不推进算法。</summary>
+        public void SetWorldTime(long worldMilliseconds)
+        {
+            if (_disposed) return;
+            foreach (var runtime in _runtimes.Values)
+            { runtime.Adapter.SetWorldTime(worldMilliseconds); runtime.Hardware?.SetWorldTime(worldMilliseconds); }
+        }
 
         /// <summary>
         /// 为已部署机器建立运行时。同一台机器重复调用是幂等的（返回已有运行时）。
@@ -72,7 +93,7 @@ namespace AutoEra.World.Region
             if (_region == null || !_region.IsActive) { reason = "区域不可用"; return false; }
             if (_runtimes.TryGetValue(machine.Id, out RegionMachineRuntime existing)) { runtime = existing; return true; }
 
-            var context = new MachineExecutionContext(machine, _session.IdAllocator, _session.Events);
+            var context = new MachineExecutionContext(machine, _session.IdAllocator, _session.Events, _session.Resources.GetCargo(machine));
 
             RegionMachineNavigationBinding binding = null;
             MachineNavigation navigation = null;
@@ -103,25 +124,67 @@ namespace AutoEra.World.Region
                 }
             }
 
-            var adapter = new AlgorithmMachineAdapter(context, navigation, _region);
+            var adapter = new AlgorithmMachineAdapter(context, navigation, _region, _transferEndpoints);
+            var hardware = new MachineHardwareRevision(machine);
             var instances = new AlgorithmInstanceService(
                 _session.IdAllocator,
                 context.Compute,
-                () => (ulong)machine.Revision,
-                adapter.ValidateBindings);
-            runtime = new RegionMachineRuntime(machine, context, binding, navigation, adapter, instances)
+                hardware.Read,
+                adapter.ValidateBindings,
+                () => adapter.IsSafe);
+            runtime = new RegionMachineRuntime(machine, context, binding, navigation, adapter, instances, hardware)
             {
                 NavigationUnavailableReason = degradation,
+                PersistentTransport = _session.Resources.Transport,
             };
+            runtime.Hardware = new RegionHardwareRuntime(context, _region, SensorEnvironment, _sensorCatalog, Effectors, adapter, view);
             _runtimes.Add(machine.Id, runtime);
+            _orderDirty = true;
+            RuntimeAdded?.Invoke(runtime);
             return true;
+        }
+
+        /// <summary>唯一算法业务步。导航仍只由区域导航推进；回调改变注册表在步末落实。</summary>
+        public void AdvanceWorldStep(long worldMilliseconds, double navigationSeconds)
+        {
+            if (_disposed || _advancing) return;
+            if (_orderDirty)
+            {
+                _ordered.Clear();
+                foreach (var runtime in _runtimes.Values) _ordered.Add(runtime);
+                _ordered.Sort((a, b) => a.MachineId.CompareTo(b.MachineId));
+                _orderDirty = false;
+            }
+            _advancing = true;
+            try
+            {
+                for (int i = 0; i < _ordered.Count && !_disposed; i++)
+                    _ordered[i].AdvanceWorldStep(worldMilliseconds, navigationSeconds);
+            }
+            finally
+            {
+                _advancing = false;
+                if (_disposed) ReleaseRuntimes();
+                else
+                {
+                    for (int i = 0; i < _pendingDetach.Count; i++) Detach(_pendingDetach[i]);
+                    _pendingDetach.Clear();
+                }
+            }
         }
 
         /// <summary>撤掉一台机器的运行时（例如机器被撤收）。</summary>
         public bool Detach(PersistentId id)
         {
             if (!_runtimes.TryGetValue(id, out RegionMachineRuntime runtime)) return false;
+            if (_advancing)
+            {
+                if (!_pendingDetach.Contains(id)) _pendingDetach.Add(id);
+                return true;
+            }
             _runtimes.Remove(id);
+            _orderDirty = true;
+            RuntimeRemoved?.Invoke(runtime);
             runtime.Dispose();
             return true;
         }
@@ -130,8 +193,18 @@ namespace AutoEra.World.Region
         {
             if (_disposed) return;
             _disposed = true;
-            foreach (RegionMachineRuntime runtime in _runtimes.Values) runtime.Dispose();
+            if (_advancing) return;
+            ReleaseRuntimes();
+        }
+
+        private void ReleaseRuntimes()
+        {
+            foreach (RegionMachineRuntime runtime in _runtimes.Values) {RuntimeRemoved?.Invoke(runtime);runtime.Dispose();}
             _runtimes.Clear();
+            _ordered.Clear();
+            _pendingDetach.Clear();
+            SensorEnvironment.Dispose();
+            RuntimeAdded=null;RuntimeRemoved=null;
         }
     }
 }

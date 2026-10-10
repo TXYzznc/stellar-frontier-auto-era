@@ -64,6 +64,22 @@ namespace AutoEra.World.Region
         public bool Remove(PersistentId id)
             => !_disposed && RemoveObject(id);
 
+        public bool AttachResourceFacility(PersistentId facility, PersistentId point)
+        {
+            if (!TryGet(facility, out var attached) || attached.Kind != PersistentObjectKind.Building ||
+                !TryGet(point, out var resource) || resource.Kind != PersistentObjectKind.ResourcePoint ||
+                attached.AttachedResourcePoint.IsValid && attached.AttachedResourcePoint != point) return false;
+            attached.AttachedResourcePoint = point; return true;
+        }
+        public bool RemoveResourcePoint(PersistentId point)
+        {
+            if (!TryGet(point, out var resource) || resource.Kind != PersistentObjectKind.ResourcePoint) return false;
+            var attachments = new List<PersistentId>();
+            foreach (var item in _objects.Values) if (item.AttachedResourcePoint == point) attachments.Add(item.Id);
+            foreach (var id in attachments) RemoveObject(id);
+            return RemoveObject(point);
+        }
+
         private bool RemoveObject(PersistentId id)
         {
             // Cleanup must also work after the owning world session has ended.

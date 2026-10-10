@@ -32,7 +32,7 @@ namespace AutoEra.World.Region
     /// 所以这里不假装它已经被持久化。
     /// </summary>
     [DisallowMultipleComponent]
-    public sealed class RegionEnergyFacility : MonoBehaviour
+    public sealed partial class RegionEnergyFacility : MonoBehaviour
     {
         [SerializeField] private RegionEnergyFacilityKind _kind = RegionEnergyFacilityKind.EnvironmentGenerator;
 

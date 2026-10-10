@@ -24,5 +24,16 @@ namespace AutoEra.World
             var events = new AutoEraEventService(clock, eventPublisher);
             return new AutoEraWorldSession(allocator, registry, clock, events);
         }
+
+        /// <summary>Empty, journal-only graph. Restore original identities before allocating or publishing anything.</summary>
+        public AutoEraWorldSession CreateRestoreCandidate(long worldMilliseconds, ulong allocatedThrough)
+        {
+            var allocator = new PersistentIdAllocator();
+            if (allocatedThrough != 0) allocator.TryRestore(new PersistentId(allocatedThrough));
+            var registry = new PersistentObjectRegistry(allocator);
+            var clock = new WorldClock(worldMilliseconds);
+            var events = new AutoEraEventService(clock, null);
+            return new AutoEraWorldSession(allocator, registry, clock, events, false);
+        }
     }
 }

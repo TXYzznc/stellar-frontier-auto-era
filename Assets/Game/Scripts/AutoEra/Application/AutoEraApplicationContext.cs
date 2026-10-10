@@ -14,6 +14,7 @@ namespace AutoEra.Application
     public sealed class AutoEraApplicationContext : IDisposable
     {
         private bool _isDisposed;
+        private readonly IWorldSnapshotWriter _snapshotWriter;
 
         public AutoEraApplicationContext(IUtcTimeProvider utcTimeProvider, AutoEraWorldSessionFactory worldSessionFactory,
             IEventPublisher eventPublisher = null, SaveSlotService saveSlots = null)
@@ -22,6 +23,8 @@ namespace AutoEra.Application
             WorldSessionFactory = worldSessionFactory ?? throw new ArgumentNullException(nameof(worldSessionFactory));
             EventPublisher = eventPublisher;
             SaveSlots = saveSlots ?? SaveSlotService.CreateDefault();
+            _snapshotWriter = new SaveSlotWorldSnapshotWriter(SaveSlots);
+            Slots = new WorldSlotFlow(this);
         }
 
         public IUtcTimeProvider UtcTimeProvider { get; }
@@ -36,6 +39,12 @@ namespace AutoEra.Application
         public IEventPublisher EventPublisher { get; }
 
         public AutoEraWorldSession ActiveWorldSession { get; private set; }
+        public int CurrentSlotIndex { get; private set; } = -1;
+        public WorldSaveCoordinator SaveCoordinator { get; private set; }
+        public WorldSaveExitController SaveExit { get; private set; }
+        public WorldSlotFlow Slots { get; }
+        public bool BlocksNewWorldCommands => SaveExit?.BlocksNewCommands==true;
+        public bool FreezesWorldSimulation => SaveExit?.FreezesSimulation==true;
         public AutoEraSceneFlow SceneFlow { get; } = new AutoEraSceneFlow();
         public string WorldEntryError { get; set; }
 
@@ -75,6 +84,8 @@ namespace AutoEra.Application
 
         public void ReleaseActiveWorldSession()
         {
+            SaveExit?.Dispose();SaveExit=null;
+            SaveCoordinator?.Dispose(); SaveCoordinator = null; CurrentSlotIndex = -1;
             if (ActiveWorldSession == null)
             {
                 return;
@@ -82,6 +93,30 @@ namespace AutoEra.Application
 
             ActiveWorldSession.Dispose();
             ActiveWorldSession = null;
+        }
+
+        public bool TryAttachWorldSaving(int slotIndex,IWorldSnapshotSource source,long savedRevision=0)
+        {
+            if(_isDisposed || ActiveWorldSession==null || !ActiveWorldSession.IsActive || SaveCoordinator!=null ||
+                !SaveSlotService.IsValidSlotIndex(slotIndex) || source==null || savedRevision<0)return false;
+            SaveCoordinator=new WorldSaveCoordinator(slotIndex,source,_snapshotWriter,savedRevision);
+            SaveExit=new WorldSaveExitController(SaveCoordinator);
+            CurrentSlotIndex=slotIndex;return true;
+        }
+
+        /// <summary>Only a completely validated, unpublished candidate can replace the active world.</summary>
+        public bool TryCommitRestoredWorld(WorldRestoreCandidate candidate,int slotIndex,IWorldSnapshotSource source)
+        {
+            if(_isDisposed || candidate==null || !candidate.IsReady || source==null || !SaveSlotService.IsValidSlotIndex(slotIndex) ||
+                SaveCoordinator?.IsWriting==true)return false;
+            var saving=new WorldSaveCoordinator(slotIndex,source,_snapshotWriter,candidate.Document.Revision);
+            if(!candidate.TryCommit()) { saving.Dispose();return false; }
+            var oldWorld=ActiveWorldSession;var oldSaving=SaveCoordinator;
+            SaveExit?.Dispose();
+            candidate.World.Events.ActivatePublisher(EventPublisher);
+            ActiveWorldSession=candidate.World;SaveCoordinator=saving;CurrentSlotIndex=slotIndex;
+            SaveExit=new WorldSaveExitController(saving);
+            oldSaving?.Dispose();oldWorld?.Dispose();return true;
         }
 
         public void Dispose()
@@ -92,6 +127,7 @@ namespace AutoEra.Application
             }
 
             _isDisposed = true;
+            Slots.Dispose();
             ReleaseActiveWorldSession();
             SceneFlow.Dispose();
         }

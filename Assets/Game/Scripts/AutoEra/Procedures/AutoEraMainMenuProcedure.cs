@@ -51,6 +51,7 @@ namespace AutoEra.Procedures
         {
             base.OnUpdate(owner, elapsed, realElapsed);
             _form?.SetStatus(_loading, _loading ? "正在加载菜单" : _message);
+            if(!_loading && _context.Slots.HasPendingRequest)_enter=true;
             if (_enter) ChangeState<AutoEraWorldProcedure>(owner);
         }
         protected override void OnLeave(IFsm<IProcedureManager> owner, bool shutdown)

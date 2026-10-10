@@ -7,6 +7,15 @@ namespace AutoEra.World.Region
     {
         public static bool IsFinite(float value) => !float.IsNaN(value) && !float.IsInfinity(value);
         public static bool IsFinite(Vector2 value) => IsFinite(value.x) && IsFinite(value.y);
+        public static Vector3 ClosestPoint(RegionObject item, Vector3 anchor)
+        {
+            var right = Axis(item.Yaw);
+            var forward = new Vector2(-right.y, right.x);
+            var delta = new Vector2(anchor.x, anchor.z) - item.Position;
+            var point = item.Position + right * Mathf.Clamp(Vector2.Dot(delta, right), -item.Size.x * .5f, item.Size.x * .5f)
+                + forward * Mathf.Clamp(Vector2.Dot(delta, forward), -item.Size.y * .5f, item.Size.y * .5f);
+            return new Vector3(point.x, 0, point.y);
+        }
         public static Vector2 SnapPosition(Vector2 value) => new Vector2(Snap(value.x, .5f), Snap(value.y, .5f));
         public static float SnapYaw(float value) => Mathf.Repeat(Snap(value, 15f), 360f);
 

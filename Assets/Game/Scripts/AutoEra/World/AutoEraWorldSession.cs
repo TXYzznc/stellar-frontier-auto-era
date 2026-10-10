@@ -15,15 +15,17 @@ namespace AutoEra.World
         private bool _isDisposed;
 
         internal AutoEraWorldSession(PersistentIdAllocator idAllocator, PersistentObjectRegistry objectRegistry, WorldClock clock,
-            AutoEraEventService events)
+            AutoEraEventService events, bool seedInitialTemplates = true)
         {
             IdAllocator = idAllocator ?? throw new ArgumentNullException(nameof(idAllocator));
             ObjectRegistry = objectRegistry ?? throw new ArgumentNullException(nameof(objectRegistry));
             Clock = clock ?? throw new ArgumentNullException(nameof(clock));
             Events = events ?? throw new ArgumentNullException(nameof(events));
             Machines = new AutoEra.Machines.MachineRoster(IdAllocator, ObjectRegistry);
+            Resources = new AutoEra.Logistics.ResourceWorldService(IdAllocator, ObjectRegistry, Machines, Events);
+            Production = new AutoEra.ResourcePoints.ResourceProductionWorldService(this);
             AlgorithmTemplates = new AlgorithmTemplateLibrary(IdAllocator);
-            InitialAlgorithmTemplates.Seed(AlgorithmTemplates);
+            if (seedInitialTemplates) InitialAlgorithmTemplates.Seed(AlgorithmTemplates);
         }
 
         public PersistentIdAllocator IdAllocator { get; }
@@ -33,6 +35,8 @@ namespace AutoEra.World
         public WorldClock Clock { get; }
         public AutoEraEventService Events { get; }
         public AutoEra.Machines.MachineRoster Machines { get; }
+        public AutoEra.Logistics.ResourceWorldService Resources { get; }
+        public AutoEra.ResourcePoints.ResourceProductionWorldService Production { get; }
 
         /// <summary>世界级算法模板库：跨机器共享的模板列表/详情/实例化数据源，生命周期随世界。</summary>
         public AlgorithmTemplateLibrary AlgorithmTemplates { get; }
@@ -47,6 +51,10 @@ namespace AutoEra.World
             }
 
             _isDisposed = true;
+            Events.SuspendPublisher();
+            Machines.DiscardPendingHardwareIntents();
+            Production.Dispose();
+            Resources.Dispose();
             Machines.Dispose();
             Events.Dispose();
             ObjectRegistry.Clear();

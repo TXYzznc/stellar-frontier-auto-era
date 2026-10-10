@@ -24,6 +24,7 @@ namespace AutoEra.World.Region
         public float Yaw { get; internal set; }
         public bool BlocksNavigation { get; }
         public bool IsRegistered { get; internal set; }
+        public PersistentId AttachedResourcePoint { get; internal set; }
         public string PublicStatus { get; private set; } = "待机";
         public long? PublicResourceAmount { get; private set; }
         public bool ResourceIsInfinite { get; private set; }

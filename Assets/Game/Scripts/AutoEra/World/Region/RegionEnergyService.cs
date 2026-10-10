@@ -21,7 +21,7 @@ namespace AutoEra.World.Region
     /// 机器作为负载的规则在 <see cref="MachineEnergyConsumer"/>：请求功率由机器按部件逐项求和，
     /// 本服务只负责「谁参与、按什么顺序结算、结论怎么落回机器」。
     /// </summary>
-    public sealed class RegionEnergyService
+    public sealed partial class RegionEnergyService : IDisposable
     {
         /// <summary>
         /// 第一版给机器／建筑的默认供电优先级。
@@ -32,10 +32,12 @@ namespace AutoEra.World.Region
         /// </summary>
         public const PowerPriority DefaultMachinePriority = PowerPriority.Production;
 
-        private readonly EnergyGrid _grid = new EnergyGrid();
+        private EnergyGrid _grid = new EnergyGrid();
         private readonly List<RegionEnergyFacility> _facilities = new List<RegionEnergyFacility>();
         private readonly Dictionary<PersistentId, MachineEnergyConsumer> _machines =
             new Dictionary<PersistentId, MachineEnergyConsumer>();
+        private MachineRoster _roster;
+        private bool _disposed;
 
         /// <summary>电网本体；测试与调试用。</summary>
         public EnergyGrid Grid => _grid;
@@ -44,7 +46,7 @@ namespace AutoEra.World.Region
         public EnergyGridSnapshot Snapshot => _grid.Snapshot;
 
         /// <summary>本区域是否真的建立了供电能力（至少有一台发电或储能设施）。</summary>
-        public bool HasSupply => _facilities.Count > 0;
+        public bool HasSupply => _grid.Generators.Count > 0 || _grid.Storages.Count > 0;
 
         /// <summary>参与结算的设施数量。</summary>
         public int FacilityCount => _facilities.Count;
@@ -68,6 +70,7 @@ namespace AutoEra.World.Region
         /// </summary>
         public void Register(RegionEnergyFacility facility)
         {
+            if (_disposed) throw new ObjectDisposedException(nameof(RegionEnergyService));
             if (facility == null) throw new ArgumentNullException(nameof(facility));
             if (!facility.IsInitialized) throw new InvalidOperationException("Initialize the facility with its region object id first.");
             if (_facilities.Contains(facility)) return;
@@ -80,11 +83,11 @@ namespace AutoEra.World.Region
         /// <summary>
         /// 把一台**已部署**的机器接成负载。
         ///
-        /// 未部署的机器不参与（它在库里不耗电，也不该占用区域功率）；
-        /// 重复登记是幂等的，所以调用方可以在每个世界节拍无脑调一次。
+        /// 未部署的机器不参与（它在库里不耗电，也不该占用区域功率）；重复登记是幂等的。
         /// </summary>
         public bool TrackMachine(MachineInstance machine)
         {
+            if (_disposed) throw new ObjectDisposedException(nameof(RegionEnergyService));
             if (machine == null) throw new ArgumentNullException(nameof(machine));
             if (!machine.Deployed) return false;
             if (_machines.ContainsKey(machine.Id)) return true;
@@ -106,6 +109,7 @@ namespace AutoEra.World.Region
         /// </summary>
         public EnergyGridSnapshot Tick(long worldMilliseconds, float elapsedSeconds)
         {
+            if(worldMilliseconds<0 || _lastWorldMilliseconds>worldMilliseconds)throw new ArgumentOutOfRangeException(nameof(worldMilliseconds));
             if (!HasSupply)
             {
                 return _grid.Snapshot;
@@ -117,7 +121,8 @@ namespace AutoEra.World.Region
             }
 
             LastDaylight = DaylightCycle.IsDaylight(worldMilliseconds);
-            return _grid.Tick(Math.Max(0f, elapsedSeconds), LastDaylight);
+            var settled=_grid.Tick(Math.Max(0f, elapsedSeconds), LastDaylight);
+            _lastWorldMilliseconds=worldMilliseconds;return settled;
         }
 
         /// <summary>
@@ -140,13 +145,22 @@ namespace AutoEra.World.Region
         /// <summary>
         /// 按花名册对账：把新部署的机器接进来、把已经不在花名册里（或已回收）的机器摘掉。
         ///
-        /// 对账而不是「每次全量重建」：全量重建会让每台机器在每个世界节拍都重新排队，
-        /// 而队列顺序正是同级停机顺序的判据——那样停机顺序会变成时间的函数，不再是确定的。
-        /// 摘除只从中段移除那一条，其余参与方的顺序不变。
+        /// 首次绑定后消费部署/撤收通知。稳定节拍只检查绑定身份，不遍历花名册；
+        /// force用于显式一致性检查，不重排已有队列。切换花名册或释放区域时退订旧生命周期。
         /// </summary>
-        public void Reconcile(MachineRoster roster)
+        public void Reconcile(MachineRoster roster, bool force = false)
         {
             if (roster == null) throw new ArgumentNullException(nameof(roster));
+            if (_disposed) throw new ObjectDisposedException(nameof(RegionEnergyService));
+            if (ReferenceEquals(_roster, roster) && !force) return;
+            if (_roster != null && !ReferenceEquals(_roster, roster)) OnRosterDisposed(_roster);
+            else UnbindRoster();
+            if (roster.IsActive)
+            {
+                _roster = roster;
+                roster.DeploymentChanged += OnDeploymentChanged;
+                roster.Disposed += OnRosterDisposed;
+            }
 
             foreach (MachineInstance machine in roster.Machines)
             {
@@ -173,5 +187,27 @@ namespace AutoEra.World.Region
         }
 
         private readonly List<PersistentId> _stale = new List<PersistentId>();
+
+        private void OnDeploymentChanged(MachineInstance machine)
+        {
+            if (machine.Deployed) TrackMachine(machine);
+            else { _machines.Remove(machine.Id); _grid.RemoveConsumer(machine.Id); }
+        }
+        private void UnbindRoster()
+        {
+            if (_roster == null) return;
+            _roster.DeploymentChanged -= OnDeploymentChanged; _roster.Disposed -= OnRosterDisposed; _roster = null;
+        }
+        private void OnRosterDisposed(MachineRoster _)
+        {
+            UnbindRoster();
+            foreach (var id in _machines.Keys) _grid.RemoveConsumer(id);
+            _machines.Clear();
+        }
+        public void Dispose()
+        {
+            if (_disposed) return;
+            OnRosterDisposed(_roster); _facilities.Clear(); _stale.Clear(); _disposed = true;
+        }
     }
 }

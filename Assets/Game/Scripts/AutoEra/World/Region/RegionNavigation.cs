@@ -9,6 +9,11 @@ using UnityEngine.AI;
 
 namespace AutoEra.World.Region
 {
+    public interface IRegionNavigationObstacles
+    {
+        long NavigationRevision { get; }
+        void CollectObstacles(List<Bounds> destination);
+    }
     /// <summary>Region-owned navigation data. Rebuilds only after topology changes, never from moving poses.</summary>
     public sealed class RegionNavigation : IDisposable
     {
@@ -16,6 +21,9 @@ namespace AutoEra.World.Region
         private readonly MeshFilter _ground;
         private readonly float _radius, _height;
         private readonly List<NavMeshBuildSource> _sources = new List<NavMeshBuildSource>();
+        private readonly IRegionNavigationObstacles _obstacles;
+        private readonly List<Bounds> _additionalBounds = new List<Bounds>();
+        private long _obstacleRevision = -1;
         private readonly Dictionary<PersistentId, RegionMachineNavigationBinding> _bindings = new Dictionary<PersistentId, RegionMachineNavigationBinding>();
         private readonly List<PersistentId> _removed = new List<PersistentId>();
         private NavMeshData _data;
@@ -27,13 +35,14 @@ namespace AutoEra.World.Region
         public int BuildCount { get; private set; }
         public int BindingCount => _bindings.Count;
 
-        public RegionNavigation(InitialRegion region, MeshFilter ground, float maximumAgentRadius, float agentHeight)
+        public RegionNavigation(InitialRegion region, MeshFilter ground, float maximumAgentRadius, float agentHeight, IRegionNavigationObstacles obstacles = null)
         {
             _region = region ?? throw new ArgumentNullException(nameof(region));
             if (ground == null || ground.sharedMesh == null || ground.sharedMesh.vertexCount < 3 ||
                 !MachineNavigationSettings.Positive(maximumAgentRadius) || !MachineNavigationSettings.Positive(agentHeight))
                 throw new ArgumentException("Navigation needs an explicit ground mesh and valid agent dimensions.");
             _ground = ground; _radius = maximumAgentRadius; _height = agentHeight;
+            _obstacles = obstacles;
             region.ObjectsChanged += OnTopologyChanged;
         }
         private void OnTopologyChanged() { _dirty = true; }
@@ -41,6 +50,7 @@ namespace AutoEra.World.Region
         public bool RebuildIfNeeded()
         {
             if (_disposed || !_region.IsActive || _ground == null) { ReleaseData(); Error = "Navigation region is unavailable."; return false; }
+            if (_obstacles != null && _obstacleRevision != _obstacles.NavigationRevision) { _obstacleRevision = _obstacles.NavigationRevision; _dirty = true; }
             if (!_dirty) return IsReady;
             _dirty = false; IsReady = false;
             foreach (var binding in _bindings.Values) binding.Navigation.InvalidateRoute();
@@ -60,6 +70,13 @@ namespace AutoEra.World.Region
                         transform = Matrix4x4.TRS(new Vector3(item.Position.x, groundY + _height, item.Position.y), Quaternion.Euler(0, item.Yaw, 0), Vector3.one) });
                 }
                 var settings = NavMesh.GetSettingsByID(0); settings.agentRadius = _radius; settings.agentHeight = _height;
+                if (_obstacles != null)
+                {
+                    _additionalBounds.Clear(); _obstacles.CollectObstacles(_additionalBounds);
+                    foreach (var obstacle in _additionalBounds)
+                        _sources.Add(new NavMeshBuildSource { shape = NavMeshBuildSourceShape.Box, area = 1,
+                            size = obstacle.size, transform = Matrix4x4.TRS(obstacle.center, Quaternion.identity, Vector3.one) });
+                }
                 // The default radius/3 voxel is too coarse for the 0.25 m target sampling contract
                 // of a 1.6 m carrier: even flat ground can be quantized above that tolerance.
                 settings.overrideVoxelSize = true; settings.voxelSize = 0.1f;

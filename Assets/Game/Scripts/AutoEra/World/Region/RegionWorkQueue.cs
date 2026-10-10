@@ -9,7 +9,7 @@ namespace AutoEra.World.Region
     public enum WorkRequestState { None, Granted, Waiting, InvalidRequester, InvalidTarget }
 
     /// <summary>One exclusive work channel. Separate channels permit farm care and general work in parallel.</summary>
-    public sealed class RegionWorkQueue : IDisposable
+    public sealed partial class RegionWorkQueue : IDisposable
     {
         private readonly InitialRegion _region;
         private readonly PersistentId _target;

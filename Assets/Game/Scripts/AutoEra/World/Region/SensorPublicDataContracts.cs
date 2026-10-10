@@ -46,12 +46,20 @@ namespace AutoEra.World.Region
         public long? CacheCapacity { get; }
         public IReadOnlyList<SoilCellReadout> Soil { get; }
         public IReadOnlyList<CropCellReadout> Crops { get; }
+        public IReadOnlyList<AutoEra.ResourcePoints.TreeReadout> Trees { get; }
         public SensorSnapshot(long version, string publicStatus = null, long? resourceAmount = null, bool infinite = false,
-            SoilCellReadout[] soil = null, CropCellReadout[] crops = null, long? cachedAmount = null, long? cacheCapacity = null)
+            SoilCellReadout[] soil = null, CropCellReadout[] crops = null, long? cachedAmount = null, long? cacheCapacity = null,
+            AutoEra.ResourcePoints.TreeReadout[] trees = null)
         {
             if (version < 0 || resourceAmount < 0 || (infinite && resourceAmount.HasValue) || cachedAmount < 0 || cacheCapacity < 0) throw new ArgumentException("Invalid snapshot.");
             Version = version; PublicStatus = publicStatus; ResourceAmount = resourceAmount; Infinite = infinite;
             CachedAmount = cachedAmount; CacheCapacity = cacheCapacity;
+            if (trees != null)
+            {
+                var ids = new HashSet<ulong>();
+                foreach (var tree in trees) if (!tree.Id.IsValid || !ids.Add(tree.Id.Value)) throw new ArgumentException("Duplicate tree ID.");
+                Trees = Array.AsReadOnly((AutoEra.ResourcePoints.TreeReadout[])trees.Clone());
+            }
             if (soil != null)
             {
                 var ids = new HashSet<long>(); foreach (var cell in soil) if (cell.Id <= 0 || !ids.Add(cell.Id)) throw new ArgumentException("Duplicate soil ID.");
