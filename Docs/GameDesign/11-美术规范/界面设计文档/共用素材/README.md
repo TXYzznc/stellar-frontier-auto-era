@@ -7,10 +7,19 @@
 | 文档 | 母版职责 | 生图需求数 | 目标目录 |
 |---|---|---:|---|
 | [00-Logo设计与引用](./00-Logo设计与引用.md) | 品牌 Logo 三种分辨率与引用合同 | 3 | `Assets/Game/Sprites/UI/Brand/Logo/` |
-| [01-UI框架母版](./01-UI框架母版.md) | 容器、卡片、对话框、列表和空态共用壳 | 6 | `Assets/Game/Sprites/UI/Common/01-Containers/` |
-| [02-交互控件母版](./02-交互控件母版.md) | 按钮、页签、输入槽、开关和状态控件 | 6 | `Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/` |
+| [01-UI框架母版](./01-UI框架母版.md) | 页面画框、面板与对话框共用壳 | 6 | `Assets/Game/Sprites/UI/Common/01-Containers/` |
+| [02-交互控件母版](./02-交互控件母版.md) | 按钮与操作控件 | 6 | `Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/` |
 | [03-语义图标母版](./03-语义图标母版.md) | 统一图标壳与可区分的语义 glyph | 8 | `Assets/Game/Sprites/UI/Common/06-StatusAndEvents/` |
-| [04-反馈与进度母版](./04-反馈与进度母版.md) | 进度、加载、提示、阻塞和结果反馈 | 7 | `Assets/Game/Sprites/UI/Common/03-ProgressAndInputs/` |
+| [04-反馈与进度母版](./04-反馈与进度母版.md) | 反馈、进度与结果轨道；端点独立成件 | 10 | `Assets/Game/Sprites/UI/Common/03-ProgressAndInputs/` |
+| [05-列表与条目母版](./05-列表与条目母版.md) | 列表行、端口行与条目 | 8 | `Assets/Game/Sprites/UI/Common/07-RowsAndItems/` |
+| [06-状态提示与空态母版](./06-状态提示与空态母版.md) | 加载、空态、错误、成功、警告、阻塞与禁用提示框 | 7 | `Assets/Game/Sprites/UI/Common/08-MessagesAndStates/` |
+| [07-滑块与计量母版](./07-滑块与计量母版.md) | 细轨、滑块把手与分段计量 | 8 | `Assets/Game/Sprites/UI/Common/09-SlidersAndMeters/` |
+| [08-输入与选择控件母版](./08-输入与选择控件母版.md) | 输入槽、下拉、复选框与开关行 | 10 | `Assets/Game/Sprites/UI/Common/10-InputsAndChoices/` |
+| [09-页签与导航母版](./09-页签与导航母版.md) | 页签、挂耳、侧栏项与页签组 | 8 | `Assets/Game/Sprites/UI/Common/11-TabsAndNav/` |
+| [10-滚动与分隔母版](./10-滚动与分隔母版.md) | 滚动条轨、把手与分隔线 | 6 | `Assets/Game/Sprites/UI/Common/12-ScrollAndDividers/` |
+| [11-卡片与槽位母版](./11-卡片与槽位母版.md) | 卡片、槽位卡与画框外装饰层 | 7 | `Assets/Game/Sprites/UI/Common/13-CardsAndSlots/` |
+| [12-算法工作台母版](./12-算法工作台母版.md) | 节点卡、连接点、连线与网格底 | 8 | `Assets/Game/Sprites/UI/Common/14-AlgorithmWorkspace/` |
+| [13-功能图标母版](./13-功能图标母版.md) | 资源、能源、机器与操作语义图标 | 10 | `Assets/Game/Sprites/UI/Common/15-FunctionIcons/` |
 
 ## 统一规则
 
