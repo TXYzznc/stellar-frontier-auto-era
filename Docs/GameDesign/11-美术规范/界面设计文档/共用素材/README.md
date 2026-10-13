@@ -20,6 +20,10 @@
 | [11-卡片与槽位母版](./11-卡片与槽位母版.md) | 卡片、槽位卡与画框外装饰层 | 7 | `Assets/Game/Sprites/UI/Common/13-CardsAndSlots/` |
 | [12-算法工作台母版](./12-算法工作台母版.md) | 节点卡、连接点、连线与网格底 | 8 | `Assets/Game/Sprites/UI/Common/14-AlgorithmWorkspace/` |
 | [13-功能图标母版](./13-功能图标母版.md) | 资源、能源、机器与操作语义图标 | 10 | `Assets/Game/Sprites/UI/Common/15-FunctionIcons/` |
+| [14-对象与图标母版-01](./14-对象与图标母版-01.md) | 对象图标：建筑 7 + 基础资源 3 | 10 | `Assets/Game/Sprites/UI/Common/16-ObjectIcons/` |
+| [14-对象与图标母版-02](./14-对象与图标母版-02.md) | 对象图标：资源 2 + 能源 1 + 种子 2 + 作物 2 + 礼包 3 | 10 | `Assets/Game/Sprites/UI/Common/16-ObjectIcons/` |
+| [14-对象与图标母版-03](./14-对象与图标母版-03.md) | 对象图标：礼包 3 + 载体 2 + 核心 1 + 传感器 4 | 10 | `Assets/Game/Sprites/UI/Common/16-ObjectIcons/` |
+| [14-对象与图标母版-04](./14-对象与图标母版-04.md) | 对象图标：效应器 6 + 资源点 4 | 10 | `Assets/Game/Sprites/UI/Common/16-ObjectIcons/` |
 
 ## 统一规则
 

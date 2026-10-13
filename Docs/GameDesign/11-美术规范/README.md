@@ -24,7 +24,8 @@
 │   ├── README.md
 │   ├── 00-共用素材与引用规则.md
 │   ├── 01-提示词规范与输出约定.md
-│   ├── 共用素材/README.md、00-Logo设计与引用.md、01~04-*.md（每份≤10项）
+│   ├── 共用素材/README.md、00~14-*.md（18 份，每份≤10项）
+│   ├── 页面专属/README.md、01~18-*.md（24 份，每份≤10项）
 │   ├── 界面效果图索引.md、界面效果图索引-01/02.md
 │   └── 界面/01~18-*.md
 ├── 世界资产设计文档/
@@ -49,6 +50,15 @@
 | UI 交互控件 | `Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/` |
 | UI 反馈与进度 | `Assets/Game/Sprites/UI/Common/03-ProgressAndInputs/` |
 | UI 语义图标 | `Assets/Game/Sprites/UI/Common/06-StatusAndEvents/` |
+| UI 列表与条目 | `Assets/Game/Sprites/UI/Common/07-RowsAndItems/` |
+| UI 状态提示与空态 | `Assets/Game/Sprites/UI/Common/08-MessagesAndStates/` |
+| UI 滑块与计量 | `Assets/Game/Sprites/UI/Common/09-SlidersAndMeters/` |
+| UI 输入与选择 | `Assets/Game/Sprites/UI/Common/10-InputsAndChoices/` |
+| UI 页签与导航 | `Assets/Game/Sprites/UI/Common/11-TabsAndNav/` |
+| UI 滚动与分隔 | `Assets/Game/Sprites/UI/Common/12-ScrollAndDividers/` |
+| UI 卡片与槽位 | `Assets/Game/Sprites/UI/Common/13-CardsAndSlots/` |
+| UI 算法工作台 | `Assets/Game/Sprites/UI/Common/14-AlgorithmWorkspace/` |
+| UI 功能图标 | `Assets/Game/Sprites/UI/Common/15-FunctionIcons/` |
 | UI 页面专属素材 | `Assets/Game/Sprites/UI/Pages/<页面编号>-<页面族>/` |
 | UI 效果图 | `Assets/Game/Sprites/UI/EffectBoards/` |
 | 世界动态表现设计板 | `Assets/Game/Sprites/World/Standalone/05-VfxAnimationAudio/` |
@@ -61,8 +71,8 @@
 ## 推荐生产顺序
 
 1. 阅读 `00-来源与范围.md`、`美术风格和规范/01~06`，冻结视觉和生成约束。
-2. 先按 `界面设计文档/共用素材/00-Logo设计与引用.md` 生成并冻结三种 Logo；再按 `01~04` 生成四个 UI 母版，同一母版状态一起生成、一起验收。
-3. 按 `界面设计文档/界面/01~18` 生成页面效果图，再生成页面专属素材和控件状态。
+2. 先按 `界面设计文档/共用素材/00-Logo设计与引用.md` 生成并冻结三种 Logo；再按 `共用素材/01~14` 生成十四族 UI 母版（共 142 项），同一母版状态一起生成、一起验收。
+3. 按 `界面设计文档/界面/01~18` 生成页面效果图；页面专属素材按 `界面设计文档/页面专属/01~18`（24 份，共 204 项）逐族生成，再补控件状态。
 4. 3D 机器、建筑、资源点和效果图进入 `Docs/GameDesign/3D资产设计文档/` 单独流程。
 5. 按 `世界资产设计文档/01-动态表现/批次` 生成 VFX、动画和音频设计。
 6. 使用 `assets-manifest.json` 和 `11-覆盖与验收.md` 做引用、状态、源文件指纹和视觉验收。
