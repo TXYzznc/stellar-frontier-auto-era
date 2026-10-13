@@ -235,7 +235,9 @@ def _save_png_quantized(img: Image.Image, output_path: str, colors: int, log_lin
         else:
             log_lines.append(f"[PNG量化] pngquant 未安装，使用 Pillow 量化，颜色数={colors}")
             if img.mode in ("RGBA", "LA"):
-                q = img.quantize(colors=colors, method=Image.Quantize.MEDIANCUT)
+                q = img.convert("RGBA").quantize(
+                    colors=colors, method=Image.Quantize.FASTOCTREE
+                )
                 q = q.convert("RGBA")
             else:
                 q = img.quantize(colors=colors, method=Image.Quantize.MEDIANCUT)
