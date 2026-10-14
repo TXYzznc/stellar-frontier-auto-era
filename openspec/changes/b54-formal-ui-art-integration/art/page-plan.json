@@ -1,0 +1,4867 @@
+[
+  {
+    "form": "MainMenuForm",
+    "prefab": "Assets/Game/Prefabs/UI/Startup/MainMenuForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/MainMenuForm.contract.json",
+    "page": "Panel_PageMainMenu",
+    "family": 1,
+    "state": "occupied",
+    "frame": [
+      200,
+      120,
+      1520,
+      840
+    ],
+    "sections": [
+      {
+        "name": "Panel_MainMenuIdentity",
+        "rect": [
+          286,
+          396,
+          452,
+          70
+        ]
+      },
+      {
+        "name": "Panel_MainMenuEntry",
+        "rect": [
+          780,
+          814,
+          820,
+          70
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "L002-lockup",
+        "path": "Assets/Game/Sprites/UI/Brand/Logo/logo-002-lockup@1024x256.png",
+        "rect": [
+          286,
+          248,
+          450,
+          150
+        ],
+        "mode": "fit",
+        "opacity": 1
+      },
+      {
+        "key": "S01-001",
+        "path": "Assets/Game/Sprites/UI/Pages/01-启动与存档/scr-01-001-panel-illustration-normal@640x480.png",
+        "rect": [
+          754,
+          258,
+          840,
+          570
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-01-MainMenu-occupied.png",
+    "entryMenu": true,
+    "legacyLogo": "Img_MainMenuLogo",
+    "actionGroup": "Grp_MainMenuActions"
+  },
+  {
+    "form": "SaveRecoveryForm",
+    "prefab": "Assets/Game/Prefabs/UI/Startup/SaveRecoveryForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/SaveRecoveryForm.contract.json",
+    "page": "Panel_PageRecovery",
+    "family": 1,
+    "state": "recovering",
+    "frame": [
+      200,
+      120,
+      1520,
+      840
+    ],
+    "sections": [
+      {
+        "name": "Panel_RecoveryDiagnosis",
+        "rect": [
+          300,
+          490,
+          550,
+          192
+        ]
+      },
+      {
+        "name": "Panel_RecoveryCandidate",
+        "rect": [
+          900,
+          450,
+          690,
+          280
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S01-001",
+        "path": "Assets/Game/Sprites/UI/Pages/01-启动与存档/scr-01-001-panel-illustration-normal@640x480.png",
+        "rect": [
+          900,
+          450,
+          690,
+          400
+        ],
+        "mode": "fit",
+        "opacity": 0.55
+      }
+    ],
+    "source": "EffectBoards/mock-ui-01-Recovery-recovering.png"
+  },
+  {
+    "form": "SaveSlotsForm",
+    "prefab": "Assets/Game/Prefabs/UI/Startup/SaveSlotsForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/SaveSlotsForm.contract.json",
+    "page": "Panel_PageNewProgress",
+    "family": 1,
+    "state": "empty",
+    "frame": [
+      200,
+      120,
+      1520,
+      840
+    ],
+    "sections": [
+      {
+        "name": "Panel_NewProgressTarget",
+        "rect": [
+          286,
+          388,
+          562,
+          316
+        ]
+      },
+      {
+        "name": "Panel_NewProgressConsequences",
+        "rect": [
+          908,
+          338,
+          690,
+          518
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "L002-lockup",
+        "path": "Assets/Game/Sprites/UI/Brand/Logo/logo-002-lockup@1024x256.png",
+        "rect": [
+          274,
+          245,
+          398,
+          112
+        ],
+        "mode": "fit",
+        "opacity": 1
+      },
+      {
+        "key": "S01-002",
+        "path": "Assets/Game/Sprites/UI/Pages/01-启动与存档/scr-01-002-panel-illustration-empty@640x480.png",
+        "rect": [
+          908,
+          338,
+          690,
+          518
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-01-NewProgress-empty.png"
+  },
+  {
+    "form": "SaveSlotsForm",
+    "prefab": "Assets/Game/Prefabs/UI/Startup/SaveSlotsForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/SaveSlotsForm.contract.json",
+    "page": "Panel_PageSaveDetail",
+    "family": 1,
+    "state": "occupied",
+    "frame": [
+      200,
+      120,
+      1520,
+      840
+    ],
+    "sections": [
+      {
+        "name": "Panel_SaveDetailMetadata",
+        "rect": [
+          276,
+          400,
+          580,
+          340
+        ]
+      },
+      {
+        "name": "Panel_SaveDetailHealth",
+        "rect": [
+          928,
+          292,
+          690,
+          518
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "L002-lockup",
+        "path": "Assets/Game/Sprites/UI/Brand/Logo/logo-002-lockup@1024x256.png",
+        "rect": [
+          276,
+          250,
+          400,
+          114
+        ],
+        "mode": "fit",
+        "opacity": 1
+      },
+      {
+        "key": "S01-001",
+        "path": "Assets/Game/Sprites/UI/Pages/01-启动与存档/scr-01-001-panel-illustration-normal@640x480.png",
+        "rect": [
+          928,
+          292,
+          690,
+          518
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-01-SaveDetail-occupied.png"
+  },
+  {
+    "form": "SaveSlotsForm",
+    "prefab": "Assets/Game/Prefabs/UI/Startup/SaveSlotsForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/SaveSlotsForm.contract.json",
+    "page": "Panel_PageSaveSlots",
+    "family": 1,
+    "state": "occupied",
+    "frame": [
+      200,
+      120,
+      1520,
+      840
+    ],
+    "sections": [
+      {
+        "name": "Panel_SaveSlotsSlots",
+        "rect": [
+          276,
+          386,
+          580,
+          390
+        ]
+      },
+      {
+        "name": "Panel_SaveSlotsPreview",
+        "rect": [
+          892,
+          282,
+          746,
+          456
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "L002-lockup",
+        "path": "Assets/Game/Sprites/UI/Brand/Logo/logo-002-lockup@1024x256.png",
+        "rect": [
+          276,
+          244,
+          370,
+          112
+        ],
+        "mode": "fit",
+        "opacity": 1
+      },
+      {
+        "key": "S01-001",
+        "path": "Assets/Game/Sprites/UI/Pages/01-启动与存档/scr-01-001-panel-illustration-normal@640x480.png",
+        "rect": [
+          920,
+          295,
+          688,
+          430
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-01-SaveSlots-occupied.png"
+  },
+  {
+    "form": "ExitFlowForm",
+    "prefab": "Assets/Game/Prefabs/UI/System/ExitFlowForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/ExitFlowForm.contract.json",
+    "page": "Panel_PageExitFlow",
+    "family": 2,
+    "state": "confirm",
+    "frame": [
+      200,
+      120,
+      1520,
+      840
+    ],
+    "sections": [
+      {
+        "name": "Panel_ExitFlowStage",
+        "rect": [
+          554,
+          280,
+          944,
+          360
+        ]
+      },
+      {
+        "name": "Panel_ExitFlowFailure",
+        "rect": [
+          554,
+          664,
+          944,
+          120
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-02-ExitFlow-confirm.png"
+  },
+  {
+    "form": "SettingsForm",
+    "prefab": "Assets/Game/Prefabs/UI/System/SettingsForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/SettingsForm.contract.json",
+    "page": "Panel_PageAudioSettings",
+    "family": 2,
+    "state": "default",
+    "frame": [
+      200,
+      120,
+      1520,
+      840
+    ],
+    "sections": [
+      {
+        "name": "Panel_AudioSettingsVolumes",
+        "rect": [
+          554,
+          280,
+          944,
+          360
+        ]
+      },
+      {
+        "name": "Panel_AudioSettingsPersistence",
+        "rect": [
+          554,
+          664,
+          944,
+          120
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-02-AudioSettings-default.png"
+  },
+  {
+    "form": "SettingsForm",
+    "prefab": "Assets/Game/Prefabs/UI/System/SettingsForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/SettingsForm.contract.json",
+    "page": "Panel_PageControlSettings",
+    "family": 2,
+    "state": "default",
+    "frame": [
+      200,
+      120,
+      1520,
+      840
+    ],
+    "sections": [
+      {
+        "name": "Panel_ControlSettingsCamera",
+        "rect": [
+          554,
+          280,
+          944,
+          360
+        ]
+      },
+      {
+        "name": "Panel_ControlSettingsBindings",
+        "rect": [
+          554,
+          664,
+          944,
+          120
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-02-ControlSettings-default.png"
+  },
+  {
+    "form": "SettingsForm",
+    "prefab": "Assets/Game/Prefabs/UI/System/SettingsForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/SettingsForm.contract.json",
+    "page": "Panel_PageDisplaySettings",
+    "family": 2,
+    "state": "standard",
+    "frame": [
+      200,
+      120,
+      1520,
+      840
+    ],
+    "sections": [
+      {
+        "name": "Panel_DisplaySettingsDisplay",
+        "rect": [
+          554,
+          288,
+          312,
+          442
+        ]
+      },
+      {
+        "name": "Panel_DisplaySettingsQuality",
+        "rect": [
+          908,
+          288,
+          604,
+          454
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S02-005",
+        "path": "Assets/Game/Sprites/UI/Pages/02-系统与设置/scr-02-005-display-preview-standard@560x420.png",
+        "rect": [
+          928,
+          300,
+          564,
+          423
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-02-DisplaySettings-standard.png"
+  },
+  {
+    "form": "SystemMenuForm",
+    "prefab": "Assets/Game/Prefabs/UI/System/SystemMenuForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/SystemMenuForm.contract.json",
+    "page": "Panel_PageSystemMenu",
+    "family": 2,
+    "state": "default",
+    "frame": [
+      200,
+      120,
+      1520,
+      840
+    ],
+    "sections": [
+      {
+        "name": "Panel_SystemMenuSession",
+        "rect": [
+          554,
+          280,
+          944,
+          360
+        ]
+      },
+      {
+        "name": "Panel_SystemMenuCommands",
+        "rect": [
+          554,
+          664,
+          944,
+          120
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-02-SystemMenu-default.png"
+  },
+  {
+    "form": "FieldHudResidentForm",
+    "prefab": "Assets/Game/Prefabs/UI/Hud/FieldHudResidentForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/FieldHudResidentForm.contract.json",
+    "page": "Panel_PageHudAlerts",
+    "family": 3,
+    "state": "warning",
+    "frame": [
+      0,
+      0,
+      1920,
+      1080
+    ],
+    "sections": [],
+    "artwork": [
+      {
+        "key": "S03-018",
+        "path": "Assets/Game/Sprites/UI/Pages/03-世界HUD/scr-03-018-alert-summary-layout@560x420.png",
+        "rect": [
+          1488,
+          248,
+          408,
+          306
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-03-HudAlerts-warning.png"
+  },
+  {
+    "form": "FieldHudResidentForm",
+    "prefab": "Assets/Game/Prefabs/UI/Hud/FieldHudResidentForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/FieldHudResidentForm.contract.json",
+    "page": "Panel_PageHudNavigation",
+    "family": 3,
+    "state": "normal",
+    "frame": [
+      0,
+      0,
+      1920,
+      1080
+    ],
+    "sections": [],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-03-HudNavigation-normal.png"
+  },
+  {
+    "form": "FieldHudResidentForm",
+    "prefab": "Assets/Game/Prefabs/UI/Hud/FieldHudResidentForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/FieldHudResidentForm.contract.json",
+    "page": "Panel_PageHudSave",
+    "family": 3,
+    "state": "success",
+    "frame": [
+      0,
+      0,
+      1920,
+      1080
+    ],
+    "sections": [],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-03-HudSave-success.png"
+  },
+  {
+    "form": "FieldHudResidentForm",
+    "prefab": "Assets/Game/Prefabs/UI/Hud/FieldHudResidentForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/FieldHudResidentForm.contract.json",
+    "page": "Panel_PageHudStatus",
+    "family": 3,
+    "state": "normal",
+    "frame": [
+      0,
+      0,
+      1920,
+      1080
+    ],
+    "sections": [],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-03-HudStatus-normal.png"
+  },
+  {
+    "form": "FieldHudResidentForm",
+    "prefab": "Assets/Game/Prefabs/UI/Hud/FieldHudResidentForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/FieldHudResidentForm.contract.json",
+    "page": "Panel_PageHudTracker",
+    "family": 3,
+    "state": "active",
+    "frame": [
+      0,
+      0,
+      1920,
+      1080
+    ],
+    "sections": [],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-03-HudTracker-active.png"
+  },
+  {
+    "form": "BaseCommandEnergyForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/BaseCommandEnergyForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/BaseCommandEnergyForm.contract.json",
+    "page": "Panel_PageHubEnergy",
+    "family": 4,
+    "state": "full",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_HubEnergySummary",
+        "rect": [
+          418,
+          240,
+          394,
+          566
+        ]
+      },
+      {
+        "name": "Panel_HubEnergyFacilities",
+        "rect": [
+          834,
+          246,
+          922,
+          274
+        ]
+      },
+      {
+        "name": "Panel_HubEnergyConsumers",
+        "rect": [
+          834,
+          542,
+          922,
+          264
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S04-006",
+        "path": "Assets/Game/Sprites/UI/Pages/04-基地中枢/scr-04-006-energy-card-emblem-full@128x128.png",
+        "rect": [
+          491,
+          280,
+          242,
+          242
+        ],
+        "mode": "fit",
+        "opacity": 1
+      },
+      {
+        "key": "S04-017",
+        "path": "Assets/Game/Sprites/UI/Pages/04-基地中枢/scr-04-017-hub-ring-gauge-frame@128x128.png",
+        "rect": [
+          502,
+          552,
+          224,
+          224
+        ],
+        "mode": "fit",
+        "opacity": 1
+      },
+      {
+        "key": "S04-013",
+        "path": "Assets/Game/Sprites/UI/Pages/04-基地中枢/scr-04-013-stats-chart-frame@640x480.png",
+        "rect": [
+          852,
+          246,
+          896,
+          394
+        ],
+        "mode": "slice",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-04-HubEnergy-full.png"
+  },
+  {
+    "form": "BaseCommandHubForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/BaseCommandHubForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/BaseCommandHubForm.contract.json",
+    "page": "Panel_PageHubObjects",
+    "family": 4,
+    "state": "normal",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_HubObjectsIndex",
+        "rect": [
+          418,
+          240,
+          680,
+          572
+        ]
+      },
+      {
+        "name": "Panel_HubObjectsDetail",
+        "rect": [
+          1130,
+          240,
+          626,
+          572
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S04-014",
+        "path": "Assets/Game/Sprites/UI/Pages/04-基地中枢/scr-04-014-object-sketch-card-carrier@560x420.png",
+        "rect": [
+          443,
+          328,
+          597,
+          356
+        ],
+        "mode": "fit",
+        "opacity": 1
+      },
+      {
+        "key": "S04-015",
+        "path": "Assets/Game/Sprites/UI/Pages/04-基地中枢/scr-04-015-object-sketch-card-building@560x420.png",
+        "rect": [
+          1120,
+          328,
+          597,
+          356
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-04-HubObjects-normal.png"
+  },
+  {
+    "form": "BaseCommandHubForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/BaseCommandHubForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/BaseCommandHubForm.contract.json",
+    "page": "Panel_PageHubOverview",
+    "family": 4,
+    "state": "overview",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_HubOverviewEconomy",
+        "rect": [
+          418,
+          236,
+          270,
+          210
+        ]
+      },
+      {
+        "name": "Panel_HubOverviewOperation",
+        "rect": [
+          710,
+          236,
+          442,
+          210
+        ]
+      },
+      {
+        "name": "Panel_HubOverviewAttention",
+        "rect": [
+          1174,
+          476,
+          582,
+          348
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S04-003",
+        "path": "Assets/Game/Sprites/UI/Pages/04-基地中枢/scr-04-003-task-summary-illustration-pending@560x420.png",
+        "rect": [
+          453,
+          475,
+          642,
+          343
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-04-HubOverview-overview.png"
+  },
+  {
+    "form": "BaseCommandHubForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/BaseCommandHubForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/BaseCommandHubForm.contract.json",
+    "page": "Panel_PageHubRules",
+    "family": 4,
+    "state": "open",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_HubRulesInstances",
+        "rect": [
+          418,
+          240,
+          394,
+          566
+        ]
+      },
+      {
+        "name": "Panel_HubRulesConfiguration",
+        "rect": [
+          834,
+          246,
+          922,
+          274
+        ]
+      },
+      {
+        "name": "Panel_HubRulesImpact",
+        "rect": [
+          834,
+          542,
+          922,
+          264
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-04-HubRules-open.png"
+  },
+  {
+    "form": "BaseCommandHubForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/BaseCommandHubForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/BaseCommandHubForm.contract.json",
+    "page": "Panel_PageHubStats",
+    "family": 4,
+    "state": "normal",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_HubStatsMetrics",
+        "rect": [
+          418,
+          240,
+          392,
+          176
+        ]
+      },
+      {
+        "name": "Panel_HubStatsValues",
+        "rect": [
+          834,
+          240,
+          922,
+          176
+        ]
+      },
+      {
+        "name": "Panel_HubStatsRecords",
+        "rect": [
+          418,
+          438,
+          1338,
+          380
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S04-013",
+        "path": "Assets/Game/Sprites/UI/Pages/04-基地中枢/scr-04-013-stats-chart-frame@640x480.png",
+        "rect": [
+          418,
+          240,
+          1330,
+          568
+        ],
+        "mode": "slice",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-04-HubStats-normal.png"
+  },
+  {
+    "form": "BaseCommandHubForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/BaseCommandHubForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/BaseCommandHubForm.contract.json",
+    "page": "Panel_PageHubTasks",
+    "family": 4,
+    "state": "todo",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_HubTasksQueue",
+        "rect": [
+          418,
+          240,
+          680,
+          572
+        ]
+      },
+      {
+        "name": "Panel_HubTasksDetail",
+        "rect": [
+          1130,
+          240,
+          626,
+          572
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S04-003",
+        "path": "Assets/Game/Sprites/UI/Pages/04-基地中枢/scr-04-003-task-summary-illustration-pending@560x420.png",
+        "rect": [
+          446,
+          334,
+          620,
+          420
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-04-HubTasks-todo.png"
+  },
+  {
+    "form": "BaseCommandHubForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/BaseCommandHubForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/BaseCommandHubForm.contract.json",
+    "page": "Panel_PageRemoteMachine",
+    "family": 4,
+    "state": "normal",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_RemoteMachineOverview",
+        "rect": [
+          418,
+          240,
+          394,
+          566
+        ]
+      },
+      {
+        "name": "Panel_RemoteMachineHardware",
+        "rect": [
+          834,
+          246,
+          922,
+          274
+        ]
+      },
+      {
+        "name": "Panel_RemoteMachineAlgorithms",
+        "rect": [
+          834,
+          542,
+          922,
+          264
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-04-RemoteMachine-normal.png"
+  },
+  {
+    "form": "FieldHudDetailForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/FieldHudDetailForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/FieldHudDetailForm.contract.json",
+    "page": "Panel_PageMachineAlgorithm",
+    "family": 5,
+    "state": "normal",
+    "frame": [
+      1304,
+      132,
+      592,
+      884
+    ],
+    "sections": [
+      {
+        "name": "Panel_MachineAlgorithmInstances",
+        "rect": [
+          1336,
+          540,
+          528,
+          152
+        ]
+      },
+      {
+        "name": "Panel_MachineAlgorithmParameters",
+        "rect": [
+          1336,
+          710,
+          528,
+          138
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-05-MachineAlgorithm-normal.png"
+  },
+  {
+    "form": "FieldHudDetailForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/FieldHudDetailForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/FieldHudDetailForm.contract.json",
+    "page": "Panel_PageMachineDiagnostics",
+    "family": 5,
+    "state": "normal",
+    "frame": [
+      1304,
+      132,
+      592,
+      884
+    ],
+    "sections": [
+      {
+        "name": "Panel_MachineDiagnosticsTasks",
+        "rect": [
+          1336,
+          540,
+          528,
+          152
+        ]
+      },
+      {
+        "name": "Panel_MachineDiagnosticsCompute",
+        "rect": [
+          1336,
+          710,
+          528,
+          138
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S05-001",
+        "path": "Assets/Game/Sprites/UI/Pages/05-机器管理/scr-05-001-carrier-thumbnail-idle@640x480.png",
+        "rect": [
+          1480,
+          280,
+          376,
+          246
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-05-MachineDiagnostics-normal.png"
+  },
+  {
+    "form": "FieldHudDetailForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/FieldHudDetailForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/FieldHudDetailForm.contract.json",
+    "page": "Panel_PageMachineHardware",
+    "family": 5,
+    "state": "normal",
+    "frame": [
+      1304,
+      132,
+      592,
+      884
+    ],
+    "sections": [
+      {
+        "name": "Panel_MachineHardwareSlots",
+        "rect": [
+          1336,
+          540,
+          528,
+          152
+        ]
+      },
+      {
+        "name": "Panel_MachineHardwareComponent",
+        "rect": [
+          1336,
+          710,
+          528,
+          138
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-05-MachineHardware-normal.png"
+  },
+  {
+    "form": "FieldHudMachineOverviewForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/FieldHudMachineOverviewForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/FieldHudMachineOverviewForm.contract.json",
+    "page": "Panel_PageMachineOverview",
+    "family": 5,
+    "state": "idle",
+    "frame": [
+      1440,
+      124,
+      456,
+      832
+    ],
+    "sections": [
+      {
+        "name": "Panel_MachineOverviewIdentity",
+        "rect": [
+          1472,
+          540,
+          392,
+          152
+        ]
+      },
+      {
+        "name": "Panel_MachineOverviewCapacity",
+        "rect": [
+          1472,
+          710,
+          392,
+          138
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S05-011",
+        "path": "Assets/Game/Sprites/UI/Pages/05-机器管理/scr-05-011-carrier-thumbnail-wheeled@640x480.png",
+        "rect": [
+          1464,
+          278,
+          408,
+          286
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-05-MachineOverview-idle.png"
+  },
+  {
+    "form": "MachineLibraryForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/MachineLibraryForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/MachineLibraryForm.contract.json",
+    "page": "Panel_PageMachinePreparation",
+    "family": 5,
+    "state": "normal",
+    "frame": [
+      1440,
+      124,
+      456,
+      832
+    ],
+    "sections": [
+      {
+        "name": "Panel_MachinePreparationCarrier",
+        "rect": [
+          1472,
+          292,
+          392,
+          182
+        ]
+      },
+      {
+        "name": "Panel_MachinePreparationAssembly",
+        "rect": [
+          1472,
+          492,
+          392,
+          182
+        ]
+      },
+      {
+        "name": "Panel_MachinePreparationReadiness",
+        "rect": [
+          1472,
+          690,
+          392,
+          100
+        ]
+      },
+      {
+        "name": "Panel_MachinePreparationDisplay",
+        "rect": [
+          1472,
+          804,
+          392,
+          74
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S05-018",
+        "path": "Assets/Game/Sprites/UI/Pages/05-机器管理/scr-05-018-preparation-layout@560x420.png",
+        "rect": [
+          1470,
+          290,
+          396,
+          288
+        ],
+        "mode": "fit",
+        "opacity": 1
+      },
+      {
+        "key": "S05-011",
+        "path": "Assets/Game/Sprites/UI/Pages/05-机器管理/scr-05-011-carrier-thumbnail-wheeled@640x480.png",
+        "rect": [
+          1500,
+          330,
+          336,
+          226
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-05-MachinePreparation-normal.png"
+  },
+  {
+    "form": "FieldHudDetailForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/FieldHudDetailForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/FieldHudDetailForm.contract.json",
+    "page": "Panel_PageFarm",
+    "family": 6,
+    "state": "normal",
+    "frame": [
+      1304,
+      132,
+      592,
+      884
+    ],
+    "sections": [
+      {
+        "name": "Panel_FarmPublic",
+        "rect": [
+          1336,
+          540,
+          528,
+          152
+        ]
+      },
+      {
+        "name": "Panel_FarmSensor",
+        "rect": [
+          1336,
+          710,
+          528,
+          138
+        ]
+      },
+      {
+        "name": "Panel_FarmRecord",
+        "rect": [
+          1336,
+          864,
+          528,
+          86
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S06-001",
+        "path": "Assets/Game/Sprites/UI/Pages/06-资源点观察/scr-06-001-farm-head@640x480.png",
+        "rect": [
+          1339,
+          296,
+          522,
+          348
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-06-Farm-normal.png"
+  },
+  {
+    "form": "FieldHudDetailForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/FieldHudDetailForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/FieldHudDetailForm.contract.json",
+    "page": "Panel_PageForest",
+    "family": 6,
+    "state": "normal",
+    "frame": [
+      1304,
+      132,
+      592,
+      884
+    ],
+    "sections": [
+      {
+        "name": "Panel_ForestPublic",
+        "rect": [
+          1336,
+          540,
+          528,
+          152
+        ]
+      },
+      {
+        "name": "Panel_ForestSensor",
+        "rect": [
+          1336,
+          710,
+          528,
+          138
+        ]
+      },
+      {
+        "name": "Panel_ForestRecord",
+        "rect": [
+          1336,
+          864,
+          528,
+          86
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S06-002",
+        "path": "Assets/Game/Sprites/UI/Pages/06-资源点观察/scr-06-002-forest-head@640x480.png",
+        "rect": [
+          1339,
+          296,
+          522,
+          348
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-06-Forest-normal.png"
+  },
+  {
+    "form": "FieldHudDetailForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/FieldHudDetailForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/FieldHudDetailForm.contract.json",
+    "page": "Panel_PageMineral",
+    "family": 6,
+    "state": "normal",
+    "frame": [
+      1304,
+      132,
+      592,
+      884
+    ],
+    "sections": [
+      {
+        "name": "Panel_MineralPublic",
+        "rect": [
+          1336,
+          540,
+          528,
+          152
+        ]
+      },
+      {
+        "name": "Panel_MineralSensor",
+        "rect": [
+          1336,
+          710,
+          528,
+          138
+        ]
+      },
+      {
+        "name": "Panel_MineralRecord",
+        "rect": [
+          1336,
+          864,
+          528,
+          86
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S06-003",
+        "path": "Assets/Game/Sprites/UI/Pages/06-资源点观察/scr-06-003-mineral-head@640x480.png",
+        "rect": [
+          1339,
+          296,
+          522,
+          348
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-06-Mineral-normal.png"
+  },
+  {
+    "form": "FieldHudDetailForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/FieldHudDetailForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/FieldHudDetailForm.contract.json",
+    "page": "Panel_PageSensorRecords",
+    "family": 6,
+    "state": "soil",
+    "frame": [
+      1304,
+      132,
+      592,
+      884
+    ],
+    "sections": [
+      {
+        "name": "Panel_SensorRecordsSamples",
+        "rect": [
+          1336,
+          540,
+          528,
+          152
+        ]
+      },
+      {
+        "name": "Panel_SensorRecordsEvents",
+        "rect": [
+          1336,
+          710,
+          528,
+          138
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-06-SensorRecords-soil.png"
+  },
+  {
+    "form": "FieldHudDetailForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/FieldHudDetailForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/FieldHudDetailForm.contract.json",
+    "page": "Panel_PageWater",
+    "family": 6,
+    "state": "normal",
+    "frame": [
+      1304,
+      132,
+      592,
+      884
+    ],
+    "sections": [
+      {
+        "name": "Panel_WaterPublic",
+        "rect": [
+          1336,
+          540,
+          528,
+          152
+        ]
+      },
+      {
+        "name": "Panel_WaterSensor",
+        "rect": [
+          1336,
+          710,
+          528,
+          138
+        ]
+      },
+      {
+        "name": "Panel_WaterRecord",
+        "rect": [
+          1336,
+          864,
+          528,
+          86
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S06-004",
+        "path": "Assets/Game/Sprites/UI/Pages/06-资源点观察/scr-06-004-water-head@640x480.png",
+        "rect": [
+          1339,
+          296,
+          522,
+          348
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-06-Water-normal.png"
+  },
+  {
+    "form": "FieldHudDetailForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/FieldHudDetailForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/FieldHudDetailForm.contract.json",
+    "page": "Panel_PageBattery",
+    "family": 7,
+    "state": "complete",
+    "frame": [
+      1304,
+      132,
+      592,
+      884
+    ],
+    "sections": [
+      {
+        "name": "Panel_BatteryStorage",
+        "rect": [
+          1336,
+          540,
+          528,
+          152
+        ]
+      },
+      {
+        "name": "Panel_BatteryEstimate",
+        "rect": [
+          1336,
+          710,
+          528,
+          138
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S07-004",
+        "path": "Assets/Game/Sprites/UI/Pages/07-建筑设备与施工/scr-07-004-battery-illustration@640x480.png",
+        "rect": [
+          1344,
+          304,
+          512,
+          350
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-07-Battery-complete.png"
+  },
+  {
+    "form": "FieldHudDetailForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/FieldHudDetailForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/FieldHudDetailForm.contract.json",
+    "page": "Panel_PageBuildingOverview",
+    "family": 7,
+    "state": "complete",
+    "frame": [
+      1304,
+      132,
+      592,
+      884
+    ],
+    "sections": [
+      {
+        "name": "Panel_BuildingOverviewIdentity",
+        "rect": [
+          1336,
+          540,
+          528,
+          152
+        ]
+      },
+      {
+        "name": "Panel_BuildingOverviewOperation",
+        "rect": [
+          1336,
+          710,
+          528,
+          138
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S07-011",
+        "path": "Assets/Game/Sprites/UI/Pages/07-建筑设备与施工/scr-07-011-workshop-illustration@640x480.png",
+        "rect": [
+          1344,
+          304,
+          512,
+          350
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-07-BuildingOverview-complete.png"
+  },
+  {
+    "form": "FieldHudDetailForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/FieldHudDetailForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/FieldHudDetailForm.contract.json",
+    "page": "Panel_PageConstruction",
+    "family": 7,
+    "state": "preview",
+    "frame": [
+      1304,
+      132,
+      592,
+      884
+    ],
+    "sections": [
+      {
+        "name": "Panel_ConstructionProgress",
+        "rect": [
+          1336,
+          540,
+          528,
+          152
+        ]
+      },
+      {
+        "name": "Panel_ConstructionCost",
+        "rect": [
+          1336,
+          710,
+          528,
+          138
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S07-001",
+        "path": "Assets/Game/Sprites/UI/Pages/07-建筑设备与施工/scr-07-001-pump-illustration@640x480.png",
+        "rect": [
+          1344,
+          304,
+          512,
+          350
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-07-Construction-preview.png"
+  },
+  {
+    "form": "FieldHudDetailForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/FieldHudDetailForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/FieldHudDetailForm.contract.json",
+    "page": "Panel_PageConveyor",
+    "family": 7,
+    "state": "complete",
+    "frame": [
+      1304,
+      132,
+      592,
+      884
+    ],
+    "sections": [
+      {
+        "name": "Panel_ConveyorState",
+        "rect": [
+          1336,
+          540,
+          528,
+          152
+        ]
+      },
+      {
+        "name": "Panel_ConveyorLink",
+        "rect": [
+          1336,
+          710,
+          528,
+          138
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S07-006",
+        "path": "Assets/Game/Sprites/UI/Pages/07-建筑设备与施工/scr-07-006-conveyor-illustration@640x480.png",
+        "rect": [
+          1344,
+          304,
+          512,
+          350
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-07-Conveyor-complete.png"
+  },
+  {
+    "form": "FieldHudDetailForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/FieldHudDetailForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/FieldHudDetailForm.contract.json",
+    "page": "Panel_PageGenerator",
+    "family": 7,
+    "state": "complete",
+    "frame": [
+      1304,
+      132,
+      592,
+      884
+    ],
+    "sections": [
+      {
+        "name": "Panel_GeneratorPower",
+        "rect": [
+          1336,
+          540,
+          528,
+          152
+        ]
+      },
+      {
+        "name": "Panel_GeneratorCharging",
+        "rect": [
+          1336,
+          710,
+          528,
+          138
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S07-002",
+        "path": "Assets/Game/Sprites/UI/Pages/07-建筑设备与施工/scr-07-002-generator-illustration@640x480.png",
+        "rect": [
+          1344,
+          304,
+          512,
+          350
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-07-Generator-complete.png"
+  },
+  {
+    "form": "FieldHudDetailForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/FieldHudDetailForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/FieldHudDetailForm.contract.json",
+    "page": "Panel_PagePump",
+    "family": 7,
+    "state": "complete",
+    "frame": [
+      1304,
+      132,
+      592,
+      884
+    ],
+    "sections": [
+      {
+        "name": "Panel_PumpProduction",
+        "rect": [
+          1336,
+          540,
+          528,
+          152
+        ]
+      },
+      {
+        "name": "Panel_PumpBlock",
+        "rect": [
+          1336,
+          710,
+          528,
+          138
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S07-001",
+        "path": "Assets/Game/Sprites/UI/Pages/07-建筑设备与施工/scr-07-001-pump-illustration@640x480.png",
+        "rect": [
+          1344,
+          304,
+          512,
+          350
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-07-Pump-complete.png"
+  },
+  {
+    "form": "FieldHudDetailForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/FieldHudDetailForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/FieldHudDetailForm.contract.json",
+    "page": "Panel_PageSolar",
+    "family": 7,
+    "state": "complete",
+    "frame": [
+      1304,
+      132,
+      592,
+      884
+    ],
+    "sections": [
+      {
+        "name": "Panel_SolarPower",
+        "rect": [
+          1336,
+          540,
+          528,
+          152
+        ]
+      },
+      {
+        "name": "Panel_SolarRecovery",
+        "rect": [
+          1336,
+          710,
+          528,
+          138
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S07-003",
+        "path": "Assets/Game/Sprites/UI/Pages/07-建筑设备与施工/scr-07-003-solar-illustration@640x480.png",
+        "rect": [
+          1344,
+          304,
+          512,
+          350
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-07-Solar-complete.png"
+  },
+  {
+    "form": "FieldHudDetailForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/FieldHudDetailForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/FieldHudDetailForm.contract.json",
+    "page": "Panel_PageWarehouseBuilding",
+    "family": 7,
+    "state": "complete",
+    "frame": [
+      1304,
+      132,
+      592,
+      884
+    ],
+    "sections": [
+      {
+        "name": "Panel_WarehouseBuildingCapacity",
+        "rect": [
+          1336,
+          540,
+          528,
+          152
+        ]
+      },
+      {
+        "name": "Panel_WarehouseBuildingRecent",
+        "rect": [
+          1336,
+          710,
+          528,
+          138
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S07-005",
+        "path": "Assets/Game/Sprites/UI/Pages/07-建筑设备与施工/scr-07-005-warehouse-illustration@640x480.png",
+        "rect": [
+          1344,
+          304,
+          512,
+          350
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-07-WarehouseBuilding-complete.png"
+  },
+  {
+    "form": "WorkshopForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/WorkshopForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/WorkshopForm.contract.json",
+    "page": "Panel_PageManufacturingQueue",
+    "family": 8,
+    "state": "running",
+    "frame": [
+      80,
+      90,
+      1760,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_ManufacturingQueueCurrent",
+        "rect": [
+          144,
+          320,
+          400,
+          470
+        ]
+      },
+      {
+        "name": "Panel_ManufacturingQueueWaiting",
+        "rect": [
+          568,
+          244,
+          1128,
+          596
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S08-001",
+        "path": "Assets/Game/Sprites/UI/Pages/08-制造工坊/scr-08-001-recipe-card-plate-ready@560x420.png",
+        "rect": [
+          594,
+          268,
+          558,
+          280
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-08-ManufacturingQueue-running.png"
+  },
+  {
+    "form": "WorkshopForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/WorkshopForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/WorkshopForm.contract.json",
+    "page": "Panel_PageOutputCache",
+    "family": 8,
+    "state": "normal",
+    "frame": [
+      80,
+      90,
+      1760,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_OutputCacheItems",
+        "rect": [
+          144,
+          320,
+          400,
+          470
+        ]
+      },
+      {
+        "name": "Panel_OutputCacheBlock",
+        "rect": [
+          568,
+          244,
+          1128,
+          596
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S08-001",
+        "path": "Assets/Game/Sprites/UI/Pages/08-制造工坊/scr-08-001-recipe-card-plate-ready@560x420.png",
+        "rect": [
+          594,
+          268,
+          558,
+          280
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-08-OutputCache-normal.png"
+  },
+  {
+    "form": "WorkshopForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/WorkshopForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/WorkshopForm.contract.json",
+    "page": "Panel_PageRecipeDetail",
+    "family": 8,
+    "state": "ready",
+    "frame": [
+      80,
+      90,
+      1760,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_RecipeDetailProduct",
+        "rect": [
+          144,
+          320,
+          400,
+          470
+        ]
+      },
+      {
+        "name": "Panel_RecipeDetailRequirements",
+        "rect": [
+          568,
+          244,
+          1128,
+          596
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S08-001",
+        "path": "Assets/Game/Sprites/UI/Pages/08-制造工坊/scr-08-001-recipe-card-plate-ready@560x420.png",
+        "rect": [
+          594,
+          268,
+          558,
+          280
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-08-RecipeDetail-ready.png"
+  },
+  {
+    "form": "WorkshopForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/WorkshopForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/WorkshopForm.contract.json",
+    "page": "Panel_PageWorkshop",
+    "family": 8,
+    "state": "idle",
+    "frame": [
+      80,
+      90,
+      1760,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_WorkshopRecipes",
+        "rect": [
+          144,
+          320,
+          400,
+          470
+        ]
+      },
+      {
+        "name": "Panel_WorkshopQueue",
+        "rect": [
+          568,
+          244,
+          610,
+          596
+        ]
+      },
+      {
+        "name": "Panel_WorkshopOutput",
+        "rect": [
+          1202,
+          244,
+          494,
+          596
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S08-001",
+        "path": "Assets/Game/Sprites/UI/Pages/08-制造工坊/scr-08-001-recipe-card-plate-ready@560x420.png",
+        "rect": [
+          594,
+          268,
+          558,
+          280
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-08-Workshop-idle.png"
+  },
+  {
+    "form": "AlgorithmLibraryForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/AlgorithmLibraryForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/AlgorithmLibraryForm.contract.json",
+    "page": "Panel_PagePlayerTemplates",
+    "family": 9,
+    "state": "owned",
+    "frame": [
+      120,
+      90,
+      1680,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_PlayerTemplatesCatalog",
+        "rect": [
+          424,
+          324,
+          774,
+          506
+        ]
+      },
+      {
+        "name": "Panel_PlayerTemplatesDetail",
+        "rect": [
+          1224,
+          246,
+          512,
+          592
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-09-PlayerTemplates-owned.png"
+  },
+  {
+    "form": "AlgorithmLibraryForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/AlgorithmLibraryForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/AlgorithmLibraryForm.contract.json",
+    "page": "Panel_PageSystemTemplates",
+    "family": 9,
+    "state": "owned",
+    "frame": [
+      120,
+      90,
+      1680,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_SystemTemplatesCatalog",
+        "rect": [
+          424,
+          324,
+          774,
+          506
+        ]
+      },
+      {
+        "name": "Panel_SystemTemplatesDetail",
+        "rect": [
+          1224,
+          246,
+          512,
+          592
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-09-SystemTemplates-owned.png"
+  },
+  {
+    "form": "AlgorithmLibraryForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/AlgorithmLibraryForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/AlgorithmLibraryForm.contract.json",
+    "page": "Panel_PageTemplateDetail",
+    "family": 9,
+    "state": "normal",
+    "frame": [
+      120,
+      90,
+      1680,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_TemplateDetailDefinition",
+        "rect": [
+          424,
+          324,
+          774,
+          506
+        ]
+      },
+      {
+        "name": "Panel_TemplateDetailRequirements",
+        "rect": [
+          1224,
+          246,
+          512,
+          592
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S09-013",
+        "path": "Assets/Game/Sprites/UI/Pages/09-资产与模板目录/scr-09-013-template-detail-layout@640x480.png",
+        "rect": [
+          424,
+          328,
+          774,
+          490
+        ],
+        "mode": "slice",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-09-TemplateDetail-normal.png"
+  },
+  {
+    "form": "ComponentLibraryForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/ComponentLibraryForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/ComponentLibraryForm.contract.json",
+    "page": "Panel_PageComponentDetail",
+    "family": 9,
+    "state": "normal",
+    "frame": [
+      120,
+      90,
+      1680,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_ComponentDetailIdentity",
+        "rect": [
+          424,
+          324,
+          774,
+          236
+        ]
+      },
+      {
+        "name": "Panel_ComponentDetailAttributes",
+        "rect": [
+          424,
+          580,
+          774,
+          248
+        ]
+      },
+      {
+        "name": "Panel_ComponentDetailCompare",
+        "rect": [
+          1224,
+          246,
+          512,
+          592
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S09-012",
+        "path": "Assets/Game/Sprites/UI/Pages/09-资产与模板目录/scr-09-012-component-detail-layout@640x480.png",
+        "rect": [
+          424,
+          328,
+          774,
+          490
+        ],
+        "mode": "slice",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-09-ComponentDetail-normal.png"
+  },
+  {
+    "form": "ComponentLibraryForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/ComponentLibraryForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/ComponentLibraryForm.contract.json",
+    "page": "Panel_PageInstalledComponents",
+    "family": 9,
+    "state": "installed",
+    "frame": [
+      120,
+      90,
+      1680,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_InstalledComponentsCatalog",
+        "rect": [
+          424,
+          324,
+          774,
+          506
+        ]
+      },
+      {
+        "name": "Panel_InstalledComponentsDetails",
+        "rect": [
+          1224,
+          246,
+          512,
+          592
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-09-InstalledComponents-installed.png"
+  },
+  {
+    "form": "ComponentLibraryForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/ComponentLibraryForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/ComponentLibraryForm.contract.json",
+    "page": "Panel_PageLooseComponents",
+    "family": 9,
+    "state": "owned",
+    "frame": [
+      120,
+      90,
+      1680,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_LooseComponentsCatalog",
+        "rect": [
+          424,
+          324,
+          774,
+          506
+        ]
+      },
+      {
+        "name": "Panel_LooseComponentsDetails",
+        "rect": [
+          1224,
+          246,
+          512,
+          592
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-09-LooseComponents-owned.png"
+  },
+  {
+    "form": "MachineLibraryForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/MachineLibraryForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/MachineLibraryForm.contract.json",
+    "page": "Panel_PageDeployedMachines",
+    "family": 9,
+    "state": "deployed",
+    "frame": [
+      120,
+      90,
+      1680,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_DeployedMachinesCatalog",
+        "rect": [
+          424,
+          324,
+          774,
+          506
+        ]
+      },
+      {
+        "name": "Panel_DeployedMachinesDetail",
+        "rect": [
+          1224,
+          246,
+          512,
+          592
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-09-DeployedMachines-deployed.png"
+  },
+  {
+    "form": "MachineLibraryForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/MachineLibraryForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/MachineLibraryForm.contract.json",
+    "page": "Panel_PageUndeployedMachines",
+    "family": 9,
+    "state": "owned",
+    "frame": [
+      120,
+      90,
+      1680,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_UndeployedMachinesCatalog",
+        "rect": [
+          424,
+          324,
+          774,
+          506
+        ]
+      },
+      {
+        "name": "Panel_UndeployedMachinesDetail",
+        "rect": [
+          1224,
+          246,
+          512,
+          592
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-09-UndeployedMachines-owned.png"
+  },
+  {
+    "form": "WarehouseForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/WarehouseForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/WarehouseForm.contract.json",
+    "page": "Panel_PageInventory",
+    "family": 9,
+    "state": "owned",
+    "frame": [
+      120,
+      90,
+      1680,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_InventoryCatalog",
+        "rect": [
+          424,
+          324,
+          774,
+          506
+        ]
+      },
+      {
+        "name": "Panel_InventoryDetail",
+        "rect": [
+          1224,
+          246,
+          512,
+          592
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-09-Inventory-owned.png"
+  },
+  {
+    "form": "WarehouseForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/WarehouseForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/WarehouseForm.contract.json",
+    "page": "Panel_PageItemDetail",
+    "family": 9,
+    "state": "normal",
+    "frame": [
+      120,
+      90,
+      1680,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_ItemDetailItem",
+        "rect": [
+          424,
+          324,
+          774,
+          506
+        ]
+      },
+      {
+        "name": "Panel_ItemDetailStock",
+        "rect": [
+          1224,
+          246,
+          512,
+          592
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S09-011",
+        "path": "Assets/Game/Sprites/UI/Pages/09-资产与模板目录/scr-09-011-item-detail-layout@640x480.png",
+        "rect": [
+          424,
+          328,
+          774,
+          490
+        ],
+        "mode": "slice",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-09-ItemDetail-normal.png"
+  },
+  {
+    "form": "WarehouseForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/WarehouseForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/WarehouseForm.contract.json",
+    "page": "Panel_PageWarehouseRecords",
+    "family": 9,
+    "state": "normal",
+    "frame": [
+      120,
+      90,
+      1680,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_WarehouseRecordsEvents",
+        "rect": [
+          424,
+          324,
+          774,
+          506
+        ]
+      },
+      {
+        "name": "Panel_WarehouseRecordsDetail",
+        "rect": [
+          1224,
+          246,
+          512,
+          592
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-09-WarehouseRecords-normal.png"
+  },
+  {
+    "form": "BuildCatalogForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/BuildCatalogForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/BuildCatalogForm.contract.json",
+    "page": "Panel_PageBlueprints",
+    "family": 10,
+    "state": "ready",
+    "frame": [
+      120,
+      90,
+      1680,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_BlueprintsCatalog",
+        "rect": [
+          184,
+          320,
+          970,
+          514
+        ]
+      },
+      {
+        "name": "Panel_BlueprintsBlueprint",
+        "rect": [
+          1184,
+          320,
+          552,
+          514
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-10-Blueprints-ready.png"
+  },
+  {
+    "form": "ShopForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/ShopForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/ShopForm.contract.json",
+    "page": "Panel_PageOfferDetail",
+    "family": 10,
+    "state": "normal",
+    "frame": [
+      120,
+      90,
+      1680,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_OfferDetailContents",
+        "rect": [
+          184,
+          320,
+          970,
+          514
+        ]
+      },
+      {
+        "name": "Panel_OfferDetailTerms",
+        "rect": [
+          1184,
+          320,
+          552,
+          514
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S10-001",
+        "path": "Assets/Game/Sprites/UI/Pages/10-商店与建造/scr-10-001-goods-pack-normal@640x480.png",
+        "rect": [
+          324,
+          342,
+          690,
+          416
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-10-OfferDetail-normal.png"
+  },
+  {
+    "form": "ShopForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/ShopForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/ShopForm.contract.json",
+    "page": "Panel_PageShopBuy",
+    "family": 10,
+    "state": "buy",
+    "frame": [
+      120,
+      90,
+      1680,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_ShopBuyGoods",
+        "rect": [
+          184,
+          320,
+          970,
+          514
+        ]
+      },
+      {
+        "name": "Panel_ShopBuyOffer",
+        "rect": [
+          1184,
+          320,
+          552,
+          514
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S10-001",
+        "path": "Assets/Game/Sprites/UI/Pages/10-商店与建造/scr-10-001-goods-pack-normal@640x480.png",
+        "rect": [
+          276,
+          330,
+          330,
+          204
+        ],
+        "mode": "fit",
+        "opacity": 1
+      },
+      {
+        "key": "S10-001",
+        "path": "Assets/Game/Sprites/UI/Pages/10-商店与建造/scr-10-001-goods-pack-normal@640x480.png",
+        "rect": [
+          773,
+          330,
+          330,
+          204
+        ],
+        "mode": "fit",
+        "opacity": 1
+      },
+      {
+        "key": "S10-001",
+        "path": "Assets/Game/Sprites/UI/Pages/10-商店与建造/scr-10-001-goods-pack-normal@640x480.png",
+        "rect": [
+          276,
+          598,
+          330,
+          204
+        ],
+        "mode": "fit",
+        "opacity": 1
+      },
+      {
+        "key": "S10-001",
+        "path": "Assets/Game/Sprites/UI/Pages/10-商店与建造/scr-10-001-goods-pack-normal@640x480.png",
+        "rect": [
+          773,
+          598,
+          330,
+          204
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-10-ShopBuy-buy.png"
+  },
+  {
+    "form": "ShopForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/ShopForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/ShopForm.contract.json",
+    "page": "Panel_PageShopSell",
+    "family": 10,
+    "state": "sell",
+    "frame": [
+      120,
+      90,
+      1680,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_ShopSellStock",
+        "rect": [
+          184,
+          320,
+          970,
+          514
+        ]
+      },
+      {
+        "name": "Panel_ShopSellQuote",
+        "rect": [
+          1184,
+          320,
+          552,
+          514
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S10-001",
+        "path": "Assets/Game/Sprites/UI/Pages/10-商店与建造/scr-10-001-goods-pack-normal@640x480.png",
+        "rect": [
+          276,
+          330,
+          330,
+          204
+        ],
+        "mode": "fit",
+        "opacity": 1
+      },
+      {
+        "key": "S10-001",
+        "path": "Assets/Game/Sprites/UI/Pages/10-商店与建造/scr-10-001-goods-pack-normal@640x480.png",
+        "rect": [
+          773,
+          330,
+          330,
+          204
+        ],
+        "mode": "fit",
+        "opacity": 1
+      },
+      {
+        "key": "S10-001",
+        "path": "Assets/Game/Sprites/UI/Pages/10-商店与建造/scr-10-001-goods-pack-normal@640x480.png",
+        "rect": [
+          276,
+          598,
+          330,
+          204
+        ],
+        "mode": "fit",
+        "opacity": 1
+      },
+      {
+        "key": "S10-001",
+        "path": "Assets/Game/Sprites/UI/Pages/10-商店与建造/scr-10-001-goods-pack-normal@640x480.png",
+        "rect": [
+          773,
+          598,
+          330,
+          204
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-10-ShopSell-sell.png"
+  },
+  {
+    "form": "UpgradeForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/UpgradeForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/UpgradeForm.contract.json",
+    "page": "Panel_PageCarrierUpgrade",
+    "family": 11,
+    "state": "before",
+    "frame": [
+      120,
+      90,
+      1680,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_CarrierUpgradeBefore",
+        "rect": [
+          184,
+          324,
+          672,
+          478
+        ]
+      },
+      {
+        "name": "Panel_CarrierUpgradeAfter",
+        "rect": [
+          1064,
+          324,
+          672,
+          478
+        ]
+      },
+      {
+        "name": "Panel_CarrierUpgradeCost",
+        "rect": [
+          896,
+          324,
+          128,
+          478
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S11-001",
+        "path": "Assets/Game/Sprites/UI/Pages/11-升级与改装/scr-11-001-carrier-outline-before@640x480.png",
+        "rect": [
+          204,
+          326,
+          632,
+          360
+        ],
+        "mode": "fit",
+        "opacity": 1
+      },
+      {
+        "key": "S11-002",
+        "path": "Assets/Game/Sprites/UI/Pages/11-升级与改装/scr-11-002-carrier-outline-after@640x480.png",
+        "rect": [
+          1084,
+          326,
+          632,
+          360
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-11-CarrierUpgrade-before.png"
+  },
+  {
+    "form": "UpgradeForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/UpgradeForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/UpgradeForm.contract.json",
+    "page": "Panel_PageComponentUpgrade",
+    "family": 11,
+    "state": "before",
+    "frame": [
+      120,
+      90,
+      1680,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_ComponentUpgradeBefore",
+        "rect": [
+          184,
+          324,
+          672,
+          478
+        ]
+      },
+      {
+        "name": "Panel_ComponentUpgradeAfter",
+        "rect": [
+          1064,
+          324,
+          672,
+          478
+        ]
+      },
+      {
+        "name": "Panel_ComponentUpgradeCost",
+        "rect": [
+          896,
+          324,
+          128,
+          478
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-11-ComponentUpgrade-before.png"
+  },
+  {
+    "form": "UpgradeForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/UpgradeForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/UpgradeForm.contract.json",
+    "page": "Panel_PageModificationImpact",
+    "family": 11,
+    "state": "danger",
+    "frame": [
+      120,
+      90,
+      1680,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_ModificationImpactChange",
+        "rect": [
+          184,
+          324,
+          672,
+          478
+        ]
+      },
+      {
+        "name": "Panel_ModificationImpactImpact",
+        "rect": [
+          1064,
+          324,
+          672,
+          478
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S11-001",
+        "path": "Assets/Game/Sprites/UI/Pages/11-升级与改装/scr-11-001-carrier-outline-before@640x480.png",
+        "rect": [
+          204,
+          326,
+          632,
+          360
+        ],
+        "mode": "fit",
+        "opacity": 1
+      },
+      {
+        "key": "S11-002",
+        "path": "Assets/Game/Sprites/UI/Pages/11-升级与改装/scr-11-002-carrier-outline-after@640x480.png",
+        "rect": [
+          1084,
+          326,
+          632,
+          360
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-11-ModificationImpact-danger.png"
+  },
+  {
+    "form": "AlgorithmBindingForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/AlgorithmBindingForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/AlgorithmBindingForm.contract.json",
+    "page": "Panel_PagePendingBindings",
+    "family": 12,
+    "state": "pending",
+    "frame": [
+      120,
+      90,
+      1680,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_PendingBindingsBindings",
+        "rect": [
+          184,
+          324,
+          686,
+          500
+        ]
+      },
+      {
+        "name": "Panel_PendingBindingsRequirement",
+        "rect": [
+          896,
+          324,
+          840,
+          500
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-12-PendingBindings-pending.png"
+  },
+  {
+    "form": "ComponentPickerForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/ComponentPickerForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/ComponentPickerForm.contract.json",
+    "page": "Panel_PageComponentPicker",
+    "family": 12,
+    "state": "compatible",
+    "frame": [
+      120,
+      90,
+      1680,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_ComponentPickerCandidates",
+        "rect": [
+          184,
+          324,
+          686,
+          500
+        ]
+      },
+      {
+        "name": "Panel_ComponentPickerComparison",
+        "rect": [
+          896,
+          324,
+          840,
+          500
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-12-ComponentPicker-compatible.png"
+  },
+  {
+    "form": "NodeComponentPickerForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/NodeComponentPickerForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/NodeComponentPickerForm.contract.json",
+    "page": "Panel_PageNodeComponentPicker",
+    "family": 12,
+    "state": "compatible",
+    "frame": [
+      120,
+      90,
+      1680,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_NodeComponentPickerCandidates",
+        "rect": [
+          184,
+          324,
+          686,
+          500
+        ]
+      },
+      {
+        "name": "Panel_NodeComponentPickerContract",
+        "rect": [
+          896,
+          324,
+          840,
+          500
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-12-NodeComponentPicker-compatible.png"
+  },
+  {
+    "form": "WorldObjectPickerForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/WorldObjectPickerForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/WorldObjectPickerForm.contract.json",
+    "page": "Panel_PageWorldObjectPicker",
+    "family": 12,
+    "state": "matching",
+    "frame": [
+      120,
+      90,
+      1680,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_WorldObjectPickerCandidates",
+        "rect": [
+          184,
+          324,
+          686,
+          500
+        ]
+      },
+      {
+        "name": "Panel_WorldObjectPickerPreview",
+        "rect": [
+          896,
+          324,
+          840,
+          500
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S12-007",
+        "path": "Assets/Game/Sprites/UI/Pages/12-选择与绑定/scr-12-007-world-filter-map@640x480.png",
+        "rect": [
+          202,
+          358,
+          650,
+          452
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-12-WorldObjectPicker-matching.png"
+  },
+  {
+    "form": "AlgorithmEditorForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/AlgorithmEditorForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/AlgorithmEditorForm.contract.json",
+    "page": "Panel_PageAlgorithmEditor",
+    "family": 13,
+    "state": "edit",
+    "frame": [
+      40,
+      50,
+      1840,
+      980
+    ],
+    "sections": [
+      {
+        "name": "Panel_AlgorithmEditorNodes",
+        "rect": [
+          104,
+          198,
+          260,
+          674
+        ]
+      },
+      {
+        "name": "Panel_AlgorithmEditorCanvas",
+        "rect": [
+          388,
+          198,
+          1000,
+          546
+        ]
+      },
+      {
+        "name": "Panel_AlgorithmEditorInspector",
+        "rect": [
+          1412,
+          198,
+          404,
+          674
+        ]
+      },
+      {
+        "name": "Panel_AlgorithmEditorProblems",
+        "rect": [
+          388,
+          768,
+          1000,
+          124
+        ]
+      },
+      {
+        "name": "Panel_AlgorithmEditorToolbar",
+        "rect": [
+          478,
+          144,
+          910,
+          44
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-13-AlgorithmEditor-edit.png"
+  },
+  {
+    "form": "AlgorithmPublicParametersForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/AlgorithmPublicParametersForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/AlgorithmPublicParametersForm.contract.json",
+    "page": "Panel_PagePublicParameters",
+    "family": 13,
+    "state": "normal",
+    "frame": [
+      40,
+      50,
+      1840,
+      980
+    ],
+    "sections": [
+      {
+        "name": "Panel_PublicParametersParameters",
+        "rect": [
+          388,
+          198,
+          1000,
+          546
+        ]
+      },
+      {
+        "name": "Panel_PublicParametersImpact",
+        "rect": [
+          1412,
+          198,
+          404,
+          674
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-13-PublicParameters-normal.png"
+  },
+  {
+    "form": "WorldPlacementForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/WorldPlacementForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/WorldPlacementForm.contract.json",
+    "page": "Panel_PageBuildPlacement",
+    "family": 14,
+    "state": "valid",
+    "frame": [
+      0,
+      0,
+      1920,
+      1080
+    ],
+    "sections": [
+      {
+        "name": "Panel_BuildPlacementSelection",
+        "rect": [
+          1528,
+          158,
+          368,
+          146
+        ]
+      },
+      {
+        "name": "Panel_BuildPlacementValidity",
+        "rect": [
+          1528,
+          320,
+          368,
+          144
+        ]
+      },
+      {
+        "name": "Panel_BuildPlacementHints",
+        "rect": [
+          446,
+          926,
+          410,
+          126
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-14-BuildPlacement-valid.png"
+  },
+  {
+    "form": "WorldPlacementForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/WorldPlacementForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/WorldPlacementForm.contract.json",
+    "page": "Panel_PageMachineDeployment",
+    "family": 14,
+    "state": "valid",
+    "frame": [
+      0,
+      0,
+      1920,
+      1080
+    ],
+    "sections": [
+      {
+        "name": "Panel_MachineDeploymentSelection",
+        "rect": [
+          1528,
+          158,
+          368,
+          146
+        ]
+      },
+      {
+        "name": "Panel_MachineDeploymentValidity",
+        "rect": [
+          1528,
+          320,
+          368,
+          144
+        ]
+      },
+      {
+        "name": "Panel_MachineDeploymentHints",
+        "rect": [
+          446,
+          926,
+          410,
+          126
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-14-MachineDeployment-valid.png"
+  },
+  {
+    "form": "WorldPlacementForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/WorldPlacementForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/WorldPlacementForm.contract.json",
+    "page": "Panel_PageWorldBinding",
+    "family": 14,
+    "state": "valid",
+    "frame": [
+      0,
+      0,
+      1920,
+      1080
+    ],
+    "sections": [
+      {
+        "name": "Panel_WorldBindingPurpose",
+        "rect": [
+          1528,
+          158,
+          368,
+          146
+        ]
+      },
+      {
+        "name": "Panel_WorldBindingCandidate",
+        "rect": [
+          1528,
+          320,
+          368,
+          144
+        ]
+      },
+      {
+        "name": "Panel_WorldBindingHints",
+        "rect": [
+          446,
+          926,
+          410,
+          126
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-14-WorldBinding-valid.png"
+  },
+  {
+    "form": "AlertForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/AlertForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/AlertForm.contract.json",
+    "page": "Panel_PageAlerts",
+    "family": 15,
+    "state": "normal",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_AlertsList",
+        "rect": [
+          432,
+          326,
+          570,
+          476
+        ]
+      },
+      {
+        "name": "Panel_AlertsDetail",
+        "rect": [
+          1030,
+          244,
+          726,
+          586
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-15-Alerts-normal.png"
+  },
+  {
+    "form": "QuestForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/QuestForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/QuestForm.contract.json",
+    "page": "Panel_PageQuestRewards",
+    "family": 15,
+    "state": "complete",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_QuestRewardsRewards",
+        "rect": [
+          432,
+          326,
+          570,
+          476
+        ]
+      },
+      {
+        "name": "Panel_QuestRewardsUnlocks",
+        "rect": [
+          1030,
+          244,
+          726,
+          586
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-15-QuestRewards-complete.png"
+  },
+  {
+    "form": "QuestForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/QuestForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/QuestForm.contract.json",
+    "page": "Panel_PageQuests",
+    "family": 15,
+    "state": "active",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_QuestsList",
+        "rect": [
+          432,
+          326,
+          570,
+          476
+        ]
+      },
+      {
+        "name": "Panel_QuestsDetail",
+        "rect": [
+          1030,
+          244,
+          726,
+          586
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-15-Quests-active.png"
+  },
+  {
+    "form": "RecordReaderForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/RecordReaderForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/RecordReaderForm.contract.json",
+    "page": "Panel_PageAlgorithmHistory",
+    "family": 15,
+    "state": "normal",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_AlgorithmHistoryList",
+        "rect": [
+          432,
+          326,
+          570,
+          476
+        ]
+      },
+      {
+        "name": "Panel_AlgorithmHistoryDetail",
+        "rect": [
+          1030,
+          244,
+          726,
+          586
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-15-AlgorithmHistory-normal.png"
+  },
+  {
+    "form": "RecordReaderForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/RecordReaderForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/RecordReaderForm.contract.json",
+    "page": "Panel_PageEnergyHistory",
+    "family": 15,
+    "state": "normal",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_EnergyHistoryList",
+        "rect": [
+          432,
+          326,
+          570,
+          476
+        ]
+      },
+      {
+        "name": "Panel_EnergyHistoryDetail",
+        "rect": [
+          1030,
+          244,
+          726,
+          586
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-15-EnergyHistory-normal.png"
+  },
+  {
+    "form": "RecordReaderForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/RecordReaderForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/RecordReaderForm.contract.json",
+    "page": "Panel_PageMachineHistory",
+    "family": 15,
+    "state": "normal",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_MachineHistoryList",
+        "rect": [
+          432,
+          326,
+          570,
+          476
+        ]
+      },
+      {
+        "name": "Panel_MachineHistoryDetail",
+        "rect": [
+          1030,
+          244,
+          726,
+          586
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-15-MachineHistory-normal.png"
+  },
+  {
+    "form": "CropKnowledgeForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/CropKnowledgeForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/CropKnowledgeForm.contract.json",
+    "page": "Panel_PageCropKnowledge",
+    "family": 16,
+    "state": "wheat",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_CropKnowledgeIdentity",
+        "rect": [
+          418,
+          248,
+          782,
+          584
+        ]
+      },
+      {
+        "name": "Panel_CropKnowledgeKnowledge",
+        "rect": [
+          1228,
+          248,
+          528,
+          584
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S16-001",
+        "path": "Assets/Game/Sprites/UI/Pages/16-教学规则与知识/scr-16-001-guide-illustration@640x480.png",
+        "rect": [
+          470,
+          274,
+          734,
+          442
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-16-CropKnowledge-wheat.png"
+  },
+  {
+    "form": "FeatureHelpForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/FeatureHelpForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/FeatureHelpForm.contract.json",
+    "page": "Panel_PageFeatureHelp",
+    "family": 16,
+    "state": "normal",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_FeatureHelpExplanation",
+        "rect": [
+          418,
+          248,
+          782,
+          584
+        ]
+      },
+      {
+        "name": "Panel_FeatureHelpNext",
+        "rect": [
+          1228,
+          248,
+          528,
+          584
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S16-001",
+        "path": "Assets/Game/Sprites/UI/Pages/16-教学规则与知识/scr-16-001-guide-illustration@640x480.png",
+        "rect": [
+          470,
+          274,
+          734,
+          442
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-16-FeatureHelp-normal.png"
+  },
+  {
+    "form": "HelpForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/HelpForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/HelpForm.contract.json",
+    "page": "Panel_PageHelp",
+    "family": 16,
+    "state": "normal",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_HelpTopics",
+        "rect": [
+          418,
+          248,
+          782,
+          584
+        ]
+      },
+      {
+        "name": "Panel_HelpArticle",
+        "rect": [
+          1228,
+          248,
+          528,
+          584
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S16-001",
+        "path": "Assets/Game/Sprites/UI/Pages/16-教学规则与知识/scr-16-001-guide-illustration@640x480.png",
+        "rect": [
+          470,
+          274,
+          734,
+          442
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-16-Help-normal.png"
+  },
+  {
+    "form": "RuleHelpForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/RuleHelpForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/RuleHelpForm.contract.json",
+    "page": "Panel_PageRuleHelp",
+    "family": 16,
+    "state": "normal",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_RuleHelpDescription",
+        "rect": [
+          1228,
+          248,
+          528,
+          584
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S16-001",
+        "path": "Assets/Game/Sprites/UI/Pages/16-教学规则与知识/scr-16-001-guide-illustration@640x480.png",
+        "rect": [
+          470,
+          274,
+          734,
+          442
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-16-RuleHelp-normal.png"
+  },
+  {
+    "form": "TutorialForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/TutorialForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/TutorialForm.contract.json",
+    "page": "Panel_PageTutorial",
+    "family": 16,
+    "state": "current",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_TutorialLesson",
+        "rect": [
+          418,
+          248,
+          782,
+          584
+        ]
+      },
+      {
+        "name": "Panel_TutorialLinks",
+        "rect": [
+          1228,
+          248,
+          528,
+          584
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S16-001",
+        "path": "Assets/Game/Sprites/UI/Pages/16-教学规则与知识/scr-16-001-guide-illustration@640x480.png",
+        "rect": [
+          470,
+          274,
+          734,
+          442
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-16-Tutorial-current.png"
+  },
+  {
+    "form": "OperationDialogForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/OperationDialogForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/OperationDialogForm.contract.json",
+    "page": "Panel_PageAlgorithmApply",
+    "family": 17,
+    "state": "pending",
+    "frame": [
+      200,
+      120,
+      1520,
+      840
+    ],
+    "sections": [
+      {
+        "name": "Panel_AlgorithmApplyVersion",
+        "rect": [
+          282,
+          650,
+          654,
+          178
+        ]
+      },
+      {
+        "name": "Panel_AlgorithmApplyValidation",
+        "rect": [
+          982,
+          446,
+          616,
+          338
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S17-005",
+        "path": "Assets/Game/Sprites/UI/Pages/17-操作确认与输入/scr-17-005-impact-scope@640x480.png",
+        "rect": [
+          282,
+          420,
+          654,
+          408
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-17-AlgorithmApply-pending.png"
+  },
+  {
+    "form": "OperationDialogForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/OperationDialogForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/OperationDialogForm.contract.json",
+    "page": "Panel_PageBasicConfirm",
+    "family": 17,
+    "state": "neutral",
+    "frame": [
+      200,
+      120,
+      1520,
+      840
+    ],
+    "sections": [
+      {
+        "name": "Panel_BasicConfirmContext",
+        "rect": [
+          982,
+          446,
+          616,
+          338
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S17-006",
+        "path": "Assets/Game/Sprites/UI/Pages/17-操作确认与输入/scr-17-006-impact-scope-none@640x480.png",
+        "rect": [
+          282,
+          420,
+          654,
+          408
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-17-BasicConfirm-neutral.png"
+  },
+  {
+    "form": "OperationDialogForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/OperationDialogForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/OperationDialogForm.contract.json",
+    "page": "Panel_PageCancelProduction",
+    "family": 17,
+    "state": "danger",
+    "frame": [
+      200,
+      120,
+      1520,
+      840
+    ],
+    "sections": [
+      {
+        "name": "Panel_CancelProductionTarget",
+        "rect": [
+          282,
+          650,
+          654,
+          178
+        ]
+      },
+      {
+        "name": "Panel_CancelProductionRefund",
+        "rect": [
+          982,
+          446,
+          616,
+          338
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S17-005",
+        "path": "Assets/Game/Sprites/UI/Pages/17-操作确认与输入/scr-17-005-impact-scope@640x480.png",
+        "rect": [
+          282,
+          420,
+          654,
+          408
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-17-CancelProduction-danger.png"
+  },
+  {
+    "form": "OperationDialogForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/OperationDialogForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/OperationDialogForm.contract.json",
+    "page": "Panel_PageDisplayKeep",
+    "family": 17,
+    "state": "pending",
+    "frame": [
+      200,
+      120,
+      1520,
+      840
+    ],
+    "sections": [
+      {
+        "name": "Panel_DisplayKeepModes",
+        "rect": [
+          282,
+          650,
+          654,
+          178
+        ]
+      },
+      {
+        "name": "Panel_DisplayKeepRecovery",
+        "rect": [
+          982,
+          446,
+          616,
+          338
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S17-006",
+        "path": "Assets/Game/Sprites/UI/Pages/17-操作确认与输入/scr-17-006-impact-scope-none@640x480.png",
+        "rect": [
+          282,
+          420,
+          654,
+          408
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-17-DisplayKeep-pending.png"
+  },
+  {
+    "form": "OperationDialogForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/OperationDialogForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/OperationDialogForm.contract.json",
+    "page": "Panel_PageDraftExit",
+    "family": 17,
+    "state": "danger",
+    "frame": [
+      200,
+      120,
+      1520,
+      840
+    ],
+    "sections": [
+      {
+        "name": "Panel_DraftExitDraft",
+        "rect": [
+          982,
+          446,
+          616,
+          338
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S17-005",
+        "path": "Assets/Game/Sprites/UI/Pages/17-操作确认与输入/scr-17-005-impact-scope@640x480.png",
+        "rect": [
+          282,
+          420,
+          654,
+          408
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-17-DraftExit-danger.png"
+  },
+  {
+    "form": "OperationDialogForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/OperationDialogForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/OperationDialogForm.contract.json",
+    "page": "Panel_PageForceExit",
+    "family": 17,
+    "state": "danger",
+    "frame": [
+      200,
+      120,
+      1520,
+      840
+    ],
+    "sections": [
+      {
+        "name": "Panel_ForceExitLoss",
+        "rect": [
+          982,
+          446,
+          616,
+          338
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S17-005",
+        "path": "Assets/Game/Sprites/UI/Pages/17-操作确认与输入/scr-17-005-impact-scope@640x480.png",
+        "rect": [
+          282,
+          420,
+          654,
+          408
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-17-ForceExit-danger.png"
+  },
+  {
+    "form": "OperationDialogForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/OperationDialogForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/OperationDialogForm.contract.json",
+    "page": "Panel_PageHardwareConfirm",
+    "family": 17,
+    "state": "neutral",
+    "frame": [
+      200,
+      120,
+      1520,
+      840
+    ],
+    "sections": [
+      {
+        "name": "Panel_HardwareConfirmChange",
+        "rect": [
+          282,
+          650,
+          654,
+          178
+        ]
+      },
+      {
+        "name": "Panel_HardwareConfirmEffects",
+        "rect": [
+          982,
+          446,
+          616,
+          338
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S17-005",
+        "path": "Assets/Game/Sprites/UI/Pages/17-操作确认与输入/scr-17-005-impact-scope@640x480.png",
+        "rect": [
+          282,
+          420,
+          654,
+          408
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-17-HardwareConfirm-neutral.png"
+  },
+  {
+    "form": "OperationDialogForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/OperationDialogForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/OperationDialogForm.contract.json",
+    "page": "Panel_PageMachineRecovery",
+    "family": 17,
+    "state": "danger",
+    "frame": [
+      200,
+      120,
+      1520,
+      840
+    ],
+    "sections": [
+      {
+        "name": "Panel_MachineRecoveryMachine",
+        "rect": [
+          282,
+          650,
+          654,
+          178
+        ]
+      },
+      {
+        "name": "Panel_MachineRecoveryResult",
+        "rect": [
+          982,
+          446,
+          616,
+          338
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S17-005",
+        "path": "Assets/Game/Sprites/UI/Pages/17-操作确认与输入/scr-17-005-impact-scope@640x480.png",
+        "rect": [
+          282,
+          420,
+          654,
+          408
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-17-MachineRecovery-danger.png"
+  },
+  {
+    "form": "OperationDialogForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/OperationDialogForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/OperationDialogForm.contract.json",
+    "page": "Panel_PagePlacementConfirm",
+    "family": 17,
+    "state": "neutral",
+    "frame": [
+      200,
+      120,
+      1520,
+      840
+    ],
+    "sections": [
+      {
+        "name": "Panel_PlacementConfirmTarget",
+        "rect": [
+          282,
+          650,
+          654,
+          178
+        ]
+      },
+      {
+        "name": "Panel_PlacementConfirmImpact",
+        "rect": [
+          982,
+          446,
+          616,
+          338
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S17-005",
+        "path": "Assets/Game/Sprites/UI/Pages/17-操作确认与输入/scr-17-005-impact-scope@640x480.png",
+        "rect": [
+          282,
+          420,
+          654,
+          408
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-17-PlacementConfirm-neutral.png"
+  },
+  {
+    "form": "OperationDialogForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/OperationDialogForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/OperationDialogForm.contract.json",
+    "page": "Panel_PageRename",
+    "family": 17,
+    "state": "neutral",
+    "frame": [
+      200,
+      120,
+      1520,
+      840
+    ],
+    "sections": [
+      {
+        "name": "Panel_RenameInput",
+        "rect": [
+          488,
+          478,
+          1080,
+          266
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-17-Rename-neutral.png"
+  },
+  {
+    "form": "OperationDialogForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/OperationDialogForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/OperationDialogForm.contract.json",
+    "page": "Panel_PageStrongConfirm",
+    "family": 17,
+    "state": "danger",
+    "frame": [
+      200,
+      120,
+      1520,
+      840
+    ],
+    "sections": [
+      {
+        "name": "Panel_StrongConfirmTarget",
+        "rect": [
+          282,
+          438,
+          636,
+          388
+        ]
+      },
+      {
+        "name": "Panel_StrongConfirmConsequences",
+        "rect": [
+          1044,
+          446,
+          480,
+          120
+        ]
+      },
+      {
+        "name": "Panel_StrongConfirmAcknowledgement",
+        "rect": [
+          1044,
+          590,
+          480,
+          236
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S17-005",
+        "path": "Assets/Game/Sprites/UI/Pages/17-操作确认与输入/scr-17-005-impact-scope@640x480.png",
+        "rect": [
+          278,
+          438,
+          636,
+          388
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-17-StrongConfirm-danger.png"
+  },
+  {
+    "form": "OperationDialogForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/OperationDialogForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/OperationDialogForm.contract.json",
+    "page": "Panel_PageTransactionConfirm",
+    "family": 17,
+    "state": "neutral",
+    "frame": [
+      200,
+      120,
+      1520,
+      840
+    ],
+    "sections": [
+      {
+        "name": "Panel_TransactionConfirmItems",
+        "rect": [
+          282,
+          650,
+          654,
+          178
+        ]
+      },
+      {
+        "name": "Panel_TransactionConfirmQuote",
+        "rect": [
+          982,
+          446,
+          616,
+          338
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S17-005",
+        "path": "Assets/Game/Sprites/UI/Pages/17-操作确认与输入/scr-17-005-impact-scope@640x480.png",
+        "rect": [
+          282,
+          420,
+          654,
+          408
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-17-TransactionConfirm-neutral.png"
+  },
+  {
+    "form": "OperationDialogForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/OperationDialogForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/OperationDialogForm.contract.json",
+    "page": "Panel_PageUpgradeConfirm",
+    "family": 17,
+    "state": "danger",
+    "frame": [
+      200,
+      120,
+      1520,
+      840
+    ],
+    "sections": [
+      {
+        "name": "Panel_UpgradeConfirmComparison",
+        "rect": [
+          282,
+          650,
+          654,
+          178
+        ]
+      },
+      {
+        "name": "Panel_UpgradeConfirmCosts",
+        "rect": [
+          982,
+          446,
+          616,
+          338
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S17-005",
+        "path": "Assets/Game/Sprites/UI/Pages/17-操作确认与输入/scr-17-005-impact-scope@640x480.png",
+        "rect": [
+          282,
+          420,
+          654,
+          408
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-17-UpgradeConfirm-danger.png"
+  },
+  {
+    "form": "OperationFeedbackForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/OperationFeedbackForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/OperationFeedbackForm.contract.json",
+    "page": "Panel_PageActionResult",
+    "family": 18,
+    "state": "success",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_ActionResultResult",
+        "rect": [
+          164,
+          664,
+          850,
+          164
+        ]
+      },
+      {
+        "name": "Panel_ActionResultNext",
+        "rect": [
+          1042,
+          240,
+          714,
+          588
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S18-006",
+        "path": "Assets/Game/Sprites/UI/Pages/18-进度结果与报告/scr-18-006-report-illustration-return@640x480.png",
+        "rect": [
+          208,
+          258,
+          762,
+          498
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-18-ActionResult-success.png"
+  },
+  {
+    "form": "OperationFeedbackForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/OperationFeedbackForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/OperationFeedbackForm.contract.json",
+    "page": "Panel_PageSafeWait",
+    "family": 18,
+    "state": "pending",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_SafeWaitRequest",
+        "rect": [
+          352,
+          490,
+          1216,
+          156
+        ]
+      },
+      {
+        "name": "Panel_SafeWaitWaiting",
+        "rect": [
+          416,
+          712,
+          1088,
+          108
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-18-SafeWait-pending.png"
+  },
+  {
+    "form": "ProgressReportForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/ProgressReportForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/ProgressReportForm.contract.json",
+    "page": "Panel_PageBackupProgress",
+    "family": 18,
+    "state": "loading",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_BackupProgressRecovery",
+        "rect": [
+          352,
+          490,
+          1216,
+          156
+        ]
+      },
+      {
+        "name": "Panel_BackupProgressOutcome",
+        "rect": [
+          416,
+          712,
+          1088,
+          108
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-18-BackupProgress-loading.png"
+  },
+  {
+    "form": "ProgressReportForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/ProgressReportForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/ProgressReportForm.contract.json",
+    "page": "Panel_PageDailySupply",
+    "family": 18,
+    "state": "success",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_DailySupplyOffer",
+        "rect": [
+          164,
+          664,
+          850,
+          164
+        ]
+      },
+      {
+        "name": "Panel_DailySupplyRules",
+        "rect": [
+          1042,
+          240,
+          714,
+          588
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S18-006",
+        "path": "Assets/Game/Sprites/UI/Pages/18-进度结果与报告/scr-18-006-report-illustration-return@640x480.png",
+        "rect": [
+          208,
+          258,
+          762,
+          498
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-18-DailySupply-success.png"
+  },
+  {
+    "form": "ProgressReportForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/ProgressReportForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/ProgressReportForm.contract.json",
+    "page": "Panel_PageDelivery",
+    "family": 18,
+    "state": "pending",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_DeliverySummary",
+        "rect": [
+          164,
+          664,
+          850,
+          164
+        ]
+      },
+      {
+        "name": "Panel_DeliveryDestinations",
+        "rect": [
+          1042,
+          240,
+          714,
+          588
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S18-006",
+        "path": "Assets/Game/Sprites/UI/Pages/18-进度结果与报告/scr-18-006-report-illustration-return@640x480.png",
+        "rect": [
+          208,
+          258,
+          762,
+          498
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-18-Delivery-pending.png"
+  },
+  {
+    "form": "ProgressReportForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/ProgressReportForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/ProgressReportForm.contract.json",
+    "page": "Panel_PageGrowth",
+    "family": 18,
+    "state": "pending",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_GrowthLevel",
+        "rect": [
+          164,
+          664,
+          850,
+          164
+        ]
+      },
+      {
+        "name": "Panel_GrowthUnlocks",
+        "rect": [
+          1042,
+          240,
+          714,
+          588
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S18-006",
+        "path": "Assets/Game/Sprites/UI/Pages/18-进度结果与报告/scr-18-006-report-illustration-return@640x480.png",
+        "rect": [
+          208,
+          258,
+          762,
+          498
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-18-Growth-pending.png"
+  },
+  {
+    "form": "ProgressReportForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/ProgressReportForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/ProgressReportForm.contract.json",
+    "page": "Panel_PageLoading",
+    "family": 18,
+    "state": "loading",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_LoadingStage",
+        "rect": [
+          352,
+          490,
+          1216,
+          156
+        ]
+      },
+      {
+        "name": "Panel_LoadingFailure",
+        "rect": [
+          416,
+          712,
+          1088,
+          108
+        ]
+      }
+    ],
+    "artwork": [],
+    "source": "EffectBoards/mock-ui-18-Loading-loading.png"
+  },
+  {
+    "form": "ProgressReportForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/ProgressReportForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/ProgressReportForm.contract.json",
+    "page": "Panel_PageOfflineSettlement",
+    "family": 18,
+    "state": "success",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_OfflineSettlementStage",
+        "rect": [
+          164,
+          664,
+          850,
+          164
+        ]
+      },
+      {
+        "name": "Panel_OfflineSettlementResume",
+        "rect": [
+          1042,
+          240,
+          714,
+          588
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S18-005",
+        "path": "Assets/Game/Sprites/UI/Pages/18-进度结果与报告/scr-18-005-report-illustration-offline@640x480.png",
+        "rect": [
+          208,
+          258,
+          762,
+          498
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-18-OfflineSettlement-success.png"
+  },
+  {
+    "form": "ProgressReportForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/ProgressReportForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/ProgressReportForm.contract.json",
+    "page": "Panel_PageReturnReport",
+    "family": 18,
+    "state": "success",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_ReturnReportSections",
+        "rect": [
+          164,
+          664,
+          850,
+          164
+        ]
+      },
+      {
+        "name": "Panel_ReturnReportDetails",
+        "rect": [
+          1042,
+          240,
+          714,
+          588
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S18-006",
+        "path": "Assets/Game/Sprites/UI/Pages/18-进度结果与报告/scr-18-006-report-illustration-return@640x480.png",
+        "rect": [
+          208,
+          258,
+          762,
+          498
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-18-ReturnReport-success.png"
+  },
+  {
+    "form": "ProgressReportForm",
+    "prefab": "Assets/Game/Prefabs/UI/Operations/ProgressReportForm.prefab",
+    "contract": "Docs/Development/UI-PrefabLayouts/ProgressReportForm.contract.json",
+    "page": "Panel_PageVersionComplete",
+    "family": 18,
+    "state": "success",
+    "frame": [
+      100,
+      90,
+      1720,
+      900
+    ],
+    "sections": [
+      {
+        "name": "Panel_VersionCompleteAchievement",
+        "rect": [
+          164,
+          664,
+          850,
+          164
+        ]
+      },
+      {
+        "name": "Panel_VersionCompleteBoundary",
+        "rect": [
+          1042,
+          240,
+          714,
+          588
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "key": "S18-006",
+        "path": "Assets/Game/Sprites/UI/Pages/18-进度结果与报告/scr-18-006-report-illustration-return@640x480.png",
+        "rect": [
+          208,
+          258,
+          762,
+          498
+        ],
+        "mode": "fit",
+        "opacity": 1
+      }
+    ],
+    "source": "EffectBoards/mock-ui-18-VersionComplete-success.png"
+  }
+]
