@@ -1,0 +1,434 @@
+{
+  "form": "WorkshopForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/WorkshopForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/WorkshopForm.contract.json",
+  "page": "Panel_PageOutputCache",
+  "family": 8,
+  "state": "normal",
+  "frame": [
+    80,
+    90,
+    1760,
+    900
+  ],
+  "sections": [
+    {
+      "name": "Panel_OutputCacheItems",
+      "rect": [
+        144,
+        320,
+        400,
+        470
+      ]
+    },
+    {
+      "name": "Panel_OutputCacheBlock",
+      "rect": [
+        568,
+        244,
+        1128,
+        596
+      ]
+    }
+  ],
+  "artwork": [
+    {
+      "key": "S08-001",
+      "path": "Assets/Game/Sprites/UI/Pages/08-制造工坊/scr-08-001-recipe-card-plate-ready@560x420.png",
+      "rect": [
+        594,
+        268,
+        558,
+        280
+      ],
+      "mode": "fit",
+      "opacity": 1
+    }
+  ],
+  "source": "EffectBoards/mock-ui-08-OutputCache-normal.png",
+  "pageIndex": 3,
+  "auditId": "08-WorkshopForm-Panel_PageOutputCache",
+  "title": "输出缓存与阻塞",
+  "issues": [
+    {
+      "page": "08-WorkshopForm-Panel_PageOutputCache",
+      "code": "BUSINESS_SOURCE_NOT_CONNECTED",
+      "severity": "P1",
+      "node": "运行时数据正文",
+      "detail": "本次实际运行说明：工坊与配方域尚未接入运行路径：配方、队列与产出都没有创建者。",
+      "criteria": [
+        9,
+        11
+      ],
+      "evidence": [
+        "runtime/08-WorkshopForm-Panel_PageOutputCache-world.png",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-world.json"
+      ],
+      "review": "confirmed",
+      "scope": "business-gap",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0164",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "08-WorkshopForm-Panel_PageOutputCache",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "WorkshopForm/Panel_Frame/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-application.json",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-memory.json",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-scroll-top.json",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-state-OutputCacheDisabledState.json",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-state-OutputCacheEmptyState.json",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-state-OutputCacheErrorState.json",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-state-OutputCacheLoadingState.json",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-state-OutputCacheSuccessState.json",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-world-scroll-top.json",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0141",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0165",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "08-WorkshopForm-Panel_PageOutputCache",
+      "code": "TEXT_MASK_CLIP",
+      "severity": "P1",
+      "node": "WorkshopForm/Panel_Frame/Grp_PageHost/Panel_PageOutputCache/Panel_OutputCacheItems/List_OutputCacheItems/Viewport_OutputCacheItems/Content_OutputCacheItems/Txt_OutputCacheItemsBody",
+      "detail": "实际字符横向越出列表遮罩，右侧正文/数值被硬裁切；当前模板未提供省略或可完整阅读的布局。",
+      "evidence": [
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-application.json",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-memory.json",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-scroll-top.json",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-world-scroll-top.json",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0139",
+      "criteria": [
+        4,
+        7,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0166",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "08-WorkshopForm-Panel_PageOutputCache",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "WorkshopForm/Panel_Frame/Grp_PageHost/Panel_PageOutputCache/Txt_OutputCacheTitle ↔ WorkshopForm/Panel_Frame/Txt_FormTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-application.json",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-memory.json",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-scroll-top.json",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-state-base.json",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-state-OutputCacheDisabledState.json",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-state-OutputCacheEmptyState.json",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-state-OutputCacheErrorState.json",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-state-OutputCacheLoadingState.json",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-state-OutputCacheSuccessState.json",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-world-scroll-top.json",
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0140",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0167",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "08-WorkshopForm-Panel_PageOutputCache",
+      "code": "UNAVAILABLE_REASON_REPEATED",
+      "severity": "P2",
+      "node": "WorkshopForm/Panel_Frame/Grp_PageHost/Panel_PageOutputCache/Grp_OutputCacheDisabledState/Panel_OutputCacheDisabledMessage/Txt_OutputCacheDisabledMessage",
+      "detail": "相同不可用原因同时出现在状态条和多个信息卡中；浮动状态条压在插画/内容区域，重复文字分散焦点。",
+      "criteria": [
+        4,
+        6,
+        7,
+        8,
+        11
+      ],
+      "evidence": [
+        "geometry/08-WorkshopForm-Panel_PageOutputCache-world.json",
+        "runtime/08-WorkshopForm-Panel_PageOutputCache-world.png"
+      ],
+      "review": "confirmed",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,6,7,8,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0168",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "08-WorkshopForm-Panel_PageOutputCache",
+      "code": "WORKSHOP_ART_PRIORITY",
+      "severity": "P2",
+      "node": "制造工坊各页的台座插画",
+      "detail": "台座插画占据队列、阻塞说明或成本信息区域的大块空间，动态信息区的可读面积不足，需检查实际条目与图片共同出现时的排布。",
+      "criteria": [
+        3,
+        8,
+        11
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/08-WorkshopForm-Panel_PageOutputCache.png"
+      ],
+      "sourceId": "V0050",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 3,8,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0169",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0169"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0165",
+        "UIA-0166",
+        "UIA-0167",
+        "UIA-0168"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0165"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0165",
+        "UIA-0168"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0165",
+        "UIA-0166",
+        "UIA-0167",
+        "UIA-0168"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0168",
+        "UIA-0169"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0164",
+        "UIA-0165"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0164",
+        "UIA-0165",
+        "UIA-0166",
+        "UIA-0168",
+        "UIA-0169"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_OutputCacheDisabledState"
+      ],
+      "screenshot": "runtime/08-WorkshopForm-Panel_PageOutputCache-application.png",
+      "geometry": "geometry/08-WorkshopForm-Panel_PageOutputCache-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_OutputCacheDisabledState"
+      ],
+      "screenshot": "runtime/08-WorkshopForm-Panel_PageOutputCache-memory.png",
+      "geometry": "geometry/08-WorkshopForm-Panel_PageOutputCache-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_OutputCacheDisabledState"
+      ],
+      "screenshot": "runtime/08-WorkshopForm-Panel_PageOutputCache-world.png",
+      "geometry": "geometry/08-WorkshopForm-Panel_PageOutputCache-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_OutputCacheLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/08-WorkshopForm-Panel_PageOutputCache-OutputCacheLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_OutputCacheEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/08-WorkshopForm-Panel_PageOutputCache-OutputCacheEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_OutputCacheErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/08-WorkshopForm-Panel_PageOutputCache-OutputCacheErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_OutputCacheSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/08-WorkshopForm-Panel_PageOutputCache-OutputCacheSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_OutputCacheDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "application",
+        "memory",
+        "world"
+      ],
+      "screenshot": "state-layout/08-WorkshopForm-Panel_PageOutputCache-OutputCacheDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "normal",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-08-OutputCache-normal.png",
+      "artKeys": [
+        "S08-001",
+        "S08-003",
+        "S08-006"
+      ]
+    },
+    {
+      "state": "near-full",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-08-OutputCache-near-full.png",
+      "artKeys": [
+        "S08-001",
+        "S08-003",
+        "S08-006",
+        "S08-007"
+      ]
+    },
+    {
+      "state": "full",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-08-OutputCache-full.png",
+      "artKeys": [
+        "S08-001",
+        "S08-003",
+        "S08-005",
+        "S08-006",
+        "S08-008"
+      ]
+    }
+  ]
+}

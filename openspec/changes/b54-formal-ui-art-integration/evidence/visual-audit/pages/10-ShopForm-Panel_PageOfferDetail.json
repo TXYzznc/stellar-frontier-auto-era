@@ -1,0 +1,432 @@
+{
+  "form": "ShopForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/ShopForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/ShopForm.contract.json",
+  "page": "Panel_PageOfferDetail",
+  "family": 10,
+  "state": "normal",
+  "frame": [
+    120,
+    90,
+    1680,
+    900
+  ],
+  "sections": [
+    {
+      "name": "Panel_OfferDetailContents",
+      "rect": [
+        184,
+        320,
+        970,
+        514
+      ]
+    },
+    {
+      "name": "Panel_OfferDetailTerms",
+      "rect": [
+        1184,
+        320,
+        552,
+        514
+      ]
+    }
+  ],
+  "artwork": [
+    {
+      "key": "S10-001",
+      "path": "Assets/Game/Sprites/UI/Pages/10-商店与建造/scr-10-001-goods-pack-normal@640x480.png",
+      "rect": [
+        324,
+        342,
+        690,
+        416
+      ],
+      "mode": "fit",
+      "opacity": 1
+    }
+  ],
+  "source": "EffectBoards/mock-ui-10-OfferDetail-normal.png",
+  "pageIndex": 2,
+  "auditId": "10-ShopForm-Panel_PageOfferDetail",
+  "title": "商品与礼包详情",
+  "issues": [
+    {
+      "page": "10-ShopForm-Panel_PageOfferDetail",
+      "code": "BUSINESS_SOURCE_NOT_CONNECTED",
+      "severity": "P1",
+      "node": "运行时数据正文",
+      "detail": "本次实际运行说明：交易域尚未接入运行路径：报价与结算服务都还没有创建者。",
+      "criteria": [
+        9,
+        11
+      ],
+      "evidence": [
+        "runtime/10-ShopForm-Panel_PageOfferDetail-world.png",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-world.json"
+      ],
+      "review": "confirmed",
+      "scope": "business-gap",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0235",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "10-ShopForm-Panel_PageOfferDetail",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "ShopForm/Panel_Frame/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/10-ShopForm-Panel_PageOfferDetail-application.json",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-memory.json",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-scroll-top.json",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-state-OfferDetailDisabledState.json",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-state-OfferDetailEmptyState.json",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-state-OfferDetailErrorState.json",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-state-OfferDetailLoadingState.json",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-state-OfferDetailSuccessState.json",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-world-scroll-top.json",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0190",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0236",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "10-ShopForm-Panel_PageOfferDetail",
+      "code": "TEXT_MASK_CLIP",
+      "severity": "P1",
+      "node": "ShopForm/Panel_Frame/Grp_PageHost/Panel_PageOfferDetail/Panel_OfferDetailTerms/List_OfferDetailTerms/Viewport_OfferDetailTerms/Content_OfferDetailTerms/Txt_OfferDetailTermsBody",
+      "detail": "实际字符横向越出列表遮罩，右侧正文/数值被硬裁切；当前模板未提供省略或可完整阅读的布局。",
+      "evidence": [
+        "geometry/10-ShopForm-Panel_PageOfferDetail-application.json",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-memory.json",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-scroll-top.json",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-world-scroll-top.json",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0188",
+      "criteria": [
+        4,
+        7,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0237",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "10-ShopForm-Panel_PageOfferDetail",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "ShopForm/Panel_Frame/Grp_PageHost/Panel_PageOfferDetail/Txt_OfferDetailTitle ↔ ShopForm/Panel_Frame/Txt_FormTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/10-ShopForm-Panel_PageOfferDetail-application.json",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-memory.json",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-scroll-top.json",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-state-base.json",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-state-OfferDetailDisabledState.json",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-state-OfferDetailEmptyState.json",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-state-OfferDetailErrorState.json",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-state-OfferDetailLoadingState.json",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-state-OfferDetailSuccessState.json",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-world-scroll-top.json",
+        "geometry/10-ShopForm-Panel_PageOfferDetail-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0189",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0238",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "10-ShopForm-Panel_PageOfferDetail",
+      "code": "SHOP_CRATE_PRIORITY",
+      "severity": "P2",
+      "node": "商店左侧礼包插画",
+      "detail": "礼包插画成为购买目录、出售资源和详情页的主要视觉内容，实际条目及数量信息的区域被压缩，且出售资源也被同一礼包图代表。",
+      "criteria": [
+        3,
+        8,
+        9,
+        11
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/10-ShopForm-Panel_PageOfferDetail.png"
+      ],
+      "sourceId": "V0054",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 3,8,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0239",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "10-ShopForm-Panel_PageOfferDetail",
+      "code": "UNAVAILABLE_REASON_REPEATED",
+      "severity": "P2",
+      "node": "ShopForm/Panel_Frame/Grp_PageHost/Panel_PageOfferDetail/Grp_OfferDetailDisabledState/Panel_OfferDetailDisabledMessage/Txt_OfferDetailDisabledMessage",
+      "detail": "相同不可用原因同时出现在状态条和多个信息卡中；浮动状态条压在插画/内容区域，重复文字分散焦点。",
+      "criteria": [
+        4,
+        6,
+        7,
+        8,
+        11
+      ],
+      "evidence": [
+        "geometry/10-ShopForm-Panel_PageOfferDetail-world.json",
+        "runtime/10-ShopForm-Panel_PageOfferDetail-world.png"
+      ],
+      "review": "confirmed",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,6,7,8,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0240",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0239"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0236",
+        "UIA-0237",
+        "UIA-0238",
+        "UIA-0240"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0236"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0236",
+        "UIA-0240"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0236",
+        "UIA-0237",
+        "UIA-0238",
+        "UIA-0240"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0239",
+        "UIA-0240"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0235",
+        "UIA-0236",
+        "UIA-0239"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0235",
+        "UIA-0236",
+        "UIA-0237",
+        "UIA-0239",
+        "UIA-0240"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_OfferDetailDisabledState"
+      ],
+      "screenshot": "runtime/10-ShopForm-Panel_PageOfferDetail-application.png",
+      "geometry": "geometry/10-ShopForm-Panel_PageOfferDetail-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_OfferDetailDisabledState"
+      ],
+      "screenshot": "runtime/10-ShopForm-Panel_PageOfferDetail-memory.png",
+      "geometry": "geometry/10-ShopForm-Panel_PageOfferDetail-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_OfferDetailDisabledState"
+      ],
+      "screenshot": "runtime/10-ShopForm-Panel_PageOfferDetail-world.png",
+      "geometry": "geometry/10-ShopForm-Panel_PageOfferDetail-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_OfferDetailLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/10-ShopForm-Panel_PageOfferDetail-OfferDetailLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_OfferDetailEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/10-ShopForm-Panel_PageOfferDetail-OfferDetailEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_OfferDetailErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/10-ShopForm-Panel_PageOfferDetail-OfferDetailErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_OfferDetailSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/10-ShopForm-Panel_PageOfferDetail-OfferDetailSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_OfferDetailDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "application",
+        "memory",
+        "world"
+      ],
+      "screenshot": "state-layout/10-ShopForm-Panel_PageOfferDetail-OfferDetailDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "normal",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-10-OfferDetail-normal.png",
+      "artKeys": [
+        "S10-009",
+        "S10-001"
+      ]
+    },
+    {
+      "state": "cost-up",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-10-OfferDetail-cost-up.png",
+      "artKeys": [
+        "S10-009",
+        "S10-001",
+        "S10-005"
+      ]
+    },
+    {
+      "state": "cost-down",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-10-OfferDetail-cost-down.png",
+      "artKeys": [
+        "S10-009",
+        "S10-001",
+        "S10-006"
+      ]
+    }
+  ]
+}

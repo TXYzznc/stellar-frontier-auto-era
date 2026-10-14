@@ -1,0 +1,791 @@
+{
+  "form": "MachineLibraryForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/MachineLibraryForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/MachineLibraryForm.contract.json",
+  "page": "Panel_PageMachinePreparation",
+  "family": 5,
+  "state": "normal",
+  "frame": [
+    1440,
+    124,
+    456,
+    832
+  ],
+  "sections": [
+    {
+      "name": "Panel_MachinePreparationCarrier",
+      "rect": [
+        1472,
+        292,
+        392,
+        182
+      ]
+    },
+    {
+      "name": "Panel_MachinePreparationAssembly",
+      "rect": [
+        1472,
+        492,
+        392,
+        182
+      ]
+    },
+    {
+      "name": "Panel_MachinePreparationReadiness",
+      "rect": [
+        1472,
+        690,
+        392,
+        100
+      ]
+    },
+    {
+      "name": "Panel_MachinePreparationDisplay",
+      "rect": [
+        1472,
+        804,
+        392,
+        74
+      ]
+    }
+  ],
+  "artwork": [
+    {
+      "key": "S05-018",
+      "path": "Assets/Game/Sprites/UI/Pages/05-机器管理/scr-05-018-preparation-layout@560x420.png",
+      "rect": [
+        1470,
+        290,
+        396,
+        288
+      ],
+      "mode": "fit",
+      "opacity": 1
+    },
+    {
+      "key": "S05-011",
+      "path": "Assets/Game/Sprites/UI/Pages/05-机器管理/scr-05-011-carrier-thumbnail-wheeled@640x480.png",
+      "rect": [
+        1500,
+        330,
+        336,
+        226
+      ],
+      "mode": "fit",
+      "opacity": 1
+    }
+  ],
+  "source": "EffectBoards/mock-ui-05-MachinePreparation-normal.png",
+  "pageIndex": 0,
+  "auditId": "05-MachineLibraryForm-Panel_PageMachinePreparation",
+  "title": "机器整备",
+  "issues": [
+    {
+      "page": "05-MachineLibraryForm-Panel_PageMachinePreparation",
+      "code": "PREPARATION_OVERFLOW",
+      "severity": "P1",
+      "node": "MachinePreparation 第四信息卡及操作区",
+      "detail": "底部“设备展示”卡伸出侧栏主框，操作按钮压在部署说明卡和框底之间。",
+      "criteria": [
+        2,
+        4,
+        6,
+        11
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/05-MachineLibraryForm-Panel_PageMachinePreparation.png"
+      ],
+      "sourceId": "V0047",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 2,4,6,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0094",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "05-MachineLibraryForm-Panel_PageMachinePreparation",
+      "code": "SAFE_MARGIN_TEXT",
+      "severity": "P1",
+      "node": "MachineLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageMachinePreparation/Panel_MachinePreparationAssembly/List_MachinePreparationAssembly/Viewport_MachinePreparationAssembly/Content_MachinePreparationAssembly/Txt_MachinePreparationAssemblyBody",
+      "detail": "文字实际轮廓进入 24px 外边距",
+      "evidence": [
+        "geometry/machine-preparation-selected.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0360",
+      "criteria": [
+        4,
+        6,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,6,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0095",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "05-MachineLibraryForm-Panel_PageMachinePreparation",
+      "code": "SAFE_MARGIN_TEXT",
+      "severity": "P1",
+      "node": "MachineLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageMachinePreparation/Panel_MachinePreparationDisplay/Txt_MachinePreparationDisplayCaption",
+      "detail": "文字实际轮廓进入 24px 外边距",
+      "evidence": [
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-application.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-memory.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-scroll-bottom.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-scroll-top.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-base.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationDisabledState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationEmptyState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationErrorState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationLoadingState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationSuccessState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world-scroll-bottom.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world-scroll-top.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world.json",
+        "geometry/machine-preparation-selected.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0077",
+      "criteria": [
+        4,
+        6,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,6,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0096",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "05-MachineLibraryForm-Panel_PageMachinePreparation",
+      "code": "SCREEN_OVERFLOW",
+      "severity": "P1",
+      "node": "MachineLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageMachinePreparation/Grp_MachinePreparationDisabledState/Panel_MachinePreparationDisabledMessage",
+      "detail": "节点矩形超出 1920×1080 画布",
+      "evidence": [
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-application.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationDisabledState.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0075",
+      "criteria": [
+        2,
+        4,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 2,4,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0097",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "05-MachineLibraryForm-Panel_PageMachinePreparation",
+      "code": "SCREEN_OVERFLOW",
+      "severity": "P1",
+      "node": "MachineLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageMachinePreparation/Grp_MachinePreparationEmptyState/Panel_MachinePreparationEmptyMessage",
+      "detail": "节点矩形超出 1920×1080 画布",
+      "evidence": [
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-application.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-memory.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-scroll-bottom.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-scroll-top.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationEmptyState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world-scroll-bottom.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world-scroll-top.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0074",
+      "criteria": [
+        2,
+        4,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 2,4,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0098",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "05-MachineLibraryForm-Panel_PageMachinePreparation",
+      "code": "SCREEN_OVERFLOW",
+      "severity": "P1",
+      "node": "MachineLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageMachinePreparation/Grp_MachinePreparationErrorState/Panel_MachinePreparationErrorMessage",
+      "detail": "节点矩形超出 1920×1080 画布",
+      "evidence": [
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationErrorState.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0087",
+      "criteria": [
+        2,
+        4,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 2,4,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0099",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "05-MachineLibraryForm-Panel_PageMachinePreparation",
+      "code": "SCREEN_OVERFLOW",
+      "severity": "P1",
+      "node": "MachineLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageMachinePreparation/Grp_MachinePreparationLoadingState/Panel_MachinePreparationLoadingMessage",
+      "detail": "节点矩形超出 1920×1080 画布",
+      "evidence": [
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationLoadingState.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0088",
+      "criteria": [
+        2,
+        4,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 2,4,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0100",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "05-MachineLibraryForm-Panel_PageMachinePreparation",
+      "code": "SCREEN_OVERFLOW",
+      "severity": "P1",
+      "node": "MachineLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageMachinePreparation/Grp_MachinePreparationSuccessState/Panel_MachinePreparationSuccessMessage",
+      "detail": "节点矩形超出 1920×1080 画布",
+      "evidence": [
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationSuccessState.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0089",
+      "criteria": [
+        2,
+        4,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 2,4,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0101",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "05-MachineLibraryForm-Panel_PageMachinePreparation",
+      "code": "SCREEN_OVERFLOW",
+      "severity": "P1",
+      "node": "MachineLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageMachinePreparation/Panel_MachinePreparationDisplay/Grp_MachinePreparationDisplayVisual/Img_MachinePreparationDisplayPlaceholder",
+      "detail": "节点矩形超出 1920×1080 画布",
+      "evidence": [
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-application.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-memory.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-scroll-bottom.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-scroll-top.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-base.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationDisabledState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationEmptyState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationErrorState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationLoadingState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationSuccessState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world-scroll-bottom.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world-scroll-top.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world.json",
+        "geometry/machine-preparation-selected.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0076",
+      "criteria": [
+        2,
+        4,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 2,4,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0102",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "05-MachineLibraryForm-Panel_PageMachinePreparation",
+      "code": "SCREEN_OVERFLOW",
+      "severity": "P1",
+      "node": "MachineLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageMachinePreparation/Panel_MachinePreparationDisplay/Txt_MachinePreparationDisplayCaption",
+      "detail": "节点矩形超出 1920×1080 画布",
+      "evidence": [
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-application.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-memory.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-scroll-bottom.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-scroll-top.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-base.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationDisabledState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationEmptyState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationErrorState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationLoadingState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationSuccessState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world-scroll-bottom.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world-scroll-top.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world.json",
+        "geometry/machine-preparation-selected.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0078",
+      "criteria": [
+        2,
+        4,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 2,4,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0103",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "05-MachineLibraryForm-Panel_PageMachinePreparation",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "MachineLibraryForm/Panel_Frame/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-application.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-memory.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-scroll-bottom.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-scroll-top.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationDisabledState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationEmptyState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationErrorState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationLoadingState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationSuccessState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world-scroll-bottom.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world-scroll-top.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0083",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0104",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "05-MachineLibraryForm-Panel_PageMachinePreparation",
+      "code": "TEXT_MASK_CLIP",
+      "severity": "P1",
+      "node": "MachineLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageMachinePreparation/Panel_MachinePreparationAssembly/List_MachinePreparationAssembly/Viewport_MachinePreparationAssembly/Content_MachinePreparationAssembly/Txt_MachinePreparationAssemblyBody",
+      "detail": "实际字符横向越出列表遮罩，右侧正文/数值被硬裁切；当前模板未提供省略或可完整阅读的布局。",
+      "evidence": [
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-memory.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-scroll-bottom.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-scroll-top.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world-scroll-bottom.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world-scroll-top.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world.json",
+        "geometry/machine-preparation-selected.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0084",
+      "criteria": [
+        4,
+        7,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0105",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "05-MachineLibraryForm-Panel_PageMachinePreparation",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "MachineLibraryForm/Panel_Frame/Btn_FormBack/Txt_FormBackLabel ↔ MachineLibraryForm/Panel_Frame/Txt_FormTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-application.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-memory.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-scroll-bottom.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-scroll-top.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-base.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationDisabledState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationEmptyState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationErrorState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationLoadingState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationSuccessState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world-scroll-bottom.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world-scroll-top.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world.json",
+        "geometry/machine-preparation-selected.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0080",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0106",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "05-MachineLibraryForm-Panel_PageMachinePreparation",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "MachineLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageMachinePreparation/Grp_MachinePreparationActions/Btn_MachinePreparationInstall/Txt_MachinePreparationInstallLabel ↔ MachineLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageMachinePreparation/Panel_MachinePreparationReadiness/List_MachinePreparationReadiness/Viewport_MachinePreparationReadiness/Content_MachinePreparationReadiness/Txt_MachinePreparationReadinessBody",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-application.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-memory.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-scroll-bottom.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-scroll-top.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-base.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationDisabledState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationEmptyState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationErrorState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationLoadingState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationSuccessState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world-scroll-bottom.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world-scroll-top.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world.json",
+        "geometry/machine-preparation-selected.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0082",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0107",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "05-MachineLibraryForm-Panel_PageMachinePreparation",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "MachineLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageMachinePreparation/Grp_MachinePreparationActions/Btn_MachinePreparationRename/Txt_MachinePreparationRenameLabel ↔ MachineLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageMachinePreparation/Panel_MachinePreparationReadiness/List_MachinePreparationReadiness/Viewport_MachinePreparationReadiness/Content_MachinePreparationReadiness/Txt_MachinePreparationReadinessBody",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-application.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-memory.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-scroll-bottom.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-scroll-top.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-base.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationDisabledState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationEmptyState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationErrorState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationLoadingState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationSuccessState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world-scroll-bottom.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world-scroll-top.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world.json",
+        "geometry/machine-preparation-selected.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0081",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0108",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "05-MachineLibraryForm-Panel_PageMachinePreparation",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "MachineLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageMachinePreparation/Txt_MachinePreparationTitle ↔ MachineLibraryForm/Panel_Frame/Txt_FormTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-application.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-memory.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-scroll-bottom.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-scroll-top.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-base.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationDisabledState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationEmptyState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationErrorState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationLoadingState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-state-MachinePreparationSuccessState.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world-scroll-bottom.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world-scroll-top.json",
+        "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world.json",
+        "geometry/machine-preparation-selected.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0079",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0109",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0094",
+        "UIA-0097",
+        "UIA-0098",
+        "UIA-0099",
+        "UIA-0100",
+        "UIA-0101",
+        "UIA-0102",
+        "UIA-0103"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0094",
+        "UIA-0095",
+        "UIA-0096",
+        "UIA-0097",
+        "UIA-0098",
+        "UIA-0099",
+        "UIA-0100",
+        "UIA-0101",
+        "UIA-0102",
+        "UIA-0103",
+        "UIA-0104",
+        "UIA-0105",
+        "UIA-0106",
+        "UIA-0107",
+        "UIA-0108",
+        "UIA-0109"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0104"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0094",
+        "UIA-0095",
+        "UIA-0096",
+        "UIA-0104"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0095",
+        "UIA-0096",
+        "UIA-0104",
+        "UIA-0105",
+        "UIA-0106",
+        "UIA-0107",
+        "UIA-0108",
+        "UIA-0109"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0104"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0094",
+        "UIA-0097",
+        "UIA-0098",
+        "UIA-0099",
+        "UIA-0100",
+        "UIA-0101",
+        "UIA-0102",
+        "UIA-0103",
+        "UIA-0104",
+        "UIA-0105"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_MachinePreparationDisabledState",
+        "Grp_MachinePreparationEmptyState"
+      ],
+      "screenshot": "runtime/05-MachineLibraryForm-Panel_PageMachinePreparation-application.png",
+      "geometry": "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_MachinePreparationEmptyState"
+      ],
+      "screenshot": "runtime/05-MachineLibraryForm-Panel_PageMachinePreparation-memory.png",
+      "geometry": "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_MachinePreparationEmptyState"
+      ],
+      "screenshot": "runtime/05-MachineLibraryForm-Panel_PageMachinePreparation-world.png",
+      "geometry": "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world.json"
+    },
+    {
+      "context": "memory/selected-preparation",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/machine-preparation-selected.png",
+      "geometry": "geometry/machine-preparation-selected.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_MachinePreparationLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/05-MachineLibraryForm-Panel_PageMachinePreparation-MachinePreparationLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_MachinePreparationEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "application",
+        "memory",
+        "world"
+      ],
+      "screenshot": "state-layout/05-MachineLibraryForm-Panel_PageMachinePreparation-MachinePreparationEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_MachinePreparationErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/05-MachineLibraryForm-Panel_PageMachinePreparation-MachinePreparationErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_MachinePreparationSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/05-MachineLibraryForm-Panel_PageMachinePreparation-MachinePreparationSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_MachinePreparationDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "application"
+      ],
+      "screenshot": "state-layout/05-MachineLibraryForm-Panel_PageMachinePreparation-MachinePreparationDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "normal",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-05-MachinePreparation-normal.png",
+      "artKeys": [
+        "S01-003",
+        "S01-001",
+        "S05-011",
+        "S05-018",
+        "S05-011"
+      ]
+    }
+  ]
+}

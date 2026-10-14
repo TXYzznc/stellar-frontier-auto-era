@@ -1,0 +1,287 @@
+{
+  "form": "BaseCommandHubForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/BaseCommandHubForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/BaseCommandHubForm.contract.json",
+  "page": "Panel_PageRemoteMachine",
+  "family": 4,
+  "state": "normal",
+  "frame": [
+    100,
+    90,
+    1720,
+    900
+  ],
+  "sections": [
+    {
+      "name": "Panel_RemoteMachineOverview",
+      "rect": [
+        418,
+        240,
+        394,
+        566
+      ]
+    },
+    {
+      "name": "Panel_RemoteMachineHardware",
+      "rect": [
+        834,
+        246,
+        922,
+        274
+      ]
+    },
+    {
+      "name": "Panel_RemoteMachineAlgorithms",
+      "rect": [
+        834,
+        542,
+        922,
+        264
+      ]
+    }
+  ],
+  "artwork": [],
+  "source": "EffectBoards/mock-ui-04-RemoteMachine-normal.png",
+  "pageIndex": 5,
+  "auditId": "04-BaseCommandHubForm-Panel_PageRemoteMachine",
+  "title": "中枢机器详情",
+  "issues": [
+    {
+      "page": "04-BaseCommandHubForm-Panel_PageRemoteMachine",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "BaseCommandHubForm/Panel_Frame/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/04-BaseCommandHubForm-Panel_PageRemoteMachine-state-RemoteMachineDisabledState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageRemoteMachine-state-RemoteMachineEmptyState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageRemoteMachine-state-RemoteMachineErrorState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageRemoteMachine-state-RemoteMachineLoadingState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageRemoteMachine-state-RemoteMachineSuccessState.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0061",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0079",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "04-BaseCommandHubForm-Panel_PageRemoteMachine",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "BaseCommandHubForm/Panel_Frame/Grp_PageHost/Panel_PageRemoteMachine/Txt_RemoteMachineTitle ↔ BaseCommandHubForm/Panel_Frame/Txt_FormTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/04-BaseCommandHubForm-Panel_PageRemoteMachine-application.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageRemoteMachine-memory.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageRemoteMachine-scroll-top.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageRemoteMachine-state-base.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageRemoteMachine-state-RemoteMachineDisabledState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageRemoteMachine-state-RemoteMachineEmptyState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageRemoteMachine-state-RemoteMachineErrorState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageRemoteMachine-state-RemoteMachineLoadingState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageRemoteMachine-state-RemoteMachineSuccessState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageRemoteMachine-world-scroll-top.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageRemoteMachine-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0060",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0080",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0079",
+        "UIA-0080"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0079"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0079"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0079",
+        "UIA-0080"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0079"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0079"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/04-BaseCommandHubForm-Panel_PageRemoteMachine-application.png",
+      "geometry": "geometry/04-BaseCommandHubForm-Panel_PageRemoteMachine-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/04-BaseCommandHubForm-Panel_PageRemoteMachine-memory.png",
+      "geometry": "geometry/04-BaseCommandHubForm-Panel_PageRemoteMachine-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/04-BaseCommandHubForm-Panel_PageRemoteMachine-world.png",
+      "geometry": "geometry/04-BaseCommandHubForm-Panel_PageRemoteMachine-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_RemoteMachineLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/04-BaseCommandHubForm-Panel_PageRemoteMachine-RemoteMachineLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_RemoteMachineEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/04-BaseCommandHubForm-Panel_PageRemoteMachine-RemoteMachineEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_RemoteMachineErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/04-BaseCommandHubForm-Panel_PageRemoteMachine-RemoteMachineErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_RemoteMachineSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/04-BaseCommandHubForm-Panel_PageRemoteMachine-RemoteMachineSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_RemoteMachineDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/04-BaseCommandHubForm-Panel_PageRemoteMachine-RemoteMachineDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "normal",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-04-RemoteMachine-normal.png",
+      "artKeys": [
+        "S04-016",
+        "S04-016",
+        "S04-016",
+        "S04-016"
+      ]
+    }
+  ]
+}

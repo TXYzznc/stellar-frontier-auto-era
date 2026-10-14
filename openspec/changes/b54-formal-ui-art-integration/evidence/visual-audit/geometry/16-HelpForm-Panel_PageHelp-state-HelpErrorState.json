@@ -1,0 +1,806 @@
+{
+  "label": "prefab-state-layout/HelpErrorState",
+  "screen": [
+    1920,
+    1080
+  ],
+  "nodes": [
+    {
+      "path": "HelpForm/Bg_InputBlocker",
+      "type": "Image",
+      "rect": [
+        0.0,
+        0.0,
+        1920.0,
+        1080.0
+      ],
+      "alpha": 0.65,
+      "raycast": true,
+      "masks": []
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Txt_FormTitle",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        222.0,
+        128.0,
+        1290.0,
+        42.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "帮助",
+      "fontSize": 28.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 28.01,
+      "localHeight": 42.0,
+      "glyphRect": [
+        223.47,
+        128.81,
+        52.73,
+        26.6
+      ]
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Grp_FormalArtwork_Help/Img_FormalSurface_Help",
+      "type": "Image",
+      "rect": [
+        124.0,
+        114.0,
+        1672.0,
+        852.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": []
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Grp_FormalArtwork_Help/Bg_FormalFrame_Help",
+      "type": "Image",
+      "rect": [
+        100.0,
+        90.0,
+        1720.0,
+        900.0
+      ],
+      "alpha": 1.0,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/01-Containers/ui-master-001-normal@512x512.png",
+      "spriteRect": [
+        0.0,
+        0.0,
+        1254.0,
+        1254.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        235.125,
+        235.125,
+        235.125,
+        235.125
+      ],
+      "minimumBorderSize": [
+        191.999985,
+        191.999985
+      ]
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Txt_HelpTitle",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        222.0,
+        130.0,
+        1360.0,
+        40.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "帮助",
+      "fontSize": 28.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 28.01,
+      "localHeight": 40.0,
+      "glyphRect": [
+        223.47,
+        130.81,
+        52.73,
+        26.6
+      ]
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Grp_HelpActions/Btn_HelpSelect",
+      "type": "Image",
+      "rect": [
+        164.0,
+        886.0,
+        525.33,
+        48.0
+      ],
+      "alpha": 1.0,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Grp_HelpActions/Btn_HelpSelect/Txt_HelpSelectLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        176.0,
+        889.0,
+        501.33,
+        42.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "选择主题",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 42.0,
+      "glyphRect": [
+        387.48,
+        900.58,
+        78.52,
+        19.0
+      ]
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Grp_HelpActions/Btn_HelpGo",
+      "type": "Image",
+      "rect": [
+        697.33,
+        886.0,
+        525.33,
+        48.0
+      ],
+      "alpha": 1.0,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Grp_HelpActions/Btn_HelpGo/Txt_HelpGoLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        709.33,
+        889.0,
+        501.33,
+        42.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "前往相关界面",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 42.0,
+      "glyphRect": [
+        900.5,
+        900.35,
+        118.37,
+        19.31
+      ]
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Grp_HelpActions/Btn_HelpRule",
+      "type": "Image",
+      "rect": [
+        1230.67,
+        886.0,
+        525.33,
+        48.0
+      ],
+      "alpha": 1.0,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Grp_HelpActions/Btn_HelpRule/Txt_HelpRuleLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        1242.67,
+        889.0,
+        501.33,
+        42.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "机制说明",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 42.0,
+      "glyphRect": [
+        1453.68,
+        900.58,
+        77.98,
+        19.07
+      ]
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Panel_HelpTopics",
+      "type": "Image",
+      "rect": [
+        418.0,
+        248.0,
+        782.0,
+        584.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/13-CardsAndSlots/ui-master-011-card-normal@512x256.png",
+      "spriteRect": [
+        5.0,
+        10.0,
+        1765.0,
+        868.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        110.312,
+        82.734,
+        110.312,
+        82.734
+      ],
+      "minimumBorderSize": [
+        63.9997025,
+        47.99978
+      ]
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Panel_HelpTopics/Img_FormalCardSurface_Panel_HelpTopics",
+      "type": "Image",
+      "rect": [
+        424.0,
+        254.0,
+        770.0,
+        572.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": []
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Panel_HelpTopics/Img_FormalHelp_Art00",
+      "type": "Image",
+      "rect": [
+        436.0,
+        296.0,
+        746.0,
+        320.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Pages/16-教学规则与知识/scr-16-001-guide-illustration@640x480.png",
+      "spriteRect": [
+        107.0,
+        60.0,
+        1240.0,
+        967.0
+      ],
+      "imageType": "Simple",
+      "preserveAspect": true,
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "minimumBorderSize": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Panel_HelpTopics/Txt_HelpTopicsHeading",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        436.0,
+        258.0,
+        746.0,
+        30.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "帮助主题",
+      "fontSize": 21.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 21.01,
+      "localHeight": 30.0,
+      "glyphRect": [
+        437.1,
+        258.61,
+        82.2,
+        19.95
+      ]
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Panel_HelpTopics/List_HelpTopics/Viewport_HelpTopics/Content_HelpTopics/Txt_HelpTopicsBody",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        436.0,
+        628.0,
+        541.0,
+        120.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [
+        {
+          "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Panel_HelpTopics/List_HelpTopics/Viewport_HelpTopics",
+          "rect": [
+            436.0,
+            628.0,
+            746.0,
+            190.0
+          ]
+        }
+      ],
+      "text": "基本操作、机器配置、算法、建造、能源、存档等已公开主题",
+      "fontSize": 22.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 47.1,
+      "localHeight": 120.0,
+      "glyphRect": [
+        436.64,
+        628.38,
+        526.72,
+        46.16
+      ]
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Panel_HelpArticle",
+      "type": "Image",
+      "rect": [
+        1228.0,
+        248.0,
+        528.0,
+        584.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/13-CardsAndSlots/ui-master-011-card-normal@512x256.png",
+      "spriteRect": [
+        5.0,
+        10.0,
+        1765.0,
+        868.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        110.312,
+        82.734,
+        110.312,
+        82.734
+      ],
+      "minimumBorderSize": [
+        63.9997025,
+        47.99978
+      ]
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Panel_HelpArticle/Img_FormalCardSurface_Panel_HelpArticle",
+      "type": "Image",
+      "rect": [
+        1234.0,
+        254.0,
+        516.0,
+        572.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": []
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Panel_HelpArticle/Txt_HelpArticleHeading",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        1246.0,
+        258.0,
+        492.0,
+        30.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "主题正文",
+      "fontSize": 21.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 21.01,
+      "localHeight": 30.0,
+      "glyphRect": [
+        1246.86,
+        258.53,
+        82.37,
+        20.03
+      ]
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Panel_HelpArticle/List_HelpArticle/Viewport_HelpArticle/Content_HelpArticle/Txt_HelpArticleBody",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        1246.0,
+        296.0,
+        883.0,
+        120.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [
+        {
+          "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Panel_HelpArticle/List_HelpArticle/Viewport_HelpArticle",
+          "rect": [
+            1246.0,
+            296.0,
+            492.0,
+            522.0
+          ]
+        }
+      ],
+      "text": "目的",
+      "fontSize": 22.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 22.01,
+      "localHeight": 120.0,
+      "glyphRect": [
+        1249.3,
+        296.81,
+        39.11,
+        20.55
+      ]
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Grp_HelpErrorState/Panel_HelpErrorMessage",
+      "type": "Image",
+      "rect": [
+        700.0,
+        484.0,
+        520.0,
+        120.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/08-MessagesAndStates/ui-master-006-error@512x160.png",
+      "spriteRect": [
+        0.0,
+        1.0,
+        2172.0,
+        723.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        169.688,
+        169.688,
+        169.688,
+        169.688
+      ],
+      "minimumBorderSize": [
+        80.00023,
+        80.00023
+      ]
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Grp_HelpErrorState/Panel_HelpErrorMessage/Txt_HelpErrorMessage",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        712.0,
+        496.0,
+        496.0,
+        96.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "发生错误",
+      "fontSize": 20.0,
+      "fontSizeMin": 0.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 96.0,
+      "glyphRect": [
+        712.66,
+        496.66,
+        78.76,
+        18.99
+      ]
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Btn_FormBack",
+      "type": "Image",
+      "rect": [
+        1532.0,
+        128.0,
+        112.0,
+        40.0
+      ],
+      "alpha": 1.0,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Btn_FormBack/Txt_FormBackLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        1544.0,
+        131.0,
+        88.0,
+        34.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "返回",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 34.0,
+      "glyphRect": [
+        1568.66,
+        138.82,
+        37.27,
+        18.68
+      ]
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Btn_FormClose",
+      "type": "Image",
+      "rect": [
+        1656.0,
+        128.0,
+        112.0,
+        40.0
+      ],
+      "alpha": 1.0,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Btn_FormClose/Txt_FormCloseLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        1668.0,
+        131.0,
+        88.0,
+        34.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "关闭",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 34.0,
+      "glyphRect": [
+        1693.28,
+        138.42,
+        37.27,
+        18.92
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Grp_HelpActions/Btn_HelpSelect",
+      "type": "Button",
+      "rect": [
+        164.0,
+        886.0,
+        525.33,
+        48.0
+      ],
+      "interactable": true,
+      "navigation": "Automatic"
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Grp_HelpActions/Btn_HelpGo",
+      "type": "Button",
+      "rect": [
+        697.33,
+        886.0,
+        525.33,
+        48.0
+      ],
+      "interactable": true,
+      "navigation": "Automatic"
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Grp_HelpActions/Btn_HelpRule",
+      "type": "Button",
+      "rect": [
+        1230.67,
+        886.0,
+        525.33,
+        48.0
+      ],
+      "interactable": true,
+      "navigation": "Automatic"
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Btn_FormBack",
+      "type": "Button",
+      "rect": [
+        1532.0,
+        128.0,
+        112.0,
+        40.0
+      ],
+      "interactable": true,
+      "navigation": "Automatic"
+    },
+    {
+      "path": "HelpForm/Panel_Frame/Btn_FormClose",
+      "type": "Button",
+      "rect": [
+        1656.0,
+        128.0,
+        112.0,
+        40.0
+      ],
+      "interactable": true,
+      "navigation": "Automatic"
+    }
+  ],
+  "activeStates": [
+    "HelpForm/Panel_Frame/Grp_PageHost/Panel_PageHelp/Grp_HelpErrorState"
+  ],
+  "focus": "",
+  "auditId": "16-HelpForm-Panel_PageHelp",
+  "businessStateVerified": false,
+  "stateGroup": "Grp_HelpErrorState"
+}

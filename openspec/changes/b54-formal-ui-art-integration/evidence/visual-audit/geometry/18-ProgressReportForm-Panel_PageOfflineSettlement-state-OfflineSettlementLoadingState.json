@@ -1,0 +1,734 @@
+{
+  "label": "prefab-state-layout/OfflineSettlementLoadingState",
+  "screen": [
+    1920,
+    1080
+  ],
+  "nodes": [
+    {
+      "path": "ProgressReportForm/Bg_InputBlocker",
+      "type": "Image",
+      "rect": [
+        0.0,
+        0.0,
+        1920.0,
+        1080.0
+      ],
+      "alpha": 0.65,
+      "raycast": true,
+      "masks": []
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Txt_FormTitle",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        222.0,
+        128.0,
+        1290.0,
+        42.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "加载",
+      "fontSize": 28.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 28.01,
+      "localHeight": 42.0,
+      "glyphRect": [
+        222.82,
+        128.7,
+        54.37,
+        26.7
+      ]
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Grp_FormalArtwork_OfflineSettlement/Img_FormalSurface_OfflineSettlement",
+      "type": "Image",
+      "rect": [
+        124.0,
+        114.0,
+        1672.0,
+        852.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": []
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Grp_FormalArtwork_OfflineSettlement/Bg_FormalFrame_OfflineSettlement",
+      "type": "Image",
+      "rect": [
+        100.0,
+        90.0,
+        1720.0,
+        900.0
+      ],
+      "alpha": 1.0,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/01-Containers/ui-master-001-normal@512x512.png",
+      "spriteRect": [
+        0.0,
+        0.0,
+        1254.0,
+        1254.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        235.125,
+        235.125,
+        235.125,
+        235.125
+      ],
+      "minimumBorderSize": [
+        191.999985,
+        191.999985
+      ]
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Grp_FormalArtwork_OfflineSettlement/Img_FormalOfflineSettlement_Art00",
+      "type": "Image",
+      "rect": [
+        208.0,
+        258.0,
+        762.0,
+        498.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Pages/18-进度结果与报告/scr-18-005-report-illustration-offline@640x480.png",
+      "spriteRect": [
+        35.0,
+        130.0,
+        1381.0,
+        831.0
+      ],
+      "imageType": "Simple",
+      "preserveAspect": true,
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "minimumBorderSize": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Txt_OfflineSettlementTitle",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        222.0,
+        130.0,
+        1360.0,
+        40.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "离线结算",
+      "fontSize": 28.0,
+      "fontSizeMin": 0.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 28.01,
+      "localHeight": 40.0,
+      "glyphRect": [
+        223.69,
+        130.49,
+        109.6,
+        27.25
+      ]
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Grp_OfflineSettlementActions/Btn_OfflineSettlementRetry",
+      "type": "Image",
+      "rect": [
+        164.0,
+        886.0,
+        792.0,
+        48.0
+      ],
+      "alpha": 1.0,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Grp_OfflineSettlementActions/Btn_OfflineSettlementRetry/Txt_OfflineSettlementRetryLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        176.0,
+        889.0,
+        768.0,
+        42.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "失败后重试",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 42.0,
+      "glyphRect": [
+        510.97,
+        900.58,
+        98.37,
+        19.07
+      ]
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Grp_OfflineSettlementActions/Btn_OfflineSettlementReturn",
+      "type": "Image",
+      "rect": [
+        964.0,
+        886.0,
+        792.0,
+        48.0
+      ],
+      "alpha": 1.0,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Grp_OfflineSettlementActions/Btn_OfflineSettlementReturn/Txt_OfflineSettlementReturnLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        976.0,
+        889.0,
+        768.0,
+        42.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "返回主菜单",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 42.0,
+      "glyphRect": [
+        1310.66,
+        900.5,
+        98.37,
+        18.99
+      ]
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Panel_OfflineSettlementStage",
+      "type": "Image",
+      "rect": [
+        164.0,
+        664.0,
+        850.0,
+        164.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/13-CardsAndSlots/ui-master-011-card-normal@512x256.png",
+      "spriteRect": [
+        5.0,
+        10.0,
+        1765.0,
+        868.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        110.312,
+        82.734,
+        110.312,
+        82.734
+      ],
+      "minimumBorderSize": [
+        63.9997025,
+        47.99978
+      ]
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Panel_OfflineSettlementStage/Img_FormalCardSurface_Panel_OfflineSettlementStage",
+      "type": "Image",
+      "rect": [
+        170.0,
+        670.0,
+        838.0,
+        152.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": []
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Panel_OfflineSettlementStage/Txt_OfflineSettlementStageHeading",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        182.0,
+        674.0,
+        814.0,
+        30.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "确定性推进",
+      "fontSize": 21.0,
+      "fontSizeMin": 0.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 21.01,
+      "localHeight": 30.0,
+      "glyphRect": [
+        182.36,
+        674.36,
+        104.03,
+        20.19
+      ]
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Panel_OfflineSettlementStage/List_OfflineSettlementStage/Viewport_OfflineSettlementStage/Content_OfflineSettlementStage/Txt_OfflineSettlementStageBody",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        182.0,
+        712.0,
+        552.0,
+        120.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [
+        {
+          "path": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Panel_OfflineSettlementStage/List_OfflineSettlementStage/Viewport_OfflineSettlementStage",
+          "rect": [
+            182.0,
+            712.0,
+            814.0,
+            102.0
+          ]
+        }
+      ],
+      "text": "离线区间",
+      "fontSize": 22.0,
+      "fontSizeMin": 0.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 22.01,
+      "localHeight": 120.0,
+      "glyphRect": [
+        183.33,
+        712.38,
+        84.91,
+        21.41
+      ]
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Panel_OfflineSettlementResume",
+      "type": "Image",
+      "rect": [
+        1042.0,
+        240.0,
+        714.0,
+        588.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/13-CardsAndSlots/ui-master-011-card-normal@512x256.png",
+      "spriteRect": [
+        5.0,
+        10.0,
+        1765.0,
+        868.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        110.312,
+        82.734,
+        110.312,
+        82.734
+      ],
+      "minimumBorderSize": [
+        63.9997025,
+        47.99978
+      ]
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Panel_OfflineSettlementResume/Img_FormalCardSurface_Panel_OfflineSettlementResume",
+      "type": "Image",
+      "rect": [
+        1048.0,
+        246.0,
+        702.0,
+        576.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": []
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Panel_OfflineSettlementResume/Txt_OfflineSettlementResumeHeading",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        1060.0,
+        250.0,
+        678.0,
+        30.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "可恢复进度",
+      "fontSize": 21.0,
+      "fontSizeMin": 0.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 21.01,
+      "localHeight": 30.0,
+      "glyphRect": [
+        1060.86,
+        250.53,
+        103.45,
+        20.03
+      ]
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Panel_OfflineSettlementResume/List_OfflineSettlementResume/Viewport_OfflineSettlementResume/Content_OfflineSettlementResume/Txt_OfflineSettlementResumeBody",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        1060.0,
+        288.0,
+        552.0,
+        120.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [
+        {
+          "path": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Panel_OfflineSettlementResume/List_OfflineSettlementResume/Viewport_OfflineSettlementResume",
+          "rect": [
+            1060.0,
+            288.0,
+            678.0,
+            526.0
+          ]
+        }
+      ],
+      "text": "最近安全批次",
+      "fontSize": 22.0,
+      "fontSizeMin": 0.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 22.01,
+      "localHeight": 120.0,
+      "glyphRect": [
+        1061.16,
+        288.38,
+        130.29,
+        21.06
+      ]
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Grp_OfflineSettlementLoadingState/Panel_OfflineSettlementLoadingMessage",
+      "type": "Image",
+      "rect": [
+        700.0,
+        484.0,
+        520.0,
+        120.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/08-MessagesAndStates/ui-master-006-loading@512x160.png",
+      "spriteRect": [
+        0.0,
+        3.0,
+        2172.0,
+        721.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        169.688,
+        169.688,
+        169.688,
+        169.688
+      ],
+      "minimumBorderSize": [
+        80.00023,
+        80.00023
+      ]
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Grp_OfflineSettlementLoadingState/Panel_OfflineSettlementLoadingMessage/Txt_OfflineSettlementLoadingMessage",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        712.0,
+        496.0,
+        496.0,
+        96.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "正在加载",
+      "fontSize": 20.0,
+      "fontSizeMin": 0.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 96.0,
+      "glyphRect": [
+        712.9,
+        496.5,
+        78.52,
+        19.07
+      ]
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Btn_FormBack",
+      "type": "Image",
+      "rect": [
+        1532.0,
+        128.0,
+        112.0,
+        40.0
+      ],
+      "alpha": 1.0,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Btn_FormBack/Txt_FormBackLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        1544.0,
+        131.0,
+        88.0,
+        34.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "返回",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 34.0,
+      "glyphRect": [
+        1568.66,
+        138.82,
+        37.27,
+        18.68
+      ]
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Btn_FormClose",
+      "type": "Image",
+      "rect": [
+        1656.0,
+        128.0,
+        112.0,
+        40.0
+      ],
+      "alpha": 1.0,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Btn_FormClose/Txt_FormCloseLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        1668.0,
+        131.0,
+        88.0,
+        34.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "关闭",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 34.0,
+      "glyphRect": [
+        1693.28,
+        138.42,
+        37.27,
+        18.92
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "path": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Grp_OfflineSettlementActions/Btn_OfflineSettlementRetry",
+      "type": "Button",
+      "rect": [
+        164.0,
+        886.0,
+        792.0,
+        48.0
+      ],
+      "interactable": true,
+      "navigation": "Automatic"
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Grp_OfflineSettlementActions/Btn_OfflineSettlementReturn",
+      "type": "Button",
+      "rect": [
+        964.0,
+        886.0,
+        792.0,
+        48.0
+      ],
+      "interactable": true,
+      "navigation": "Automatic"
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Btn_FormBack",
+      "type": "Button",
+      "rect": [
+        1532.0,
+        128.0,
+        112.0,
+        40.0
+      ],
+      "interactable": true,
+      "navigation": "Automatic"
+    },
+    {
+      "path": "ProgressReportForm/Panel_Frame/Btn_FormClose",
+      "type": "Button",
+      "rect": [
+        1656.0,
+        128.0,
+        112.0,
+        40.0
+      ],
+      "interactable": true,
+      "navigation": "Automatic"
+    }
+  ],
+  "activeStates": [
+    "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Grp_OfflineSettlementLoadingState"
+  ],
+  "focus": "",
+  "auditId": "18-ProgressReportForm-Panel_PageOfflineSettlement",
+  "businessStateVerified": false,
+  "stateGroup": "Grp_OfflineSettlementLoadingState"
+}

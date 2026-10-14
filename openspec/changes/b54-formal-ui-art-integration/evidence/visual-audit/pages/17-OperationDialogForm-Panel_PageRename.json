@@ -1,0 +1,326 @@
+{
+  "form": "OperationDialogForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/OperationDialogForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/OperationDialogForm.contract.json",
+  "page": "Panel_PageRename",
+  "family": 17,
+  "state": "neutral",
+  "frame": [
+    200,
+    120,
+    1520,
+    840
+  ],
+  "sections": [
+    {
+      "name": "Panel_RenameInput",
+      "rect": [
+        488,
+        478,
+        1080,
+        266
+      ]
+    }
+  ],
+  "artwork": [],
+  "source": "EffectBoards/mock-ui-17-Rename-neutral.png",
+  "pageIndex": 0,
+  "auditId": "17-OperationDialogForm-Panel_PageRename",
+  "title": "重命名",
+  "issues": [
+    {
+      "page": "17-OperationDialogForm-Panel_PageRename",
+      "code": "DIALOG_BUSINESS_PATH_MISSING",
+      "severity": "P1",
+      "node": "OperationDialogForm 非硬件确认页",
+      "detail": "原生实现仅接入HardwareConfirm；本页没有对应请求消费、运行数据渲染和底部动作绑定。当前页面是声明布局，不能验证其业务成功/失败、确认/取消转换。",
+      "criteria": [
+        9,
+        10,
+        11
+      ],
+      "evidence": [
+        "runtime/17-OperationDialogForm-Panel_PageRename-world.png",
+        "geometry/17-OperationDialogForm-Panel_PageRename-world.json"
+      ],
+      "review": "confirmed",
+      "scope": "business-gap",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "缺少接入时明确不可用；真正业务流程需在批准范围内单独接入。",
+      "id": "UIA-0423",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "17-OperationDialogForm-Panel_PageRename",
+      "code": "RENAME_INPUT_AT_EDGE",
+      "severity": "P1",
+      "node": "Rename 新名称输入框",
+      "detail": "输入框贴在名称卡的下沿并突出卡片边缘，当前名称、输入标签和输入区间距不足。",
+      "criteria": [
+        4,
+        6,
+        10
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/17-OperationDialogForm-Panel_PageRename.png"
+      ],
+      "sourceId": "V0078",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,6,10：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0424",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "17-OperationDialogForm-Panel_PageRename",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "OperationDialogForm/Panel_Frame/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/17-OperationDialogForm-Panel_PageRename-state-RenameDisabledState.json",
+        "geometry/17-OperationDialogForm-Panel_PageRename-state-RenameEmptyState.json",
+        "geometry/17-OperationDialogForm-Panel_PageRename-state-RenameErrorState.json",
+        "geometry/17-OperationDialogForm-Panel_PageRename-state-RenameLoadingState.json",
+        "geometry/17-OperationDialogForm-Panel_PageRename-state-RenameSuccessState.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0312",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0425",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "17-OperationDialogForm-Panel_PageRename",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "OperationDialogForm/Panel_Frame/Grp_PageHost/Panel_PageRename/Txt_RenameTitle ↔ OperationDialogForm/Panel_Frame/Txt_FormTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/17-OperationDialogForm-Panel_PageRename-application.json",
+        "geometry/17-OperationDialogForm-Panel_PageRename-memory.json",
+        "geometry/17-OperationDialogForm-Panel_PageRename-scroll-bottom.json",
+        "geometry/17-OperationDialogForm-Panel_PageRename-scroll-top.json",
+        "geometry/17-OperationDialogForm-Panel_PageRename-state-base.json",
+        "geometry/17-OperationDialogForm-Panel_PageRename-state-RenameDisabledState.json",
+        "geometry/17-OperationDialogForm-Panel_PageRename-state-RenameEmptyState.json",
+        "geometry/17-OperationDialogForm-Panel_PageRename-state-RenameErrorState.json",
+        "geometry/17-OperationDialogForm-Panel_PageRename-state-RenameLoadingState.json",
+        "geometry/17-OperationDialogForm-Panel_PageRename-state-RenameSuccessState.json",
+        "geometry/17-OperationDialogForm-Panel_PageRename-world-scroll-bottom.json",
+        "geometry/17-OperationDialogForm-Panel_PageRename-world-scroll-top.json",
+        "geometry/17-OperationDialogForm-Panel_PageRename-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0310",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0426",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0424",
+        "UIA-0425",
+        "UIA-0426"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0425"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0424",
+        "UIA-0425"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0425",
+        "UIA-0426"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0423",
+        "UIA-0425"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0423",
+        "UIA-0424"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0423",
+        "UIA-0425"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/17-OperationDialogForm-Panel_PageRename-application.png",
+      "geometry": "geometry/17-OperationDialogForm-Panel_PageRename-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/17-OperationDialogForm-Panel_PageRename-memory.png",
+      "geometry": "geometry/17-OperationDialogForm-Panel_PageRename-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/17-OperationDialogForm-Panel_PageRename-world.png",
+      "geometry": "geometry/17-OperationDialogForm-Panel_PageRename-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_RenameLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/17-OperationDialogForm-Panel_PageRename-RenameLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_RenameEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/17-OperationDialogForm-Panel_PageRename-RenameEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_RenameErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/17-OperationDialogForm-Panel_PageRename-RenameErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_RenameSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/17-OperationDialogForm-Panel_PageRename-RenameSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_RenameDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/17-OperationDialogForm-Panel_PageRename-RenameDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "neutral",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-17-Rename-neutral.png",
+      "artKeys": [
+        "S17-001"
+      ]
+    },
+    {
+      "state": "invalid",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-17-Rename-invalid.png",
+      "artKeys": [
+        "S17-003"
+      ]
+    }
+  ]
+}

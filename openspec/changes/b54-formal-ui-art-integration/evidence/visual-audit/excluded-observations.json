@@ -1,0 +1,1176 @@
+[
+  {
+    "page": "01-SaveRecoveryForm-Panel_PageRecovery",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "SaveRecoveryForm/Panel_Frame/Grp_PageHost/Panel_PageRecovery/Panel_RecoveryCandidate/List_RecoveryCandidate/Viewport_RecoveryCandidate/Content_RecoveryCandidate/Txt_RecoveryCandidateBody",
+    "detail": "字符边界越出遮罩 Viewport_RecoveryCandidate；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/01-SaveRecoveryForm-Panel_PageRecovery-application.json",
+      "geometry/01-SaveRecoveryForm-Panel_PageRecovery-memory.json",
+      "geometry/01-SaveRecoveryForm-Panel_PageRecovery-scroll-bottom.json",
+      "geometry/01-SaveRecoveryForm-Panel_PageRecovery-scroll-top.json",
+      "geometry/01-SaveRecoveryForm-Panel_PageRecovery-world-scroll-bottom.json",
+      "geometry/01-SaveRecoveryForm-Panel_PageRecovery-world-scroll-top.json",
+      "geometry/01-SaveRecoveryForm-Panel_PageRecovery-world.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0003",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "02-SettingsForm-Panel_PageAudioSettings",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "SettingsForm/Panel_Frame/Grp_PageHost/Panel_PageAudioSettings/Panel_AudioSettingsVolumes/List_AudioSettingsVolumes/Viewport_AudioSettingsVolumes/Content_AudioSettingsVolumes/Item_AudioSettingsVolumesTemplate/Btn_AudioSettingsVolumesRow/Txt_AudioSettingsVolumesRowLabel",
+    "detail": "字符边界越出遮罩 Viewport_AudioSettingsVolumes；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/02-SettingsForm-Panel_PageAudioSettings-scroll-bottom.json",
+      "geometry/02-SettingsForm-Panel_PageAudioSettings-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0015",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "02-SettingsForm-Panel_PageControlSettings",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "SettingsForm/Panel_Frame/Grp_PageHost/Panel_PageControlSettings/Panel_ControlSettingsBindings/List_ControlSettingsBindings/Viewport_ControlSettingsBindings/Content_ControlSettingsBindings/Txt_ControlSettingsBindingsBody",
+    "detail": "字符边界越出遮罩 Viewport_ControlSettingsBindings；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/02-SettingsForm-Panel_PageControlSettings-application.json",
+      "geometry/02-SettingsForm-Panel_PageControlSettings-memory.json",
+      "geometry/02-SettingsForm-Panel_PageControlSettings-scroll-bottom.json",
+      "geometry/02-SettingsForm-Panel_PageControlSettings-scroll-top.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0018",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "04-BaseCommandEnergyForm-Panel_PageHubEnergy",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "BaseCommandEnergyForm/Panel_Frame/Grp_PageHost/Panel_PageHubEnergy/Panel_HubEnergyFacilities/List_HubEnergyFacilities/Viewport_HubEnergyFacilities/Content_HubEnergyFacilities/Txt_HubEnergyFacilitiesBody",
+    "detail": "字符边界越出遮罩 Viewport_HubEnergyFacilities；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/04-BaseCommandEnergyForm-Panel_PageHubEnergy-memory.json",
+      "geometry/04-BaseCommandEnergyForm-Panel_PageHubEnergy-scroll-bottom.json",
+      "geometry/04-BaseCommandEnergyForm-Panel_PageHubEnergy-scroll-top.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0042",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "04-BaseCommandEnergyForm-Panel_PageHubEnergy",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "BaseCommandEnergyForm/Panel_Frame/Grp_PageHost/Panel_PageHubEnergy/Panel_HubEnergyFacilities/List_HubEnergyFacilities/Viewport_HubEnergyFacilities/Content_HubEnergyFacilities/Item_HubEnergyFacilitiesTemplate/Btn_HubEnergyFacilitiesRow/Txt_HubEnergyFacilitiesRowValue",
+    "detail": "字符边界越出遮罩 Viewport_HubEnergyFacilities；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/04-BaseCommandEnergyForm-Panel_PageHubEnergy-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0044",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "04-BaseCommandHubForm-Panel_PageHubObjects",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "BaseCommandHubForm/Panel_Frame/Grp_PageHost/Panel_PageHubObjects/Panel_HubObjectsIndex/List_HubObjectsIndex/Viewport_HubObjectsIndex/Content_HubObjectsIndex/Panel_HubObjectsControls/Panel_HubObjectsSearch/Grp_HubObjectsSearchTextViewport/Txt_HubObjectsSearchPlaceholder",
+    "detail": "字符边界越出遮罩 Viewport_HubObjectsIndex；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0048",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "04-BaseCommandHubForm-Panel_PageHubStats",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "BaseCommandHubForm/Panel_Frame/Grp_PageHost/Panel_PageHubStats/Panel_HubStatsValues/List_HubStatsValues/Viewport_HubStatsValues/Content_HubStatsValues/Txt_HubStatsValuesBody",
+    "detail": "字符边界越出遮罩 Viewport_HubStatsValues；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/04-BaseCommandHubForm-Panel_PageHubStats-scroll-bottom.json",
+      "geometry/04-BaseCommandHubForm-Panel_PageHubStats-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0057",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "05-FieldHudDetailForm-Panel_PageMachineAlgorithm",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Btn_FormClose",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudResidentForm(Clone)/Grp_PageHost/Panel_PageHudTracker/Grp_HudTrackerActions/Btn_HudTrackerLocate",
+    "evidence": [
+      "geometry/05-FieldHudDetailForm-Panel_PageMachineAlgorithm-world-scroll-bottom.json",
+      "geometry/05-FieldHudDetailForm-Panel_PageMachineAlgorithm-world-scroll-top.json",
+      "geometry/05-FieldHudDetailForm-Panel_PageMachineAlgorithm-world.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0063",
+    "reason": "独立 Open 的层级与正常 OpenSub 路径不同；七个自然选择页面均只有一个详情实例，关闭命中通过。其余对象需正常入口复验。"
+  },
+  {
+    "page": "05-FieldHudDetailForm-Panel_PageMachineDiagnostics",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Btn_FormClose",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudResidentForm(Clone)/Grp_PageHost/Panel_PageHudTracker/Grp_HudTrackerActions/Btn_HudTrackerLocate",
+    "evidence": [
+      "geometry/05-FieldHudDetailForm-Panel_PageMachineDiagnostics-world-scroll-bottom.json",
+      "geometry/05-FieldHudDetailForm-Panel_PageMachineDiagnostics-world-scroll-top.json",
+      "geometry/05-FieldHudDetailForm-Panel_PageMachineDiagnostics-world.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0065",
+    "reason": "独立 Open 的层级与正常 OpenSub 路径不同；七个自然选择页面均只有一个详情实例，关闭命中通过。其余对象需正常入口复验。"
+  },
+  {
+    "page": "05-FieldHudDetailForm-Panel_PageMachineHardware",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Btn_FormClose",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudResidentForm(Clone)/Grp_PageHost/Panel_PageHudTracker/Grp_HudTrackerActions/Btn_HudTrackerLocate",
+    "evidence": [
+      "geometry/05-FieldHudDetailForm-Panel_PageMachineHardware-world-scroll-bottom.json",
+      "geometry/05-FieldHudDetailForm-Panel_PageMachineHardware-world-scroll-top.json",
+      "geometry/05-FieldHudDetailForm-Panel_PageMachineHardware-world.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0067",
+    "reason": "独立 Open 的层级与正常 OpenSub 路径不同；七个自然选择页面均只有一个详情实例，关闭命中通过。其余对象需正常入口复验。"
+  },
+  {
+    "page": "05-FieldHudMachineOverviewForm-Panel_PageMachineOverview",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "FieldHudMachineOverviewForm/Panel_PageMachineOverview/Panel_MachineOverviewIdentity/List_MachineOverviewIdentity/Viewport_MachineOverviewIdentity/Content_MachineOverviewIdentity/Txt_MachineOverviewIdentityBody",
+    "detail": "字符边界越出遮罩 Viewport_MachineOverviewIdentity；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-scroll-bottom.json",
+      "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0071",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "05-FieldHudMachineOverviewForm-Panel_PageMachineOverview",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "FieldHudMachineOverviewForm/Panel_PageMachineOverview/Panel_MachineOverviewCapacity/List_MachineOverviewCapacity/Viewport_MachineOverviewCapacity/Content_MachineOverviewCapacity/Txt_MachineOverviewCapacityBody",
+    "detail": "字符边界越出遮罩 Viewport_MachineOverviewCapacity；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-scroll-bottom.json",
+      "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0072",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "05-FieldHudMachineOverviewForm-Panel_PageMachineOverview",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudMachineOverviewForm/Btn_FieldClose",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudResidentForm(Clone)/Grp_PageHost/Panel_PageHudTracker/Grp_HudTrackerActions/Btn_HudTrackerLocate",
+    "evidence": [
+      "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-world-scroll-bottom.json",
+      "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-world-scroll-top.json",
+      "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-world.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0073",
+    "reason": "独立 Open 的层级与正常 OpenSub 路径不同；七个自然选择页面均只有一个详情实例，关闭命中通过。其余对象需正常入口复验。"
+  },
+  {
+    "page": "05-MachineLibraryForm-Panel_PageMachinePreparation",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "MachineLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageMachinePreparation/Panel_MachinePreparationCarrier/List_MachinePreparationCarrier/Viewport_MachinePreparationCarrier/Content_MachinePreparationCarrier/Txt_MachinePreparationCarrierBody",
+    "detail": "字符边界越出遮罩 Viewport_MachinePreparationCarrier；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-scroll-bottom.json",
+      "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0085",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "05-MachineLibraryForm-Panel_PageMachinePreparation",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "MachineLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageMachinePreparation/Panel_MachinePreparationReadiness/List_MachinePreparationReadiness/Viewport_MachinePreparationReadiness/Content_MachinePreparationReadiness/Txt_MachinePreparationReadinessBody",
+    "detail": "字符边界越出遮罩 Viewport_MachinePreparationReadiness；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-scroll-bottom.json",
+      "geometry/05-MachineLibraryForm-Panel_PageMachinePreparation-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0086",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "06-FieldHudDetailForm-Panel_PageFarm",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Btn_FormClose",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudResidentForm(Clone)/Grp_PageHost/Panel_PageHudTracker/Grp_HudTrackerActions/Btn_HudTrackerLocate",
+    "evidence": [
+      "geometry/06-FieldHudDetailForm-Panel_PageFarm-target.json",
+      "geometry/06-FieldHudDetailForm-Panel_PageFarm-world-scroll-bottom.json",
+      "geometry/06-FieldHudDetailForm-Panel_PageFarm-world-scroll-top.json",
+      "geometry/06-FieldHudDetailForm-Panel_PageFarm-world.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0092",
+    "reason": "独立 Open 的层级与正常 OpenSub 路径不同；七个自然选择页面均只有一个详情实例，关闭命中通过。其余对象需正常入口复验。"
+  },
+  {
+    "page": "06-FieldHudDetailForm-Panel_PageForest",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Grp_PageHost/Panel_PageForest/Panel_ForestPublic/List_ForestPublic/Viewport_ForestPublic/Content_ForestPublic/Item_ForestPublicTemplate/Btn_ForestPublicRow/Txt_ForestPublicRowLabel",
+    "detail": "字符边界越出遮罩 Viewport_ForestPublic；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/06-FieldHudDetailForm-Panel_PageForest-natural.json",
+      "geometry/06-FieldHudDetailForm-Panel_PageForest-selected.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0094",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "06-FieldHudDetailForm-Panel_PageForest",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Btn_FormClose",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudResidentForm(Clone)/Grp_PageHost/Panel_PageHudTracker/Grp_HudTrackerActions/Btn_HudTrackerLocate",
+    "evidence": [
+      "geometry/06-FieldHudDetailForm-Panel_PageForest-target.json",
+      "geometry/06-FieldHudDetailForm-Panel_PageForest-world-scroll-top.json",
+      "geometry/06-FieldHudDetailForm-Panel_PageForest-world.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0095",
+    "reason": "独立 Open 的层级与正常 OpenSub 路径不同；七个自然选择页面均只有一个详情实例，关闭命中通过。其余对象需正常入口复验。"
+  },
+  {
+    "page": "06-FieldHudDetailForm-Panel_PageMineral",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Grp_PageHost/Panel_PageMineral/Panel_MineralPublic/List_MineralPublic/Viewport_MineralPublic/Content_MineralPublic/Item_MineralPublicTemplate/Btn_MineralPublicRow/Txt_MineralPublicRowLabel",
+    "detail": "字符边界越出遮罩 Viewport_MineralPublic；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/06-FieldHudDetailForm-Panel_PageMineral-natural.json",
+      "geometry/06-FieldHudDetailForm-Panel_PageMineral-selected.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0097",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "06-FieldHudDetailForm-Panel_PageMineral",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Btn_FormClose",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudResidentForm(Clone)/Grp_PageHost/Panel_PageHudTracker/Grp_HudTrackerActions/Btn_HudTrackerLocate",
+    "evidence": [
+      "geometry/06-FieldHudDetailForm-Panel_PageMineral-target.json",
+      "geometry/06-FieldHudDetailForm-Panel_PageMineral-world-scroll-top.json",
+      "geometry/06-FieldHudDetailForm-Panel_PageMineral-world.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0098",
+    "reason": "独立 Open 的层级与正常 OpenSub 路径不同；七个自然选择页面均只有一个详情实例，关闭命中通过。其余对象需正常入口复验。"
+  },
+  {
+    "page": "06-FieldHudDetailForm-Panel_PageSensorRecords",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Btn_FormClose",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudResidentForm(Clone)/Grp_PageHost/Panel_PageHudTracker/Grp_HudTrackerActions/Btn_HudTrackerLocate",
+    "evidence": [
+      "geometry/06-FieldHudDetailForm-Panel_PageSensorRecords-world-scroll-bottom.json",
+      "geometry/06-FieldHudDetailForm-Panel_PageSensorRecords-world-scroll-top.json",
+      "geometry/06-FieldHudDetailForm-Panel_PageSensorRecords-world.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0101",
+    "reason": "独立 Open 的层级与正常 OpenSub 路径不同；七个自然选择页面均只有一个详情实例，关闭命中通过。其余对象需正常入口复验。"
+  },
+  {
+    "page": "06-FieldHudDetailForm-Panel_PageWater",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Btn_FormClose",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudResidentForm(Clone)/Grp_PageHost/Panel_PageHudTracker/Grp_HudTrackerActions/Btn_HudTrackerLocate",
+    "evidence": [
+      "geometry/06-FieldHudDetailForm-Panel_PageWater-target.json",
+      "geometry/06-FieldHudDetailForm-Panel_PageWater-world-scroll-bottom.json",
+      "geometry/06-FieldHudDetailForm-Panel_PageWater-world-scroll-top.json",
+      "geometry/06-FieldHudDetailForm-Panel_PageWater-world.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0104",
+    "reason": "独立 Open 的层级与正常 OpenSub 路径不同；七个自然选择页面均只有一个详情实例，关闭命中通过。其余对象需正常入口复验。"
+  },
+  {
+    "page": "07-FieldHudDetailForm-Panel_PageBattery",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Btn_FormClose",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudResidentForm(Clone)/Grp_PageHost/Panel_PageHudTracker/Grp_HudTrackerActions/Btn_HudTrackerLocate",
+    "evidence": [
+      "geometry/07-FieldHudDetailForm-Panel_PageBattery-world-scroll-bottom.json",
+      "geometry/07-FieldHudDetailForm-Panel_PageBattery-world-scroll-top.json",
+      "geometry/07-FieldHudDetailForm-Panel_PageBattery-world.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0106",
+    "reason": "独立 Open 的层级与正常 OpenSub 路径不同；七个自然选择页面均只有一个详情实例，关闭命中通过。其余对象需正常入口复验。"
+  },
+  {
+    "page": "07-FieldHudDetailForm-Panel_PageBuildingOverview",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Btn_FormClose",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudResidentForm(Clone)/Grp_PageHost/Panel_PageHudTracker/Grp_HudTrackerActions/Btn_HudTrackerLocate",
+    "evidence": [
+      "geometry/07-FieldHudDetailForm-Panel_PageBuildingOverview-world-scroll-bottom.json",
+      "geometry/07-FieldHudDetailForm-Panel_PageBuildingOverview-world-scroll-top.json",
+      "geometry/07-FieldHudDetailForm-Panel_PageBuildingOverview-world.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0108",
+    "reason": "独立 Open 的层级与正常 OpenSub 路径不同；七个自然选择页面均只有一个详情实例，关闭命中通过。其余对象需正常入口复验。"
+  },
+  {
+    "page": "07-FieldHudDetailForm-Panel_PageConstruction",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Btn_FormClose",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudResidentForm(Clone)/Grp_PageHost/Panel_PageHudTracker/Grp_HudTrackerActions/Btn_HudTrackerLocate",
+    "evidence": [
+      "geometry/07-FieldHudDetailForm-Panel_PageConstruction-world-scroll-bottom.json",
+      "geometry/07-FieldHudDetailForm-Panel_PageConstruction-world-scroll-top.json",
+      "geometry/07-FieldHudDetailForm-Panel_PageConstruction-world.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0110",
+    "reason": "独立 Open 的层级与正常 OpenSub 路径不同；七个自然选择页面均只有一个详情实例，关闭命中通过。其余对象需正常入口复验。"
+  },
+  {
+    "page": "07-FieldHudDetailForm-Panel_PageConveyor",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Btn_FormClose",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudResidentForm(Clone)/Grp_PageHost/Panel_PageHudTracker/Grp_HudTrackerActions/Btn_HudTrackerLocate",
+    "evidence": [
+      "geometry/07-FieldHudDetailForm-Panel_PageConveyor-world-scroll-bottom.json",
+      "geometry/07-FieldHudDetailForm-Panel_PageConveyor-world-scroll-top.json",
+      "geometry/07-FieldHudDetailForm-Panel_PageConveyor-world.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0112",
+    "reason": "独立 Open 的层级与正常 OpenSub 路径不同；七个自然选择页面均只有一个详情实例，关闭命中通过。其余对象需正常入口复验。"
+  },
+  {
+    "page": "07-FieldHudDetailForm-Panel_PageGenerator",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Grp_PageHost/Panel_PageGenerator/Grp_GeneratorActions/Btn_GeneratorRun",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudDetailForm(Clone)/Grp_PageHost/Panel_PageBuildingOverview/Grp_BuildingOverviewActions/Btn_BuildingOverviewRun",
+    "evidence": [
+      "geometry/07-FieldHudDetailForm-Panel_PageGenerator-selected.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0117",
+    "reason": "重复独立Open的详情副本与自然路由副本相互阻挡；同一页自然选择+公开页API复核命中正常。"
+  },
+  {
+    "page": "07-FieldHudDetailForm-Panel_PageGenerator",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Grp_PageHost/Panel_PageGenerator/Grp_GeneratorActions/Btn_GeneratorCharge",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudDetailForm(Clone)/Grp_PageHost/Panel_PageBuildingOverview/Grp_BuildingOverviewActions/Btn_BuildingOverviewSpecial",
+    "evidence": [
+      "geometry/07-FieldHudDetailForm-Panel_PageGenerator-selected.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0118",
+    "reason": "重复独立Open的详情副本与自然路由副本相互阻挡；同一页自然选择+公开页API复核命中正常。"
+  },
+  {
+    "page": "07-FieldHudDetailForm-Panel_PageGenerator",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Grp_PageHost/Panel_PageGenerator/Grp_GeneratorActions/Btn_GeneratorTarget",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudDetailForm(Clone)/Grp_PageHost/Panel_PageBuildingOverview/Grp_BuildingOverviewActions/Btn_BuildingOverviewRule",
+    "evidence": [
+      "geometry/07-FieldHudDetailForm-Panel_PageGenerator-selected.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0119",
+    "reason": "重复独立Open的详情副本与自然路由副本相互阻挡；同一页自然选择+公开页API复核命中正常。"
+  },
+  {
+    "page": "07-FieldHudDetailForm-Panel_PageGenerator",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Grp_PageHost/Panel_PageGenerator/Grp_GeneratorActions/Btn_GeneratorEnergy",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudDetailForm(Clone)/Grp_PageHost/Panel_PageBuildingOverview/Grp_BuildingOverviewActions/Btn_BuildingOverviewFocus",
+    "evidence": [
+      "geometry/07-FieldHudDetailForm-Panel_PageGenerator-selected.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0120",
+    "reason": "重复独立Open的详情副本与自然路由副本相互阻挡；同一页自然选择+公开页API复核命中正常。"
+  },
+  {
+    "page": "07-FieldHudDetailForm-Panel_PageGenerator",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Btn_FormClose",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudResidentForm(Clone)/Grp_PageHost/Panel_PageHudTracker/Grp_HudTrackerActions/Btn_HudTrackerLocate",
+    "evidence": [
+      "geometry/07-FieldHudDetailForm-Panel_PageGenerator-target.json",
+      "geometry/07-FieldHudDetailForm-Panel_PageGenerator-world-scroll-bottom.json",
+      "geometry/07-FieldHudDetailForm-Panel_PageGenerator-world-scroll-top.json",
+      "geometry/07-FieldHudDetailForm-Panel_PageGenerator-world.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0121",
+    "reason": "独立 Open 的层级与正常 OpenSub 路径不同；七个自然选择页面均只有一个详情实例，关闭命中通过。其余对象需正常入口复验。"
+  },
+  {
+    "page": "07-FieldHudDetailForm-Panel_PagePump",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Btn_FormClose",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudResidentForm(Clone)/Grp_PageHost/Panel_PageHudTracker/Grp_HudTrackerActions/Btn_HudTrackerLocate",
+    "evidence": [
+      "geometry/07-FieldHudDetailForm-Panel_PagePump-world-scroll-bottom.json",
+      "geometry/07-FieldHudDetailForm-Panel_PagePump-world-scroll-top.json",
+      "geometry/07-FieldHudDetailForm-Panel_PagePump-world.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0123",
+    "reason": "独立 Open 的层级与正常 OpenSub 路径不同；七个自然选择页面均只有一个详情实例，关闭命中通过。其余对象需正常入口复验。"
+  },
+  {
+    "page": "07-FieldHudDetailForm-Panel_PageSolar",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Grp_PageHost/Panel_PageSolar/Grp_SolarActions/Btn_SolarRun",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudDetailForm(Clone)/Grp_PageHost/Panel_PageBuildingOverview/Grp_BuildingOverviewActions/Btn_BuildingOverviewFocus",
+    "evidence": [
+      "geometry/07-FieldHudDetailForm-Panel_PageSolar-selected.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0126",
+    "reason": "重复独立Open的详情副本与自然路由副本相互阻挡；同一页自然选择+公开页API复核命中正常。"
+  },
+  {
+    "page": "07-FieldHudDetailForm-Panel_PageSolar",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Grp_PageHost/Panel_PageSolar/Grp_SolarActions/Btn_SolarEnergy",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudDetailForm(Clone)/Grp_PageHost/Panel_PageBuildingOverview/Grp_FormalArtwork_BuildingOverview/Bg_FormalFrame_BuildingOverview",
+    "evidence": [
+      "geometry/07-FieldHudDetailForm-Panel_PageSolar-selected.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0127",
+    "reason": "重复独立Open的详情副本与自然路由副本相互阻挡；同一页自然选择+公开页API复核命中正常。"
+  },
+  {
+    "page": "07-FieldHudDetailForm-Panel_PageSolar",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Grp_PageHost/Panel_PageSolar/Grp_SolarActions/Btn_SolarRule",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudDetailForm(Clone)/Grp_PageHost/Panel_PageBuildingOverview/Grp_FormalArtwork_BuildingOverview/Bg_FormalFrame_BuildingOverview",
+    "evidence": [
+      "geometry/07-FieldHudDetailForm-Panel_PageSolar-selected.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0128",
+    "reason": "重复独立Open的详情副本与自然路由副本相互阻挡；同一页自然选择+公开页API复核命中正常。"
+  },
+  {
+    "page": "07-FieldHudDetailForm-Panel_PageSolar",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Btn_FormClose",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudResidentForm(Clone)/Grp_PageHost/Panel_PageHudTracker/Grp_HudTrackerActions/Btn_HudTrackerLocate",
+    "evidence": [
+      "geometry/07-FieldHudDetailForm-Panel_PageSolar-target.json",
+      "geometry/07-FieldHudDetailForm-Panel_PageSolar-world-scroll-bottom.json",
+      "geometry/07-FieldHudDetailForm-Panel_PageSolar-world-scroll-top.json",
+      "geometry/07-FieldHudDetailForm-Panel_PageSolar-world.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0129",
+    "reason": "独立 Open 的层级与正常 OpenSub 路径不同；七个自然选择页面均只有一个详情实例，关闭命中通过。其余对象需正常入口复验。"
+  },
+  {
+    "page": "07-FieldHudDetailForm-Panel_PageWarehouseBuilding",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Grp_PageHost/Panel_PageWarehouseBuilding/Grp_WarehouseBuildingActions/Btn_WarehouseBuildingInventory",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudDetailForm(Clone)/Grp_PageHost/Panel_PageBuildingOverview/Grp_BuildingOverviewActions/Btn_BuildingOverviewFocus",
+    "evidence": [
+      "geometry/07-FieldHudDetailForm-Panel_PageWarehouseBuilding-selected.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0132",
+    "reason": "重复独立Open的详情副本与自然路由副本相互阻挡；同一页自然选择+公开页API复核命中正常。"
+  },
+  {
+    "page": "07-FieldHudDetailForm-Panel_PageWarehouseBuilding",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Grp_PageHost/Panel_PageWarehouseBuilding/Grp_WarehouseBuildingActions/Btn_WarehouseBuildingRecords",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudDetailForm(Clone)/Grp_PageHost/Panel_PageBuildingOverview/Grp_FormalArtwork_BuildingOverview/Bg_FormalFrame_BuildingOverview",
+    "evidence": [
+      "geometry/07-FieldHudDetailForm-Panel_PageWarehouseBuilding-selected.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0133",
+    "reason": "重复独立Open的详情副本与自然路由副本相互阻挡；同一页自然选择+公开页API复核命中正常。"
+  },
+  {
+    "page": "07-FieldHudDetailForm-Panel_PageWarehouseBuilding",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Grp_PageHost/Panel_PageWarehouseBuilding/Grp_WarehouseBuildingActions/Btn_WarehouseBuildingRule",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudDetailForm(Clone)/Grp_PageHost/Panel_PageBuildingOverview/Grp_FormalArtwork_BuildingOverview/Bg_FormalFrame_BuildingOverview",
+    "evidence": [
+      "geometry/07-FieldHudDetailForm-Panel_PageWarehouseBuilding-selected.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0134",
+    "reason": "重复独立Open的详情副本与自然路由副本相互阻挡；同一页自然选择+公开页API复核命中正常。"
+  },
+  {
+    "page": "07-FieldHudDetailForm-Panel_PageWarehouseBuilding",
+    "code": "POINTER_CENTER_BLOCKED",
+    "severity": "P1",
+    "node": "FieldHudDetailForm/Btn_FormClose",
+    "detail": "控件中心射线未命中自身；顶层=GameFramework/Builtin/UI/UICanvasRoot/UI Group - Default/FieldHudResidentForm(Clone)/Grp_PageHost/Panel_PageHudTracker/Grp_HudTrackerActions/Btn_HudTrackerLocate",
+    "evidence": [
+      "geometry/07-FieldHudDetailForm-Panel_PageWarehouseBuilding-target.json",
+      "geometry/07-FieldHudDetailForm-Panel_PageWarehouseBuilding-world-scroll-bottom.json",
+      "geometry/07-FieldHudDetailForm-Panel_PageWarehouseBuilding-world-scroll-top.json",
+      "geometry/07-FieldHudDetailForm-Panel_PageWarehouseBuilding-world.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0135",
+    "reason": "独立 Open 的层级与正常 OpenSub 路径不同；七个自然选择页面均只有一个详情实例，关闭命中通过。其余对象需正常入口复验。"
+  },
+  {
+    "page": "09-AlgorithmLibraryForm-Panel_PagePlayerTemplates",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PagePlayerTemplates/Panel_PlayerTemplatesDetail/List_PlayerTemplatesDetail/Viewport_PlayerTemplatesDetail/Content_PlayerTemplatesDetail/Item_PlayerTemplatesDetailTemplate/Btn_PlayerTemplatesDetailRow/Txt_PlayerTemplatesDetailRowLabel",
+    "detail": "字符边界越出遮罩 Viewport_PlayerTemplatesDetail；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-scroll-bottom.json",
+      "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0150",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "09-AlgorithmLibraryForm-Panel_PageSystemTemplates",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageSystemTemplates/Panel_SystemTemplatesDetail/List_SystemTemplatesDetail/Viewport_SystemTemplatesDetail/Content_SystemTemplatesDetail/Item_SystemTemplatesDetailTemplate/Btn_SystemTemplatesDetailRow/Txt_SystemTemplatesDetailRowLabel",
+    "detail": "字符边界越出遮罩 Viewport_SystemTemplatesDetail；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/09-AlgorithmLibraryForm-Panel_PageSystemTemplates-scroll-bottom.json",
+      "geometry/09-AlgorithmLibraryForm-Panel_PageSystemTemplates-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0154",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "09-AlgorithmLibraryForm-Panel_PageTemplateDetail",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageTemplateDetail/Panel_TemplateDetailDefinition/List_TemplateDetailDefinition/Viewport_TemplateDetailDefinition/Content_TemplateDetailDefinition/Item_TemplateDetailDefinitionTemplate/Btn_TemplateDetailDefinitionRow/Txt_TemplateDetailDefinitionRowLabel",
+    "detail": "字符边界越出遮罩 Viewport_TemplateDetailDefinition；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/09-AlgorithmLibraryForm-Panel_PageTemplateDetail-memory.json",
+      "geometry/09-AlgorithmLibraryForm-Panel_PageTemplateDetail-scroll-top.json",
+      "geometry/09-AlgorithmLibraryForm-Panel_PageTemplateDetail-world-scroll-top.json",
+      "geometry/09-AlgorithmLibraryForm-Panel_PageTemplateDetail-world.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0157",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "09-AlgorithmLibraryForm-Panel_PageTemplateDetail",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageTemplateDetail/Panel_TemplateDetailDefinition/List_TemplateDetailDefinition/Viewport_TemplateDetailDefinition/Content_TemplateDetailDefinition/Item_TemplateDetailDefinitionTemplate/Btn_TemplateDetailDefinitionRow/Txt_TemplateDetailDefinitionRowValue",
+    "detail": "字符边界越出遮罩 Viewport_TemplateDetailDefinition；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/09-AlgorithmLibraryForm-Panel_PageTemplateDetail-scroll-bottom.json",
+      "geometry/09-AlgorithmLibraryForm-Panel_PageTemplateDetail-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0160",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "09-ComponentLibraryForm-Panel_PageInstalledComponents",
+    "code": "SAFE_MARGIN_TEXT",
+    "severity": "P1",
+    "node": "ComponentLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageInstalledComponents/Panel_InstalledComponentsDetails/List_InstalledComponentsDetails/Viewport_InstalledComponentsDetails/Content_InstalledComponentsDetails/Txt_InstalledComponentsDetailsBody",
+    "detail": "文字实际轮廓进入 24px 外边距",
+    "evidence": [
+      "geometry/09-ComponentLibraryForm-Panel_PageInstalledComponents-memory.json",
+      "geometry/09-ComponentLibraryForm-Panel_PageInstalledComponents-scroll-top.json",
+      "geometry/09-ComponentLibraryForm-Panel_PageInstalledComponents-world-scroll-top.json",
+      "geometry/09-ComponentLibraryForm-Panel_PageInstalledComponents-world.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0166",
+    "reason": "原始未裁切字符轮廓越界，实际图形仍受列表遮罩限制；横向正文裁切已单独记录。"
+  },
+  {
+    "page": "09-ComponentLibraryForm-Panel_PageLooseComponents",
+    "code": "SAFE_MARGIN_TEXT",
+    "severity": "P1",
+    "node": "ComponentLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageLooseComponents/Panel_LooseComponentsDetails/List_LooseComponentsDetails/Viewport_LooseComponentsDetails/Content_LooseComponentsDetails/Txt_LooseComponentsDetailsBody",
+    "detail": "文字实际轮廓进入 24px 外边距",
+    "evidence": [
+      "geometry/09-ComponentLibraryForm-Panel_PageLooseComponents-memory.json",
+      "geometry/09-ComponentLibraryForm-Panel_PageLooseComponents-scroll-top.json",
+      "geometry/09-ComponentLibraryForm-Panel_PageLooseComponents-world-scroll-top.json",
+      "geometry/09-ComponentLibraryForm-Panel_PageLooseComponents-world.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0170",
+    "reason": "原始未裁切字符轮廓越界，实际图形仍受列表遮罩限制；横向正文裁切已单独记录。"
+  },
+  {
+    "page": "09-WarehouseForm-Panel_PageItemDetail",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageItemDetail/Panel_ItemDetailItem/List_ItemDetailItem/Viewport_ItemDetailItem/Content_ItemDetailItem/Item_ItemDetailItemTemplate/Btn_ItemDetailItemRow/Txt_ItemDetailItemRowLabel",
+    "detail": "字符边界越出遮罩 Viewport_ItemDetailItem；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/09-WarehouseForm-Panel_PageItemDetail-world-scroll-top.json",
+      "geometry/09-WarehouseForm-Panel_PageItemDetail-world.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0181",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "09-WarehouseForm-Panel_PageItemDetail",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageItemDetail/Panel_ItemDetailItem/List_ItemDetailItem/Viewport_ItemDetailItem/Content_ItemDetailItem/Item_ItemDetailItemTemplate/Btn_ItemDetailItemRow/Txt_ItemDetailItemRowValue",
+    "detail": "字符边界越出遮罩 Viewport_ItemDetailItem；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/09-WarehouseForm-Panel_PageItemDetail-world-scroll-top.json",
+      "geometry/09-WarehouseForm-Panel_PageItemDetail-world.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0182",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "10-ShopForm-Panel_PageShopSell",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "ShopForm/Panel_Frame/Grp_PageHost/Panel_PageShopSell/Panel_ShopSellStock/List_ShopSellStock/Viewport_ShopSellStock/Content_ShopSellStock/Panel_ShopSellControls/Panel_ShopSellQuantity/Grp_ShopSellQuantityTextViewport/Txt_ShopSellQuantityPlaceholder",
+    "detail": "字符边界越出遮罩 Viewport_ShopSellStock；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/10-ShopForm-Panel_PageShopSell-application.json",
+      "geometry/10-ShopForm-Panel_PageShopSell-memory.json",
+      "geometry/10-ShopForm-Panel_PageShopSell-scroll-top.json",
+      "geometry/10-ShopForm-Panel_PageShopSell-state-base.json",
+      "geometry/10-ShopForm-Panel_PageShopSell-state-ShopSellDisabledState.json",
+      "geometry/10-ShopForm-Panel_PageShopSell-state-ShopSellEmptyState.json",
+      "geometry/10-ShopForm-Panel_PageShopSell-state-ShopSellErrorState.json",
+      "geometry/10-ShopForm-Panel_PageShopSell-state-ShopSellLoadingState.json",
+      "geometry/10-ShopForm-Panel_PageShopSell-state-ShopSellSuccessState.json",
+      "geometry/10-ShopForm-Panel_PageShopSell-world-scroll-top.json",
+      "geometry/10-ShopForm-Panel_PageShopSell-world.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0194",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "12-WorldObjectPickerForm-Panel_PageWorldObjectPicker",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "WorldObjectPickerForm/Panel_Frame/Grp_PageHost/Panel_PageWorldObjectPicker/Panel_WorldObjectPickerCandidates/List_WorldObjectPickerCandidates/Viewport_WorldObjectPickerCandidates/Content_WorldObjectPickerCandidates/Item_WorldObjectPickerCandidatesTemplate/Btn_WorldObjectPickerCandidatesRow/Txt_WorldObjectPickerCandidatesRowValue",
+    "detail": "字符边界越出遮罩 Viewport_WorldObjectPickerCandidates；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/12-WorldObjectPickerForm-Panel_PageWorldObjectPicker-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0218",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "12-WorldObjectPickerForm-Panel_PageWorldObjectPicker",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "WorldObjectPickerForm/Panel_Frame/Grp_PageHost/Panel_PageWorldObjectPicker/Panel_WorldObjectPickerCandidates/List_WorldObjectPickerCandidates/Viewport_WorldObjectPickerCandidates/Content_WorldObjectPickerCandidates/Item_WorldObjectPickerCandidatesTemplate/Btn_WorldObjectPickerCandidatesRow/Txt_WorldObjectPickerCandidatesRowLabel",
+    "detail": "字符边界越出遮罩 Viewport_WorldObjectPickerCandidates；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/12-WorldObjectPickerForm-Panel_PageWorldObjectPicker-world-scroll-top.json",
+      "geometry/12-WorldObjectPickerForm-Panel_PageWorldObjectPicker-world.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0219",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "13-AlgorithmEditorForm-Panel_PageAlgorithmEditor",
+    "code": "SMALL_TEXT",
+    "severity": "P2",
+    "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorCanvas/List_AlgorithmGraph/Viewport_AlgorithmGraph/AlgorithmGraphInteractionHint",
+    "detail": "实际字号 14，低于本次正文/操作文案建议 18；需视觉复核",
+    "evidence": [
+      "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-application.json",
+      "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-memory.json",
+      "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-scroll-bottom.json",
+      "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-scroll-top.json",
+      "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world-scroll-bottom.json",
+      "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world-scroll-top.json",
+      "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world.json",
+      "geometry/algorithm-diagnosis.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0222",
+    "reason": "次要画布提示或端口/压力样本字号，不以建议18px直接判失败；节点标题与端口相交另列。"
+  },
+  {
+    "page": "14-WorldPlacementForm-Panel_PageBuildPlacement",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "WorldPlacementForm/Grp_PageHost/Panel_PageBuildPlacement/Panel_BuildPlacementHints/List_BuildPlacementHints/Viewport_BuildPlacementHints/Content_BuildPlacementHints/Txt_BuildPlacementHintsBody",
+    "detail": "字符边界越出遮罩 Viewport_BuildPlacementHints；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world-scroll-bottom.json",
+      "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world-scroll-top.json",
+      "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0237",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "14-WorldPlacementForm-Panel_PageMachineDeployment",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "WorldPlacementForm/Grp_PageHost/Panel_PageMachineDeployment/Panel_MachineDeploymentHints/List_MachineDeploymentHints/Viewport_MachineDeploymentHints/Content_MachineDeploymentHints/Txt_MachineDeploymentHintsBody",
+    "detail": "字符边界越出遮罩 Viewport_MachineDeploymentHints；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/14-WorldPlacementForm-Panel_PageMachineDeployment-application.json",
+      "geometry/14-WorldPlacementForm-Panel_PageMachineDeployment-memory.json",
+      "geometry/14-WorldPlacementForm-Panel_PageMachineDeployment-scroll-bottom.json",
+      "geometry/14-WorldPlacementForm-Panel_PageMachineDeployment-scroll-top.json",
+      "geometry/14-WorldPlacementForm-Panel_PageMachineDeployment-world-scroll-bottom.json",
+      "geometry/14-WorldPlacementForm-Panel_PageMachineDeployment-world-scroll-top.json",
+      "geometry/14-WorldPlacementForm-Panel_PageMachineDeployment-world.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0243",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "14-WorldPlacementForm-Panel_PageWorldBinding",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "WorldPlacementForm/Grp_PageHost/Panel_PageWorldBinding/Panel_WorldBindingHints/List_WorldBindingHints/Viewport_WorldBindingHints/Content_WorldBindingHints/Txt_WorldBindingHintsBody",
+    "detail": "字符边界越出遮罩 Viewport_WorldBindingHints；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/14-WorldPlacementForm-Panel_PageWorldBinding-world-scroll-bottom.json",
+      "geometry/14-WorldPlacementForm-Panel_PageWorldBinding-world-scroll-top.json",
+      "geometry/14-WorldPlacementForm-Panel_PageWorldBinding-world.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0255",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "17-OperationDialogForm-Panel_PageAlgorithmApply",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "OperationDialogForm/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmApply/Panel_AlgorithmApplyVersion/List_AlgorithmApplyVersion/Viewport_AlgorithmApplyVersion/Content_AlgorithmApplyVersion/Txt_AlgorithmApplyVersionBody",
+    "detail": "字符边界越出遮罩 Viewport_AlgorithmApplyVersion；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/17-OperationDialogForm-Panel_PageAlgorithmApply-scroll-bottom.json",
+      "geometry/17-OperationDialogForm-Panel_PageAlgorithmApply-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0285",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "17-OperationDialogForm-Panel_PageCancelProduction",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "OperationDialogForm/Panel_Frame/Grp_PageHost/Panel_PageCancelProduction/Panel_CancelProductionTarget/List_CancelProductionTarget/Viewport_CancelProductionTarget/Content_CancelProductionTarget/Txt_CancelProductionTargetBody",
+    "detail": "字符边界越出遮罩 Viewport_CancelProductionTarget；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/17-OperationDialogForm-Panel_PageCancelProduction-scroll-bottom.json",
+      "geometry/17-OperationDialogForm-Panel_PageCancelProduction-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0290",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "17-OperationDialogForm-Panel_PageDisplayKeep",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "OperationDialogForm/Panel_Frame/Grp_PageHost/Panel_PageDisplayKeep/Panel_DisplayKeepModes/List_DisplayKeepModes/Viewport_DisplayKeepModes/Content_DisplayKeepModes/Txt_DisplayKeepModesBody",
+    "detail": "字符边界越出遮罩 Viewport_DisplayKeepModes；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-scroll-bottom.json",
+      "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0293",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "17-OperationDialogForm-Panel_PageHardwareConfirm",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "OperationDialogForm/Panel_Frame/Grp_PageHost/Panel_PageHardwareConfirm/Panel_HardwareConfirmChange/List_HardwareConfirmChange/Viewport_HardwareConfirmChange/Content_HardwareConfirmChange/Txt_HardwareConfirmChangeBody",
+    "detail": "字符边界越出遮罩 Viewport_HardwareConfirmChange；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-application.json",
+      "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-memory.json",
+      "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-scroll-bottom.json",
+      "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-scroll-top.json",
+      "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-world-scroll-bottom.json",
+      "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-world-scroll-top.json",
+      "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-world.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0300",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "17-OperationDialogForm-Panel_PageMachineRecovery",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "OperationDialogForm/Panel_Frame/Grp_PageHost/Panel_PageMachineRecovery/Panel_MachineRecoveryMachine/List_MachineRecoveryMachine/Viewport_MachineRecoveryMachine/Content_MachineRecoveryMachine/Txt_MachineRecoveryMachineBody",
+    "detail": "字符边界越出遮罩 Viewport_MachineRecoveryMachine；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/17-OperationDialogForm-Panel_PageMachineRecovery-scroll-bottom.json",
+      "geometry/17-OperationDialogForm-Panel_PageMachineRecovery-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0305",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "17-OperationDialogForm-Panel_PagePlacementConfirm",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "OperationDialogForm/Panel_Frame/Grp_PageHost/Panel_PagePlacementConfirm/Panel_PlacementConfirmTarget/List_PlacementConfirmTarget/Viewport_PlacementConfirmTarget/Content_PlacementConfirmTarget/Txt_PlacementConfirmTargetBody",
+    "detail": "字符边界越出遮罩 Viewport_PlacementConfirmTarget；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/17-OperationDialogForm-Panel_PagePlacementConfirm-scroll-bottom.json",
+      "geometry/17-OperationDialogForm-Panel_PagePlacementConfirm-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0308",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "17-OperationDialogForm-Panel_PageRename",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "OperationDialogForm/Panel_Frame/Grp_PageHost/Panel_PageRename/Panel_RenameInput/List_RenameInput/Viewport_RenameInput/Content_RenameInput/Txt_RenameInputBody",
+    "detail": "字符边界越出遮罩 Viewport_RenameInput；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/17-OperationDialogForm-Panel_PageRename-scroll-bottom.json",
+      "geometry/17-OperationDialogForm-Panel_PageRename-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0311",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "17-OperationDialogForm-Panel_PageTransactionConfirm",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "OperationDialogForm/Panel_Frame/Grp_PageHost/Panel_PageTransactionConfirm/Panel_TransactionConfirmItems/List_TransactionConfirmItems/Viewport_TransactionConfirmItems/Content_TransactionConfirmItems/Txt_TransactionConfirmItemsBody",
+    "detail": "字符边界越出遮罩 Viewport_TransactionConfirmItems；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/17-OperationDialogForm-Panel_PageTransactionConfirm-scroll-bottom.json",
+      "geometry/17-OperationDialogForm-Panel_PageTransactionConfirm-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0317",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "17-OperationDialogForm-Panel_PageUpgradeConfirm",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "OperationDialogForm/Panel_Frame/Grp_PageHost/Panel_PageUpgradeConfirm/Panel_UpgradeConfirmComparison/List_UpgradeConfirmComparison/Viewport_UpgradeConfirmComparison/Content_UpgradeConfirmComparison/Txt_UpgradeConfirmComparisonBody",
+    "detail": "字符边界越出遮罩 Viewport_UpgradeConfirmComparison；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/17-OperationDialogForm-Panel_PageUpgradeConfirm-scroll-bottom.json",
+      "geometry/17-OperationDialogForm-Panel_PageUpgradeConfirm-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0320",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "18-OperationFeedbackForm-Panel_PageActionResult",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "OperationFeedbackForm/Panel_Frame/Grp_PageHost/Panel_PageActionResult/Panel_ActionResultResult/List_ActionResultResult/Viewport_ActionResultResult/Content_ActionResultResult/Txt_ActionResultResultBody",
+    "detail": "字符边界越出遮罩 Viewport_ActionResultResult；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/18-OperationFeedbackForm-Panel_PageActionResult-scroll-bottom.json",
+      "geometry/18-OperationFeedbackForm-Panel_PageActionResult-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0323",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "18-ProgressReportForm-Panel_PageDailySupply",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageDailySupply/Panel_DailySupplyOffer/List_DailySupplyOffer/Viewport_DailySupplyOffer/Content_DailySupplyOffer/Txt_DailySupplyOfferBody",
+    "detail": "字符边界越出遮罩 Viewport_DailySupplyOffer；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/18-ProgressReportForm-Panel_PageDailySupply-scroll-bottom.json",
+      "geometry/18-ProgressReportForm-Panel_PageDailySupply-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0330",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "18-ProgressReportForm-Panel_PageDelivery",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageDelivery/Panel_DeliverySummary/List_DeliverySummary/Viewport_DeliverySummary/Content_DeliverySummary/Txt_DeliverySummaryBody",
+    "detail": "字符边界越出遮罩 Viewport_DeliverySummary；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/18-ProgressReportForm-Panel_PageDelivery-scroll-bottom.json",
+      "geometry/18-ProgressReportForm-Panel_PageDelivery-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0333",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "18-ProgressReportForm-Panel_PageGrowth",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageGrowth/Panel_GrowthLevel/List_GrowthLevel/Viewport_GrowthLevel/Content_GrowthLevel/Txt_GrowthLevelBody",
+    "detail": "字符边界越出遮罩 Viewport_GrowthLevel；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/18-ProgressReportForm-Panel_PageGrowth-scroll-bottom.json",
+      "geometry/18-ProgressReportForm-Panel_PageGrowth-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0336",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "18-ProgressReportForm-Panel_PageOfflineSettlement",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageOfflineSettlement/Panel_OfflineSettlementStage/List_OfflineSettlementStage/Viewport_OfflineSettlementStage/Content_OfflineSettlementStage/Txt_OfflineSettlementStageBody",
+    "detail": "字符边界越出遮罩 Viewport_OfflineSettlementStage；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/18-ProgressReportForm-Panel_PageOfflineSettlement-scroll-bottom.json",
+      "geometry/18-ProgressReportForm-Panel_PageOfflineSettlement-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0341",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "18-ProgressReportForm-Panel_PageReturnReport",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageReturnReport/Panel_ReturnReportSections/List_ReturnReportSections/Viewport_ReturnReportSections/Content_ReturnReportSections/Txt_ReturnReportSectionsBody",
+    "detail": "字符边界越出遮罩 Viewport_ReturnReportSections；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/18-ProgressReportForm-Panel_PageReturnReport-scroll-bottom.json",
+      "geometry/18-ProgressReportForm-Panel_PageReturnReport-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0344",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "18-ProgressReportForm-Panel_PageVersionComplete",
+    "code": "TEXT_MASK_CLIP",
+    "severity": "P1",
+    "node": "ProgressReportForm/Panel_Frame/Grp_PageHost/Panel_PageVersionComplete/Panel_VersionCompleteAchievement/List_VersionCompleteAchievement/Viewport_VersionCompleteAchievement/Content_VersionCompleteAchievement/Txt_VersionCompleteAchievementBody",
+    "detail": "字符边界越出遮罩 Viewport_VersionCompleteAchievement；需区分正常滚动边缘和不可到达内容",
+    "evidence": [
+      "geometry/18-ProgressReportForm-Panel_PageVersionComplete-scroll-bottom.json",
+      "geometry/18-ProgressReportForm-Panel_PageVersionComplete-world-scroll-bottom.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0347",
+    "reason": "仅滚动边缘的纵向裁切，不单独算缺陷；视口小于单行的问题已另列 SCROLL_ROW_TOO_TALL。"
+  },
+  {
+    "page": "13-AlgorithmEditorForm-Panel_PageAlgorithmEditor",
+    "code": "SMALL_TEXT",
+    "severity": "P2",
+    "node": "AlgorithmNodeItem/Grp_AlgorithmNode/Btn_AlgorithmNodeSelect/Txt_AlgorithmNodeName",
+    "detail": "实际字号 14，低于本次正文/操作文案建议 18；需视觉复核",
+    "evidence": [
+      "geometry/AlgorithmNodeItem-long.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0349",
+    "reason": "次要画布提示或端口/压力样本字号，不以建议18px直接判失败；节点标题与端口相交另列。"
+  },
+  {
+    "page": "13-AlgorithmEditorForm-Panel_PageAlgorithmEditor",
+    "code": "SMALL_TEXT",
+    "severity": "P2",
+    "node": "AlgorithmNodeItem/Grp_AlgorithmNode/List_AlgorithmInputPorts/Viewport_AlgorithmInputPorts/Content_AlgorithmInputPorts/Item_AlgorithmInputPortTemplate(累计生产数量与目标材料要求0)/Btn_AlgorithmInputPort/Txt_AlgorithmInputPort",
+    "detail": "实际字号 14，低于本次正文/操作文案建议 18；需视觉复核",
+    "evidence": [
+      "geometry/AlgorithmNodeItem-long.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0350",
+    "reason": "次要画布提示或端口/压力样本字号，不以建议18px直接判失败；节点标题与端口相交另列。"
+  },
+  {
+    "page": "13-AlgorithmEditorForm-Panel_PageAlgorithmEditor",
+    "code": "SMALL_TEXT",
+    "severity": "P2",
+    "node": "AlgorithmNodeItem/Grp_AlgorithmNode/List_AlgorithmInputPorts/Viewport_AlgorithmInputPorts/Content_AlgorithmInputPorts/Item_AlgorithmInputPortTemplate(累计生产数量与目标材料要求1)/Btn_AlgorithmInputPort/Txt_AlgorithmInputPort",
+    "detail": "实际字号 14，低于本次正文/操作文案建议 18；需视觉复核",
+    "evidence": [
+      "geometry/AlgorithmNodeItem-long.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0351",
+    "reason": "次要画布提示或端口/压力样本字号，不以建议18px直接判失败；节点标题与端口相交另列。"
+  },
+  {
+    "page": "13-AlgorithmEditorForm-Panel_PageAlgorithmEditor",
+    "code": "SMALL_TEXT",
+    "severity": "P2",
+    "node": "AlgorithmNodeItem/Grp_AlgorithmNode/List_AlgorithmInputPorts/Viewport_AlgorithmInputPorts/Content_AlgorithmInputPorts/Item_AlgorithmInputPortTemplate(累计生产数量与目标材料要求2)/Btn_AlgorithmInputPort/Txt_AlgorithmInputPort",
+    "detail": "实际字号 14，低于本次正文/操作文案建议 18；需视觉复核",
+    "evidence": [
+      "geometry/AlgorithmNodeItem-long.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0352",
+    "reason": "次要画布提示或端口/压力样本字号，不以建议18px直接判失败；节点标题与端口相交另列。"
+  },
+  {
+    "page": "13-AlgorithmEditorForm-Panel_PageAlgorithmEditor",
+    "code": "SMALL_TEXT",
+    "severity": "P2",
+    "node": "AlgorithmNodeItem/Grp_AlgorithmNode/List_AlgorithmInputPorts/Viewport_AlgorithmInputPorts/Content_AlgorithmInputPorts/Item_AlgorithmInputPortTemplate(累计生产数量与目标材料要求3)/Btn_AlgorithmInputPort/Txt_AlgorithmInputPort",
+    "detail": "实际字号 14，低于本次正文/操作文案建议 18；需视觉复核",
+    "evidence": [
+      "geometry/AlgorithmNodeItem-long.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0353",
+    "reason": "次要画布提示或端口/压力样本字号，不以建议18px直接判失败；节点标题与端口相交另列。"
+  },
+  {
+    "page": "13-AlgorithmEditorForm-Panel_PageAlgorithmEditor",
+    "code": "SMALL_TEXT",
+    "severity": "P2",
+    "node": "AlgorithmNodeItem/Grp_AlgorithmNode/List_AlgorithmOutputPorts/Viewport_AlgorithmOutputPorts/Content_AlgorithmOutputPorts/Item_AlgorithmOutputPortTemplate(累计生产数量与目标材料要求0)/Btn_AlgorithmOutputPort/Txt_AlgorithmOutputPort",
+    "detail": "实际字号 14，低于本次正文/操作文案建议 18；需视觉复核",
+    "evidence": [
+      "geometry/AlgorithmNodeItem-long.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0354",
+    "reason": "次要画布提示或端口/压力样本字号，不以建议18px直接判失败；节点标题与端口相交另列。"
+  },
+  {
+    "page": "13-AlgorithmEditorForm-Panel_PageAlgorithmEditor",
+    "code": "SMALL_TEXT",
+    "severity": "P2",
+    "node": "AlgorithmNodeItem/Grp_AlgorithmNode/List_AlgorithmOutputPorts/Viewport_AlgorithmOutputPorts/Content_AlgorithmOutputPorts/Item_AlgorithmOutputPortTemplate(累计生产数量与目标材料要求1)/Btn_AlgorithmOutputPort/Txt_AlgorithmOutputPort",
+    "detail": "实际字号 14，低于本次正文/操作文案建议 18；需视觉复核",
+    "evidence": [
+      "geometry/AlgorithmNodeItem-long.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0355",
+    "reason": "次要画布提示或端口/压力样本字号，不以建议18px直接判失败；节点标题与端口相交另列。"
+  },
+  {
+    "page": "13-AlgorithmEditorForm-Panel_PageAlgorithmEditor",
+    "code": "SMALL_TEXT",
+    "severity": "P2",
+    "node": "AlgorithmNodeItem/Grp_AlgorithmNode/List_AlgorithmOutputPorts/Viewport_AlgorithmOutputPorts/Content_AlgorithmOutputPorts/Item_AlgorithmOutputPortTemplate(累计生产数量与目标材料要求2)/Btn_AlgorithmOutputPort/Txt_AlgorithmOutputPort",
+    "detail": "实际字号 14，低于本次正文/操作文案建议 18；需视觉复核",
+    "evidence": [
+      "geometry/AlgorithmNodeItem-long.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0356",
+    "reason": "次要画布提示或端口/压力样本字号，不以建议18px直接判失败；节点标题与端口相交另列。"
+  },
+  {
+    "page": "13-AlgorithmEditorForm-Panel_PageAlgorithmEditor",
+    "code": "SMALL_TEXT",
+    "severity": "P2",
+    "node": "AlgorithmNodeItem/Grp_AlgorithmNode/List_AlgorithmOutputPorts/Viewport_AlgorithmOutputPorts/Content_AlgorithmOutputPorts/Item_AlgorithmOutputPortTemplate(累计生产数量与目标材料要求3)/Btn_AlgorithmOutputPort/Txt_AlgorithmOutputPort",
+    "detail": "实际字号 14，低于本次正文/操作文案建议 18；需视觉复核",
+    "evidence": [
+      "geometry/AlgorithmNodeItem-long.json"
+    ],
+    "review": "candidate-needs-review",
+    "id": "G0357",
+    "reason": "次要画布提示或端口/压力样本字号，不以建议18px直接判失败；节点标题与端口相交另列。"
+  },
+  {
+    "page": "09-MachineLibraryForm-Panel_PageUndeployedMachines",
+    "code": "SAFE_MARGIN_TEXT",
+    "severity": "P1",
+    "node": "MachineLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageUndeployedMachines/Panel_UndeployedMachinesDetail/List_UndeployedMachinesDetail/Viewport_UndeployedMachinesDetail/Content_UndeployedMachinesDetail/Txt_UndeployedMachinesDetailBody",
+    "detail": "文字实际轮廓进入 24px 外边距",
+    "evidence": [
+      "geometry/machine-selected.json"
+    ],
+    "review": "geometry-confirmed",
+    "id": "G0362",
+    "reason": "原始未裁切字符轮廓越界，实际图形仍受列表遮罩限制；横向正文裁切已单独记录。"
+  }
+]

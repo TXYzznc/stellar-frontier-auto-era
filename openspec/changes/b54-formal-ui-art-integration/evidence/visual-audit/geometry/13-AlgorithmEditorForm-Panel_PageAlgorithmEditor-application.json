@@ -1,0 +1,1882 @@
+{
+  "label": "application",
+  "screen": [
+    1920,
+    1080
+  ],
+  "nodes": [
+    {
+      "path": "AlgorithmEditorForm(Clone)/Bg_InputBlocker",
+      "type": "Image",
+      "rect": [
+        0.0,
+        0.0,
+        1920.0,
+        1080.0
+      ],
+      "alpha": 0.65,
+      "raycast": true,
+      "masks": []
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Txt_FormTitle",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        162.0,
+        88.0,
+        1410.0,
+        42.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "算法编辑模式",
+      "fontSize": 28.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 28.01,
+      "localHeight": 42.0,
+      "glyphRect": [
+        162.7,
+        88.49,
+        166.59,
+        27.03
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_FormalArtwork_AlgorithmEditor/Img_FormalSurface_AlgorithmEditor",
+      "type": "Image",
+      "rect": [
+        64.05,
+        74.02,
+        1791.91,
+        931.95
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": []
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_FormalArtwork_AlgorithmEditor/Bg_FormalFrame_AlgorithmEditor",
+      "type": "Image",
+      "rect": [
+        40.05,
+        50.03,
+        1839.91,
+        979.95
+      ],
+      "alpha": 0.93871665,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/01-Containers/ui-master-001-normal@512x512.png",
+      "spriteRect": [
+        0.0,
+        0.0,
+        1254.0,
+        1254.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        235.125,
+        235.125,
+        235.125,
+        235.125
+      ],
+      "minimumBorderSize": [
+        191.999985,
+        191.999985
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Txt_AlgorithmEditorTitle",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        162.04,
+        90.02,
+        1479.92,
+        40.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [],
+      "text": "算法编辑模式｜编辑",
+      "fontSize": 28.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 28.01,
+      "localHeight": 40.0,
+      "glyphRect": [
+        162.75,
+        90.51,
+        250.36,
+        27.03
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorAdd",
+      "type": "Image",
+      "rect": [
+        104.04,
+        869.98,
+        278.65,
+        48.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorAdd/Txt_AlgorithmEditorAddLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        116.04,
+        872.98,
+        254.65,
+        42.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [],
+      "text": "添加节点",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 42.0,
+      "glyphRect": [
+        203.72,
+        884.64,
+        78.91,
+        18.92
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorEdit",
+      "type": "Image",
+      "rect": [
+        390.7,
+        869.98,
+        278.65,
+        48.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorEdit/Txt_AlgorithmEditorEditLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        402.7,
+        872.98,
+        254.65,
+        42.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [],
+      "text": "修改节点和参数",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 42.0,
+      "glyphRect": [
+        460.45,
+        884.33,
+        138.67,
+        19.23
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorBind",
+      "type": "Image",
+      "rect": [
+        677.35,
+        869.98,
+        278.65,
+        48.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorBind/Txt_AlgorithmEditorBindLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        689.35,
+        872.98,
+        254.65,
+        42.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [],
+      "text": "选择绑定",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 42.0,
+      "glyphRect": [
+        777.49,
+        884.33,
+        78.36,
+        19.23
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorValidate",
+      "type": "Image",
+      "rect": [
+        964.0,
+        869.98,
+        278.65,
+        48.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorValidate/Txt_AlgorithmEditorValidateLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        976.0,
+        872.98,
+        254.65,
+        42.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [],
+      "text": "验证",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 42.0,
+      "glyphRect": [
+        1083.67,
+        884.56,
+        39.23,
+        19.0
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorApply",
+      "type": "Image",
+      "rect": [
+        1250.65,
+        869.98,
+        278.65,
+        48.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorApply/Txt_AlgorithmEditorApplyLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        1262.65,
+        872.98,
+        254.65,
+        42.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [],
+      "text": "应用草稿",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 42.0,
+      "glyphRect": [
+        1350.64,
+        884.41,
+        78.52,
+        19.15
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorDiagnose",
+      "type": "Image",
+      "rect": [
+        1537.3,
+        869.98,
+        278.65,
+        48.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorDiagnose/Txt_AlgorithmEditorDiagnoseLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        1549.3,
+        872.98,
+        254.65,
+        42.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [],
+      "text": "切换诊断模式",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 42.0,
+      "glyphRect": [
+        1617.22,
+        884.41,
+        118.91,
+        19.23
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorTemplate",
+      "type": "Image",
+      "rect": [
+        104.04,
+        925.98,
+        278.65,
+        48.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorTemplate/Txt_AlgorithmEditorTemplateLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        116.04,
+        928.98,
+        254.65,
+        42.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [],
+      "text": "打开模板库",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 42.0,
+      "glyphRect": [
+        193.96,
+        940.4,
+        98.52,
+        19.23
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorNodes",
+      "type": "Image",
+      "rect": [
+        104.04,
+        198.02,
+        259.99,
+        673.97
+      ],
+      "alpha": 0.9199423,
+      "raycast": false,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/13-CardsAndSlots/ui-master-011-card-normal@512x256.png",
+      "spriteRect": [
+        5.0,
+        10.0,
+        1765.0,
+        868.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        110.312,
+        82.734,
+        110.312,
+        82.734
+      ],
+      "minimumBorderSize": [
+        63.9997025,
+        47.99978
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorNodes/Img_FormalCardSurface_Panel_AlgorithmEditorNodes",
+      "type": "Image",
+      "rect": [
+        110.04,
+        204.02,
+        247.99,
+        661.97
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": []
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorNodes/Txt_AlgorithmEditorNodesHeading",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        122.04,
+        208.02,
+        223.99,
+        30.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [],
+      "text": "节点库",
+      "fontSize": 21.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 21.01,
+      "localHeight": 30.0,
+      "glyphRect": [
+        122.9,
+        208.46,
+        61.2,
+        19.95
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorNodes/List_AlgorithmEditorNodes/Viewport_AlgorithmEditorNodes/Content_AlgorithmEditorNodes/Panel_AlgorithmEditorControls/Panel_AlgorithmEditorNodeSearch",
+      "type": "Image",
+      "rect": [
+        134.04,
+        254.01,
+        231.99,
+        44.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": true,
+      "masks": [
+        {
+          "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorNodes/List_AlgorithmEditorNodes/Viewport_AlgorithmEditorNodes",
+          "rect": [
+            122.04,
+            246.02,
+            223.99,
+            611.97
+          ]
+        }
+      ],
+      "sprite": "Assets/Game/Sprites/UI/Common/10-InputsAndChoices/ui-master-008-input-normal@512x64.png",
+      "spriteRect": [
+        6.0,
+        12.0,
+        2161.0,
+        704.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        101.297,
+        33.766,
+        101.297,
+        33.766
+      ],
+      "minimumBorderSize": [
+        48.0000572,
+        16.0001774
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorNodes/List_AlgorithmEditorNodes/Viewport_AlgorithmEditorNodes/Content_AlgorithmEditorNodes/Panel_AlgorithmEditorControls/Panel_AlgorithmEditorNodeSearch/Grp_AlgorithmEditorNodeSearchTextViewport/Txt_AlgorithmEditorNodeSearchValue",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        146.04,
+        258.01,
+        207.99,
+        36.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [
+        {
+          "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorNodes/List_AlgorithmEditorNodes/Viewport_AlgorithmEditorNodes/Content_AlgorithmEditorNodes/Panel_AlgorithmEditorControls/Panel_AlgorithmEditorNodeSearch/Grp_AlgorithmEditorNodeSearchTextViewport",
+          "rect": [
+            146.04,
+            258.01,
+            207.99,
+            36.0
+          ]
+        },
+        {
+          "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorNodes/List_AlgorithmEditorNodes/Viewport_AlgorithmEditorNodes",
+          "rect": [
+            122.04,
+            246.02,
+            223.99,
+            611.97
+          ]
+        }
+      ],
+      "text": "—",
+      "fontSize": 20.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 36.0,
+      "glyphRect": [
+        145.76,
+        267.11,
+        20.48,
+        1.73
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorNodes/List_AlgorithmEditorNodes/Viewport_AlgorithmEditorNodes/Content_AlgorithmEditorNodes/Panel_AlgorithmEditorControls/Panel_AlgorithmEditorNodeSearch/Grp_AlgorithmEditorNodeSearchTextViewport/Txt_AlgorithmEditorNodeSearchPlaceholder",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        146.04,
+        258.01,
+        207.99,
+        36.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [
+        {
+          "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorNodes/List_AlgorithmEditorNodes/Viewport_AlgorithmEditorNodes/Content_AlgorithmEditorNodes/Panel_AlgorithmEditorControls/Panel_AlgorithmEditorNodeSearch/Grp_AlgorithmEditorNodeSearchTextViewport",
+          "rect": [
+            146.04,
+            258.01,
+            207.99,
+            36.0
+          ]
+        },
+        {
+          "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorNodes/List_AlgorithmEditorNodes/Viewport_AlgorithmEditorNodes",
+          "rect": [
+            122.04,
+            246.02,
+            223.99,
+            611.97
+          ]
+        }
+      ],
+      "text": "搜索节点",
+      "fontSize": 22.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 22.01,
+      "localHeight": 36.0,
+      "glyphRect": [
+        146.6,
+        258.65,
+        86.63,
+        20.9
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorNodes/List_AlgorithmEditorNodes/Viewport_AlgorithmEditorNodes/Content_AlgorithmEditorNodes/Txt_AlgorithmEditorNodesBody",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        122.04,
+        342.01,
+        255.99,
+        119.99
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [
+        {
+          "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorNodes/List_AlgorithmEditorNodes/Viewport_AlgorithmEditorNodes",
+          "rect": [
+            122.04,
+            246.02,
+            223.99,
+            611.97
+          ]
+        }
+      ],
+      "text": "算法属于某个世界里的机器，请先从主菜单进入区域。",
+      "fontSize": 22.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 72.19,
+      "localHeight": 120.0,
+      "glyphRect": [
+        122.6,
+        342.39,
+        240.97,
+        71.25
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorNodes/__VisualAccent",
+      "type": "Image",
+      "rect": [
+        104.04,
+        198.02,
+        3.0,
+        673.97
+      ],
+      "alpha": 0.8636193,
+      "raycast": false,
+      "masks": []
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorCanvas",
+      "type": "Image",
+      "rect": [
+        388.03,
+        198.02,
+        999.95,
+        545.97
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/13-CardsAndSlots/ui-master-011-card-normal@512x256.png",
+      "spriteRect": [
+        5.0,
+        10.0,
+        1765.0,
+        868.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        110.312,
+        82.734,
+        110.312,
+        82.734
+      ],
+      "minimumBorderSize": [
+        63.9997025,
+        47.99978
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorCanvas/Img_FormalCardSurface_Panel_AlgorithmEditorCanvas",
+      "type": "Image",
+      "rect": [
+        394.03,
+        204.02,
+        987.95,
+        533.97
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": []
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorCanvas/Txt_AlgorithmEditorCanvasHeading",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        406.03,
+        208.02,
+        963.95,
+        30.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [],
+      "text": "节点画布",
+      "fontSize": 21.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 21.01,
+      "localHeight": 30.0,
+      "glyphRect": [
+        406.89,
+        208.38,
+        82.2,
+        20.03
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorCanvas/List_AlgorithmGraph/Viewport_AlgorithmGraph/AlgorithmGraphBackdrop",
+      "type": "AlgorithmGraphBackdrop",
+      "rect": [
+        406.03,
+        246.02,
+        963.95,
+        483.98
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [
+        {
+          "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorCanvas/List_AlgorithmGraph/Viewport_AlgorithmGraph",
+          "rect": [
+            406.03,
+            246.02,
+            963.95,
+            483.98
+          ]
+        }
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorCanvas/List_AlgorithmGraph/Viewport_AlgorithmGraph/AlgorithmGraphInteractionHint",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        994.0,
+        693.99,
+        359.98,
+        24.0
+      ],
+      "alpha": 0.6383273,
+      "raycast": false,
+      "masks": [
+        {
+          "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorCanvas/List_AlgorithmGraph/Viewport_AlgorithmGraph",
+          "rect": [
+            406.03,
+            246.02,
+            963.95,
+            483.98
+          ]
+        }
+      ],
+      "text": "滚轮 缩放   ·   中键 / 空白区 拖拽",
+      "fontSize": 14.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 14.01,
+      "localHeight": 24.0,
+      "glyphRect": [
+        1109.4,
+        704.23,
+        244.23,
+        13.57
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorCanvas/__VisualAccent",
+      "type": "Image",
+      "rect": [
+        388.03,
+        198.02,
+        3.0,
+        545.97
+      ],
+      "alpha": 0.8636193,
+      "raycast": false,
+      "masks": []
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorInspector",
+      "type": "Image",
+      "rect": [
+        1411.98,
+        198.02,
+        403.98,
+        673.97
+      ],
+      "alpha": 0.9199423,
+      "raycast": false,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/13-CardsAndSlots/ui-master-011-card-normal@512x256.png",
+      "spriteRect": [
+        5.0,
+        10.0,
+        1765.0,
+        868.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        110.312,
+        82.734,
+        110.312,
+        82.734
+      ],
+      "minimumBorderSize": [
+        63.9997025,
+        47.99978
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorInspector/Img_FormalCardSurface_Panel_AlgorithmEditorInspector",
+      "type": "Image",
+      "rect": [
+        1417.98,
+        204.02,
+        391.98,
+        661.97
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": []
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorInspector/Txt_AlgorithmEditorInspectorHeading",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        1429.98,
+        208.02,
+        367.98,
+        30.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [],
+      "text": "节点检查器",
+      "fontSize": 21.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 21.01,
+      "localHeight": 30.0,
+      "glyphRect": [
+        1430.83,
+        208.71,
+        103.45,
+        19.7
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorInspector/List_AlgorithmEditorInspector/Viewport_AlgorithmEditorInspector/Content_AlgorithmEditorInspector/Txt_AlgorithmEditorInspectorBody",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        1429.98,
+        246.02,
+        279.99,
+        119.99
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [
+        {
+          "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorInspector/List_AlgorithmEditorInspector/Viewport_AlgorithmEditorInspector",
+          "rect": [
+            1429.98,
+            246.02,
+            367.98,
+            611.97
+          ]
+        }
+      ],
+      "text": "算法属于某个世界里的机器，请先从主菜单进入区域。",
+      "fontSize": 22.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 72.19,
+      "localHeight": 120.0,
+      "glyphRect": [
+        1430.53,
+        246.4,
+        240.97,
+        71.25
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorInspector/__VisualAccent",
+      "type": "Image",
+      "rect": [
+        1411.98,
+        198.02,
+        3.0,
+        673.97
+      ],
+      "alpha": 0.9199423,
+      "raycast": false,
+      "masks": []
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorProblems",
+      "type": "Image",
+      "rect": [
+        388.03,
+        767.99,
+        999.95,
+        123.99
+      ],
+      "alpha": 0.9199423,
+      "raycast": false,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/13-CardsAndSlots/ui-master-011-card-normal@512x256.png",
+      "spriteRect": [
+        5.0,
+        10.0,
+        1765.0,
+        868.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        110.312,
+        82.734,
+        110.312,
+        82.734
+      ],
+      "minimumBorderSize": [
+        63.9997025,
+        47.99978
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorProblems/Img_FormalCardSurface_Panel_AlgorithmEditorProblems",
+      "type": "Image",
+      "rect": [
+        394.03,
+        773.99,
+        987.95,
+        111.99
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": []
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorProblems/Txt_AlgorithmEditorProblemsHeading",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        406.03,
+        777.99,
+        963.95,
+        30.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [],
+      "text": "验证问题",
+      "fontSize": 21.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 21.01,
+      "localHeight": 30.0,
+      "glyphRect": [
+        406.39,
+        778.6,
+        82.94,
+        19.95
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorProblems/List_AlgorithmEditorProblems/Viewport_AlgorithmEditorProblems/Content_AlgorithmEditorProblems/Txt_AlgorithmEditorProblemsBody",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        406.03,
+        815.99,
+        1703.91,
+        119.99
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [
+        {
+          "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorProblems/List_AlgorithmEditorProblems/Viewport_AlgorithmEditorProblems",
+          "rect": [
+            406.03,
+            815.99,
+            963.95,
+            62.0
+          ]
+        }
+      ],
+      "text": "算法属于某个世界里的机器，请先从主菜单进入区域。",
+      "fontSize": 22.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 22.01,
+      "localHeight": 120.0,
+      "glyphRect": [
+        406.58,
+        816.37,
+        513.89,
+        22.18
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorProblems/__VisualAccent",
+      "type": "Image",
+      "rect": [
+        388.03,
+        767.99,
+        3.0,
+        123.99
+      ],
+      "alpha": 0.9199423,
+      "raycast": false,
+      "masks": []
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorToolbar",
+      "type": "Image",
+      "rect": [
+        478.02,
+        144.02,
+        909.95,
+        44.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/13-CardsAndSlots/ui-master-011-card-normal@512x256.png",
+      "spriteRect": [
+        5.0,
+        10.0,
+        1765.0,
+        868.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        110.312,
+        82.734,
+        110.312,
+        82.734
+      ],
+      "minimumBorderSize": [
+        63.9997025,
+        47.99978
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorToolbar/Img_FormalCardSurface_Panel_AlgorithmEditorToolbar",
+      "type": "Image",
+      "rect": [
+        484.02,
+        150.02,
+        897.95,
+        32.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": []
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorToolbar/Txt_AlgorithmToolbarStatus",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        490.02,
+        152.02,
+        429.98,
+        28.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [],
+      "text": "算法／机器／容量／草稿／运行版本：—",
+      "fontSize": 18.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": false,
+      "overflowMode": "Ellipsis",
+      "overflowing": false,
+      "preferredHeight": 18.01,
+      "localHeight": 28.0,
+      "glyphRect": [
+        490.48,
+        152.33,
+        323.71,
+        17.31
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorToolbar/Grp_AlgorithmDraftTools/Btn_AlgorithmUndo",
+      "type": "Image",
+      "rect": [
+        1016.0,
+        152.02,
+        99.99,
+        32.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorToolbar/Grp_AlgorithmDraftTools/Btn_AlgorithmUndo/Txt_AlgorithmUndoLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        1028.0,
+        155.02,
+        76.0,
+        26.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [],
+      "text": "撤销",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 26.0,
+      "glyphRect": [
+        1046.34,
+        158.6,
+        38.83,
+        18.68
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorToolbar/Grp_AlgorithmDraftTools/Btn_AlgorithmRedo",
+      "type": "Image",
+      "rect": [
+        1123.99,
+        152.02,
+        99.99,
+        32.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorToolbar/Grp_AlgorithmDraftTools/Btn_AlgorithmRedo/Txt_AlgorithmRedoLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        1135.99,
+        155.02,
+        76.0,
+        26.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [],
+      "text": "重做",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 26.0,
+      "glyphRect": [
+        1154.96,
+        158.76,
+        38.29,
+        18.6
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorToolbar/Grp_AlgorithmDraftTools/Btn_AlgorithmDeleteSelected",
+      "type": "Image",
+      "rect": [
+        1231.99,
+        152.02,
+        139.99,
+        32.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorToolbar/Grp_AlgorithmDraftTools/Btn_AlgorithmDeleteSelected/Txt_AlgorithmDeleteSelectedLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        1243.99,
+        155.02,
+        115.99,
+        26.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [],
+      "text": "删除选中",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 26.0,
+      "glyphRect": [
+        1262.33,
+        158.37,
+        77.51,
+        19.23
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorDisabledState/Panel_AlgorithmEditorDisabledMessage",
+      "type": "Image",
+      "rect": [
+        700.01,
+        484.0,
+        519.97,
+        119.99
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/08-MessagesAndStates/ui-master-006-disabled@512x160.png",
+      "spriteRect": [
+        0.0,
+        0.0,
+        2172.0,
+        724.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        169.688,
+        169.688,
+        169.688,
+        169.688
+      ],
+      "minimumBorderSize": [
+        80.00023,
+        80.00023
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorDisabledState/Panel_AlgorithmEditorDisabledMessage/Txt_AlgorithmEditorDisabledMessage",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        712.01,
+        496.0,
+        495.97,
+        96.0
+      ],
+      "alpha": 0.93871665,
+      "raycast": false,
+      "masks": [],
+      "text": "算法属于某个世界里的机器，请先从主菜单进入区域。",
+      "fontSize": 20.0,
+      "fontSizeMin": 0.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 96.0,
+      "glyphRect": [
+        712.52,
+        496.35,
+        467.17,
+        20.17
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Btn_FormBack",
+      "type": "Image",
+      "rect": [
+        1592.0,
+        88.0,
+        112.0,
+        40.0
+      ],
+      "alpha": 1.0,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Btn_FormBack/Txt_FormBackLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        1604.0,
+        91.0,
+        88.0,
+        34.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "返回",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 34.0,
+      "glyphRect": [
+        1628.66,
+        98.82,
+        37.27,
+        18.68
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_Navigation/Btn_AlgorithmEditorNavEdit",
+      "type": "Image",
+      "rect": [
+        104.0,
+        154.0,
+        166.0,
+        42.0
+      ],
+      "alpha": 1.0,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/11-TabsAndNav/ui-master-009-nav-item@512x64.png",
+      "spriteRect": [
+        0.0,
+        172.0,
+        2172.0,
+        386.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        101.812,
+        33.938,
+        101.812,
+        33.938
+      ],
+      "minimumBorderSize": [
+        47.9997559,
+        16.0002346
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_Navigation/Btn_AlgorithmEditorNavEdit/Txt_AlgorithmEditorNavEditLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        116.0,
+        157.0,
+        142.0,
+        36.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "编辑",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 36.0,
+      "glyphRect": [
+        167.35,
+        165.5,
+        38.99,
+        19.15
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_Navigation/Btn_AlgorithmEditorDiagnosis",
+      "type": "Image",
+      "rect": [
+        280.0,
+        154.0,
+        166.0,
+        42.0
+      ],
+      "alpha": 1.0,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/11-TabsAndNav/ui-master-009-nav-item@512x64.png",
+      "spriteRect": [
+        0.0,
+        172.0,
+        2172.0,
+        386.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        101.812,
+        33.938,
+        101.812,
+        33.938
+      ],
+      "minimumBorderSize": [
+        47.9997559,
+        16.0002346
+      ]
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_Navigation/Btn_AlgorithmEditorDiagnosis/Txt_AlgorithmEditorDiagnosisLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        292.0,
+        157.0,
+        142.0,
+        36.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "诊断",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 36.0,
+      "glyphRect": [
+        343.5,
+        165.42,
+        38.76,
+        19.23
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorAdd",
+      "type": "Button",
+      "rect": [
+        104.04,
+        869.98,
+        278.65,
+        48.0
+      ],
+      "interactable": true,
+      "navigation": "Automatic",
+      "topHit": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorAdd",
+      "centerHitOwned": true
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorEdit",
+      "type": "Button",
+      "rect": [
+        390.7,
+        869.98,
+        278.65,
+        48.0
+      ],
+      "interactable": false,
+      "navigation": "Automatic"
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorBind",
+      "type": "Button",
+      "rect": [
+        677.35,
+        869.98,
+        278.65,
+        48.0
+      ],
+      "interactable": false,
+      "navigation": "Automatic"
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorValidate",
+      "type": "Button",
+      "rect": [
+        964.0,
+        869.98,
+        278.65,
+        48.0
+      ],
+      "interactable": false,
+      "navigation": "Automatic"
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorApply",
+      "type": "Button",
+      "rect": [
+        1250.65,
+        869.98,
+        278.65,
+        48.0
+      ],
+      "interactable": true,
+      "navigation": "Automatic",
+      "topHit": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorApply",
+      "centerHitOwned": true
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorDiagnose",
+      "type": "Button",
+      "rect": [
+        1537.3,
+        869.98,
+        278.65,
+        48.0
+      ],
+      "interactable": false,
+      "navigation": "Automatic"
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorActions/Btn_AlgorithmEditorTemplate",
+      "type": "Button",
+      "rect": [
+        104.04,
+        925.98,
+        278.65,
+        48.0
+      ],
+      "interactable": false,
+      "navigation": "Automatic"
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorNodes/List_AlgorithmEditorNodes/Viewport_AlgorithmEditorNodes/Content_AlgorithmEditorNodes/Panel_AlgorithmEditorControls/Panel_AlgorithmEditorNodeSearch",
+      "type": "TMP_InputField",
+      "rect": [
+        134.04,
+        254.01,
+        231.99,
+        44.0
+      ],
+      "interactable": true,
+      "navigation": "Automatic",
+      "topHit": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorNodes/List_AlgorithmEditorNodes/Viewport_AlgorithmEditorNodes/Content_AlgorithmEditorNodes/Panel_AlgorithmEditorControls/Panel_AlgorithmEditorNodeSearch",
+      "centerHitOwned": true
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorToolbar/Grp_AlgorithmDraftTools/Btn_AlgorithmUndo",
+      "type": "Button",
+      "rect": [
+        1016.0,
+        152.02,
+        99.99,
+        32.0
+      ],
+      "interactable": false,
+      "navigation": "Automatic"
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorToolbar/Grp_AlgorithmDraftTools/Btn_AlgorithmRedo",
+      "type": "Button",
+      "rect": [
+        1123.99,
+        152.02,
+        99.99,
+        32.0
+      ],
+      "interactable": false,
+      "navigation": "Automatic"
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorToolbar/Grp_AlgorithmDraftTools/Btn_AlgorithmDeleteSelected",
+      "type": "Button",
+      "rect": [
+        1231.99,
+        152.02,
+        139.99,
+        32.0
+      ],
+      "interactable": true,
+      "navigation": "Automatic",
+      "topHit": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorToolbar/Grp_AlgorithmDraftTools/Btn_AlgorithmDeleteSelected",
+      "centerHitOwned": true
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Btn_FormBack",
+      "type": "Button",
+      "rect": [
+        1592.0,
+        88.0,
+        112.0,
+        40.0
+      ],
+      "interactable": true,
+      "navigation": "Automatic",
+      "topHit": "AlgorithmEditorForm(Clone)/Panel_Frame/Btn_FormBack",
+      "centerHitOwned": true
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_Navigation/Btn_AlgorithmEditorNavEdit",
+      "type": "Button",
+      "rect": [
+        104.0,
+        154.0,
+        166.0,
+        42.0
+      ],
+      "interactable": true,
+      "navigation": "Automatic",
+      "topHit": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_Navigation/Btn_AlgorithmEditorNavEdit",
+      "centerHitOwned": true
+    },
+    {
+      "path": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_Navigation/Btn_AlgorithmEditorDiagnosis",
+      "type": "Button",
+      "rect": [
+        280.0,
+        154.0,
+        166.0,
+        42.0
+      ],
+      "interactable": true,
+      "navigation": "Automatic",
+      "topHit": "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_Navigation/Btn_AlgorithmEditorDiagnosis",
+      "centerHitOwned": true
+    }
+  ],
+  "activeStates": [
+    "AlgorithmEditorForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorDisabledState"
+  ],
+  "focus": "Btn_FormBack",
+  "auditId": "13-AlgorithmEditorForm-Panel_PageAlgorithmEditor",
+  "pageSwitch": "ShowEditorPage/serialized-page-index=0",
+  "pageSwitchError": null
+}

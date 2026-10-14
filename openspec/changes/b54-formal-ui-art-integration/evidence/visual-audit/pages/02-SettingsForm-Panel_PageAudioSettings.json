@@ -1,0 +1,440 @@
+{
+  "form": "SettingsForm",
+  "prefab": "Assets/Game/Prefabs/UI/System/SettingsForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/SettingsForm.contract.json",
+  "page": "Panel_PageAudioSettings",
+  "family": 2,
+  "state": "default",
+  "frame": [
+    200,
+    120,
+    1520,
+    840
+  ],
+  "sections": [
+    {
+      "name": "Panel_AudioSettingsVolumes",
+      "rect": [
+        554,
+        280,
+        944,
+        360
+      ]
+    },
+    {
+      "name": "Panel_AudioSettingsPersistence",
+      "rect": [
+        554,
+        664,
+        944,
+        120
+      ]
+    }
+  ],
+  "artwork": [],
+  "source": "EffectBoards/mock-ui-02-AudioSettings-default.png",
+  "pageIndex": 0,
+  "auditId": "02-SettingsForm-Panel_PageAudioSettings",
+  "title": "声音设置",
+  "issues": [
+    {
+      "page": "02-SettingsForm-Panel_PageAudioSettings",
+      "code": "ASSET_SEMANTIC_CONFLICT",
+      "severity": "P1",
+      "node": "SettingsForm/Panel_Frame/Grp_PageHost/Panel_PageAudioSettings/Panel_AudioSettingsVolumes/List_AudioSettingsVolumes/Viewport_AudioSettingsVolumes/Content_AudioSettingsVolumes/Panel_AudioSettingsControls/Sld_AudioSettingsAmbientVolume/Grp_AudioSettingsAmbientVolumeFillArea/Bar_AudioSettingsAmbientVolumeFill / SettingsForm/Panel_Frame/Grp_PageHost/Panel_PageAudioSettings/Panel_AudioSettingsVolumes/List_AudioSettingsVolumes/Viewport_AudioSettingsVolumes/Content_AudioSettingsVolumes/Panel_AudioSettingsControls/Sld_AudioSettingsMachineVolume/Grp_AudioSettingsMachineVolumeFillArea/Bar_AudioSettingsMachineVolumeFill / SettingsForm/Panel_Frame/Grp_PageHost/Panel_PageAudioSettings/Panel_AudioSettingsVolumes/List_AudioSettingsVolumes/Viewport_AudioSettingsVolumes/Content_AudioSettingsVolumes/Panel_AudioSettingsControls/Sld_AudioSettingsMainVolume/Grp_AudioSettingsMainVolumeFillArea/Bar_AudioSettingsMainVolumeFill / SettingsForm/Panel_Frame/Grp_PageHost/Panel_PageAudioSettings/Panel_AudioSettingsVolumes/List_AudioSettingsVolumes/Viewport_AudioSettingsVolumes/Content_AudioSettingsVolumes/Panel_AudioSettingsControls/Sld_AudioSettingsMusicVolume/Grp_AudioSettingsMusicVolumeFillArea/Bar_AudioSettingsMusicVolumeFill / SettingsForm/Panel_Frame/Grp_PageHost/Panel_PageAudioSettings/Panel_AudioSettingsVolumes/List_AudioSettingsVolumes/Viewport_AudioSettingsVolumes/Content_AudioSettingsVolumes/Panel_AudioSettingsControls/Sld_AudioSettingsUiVolume/Grp_AudioSettingsUiVolumeFillArea/Bar_AudioSettingsUiVolumeFill",
+      "detail": "正式文件 M007-fill-thin 的像素内容被素材包登记为 M007-track-thin-warning；遵守文件身份并不能消除实际图形语义错位。保留原PNG，资源互换仍不纳入本轮自动修复。",
+      "criteria": [
+        9,
+        12
+      ],
+      "evidence": [
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-application.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-memory.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-scroll-bottom.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-scroll-top.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-world-scroll-bottom.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-world-scroll-top.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-world.json"
+      ],
+      "review": "confirmed",
+      "scope": "asset-conflict",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 9,12：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0015",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "02-SettingsForm-Panel_PageAudioSettings",
+      "code": "ASSET_SEMANTIC_CONFLICT",
+      "severity": "P1",
+      "node": "SettingsForm/Panel_Frame/Grp_PageHost/Panel_PageAudioSettings/Panel_AudioSettingsVolumes/List_AudioSettingsVolumes/Viewport_AudioSettingsVolumes/Content_AudioSettingsVolumes/Panel_AudioSettingsControls/Sld_AudioSettingsAmbientVolume/Grp_AudioSettingsAmbientVolumeHandleArea/Img_AudioSettingsAmbientVolumeHandle / SettingsForm/Panel_Frame/Grp_PageHost/Panel_PageAudioSettings/Panel_AudioSettingsVolumes/List_AudioSettingsVolumes/Viewport_AudioSettingsVolumes/Content_AudioSettingsVolumes/Panel_AudioSettingsControls/Sld_AudioSettingsMachineVolume/Grp_AudioSettingsMachineVolumeHandleArea/Img_AudioSettingsMachineVolumeHandle / SettingsForm/Panel_Frame/Grp_PageHost/Panel_PageAudioSettings/Panel_AudioSettingsVolumes/List_AudioSettingsVolumes/Viewport_AudioSettingsVolumes/Content_AudioSettingsVolumes/Panel_AudioSettingsControls/Sld_AudioSettingsMainVolume/Grp_AudioSettingsMainVolumeHandleArea/Img_AudioSettingsMainVolumeHandle / SettingsForm/Panel_Frame/Grp_PageHost/Panel_PageAudioSettings/Panel_AudioSettingsVolumes/List_AudioSettingsVolumes/Viewport_AudioSettingsVolumes/Content_AudioSettingsVolumes/Panel_AudioSettingsControls/Sld_AudioSettingsMusicVolume/Grp_AudioSettingsMusicVolumeHandleArea/Img_AudioSettingsMusicVolumeHandle / SettingsForm/Panel_Frame/Grp_PageHost/Panel_PageAudioSettings/Panel_AudioSettingsVolumes/List_AudioSettingsVolumes/Viewport_AudioSettingsVolumes/Content_AudioSettingsVolumes/Panel_AudioSettingsControls/Sld_AudioSettingsUiVolume/Grp_AudioSettingsUiVolumeHandleArea/Img_AudioSettingsUiVolumeHandle",
+      "detail": "正式文件 M007-knob-normal 的像素内容被素材包登记为 M007-fill-thin；遵守文件身份并不能消除实际图形语义错位。保留原PNG，资源互换仍不纳入本轮自动修复。",
+      "criteria": [
+        9,
+        12
+      ],
+      "evidence": [
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-application.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-memory.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-scroll-bottom.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-scroll-top.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-state-AudioSettingsDisabledState.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-state-AudioSettingsEmptyState.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-state-AudioSettingsErrorState.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-state-AudioSettingsLoadingState.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-state-AudioSettingsSuccessState.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-state-base.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-world-scroll-bottom.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-world-scroll-top.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-world.json"
+      ],
+      "review": "confirmed",
+      "scope": "asset-conflict",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 9,12：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0016",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "02-SettingsForm-Panel_PageAudioSettings",
+      "code": "SCROLL_ROW_TOO_TALL",
+      "severity": "P1",
+      "node": "SettingsForm/Panel_Frame/Grp_PageHost/Panel_PageAudioSettings/Panel_AudioSettingsPersistence/List_AudioSettingsPersistence/Viewport_AudioSettingsPersistence/Content_AudioSettingsPersistence/Item_AudioSettingsPersistenceTemplate/Btn_AudioSettingsPersistenceRow",
+      "detail": "单条记录高 104.0px，大于列表可视高度 58.0px；无法完整显示一条记录",
+      "evidence": [
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-scroll-bottom.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-scroll-top.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-world-scroll-bottom.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-world-scroll-top.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0016",
+      "criteria": [
+        3,
+        4,
+        7,
+        10,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 3,4,7,10,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0017",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "02-SettingsForm-Panel_PageAudioSettings",
+      "code": "SLIDER_AFFORDANCE",
+      "severity": "P1",
+      "node": "Sld_AudioSettings*",
+      "detail": "五条音量轨道在 1080p 下近似细线，把手和填充不易辨识；当前引用的 knob/fill 源图存在已登记语义错位。",
+      "criteria": [
+        3,
+        5,
+        9,
+        10
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/02-SettingsForm-Panel_PageAudioSettings.png"
+      ],
+      "sourceId": "V0002",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 3,5,9,10：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0018",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "02-SettingsForm-Panel_PageAudioSettings",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "SettingsForm/Panel_Frame/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-state-AudioSettingsDisabledState.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-state-AudioSettingsEmptyState.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-state-AudioSettingsErrorState.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-state-AudioSettingsLoadingState.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-state-AudioSettingsSuccessState.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0017",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0019",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "02-SettingsForm-Panel_PageAudioSettings",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "SettingsForm/Panel_Frame/Grp_PageHost/Panel_PageAudioSettings/Txt_AudioSettingsTitle ↔ SettingsForm/Panel_Frame/Txt_FormTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-application.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-memory.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-scroll-bottom.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-scroll-top.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-state-AudioSettingsDisabledState.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-state-AudioSettingsEmptyState.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-state-AudioSettingsErrorState.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-state-AudioSettingsLoadingState.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-state-AudioSettingsSuccessState.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-state-base.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-world-scroll-bottom.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-world-scroll-top.json",
+        "geometry/02-SettingsForm-Panel_PageAudioSettings-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0014",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0020",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0017",
+        "UIA-0018"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0017",
+        "UIA-0019",
+        "UIA-0020"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0018",
+        "UIA-0019"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0019"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0017",
+        "UIA-0019",
+        "UIA-0020"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0015",
+        "UIA-0016",
+        "UIA-0018",
+        "UIA-0019"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0017",
+        "UIA-0018"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0017",
+        "UIA-0019"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0015",
+        "UIA-0016"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/02-SettingsForm-Panel_PageAudioSettings-application.png",
+      "geometry": "geometry/02-SettingsForm-Panel_PageAudioSettings-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/02-SettingsForm-Panel_PageAudioSettings-memory.png",
+      "geometry": "geometry/02-SettingsForm-Panel_PageAudioSettings-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/02-SettingsForm-Panel_PageAudioSettings-world.png",
+      "geometry": "geometry/02-SettingsForm-Panel_PageAudioSettings-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_AudioSettingsLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/02-SettingsForm-Panel_PageAudioSettings-AudioSettingsLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_AudioSettingsEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/02-SettingsForm-Panel_PageAudioSettings-AudioSettingsEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_AudioSettingsErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/02-SettingsForm-Panel_PageAudioSettings-AudioSettingsErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_AudioSettingsSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/02-SettingsForm-Panel_PageAudioSettings-AudioSettingsSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_AudioSettingsDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/02-SettingsForm-Panel_PageAudioSettings-AudioSettingsDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "default",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-02-AudioSettings-default.png",
+      "artKeys": [
+        "S02-001",
+        "S02-002",
+        "S02-003",
+        "S02-004",
+        "S02-007",
+        "S02-001",
+        "S02-001",
+        "S02-001",
+        "S02-001"
+      ]
+    },
+    {
+      "state": "modified",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-02-AudioSettings-modified.png",
+      "artKeys": [
+        "S02-001",
+        "S02-002",
+        "S02-003",
+        "S02-004",
+        "S02-007",
+        "S02-001",
+        "S02-001",
+        "S02-001",
+        "S02-001"
+      ]
+    },
+    {
+      "state": "reset",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-02-AudioSettings-reset.png",
+      "artKeys": [
+        "S02-001",
+        "S02-002",
+        "S02-003",
+        "S02-004",
+        "S02-007",
+        "S02-001",
+        "S02-001",
+        "S02-001",
+        "S02-001"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,309 @@
+{
+  "form": "ExitFlowForm",
+  "prefab": "Assets/Game/Prefabs/UI/System/ExitFlowForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/ExitFlowForm.contract.json",
+  "page": "Panel_PageExitFlow",
+  "family": 2,
+  "state": "confirm",
+  "frame": [
+    200,
+    120,
+    1520,
+    840
+  ],
+  "sections": [
+    {
+      "name": "Panel_ExitFlowStage",
+      "rect": [
+        554,
+        280,
+        944,
+        360
+      ]
+    },
+    {
+      "name": "Panel_ExitFlowFailure",
+      "rect": [
+        554,
+        664,
+        944,
+        120
+      ]
+    }
+  ],
+  "artwork": [],
+  "source": "EffectBoards/mock-ui-02-ExitFlow-confirm.png",
+  "pageIndex": 0,
+  "auditId": "02-ExitFlowForm-Panel_PageExitFlow",
+  "title": "保存返回与退出失败处理",
+  "issues": [
+    {
+      "page": "02-ExitFlowForm-Panel_PageExitFlow",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "ExitFlowForm/Panel_Frame/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-application.json",
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-memory.json",
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-scroll-bottom.json",
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-scroll-top.json",
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-state-ExitFlowDisabledState.json",
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-state-ExitFlowEmptyState.json",
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-state-ExitFlowErrorState.json",
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-state-ExitFlowLoadingState.json",
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-state-ExitFlowSuccessState.json",
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-world-scroll-bottom.json",
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-world-scroll-top.json",
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0013",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0013",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "02-ExitFlowForm-Panel_PageExitFlow",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "ExitFlowForm/Panel_Frame/Grp_PageHost/Panel_PageExitFlow/Txt_ExitFlowTitle ↔ ExitFlowForm/Panel_Frame/Txt_FormTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-application.json",
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-memory.json",
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-scroll-bottom.json",
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-scroll-top.json",
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-state-base.json",
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-state-ExitFlowDisabledState.json",
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-state-ExitFlowEmptyState.json",
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-state-ExitFlowErrorState.json",
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-state-ExitFlowLoadingState.json",
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-state-ExitFlowSuccessState.json",
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-world-scroll-bottom.json",
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-world-scroll-top.json",
+        "geometry/02-ExitFlowForm-Panel_PageExitFlow-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0012",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0014",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0013",
+        "UIA-0014"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0013"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0013"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0013",
+        "UIA-0014"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0013"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0013"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_ExitFlowDisabledState"
+      ],
+      "screenshot": "runtime/02-ExitFlowForm-Panel_PageExitFlow-application.png",
+      "geometry": "geometry/02-ExitFlowForm-Panel_PageExitFlow-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_ExitFlowDisabledState"
+      ],
+      "screenshot": "runtime/02-ExitFlowForm-Panel_PageExitFlow-memory.png",
+      "geometry": "geometry/02-ExitFlowForm-Panel_PageExitFlow-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_ExitFlowDisabledState"
+      ],
+      "screenshot": "runtime/02-ExitFlowForm-Panel_PageExitFlow-world.png",
+      "geometry": "geometry/02-ExitFlowForm-Panel_PageExitFlow-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_ExitFlowLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/02-ExitFlowForm-Panel_PageExitFlow-ExitFlowLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_ExitFlowEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/02-ExitFlowForm-Panel_PageExitFlow-ExitFlowEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_ExitFlowErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/02-ExitFlowForm-Panel_PageExitFlow-ExitFlowErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_ExitFlowSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/02-ExitFlowForm-Panel_PageExitFlow-ExitFlowSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_ExitFlowDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "application",
+        "memory",
+        "world"
+      ],
+      "screenshot": "state-layout/02-ExitFlowForm-Panel_PageExitFlow-ExitFlowDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "confirm",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-02-ExitFlow-confirm.png",
+      "artKeys": [
+        "S02-001",
+        "S02-002",
+        "S02-003",
+        "S02-004",
+        "S02-008"
+      ]
+    },
+    {
+      "state": "unsaved",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-02-ExitFlow-unsaved.png",
+      "artKeys": [
+        "S02-001",
+        "S02-002",
+        "S02-003",
+        "S02-004",
+        "S02-009"
+      ]
+    }
+  ]
+}

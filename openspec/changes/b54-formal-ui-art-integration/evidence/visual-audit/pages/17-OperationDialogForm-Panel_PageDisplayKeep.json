@@ -1,0 +1,372 @@
+{
+  "form": "OperationDialogForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/OperationDialogForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/OperationDialogForm.contract.json",
+  "page": "Panel_PageDisplayKeep",
+  "family": 17,
+  "state": "pending",
+  "frame": [
+    200,
+    120,
+    1520,
+    840
+  ],
+  "sections": [
+    {
+      "name": "Panel_DisplayKeepModes",
+      "rect": [
+        282,
+        650,
+        654,
+        178
+      ]
+    },
+    {
+      "name": "Panel_DisplayKeepRecovery",
+      "rect": [
+        982,
+        446,
+        616,
+        338
+      ]
+    }
+  ],
+  "artwork": [
+    {
+      "key": "S17-006",
+      "path": "Assets/Game/Sprites/UI/Pages/17-操作确认与输入/scr-17-006-impact-scope-none@640x480.png",
+      "rect": [
+        282,
+        420,
+        654,
+        408
+      ],
+      "mode": "fit",
+      "opacity": 1
+    }
+  ],
+  "source": "EffectBoards/mock-ui-17-DisplayKeep-pending.png",
+  "pageIndex": 12,
+  "auditId": "17-OperationDialogForm-Panel_PageDisplayKeep",
+  "title": "显示模式保留恢复",
+  "issues": [
+    {
+      "page": "17-OperationDialogForm-Panel_PageDisplayKeep",
+      "code": "CONFIRM_ART_OBSCURED",
+      "severity": "P1",
+      "node": "确认页左侧插画与对象信息卡",
+      "detail": "左下对象信息卡覆盖插画底部，插画被明显截断，台座和对象没有完整展示空间。",
+      "criteria": [
+        2,
+        3,
+        4,
+        6
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/17-OperationDialogForm-Panel_PageDisplayKeep.png"
+      ],
+      "sourceId": "V0072",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 2,3,4,6：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0393",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "17-OperationDialogForm-Panel_PageDisplayKeep",
+      "code": "DANGEROUS_ACTION_HIERARCHY",
+      "severity": "P1",
+      "node": "底部确认/取消/删除等按钮",
+      "detail": "保留、取消、提交、删除或放弃进度采用近似同权重按钮，危险操作缺少足够醒目的差异提示，无法快速区分安全出口与执行动作。",
+      "criteria": [
+        8,
+        9,
+        10
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/17-OperationDialogForm-Panel_PageDisplayKeep.png"
+      ],
+      "sourceId": "V0083",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 8,9,10：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0394",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "17-OperationDialogForm-Panel_PageDisplayKeep",
+      "code": "DIALOG_BUSINESS_PATH_MISSING",
+      "severity": "P1",
+      "node": "OperationDialogForm 非硬件确认页",
+      "detail": "原生实现仅接入HardwareConfirm；本页没有对应请求消费、运行数据渲染和底部动作绑定。当前页面是声明布局，不能验证其业务成功/失败、确认/取消转换。",
+      "criteria": [
+        9,
+        10,
+        11
+      ],
+      "evidence": [
+        "runtime/17-OperationDialogForm-Panel_PageDisplayKeep-world.png",
+        "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-world.json"
+      ],
+      "review": "confirmed",
+      "scope": "business-gap",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "缺少接入时明确不可用；真正业务流程需在批准范围内单独接入。",
+      "id": "UIA-0395",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "17-OperationDialogForm-Panel_PageDisplayKeep",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "OperationDialogForm/Panel_Frame/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-state-DisplayKeepDisabledState.json",
+        "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-state-DisplayKeepEmptyState.json",
+        "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-state-DisplayKeepErrorState.json",
+        "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-state-DisplayKeepLoadingState.json",
+        "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-state-DisplayKeepSuccessState.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0294",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0396",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "17-OperationDialogForm-Panel_PageDisplayKeep",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "OperationDialogForm/Panel_Frame/Grp_PageHost/Panel_PageDisplayKeep/Txt_DisplayKeepTitle ↔ OperationDialogForm/Panel_Frame/Txt_FormTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-application.json",
+        "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-memory.json",
+        "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-scroll-bottom.json",
+        "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-scroll-top.json",
+        "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-state-base.json",
+        "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-state-DisplayKeepDisabledState.json",
+        "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-state-DisplayKeepEmptyState.json",
+        "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-state-DisplayKeepErrorState.json",
+        "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-state-DisplayKeepLoadingState.json",
+        "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-state-DisplayKeepSuccessState.json",
+        "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-world-scroll-bottom.json",
+        "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-world-scroll-top.json",
+        "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0292",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0397",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0393"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0393"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0393",
+        "UIA-0396",
+        "UIA-0397"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0396"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0393",
+        "UIA-0396"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0396",
+        "UIA-0397"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0394"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0394",
+        "UIA-0395",
+        "UIA-0396"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0394",
+        "UIA-0395"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0395",
+        "UIA-0396"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/17-OperationDialogForm-Panel_PageDisplayKeep-application.png",
+      "geometry": "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/17-OperationDialogForm-Panel_PageDisplayKeep-memory.png",
+      "geometry": "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/17-OperationDialogForm-Panel_PageDisplayKeep-world.png",
+      "geometry": "geometry/17-OperationDialogForm-Panel_PageDisplayKeep-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_DisplayKeepLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/17-OperationDialogForm-Panel_PageDisplayKeep-DisplayKeepLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_DisplayKeepEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/17-OperationDialogForm-Panel_PageDisplayKeep-DisplayKeepEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_DisplayKeepErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/17-OperationDialogForm-Panel_PageDisplayKeep-DisplayKeepErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_DisplayKeepSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/17-OperationDialogForm-Panel_PageDisplayKeep-DisplayKeepSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_DisplayKeepDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/17-OperationDialogForm-Panel_PageDisplayKeep-DisplayKeepDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "pending",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-17-DisplayKeep-pending.png",
+      "artKeys": [
+        "S17-004",
+        "S17-006"
+      ]
+    }
+  ]
+}

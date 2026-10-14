@@ -1,0 +1,336 @@
+{
+  "form": "FieldHudDetailForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/FieldHudDetailForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/FieldHudDetailForm.contract.json",
+  "page": "Panel_PagePump",
+  "family": 7,
+  "state": "complete",
+  "frame": [
+    1304,
+    132,
+    592,
+    884
+  ],
+  "sections": [
+    {
+      "name": "Panel_PumpProduction",
+      "rect": [
+        1336,
+        540,
+        528,
+        152
+      ]
+    },
+    {
+      "name": "Panel_PumpBlock",
+      "rect": [
+        1336,
+        710,
+        528,
+        138
+      ]
+    }
+  ],
+  "artwork": [
+    {
+      "key": "S07-001",
+      "path": "Assets/Game/Sprites/UI/Pages/07-建筑设备与施工/scr-07-001-pump-illustration@640x480.png",
+      "rect": [
+        1344,
+        304,
+        512,
+        350
+      ],
+      "mode": "fit",
+      "opacity": 1
+    }
+  ],
+  "source": "EffectBoards/mock-ui-07-Pump-complete.png",
+  "pageIndex": 9,
+  "auditId": "07-FieldHudDetailForm-Panel_PagePump",
+  "title": "水泵",
+  "issues": [
+    {
+      "page": "07-FieldHudDetailForm-Panel_PagePump",
+      "code": "SIDEBAR_ACTION_DENSITY",
+      "severity": "P1",
+      "node": "侧栏底部操作区",
+      "detail": "底部按钮直接叠在装饰框底沿，同一行容纳多个长动作名；端帽占用大部分宽度，文字与操作层级不清楚。",
+      "criteria": [
+        3,
+        4,
+        6,
+        7,
+        8,
+        10
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/07-FieldHudDetailForm-Panel_PagePump.png"
+      ],
+      "sourceId": "V0043",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 3,4,6,7,8,10：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0145",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "07-FieldHudDetailForm-Panel_PagePump",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "FieldHudDetailForm/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/07-FieldHudDetailForm-Panel_PagePump-application.json",
+        "geometry/07-FieldHudDetailForm-Panel_PagePump-memory.json",
+        "geometry/07-FieldHudDetailForm-Panel_PagePump-scroll-bottom.json",
+        "geometry/07-FieldHudDetailForm-Panel_PagePump-scroll-top.json",
+        "geometry/07-FieldHudDetailForm-Panel_PagePump-state-PumpDisabledState.json",
+        "geometry/07-FieldHudDetailForm-Panel_PagePump-state-PumpEmptyState.json",
+        "geometry/07-FieldHudDetailForm-Panel_PagePump-state-PumpErrorState.json",
+        "geometry/07-FieldHudDetailForm-Panel_PagePump-state-PumpLoadingState.json",
+        "geometry/07-FieldHudDetailForm-Panel_PagePump-state-PumpSuccessState.json",
+        "geometry/07-FieldHudDetailForm-Panel_PagePump-world-scroll-bottom.json",
+        "geometry/07-FieldHudDetailForm-Panel_PagePump-world-scroll-top.json",
+        "geometry/07-FieldHudDetailForm-Panel_PagePump-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0122",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0146",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "07-FieldHudDetailForm-Panel_PagePump",
+      "code": "SIDEBAR_UNUSED_AREA",
+      "severity": "P2",
+      "node": "侧栏内容区",
+      "detail": "主要字段集中在中段的少数窄条卡片，上下留白较大；需要结合动态内容重新分配高度，不能仅按图片摆放后再塞文字。",
+      "criteria": [
+        6,
+        8,
+        11
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/07-FieldHudDetailForm-Panel_PagePump.png"
+      ],
+      "sourceId": "V0026",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 6,8,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0147",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0145"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0145",
+        "UIA-0146"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0146"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0145",
+        "UIA-0146",
+        "UIA-0147"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0145",
+        "UIA-0146"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0145",
+        "UIA-0147"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0146"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0145"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0146",
+        "UIA-0147"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_PumpDisabledState"
+      ],
+      "screenshot": "runtime/07-FieldHudDetailForm-Panel_PagePump-application.png",
+      "geometry": "geometry/07-FieldHudDetailForm-Panel_PagePump-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_PumpDisabledState"
+      ],
+      "screenshot": "runtime/07-FieldHudDetailForm-Panel_PagePump-memory.png",
+      "geometry": "geometry/07-FieldHudDetailForm-Panel_PagePump-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_PumpEmptyState"
+      ],
+      "screenshot": "runtime/07-FieldHudDetailForm-Panel_PagePump-world.png",
+      "geometry": "geometry/07-FieldHudDetailForm-Panel_PagePump-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_PumpLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/07-FieldHudDetailForm-Panel_PagePump-PumpLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_PumpEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "world"
+      ],
+      "screenshot": "state-layout/07-FieldHudDetailForm-Panel_PagePump-PumpEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_PumpErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/07-FieldHudDetailForm-Panel_PagePump-PumpErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_PumpSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/07-FieldHudDetailForm-Panel_PagePump-PumpSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_PumpDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "application",
+        "memory"
+      ],
+      "screenshot": "state-layout/07-FieldHudDetailForm-Panel_PagePump-PumpDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "complete",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-07-Pump-complete.png",
+      "artKeys": [
+        "S01-003",
+        "S01-001",
+        "S07-001",
+        "S07-001",
+        "S07-010"
+      ]
+    }
+  ]
+}

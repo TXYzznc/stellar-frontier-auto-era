@@ -1,0 +1,774 @@
+{
+  "label": "prefab-state-layout/InventoryLoadingState",
+  "screen": [
+    1920,
+    1080
+  ],
+  "nodes": [
+    {
+      "path": "WarehouseForm/Bg_InputBlocker",
+      "type": "Image",
+      "rect": [
+        0.0,
+        0.0,
+        1920.0,
+        1080.0
+      ],
+      "alpha": 0.65,
+      "raycast": true,
+      "masks": []
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Txt_FormTitle",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        242.0,
+        128.0,
+        1250.0,
+        42.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "仓库分类库存",
+      "fontSize": 28.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 28.01,
+      "localHeight": 42.0,
+      "glyphRect": [
+        242.7,
+        128.49,
+        166.15,
+        27.03
+      ]
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Grp_FormalArtwork_Inventory/Img_FormalSurface_Inventory",
+      "type": "Image",
+      "rect": [
+        144.0,
+        114.0,
+        1632.0,
+        852.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": []
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Grp_FormalArtwork_Inventory/Bg_FormalFrame_Inventory",
+      "type": "Image",
+      "rect": [
+        120.0,
+        90.0,
+        1680.0,
+        900.0
+      ],
+      "alpha": 1.0,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/01-Containers/ui-master-001-normal@512x512.png",
+      "spriteRect": [
+        0.0,
+        0.0,
+        1254.0,
+        1254.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        235.125,
+        235.125,
+        235.125,
+        235.125
+      ],
+      "minimumBorderSize": [
+        191.999985,
+        191.999985
+      ]
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Txt_InventoryTitle",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        242.0,
+        130.0,
+        1320.0,
+        40.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "仓库分类库存",
+      "fontSize": 28.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 28.01,
+      "localHeight": 40.0,
+      "glyphRect": [
+        242.7,
+        130.49,
+        166.15,
+        27.03
+      ]
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Grp_InventoryActions/Btn_InventoryInspect",
+      "type": "Image",
+      "rect": [
+        184.0,
+        886.0,
+        512.0,
+        48.0
+      ],
+      "alpha": 1.0,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Grp_InventoryActions/Btn_InventoryInspect/Txt_InventoryInspectLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        196.0,
+        889.0,
+        488.0,
+        42.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "物品详情",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 42.0,
+      "glyphRect": [
+        400.43,
+        900.42,
+        79.07,
+        19.15
+      ]
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Grp_InventoryActions/Btn_InventoryRecords",
+      "type": "Image",
+      "rect": [
+        704.0,
+        886.0,
+        512.0,
+        48.0
+      ],
+      "alpha": 1.0,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Grp_InventoryActions/Btn_InventoryRecords/Txt_InventoryRecordsLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        716.0,
+        889.0,
+        488.0,
+        42.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "入库记录",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 42.0,
+      "glyphRect": [
+        920.43,
+        900.42,
+        78.84,
+        19.15
+      ]
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Grp_InventoryActions/Btn_InventorySell",
+      "type": "Image",
+      "rect": [
+        1224.0,
+        886.0,
+        512.0,
+        48.0
+      ],
+      "alpha": 1.0,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Grp_InventoryActions/Btn_InventorySell/Txt_InventorySellLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        1236.0,
+        889.0,
+        488.0,
+        42.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "前往出售",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 42.0,
+      "glyphRect": [
+        1440.5,
+        900.35,
+        78.21,
+        19.23
+      ]
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Panel_InventoryCatalog",
+      "type": "Image",
+      "rect": [
+        424.0,
+        324.0,
+        774.0,
+        506.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/13-CardsAndSlots/ui-master-011-card-normal@512x256.png",
+      "spriteRect": [
+        5.0,
+        10.0,
+        1765.0,
+        868.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        110.312,
+        82.734,
+        110.312,
+        82.734
+      ],
+      "minimumBorderSize": [
+        63.9997025,
+        47.99978
+      ]
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Panel_InventoryCatalog/Img_FormalCardSurface_Panel_InventoryCatalog",
+      "type": "Image",
+      "rect": [
+        430.0,
+        330.0,
+        762.0,
+        494.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": []
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Panel_InventoryCatalog/Txt_InventoryCatalogHeading",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        442.0,
+        334.0,
+        738.0,
+        30.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "分类库存",
+      "fontSize": 21.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 21.01,
+      "localHeight": 30.0,
+      "glyphRect": [
+        443.02,
+        334.44,
+        82.12,
+        20.19
+      ]
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Panel_InventoryCatalog/List_InventoryCatalog/Viewport_InventoryCatalog/Content_InventoryCatalog/Txt_InventoryCatalogBody",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        442.0,
+        372.0,
+        235.33,
+        218.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [
+        {
+          "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Panel_InventoryCatalog/List_InventoryCatalog/Viewport_InventoryCatalog",
+          "rect": [
+            442.0,
+            372.0,
+            738.0,
+            444.0
+          ]
+        }
+      ],
+      "text": "物品类别",
+      "fontSize": 18.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 18.01,
+      "localHeight": 218.0,
+      "glyphRect": [
+        442.38,
+        372.38,
+        70.18,
+        17.31
+      ]
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Panel_InventoryDetail",
+      "type": "Image",
+      "rect": [
+        1224.0,
+        246.0,
+        512.0,
+        592.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/13-CardsAndSlots/ui-master-011-card-normal@512x256.png",
+      "spriteRect": [
+        5.0,
+        10.0,
+        1765.0,
+        868.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        110.312,
+        82.734,
+        110.312,
+        82.734
+      ],
+      "minimumBorderSize": [
+        63.9997025,
+        47.99978
+      ]
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Panel_InventoryDetail/Img_FormalCardSurface_Panel_InventoryDetail",
+      "type": "Image",
+      "rect": [
+        1230.0,
+        252.0,
+        500.0,
+        580.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": []
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Panel_InventoryDetail/Txt_InventoryDetailHeading",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        1242.0,
+        256.0,
+        476.0,
+        30.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "物品摘要",
+      "fontSize": 21.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 21.01,
+      "localHeight": 30.0,
+      "glyphRect": [
+        1242.45,
+        256.44,
+        83.02,
+        20.03
+      ]
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Panel_InventoryDetail/List_InventoryDetail/Viewport_InventoryDetail/Content_InventoryDetail/Txt_InventoryDetailBody",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        1242.0,
+        294.0,
+        476.0,
+        36.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [
+        {
+          "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Panel_InventoryDetail/List_InventoryDetail/Viewport_InventoryDetail",
+          "rect": [
+            1242.0,
+            294.0,
+            476.0,
+            530.0
+          ]
+        }
+      ],
+      "text": "名称、用途、标签",
+      "fontSize": 18.0,
+      "fontSizeMin": 18.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 18.01,
+      "localHeight": 36.0,
+      "glyphRect": [
+        1242.59,
+        294.31,
+        143.09,
+        17.31
+      ]
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Grp_InventoryLoadingState/Panel_InventoryLoadingMessage",
+      "type": "Image",
+      "rect": [
+        700.0,
+        484.0,
+        520.0,
+        120.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/08-MessagesAndStates/ui-master-006-loading@512x160.png",
+      "spriteRect": [
+        0.0,
+        3.0,
+        2172.0,
+        721.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        169.688,
+        169.688,
+        169.688,
+        169.688
+      ],
+      "minimumBorderSize": [
+        80.00023,
+        80.00023
+      ]
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Grp_InventoryLoadingState/Panel_InventoryLoadingMessage/Txt_InventoryLoadingMessage",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        712.0,
+        496.0,
+        496.0,
+        96.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "正在加载",
+      "fontSize": 20.0,
+      "fontSizeMin": 0.0,
+      "autoSize": false,
+      "wordWrap": true,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 96.0,
+      "glyphRect": [
+        712.9,
+        496.5,
+        78.52,
+        19.07
+      ]
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Btn_FormBack",
+      "type": "Image",
+      "rect": [
+        1512.0,
+        128.0,
+        112.0,
+        40.0
+      ],
+      "alpha": 1.0,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Btn_FormBack/Txt_FormBackLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        1524.0,
+        131.0,
+        88.0,
+        34.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "返回",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 34.0,
+      "glyphRect": [
+        1548.66,
+        138.82,
+        37.27,
+        18.68
+      ]
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Btn_FormClose",
+      "type": "Image",
+      "rect": [
+        1636.0,
+        128.0,
+        112.0,
+        40.0
+      ],
+      "alpha": 1.0,
+      "raycast": true,
+      "masks": [],
+      "sprite": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+      "spriteRect": [
+        0.0,
+        210.0,
+        1774.0,
+        466.0
+      ],
+      "imageType": "Sliced",
+      "preserveAspect": false,
+      "border": [
+        194.031,
+        27.719,
+        194.031,
+        27.719
+      ],
+      "minimumBorderSize": [
+        111.999855,
+        16.0001431
+      ]
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Btn_FormClose/Txt_FormCloseLabel",
+      "type": "TextMeshProUGUI",
+      "rect": [
+        1648.0,
+        131.0,
+        88.0,
+        34.0
+      ],
+      "alpha": 1.0,
+      "raycast": false,
+      "masks": [],
+      "text": "关闭",
+      "fontSize": 20.0,
+      "fontSizeMin": 14.0,
+      "autoSize": true,
+      "wordWrap": false,
+      "overflowMode": "Overflow",
+      "overflowing": false,
+      "preferredHeight": 20.01,
+      "localHeight": 34.0,
+      "glyphRect": [
+        1673.28,
+        138.42,
+        37.27,
+        18.92
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Grp_InventoryActions/Btn_InventoryInspect",
+      "type": "Button",
+      "rect": [
+        184.0,
+        886.0,
+        512.0,
+        48.0
+      ],
+      "interactable": true,
+      "navigation": "Automatic"
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Grp_InventoryActions/Btn_InventoryRecords",
+      "type": "Button",
+      "rect": [
+        704.0,
+        886.0,
+        512.0,
+        48.0
+      ],
+      "interactable": true,
+      "navigation": "Automatic"
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Grp_InventoryActions/Btn_InventorySell",
+      "type": "Button",
+      "rect": [
+        1224.0,
+        886.0,
+        512.0,
+        48.0
+      ],
+      "interactable": true,
+      "navigation": "Automatic"
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Btn_FormBack",
+      "type": "Button",
+      "rect": [
+        1512.0,
+        128.0,
+        112.0,
+        40.0
+      ],
+      "interactable": true,
+      "navigation": "Automatic"
+    },
+    {
+      "path": "WarehouseForm/Panel_Frame/Btn_FormClose",
+      "type": "Button",
+      "rect": [
+        1636.0,
+        128.0,
+        112.0,
+        40.0
+      ],
+      "interactable": true,
+      "navigation": "Automatic"
+    }
+  ],
+  "activeStates": [
+    "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageInventory/Grp_InventoryLoadingState"
+  ],
+  "focus": "",
+  "auditId": "09-WarehouseForm-Panel_PageInventory",
+  "businessStateVerified": false,
+  "stateGroup": "Grp_InventoryLoadingState"
+}

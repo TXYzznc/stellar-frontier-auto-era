@@ -1,0 +1,454 @@
+{
+  "form": "FieldHudDetailForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/FieldHudDetailForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/FieldHudDetailForm.contract.json",
+  "page": "Panel_PageFarm",
+  "family": 6,
+  "state": "normal",
+  "frame": [
+    1304,
+    132,
+    592,
+    884
+  ],
+  "sections": [
+    {
+      "name": "Panel_FarmPublic",
+      "rect": [
+        1336,
+        540,
+        528,
+        152
+      ]
+    },
+    {
+      "name": "Panel_FarmSensor",
+      "rect": [
+        1336,
+        710,
+        528,
+        138
+      ]
+    },
+    {
+      "name": "Panel_FarmRecord",
+      "rect": [
+        1336,
+        864,
+        528,
+        86
+      ]
+    }
+  ],
+  "artwork": [
+    {
+      "key": "S06-001",
+      "path": "Assets/Game/Sprites/UI/Pages/06-资源点观察/scr-06-001-farm-head@640x480.png",
+      "rect": [
+        1339,
+        296,
+        522,
+        348
+      ],
+      "mode": "fit",
+      "opacity": 1
+    }
+  ],
+  "source": "EffectBoards/mock-ui-06-Farm-normal.png",
+  "pageIndex": 3,
+  "auditId": "06-FieldHudDetailForm-Panel_PageFarm",
+  "title": "农田详情",
+  "issues": [
+    {
+      "page": "06-FieldHudDetailForm-Panel_PageFarm",
+      "code": "DETAIL_FIELDS_WRONG_SECTION",
+      "severity": "P1",
+      "node": "公开状态与生产记录列表",
+      "detail": "对象名称、类别、状态等公开字段渲染在生产记录列表中；公开状态卡保留“作物/产量”等占位正文，字段分区与阅读顺序不符。",
+      "criteria": [
+        1,
+        7,
+        8,
+        11
+      ],
+      "evidence": [
+        "runtime/06-FieldHudDetailForm-Panel_PageFarm-natural.png",
+        "geometry/06-FieldHudDetailForm-Panel_PageFarm-natural.json"
+      ],
+      "review": "confirmed",
+      "scope": "runtime",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 1,7,8,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0110",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "06-FieldHudDetailForm-Panel_PageFarm",
+      "code": "DETAIL_ROW_DEFAULT_HIDDEN",
+      "severity": "P1",
+      "node": "现场详情主数据列表",
+      "detail": "选中有效现场对象后，条目在说明文本/控件之后；列表可视区仅约42px，而记录行104px，默认只见“作物/功率/容量”等占位提示，真实字段几乎不见。",
+      "criteria": [
+        1,
+        3,
+        4,
+        7,
+        8,
+        11
+      ],
+      "evidence": [
+        "runtime/06-FieldHudDetailForm-Panel_PageFarm-natural.png",
+        "geometry/06-FieldHudDetailForm-Panel_PageFarm-natural.json"
+      ],
+      "review": "confirmed",
+      "scope": "runtime",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 1,3,4,7,8,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0111",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "06-FieldHudDetailForm-Panel_PageFarm",
+      "code": "SCROLL_ROW_TOO_TALL",
+      "severity": "P1",
+      "node": "FieldHudDetailForm/Grp_PageHost/Panel_PageFarm/Panel_FarmRecord/List_FarmRecord/Viewport_FarmRecord/Content_FarmRecord/Item_FarmPublicTemplate/Btn_FarmPublicRow",
+      "detail": "单条记录高 104.0px，大于列表可视高度 42.0px；无法完整显示一条记录",
+      "evidence": [
+        "geometry/06-FieldHudDetailForm-Panel_PageFarm-natural.json",
+        "geometry/06-FieldHudDetailForm-Panel_PageFarm-selected.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0091",
+      "criteria": [
+        3,
+        4,
+        7,
+        10,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 3,4,7,10,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0112",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "06-FieldHudDetailForm-Panel_PageFarm",
+      "code": "SIDEBAR_ACTION_DENSITY",
+      "severity": "P1",
+      "node": "侧栏底部操作区",
+      "detail": "底部按钮直接叠在装饰框底沿，同一行容纳多个长动作名；端帽占用大部分宽度，文字与操作层级不清楚。",
+      "criteria": [
+        3,
+        4,
+        6,
+        7,
+        8,
+        10
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/06-FieldHudDetailForm-Panel_PageFarm.png"
+      ],
+      "sourceId": "V0033",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 3,4,6,7,8,10：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0113",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "06-FieldHudDetailForm-Panel_PageFarm",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "FieldHudDetailForm/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/06-FieldHudDetailForm-Panel_PageFarm-application.json",
+        "geometry/06-FieldHudDetailForm-Panel_PageFarm-memory.json",
+        "geometry/06-FieldHudDetailForm-Panel_PageFarm-scroll-bottom.json",
+        "geometry/06-FieldHudDetailForm-Panel_PageFarm-scroll-top.json",
+        "geometry/06-FieldHudDetailForm-Panel_PageFarm-state-FarmDisabledState.json",
+        "geometry/06-FieldHudDetailForm-Panel_PageFarm-state-FarmEmptyState.json",
+        "geometry/06-FieldHudDetailForm-Panel_PageFarm-state-FarmErrorState.json",
+        "geometry/06-FieldHudDetailForm-Panel_PageFarm-state-FarmLoadingState.json",
+        "geometry/06-FieldHudDetailForm-Panel_PageFarm-state-FarmSuccessState.json",
+        "geometry/06-FieldHudDetailForm-Panel_PageFarm-target.json",
+        "geometry/06-FieldHudDetailForm-Panel_PageFarm-world-scroll-bottom.json",
+        "geometry/06-FieldHudDetailForm-Panel_PageFarm-world-scroll-top.json",
+        "geometry/06-FieldHudDetailForm-Panel_PageFarm-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0090",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0114",
+      "affectedState": "五种声明状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0110",
+        "UIA-0111"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0111",
+        "UIA-0112",
+        "UIA-0113"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0111",
+        "UIA-0112",
+        "UIA-0113",
+        "UIA-0114"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0114"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0113",
+        "UIA-0114"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0110",
+        "UIA-0111",
+        "UIA-0112",
+        "UIA-0113",
+        "UIA-0114"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0110",
+        "UIA-0111",
+        "UIA-0113"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0114"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0112",
+        "UIA-0113"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0110",
+        "UIA-0111",
+        "UIA-0112",
+        "UIA-0114"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_FarmDisabledState"
+      ],
+      "screenshot": "runtime/06-FieldHudDetailForm-Panel_PageFarm-application.png",
+      "geometry": "geometry/06-FieldHudDetailForm-Panel_PageFarm-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_FarmDisabledState"
+      ],
+      "screenshot": "runtime/06-FieldHudDetailForm-Panel_PageFarm-memory.png",
+      "geometry": "geometry/06-FieldHudDetailForm-Panel_PageFarm-memory.json"
+    },
+    {
+      "context": "real-world/natural-selection-and-page-API",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/06-FieldHudDetailForm-Panel_PageFarm-natural.png",
+      "geometry": "geometry/06-FieldHudDetailForm-Panel_PageFarm-natural.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_FarmEmptyState"
+      ],
+      "screenshot": "runtime/06-FieldHudDetailForm-Panel_PageFarm-world.png",
+      "geometry": "geometry/06-FieldHudDetailForm-Panel_PageFarm-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_FarmLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/06-FieldHudDetailForm-Panel_PageFarm-FarmLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_FarmEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "world"
+      ],
+      "screenshot": "state-layout/06-FieldHudDetailForm-Panel_PageFarm-FarmEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_FarmErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/06-FieldHudDetailForm-Panel_PageFarm-FarmErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_FarmSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/06-FieldHudDetailForm-Panel_PageFarm-FarmSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_FarmDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "application",
+        "memory"
+      ],
+      "screenshot": "state-layout/06-FieldHudDetailForm-Panel_PageFarm-FarmDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "normal",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-06-Farm-normal.png",
+      "artKeys": [
+        "S01-003",
+        "S01-001",
+        "S06-001",
+        "S06-001",
+        "S06-011",
+        "S06-005"
+      ]
+    },
+    {
+      "state": "dry",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-06-Farm-dry.png",
+      "artKeys": [
+        "S01-003",
+        "S01-001",
+        "S06-001",
+        "S06-001",
+        "S06-011",
+        "S06-006"
+      ]
+    },
+    {
+      "state": "wet",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-06-Farm-wet.png",
+      "artKeys": [
+        "S01-003",
+        "S01-001",
+        "S06-001",
+        "S06-001",
+        "S06-011",
+        "S06-014"
+      ]
+    },
+    {
+      "state": "normal",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-06.png",
+      "artKeys": [
+        "S01-003",
+        "S01-001",
+        "S06-001",
+        "S06-001",
+        "S06-011",
+        "S06-005"
+      ]
+    }
+  ]
+}

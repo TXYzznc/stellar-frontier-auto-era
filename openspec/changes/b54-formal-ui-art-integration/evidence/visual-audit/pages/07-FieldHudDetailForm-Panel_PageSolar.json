@@ -1,0 +1,406 @@
+{
+  "form": "FieldHudDetailForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/FieldHudDetailForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/FieldHudDetailForm.contract.json",
+  "page": "Panel_PageSolar",
+  "family": 7,
+  "state": "complete",
+  "frame": [
+    1304,
+    132,
+    592,
+    884
+  ],
+  "sections": [
+    {
+      "name": "Panel_SolarPower",
+      "rect": [
+        1336,
+        540,
+        528,
+        152
+      ]
+    },
+    {
+      "name": "Panel_SolarRecovery",
+      "rect": [
+        1336,
+        710,
+        528,
+        138
+      ]
+    }
+  ],
+  "artwork": [
+    {
+      "key": "S07-003",
+      "path": "Assets/Game/Sprites/UI/Pages/07-建筑设备与施工/scr-07-003-solar-illustration@640x480.png",
+      "rect": [
+        1344,
+        304,
+        512,
+        350
+      ],
+      "mode": "fit",
+      "opacity": 1
+    }
+  ],
+  "source": "EffectBoards/mock-ui-07-Solar-complete.png",
+  "pageIndex": 11,
+  "auditId": "07-FieldHudDetailForm-Panel_PageSolar",
+  "title": "初始太阳能设施",
+  "issues": [
+    {
+      "page": "07-FieldHudDetailForm-Panel_PageSolar",
+      "code": "DETAIL_ROW_DEFAULT_HIDDEN",
+      "severity": "P1",
+      "node": "现场详情主数据列表",
+      "detail": "选中有效现场对象后，条目在说明文本/控件之后；列表可视区仅约42px，而记录行104px，默认只见“作物/功率/容量”等占位提示，真实字段几乎不见。",
+      "criteria": [
+        1,
+        3,
+        4,
+        7,
+        8,
+        11
+      ],
+      "evidence": [
+        "runtime/07-FieldHudDetailForm-Panel_PageSolar-natural.png",
+        "geometry/07-FieldHudDetailForm-Panel_PageSolar-natural.json"
+      ],
+      "review": "confirmed",
+      "scope": "runtime",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 1,3,4,7,8,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0148",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "07-FieldHudDetailForm-Panel_PageSolar",
+      "code": "SCROLL_ROW_TOO_TALL",
+      "severity": "P1",
+      "node": "FieldHudDetailForm/Grp_PageHost/Panel_PageSolar/Panel_SolarPower/List_SolarPower/Viewport_SolarPower/Content_SolarPower/Item_SolarPowerTemplate/Btn_SolarPowerRow",
+      "detail": "单条记录高 104.0px，大于列表可视高度 42.0px；无法完整显示一条记录",
+      "evidence": [
+        "geometry/07-FieldHudDetailForm-Panel_PageSolar-natural.json",
+        "geometry/07-FieldHudDetailForm-Panel_PageSolar-selected.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0125",
+      "criteria": [
+        3,
+        4,
+        7,
+        10,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 3,4,7,10,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0149",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "07-FieldHudDetailForm-Panel_PageSolar",
+      "code": "SIDEBAR_ACTION_DENSITY",
+      "severity": "P1",
+      "node": "侧栏底部操作区",
+      "detail": "底部按钮直接叠在装饰框底沿，同一行容纳多个长动作名；端帽占用大部分宽度，文字与操作层级不清楚。",
+      "criteria": [
+        3,
+        4,
+        6,
+        7,
+        8,
+        10
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/07-FieldHudDetailForm-Panel_PageSolar.png"
+      ],
+      "sourceId": "V0044",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 3,4,6,7,8,10：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0150",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "07-FieldHudDetailForm-Panel_PageSolar",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "FieldHudDetailForm/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/07-FieldHudDetailForm-Panel_PageSolar-application.json",
+        "geometry/07-FieldHudDetailForm-Panel_PageSolar-memory.json",
+        "geometry/07-FieldHudDetailForm-Panel_PageSolar-scroll-bottom.json",
+        "geometry/07-FieldHudDetailForm-Panel_PageSolar-scroll-top.json",
+        "geometry/07-FieldHudDetailForm-Panel_PageSolar-state-SolarDisabledState.json",
+        "geometry/07-FieldHudDetailForm-Panel_PageSolar-state-SolarEmptyState.json",
+        "geometry/07-FieldHudDetailForm-Panel_PageSolar-state-SolarErrorState.json",
+        "geometry/07-FieldHudDetailForm-Panel_PageSolar-state-SolarLoadingState.json",
+        "geometry/07-FieldHudDetailForm-Panel_PageSolar-state-SolarSuccessState.json",
+        "geometry/07-FieldHudDetailForm-Panel_PageSolar-target.json",
+        "geometry/07-FieldHudDetailForm-Panel_PageSolar-world-scroll-bottom.json",
+        "geometry/07-FieldHudDetailForm-Panel_PageSolar-world-scroll-top.json",
+        "geometry/07-FieldHudDetailForm-Panel_PageSolar-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0124",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0151",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "07-FieldHudDetailForm-Panel_PageSolar",
+      "code": "SIDEBAR_UNUSED_AREA",
+      "severity": "P2",
+      "node": "侧栏内容区",
+      "detail": "主要字段集中在中段的少数窄条卡片，上下留白较大；需要结合动态内容重新分配高度，不能仅按图片摆放后再塞文字。",
+      "criteria": [
+        6,
+        8,
+        11
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/07-FieldHudDetailForm-Panel_PageSolar.png"
+      ],
+      "sourceId": "V0027",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 6,8,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0152",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0148"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0148",
+        "UIA-0149",
+        "UIA-0150"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0148",
+        "UIA-0149",
+        "UIA-0150",
+        "UIA-0151"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0151"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0150",
+        "UIA-0151",
+        "UIA-0152"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0148",
+        "UIA-0149",
+        "UIA-0150",
+        "UIA-0151"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0148",
+        "UIA-0150",
+        "UIA-0152"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0151"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0149",
+        "UIA-0150"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0148",
+        "UIA-0149",
+        "UIA-0151",
+        "UIA-0152"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_SolarDisabledState"
+      ],
+      "screenshot": "runtime/07-FieldHudDetailForm-Panel_PageSolar-application.png",
+      "geometry": "geometry/07-FieldHudDetailForm-Panel_PageSolar-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_SolarDisabledState"
+      ],
+      "screenshot": "runtime/07-FieldHudDetailForm-Panel_PageSolar-memory.png",
+      "geometry": "geometry/07-FieldHudDetailForm-Panel_PageSolar-memory.json"
+    },
+    {
+      "context": "real-world/natural-selection-and-page-API",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/07-FieldHudDetailForm-Panel_PageSolar-natural.png",
+      "geometry": "geometry/07-FieldHudDetailForm-Panel_PageSolar-natural.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_SolarEmptyState"
+      ],
+      "screenshot": "runtime/07-FieldHudDetailForm-Panel_PageSolar-world.png",
+      "geometry": "geometry/07-FieldHudDetailForm-Panel_PageSolar-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_SolarLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/07-FieldHudDetailForm-Panel_PageSolar-SolarLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_SolarEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "world"
+      ],
+      "screenshot": "state-layout/07-FieldHudDetailForm-Panel_PageSolar-SolarEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_SolarErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/07-FieldHudDetailForm-Panel_PageSolar-SolarErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_SolarSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/07-FieldHudDetailForm-Panel_PageSolar-SolarSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_SolarDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "application",
+        "memory"
+      ],
+      "screenshot": "state-layout/07-FieldHudDetailForm-Panel_PageSolar-SolarDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "complete",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-07-Solar-complete.png",
+      "artKeys": [
+        "S01-003",
+        "S01-001",
+        "S07-003",
+        "S07-003",
+        "S07-010"
+      ]
+    }
+  ]
+}

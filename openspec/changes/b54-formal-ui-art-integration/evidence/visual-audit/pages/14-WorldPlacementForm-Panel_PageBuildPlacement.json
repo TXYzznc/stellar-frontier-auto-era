@@ -1,0 +1,634 @@
+{
+  "form": "WorldPlacementForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/WorldPlacementForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/WorldPlacementForm.contract.json",
+  "page": "Panel_PageBuildPlacement",
+  "family": 14,
+  "state": "valid",
+  "frame": [
+    0,
+    0,
+    1920,
+    1080
+  ],
+  "sections": [
+    {
+      "name": "Panel_BuildPlacementSelection",
+      "rect": [
+        1528,
+        158,
+        368,
+        146
+      ]
+    },
+    {
+      "name": "Panel_BuildPlacementValidity",
+      "rect": [
+        1528,
+        320,
+        368,
+        144
+      ]
+    },
+    {
+      "name": "Panel_BuildPlacementHints",
+      "rect": [
+        446,
+        926,
+        410,
+        126
+      ]
+    }
+  ],
+  "artwork": [],
+  "source": "EffectBoards/mock-ui-14-BuildPlacement-valid.png",
+  "pageIndex": 0,
+  "auditId": "14-WorldPlacementForm-Panel_PageBuildPlacement",
+  "title": "建筑放置",
+  "issues": [
+    {
+      "page": "14-WorldPlacementForm-Panel_PageBuildPlacement",
+      "code": "BUSINESS_SOURCE_NOT_CONNECTED",
+      "severity": "P1",
+      "node": "运行时数据正文",
+      "detail": "本次实际运行说明：建造放置事务尚未接入运行路径：图纸→建筑的落位流程还没有调用者，因此选择目标、校验与确认暂不可用。",
+      "criteria": [
+        9,
+        11
+      ],
+      "evidence": [
+        "runtime/14-WorldPlacementForm-Panel_PageBuildPlacement-world.png",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world.json"
+      ],
+      "review": "confirmed",
+      "scope": "business-gap",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0302",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "14-WorldPlacementForm-Panel_PageBuildPlacement",
+      "code": "PLACEMENT_BUSINESS_PATH_MISSING",
+      "severity": "P1",
+      "node": "WorldPlacementForm 建造/世界绑定",
+      "detail": "源实现明确说明：建造放置事务或世界状态绑定尚没有调用者；目前只能检查声明布局及不可用呈现，无法执行其预览、校验与确认状态。",
+      "criteria": [
+        9,
+        10,
+        11
+      ],
+      "evidence": [
+        "runtime/14-WorldPlacementForm-Panel_PageBuildPlacement-world.png",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world.json"
+      ],
+      "review": "confirmed",
+      "scope": "business-gap",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 9,10,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0303",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "14-WorldPlacementForm-Panel_PageBuildPlacement",
+      "code": "PLACEMENT_HINT_OVER_ACTION",
+      "severity": "P1",
+      "node": "底部操作提示卡 / 操作条",
+      "detail": "操作提示卡直接覆盖在操作条中部，遮住旋转/选中等按钮区域；提示与交互元素没有分层留白。",
+      "criteria": [
+        2,
+        4,
+        6,
+        10
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/14-WorldPlacementForm-Panel_PageBuildPlacement.png"
+      ],
+      "sourceId": "V0062",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 2,4,6,10：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0304",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "14-WorldPlacementForm-Panel_PageBuildPlacement",
+      "code": "SAFE_MARGIN_TEXT",
+      "severity": "P1",
+      "node": "WorldPlacementForm/Grp_PageHost/Panel_PageBuildPlacement/Panel_BuildPlacementHints/List_BuildPlacementHints/Viewport_BuildPlacementHints/Content_BuildPlacementHints/Txt_BuildPlacementHintsBody",
+      "detail": "文字实际轮廓进入 24px 外边距",
+      "evidence": [
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world-scroll-top.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0238",
+      "criteria": [
+        4,
+        6,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,6,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0305",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "14-WorldPlacementForm-Panel_PageBuildPlacement",
+      "code": "SAFE_MARGIN_TEXT",
+      "severity": "P1",
+      "node": "WorldPlacementForm/Grp_PageHost/Panel_PageBuildPlacement/Panel_BuildPlacementSelection/List_BuildPlacementSelection/Viewport_BuildPlacementSelection/Content_BuildPlacementSelection/Txt_BuildPlacementSelectionBody",
+      "detail": "文字实际轮廓进入 24px 外边距",
+      "evidence": [
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-application.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-memory.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-scroll-bottom.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-scroll-top.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world-scroll-bottom.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world-scroll-top.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0232",
+      "criteria": [
+        4,
+        6,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,6,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0306",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "14-WorldPlacementForm-Panel_PageBuildPlacement",
+      "code": "SAFE_MARGIN_TEXT",
+      "severity": "P1",
+      "node": "WorldPlacementForm/Grp_PageHost/Panel_PageBuildPlacement/Panel_BuildPlacementValidity/List_BuildPlacementValidity/Viewport_BuildPlacementValidity/Content_BuildPlacementValidity/Txt_BuildPlacementValidityBody",
+      "detail": "文字实际轮廓进入 24px 外边距",
+      "evidence": [
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-application.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-memory.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-scroll-bottom.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-scroll-top.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world-scroll-bottom.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world-scroll-top.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0234",
+      "criteria": [
+        4,
+        6,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,6,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0307",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "14-WorldPlacementForm-Panel_PageBuildPlacement",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "WorldPlacementForm/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-application.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-memory.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-scroll-bottom.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-scroll-top.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-state-BuildPlacementDisabledState.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-state-BuildPlacementEmptyState.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-state-BuildPlacementErrorState.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-state-BuildPlacementLoadingState.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-state-BuildPlacementSuccessState.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world-scroll-bottom.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world-scroll-top.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0236",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0308",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "14-WorldPlacementForm-Panel_PageBuildPlacement",
+      "code": "TEXT_MASK_CLIP",
+      "severity": "P1",
+      "node": "WorldPlacementForm/Grp_PageHost/Panel_PageBuildPlacement/Panel_BuildPlacementSelection/List_BuildPlacementSelection/Viewport_BuildPlacementSelection/Content_BuildPlacementSelection/Txt_BuildPlacementSelectionBody",
+      "detail": "实际字符横向越出列表遮罩，右侧正文/数值被硬裁切；当前模板未提供省略或可完整阅读的布局。",
+      "evidence": [
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-application.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-memory.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-scroll-bottom.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-scroll-top.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world-scroll-bottom.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world-scroll-top.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0231",
+      "criteria": [
+        4,
+        7,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0309",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "14-WorldPlacementForm-Panel_PageBuildPlacement",
+      "code": "TEXT_MASK_CLIP",
+      "severity": "P1",
+      "node": "WorldPlacementForm/Grp_PageHost/Panel_PageBuildPlacement/Panel_BuildPlacementValidity/List_BuildPlacementValidity/Viewport_BuildPlacementValidity/Content_BuildPlacementValidity/Txt_BuildPlacementValidityBody",
+      "detail": "实际字符横向越出列表遮罩，右侧正文/数值被硬裁切；当前模板未提供省略或可完整阅读的布局。",
+      "evidence": [
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-application.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-memory.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-scroll-bottom.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-scroll-top.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world-scroll-bottom.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world-scroll-top.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0233",
+      "criteria": [
+        4,
+        7,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0310",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "14-WorldPlacementForm-Panel_PageBuildPlacement",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "WorldPlacementForm/Grp_PageHost/Panel_PageBuildPlacement/Panel_BuildPlacementSelection/Txt_BuildPlacementSelectionHeading ↔ WorldPlacementForm/Grp_PageHost/Panel_PageBuildPlacement/Txt_BuildPlacementTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-application.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-memory.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-scroll-bottom.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-scroll-top.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-state-base.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-state-BuildPlacementDisabledState.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-state-BuildPlacementEmptyState.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-state-BuildPlacementErrorState.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-state-BuildPlacementLoadingState.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-state-BuildPlacementSuccessState.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world-scroll-bottom.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world-scroll-top.json",
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0235",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0311",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "14-WorldPlacementForm-Panel_PageBuildPlacement",
+      "code": "UNAVAILABLE_REASON_REPEATED",
+      "severity": "P2",
+      "node": "WorldPlacementForm/Grp_PageHost/Panel_PageBuildPlacement/Grp_BuildPlacementDisabledState/Panel_BuildPlacementDisabledMessage/Txt_BuildPlacementDisabledMessage",
+      "detail": "相同不可用原因同时出现在状态条和多个信息卡中；浮动状态条压在插画/内容区域，重复文字分散焦点。",
+      "criteria": [
+        4,
+        6,
+        7,
+        8,
+        11
+      ],
+      "evidence": [
+        "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world.json",
+        "runtime/14-WorldPlacementForm-Panel_PageBuildPlacement-world.png"
+      ],
+      "review": "confirmed",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,6,7,8,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0312",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0304"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0304",
+        "UIA-0305",
+        "UIA-0306",
+        "UIA-0307",
+        "UIA-0308",
+        "UIA-0309",
+        "UIA-0310",
+        "UIA-0311",
+        "UIA-0312"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0308"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0304",
+        "UIA-0305",
+        "UIA-0306",
+        "UIA-0307",
+        "UIA-0308",
+        "UIA-0312"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0305",
+        "UIA-0306",
+        "UIA-0307",
+        "UIA-0308",
+        "UIA-0309",
+        "UIA-0310",
+        "UIA-0311",
+        "UIA-0312"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0312"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0302",
+        "UIA-0303",
+        "UIA-0308"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0303",
+        "UIA-0304"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0302",
+        "UIA-0303",
+        "UIA-0308",
+        "UIA-0309",
+        "UIA-0310",
+        "UIA-0312"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_BuildPlacementDisabledState"
+      ],
+      "screenshot": "runtime/14-WorldPlacementForm-Panel_PageBuildPlacement-application.png",
+      "geometry": "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_BuildPlacementDisabledState"
+      ],
+      "screenshot": "runtime/14-WorldPlacementForm-Panel_PageBuildPlacement-memory.png",
+      "geometry": "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_BuildPlacementDisabledState"
+      ],
+      "screenshot": "runtime/14-WorldPlacementForm-Panel_PageBuildPlacement-world.png",
+      "geometry": "geometry/14-WorldPlacementForm-Panel_PageBuildPlacement-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_BuildPlacementLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/14-WorldPlacementForm-Panel_PageBuildPlacement-BuildPlacementLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_BuildPlacementEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/14-WorldPlacementForm-Panel_PageBuildPlacement-BuildPlacementEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_BuildPlacementErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/14-WorldPlacementForm-Panel_PageBuildPlacement-BuildPlacementErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_BuildPlacementSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/14-WorldPlacementForm-Panel_PageBuildPlacement-BuildPlacementSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_BuildPlacementDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "application",
+        "memory",
+        "world"
+      ],
+      "screenshot": "state-layout/14-WorldPlacementForm-Panel_PageBuildPlacement-BuildPlacementDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "valid",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-14-BuildPlacement-valid.png",
+      "artKeys": [
+        "S01-003",
+        "S01-001",
+        "S07-001",
+        "S14-001",
+        "S14-005",
+        "S14-005",
+        "S14-005",
+        "S14-005",
+        "S14-002",
+        "S14-005"
+      ]
+    },
+    {
+      "state": "invalid",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-14-BuildPlacement-invalid.png",
+      "artKeys": [
+        "S01-003",
+        "S01-001",
+        "S07-001",
+        "S14-001",
+        "S14-006",
+        "S14-006",
+        "S14-006",
+        "S14-006",
+        "S14-002",
+        "S14-004",
+        "S14-006"
+      ]
+    },
+    {
+      "state": "rotating",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-14-BuildPlacement-rotating.png",
+      "artKeys": [
+        "S01-003",
+        "S01-001",
+        "S07-001",
+        "S14-001",
+        "S14-007",
+        "S14-007",
+        "S14-007",
+        "S14-007",
+        "S14-002",
+        "S14-007"
+      ]
+    },
+    {
+      "state": "confirmed",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-14-BuildPlacement-confirmed.png",
+      "artKeys": [
+        "S01-003",
+        "S01-001",
+        "S07-001",
+        "S14-001",
+        "S14-008",
+        "S14-008",
+        "S14-008",
+        "S14-008",
+        "S14-002",
+        "S14-008"
+      ]
+    },
+    {
+      "state": "valid",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-14.png",
+      "artKeys": [
+        "S01-003",
+        "S01-001",
+        "S07-001",
+        "S14-001",
+        "S14-005",
+        "S14-005",
+        "S14-005",
+        "S14-005",
+        "S14-002",
+        "S14-005"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,423 @@
+{
+  "form": "WorkshopForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/WorkshopForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/WorkshopForm.contract.json",
+  "page": "Panel_PageRecipeDetail",
+  "family": 8,
+  "state": "ready",
+  "frame": [
+    80,
+    90,
+    1760,
+    900
+  ],
+  "sections": [
+    {
+      "name": "Panel_RecipeDetailProduct",
+      "rect": [
+        144,
+        320,
+        400,
+        470
+      ]
+    },
+    {
+      "name": "Panel_RecipeDetailRequirements",
+      "rect": [
+        568,
+        244,
+        1128,
+        596
+      ]
+    }
+  ],
+  "artwork": [
+    {
+      "key": "S08-001",
+      "path": "Assets/Game/Sprites/UI/Pages/08-制造工坊/scr-08-001-recipe-card-plate-ready@560x420.png",
+      "rect": [
+        594,
+        268,
+        558,
+        280
+      ],
+      "mode": "fit",
+      "opacity": 1
+    }
+  ],
+  "source": "EffectBoards/mock-ui-08-RecipeDetail-ready.png",
+  "pageIndex": 1,
+  "auditId": "08-WorkshopForm-Panel_PageRecipeDetail",
+  "title": "配方详情",
+  "issues": [
+    {
+      "page": "08-WorkshopForm-Panel_PageRecipeDetail",
+      "code": "BUSINESS_SOURCE_NOT_CONNECTED",
+      "severity": "P1",
+      "node": "运行时数据正文",
+      "detail": "本次实际运行说明：工坊与配方域尚未接入运行路径：配方、队列与产出都没有创建者。",
+      "criteria": [
+        9,
+        11
+      ],
+      "evidence": [
+        "runtime/08-WorkshopForm-Panel_PageRecipeDetail-world.png",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-world.json"
+      ],
+      "review": "confirmed",
+      "scope": "business-gap",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0170",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "08-WorkshopForm-Panel_PageRecipeDetail",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "WorkshopForm/Panel_Frame/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-application.json",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-memory.json",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-scroll-top.json",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-state-RecipeDetailDisabledState.json",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-state-RecipeDetailEmptyState.json",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-state-RecipeDetailErrorState.json",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-state-RecipeDetailLoadingState.json",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-state-RecipeDetailSuccessState.json",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-world-scroll-top.json",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0144",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0171",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "08-WorkshopForm-Panel_PageRecipeDetail",
+      "code": "TEXT_MASK_CLIP",
+      "severity": "P1",
+      "node": "WorkshopForm/Panel_Frame/Grp_PageHost/Panel_PageRecipeDetail/Panel_RecipeDetailProduct/List_RecipeDetailProduct/Viewport_RecipeDetailProduct/Content_RecipeDetailProduct/Txt_RecipeDetailProductBody",
+      "detail": "实际字符横向越出列表遮罩，右侧正文/数值被硬裁切；当前模板未提供省略或可完整阅读的布局。",
+      "evidence": [
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-application.json",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-memory.json",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-scroll-top.json",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-world-scroll-top.json",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0142",
+      "criteria": [
+        4,
+        7,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0172",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "08-WorkshopForm-Panel_PageRecipeDetail",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "WorkshopForm/Panel_Frame/Grp_PageHost/Panel_PageRecipeDetail/Txt_RecipeDetailTitle ↔ WorkshopForm/Panel_Frame/Txt_FormTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-application.json",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-memory.json",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-scroll-top.json",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-state-base.json",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-state-RecipeDetailDisabledState.json",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-state-RecipeDetailEmptyState.json",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-state-RecipeDetailErrorState.json",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-state-RecipeDetailLoadingState.json",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-state-RecipeDetailSuccessState.json",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-world-scroll-top.json",
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0143",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0173",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "08-WorkshopForm-Panel_PageRecipeDetail",
+      "code": "UNAVAILABLE_REASON_REPEATED",
+      "severity": "P2",
+      "node": "WorkshopForm/Panel_Frame/Grp_PageHost/Panel_PageRecipeDetail/Grp_RecipeDetailDisabledState/Panel_RecipeDetailDisabledMessage/Txt_RecipeDetailDisabledMessage",
+      "detail": "相同不可用原因同时出现在状态条和多个信息卡中；浮动状态条压在插画/内容区域，重复文字分散焦点。",
+      "criteria": [
+        4,
+        6,
+        7,
+        8,
+        11
+      ],
+      "evidence": [
+        "geometry/08-WorkshopForm-Panel_PageRecipeDetail-world.json",
+        "runtime/08-WorkshopForm-Panel_PageRecipeDetail-world.png"
+      ],
+      "review": "confirmed",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,6,7,8,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0174",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "08-WorkshopForm-Panel_PageRecipeDetail",
+      "code": "WORKSHOP_ART_PRIORITY",
+      "severity": "P2",
+      "node": "制造工坊各页的台座插画",
+      "detail": "台座插画占据队列、阻塞说明或成本信息区域的大块空间，动态信息区的可读面积不足，需检查实际条目与图片共同出现时的排布。",
+      "criteria": [
+        3,
+        8,
+        11
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/08-WorkshopForm-Panel_PageRecipeDetail.png"
+      ],
+      "sourceId": "V0051",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 3,8,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0175",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0175"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0171",
+        "UIA-0172",
+        "UIA-0173",
+        "UIA-0174"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0171"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0171",
+        "UIA-0174"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0171",
+        "UIA-0172",
+        "UIA-0173",
+        "UIA-0174"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0174",
+        "UIA-0175"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0170",
+        "UIA-0171"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0170",
+        "UIA-0171",
+        "UIA-0172",
+        "UIA-0174",
+        "UIA-0175"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_RecipeDetailDisabledState"
+      ],
+      "screenshot": "runtime/08-WorkshopForm-Panel_PageRecipeDetail-application.png",
+      "geometry": "geometry/08-WorkshopForm-Panel_PageRecipeDetail-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_RecipeDetailDisabledState"
+      ],
+      "screenshot": "runtime/08-WorkshopForm-Panel_PageRecipeDetail-memory.png",
+      "geometry": "geometry/08-WorkshopForm-Panel_PageRecipeDetail-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_RecipeDetailDisabledState"
+      ],
+      "screenshot": "runtime/08-WorkshopForm-Panel_PageRecipeDetail-world.png",
+      "geometry": "geometry/08-WorkshopForm-Panel_PageRecipeDetail-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_RecipeDetailLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/08-WorkshopForm-Panel_PageRecipeDetail-RecipeDetailLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_RecipeDetailEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/08-WorkshopForm-Panel_PageRecipeDetail-RecipeDetailEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_RecipeDetailErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/08-WorkshopForm-Panel_PageRecipeDetail-RecipeDetailErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_RecipeDetailSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/08-WorkshopForm-Panel_PageRecipeDetail-RecipeDetailSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_RecipeDetailDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "application",
+        "memory",
+        "world"
+      ],
+      "screenshot": "state-layout/08-WorkshopForm-Panel_PageRecipeDetail-RecipeDetailDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "ready",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-08-RecipeDetail-ready.png",
+      "artKeys": [
+        "S08-001",
+        "S08-003",
+        "S08-006"
+      ]
+    },
+    {
+      "state": "material",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-08-RecipeDetail-material.png",
+      "artKeys": [
+        "S08-002",
+        "S08-003",
+        "S08-004",
+        "S08-006"
+      ]
+    }
+  ]
+}

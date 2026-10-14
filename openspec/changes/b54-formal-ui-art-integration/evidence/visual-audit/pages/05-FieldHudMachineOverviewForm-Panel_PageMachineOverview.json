@@ -1,0 +1,476 @@
+{
+  "form": "FieldHudMachineOverviewForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/FieldHudMachineOverviewForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/FieldHudMachineOverviewForm.contract.json",
+  "page": "Panel_PageMachineOverview",
+  "family": 5,
+  "state": "idle",
+  "frame": [
+    1440,
+    124,
+    456,
+    832
+  ],
+  "sections": [
+    {
+      "name": "Panel_MachineOverviewIdentity",
+      "rect": [
+        1472,
+        540,
+        392,
+        152
+      ]
+    },
+    {
+      "name": "Panel_MachineOverviewCapacity",
+      "rect": [
+        1472,
+        710,
+        392,
+        138
+      ]
+    }
+  ],
+  "artwork": [
+    {
+      "key": "S05-011",
+      "path": "Assets/Game/Sprites/UI/Pages/05-机器管理/scr-05-011-carrier-thumbnail-wheeled@640x480.png",
+      "rect": [
+        1464,
+        278,
+        408,
+        286
+      ],
+      "mode": "fit",
+      "opacity": 1
+    }
+  ],
+  "source": "EffectBoards/mock-ui-05-MachineOverview-idle.png",
+  "pageIndex": 0,
+  "auditId": "05-FieldHudMachineOverviewForm-Panel_PageMachineOverview",
+  "title": "现场机器",
+  "issues": [
+    {
+      "page": "05-FieldHudMachineOverviewForm-Panel_PageMachineOverview",
+      "code": "OVERVIEW_ART_EDGE",
+      "severity": "P1",
+      "node": "MachineOverview 机器插画",
+      "detail": "机器插画占满窄侧栏宽度并贴近左右装饰边框，与身份/状态卡之间缺少缓冲。",
+      "criteria": [
+        2,
+        3,
+        6
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview.png"
+      ],
+      "sourceId": "V0046",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 2,3,6：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0089",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "05-FieldHudMachineOverviewForm-Panel_PageMachineOverview",
+      "code": "SIDEBAR_ACTION_DENSITY",
+      "severity": "P1",
+      "node": "侧栏底部操作区",
+      "detail": "底部按钮直接叠在装饰框底沿，同一行容纳多个长动作名；端帽占用大部分宽度，文字与操作层级不清楚。",
+      "criteria": [
+        3,
+        4,
+        6,
+        7,
+        8,
+        10
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview.png"
+      ],
+      "sourceId": "V0032",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 3,4,6,7,8,10：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0090",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "05-FieldHudMachineOverviewForm-Panel_PageMachineOverview",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "FieldHudMachineOverviewForm/Panel_PageMachineOverview/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-application.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-memory.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-scroll-bottom.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-scroll-top.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-state-MachineOverviewDisabledState.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-state-MachineOverviewEmptyState.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-state-MachineOverviewErrorState.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-state-MachineOverviewLoadingState.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-state-MachineOverviewSuccessState.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-world-scroll-bottom.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-world-scroll-top.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0070",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0091",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "05-FieldHudMachineOverviewForm-Panel_PageMachineOverview",
+      "code": "SMALL_TEXT",
+      "severity": "P2",
+      "node": "FieldHudMachineOverviewForm/Panel_PageMachineOverview/Grp_MachineOverviewActions/Btn_MachineOverviewActivate/Txt_MachineOverviewActivateLabel",
+      "detail": "长操作名称被自动缩到约15–17px，明显小于相邻22px正文；窄按钮端帽挤占阅读区，需统一动作字号与按钮宽度。",
+      "evidence": [
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-application.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-memory.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-scroll-bottom.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-scroll-top.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-state-base.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-state-MachineOverviewDisabledState.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-state-MachineOverviewEmptyState.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-state-MachineOverviewErrorState.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-state-MachineOverviewLoadingState.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-state-MachineOverviewSuccessState.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-world-scroll-bottom.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-world-scroll-top.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0068",
+      "criteria": [
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0092",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "05-FieldHudMachineOverviewForm-Panel_PageMachineOverview",
+      "code": "SMALL_TEXT",
+      "severity": "P2",
+      "node": "FieldHudMachineOverviewForm/Panel_PageMachineOverview/Grp_MachineOverviewActions/Btn_MachineOverviewPower/Txt_MachineOverviewPowerLabel",
+      "detail": "长操作名称被自动缩到约15–17px，明显小于相邻22px正文；窄按钮端帽挤占阅读区，需统一动作字号与按钮宽度。",
+      "evidence": [
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-application.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-memory.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-scroll-bottom.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-scroll-top.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-state-base.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-state-MachineOverviewDisabledState.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-state-MachineOverviewEmptyState.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-state-MachineOverviewErrorState.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-state-MachineOverviewLoadingState.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-state-MachineOverviewSuccessState.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-world-scroll-bottom.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-world-scroll-top.json",
+        "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0069",
+      "criteria": [
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0093",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0089"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0089",
+        "UIA-0090"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0090",
+        "UIA-0091"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0091"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0089",
+        "UIA-0090",
+        "UIA-0091"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0090",
+        "UIA-0091",
+        "UIA-0092",
+        "UIA-0093"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0090"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0091"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0090"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0091"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_MachineOverviewDisabledState"
+      ],
+      "screenshot": "runtime/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-application.png",
+      "geometry": "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_MachineOverviewDisabledState"
+      ],
+      "screenshot": "runtime/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-memory.png",
+      "geometry": "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_MachineOverviewEmptyState"
+      ],
+      "screenshot": "runtime/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-world.png",
+      "geometry": "geometry/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_MachineOverviewLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-MachineOverviewLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_MachineOverviewEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "world"
+      ],
+      "screenshot": "state-layout/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-MachineOverviewEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_MachineOverviewErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-MachineOverviewErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_MachineOverviewSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-MachineOverviewSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_MachineOverviewDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "application",
+        "memory"
+      ],
+      "screenshot": "state-layout/05-FieldHudMachineOverviewForm-Panel_PageMachineOverview-MachineOverviewDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "idle",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-05-MachineOverview-idle.png",
+      "artKeys": [
+        "S01-003",
+        "S01-001",
+        "S05-011",
+        "S05-011",
+        "S05-013",
+        "S05-006"
+      ]
+    },
+    {
+      "state": "active",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-05-MachineOverview-active.png",
+      "artKeys": [
+        "S01-003",
+        "S01-001",
+        "S05-011",
+        "S05-011",
+        "S05-013",
+        "S05-006"
+      ]
+    },
+    {
+      "state": "blocked",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-05-MachineOverview-blocked.png",
+      "artKeys": [
+        "S01-003",
+        "S01-001",
+        "S05-011",
+        "S05-011",
+        "S05-013",
+        "S05-007"
+      ]
+    },
+    {
+      "state": "error",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-05-MachineOverview-error.png",
+      "artKeys": [
+        "S01-003",
+        "S01-001",
+        "S05-011",
+        "S05-011",
+        "S05-013",
+        "S05-007"
+      ]
+    },
+    {
+      "state": "fixed-rotary",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-05-MachineOverview-fixed-rotary.png",
+      "artKeys": [
+        "S01-003",
+        "S01-001",
+        "S05-012",
+        "S05-012",
+        "S05-013",
+        "S05-006"
+      ]
+    },
+    {
+      "state": "level-up",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-05-MachineOverview-level-up.png",
+      "artKeys": [
+        "S01-003",
+        "S01-001",
+        "S05-011",
+        "S05-011",
+        "S05-014",
+        "S05-006"
+      ]
+    },
+    {
+      "state": "idle",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-05.png",
+      "artKeys": [
+        "S01-003",
+        "S01-001",
+        "S05-011",
+        "S05-011",
+        "S05-013",
+        "S05-006"
+      ]
+    }
+  ]
+}

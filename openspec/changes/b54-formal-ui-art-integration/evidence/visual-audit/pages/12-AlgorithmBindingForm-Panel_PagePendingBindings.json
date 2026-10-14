@@ -1,0 +1,346 @@
+{
+  "form": "AlgorithmBindingForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/AlgorithmBindingForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/AlgorithmBindingForm.contract.json",
+  "page": "Panel_PagePendingBindings",
+  "family": 12,
+  "state": "pending",
+  "frame": [
+    120,
+    90,
+    1680,
+    900
+  ],
+  "sections": [
+    {
+      "name": "Panel_PendingBindingsBindings",
+      "rect": [
+        184,
+        324,
+        686,
+        500
+      ]
+    },
+    {
+      "name": "Panel_PendingBindingsRequirement",
+      "rect": [
+        896,
+        324,
+        840,
+        500
+      ]
+    }
+  ],
+  "artwork": [],
+  "source": "EffectBoards/mock-ui-12-PendingBindings-pending.png",
+  "pageIndex": 0,
+  "auditId": "12-AlgorithmBindingForm-Panel_PagePendingBindings",
+  "title": "模板集中待绑定",
+  "issues": [
+    {
+      "page": "12-AlgorithmBindingForm-Panel_PagePendingBindings",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "AlgorithmBindingForm/Panel_Frame/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-application.json",
+        "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-memory.json",
+        "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-scroll-top.json",
+        "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-state-PendingBindingsDisabledState.json",
+        "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-state-PendingBindingsEmptyState.json",
+        "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-state-PendingBindingsErrorState.json",
+        "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-state-PendingBindingsLoadingState.json",
+        "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-state-PendingBindingsSuccessState.json",
+        "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-world-scroll-top.json",
+        "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0211",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0274",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "12-AlgorithmBindingForm-Panel_PagePendingBindings",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "AlgorithmBindingForm/Panel_Frame/Grp_PageHost/Panel_PagePendingBindings/Txt_PendingBindingsTitle ↔ AlgorithmBindingForm/Panel_Frame/Txt_FormTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-application.json",
+        "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-memory.json",
+        "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-scroll-top.json",
+        "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-state-base.json",
+        "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-state-PendingBindingsDisabledState.json",
+        "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-state-PendingBindingsEmptyState.json",
+        "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-state-PendingBindingsErrorState.json",
+        "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-state-PendingBindingsLoadingState.json",
+        "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-state-PendingBindingsSuccessState.json",
+        "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-world-scroll-top.json",
+        "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0210",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0275",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "12-AlgorithmBindingForm-Panel_PagePendingBindings",
+      "code": "UNAVAILABLE_REASON_REPEATED",
+      "severity": "P2",
+      "node": "AlgorithmBindingForm/Panel_Frame/Grp_PageHost/Panel_PagePendingBindings/Grp_PendingBindingsDisabledState/Panel_PendingBindingsDisabledMessage/Txt_PendingBindingsDisabledMessage",
+      "detail": "相同不可用原因同时出现在状态条和多个信息卡中；浮动状态条压在插画/内容区域，重复文字分散焦点。",
+      "criteria": [
+        4,
+        6,
+        7,
+        8,
+        11
+      ],
+      "evidence": [
+        "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-world.json",
+        "runtime/12-AlgorithmBindingForm-Panel_PagePendingBindings-world.png"
+      ],
+      "review": "confirmed",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,6,7,8,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0276",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0274",
+        "UIA-0275",
+        "UIA-0276"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0274"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0274",
+        "UIA-0276"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0274",
+        "UIA-0275",
+        "UIA-0276"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0276"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0274"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0274",
+        "UIA-0276"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_PendingBindingsDisabledState"
+      ],
+      "screenshot": "runtime/12-AlgorithmBindingForm-Panel_PagePendingBindings-application.png",
+      "geometry": "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_PendingBindingsDisabledState"
+      ],
+      "screenshot": "runtime/12-AlgorithmBindingForm-Panel_PagePendingBindings-memory.png",
+      "geometry": "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_PendingBindingsDisabledState"
+      ],
+      "screenshot": "runtime/12-AlgorithmBindingForm-Panel_PagePendingBindings-world.png",
+      "geometry": "geometry/12-AlgorithmBindingForm-Panel_PagePendingBindings-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_PendingBindingsLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/12-AlgorithmBindingForm-Panel_PagePendingBindings-PendingBindingsLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_PendingBindingsEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/12-AlgorithmBindingForm-Panel_PagePendingBindings-PendingBindingsEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_PendingBindingsErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/12-AlgorithmBindingForm-Panel_PagePendingBindings-PendingBindingsErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_PendingBindingsSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/12-AlgorithmBindingForm-Panel_PagePendingBindings-PendingBindingsSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_PendingBindingsDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "application",
+        "memory",
+        "world"
+      ],
+      "screenshot": "state-layout/12-AlgorithmBindingForm-Panel_PagePendingBindings-PendingBindingsDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "pending",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-12-PendingBindings-pending.png",
+      "artKeys": [
+        "S12-005",
+        "S12-003",
+        "S12-003",
+        "S12-003",
+        "S12-003"
+      ]
+    },
+    {
+      "state": "multi",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-12-PendingBindings-multi.png",
+      "artKeys": [
+        "S12-006",
+        "S12-003",
+        "S12-003",
+        "S12-003",
+        "S12-003"
+      ]
+    },
+    {
+      "state": "linked",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-12-PendingBindings-linked.png",
+      "artKeys": [
+        "S12-005",
+        "S12-004",
+        "S12-004",
+        "S12-004",
+        "S12-004"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,371 @@
+{
+  "form": "AlgorithmPublicParametersForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/AlgorithmPublicParametersForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/AlgorithmPublicParametersForm.contract.json",
+  "page": "Panel_PagePublicParameters",
+  "family": 13,
+  "state": "normal",
+  "frame": [
+    40,
+    50,
+    1840,
+    980
+  ],
+  "sections": [
+    {
+      "name": "Panel_PublicParametersParameters",
+      "rect": [
+        388,
+        198,
+        1000,
+        546
+      ]
+    },
+    {
+      "name": "Panel_PublicParametersImpact",
+      "rect": [
+        1412,
+        198,
+        404,
+        674
+      ]
+    }
+  ],
+  "artwork": [],
+  "source": "EffectBoards/mock-ui-13-PublicParameters-normal.png",
+  "pageIndex": 0,
+  "auditId": "13-AlgorithmPublicParametersForm-Panel_PagePublicParameters",
+  "title": "算法公开参数",
+  "issues": [
+    {
+      "page": "13-AlgorithmPublicParametersForm-Panel_PagePublicParameters",
+      "code": "PAGE_NOT_VISIBLE",
+      "severity": "P0",
+      "node": "Panel_PagePublicParameters",
+      "detail": "请求页面未出现在当前可见图形树；实际页=",
+      "evidence": [
+        "geometry/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-application.json",
+        "geometry/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-memory.json",
+        "geometry/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0228",
+      "criteria": [
+        1,
+        9,
+        10,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 1,9,10,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0297",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "13-AlgorithmPublicParametersForm-Panel_PagePublicParameters",
+      "code": "OVERSIZED_EXTRA_FRAME",
+      "severity": "P1",
+      "node": "页面外层装饰框",
+      "detail": "除页面主框外还有放大到近乎全屏的第二层装饰框，贴近画布四边并出现巨大斜角，破坏与同类页面的一致性。",
+      "criteria": [
+        2,
+        3,
+        4,
+        12
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters.png"
+      ],
+      "sourceId": "V0017",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 2,3,4,12：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0298",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "13-AlgorithmPublicParametersForm-Panel_PagePublicParameters",
+      "code": "PARAMETER_CONTROLS_STYLE",
+      "severity": "P1",
+      "node": "公开参数数值输入与布尔开关",
+      "detail": "数值输入框和布尔区域形成粗重嵌套边框，布尔框只呈现黑色小块，标签与控件没有形成清楚的一行布局。",
+      "criteria": [
+        3,
+        5,
+        6,
+        9,
+        10
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters.png"
+      ],
+      "sourceId": "V0061",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 3,5,6,9,10：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0299",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "13-AlgorithmPublicParametersForm-Panel_PagePublicParameters",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-state-PublicParametersDisabledState.json",
+        "geometry/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-state-PublicParametersEmptyState.json",
+        "geometry/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-state-PublicParametersErrorState.json",
+        "geometry/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-state-PublicParametersLoadingState.json",
+        "geometry/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-state-PublicParametersSuccessState.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0230",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0300",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "13-AlgorithmPublicParametersForm-Panel_PagePublicParameters",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Txt_PublicParametersTitle ↔ AlgorithmPublicParametersForm/Panel_Frame/Txt_FormTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-state-base.json",
+        "geometry/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-state-PublicParametersDisabledState.json",
+        "geometry/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-state-PublicParametersEmptyState.json",
+        "geometry/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-state-PublicParametersErrorState.json",
+        "geometry/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-state-PublicParametersLoadingState.json",
+        "geometry/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-state-PublicParametersSuccessState.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0229",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0301",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0297"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0298"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0298",
+        "UIA-0299"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0298",
+        "UIA-0300",
+        "UIA-0301"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0299",
+        "UIA-0300"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0299",
+        "UIA-0300"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0300",
+        "UIA-0301"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0297",
+        "UIA-0299",
+        "UIA-0300"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0297",
+        "UIA-0299"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0297",
+        "UIA-0300"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0298"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": false,
+      "stateGroups": [],
+      "screenshot": "runtime/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-application.png",
+      "geometry": "geometry/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": false,
+      "stateGroups": [],
+      "screenshot": "runtime/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-memory.png",
+      "geometry": "geometry/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": false,
+      "stateGroups": [],
+      "screenshot": "runtime/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-world.png",
+      "geometry": "geometry/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_PublicParametersLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-PublicParametersLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_PublicParametersEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-PublicParametersEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_PublicParametersErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-PublicParametersErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_PublicParametersSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-PublicParametersSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_PublicParametersDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/13-AlgorithmPublicParametersForm-Panel_PagePublicParameters-PublicParametersDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "normal",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-13-PublicParameters-normal.png",
+      "artKeys": [
+        "S13-009",
+        "S13-007",
+        "S13-008"
+      ]
+    },
+    {
+      "state": "pending",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-13-PublicParameters-pending.png",
+      "artKeys": [
+        "S13-009",
+        "S13-007",
+        "S13-008"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,635 @@
+{
+  "form": "AlgorithmEditorForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/AlgorithmEditorForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/AlgorithmEditorForm.contract.json",
+  "page": "Panel_PageAlgorithmEditor",
+  "family": 13,
+  "state": "edit",
+  "frame": [
+    40,
+    50,
+    1840,
+    980
+  ],
+  "sections": [
+    {
+      "name": "Panel_AlgorithmEditorNodes",
+      "rect": [
+        104,
+        198,
+        260,
+        674
+      ]
+    },
+    {
+      "name": "Panel_AlgorithmEditorCanvas",
+      "rect": [
+        388,
+        198,
+        1000,
+        546
+      ]
+    },
+    {
+      "name": "Panel_AlgorithmEditorInspector",
+      "rect": [
+        1412,
+        198,
+        404,
+        674
+      ]
+    },
+    {
+      "name": "Panel_AlgorithmEditorProblems",
+      "rect": [
+        388,
+        768,
+        1000,
+        124
+      ]
+    },
+    {
+      "name": "Panel_AlgorithmEditorToolbar",
+      "rect": [
+        478,
+        144,
+        910,
+        44
+      ]
+    }
+  ],
+  "artwork": [],
+  "source": "EffectBoards/mock-ui-13-AlgorithmEditor-edit.png",
+  "pageIndex": 0,
+  "auditId": "13-AlgorithmEditorForm-Panel_PageAlgorithmEditor",
+  "title": "算法编辑模式｜编辑",
+  "issues": [
+    {
+      "page": "13-AlgorithmEditorForm-Panel_PageAlgorithmEditor",
+      "code": "ALGORITHM_TOOLBAR_DENSITY",
+      "severity": "P1",
+      "node": "算法工作台顶部工具条与底部动作区",
+      "detail": "撤销/重做/删除等控件挤在很窄的顶栏；底部七个动作分两排且贴近验证区和框底，主操作与编辑工具没有清楚分层。",
+      "criteria": [
+        3,
+        4,
+        6,
+        8,
+        10
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor.png"
+      ],
+      "sourceId": "V0060",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 3,4,6,8,10：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0286",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "13-AlgorithmEditorForm-Panel_PageAlgorithmEditor",
+      "code": "BORDER_COMPRESSION",
+      "severity": "P1",
+      "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorToolbar",
+      "detail": "控件 909.95×44 小于九宫格固定边总和 64.0×48.0，边角会被压缩",
+      "evidence": [
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-application.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-memory.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-scroll-bottom.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-scroll-top.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorDisabledState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorEmptyState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorErrorState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorLoadingState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorSuccessState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-base.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world-scroll-bottom.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world-scroll-top.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world.json",
+        "geometry/algorithm-diagnosis.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0223",
+      "criteria": [
+        3,
+        5
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 3,5：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0287",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "13-AlgorithmEditorForm-Panel_PageAlgorithmEditor",
+      "code": "BORDER_COMPRESSION",
+      "severity": "P1",
+      "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorToolbar/Grp_AlgorithmDraftTools/Btn_AlgorithmRedo",
+      "detail": "控件 99.99×32 小于九宫格固定边总和 112.0×16.0，边角会被压缩",
+      "evidence": [
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-application.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-memory.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-scroll-bottom.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-scroll-top.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorDisabledState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorEmptyState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorErrorState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorLoadingState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorSuccessState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-base.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world-scroll-bottom.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world-scroll-top.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0225",
+      "criteria": [
+        3,
+        5
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 3,5：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0288",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "13-AlgorithmEditorForm-Panel_PageAlgorithmEditor",
+      "code": "BORDER_COMPRESSION",
+      "severity": "P1",
+      "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorToolbar/Grp_AlgorithmDraftTools/Btn_AlgorithmUndo",
+      "detail": "控件 99.99×32 小于九宫格固定边总和 112.0×16.0，边角会被压缩",
+      "evidence": [
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-application.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-memory.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-scroll-bottom.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-scroll-top.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorDisabledState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorEmptyState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorErrorState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorLoadingState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorSuccessState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-base.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world-scroll-bottom.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world-scroll-top.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0224",
+      "criteria": [
+        3,
+        5
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 3,5：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0289",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "13-AlgorithmEditorForm-Panel_PageAlgorithmEditor",
+      "code": "NODE_TITLE_PORT_OVERLAP",
+      "severity": "P1",
+      "node": "AlgorithmNodeItem / Txt_AlgorithmNodeName",
+      "detail": "以原生端口渲染器生成4入4出、长名称节点时，标题位于卡片中部并与端口文字相交；未使用母版顶部标题带，节点身份与端口无法同时阅读。",
+      "criteria": [
+        1,
+        4,
+        6,
+        7,
+        11
+      ],
+      "evidence": [
+        "state-layout/AlgorithmNodeItem-long.png",
+        "geometry/AlgorithmNodeItem-long.json",
+        "sheets/items.jpg"
+      ],
+      "review": "confirmed",
+      "scope": "stress-layout",
+      "repro": "预览副本调用 OnInit、Bind、AlgorithmGraphPortView.Resize 等价尺寸和 Render；4入4出及长名称，未修改正式 Prefab。",
+      "expected": "满足标准 1,4,6,7,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0290",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "13-AlgorithmEditorForm-Panel_PageAlgorithmEditor",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "AlgorithmEditorForm/Panel_Frame/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-application.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-memory.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-scroll-bottom.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-scroll-top.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorDisabledState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorEmptyState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorErrorState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorLoadingState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorSuccessState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world-scroll-bottom.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world-scroll-top.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world.json",
+        "geometry/algorithm-diagnosis.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0227",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0291",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "13-AlgorithmEditorForm-Panel_PageAlgorithmEditor",
+      "code": "TEXT_MASK_CLIP",
+      "severity": "P1",
+      "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Panel_AlgorithmEditorNodes/List_AlgorithmEditorNodes/Viewport_AlgorithmEditorNodes/Content_AlgorithmEditorNodes/Txt_AlgorithmEditorNodesBody",
+      "detail": "实际字符横向越出列表遮罩，右侧正文/数值被硬裁切；当前模板未提供省略或可完整阅读的布局。",
+      "evidence": [
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-application.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-memory.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-scroll-bottom.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-scroll-top.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world-scroll-bottom.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world-scroll-top.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world.json",
+        "geometry/algorithm-diagnosis.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0221",
+      "criteria": [
+        4,
+        7,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0292",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "13-AlgorithmEditorForm-Panel_PageAlgorithmEditor",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Txt_AlgorithmEditorTitle ↔ AlgorithmEditorForm/Panel_Frame/Txt_FormTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-application.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-memory.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-scroll-bottom.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-scroll-top.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorDisabledState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorEmptyState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorErrorState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorLoadingState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-AlgorithmEditorSuccessState.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-state-base.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world-scroll-bottom.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world-scroll-top.json",
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world.json",
+        "geometry/algorithm-diagnosis.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0226",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0293",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "13-AlgorithmEditorForm-Panel_PageAlgorithmEditor",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "AlgorithmNodeItem/Grp_AlgorithmNode/Btn_AlgorithmNodeSelect/Txt_AlgorithmNodeName ↔ AlgorithmNodeItem/Grp_AlgorithmNode/List_AlgorithmInputPorts/Viewport_AlgorithmInputPorts/Content_AlgorithmInputPorts/Item_AlgorithmInputPortTemplate(累计生产数量与目标材料要求1)/Btn_AlgorithmInputPort/Txt_AlgorithmInputPort",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/AlgorithmNodeItem-long.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0358",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0294",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "13-AlgorithmEditorForm-Panel_PageAlgorithmEditor",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "AlgorithmNodeItem/Grp_AlgorithmNode/Btn_AlgorithmNodeSelect/Txt_AlgorithmNodeName ↔ AlgorithmNodeItem/Grp_AlgorithmNode/List_AlgorithmOutputPorts/Viewport_AlgorithmOutputPorts/Content_AlgorithmOutputPorts/Item_AlgorithmOutputPortTemplate(累计生产数量与目标材料要求1)/Btn_AlgorithmOutputPort/Txt_AlgorithmOutputPort",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/AlgorithmNodeItem-long.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0359",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0295",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "13-AlgorithmEditorForm-Panel_PageAlgorithmEditor",
+      "code": "UNAVAILABLE_REASON_REPEATED",
+      "severity": "P2",
+      "node": "AlgorithmEditorForm/Panel_Frame/Grp_PageHost/Panel_PageAlgorithmEditor/Grp_AlgorithmEditorDisabledState/Panel_AlgorithmEditorDisabledMessage/Txt_AlgorithmEditorDisabledMessage",
+      "detail": "相同不可用原因同时出现在状态条和多个信息卡中；浮动状态条压在插画/内容区域，重复文字分散焦点。",
+      "criteria": [
+        4,
+        6,
+        7,
+        8,
+        11
+      ],
+      "evidence": [
+        "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world.json",
+        "runtime/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world.png"
+      ],
+      "review": "confirmed",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,6,7,8,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0296",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0290"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0286",
+        "UIA-0287",
+        "UIA-0288",
+        "UIA-0289"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0286",
+        "UIA-0290",
+        "UIA-0291",
+        "UIA-0292",
+        "UIA-0293",
+        "UIA-0294",
+        "UIA-0295",
+        "UIA-0296"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0287",
+        "UIA-0288",
+        "UIA-0289",
+        "UIA-0291"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0286",
+        "UIA-0290",
+        "UIA-0291",
+        "UIA-0296"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0290",
+        "UIA-0291",
+        "UIA-0292",
+        "UIA-0293",
+        "UIA-0294",
+        "UIA-0295",
+        "UIA-0296"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0286",
+        "UIA-0296"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0291"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0286"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0290",
+        "UIA-0291",
+        "UIA-0292",
+        "UIA-0296"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_AlgorithmEditorDisabledState"
+      ],
+      "screenshot": "runtime/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-application.png",
+      "geometry": "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_AlgorithmEditorDisabledState"
+      ],
+      "screenshot": "runtime/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-memory.png",
+      "geometry": "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_AlgorithmEditorDisabledState"
+      ],
+      "screenshot": "runtime/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world.png",
+      "geometry": "geometry/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-world.json"
+    },
+    {
+      "context": "memory/diagnosis-mode-harness",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_AlgorithmEditorDisabledState"
+      ],
+      "screenshot": "runtime/algorithm-diagnosis.png",
+      "geometry": "geometry/algorithm-diagnosis.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_AlgorithmEditorLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-AlgorithmEditorLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_AlgorithmEditorEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-AlgorithmEditorEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_AlgorithmEditorErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-AlgorithmEditorErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_AlgorithmEditorSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-AlgorithmEditorSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_AlgorithmEditorDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "application",
+        "memory",
+        "world",
+        "memory/diagnosis-mode-harness"
+      ],
+      "screenshot": "state-layout/13-AlgorithmEditorForm-Panel_PageAlgorithmEditor-AlgorithmEditorDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "edit",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-13-AlgorithmEditor-edit.png",
+      "artKeys": [
+        "S13-009"
+      ]
+    },
+    {
+      "state": "selected",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-13-AlgorithmEditor-selected.png",
+      "artKeys": [
+        "S13-009"
+      ]
+    },
+    {
+      "state": "error",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-13-AlgorithmEditor-error.png",
+      "artKeys": [
+        "S13-009",
+        "S13-001",
+        "S13-003",
+        "S13-005",
+        "S13-006",
+        "S13-001"
+      ]
+    },
+    {
+      "state": "selected",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-13.png",
+      "artKeys": [
+        "S13-009"
+      ]
+    }
+  ]
+}

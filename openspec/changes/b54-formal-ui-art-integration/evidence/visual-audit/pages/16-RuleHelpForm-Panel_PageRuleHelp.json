@@ -1,0 +1,387 @@
+{
+  "form": "RuleHelpForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/RuleHelpForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/RuleHelpForm.contract.json",
+  "page": "Panel_PageRuleHelp",
+  "family": 16,
+  "state": "normal",
+  "frame": [
+    100,
+    90,
+    1720,
+    900
+  ],
+  "sections": [
+    {
+      "name": "Panel_RuleHelpDescription",
+      "rect": [
+        1228,
+        248,
+        528,
+        584
+      ]
+    }
+  ],
+  "artwork": [
+    {
+      "key": "S16-001",
+      "path": "Assets/Game/Sprites/UI/Pages/16-教学规则与知识/scr-16-001-guide-illustration@640x480.png",
+      "rect": [
+        470,
+        274,
+        734,
+        442
+      ],
+      "mode": "fit",
+      "opacity": 1
+    }
+  ],
+  "source": "EffectBoards/mock-ui-16-RuleHelp-normal.png",
+  "pageIndex": 0,
+  "auditId": "16-RuleHelpForm-Panel_PageRuleHelp",
+  "title": "通用规则说明",
+  "issues": [
+    {
+      "page": "16-RuleHelpForm-Panel_PageRuleHelp",
+      "code": "BUSINESS_SOURCE_NOT_CONNECTED",
+      "severity": "P1",
+      "node": "运行时数据正文",
+      "detail": "本次实际运行说明：通用规则说明尚未接入运行路径：规则条目还没有录入本地化表。",
+      "criteria": [
+        9,
+        11
+      ],
+      "evidence": [
+        "runtime/16-RuleHelpForm-Panel_PageRuleHelp-world.png",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-world.json"
+      ],
+      "review": "confirmed",
+      "scope": "business-gap",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0368",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "16-RuleHelpForm-Panel_PageRuleHelp",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "RuleHelpForm/Panel_Frame/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-application.json",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-memory.json",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-scroll-top.json",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-state-RuleHelpDisabledState.json",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-state-RuleHelpEmptyState.json",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-state-RuleHelpErrorState.json",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-state-RuleHelpLoadingState.json",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-state-RuleHelpSuccessState.json",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-world-scroll-top.json",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0280",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0369",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "16-RuleHelpForm-Panel_PageRuleHelp",
+      "code": "TEXT_MASK_CLIP",
+      "severity": "P1",
+      "node": "RuleHelpForm/Panel_Frame/Grp_PageHost/Panel_PageRuleHelp/Panel_RuleHelpDescription/List_RuleHelpDescription/Viewport_RuleHelpDescription/Content_RuleHelpDescription/Txt_RuleHelpDescriptionBody",
+      "detail": "实际字符横向越出列表遮罩，右侧正文/数值被硬裁切；当前模板未提供省略或可完整阅读的布局。",
+      "evidence": [
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-application.json",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-memory.json",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-scroll-top.json",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-world-scroll-top.json",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0278",
+      "criteria": [
+        4,
+        7,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0370",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "16-RuleHelpForm-Panel_PageRuleHelp",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "RuleHelpForm/Panel_Frame/Grp_PageHost/Panel_PageRuleHelp/Txt_RuleHelpTitle ↔ RuleHelpForm/Panel_Frame/Txt_FormTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-application.json",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-memory.json",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-scroll-top.json",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-state-base.json",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-state-RuleHelpDisabledState.json",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-state-RuleHelpEmptyState.json",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-state-RuleHelpErrorState.json",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-state-RuleHelpLoadingState.json",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-state-RuleHelpSuccessState.json",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-world-scroll-top.json",
+        "geometry/16-RuleHelpForm-Panel_PageRuleHelp-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0279",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0371",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "16-RuleHelpForm-Panel_PageRuleHelp",
+      "code": "GUIDE_INFORMATION_PRIORITY",
+      "severity": "P2",
+      "node": "教学/帮助/规则插画与正文区域",
+      "detail": "同一通用工坊图占据较大面积，规则正文、步骤和主题信息被压缩；需按页面用途调整插画和阅读区域的主次。",
+      "criteria": [
+        3,
+        8,
+        12
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/16-RuleHelpForm-Panel_PageRuleHelp.png"
+      ],
+      "sourceId": "V0068",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 3,8,12：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0372",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0372"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0369",
+        "UIA-0370",
+        "UIA-0371"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0369"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0369"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0369",
+        "UIA-0370",
+        "UIA-0371"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0372"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0368",
+        "UIA-0369"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0368",
+        "UIA-0369",
+        "UIA-0370"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0372"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_RuleHelpDisabledState"
+      ],
+      "screenshot": "runtime/16-RuleHelpForm-Panel_PageRuleHelp-application.png",
+      "geometry": "geometry/16-RuleHelpForm-Panel_PageRuleHelp-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_RuleHelpDisabledState"
+      ],
+      "screenshot": "runtime/16-RuleHelpForm-Panel_PageRuleHelp-memory.png",
+      "geometry": "geometry/16-RuleHelpForm-Panel_PageRuleHelp-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_RuleHelpDisabledState"
+      ],
+      "screenshot": "runtime/16-RuleHelpForm-Panel_PageRuleHelp-world.png",
+      "geometry": "geometry/16-RuleHelpForm-Panel_PageRuleHelp-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_RuleHelpLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/16-RuleHelpForm-Panel_PageRuleHelp-RuleHelpLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_RuleHelpEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/16-RuleHelpForm-Panel_PageRuleHelp-RuleHelpEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_RuleHelpErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/16-RuleHelpForm-Panel_PageRuleHelp-RuleHelpErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_RuleHelpSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/16-RuleHelpForm-Panel_PageRuleHelp-RuleHelpSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_RuleHelpDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "application",
+        "memory",
+        "world"
+      ],
+      "screenshot": "state-layout/16-RuleHelpForm-Panel_PageRuleHelp-RuleHelpDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "normal",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-16-RuleHelp-normal.png",
+      "artKeys": [
+        "S16-001",
+        "S16-003",
+        "S16-006",
+        "S16-007"
+      ]
+    },
+    {
+      "state": "empty",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-16-RuleHelp-empty.png",
+      "artKeys": [
+        "S16-002",
+        "S16-003",
+        "S16-006",
+        "S16-008"
+      ]
+    }
+  ]
+}

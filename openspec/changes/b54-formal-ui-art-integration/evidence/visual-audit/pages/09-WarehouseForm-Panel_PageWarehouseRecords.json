@@ -1,0 +1,313 @@
+{
+  "form": "WarehouseForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/WarehouseForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/WarehouseForm.contract.json",
+  "page": "Panel_PageWarehouseRecords",
+  "family": 9,
+  "state": "normal",
+  "frame": [
+    120,
+    90,
+    1680,
+    900
+  ],
+  "sections": [
+    {
+      "name": "Panel_WarehouseRecordsEvents",
+      "rect": [
+        424,
+        324,
+        774,
+        506
+      ]
+    },
+    {
+      "name": "Panel_WarehouseRecordsDetail",
+      "rect": [
+        1224,
+        246,
+        512,
+        592
+      ]
+    }
+  ],
+  "artwork": [],
+  "source": "EffectBoards/mock-ui-09-WarehouseRecords-normal.png",
+  "pageIndex": 2,
+  "auditId": "09-WarehouseForm-Panel_PageWarehouseRecords",
+  "title": "仓库记录",
+  "issues": [
+    {
+      "page": "09-WarehouseForm-Panel_PageWarehouseRecords",
+      "code": "BUSINESS_SOURCE_NOT_CONNECTED",
+      "severity": "P1",
+      "node": "运行时数据正文",
+      "detail": "本次实际运行说明：任务、事务和序列可追溯；筛选与定位尚未接入。",
+      "criteria": [
+        9,
+        11
+      ],
+      "evidence": [
+        "runtime/09-WarehouseForm-Panel_PageWarehouseRecords-world.png",
+        "geometry/09-WarehouseForm-Panel_PageWarehouseRecords-world.json"
+      ],
+      "review": "confirmed",
+      "scope": "business-gap",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0227",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "09-WarehouseForm-Panel_PageWarehouseRecords",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "WarehouseForm/Panel_Frame/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/09-WarehouseForm-Panel_PageWarehouseRecords-application.json",
+        "geometry/09-WarehouseForm-Panel_PageWarehouseRecords-memory.json",
+        "geometry/09-WarehouseForm-Panel_PageWarehouseRecords-scroll-top.json",
+        "geometry/09-WarehouseForm-Panel_PageWarehouseRecords-state-WarehouseRecordsDisabledState.json",
+        "geometry/09-WarehouseForm-Panel_PageWarehouseRecords-state-WarehouseRecordsEmptyState.json",
+        "geometry/09-WarehouseForm-Panel_PageWarehouseRecords-state-WarehouseRecordsErrorState.json",
+        "geometry/09-WarehouseForm-Panel_PageWarehouseRecords-state-WarehouseRecordsLoadingState.json",
+        "geometry/09-WarehouseForm-Panel_PageWarehouseRecords-state-WarehouseRecordsSuccessState.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0184",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0228",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "09-WarehouseForm-Panel_PageWarehouseRecords",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "WarehouseForm/Panel_Frame/Grp_PageHost/Panel_PageWarehouseRecords/Txt_WarehouseRecordsTitle ↔ WarehouseForm/Panel_Frame/Txt_FormTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/09-WarehouseForm-Panel_PageWarehouseRecords-application.json",
+        "geometry/09-WarehouseForm-Panel_PageWarehouseRecords-memory.json",
+        "geometry/09-WarehouseForm-Panel_PageWarehouseRecords-scroll-top.json",
+        "geometry/09-WarehouseForm-Panel_PageWarehouseRecords-state-base.json",
+        "geometry/09-WarehouseForm-Panel_PageWarehouseRecords-state-WarehouseRecordsDisabledState.json",
+        "geometry/09-WarehouseForm-Panel_PageWarehouseRecords-state-WarehouseRecordsEmptyState.json",
+        "geometry/09-WarehouseForm-Panel_PageWarehouseRecords-state-WarehouseRecordsErrorState.json",
+        "geometry/09-WarehouseForm-Panel_PageWarehouseRecords-state-WarehouseRecordsLoadingState.json",
+        "geometry/09-WarehouseForm-Panel_PageWarehouseRecords-state-WarehouseRecordsSuccessState.json",
+        "geometry/09-WarehouseForm-Panel_PageWarehouseRecords-world-scroll-top.json",
+        "geometry/09-WarehouseForm-Panel_PageWarehouseRecords-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0183",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0229",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0228",
+        "UIA-0229"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0228"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0228"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0228",
+        "UIA-0229"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0227",
+        "UIA-0228"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0227",
+        "UIA-0228"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_WarehouseRecordsDisabledState"
+      ],
+      "screenshot": "runtime/09-WarehouseForm-Panel_PageWarehouseRecords-application.png",
+      "geometry": "geometry/09-WarehouseForm-Panel_PageWarehouseRecords-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_WarehouseRecordsDisabledState"
+      ],
+      "screenshot": "runtime/09-WarehouseForm-Panel_PageWarehouseRecords-memory.png",
+      "geometry": "geometry/09-WarehouseForm-Panel_PageWarehouseRecords-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/09-WarehouseForm-Panel_PageWarehouseRecords-world.png",
+      "geometry": "geometry/09-WarehouseForm-Panel_PageWarehouseRecords-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_WarehouseRecordsLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/09-WarehouseForm-Panel_PageWarehouseRecords-WarehouseRecordsLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_WarehouseRecordsEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/09-WarehouseForm-Panel_PageWarehouseRecords-WarehouseRecordsEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_WarehouseRecordsErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/09-WarehouseForm-Panel_PageWarehouseRecords-WarehouseRecordsErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_WarehouseRecordsSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/09-WarehouseForm-Panel_PageWarehouseRecords-WarehouseRecordsSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_WarehouseRecordsDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "application",
+        "memory"
+      ],
+      "screenshot": "state-layout/09-WarehouseForm-Panel_PageWarehouseRecords-WarehouseRecordsDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "normal",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-09-WarehouseRecords-normal.png",
+      "artKeys": [
+        "S09-003",
+        "S09-004",
+        "S09-005",
+        "S09-006",
+        "S09-014",
+        "S09-008"
+      ]
+    }
+  ]
+}

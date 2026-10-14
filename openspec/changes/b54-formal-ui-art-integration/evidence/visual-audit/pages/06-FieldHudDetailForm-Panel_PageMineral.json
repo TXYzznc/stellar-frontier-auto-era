@@ -1,0 +1,350 @@
+{
+  "form": "FieldHudDetailForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/FieldHudDetailForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/FieldHudDetailForm.contract.json",
+  "page": "Panel_PageMineral",
+  "family": 6,
+  "state": "normal",
+  "frame": [
+    1304,
+    132,
+    592,
+    884
+  ],
+  "sections": [
+    {
+      "name": "Panel_MineralPublic",
+      "rect": [
+        1336,
+        540,
+        528,
+        152
+      ]
+    },
+    {
+      "name": "Panel_MineralSensor",
+      "rect": [
+        1336,
+        710,
+        528,
+        138
+      ]
+    },
+    {
+      "name": "Panel_MineralRecord",
+      "rect": [
+        1336,
+        864,
+        528,
+        86
+      ]
+    }
+  ],
+  "artwork": [
+    {
+      "key": "S06-003",
+      "path": "Assets/Game/Sprites/UI/Pages/06-资源点观察/scr-06-003-mineral-head@640x480.png",
+      "rect": [
+        1339,
+        296,
+        522,
+        348
+      ],
+      "mode": "fit",
+      "opacity": 1
+    }
+  ],
+  "source": "EffectBoards/mock-ui-06-Mineral-normal.png",
+  "pageIndex": 5,
+  "auditId": "06-FieldHudDetailForm-Panel_PageMineral",
+  "title": "地表矿脉详情",
+  "issues": [
+    {
+      "page": "06-FieldHudDetailForm-Panel_PageMineral",
+      "code": "SIDEBAR_ACTION_DENSITY",
+      "severity": "P1",
+      "node": "侧栏底部操作区",
+      "detail": "底部按钮直接叠在装饰框底沿，同一行容纳多个长动作名；端帽占用大部分宽度，文字与操作层级不清楚。",
+      "criteria": [
+        3,
+        4,
+        6,
+        7,
+        8,
+        10
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/06-FieldHudDetailForm-Panel_PageMineral.png"
+      ],
+      "sourceId": "V0035",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 3,4,6,7,8,10：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0117",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "06-FieldHudDetailForm-Panel_PageMineral",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "FieldHudDetailForm/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/06-FieldHudDetailForm-Panel_PageMineral-application.json",
+        "geometry/06-FieldHudDetailForm-Panel_PageMineral-memory.json",
+        "geometry/06-FieldHudDetailForm-Panel_PageMineral-scroll-top.json",
+        "geometry/06-FieldHudDetailForm-Panel_PageMineral-state-MineralDisabledState.json",
+        "geometry/06-FieldHudDetailForm-Panel_PageMineral-state-MineralEmptyState.json",
+        "geometry/06-FieldHudDetailForm-Panel_PageMineral-state-MineralErrorState.json",
+        "geometry/06-FieldHudDetailForm-Panel_PageMineral-state-MineralLoadingState.json",
+        "geometry/06-FieldHudDetailForm-Panel_PageMineral-state-MineralSuccessState.json",
+        "geometry/06-FieldHudDetailForm-Panel_PageMineral-target.json",
+        "geometry/06-FieldHudDetailForm-Panel_PageMineral-world-scroll-top.json",
+        "geometry/06-FieldHudDetailForm-Panel_PageMineral-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0096",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0118",
+      "affectedState": "五种声明状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0117"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0117",
+        "UIA-0118"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0118"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0117",
+        "UIA-0118"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0117",
+        "UIA-0118"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0117"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0118"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0117"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0118"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_MineralDisabledState"
+      ],
+      "screenshot": "runtime/06-FieldHudDetailForm-Panel_PageMineral-application.png",
+      "geometry": "geometry/06-FieldHudDetailForm-Panel_PageMineral-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_MineralDisabledState"
+      ],
+      "screenshot": "runtime/06-FieldHudDetailForm-Panel_PageMineral-memory.png",
+      "geometry": "geometry/06-FieldHudDetailForm-Panel_PageMineral-memory.json"
+    },
+    {
+      "context": "real-world/natural-selection-and-page-API",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/06-FieldHudDetailForm-Panel_PageMineral-natural.png",
+      "geometry": "geometry/06-FieldHudDetailForm-Panel_PageMineral-natural.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_MineralDisabledState"
+      ],
+      "screenshot": "runtime/06-FieldHudDetailForm-Panel_PageMineral-world.png",
+      "geometry": "geometry/06-FieldHudDetailForm-Panel_PageMineral-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_MineralLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/06-FieldHudDetailForm-Panel_PageMineral-MineralLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_MineralEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/06-FieldHudDetailForm-Panel_PageMineral-MineralEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_MineralErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/06-FieldHudDetailForm-Panel_PageMineral-MineralErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_MineralSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/06-FieldHudDetailForm-Panel_PageMineral-MineralSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_MineralDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "application",
+        "memory",
+        "world"
+      ],
+      "screenshot": "state-layout/06-FieldHudDetailForm-Panel_PageMineral-MineralDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "normal",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-06-Mineral-normal.png",
+      "artKeys": [
+        "S01-003",
+        "S01-001",
+        "S06-003",
+        "S06-003",
+        "S06-011",
+        "S06-015"
+      ]
+    },
+    {
+      "state": "sparse",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-06-Mineral-sparse.png",
+      "artKeys": [
+        "S01-003",
+        "S01-001",
+        "S06-003",
+        "S06-003",
+        "S06-011",
+        "S06-007"
+      ]
+    },
+    {
+      "state": "depleted",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-06-Mineral-depleted.png",
+      "artKeys": [
+        "S01-003",
+        "S01-001",
+        "S06-003",
+        "S06-003",
+        "S06-012",
+        "S06-007"
+      ]
+    }
+  ]
+}

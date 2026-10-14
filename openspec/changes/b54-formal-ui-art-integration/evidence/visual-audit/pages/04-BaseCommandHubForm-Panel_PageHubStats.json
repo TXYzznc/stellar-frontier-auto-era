@@ -1,0 +1,373 @@
+{
+  "form": "BaseCommandHubForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/BaseCommandHubForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/BaseCommandHubForm.contract.json",
+  "page": "Panel_PageHubStats",
+  "family": 4,
+  "state": "normal",
+  "frame": [
+    100,
+    90,
+    1720,
+    900
+  ],
+  "sections": [
+    {
+      "name": "Panel_HubStatsMetrics",
+      "rect": [
+        418,
+        240,
+        392,
+        176
+      ]
+    },
+    {
+      "name": "Panel_HubStatsValues",
+      "rect": [
+        834,
+        240,
+        922,
+        176
+      ]
+    },
+    {
+      "name": "Panel_HubStatsRecords",
+      "rect": [
+        418,
+        438,
+        1338,
+        380
+      ]
+    }
+  ],
+  "artwork": [
+    {
+      "key": "S04-013",
+      "path": "Assets/Game/Sprites/UI/Pages/04-基地中枢/scr-04-013-stats-chart-frame@640x480.png",
+      "rect": [
+        418,
+        240,
+        1330,
+        568
+      ],
+      "mode": "slice",
+      "opacity": 1
+    }
+  ],
+  "source": "EffectBoards/mock-ui-04-HubStats-normal.png",
+  "pageIndex": 4,
+  "auditId": "04-BaseCommandHubForm-Panel_PageHubStats",
+  "title": "统计",
+  "issues": [
+    {
+      "page": "04-BaseCommandHubForm-Panel_PageHubStats",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "BaseCommandHubForm/Panel_Frame/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-application.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-memory.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-scroll-bottom.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-scroll-top.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-state-HubStatsDisabledState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-state-HubStatsEmptyState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-state-HubStatsErrorState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-state-HubStatsLoadingState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-state-HubStatsSuccessState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-world-scroll-bottom.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-world-scroll-top.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0056",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0073",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "04-BaseCommandHubForm-Panel_PageHubStats",
+      "code": "TEXT_MASK_CLIP",
+      "severity": "P1",
+      "node": "BaseCommandHubForm/Panel_Frame/Grp_PageHost/Panel_PageHubStats/Panel_HubStatsMetrics/List_HubStatsMetrics/Viewport_HubStatsMetrics/Content_HubStatsMetrics/Txt_HubStatsMetricsBody",
+      "detail": "实际字符横向越出列表遮罩，右侧正文/数值被硬裁切；当前模板未提供省略或可完整阅读的布局。",
+      "evidence": [
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-application.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-memory.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-scroll-bottom.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-scroll-top.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-world-scroll-bottom.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-world-scroll-top.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0054",
+      "criteria": [
+        4,
+        7,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0074",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "04-BaseCommandHubForm-Panel_PageHubStats",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "BaseCommandHubForm/Panel_Frame/Grp_PageHost/Panel_PageHubStats/Txt_HubStatsTitle ↔ BaseCommandHubForm/Panel_Frame/Txt_FormTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-application.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-memory.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-scroll-bottom.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-scroll-top.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-state-base.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-state-HubStatsDisabledState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-state-HubStatsEmptyState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-state-HubStatsErrorState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-state-HubStatsLoadingState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-state-HubStatsSuccessState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-world-scroll-bottom.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-world-scroll-top.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubStats-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0055",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0075",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "04-BaseCommandHubForm-Panel_PageHubStats",
+      "code": "DECORATION_DOMINATES_RECORDS",
+      "severity": "P2",
+      "node": "Panel_HubStatsRecords",
+      "detail": "记录入口被大幅空装饰框占据，实际记录说明很小，装饰与信息的主次关系失衡。",
+      "criteria": [
+        3,
+        8
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/04-BaseCommandHubForm-Panel_PageHubStats.png"
+      ],
+      "sourceId": "V0020",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 3,8：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0076",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0076"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0073",
+        "UIA-0074",
+        "UIA-0075"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0073"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0073"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0073",
+        "UIA-0074",
+        "UIA-0075"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0076"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0073"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0073",
+        "UIA-0074"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_HubStatsDisabledState"
+      ],
+      "screenshot": "runtime/04-BaseCommandHubForm-Panel_PageHubStats-application.png",
+      "geometry": "geometry/04-BaseCommandHubForm-Panel_PageHubStats-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_HubStatsEmptyState"
+      ],
+      "screenshot": "runtime/04-BaseCommandHubForm-Panel_PageHubStats-memory.png",
+      "geometry": "geometry/04-BaseCommandHubForm-Panel_PageHubStats-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_HubStatsEmptyState"
+      ],
+      "screenshot": "runtime/04-BaseCommandHubForm-Panel_PageHubStats-world.png",
+      "geometry": "geometry/04-BaseCommandHubForm-Panel_PageHubStats-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_HubStatsLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/04-BaseCommandHubForm-Panel_PageHubStats-HubStatsLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_HubStatsEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "memory",
+        "world"
+      ],
+      "screenshot": "state-layout/04-BaseCommandHubForm-Panel_PageHubStats-HubStatsEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_HubStatsErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/04-BaseCommandHubForm-Panel_PageHubStats-HubStatsErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_HubStatsSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/04-BaseCommandHubForm-Panel_PageHubStats-HubStatsSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_HubStatsDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "application"
+      ],
+      "screenshot": "state-layout/04-BaseCommandHubForm-Panel_PageHubStats-HubStatsDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "normal",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-04-HubStats-normal.png",
+      "artKeys": [
+        "S04-013"
+      ]
+    }
+  ]
+}

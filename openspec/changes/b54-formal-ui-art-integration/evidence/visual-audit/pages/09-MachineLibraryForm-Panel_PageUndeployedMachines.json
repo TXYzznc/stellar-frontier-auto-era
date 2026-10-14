@@ -1,0 +1,430 @@
+{
+  "form": "MachineLibraryForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/MachineLibraryForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/MachineLibraryForm.contract.json",
+  "page": "Panel_PageUndeployedMachines",
+  "family": 9,
+  "state": "owned",
+  "frame": [
+    120,
+    90,
+    1680,
+    900
+  ],
+  "sections": [
+    {
+      "name": "Panel_UndeployedMachinesCatalog",
+      "rect": [
+        424,
+        324,
+        774,
+        506
+      ]
+    },
+    {
+      "name": "Panel_UndeployedMachinesDetail",
+      "rect": [
+        1224,
+        246,
+        512,
+        592
+      ]
+    }
+  ],
+  "artwork": [],
+  "source": "EffectBoards/mock-ui-09-UndeployedMachines-owned.png",
+  "pageIndex": 1,
+  "auditId": "09-MachineLibraryForm-Panel_PageUndeployedMachines",
+  "title": "未部署机器",
+  "issues": [
+    {
+      "page": "09-MachineLibraryForm-Panel_PageUndeployedMachines",
+      "code": "GRID_SUMMARY_AS_CELL",
+      "severity": "P1",
+      "node": "目录 GridLayoutGroup 的说明文本与条目",
+      "detail": "说明文本参与网格排版，占去第一格；第一条从后一格开始，首排空洞，正常数据的排列不连续。",
+      "criteria": [
+        1,
+        6,
+        8,
+        11
+      ],
+      "evidence": [
+        "runtime/09-MachineLibraryForm-Panel_PageUndeployedMachines-memory.png",
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-memory.json"
+      ],
+      "review": "confirmed",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 1,6,8,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0214",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "09-MachineLibraryForm-Panel_PageUndeployedMachines",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "MachineLibraryForm/Panel_Frame/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-application.json",
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-memory.json",
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-scroll-top.json",
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-state-UndeployedMachinesDisabledState.json",
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-state-UndeployedMachinesEmptyState.json",
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-state-UndeployedMachinesErrorState.json",
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-state-UndeployedMachinesLoadingState.json",
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-state-UndeployedMachinesSuccessState.json",
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-world-scroll-top.json",
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-world.json",
+        "geometry/machine-selected.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0175",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0215",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "09-MachineLibraryForm-Panel_PageUndeployedMachines",
+      "code": "TEXT_MASK_CLIP",
+      "severity": "P1",
+      "node": "MachineLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageUndeployedMachines/Panel_UndeployedMachinesDetail/List_UndeployedMachinesDetail/Viewport_UndeployedMachinesDetail/Content_UndeployedMachinesDetail/Txt_UndeployedMachinesDetailBody",
+      "detail": "实际字符横向越出列表遮罩，右侧正文/数值被硬裁切；当前模板未提供省略或可完整阅读的布局。",
+      "evidence": [
+        "geometry/machine-selected.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0361",
+      "criteria": [
+        4,
+        7,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0216",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "09-MachineLibraryForm-Panel_PageUndeployedMachines",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "MachineLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageUndeployedMachines/Txt_UndeployedMachinesTitle ↔ MachineLibraryForm/Panel_Frame/Txt_FormTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-application.json",
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-memory.json",
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-scroll-top.json",
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-state-base.json",
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-state-UndeployedMachinesDisabledState.json",
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-state-UndeployedMachinesEmptyState.json",
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-state-UndeployedMachinesErrorState.json",
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-state-UndeployedMachinesLoadingState.json",
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-state-UndeployedMachinesSuccessState.json",
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-world-scroll-top.json",
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-world.json",
+        "geometry/machine-selected.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0174",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0217",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "09-MachineLibraryForm-Panel_PageUndeployedMachines",
+      "code": "UNSOLICITED_SUCCESS",
+      "severity": "P1",
+      "node": "MachineLibraryForm/Panel_Frame/Grp_PageHost/Panel_PageUndeployedMachines/Grp_UndeployedMachinesSuccessState/Panel_UndeployedMachinesSuccessMessage/Txt_UndeployedMachinesSuccessMessage",
+      "detail": "仅打开目录/读取数据即显示“操作成功”，提示叠在列表或插画上，成功语义与当前动作不符",
+      "evidence": [
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-memory.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0176",
+      "criteria": [
+        4,
+        8,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,8,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0218",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "09-MachineLibraryForm-Panel_PageUndeployedMachines",
+      "code": "READONLY_USES_DISABLED_SKIN",
+      "severity": "P2",
+      "node": "只读属性/摘要条目",
+      "detail": "正常可读数据被渲染为禁用 Button，出现斜纹禁用底图和按钮端帽；信息字段看起来像不可用操作，弱化正文。",
+      "criteria": [
+        5,
+        7,
+        8,
+        9,
+        12
+      ],
+      "evidence": [
+        "runtime/09-MachineLibraryForm-Panel_PageUndeployedMachines-memory.png",
+        "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-memory.json"
+      ],
+      "review": "confirmed",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 5,7,8,9,12：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0219",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0214"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0215",
+        "UIA-0216",
+        "UIA-0217",
+        "UIA-0218"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0215",
+        "UIA-0219"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0214",
+        "UIA-0215"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0215",
+        "UIA-0216",
+        "UIA-0217",
+        "UIA-0219"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0214",
+        "UIA-0218",
+        "UIA-0219"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0215",
+        "UIA-0218",
+        "UIA-0219"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0214",
+        "UIA-0215",
+        "UIA-0216",
+        "UIA-0218"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0219"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_UndeployedMachinesDisabledState"
+      ],
+      "screenshot": "runtime/09-MachineLibraryForm-Panel_PageUndeployedMachines-application.png",
+      "geometry": "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_UndeployedMachinesSuccessState"
+      ],
+      "screenshot": "runtime/09-MachineLibraryForm-Panel_PageUndeployedMachines-memory.png",
+      "geometry": "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_UndeployedMachinesEmptyState"
+      ],
+      "screenshot": "runtime/09-MachineLibraryForm-Panel_PageUndeployedMachines-world.png",
+      "geometry": "geometry/09-MachineLibraryForm-Panel_PageUndeployedMachines-world.json"
+    },
+    {
+      "context": "memory/selected-machine",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_UndeployedMachinesSuccessState"
+      ],
+      "screenshot": "runtime/machine-selected.png",
+      "geometry": "geometry/machine-selected.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_UndeployedMachinesLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/09-MachineLibraryForm-Panel_PageUndeployedMachines-UndeployedMachinesLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_UndeployedMachinesEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "world"
+      ],
+      "screenshot": "state-layout/09-MachineLibraryForm-Panel_PageUndeployedMachines-UndeployedMachinesEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_UndeployedMachinesErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/09-MachineLibraryForm-Panel_PageUndeployedMachines-UndeployedMachinesErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_UndeployedMachinesSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "memory",
+        "memory/selected-machine"
+      ],
+      "screenshot": "state-layout/09-MachineLibraryForm-Panel_PageUndeployedMachines-UndeployedMachinesSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_UndeployedMachinesDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "application"
+      ],
+      "screenshot": "state-layout/09-MachineLibraryForm-Panel_PageUndeployedMachines-UndeployedMachinesDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "owned",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-09-UndeployedMachines-owned.png",
+      "artKeys": [
+        "S09-003",
+        "S09-004",
+        "S09-005",
+        "S09-006",
+        "S09-001",
+        "S09-016",
+        "S09-001",
+        "S09-016",
+        "S09-001",
+        "S09-016",
+        "S09-001",
+        "S09-016",
+        "S09-001",
+        "S09-016",
+        "S09-001",
+        "S09-016"
+      ]
+    }
+  ]
+}

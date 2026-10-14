@@ -1,0 +1,422 @@
+{
+  "form": "CropKnowledgeForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/CropKnowledgeForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/CropKnowledgeForm.contract.json",
+  "page": "Panel_PageCropKnowledge",
+  "family": 16,
+  "state": "wheat",
+  "frame": [
+    100,
+    90,
+    1720,
+    900
+  ],
+  "sections": [
+    {
+      "name": "Panel_CropKnowledgeIdentity",
+      "rect": [
+        418,
+        248,
+        782,
+        584
+      ]
+    },
+    {
+      "name": "Panel_CropKnowledgeKnowledge",
+      "rect": [
+        1228,
+        248,
+        528,
+        584
+      ]
+    }
+  ],
+  "artwork": [
+    {
+      "key": "S16-001",
+      "path": "Assets/Game/Sprites/UI/Pages/16-教学规则与知识/scr-16-001-guide-illustration@640x480.png",
+      "rect": [
+        470,
+        274,
+        734,
+        442
+      ],
+      "mode": "fit",
+      "opacity": 1
+    }
+  ],
+  "source": "EffectBoards/mock-ui-16-CropKnowledge-wheat.png",
+  "pageIndex": 0,
+  "auditId": "16-CropKnowledgeForm-Panel_PageCropKnowledge",
+  "title": "作物图鉴详情",
+  "issues": [
+    {
+      "page": "16-CropKnowledgeForm-Panel_PageCropKnowledge",
+      "code": "BUSINESS_SOURCE_NOT_CONNECTED",
+      "severity": "P1",
+      "node": "运行时数据正文",
+      "detail": "本次实际运行说明：作物知识尚未接入运行路径：作物图鉴数据没有来源。",
+      "criteria": [
+        9,
+        11
+      ],
+      "evidence": [
+        "runtime/16-CropKnowledgeForm-Panel_PageCropKnowledge-world.png",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-world.json"
+      ],
+      "review": "confirmed",
+      "scope": "business-gap",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0350",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "16-CropKnowledgeForm-Panel_PageCropKnowledge",
+      "code": "CROP_IDENTITY_MISSING",
+      "severity": "P1",
+      "node": "作物知识左侧身份图",
+      "detail": "作物知识使用通用工坊示意图，未呈现文档要求的 UI-MASTER-014 种子、作物或资源点身份图，无法从图片辨认作物。",
+      "criteria": [
+        3,
+        9
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/16-CropKnowledgeForm-Panel_PageCropKnowledge.png"
+      ],
+      "sourceId": "V0065",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 3,9：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0351",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "16-CropKnowledgeForm-Panel_PageCropKnowledge",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "CropKnowledgeForm/Panel_Frame/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-application.json",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-memory.json",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-scroll-top.json",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-state-CropKnowledgeDisabledState.json",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-state-CropKnowledgeEmptyState.json",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-state-CropKnowledgeErrorState.json",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-state-CropKnowledgeLoadingState.json",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-state-CropKnowledgeSuccessState.json",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-world-scroll-top.json",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0271",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0352",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "16-CropKnowledgeForm-Panel_PageCropKnowledge",
+      "code": "TEXT_MASK_CLIP",
+      "severity": "P1",
+      "node": "CropKnowledgeForm/Panel_Frame/Grp_PageHost/Panel_PageCropKnowledge/Panel_CropKnowledgeKnowledge/List_CropKnowledgeKnowledge/Viewport_CropKnowledgeKnowledge/Content_CropKnowledgeKnowledge/Txt_CropKnowledgeKnowledgeBody",
+      "detail": "实际字符横向越出列表遮罩，右侧正文/数值被硬裁切；当前模板未提供省略或可完整阅读的布局。",
+      "evidence": [
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-application.json",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-memory.json",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-scroll-top.json",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-world-scroll-top.json",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0269",
+      "criteria": [
+        4,
+        7,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0353",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "16-CropKnowledgeForm-Panel_PageCropKnowledge",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "CropKnowledgeForm/Panel_Frame/Grp_PageHost/Panel_PageCropKnowledge/Txt_CropKnowledgeTitle ↔ CropKnowledgeForm/Panel_Frame/Txt_FormTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-application.json",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-memory.json",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-scroll-top.json",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-state-base.json",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-state-CropKnowledgeDisabledState.json",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-state-CropKnowledgeEmptyState.json",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-state-CropKnowledgeErrorState.json",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-state-CropKnowledgeLoadingState.json",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-state-CropKnowledgeSuccessState.json",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-world-scroll-top.json",
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0270",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0354",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "16-CropKnowledgeForm-Panel_PageCropKnowledge",
+      "code": "UNAVAILABLE_REASON_REPEATED",
+      "severity": "P2",
+      "node": "CropKnowledgeForm/Panel_Frame/Grp_PageHost/Panel_PageCropKnowledge/Grp_CropKnowledgeDisabledState/Panel_CropKnowledgeDisabledMessage/Txt_CropKnowledgeDisabledMessage",
+      "detail": "相同不可用原因同时出现在状态条和多个信息卡中；浮动状态条压在插画/内容区域，重复文字分散焦点。",
+      "criteria": [
+        4,
+        6,
+        7,
+        8,
+        11
+      ],
+      "evidence": [
+        "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-world.json",
+        "runtime/16-CropKnowledgeForm-Panel_PageCropKnowledge-world.png"
+      ],
+      "review": "confirmed",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,6,7,8,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0355",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0351"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0352",
+        "UIA-0353",
+        "UIA-0354",
+        "UIA-0355"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0352"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0352",
+        "UIA-0355"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0352",
+        "UIA-0353",
+        "UIA-0354",
+        "UIA-0355"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0355"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0350",
+        "UIA-0351",
+        "UIA-0352"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0350",
+        "UIA-0352",
+        "UIA-0353",
+        "UIA-0355"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_CropKnowledgeDisabledState"
+      ],
+      "screenshot": "runtime/16-CropKnowledgeForm-Panel_PageCropKnowledge-application.png",
+      "geometry": "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_CropKnowledgeDisabledState"
+      ],
+      "screenshot": "runtime/16-CropKnowledgeForm-Panel_PageCropKnowledge-memory.png",
+      "geometry": "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_CropKnowledgeDisabledState"
+      ],
+      "screenshot": "runtime/16-CropKnowledgeForm-Panel_PageCropKnowledge-world.png",
+      "geometry": "geometry/16-CropKnowledgeForm-Panel_PageCropKnowledge-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_CropKnowledgeLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/16-CropKnowledgeForm-Panel_PageCropKnowledge-CropKnowledgeLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_CropKnowledgeEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/16-CropKnowledgeForm-Panel_PageCropKnowledge-CropKnowledgeEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_CropKnowledgeErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/16-CropKnowledgeForm-Panel_PageCropKnowledge-CropKnowledgeErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_CropKnowledgeSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/16-CropKnowledgeForm-Panel_PageCropKnowledge-CropKnowledgeSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_CropKnowledgeDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "application",
+        "memory",
+        "world"
+      ],
+      "screenshot": "state-layout/16-CropKnowledgeForm-Panel_PageCropKnowledge-CropKnowledgeDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "wheat",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-16-CropKnowledge-wheat.png",
+      "artKeys": [
+        "S16-001",
+        "S16-003",
+        "S16-006",
+        "S16-007"
+      ]
+    },
+    {
+      "state": "red",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-16-CropKnowledge-red.png",
+      "artKeys": [
+        "S16-001",
+        "S16-003",
+        "S16-006",
+        "S16-007"
+      ]
+    }
+  ]
+}

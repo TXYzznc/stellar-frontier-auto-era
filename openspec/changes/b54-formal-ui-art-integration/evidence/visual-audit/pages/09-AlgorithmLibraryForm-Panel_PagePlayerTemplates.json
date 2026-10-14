@@ -1,0 +1,329 @@
+{
+  "form": "AlgorithmLibraryForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/AlgorithmLibraryForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/AlgorithmLibraryForm.contract.json",
+  "page": "Panel_PagePlayerTemplates",
+  "family": 9,
+  "state": "owned",
+  "frame": [
+    120,
+    90,
+    1680,
+    900
+  ],
+  "sections": [
+    {
+      "name": "Panel_PlayerTemplatesCatalog",
+      "rect": [
+        424,
+        324,
+        774,
+        506
+      ]
+    },
+    {
+      "name": "Panel_PlayerTemplatesDetail",
+      "rect": [
+        1224,
+        246,
+        512,
+        592
+      ]
+    }
+  ],
+  "artwork": [],
+  "source": "EffectBoards/mock-ui-09-PlayerTemplates-owned.png",
+  "pageIndex": 1,
+  "auditId": "09-AlgorithmLibraryForm-Panel_PagePlayerTemplates",
+  "title": "玩家算法模板",
+  "issues": [
+    {
+      "page": "09-AlgorithmLibraryForm-Panel_PagePlayerTemplates",
+      "code": "EMPTY_CATEGORY_STALE_DETAIL",
+      "severity": "P1",
+      "node": "玩家模板页右侧详情",
+      "detail": "切到没有玩家模板的类别后，左侧提示暂无模板，右侧仍显示系统模板“基础灌溉”的名称、类型、版本和节点数，没有说明该详情属于另一类别。",
+      "criteria": [
+        8,
+        9,
+        11
+      ],
+      "evidence": [
+        "runtime/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-world.png",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-world.json"
+      ],
+      "review": "confirmed",
+      "scope": "runtime",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 8,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0182",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "09-AlgorithmLibraryForm-Panel_PagePlayerTemplates",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "AlgorithmLibraryForm/Panel_Frame/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-application.json",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-memory.json",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-scroll-bottom.json",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-scroll-top.json",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-state-PlayerTemplatesDisabledState.json",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-state-PlayerTemplatesEmptyState.json",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-state-PlayerTemplatesErrorState.json",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-state-PlayerTemplatesLoadingState.json",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-state-PlayerTemplatesSuccessState.json",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-world-scroll-bottom.json",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-world-scroll-top.json",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0149",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0183",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "09-AlgorithmLibraryForm-Panel_PagePlayerTemplates",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "AlgorithmLibraryForm/Panel_Frame/Grp_PageHost/Panel_PagePlayerTemplates/Txt_PlayerTemplatesTitle ↔ AlgorithmLibraryForm/Panel_Frame/Txt_FormTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-application.json",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-memory.json",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-scroll-bottom.json",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-scroll-top.json",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-state-base.json",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-state-PlayerTemplatesDisabledState.json",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-state-PlayerTemplatesEmptyState.json",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-state-PlayerTemplatesErrorState.json",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-state-PlayerTemplatesLoadingState.json",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-state-PlayerTemplatesSuccessState.json",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-world-scroll-bottom.json",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-world-scroll-top.json",
+        "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0148",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0184",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0183",
+        "UIA-0184"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0183"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0183"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0183",
+        "UIA-0184"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0182"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0182",
+        "UIA-0183"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0182",
+        "UIA-0183"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_PlayerTemplatesDisabledState"
+      ],
+      "screenshot": "runtime/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-application.png",
+      "geometry": "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_PlayerTemplatesEmptyState"
+      ],
+      "screenshot": "runtime/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-memory.png",
+      "geometry": "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_PlayerTemplatesEmptyState"
+      ],
+      "screenshot": "runtime/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-world.png",
+      "geometry": "geometry/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_PlayerTemplatesLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-PlayerTemplatesLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_PlayerTemplatesEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "memory",
+        "world"
+      ],
+      "screenshot": "state-layout/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-PlayerTemplatesEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_PlayerTemplatesErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-PlayerTemplatesErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_PlayerTemplatesSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-PlayerTemplatesSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_PlayerTemplatesDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "application"
+      ],
+      "screenshot": "state-layout/09-AlgorithmLibraryForm-Panel_PagePlayerTemplates-PlayerTemplatesDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "owned",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-09-PlayerTemplates-owned.png",
+      "artKeys": [
+        "S09-003",
+        "S09-004",
+        "S09-005",
+        "S09-006",
+        "S09-010",
+        "S09-010",
+        "S09-010",
+        "S09-010",
+        "S09-010"
+      ]
+    }
+  ]
+}

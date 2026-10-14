@@ -1,0 +1,368 @@
+{
+  "form": "BaseCommandHubForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/BaseCommandHubForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/BaseCommandHubForm.contract.json",
+  "page": "Panel_PageHubObjects",
+  "family": 4,
+  "state": "normal",
+  "frame": [
+    100,
+    90,
+    1720,
+    900
+  ],
+  "sections": [
+    {
+      "name": "Panel_HubObjectsIndex",
+      "rect": [
+        418,
+        240,
+        680,
+        572
+      ]
+    },
+    {
+      "name": "Panel_HubObjectsDetail",
+      "rect": [
+        1130,
+        240,
+        626,
+        572
+      ]
+    }
+  ],
+  "artwork": [
+    {
+      "key": "S04-014",
+      "path": "Assets/Game/Sprites/UI/Pages/04-基地中枢/scr-04-014-object-sketch-card-carrier@560x420.png",
+      "rect": [
+        443,
+        328,
+        597,
+        356
+      ],
+      "mode": "fit",
+      "opacity": 1
+    },
+    {
+      "key": "S04-015",
+      "path": "Assets/Game/Sprites/UI/Pages/04-基地中枢/scr-04-015-object-sketch-card-building@560x420.png",
+      "rect": [
+        1120,
+        328,
+        597,
+        356
+      ],
+      "mode": "fit",
+      "opacity": 1
+    }
+  ],
+  "source": "EffectBoards/mock-ui-04-HubObjects-normal.png",
+  "pageIndex": 2,
+  "auditId": "04-BaseCommandHubForm-Panel_PageHubObjects",
+  "title": "对象与系统",
+  "issues": [
+    {
+      "page": "04-BaseCommandHubForm-Panel_PageHubObjects",
+      "code": "LOW_CONTRAST_OBJECT_ART",
+      "severity": "P1",
+      "node": "对象摘要插画",
+      "detail": "对象摘要里的线框建筑与卡片背景明度接近，正常观看几乎不可辨认。",
+      "criteria": [
+        3,
+        7,
+        9
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/04-BaseCommandHubForm-Panel_PageHubObjects.png"
+      ],
+      "sourceId": "V0018",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 3,7,9：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0064",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "04-BaseCommandHubForm-Panel_PageHubObjects",
+      "code": "SEARCH_AT_PANEL_EDGE",
+      "severity": "P1",
+      "node": "对象索引搜索输入框",
+      "detail": "搜索框贴在索引卡下边缘，输入框端部与卡片边框重叠，缺少输入区域留白。",
+      "criteria": [
+        4,
+        6,
+        10
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/04-BaseCommandHubForm-Panel_PageHubObjects.png"
+      ],
+      "sourceId": "V0019",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,6,10：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0065",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "04-BaseCommandHubForm-Panel_PageHubObjects",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "BaseCommandHubForm/Panel_Frame/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-application.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-state-HubObjectsDisabledState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-state-HubObjectsEmptyState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-state-HubObjectsErrorState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-state-HubObjectsLoadingState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-state-HubObjectsSuccessState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-world-scroll-bottom.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-world-scroll-top.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0047",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0066",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "04-BaseCommandHubForm-Panel_PageHubObjects",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "BaseCommandHubForm/Panel_Frame/Grp_PageHost/Panel_PageHubObjects/Txt_HubObjectsTitle ↔ BaseCommandHubForm/Panel_Frame/Txt_FormTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-application.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-memory.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-scroll-bottom.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-scroll-top.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-state-base.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-state-HubObjectsDisabledState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-state-HubObjectsEmptyState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-state-HubObjectsErrorState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-state-HubObjectsLoadingState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-state-HubObjectsSuccessState.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-world-scroll-bottom.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-world-scroll-top.json",
+        "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0046",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0067",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0064"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0065",
+        "UIA-0066",
+        "UIA-0067"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0066"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0065",
+        "UIA-0066"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0064",
+        "UIA-0066",
+        "UIA-0067"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0064",
+        "UIA-0066"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0065"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0066"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_HubObjectsDisabledState"
+      ],
+      "screenshot": "runtime/04-BaseCommandHubForm-Panel_PageHubObjects-application.png",
+      "geometry": "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/04-BaseCommandHubForm-Panel_PageHubObjects-memory.png",
+      "geometry": "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_HubObjectsEmptyState"
+      ],
+      "screenshot": "runtime/04-BaseCommandHubForm-Panel_PageHubObjects-world.png",
+      "geometry": "geometry/04-BaseCommandHubForm-Panel_PageHubObjects-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_HubObjectsLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/04-BaseCommandHubForm-Panel_PageHubObjects-HubObjectsLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_HubObjectsEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "world"
+      ],
+      "screenshot": "state-layout/04-BaseCommandHubForm-Panel_PageHubObjects-HubObjectsEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_HubObjectsErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/04-BaseCommandHubForm-Panel_PageHubObjects-HubObjectsErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_HubObjectsSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/04-BaseCommandHubForm-Panel_PageHubObjects-HubObjectsSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_HubObjectsDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "application"
+      ],
+      "screenshot": "state-layout/04-BaseCommandHubForm-Panel_PageHubObjects-HubObjectsDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "normal",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-04-HubObjects-normal.png",
+      "artKeys": [
+        "S04-005",
+        "S04-014",
+        "S04-015"
+      ]
+    }
+  ]
+}

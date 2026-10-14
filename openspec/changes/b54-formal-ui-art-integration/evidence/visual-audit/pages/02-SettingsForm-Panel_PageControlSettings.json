@@ -1,0 +1,425 @@
+{
+  "form": "SettingsForm",
+  "prefab": "Assets/Game/Prefabs/UI/System/SettingsForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/SettingsForm.contract.json",
+  "page": "Panel_PageControlSettings",
+  "family": 2,
+  "state": "default",
+  "frame": [
+    200,
+    120,
+    1520,
+    840
+  ],
+  "sections": [
+    {
+      "name": "Panel_ControlSettingsCamera",
+      "rect": [
+        554,
+        280,
+        944,
+        360
+      ]
+    },
+    {
+      "name": "Panel_ControlSettingsBindings",
+      "rect": [
+        554,
+        664,
+        944,
+        120
+      ]
+    }
+  ],
+  "artwork": [],
+  "source": "EffectBoards/mock-ui-02-ControlSettings-default.png",
+  "pageIndex": 1,
+  "auditId": "02-SettingsForm-Panel_PageControlSettings",
+  "title": "操作设置",
+  "issues": [
+    {
+      "page": "02-SettingsForm-Panel_PageControlSettings",
+      "code": "ASSET_SEMANTIC_CONFLICT",
+      "severity": "P1",
+      "node": "SettingsForm/Panel_Frame/Grp_PageHost/Panel_PageControlSettings/Panel_ControlSettingsCamera/List_ControlSettingsCamera/Viewport_ControlSettingsCamera/Content_ControlSettingsCamera/Panel_ControlSettingsControls/Sld_ControlSettingsPanSpeed/Grp_ControlSettingsPanSpeedFillArea/Bar_ControlSettingsPanSpeedFill / SettingsForm/Panel_Frame/Grp_PageHost/Panel_PageControlSettings/Panel_ControlSettingsCamera/List_ControlSettingsCamera/Viewport_ControlSettingsCamera/Content_ControlSettingsCamera/Panel_ControlSettingsControls/Sld_ControlSettingsRotateSpeed/Grp_ControlSettingsRotateSpeedFillArea/Bar_ControlSettingsRotateSpeedFill / SettingsForm/Panel_Frame/Grp_PageHost/Panel_PageControlSettings/Panel_ControlSettingsCamera/List_ControlSettingsCamera/Viewport_ControlSettingsCamera/Content_ControlSettingsCamera/Panel_ControlSettingsControls/Sld_ControlSettingsZoomSpeed/Grp_ControlSettingsZoomSpeedFillArea/Bar_ControlSettingsZoomSpeedFill",
+      "detail": "正式文件 M007-fill-thin 的像素内容被素材包登记为 M007-track-thin-warning；遵守文件身份并不能消除实际图形语义错位。保留原PNG，资源互换仍不纳入本轮自动修复。",
+      "criteria": [
+        9,
+        12
+      ],
+      "evidence": [
+        "geometry/02-SettingsForm-Panel_PageControlSettings-application.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-memory.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-scroll-bottom.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-scroll-top.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-world-scroll-bottom.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-world-scroll-top.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-world.json"
+      ],
+      "review": "confirmed",
+      "scope": "asset-conflict",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 9,12：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0021",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "02-SettingsForm-Panel_PageControlSettings",
+      "code": "ASSET_SEMANTIC_CONFLICT",
+      "severity": "P1",
+      "node": "SettingsForm/Panel_Frame/Grp_PageHost/Panel_PageControlSettings/Panel_ControlSettingsCamera/List_ControlSettingsCamera/Viewport_ControlSettingsCamera/Content_ControlSettingsCamera/Panel_ControlSettingsControls/Sld_ControlSettingsPanSpeed/Grp_ControlSettingsPanSpeedHandleArea/Img_ControlSettingsPanSpeedHandle / SettingsForm/Panel_Frame/Grp_PageHost/Panel_PageControlSettings/Panel_ControlSettingsCamera/List_ControlSettingsCamera/Viewport_ControlSettingsCamera/Content_ControlSettingsCamera/Panel_ControlSettingsControls/Sld_ControlSettingsRotateSpeed/Grp_ControlSettingsRotateSpeedHandleArea/Img_ControlSettingsRotateSpeedHandle / SettingsForm/Panel_Frame/Grp_PageHost/Panel_PageControlSettings/Panel_ControlSettingsCamera/List_ControlSettingsCamera/Viewport_ControlSettingsCamera/Content_ControlSettingsCamera/Panel_ControlSettingsControls/Sld_ControlSettingsZoomSpeed/Grp_ControlSettingsZoomSpeedHandleArea/Img_ControlSettingsZoomSpeedHandle",
+      "detail": "正式文件 M007-knob-normal 的像素内容被素材包登记为 M007-fill-thin；遵守文件身份并不能消除实际图形语义错位。保留原PNG，资源互换仍不纳入本轮自动修复。",
+      "criteria": [
+        9,
+        12
+      ],
+      "evidence": [
+        "geometry/02-SettingsForm-Panel_PageControlSettings-application.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-memory.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-scroll-bottom.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-scroll-top.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-state-base.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-state-ControlSettingsDisabledState.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-state-ControlSettingsEmptyState.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-state-ControlSettingsErrorState.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-state-ControlSettingsLoadingState.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-state-ControlSettingsSuccessState.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-world-scroll-bottom.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-world-scroll-top.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-world.json"
+      ],
+      "review": "confirmed",
+      "scope": "asset-conflict",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 9,12：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0022",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "02-SettingsForm-Panel_PageControlSettings",
+      "code": "CONTROL_SLIDER_LAYOUT",
+      "severity": "P1",
+      "node": "Panel_ControlSettingsControls / Sld_*",
+      "detail": "操作参数滑条将整块行底图拉成控件背景，边框压住数值文字；后续滑条被容器裁切。",
+      "criteria": [
+        3,
+        4,
+        5,
+        7,
+        11
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/02-SettingsForm-Panel_PageControlSettings.png"
+      ],
+      "sourceId": "V0003",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 3,4,5,7,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0023",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "02-SettingsForm-Panel_PageControlSettings",
+      "code": "SCROLL_ROW_TOO_TALL",
+      "severity": "P1",
+      "node": "SettingsForm/Panel_Frame/Grp_PageHost/Panel_PageControlSettings/Panel_ControlSettingsBindings/List_ControlSettingsBindings/Viewport_ControlSettingsBindings/Content_ControlSettingsBindings/Item_ControlSettingsBindingsTemplate/Btn_ControlSettingsBindingsRow",
+      "detail": "单条记录高 104.0px，大于列表可视高度 58.0px；无法完整显示一条记录",
+      "evidence": [
+        "geometry/02-SettingsForm-Panel_PageControlSettings-world-scroll-bottom.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-world-scroll-top.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0021",
+      "criteria": [
+        3,
+        4,
+        7,
+        10,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 3,4,7,10,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0024",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "02-SettingsForm-Panel_PageControlSettings",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "SettingsForm/Panel_Frame/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/02-SettingsForm-Panel_PageControlSettings-state-ControlSettingsDisabledState.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-state-ControlSettingsEmptyState.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-state-ControlSettingsErrorState.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-state-ControlSettingsLoadingState.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-state-ControlSettingsSuccessState.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0020",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0025",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "02-SettingsForm-Panel_PageControlSettings",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "SettingsForm/Panel_Frame/Grp_PageHost/Panel_PageControlSettings/Txt_ControlSettingsTitle ↔ SettingsForm/Panel_Frame/Txt_FormTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/02-SettingsForm-Panel_PageControlSettings-application.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-memory.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-scroll-bottom.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-scroll-top.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-state-base.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-state-ControlSettingsDisabledState.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-state-ControlSettingsEmptyState.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-state-ControlSettingsErrorState.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-state-ControlSettingsLoadingState.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-state-ControlSettingsSuccessState.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-world-scroll-bottom.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-world-scroll-top.json",
+        "geometry/02-SettingsForm-Panel_PageControlSettings-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0019",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0026",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0023",
+        "UIA-0024"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0023",
+        "UIA-0024",
+        "UIA-0025",
+        "UIA-0026"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0023",
+        "UIA-0025"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0025"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0023",
+        "UIA-0024",
+        "UIA-0025",
+        "UIA-0026"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0021",
+        "UIA-0022",
+        "UIA-0025"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0024"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0023",
+        "UIA-0024",
+        "UIA-0025"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0021",
+        "UIA-0022"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/02-SettingsForm-Panel_PageControlSettings-application.png",
+      "geometry": "geometry/02-SettingsForm-Panel_PageControlSettings-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/02-SettingsForm-Panel_PageControlSettings-memory.png",
+      "geometry": "geometry/02-SettingsForm-Panel_PageControlSettings-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/02-SettingsForm-Panel_PageControlSettings-world.png",
+      "geometry": "geometry/02-SettingsForm-Panel_PageControlSettings-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_ControlSettingsLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/02-SettingsForm-Panel_PageControlSettings-ControlSettingsLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_ControlSettingsEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/02-SettingsForm-Panel_PageControlSettings-ControlSettingsEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_ControlSettingsErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/02-SettingsForm-Panel_PageControlSettings-ControlSettingsErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_ControlSettingsSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/02-SettingsForm-Panel_PageControlSettings-ControlSettingsSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_ControlSettingsDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/02-SettingsForm-Panel_PageControlSettings-ControlSettingsDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "default",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-02-ControlSettings-default.png",
+      "artKeys": [
+        "S02-001",
+        "S02-002",
+        "S02-003",
+        "S02-004",
+        "S02-003",
+        "S02-003",
+        "S02-003",
+        "S02-003",
+        "S02-003"
+      ]
+    },
+    {
+      "state": "modified",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-02-ControlSettings-modified.png",
+      "artKeys": [
+        "S02-001",
+        "S02-002",
+        "S02-003",
+        "S02-004",
+        "S02-003",
+        "S02-003",
+        "S02-003",
+        "S02-003",
+        "S02-003"
+      ]
+    }
+  ]
+}

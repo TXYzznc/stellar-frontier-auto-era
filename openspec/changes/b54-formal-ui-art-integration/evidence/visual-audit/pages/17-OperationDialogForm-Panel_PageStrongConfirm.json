@@ -1,0 +1,462 @@
+{
+  "form": "OperationDialogForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/OperationDialogForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/OperationDialogForm.contract.json",
+  "page": "Panel_PageStrongConfirm",
+  "family": 17,
+  "state": "danger",
+  "frame": [
+    200,
+    120,
+    1520,
+    840
+  ],
+  "sections": [
+    {
+      "name": "Panel_StrongConfirmTarget",
+      "rect": [
+        282,
+        438,
+        636,
+        388
+      ]
+    },
+    {
+      "name": "Panel_StrongConfirmConsequences",
+      "rect": [
+        1044,
+        446,
+        480,
+        120
+      ]
+    },
+    {
+      "name": "Panel_StrongConfirmAcknowledgement",
+      "rect": [
+        1044,
+        590,
+        480,
+        236
+      ]
+    }
+  ],
+  "artwork": [
+    {
+      "key": "S17-005",
+      "path": "Assets/Game/Sprites/UI/Pages/17-操作确认与输入/scr-17-005-impact-scope@640x480.png",
+      "rect": [
+        278,
+        438,
+        636,
+        388
+      ],
+      "mode": "fit",
+      "opacity": 1
+    }
+  ],
+  "source": "EffectBoards/mock-ui-17-StrongConfirm-danger.png",
+  "pageIndex": 9,
+  "auditId": "17-OperationDialogForm-Panel_PageStrongConfirm",
+  "title": "删除覆盖与算法重置",
+  "issues": [
+    {
+      "page": "17-OperationDialogForm-Panel_PageStrongConfirm",
+      "code": "ACKNOWLEDGEMENT_NO_POINTER_TARGET",
+      "severity": "P1",
+      "node": "Tgl_StrongConfirmAcknowledged",
+      "detail": "滚动到复选框完整可见后，中心射线仍命中装饰背景；复选框、勾选图和标签均不接收射线，无法用鼠标完成确认。",
+      "criteria": [
+        9,
+        10,
+        11
+      ],
+      "evidence": [
+        "runtime/17-OperationDialogForm-Panel_PageStrongConfirm-world-scroll-bottom.png",
+        "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-world-scroll-bottom.json"
+      ],
+      "review": "confirmed",
+      "scope": "runtime",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "可见的确认开关拥有有效的鼠标点击区域，且在右侧明确确认卡内易于发现。",
+      "id": "UIA-0427",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "17-OperationDialogForm-Panel_PageStrongConfirm",
+      "code": "ACKNOWLEDGEMENT_WRONG_PANEL",
+      "severity": "P1",
+      "node": "强确认左侧目标卡与右侧明确确认卡",
+      "detail": "确认开关实际放在左侧不可逆对象卡的滚动底部；右侧“明确确认”卡只显示占位说明。默认视口看不到开关，难以理解确认步骤。",
+      "criteria": [
+        1,
+        2,
+        8,
+        10,
+        11
+      ],
+      "evidence": [
+        "runtime/17-OperationDialogForm-Panel_PageStrongConfirm-world-scroll-bottom.png",
+        "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-world-scroll-bottom.json"
+      ],
+      "review": "confirmed",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 1,2,8,10,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0428",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "17-OperationDialogForm-Panel_PageStrongConfirm",
+      "code": "DANGEROUS_ACTION_HIERARCHY",
+      "severity": "P1",
+      "node": "底部确认/取消/删除等按钮",
+      "detail": "保留、取消、提交、删除或放弃进度采用近似同权重按钮，危险操作缺少足够醒目的差异提示，无法快速区分安全出口与执行动作。",
+      "criteria": [
+        8,
+        9,
+        10
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/17-OperationDialogForm-Panel_PageStrongConfirm.png"
+      ],
+      "sourceId": "V0089",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 8,9,10：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0429",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "17-OperationDialogForm-Panel_PageStrongConfirm",
+      "code": "DIALOG_BUSINESS_PATH_MISSING",
+      "severity": "P1",
+      "node": "OperationDialogForm 非硬件确认页",
+      "detail": "原生实现仅接入HardwareConfirm；本页没有对应请求消费、运行数据渲染和底部动作绑定。当前页面是声明布局，不能验证其业务成功/失败、确认/取消转换。",
+      "criteria": [
+        9,
+        10,
+        11
+      ],
+      "evidence": [
+        "runtime/17-OperationDialogForm-Panel_PageStrongConfirm-world.png",
+        "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-world.json"
+      ],
+      "review": "confirmed",
+      "scope": "business-gap",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "缺少接入时明确不可用；真正业务流程需在批准范围内单独接入。",
+      "id": "UIA-0430",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "17-OperationDialogForm-Panel_PageStrongConfirm",
+      "code": "POINTER_CENTER_BLOCKED",
+      "severity": "P1",
+      "node": "OperationDialogForm/Panel_Frame/Grp_PageHost/Panel_PageStrongConfirm/Panel_StrongConfirmTarget/List_StrongConfirmTarget/Viewport_StrongConfirmTarget/Content_StrongConfirmTarget/Panel_StrongConfirmControls/Tgl_StrongConfirmAcknowledged",
+      "detail": "控件中心射线未命中自身；顶层=OperationDialogForm(Clone)/Panel_Frame/Grp_PageHost/Panel_PageStrongConfirm/Grp_FormalArtwork_StrongConfirm/Bg_FormalFrame_StrongConfirm",
+      "evidence": [
+        "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-scroll-bottom.json",
+        "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-world-scroll-bottom.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0314",
+      "criteria": [
+        10
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 10：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0431",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "17-OperationDialogForm-Panel_PageStrongConfirm",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "OperationDialogForm/Panel_Frame/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-state-StrongConfirmDisabledState.json",
+        "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-state-StrongConfirmEmptyState.json",
+        "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-state-StrongConfirmErrorState.json",
+        "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-state-StrongConfirmLoadingState.json",
+        "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-state-StrongConfirmSuccessState.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0315",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0432",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "17-OperationDialogForm-Panel_PageStrongConfirm",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "OperationDialogForm/Panel_Frame/Grp_PageHost/Panel_PageStrongConfirm/Txt_StrongConfirmTitle ↔ OperationDialogForm/Panel_Frame/Txt_FormTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-application.json",
+        "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-memory.json",
+        "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-scroll-bottom.json",
+        "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-scroll-top.json",
+        "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-state-base.json",
+        "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-state-StrongConfirmDisabledState.json",
+        "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-state-StrongConfirmEmptyState.json",
+        "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-state-StrongConfirmErrorState.json",
+        "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-state-StrongConfirmLoadingState.json",
+        "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-state-StrongConfirmSuccessState.json",
+        "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-world-scroll-bottom.json",
+        "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-world-scroll-top.json",
+        "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0313",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0433",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0428"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0428"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0432",
+        "UIA-0433"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0432"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0432"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0432",
+        "UIA-0433"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0428",
+        "UIA-0429"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0427",
+        "UIA-0429",
+        "UIA-0430",
+        "UIA-0432"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0427",
+        "UIA-0428",
+        "UIA-0429",
+        "UIA-0430",
+        "UIA-0431"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0427",
+        "UIA-0428",
+        "UIA-0430",
+        "UIA-0432"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/17-OperationDialogForm-Panel_PageStrongConfirm-application.png",
+      "geometry": "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/17-OperationDialogForm-Panel_PageStrongConfirm-memory.png",
+      "geometry": "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [],
+      "screenshot": "runtime/17-OperationDialogForm-Panel_PageStrongConfirm-world.png",
+      "geometry": "geometry/17-OperationDialogForm-Panel_PageStrongConfirm-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_StrongConfirmLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/17-OperationDialogForm-Panel_PageStrongConfirm-StrongConfirmLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_StrongConfirmEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/17-OperationDialogForm-Panel_PageStrongConfirm-StrongConfirmEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_StrongConfirmErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/17-OperationDialogForm-Panel_PageStrongConfirm-StrongConfirmErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_StrongConfirmSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/17-OperationDialogForm-Panel_PageStrongConfirm-StrongConfirmSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_StrongConfirmDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/17-OperationDialogForm-Panel_PageStrongConfirm-StrongConfirmDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "danger",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-17-StrongConfirm-danger.png",
+      "artKeys": [
+        "S17-002",
+        "S17-005",
+        "S17-007",
+        "S17-008"
+      ]
+    },
+    {
+      "state": "hold",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-17-StrongConfirm-hold.png",
+      "artKeys": [
+        "S17-004",
+        "S17-005",
+        "S17-007",
+        "S17-008"
+      ]
+    },
+    {
+      "state": "stage2",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-17-StrongConfirm-stage2.png",
+      "artKeys": [
+        "S17-004",
+        "S17-005",
+        "S17-007",
+        "S17-008"
+      ]
+    },
+    {
+      "state": "danger",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-17.png",
+      "artKeys": [
+        "S17-002",
+        "S17-005",
+        "S17-007",
+        "S17-008"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,455 @@
+{
+  "form": "OperationDialogForm",
+  "prefab": "Assets/Game/Prefabs/UI/Operations/OperationDialogForm.prefab",
+  "contract": "Docs/Development/UI-PrefabLayouts/OperationDialogForm.contract.json",
+  "page": "Panel_PageHardwareConfirm",
+  "family": 17,
+  "state": "neutral",
+  "frame": [
+    200,
+    120,
+    1520,
+    840
+  ],
+  "sections": [
+    {
+      "name": "Panel_HardwareConfirmChange",
+      "rect": [
+        282,
+        650,
+        654,
+        178
+      ]
+    },
+    {
+      "name": "Panel_HardwareConfirmEffects",
+      "rect": [
+        982,
+        446,
+        616,
+        338
+      ]
+    }
+  ],
+  "artwork": [
+    {
+      "key": "S17-005",
+      "path": "Assets/Game/Sprites/UI/Pages/17-操作确认与输入/scr-17-005-impact-scope@640x480.png",
+      "rect": [
+        282,
+        420,
+        654,
+        408
+      ],
+      "mode": "fit",
+      "opacity": 1
+    }
+  ],
+  "source": "EffectBoards/mock-ui-17-HardwareConfirm-neutral.png",
+  "pageIndex": 6,
+  "auditId": "17-OperationDialogForm-Panel_PageHardwareConfirm",
+  "title": "硬件修改确认",
+  "issues": [
+    {
+      "page": "17-OperationDialogForm-Panel_PageHardwareConfirm",
+      "code": "CONFIRM_ART_OBSCURED",
+      "severity": "P1",
+      "node": "确认页左侧插画与对象信息卡",
+      "detail": "左下对象信息卡覆盖插画底部，插画被明显截断，台座和对象没有完整展示空间。",
+      "criteria": [
+        2,
+        3,
+        4,
+        6
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/17-OperationDialogForm-Panel_PageHardwareConfirm.png"
+      ],
+      "sourceId": "V0073",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 2,3,4,6：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0406",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "17-OperationDialogForm-Panel_PageHardwareConfirm",
+      "code": "DANGEROUS_ACTION_HIERARCHY",
+      "severity": "P1",
+      "node": "底部确认/取消/删除等按钮",
+      "detail": "保留、取消、提交、删除或放弃进度采用近似同权重按钮，危险操作缺少足够醒目的差异提示，无法快速区分安全出口与执行动作。",
+      "criteria": [
+        8,
+        9,
+        10
+      ],
+      "review": "confirmed",
+      "evidence": [
+        "../previews/17-OperationDialogForm-Panel_PageHardwareConfirm.png"
+      ],
+      "sourceId": "V0086",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 8,9,10：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0407",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "17-OperationDialogForm-Panel_PageHardwareConfirm",
+      "code": "STATE_TEXT_ON_CHROME",
+      "severity": "P1",
+      "node": "OperationDialogForm/Panel_Frame/Grp_*State",
+      "detail": "状态卡文字容器仅约12px内缩，未进入 M006 规定的40px四周安全区；五种声明状态均复用此布局",
+      "evidence": [
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-application.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-memory.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-scroll-bottom.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-scroll-top.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-state-HardwareConfirmDisabledState.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-state-HardwareConfirmEmptyState.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-state-HardwareConfirmErrorState.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-state-HardwareConfirmLoadingState.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-state-HardwareConfirmSuccessState.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-world-scroll-bottom.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-world-scroll-top.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0303",
+      "criteria": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,5,6,7,9,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0408",
+      "affectedState": "五种声明状态"
+    },
+    {
+      "page": "17-OperationDialogForm-Panel_PageHardwareConfirm",
+      "code": "TEXT_OVERFLOW",
+      "severity": "P1",
+      "node": "OperationDialogForm/Panel_Frame/Grp_PageHost/Panel_PageHardwareConfirm/Panel_HardwareConfirmChange/List_HardwareConfirmChange/Viewport_HardwareConfirmChange/Content_HardwareConfirmChange/Txt_HardwareConfirmChangeBody",
+      "detail": "文字超出容器，字号 22；容器 392×120",
+      "evidence": [
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-application.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-memory.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-scroll-bottom.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-scroll-top.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-world-scroll-bottom.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-world-scroll-top.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0299",
+      "criteria": [
+        4,
+        7,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0409",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "17-OperationDialogForm-Panel_PageHardwareConfirm",
+      "code": "TEXT_OVERFLOW",
+      "severity": "P1",
+      "node": "OperationDialogForm/Panel_Frame/Grp_PageHost/Panel_PageHardwareConfirm/Panel_HardwareConfirmEffects/List_HardwareConfirmEffects/Viewport_HardwareConfirmEffects/Content_HardwareConfirmEffects/Txt_HardwareConfirmEffectsBody",
+      "detail": "文字超出容器，字号 22；容器 392×120",
+      "evidence": [
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-application.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-memory.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-scroll-bottom.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-scroll-top.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-world-scroll-bottom.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-world-scroll-top.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0301",
+      "criteria": [
+        4,
+        7,
+        11
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0410",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "17-OperationDialogForm-Panel_PageHardwareConfirm",
+      "code": "TEXT_OVERLAP",
+      "severity": "P1",
+      "node": "OperationDialogForm/Panel_Frame/Grp_PageHost/Panel_PageHardwareConfirm/Txt_HardwareConfirmTitle ↔ OperationDialogForm/Panel_Frame/Txt_FormTitle",
+      "detail": "两个可见文字轮廓相交",
+      "evidence": [
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-application.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-memory.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-scroll-bottom.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-scroll-top.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-state-base.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-state-HardwareConfirmDisabledState.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-state-HardwareConfirmEmptyState.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-state-HardwareConfirmErrorState.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-state-HardwareConfirmLoadingState.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-state-HardwareConfirmSuccessState.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-world-scroll-bottom.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-world-scroll-top.json",
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-world.json"
+      ],
+      "review": "confirmed",
+      "sourceId": "G0302",
+      "criteria": [
+        4,
+        7
+      ],
+      "scope": "geometry",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,7：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0411",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    },
+    {
+      "page": "17-OperationDialogForm-Panel_PageHardwareConfirm",
+      "code": "UNAVAILABLE_REASON_REPEATED",
+      "severity": "P2",
+      "node": "OperationDialogForm/Panel_Frame/Grp_PageHost/Panel_PageHardwareConfirm/Grp_HardwareConfirmDisabledState/Panel_HardwareConfirmDisabledMessage/Txt_HardwareConfirmDisabledMessage",
+      "detail": "相同不可用原因同时出现在状态条和多个信息卡中；浮动状态条压在插画/内容区域，重复文字分散焦点。",
+      "criteria": [
+        4,
+        6,
+        7,
+        8,
+        11
+      ],
+      "evidence": [
+        "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-world.json",
+        "runtime/17-OperationDialogForm-Panel_PageHardwareConfirm-world.png"
+      ],
+      "review": "confirmed",
+      "scope": "visual",
+      "repro": "在1920×1080下打开此页，按证据文件所示上下文和滚动位置观察；状态证据通过预览副本单独激活声明组。",
+      "expected": "满足标准 4,6,7,8,11：相关元素可完整阅读/操作，布局与文档分区一致，图形保持正确语义。",
+      "id": "UIA-0412",
+      "affectedState": "见证据状态；普通布局问题同时影响复用该布局的状态"
+    }
+  ],
+  "checks": [
+    {
+      "criterion": 1,
+      "name": "布局与结构",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 2,
+      "name": "图片实际可见位置",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0406"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 3,
+      "name": "尺寸与比例",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0406"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 4,
+      "name": "遮挡与裁切",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0406",
+        "UIA-0408",
+        "UIA-0409",
+        "UIA-0410",
+        "UIA-0411",
+        "UIA-0412"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 5,
+      "name": "九宫格与边角",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0408"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 6,
+      "name": "对齐间距留白",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0406",
+        "UIA-0408",
+        "UIA-0412"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 7,
+      "name": "文字与可读性",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0408",
+        "UIA-0409",
+        "UIA-0410",
+        "UIA-0411",
+        "UIA-0412"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 8,
+      "name": "信息层级与主操作",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0407",
+        "UIA-0412"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 9,
+      "name": "素材与状态语义",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0407",
+        "UIA-0408"
+      ],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    },
+    {
+      "criterion": 10,
+      "name": "点击命中与焦点",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0407"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 11,
+      "name": "动态内容与运行状态",
+      "status": "发现问题",
+      "issueIds": [
+        "UIA-0408",
+        "UIA-0409",
+        "UIA-0410",
+        "UIA-0412"
+      ],
+      "limit": "真实业务成功/失败/加载转换、键盘完整焦点遍历与极端数据未完全覆盖"
+    },
+    {
+      "criterion": 12,
+      "name": "同类页面一致性",
+      "status": "当前样本未发现新增问题",
+      "issueIds": [],
+      "limit": "限本次1920×1080与已保存样本，不代表所有设备/数据通过"
+    }
+  ],
+  "native": [
+    {
+      "context": "application",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_HardwareConfirmDisabledState"
+      ],
+      "screenshot": "runtime/17-OperationDialogForm-Panel_PageHardwareConfirm-application.png",
+      "geometry": "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-application.json"
+    },
+    {
+      "context": "memory",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_HardwareConfirmDisabledState"
+      ],
+      "screenshot": "runtime/17-OperationDialogForm-Panel_PageHardwareConfirm-memory.png",
+      "geometry": "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-memory.json"
+    },
+    {
+      "context": "world",
+      "pageShown": true,
+      "stateGroups": [
+        "Grp_HardwareConfirmDisabledState"
+      ],
+      "screenshot": "runtime/17-OperationDialogForm-Panel_PageHardwareConfirm-world.png",
+      "geometry": "geometry/17-OperationDialogForm-Panel_PageHardwareConfirm-world.json"
+    }
+  ],
+  "declaredStates": [
+    {
+      "group": "Grp_HardwareConfirmLoadingState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/17-OperationDialogForm-Panel_PageHardwareConfirm-HardwareConfirmLoadingState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_HardwareConfirmEmptyState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/17-OperationDialogForm-Panel_PageHardwareConfirm-HardwareConfirmEmptyState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_HardwareConfirmErrorState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/17-OperationDialogForm-Panel_PageHardwareConfirm-HardwareConfirmErrorState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_HardwareConfirmSuccessState",
+      "layoutChecked": true,
+      "businessTriggered": false,
+      "observedContexts": [],
+      "screenshot": "state-layout/17-OperationDialogForm-Panel_PageHardwareConfirm-HardwareConfirmSuccessState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    },
+    {
+      "group": "Grp_HardwareConfirmDisabledState",
+      "layoutChecked": true,
+      "businessTriggered": true,
+      "observedContexts": [
+        "application",
+        "memory",
+        "world"
+      ],
+      "screenshot": "state-layout/17-OperationDialogForm-Panel_PageHardwareConfirm-HardwareConfirmDisabledState.png",
+      "limit": "布局激活仅验证显示，不能代替真实业务状态转换"
+    }
+  ],
+  "referenceStates": [
+    {
+      "state": "neutral",
+      "file": "Docs/GameDesign/11-美术规范/界面设计文档/异星拓荒_UI效果图_20261014/EffectBoards/mock-ui-17-HardwareConfirm-neutral.png",
+      "artKeys": [
+        "S17-001",
+        "S17-005"
+      ]
+    }
+  ]
+}
