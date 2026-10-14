@@ -17,6 +17,9 @@ namespace AutoEra.UI
         private Image _headerAccent;
         private Image _sideAccent;
         private TMP_Text _nameLabel;
+        [SerializeField] private Sprite _formalNormal;
+        [SerializeField] private Sprite _formalSelected;
+        [SerializeField] private Sprite _formalError;
         private AlgorithmGraphNodeDragHandler _drag;
         private ulong _nodeId;
         private Action<ulong> _selected;
@@ -193,7 +196,14 @@ namespace AutoEra.UI
                     : new Color(0.08f, 0.20f, 0.32f, 1f);
             if (_selectImage != null)
             {
-                if (animate)
+                if (_formalNormal != null)
+                {
+                    _selectImage.sprite = Diagnostic == UiAlgorithmNodeDiagnostic.Failed && _formalError != null
+                        ? _formalError : _selectedState || _pointerOver ? _formalSelected : _formalNormal;
+                    _selectImage.color = Color.white;
+                    _selectImage.canvasRenderer.SetColor(Color.white);
+                }
+                else if (animate)
                 {
                     _selectImage.CrossFadeColor(targetColor, 0.12f, true, true);
                 }

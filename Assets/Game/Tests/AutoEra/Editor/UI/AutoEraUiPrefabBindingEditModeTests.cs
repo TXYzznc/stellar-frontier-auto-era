@@ -121,7 +121,7 @@ namespace AutoEra.Tests.Editor
             {
                 foreach (Transform node in root.GetComponentsInChildren<Transform>(true))
                 {
-                    bool hasButton = node.GetComponent<Button>() != null;
+                    bool hasSelectable = node.GetComponent<Selectable>() != null;
                     bool hasScroll = node.GetComponent<ScrollRect>() != null;
                     bool interactiveSurface = node.name.StartsWith("Bg_") || node.name.StartsWith("Overlay_");
 
@@ -135,7 +135,9 @@ namespace AutoEra.Tests.Editor
                             continue;
                         }
 
-                        bool expected = hasButton || hasScroll || interactiveSurface;
+                        // Input fields, sliders and toggles need their target Graphic to
+                        // receive pointer events just as buttons do.
+                        bool expected = hasSelectable || hasScroll || interactiveSurface;
                         Assert.AreEqual(expected, graphic.raycastTarget,
                             $"{node.name} 的 raycastTarget 与职责不符（期望 {expected}）");
                     }
