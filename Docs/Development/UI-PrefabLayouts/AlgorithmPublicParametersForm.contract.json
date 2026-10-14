@@ -1,1705 +1,2591 @@
 {
- "schemaVersion": 3,
- "form": "AlgorithmPublicParametersForm",
- "namespace": "AutoEra.UI",
- "prefabPath": "Assets/Game/Prefabs/UI/Operations/AlgorithmPublicParametersForm.prefab",
- "scriptPath": "Assets/Game/Scripts/AutoEra/UI/AlgorithmPublicParametersForm.cs",
- "referenceResolution": [
-  1652,
-  888
- ],
- "root": {
-  "name": "AlgorithmPublicParametersForm",
-  "active": true,
-  "anchorMin": [
-   0.0,
-   0.0
+  "schemaVersion": 3,
+  "form": "AlgorithmPublicParametersForm",
+  "namespace": "AutoEra.UI",
+  "prefabPath": "Assets/Game/Prefabs/UI/Operations/AlgorithmPublicParametersForm.prefab",
+  "scriptPath": "Assets/Game/Scripts/AutoEra/UI/AlgorithmPublicParametersForm.cs",
+  "referenceResolution": [
+    1652,
+    888
   ],
-  "anchorMax": [
-   1.0,
-   1.0
-  ],
-  "pivot": [
-   0.5,
-   0.5
-  ],
-  "sizeDelta": [
-   0.0,
-   0.0
-  ],
-  "anchoredPosition": [
-   0.0,
-   0.0
-  ],
-  "children": [
-   {
-    "name": "Bg_InputBlocker(Clone)",
+  "root": {
+    "name": "AlgorithmPublicParametersForm",
     "active": true,
     "anchorMin": [
-     0.0,
-     0.0
+      0.0,
+      0.0
     ],
     "anchorMax": [
-     1.0,
-     1.0
+      1.0,
+      1.0
     ],
     "pivot": [
-     0.5,
-     0.5
+      0.5,
+      0.5
     ],
     "sizeDelta": [
-     0.0,
-     0.0
+      0.0,
+      0.0
     ],
     "anchoredPosition": [
-     0.0,
-     0.0
-    ],
-    "children": []
-   },
-   {
-    "name": "Panel_Frame",
-    "active": true,
-    "anchorMin": [
-     0.5,
-     0.5
-    ],
-    "anchorMax": [
-     0.5,
-     0.5
-    ],
-    "pivot": [
-     0.5,
-     0.5
-    ],
-    "sizeDelta": [
-     1840,
-     980
-    ],
-    "anchoredPosition": [
-     0,
-     0
+      0.0,
+      0.0
     ],
     "children": [
-     {
-      "name": "Deco_Frame",
-      "active": true,
-      "anchorMin": [
-       0.0,
-       0.0
-      ],
-      "anchorMax": [
-       1.0,
-       1.0
-      ],
-      "pivot": [
-       0.5,
-       0.5
-      ],
-      "sizeDelta": [
-       0.0,
-       0.0
-      ],
-      "anchoredPosition": [
-       0.0,
-       0.0
-      ],
-      "children": []
-     },
-     {
-      "name": "Txt_FormTitle",
-      "active": true,
-      "anchorMin": [
-       0.0,
-       1.0
-      ],
-      "anchorMax": [
-       0.0,
-       1.0
-      ],
-      "pivot": [
-       0.0,
-       1.0
-      ],
-      "sizeDelta": [
-       1540.0,
-       40.0
-      ],
-      "anchoredPosition": [
-       56.0,
-       -20.0
-      ],
-      "children": []
-     },
-     {
-      "name": "Grp_PageHost",
-      "active": true,
-      "anchorMin": [
-       0.0,
-       1.0
-      ],
-      "anchorMax": [
-       0.0,
-       1.0
-      ],
-      "pivot": [
-       0.0,
-       1.0
-      ],
-      "sizeDelta": [
-       1728.0,
-       830.0
-      ],
-      "anchoredPosition": [
-       56.0,
-       -140.0
-      ],
-      "children": [
-       {
-        "name": "Panel_PagePublicParameters",
-        "active": false,
+      {
+        "name": "Bg_InputBlocker(Clone)",
+        "active": true,
         "anchorMin": [
-         0,
-         0
+          0.0,
+          0.0
         ],
         "anchorMax": [
-         1,
-         1
+          1.0,
+          1.0
         ],
         "pivot": [
-         0.5,
-         0.5
+          0.5,
+          0.5
         ],
         "sizeDelta": [
-         0,
-         0
+          0.0,
+          0.0
         ],
         "anchoredPosition": [
-         0,
-         0
+          0.0,
+          0.0
+        ],
+        "children": [],
+        "components": [
+          {
+            "type": "Image",
+            "spritePath": "Assets/Game/Sprites/UI/Common/10-InputsAndChoices/ui-master-008-input-normal@512x64.png",
+            "imageType": 1,
+            "preserveAspect": false,
+            "raycastTarget": true,
+            "color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Panel_Frame",
+        "active": true,
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          0.0,
+          0.0
+        ],
+        "anchoredPosition": [
+          0.0,
+          0.0
         ],
         "children": [
-         {
-          "name": "Txt_PublicParametersTitle",
-          "active": true,
-          "anchorMin": [
-           0.0,
-           1.0
-          ],
-          "anchorMax": [
-           0.0,
-           1.0
-          ],
-          "pivot": [
-           0.0,
-           1.0
-          ],
-          "sizeDelta": [
-           1712.0,
-           32.0
-          ],
-          "anchoredPosition": [
-           8.0,
-           0.0
-          ],
-          "children": []
-         },
-         {
-          "name": "Grp_PublicParametersActions",
-          "active": true,
-          "anchorMin": [
-           0.0,
-           0.0
-          ],
-          "anchorMax": [
-           1.0,
-           0.0
-          ],
-          "pivot": [
-           0.5,
-           0.0
-          ],
-          "sizeDelta": [
-           -16.0,
-           48.0
-          ],
-          "anchoredPosition": [
-           0.0,
-           0.0
-          ],
-          "children": [
-           {
-            "name": "Btn_PublicParametersChange",
+          {
+            "name": "Deco_Frame",
             "active": true,
             "anchorMin": [
-             0.0,
-             1.0
+              0.0,
+              0.0
             ],
             "anchorMax": [
-             0.0,
-             1.0
+              1.0,
+              1.0
             ],
             "pivot": [
-             0.0,
-             1.0
+              0.5,
+              0.5
             ],
             "sizeDelta": [
-             183.0,
-             48.0
+              0.0,
+              0.0
             ],
             "anchoredPosition": [
-             0.0,
-             0.0
+              0.0,
+              0.0
             ],
-            "children": [
-             {
-              "name": "Txt_PublicParametersChangeLabel",
-              "active": true,
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               -16.0,
-               -8.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ],
-              "children": []
-             }
+            "children": [],
+            "components": [
+              {
+                "type": "Image",
+                "spritePath": "",
+                "imageType": 1,
+                "preserveAspect": false,
+                "raycastTarget": false,
+                "color": [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              }
             ]
-           },
-           {
-            "name": "Btn_PublicParametersDefault",
+          },
+          {
+            "name": "Txt_FormTitle",
             "active": true,
             "anchorMin": [
-             0.0,
-             1.0
+              0.0,
+              1.0
             ],
             "anchorMax": [
-             0.0,
-             1.0
+              0.0,
+              1.0
             ],
             "pivot": [
-             0.0,
-             1.0
+              0.0,
+              1.0
             ],
             "sizeDelta": [
-             183.0,
-             48.0
+              1410.0,
+              42.0
             ],
             "anchoredPosition": [
-             0.0,
-             0.0
+              162.0,
+              -88.0
             ],
-            "children": [
-             {
-              "name": "Txt_PublicParametersDefaultLabel",
-              "active": true,
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               -16.0,
-               -8.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ],
-              "children": []
-             }
+            "children": [],
+            "components": [
+              {
+                "type": "TextMeshProUGUI",
+                "text": "公开参数",
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                "raycastTarget": false,
+                "fontSize": 28.0,
+                "hAlign": 1,
+                "vAlign": 256
+              }
             ]
-           },
-           {
-            "name": "Btn_PublicParametersApply",
+          },
+          {
+            "name": "Grp_PageHost",
             "active": true,
             "anchorMin": [
-             0.0,
-             1.0
+              0.0,
+              0.0
             ],
             "anchorMax": [
-             0.0,
-             1.0
+              1.0,
+              1.0
             ],
             "pivot": [
-             0.0,
-             1.0
+              0.5,
+              0.5
             ],
             "sizeDelta": [
-             183.0,
-             48.0
+              0.0,
+              0.0
             ],
             "anchoredPosition": [
-             0.0,
-             0.0
+              0.0,
+              0.0
             ],
             "children": [
-             {
-              "name": "Txt_PublicParametersApplyLabel",
-              "active": true,
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               -16.0,
-               -8.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ],
-              "children": []
-             }
-            ]
-           }
-          ]
-         },
-         {
-          "name": "Panel_PublicParametersParameters",
-          "active": true,
-          "anchorMin": [
-           0.0,
-           1.0
-          ],
-          "anchorMax": [
-           0.0,
-           1.0
-          ],
-          "pivot": [
-           0.0,
-           1.0
-          ],
-          "sizeDelta": [
-           656.0,
-           734.0
-          ],
-          "anchoredPosition": [
-           0.0,
-           -36.0
-          ],
-          "children": [
-           {
-            "name": "Txt_PublicParametersParametersHeading",
-            "active": true,
-            "anchorMin": [
-             0.0,
-             1.0
-            ],
-            "anchorMax": [
-             0.0,
-             1.0
-            ],
-            "pivot": [
-             0.0,
-             1.0
-            ],
-            "sizeDelta": [
-             632.0,
-             32.0
-            ],
-            "anchoredPosition": [
-             12.0,
-             -8.0
-            ],
-            "children": []
-           },
-           {
-            "name": "List_PublicParametersParameters",
-            "active": true,
-            "anchorMin": [
-             0.0,
-             0.0
-            ],
-            "anchorMax": [
-             1.0,
-             1.0
-            ],
-            "pivot": [
-             0.5,
-             0.5
-            ],
-            "sizeDelta": [
-             -24.0,
-             -52.0
-            ],
-            "anchoredPosition": [
-             0.0,
-             -18.0
-            ],
-            "children": [
-             {
-              "name": "Viewport_PublicParametersParameters",
-              "active": true,
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               0.0,
-               0.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ],
-              "children": [
-               {
-                "name": "Content_PublicParametersParameters",
-                "active": true,
+              {
+                "name": "Panel_PagePublicParameters",
+                "active": false,
                 "anchorMin": [
-                 0.0,
-                 1.0
+                  0.0,
+                  0.0
                 ],
                 "anchorMax": [
-                 1.0,
-                 1.0
+                  1.0,
+                  1.0
                 ],
                 "pivot": [
-                 0.5,
-                 1.0
+                  0.5,
+                  0.5
                 ],
                 "sizeDelta": [
-                 0.0,
-                 0.0
+                  0.0,
+                  0.0
                 ],
                 "anchoredPosition": [
-                 0.0,
-                 0.0
+                  0.0,
+                  0.0
                 ],
                 "children": [
-                 {
-                  "name": "Txt_PublicParametersParametersBody",
-                  "active": true,
-                  "anchorMin": [
-                   0.0,
-                   1.0
-                  ],
-                  "anchorMax": [
-                   0.0,
-                   1.0
-                  ],
-                  "pivot": [
-                   0.0,
-                   1.0
-                  ],
-                  "sizeDelta": [
-                   632.0,
-                   120.0
-                  ],
-                  "anchoredPosition": [
-                   0.0,
-                   0.0
-                  ],
-                  "children": []
-                 },
-                 {
-                  "name": "Item_PublicParametersParametersTemplate",
-                  "active": false,
-                  "anchorMin": [
-                   0.0,
-                   1.0
-                  ],
-                  "anchorMax": [
-                   0.0,
-                   1.0
-                  ],
-                  "pivot": [
-                   0.0,
-                   1.0
-                  ],
-                  "sizeDelta": [
-                   632.0,
-                   104.0
-                  ],
-                  "anchoredPosition": [
-                   0.0,
-                   0.0
-                  ],
-                  "children": [
-                   {
-                    "name": "Btn_PublicParametersParametersRow",
-                    "active": true,
-                    "anchorMin": [
-                     0.0,
-                     0.0
-                    ],
-                    "anchorMax": [
-                     1.0,
-                     1.0
-                    ],
-                    "pivot": [
-                     0.5,
-                     0.5
-                    ],
-                    "sizeDelta": [
-                     0.0,
-                     0.0
-                    ],
-                    "anchoredPosition": [
-                     0.0,
-                     0.0
-                    ],
+                  {
+                    "name": "Grp_FormalArtwork_PublicParameters",
                     "children": [
-                     {
-                      "name": "Txt_PublicParametersParametersRowLabel",
-                      "active": true,
-                      "anchorMin": [
-                       0.0,
-                       1.0
-                      ],
-                      "anchorMax": [
-                       1.0,
-                       1.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       1.0
-                      ],
-                      "sizeDelta": [
-                       -24.0,
-                       32.0
-                      ],
-                      "anchoredPosition": [
-                       0.0,
-                       -8.0
-                      ],
-                      "children": []
-                     },
-                     {
-                      "name": "Txt_PublicParametersParametersRowValue",
-                      "active": true,
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       1.0,
-                       0.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.0
-                      ],
-                      "sizeDelta": [
-                       -24.0,
-                       48.0
-                      ],
-                      "anchoredPosition": [
-                       0.0,
-                       8.0
-                      ],
-                      "children": []
-                     }
-                    ]
-                   }
-                  ]
-                 },
-                 {
-                  "name": "Panel_PublicParametersControls",
-                  "active": true,
-                  "anchorMin": [
-                   0.0,
-                   1.0
-                  ],
-                  "anchorMax": [
-                   0.0,
-                   1.0
-                  ],
-                  "pivot": [
-                   0.0,
-                   1.0
-                  ],
-                  "sizeDelta": [
-                   632.0,
-                   160.0
-                  ],
-                  "anchoredPosition": [
-                   0.0,
-                   0.0
-                  ],
-                  "children": [
-                   {
-                    "name": "Panel_PublicParametersNumberValue",
-                    "active": true,
-                    "anchorMin": [
-                     0.0,
-                     1.0
-                    ],
-                    "anchorMax": [
-                     0.0,
-                     1.0
-                    ],
-                    "pivot": [
-                     0.0,
-                     1.0
-                    ],
-                    "sizeDelta": [
-                     600.0,
-                     48.0
-                    ],
-                    "anchoredPosition": [
-                     16.0,
-                     -8.0
-                    ],
-                    "children": [
-                     {
-                      "name": "Grp_PublicParametersNumberValueTextViewport",
-                      "active": true,
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       1.0,
-                       1.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.5
-                      ],
-                      "sizeDelta": [
-                       -24.0,
-                       -8.0
-                      ],
-                      "anchoredPosition": [
-                       0.0,
-                       0.0
-                      ],
-                      "children": [
-                       {
-                        "name": "Txt_PublicParametersNumberValueValue",
-                        "active": true,
+                      {
+                        "name": "Img_FormalSurface_PublicParameters",
+                        "children": [],
+                        "components": [
+                          {
+                            "type": "Image",
+                            "spritePath": "",
+                            "imageType": 0,
+                            "preserveAspect": false,
+                            "raycastTarget": false,
+                            "color": [
+                              0.105882354,
+                              0.149019614,
+                              0.2,
+                              1.0
+                            ]
+                          }
+                        ],
                         "anchorMin": [
-                         0.0,
-                         0.0
+                          0.0,
+                          1.0
                         ],
                         "anchorMax": [
-                         1.0,
-                         1.0
+                          0.0,
+                          1.0
                         ],
                         "pivot": [
-                         0.5,
-                         0.5
+                          0.0,
+                          1.0
                         ],
                         "sizeDelta": [
-                         0.0,
-                         0.0
+                          1792.0,
+                          932.0
                         ],
                         "anchoredPosition": [
-                         0.0,
-                         0.0
+                          64.0,
+                          -74.0
                         ],
-                        "children": []
-                       },
-                       {
-                        "name": "Txt_PublicParametersNumberValuePlaceholder",
-                        "active": true,
+                        "active": true
+                      },
+                      {
+                        "name": "Bg_FormalFrame_PublicParameters",
+                        "children": [],
+                        "components": [
+                          {
+                            "type": "Image",
+                            "spritePath": "Assets/Game/Sprites/UI/Common/01-Containers/ui-master-001-normal@512x512.png",
+                            "imageType": 1,
+                            "preserveAspect": false,
+                            "raycastTarget": true,
+                            "color": [
+                              1.0,
+                              1.0,
+                              1.0,
+                              1.0
+                            ]
+                          }
+                        ],
                         "anchorMin": [
-                         0.0,
-                         0.0
+                          0.0,
+                          1.0
                         ],
                         "anchorMax": [
-                         1.0,
-                         1.0
+                          0.0,
+                          1.0
                         ],
                         "pivot": [
-                         0.5,
-                         0.5
+                          0.0,
+                          1.0
                         ],
                         "sizeDelta": [
-                         0.0,
-                         0.0
+                          1840.0,
+                          980.0
                         ],
                         "anchoredPosition": [
-                         0.0,
-                         0.0
+                          40.0,
+                          -50.0
                         ],
-                        "children": []
-                       }
-                      ]
-                     }
-                    ]
-                   },
-                   {
-                    "name": "Tgl_PublicParametersBooleanValue",
-                    "active": true,
+                        "active": true
+                      }
+                    ],
+                    "components": [],
                     "anchorMin": [
-                     0.0,
-                     1.0
+                      0.0,
+                      0.0
                     ],
                     "anchorMax": [
-                     0.0,
-                     1.0
+                      1.0,
+                      1.0
                     ],
                     "pivot": [
-                     0.0,
-                     1.0
+                      0.5,
+                      0.5
                     ],
                     "sizeDelta": [
-                     600.0,
-                     48.0
+                      0.0,
+                      0.0
                     ],
                     "anchoredPosition": [
-                     16.0,
-                     -80.0
+                      0.0,
+                      0.0
+                    ],
+                    "active": true
+                  },
+                  {
+                    "name": "Txt_PublicParametersTitle",
+                    "active": true,
+                    "anchorMin": [
+                      0.0,
+                      1.0
+                    ],
+                    "anchorMax": [
+                      0.0,
+                      1.0
+                    ],
+                    "pivot": [
+                      0.0,
+                      1.0
+                    ],
+                    "sizeDelta": [
+                      1480.0,
+                      40.0
+                    ],
+                    "anchoredPosition": [
+                      162.0,
+                      -90.0
+                    ],
+                    "children": [],
+                    "components": [
+                      {
+                        "type": "TextMeshProUGUI",
+                        "text": "算法公开参数",
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                        "raycastTarget": false,
+                        "fontSize": 28.0,
+                        "hAlign": 1,
+                        "vAlign": 256
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Grp_PublicParametersActions",
+                    "active": true,
+                    "anchorMin": [
+                      0.0,
+                      1.0
+                    ],
+                    "anchorMax": [
+                      0.0,
+                      1.0
+                    ],
+                    "pivot": [
+                      0.0,
+                      1.0
+                    ],
+                    "sizeDelta": [
+                      1712.0,
+                      48.0
+                    ],
+                    "anchoredPosition": [
+                      104.0,
+                      -926.0
                     ],
                     "children": [
-                     {
-                      "name": "Img_PublicParametersBooleanValueBox",
-                      "active": true,
-                      "anchorMin": [
-                       0.0,
-                       1.0
-                      ],
-                      "anchorMax": [
-                       0.0,
-                       1.0
-                      ],
-                      "pivot": [
-                       0.0,
-                       1.0
-                      ],
-                      "sizeDelta": [
-                       32.0,
-                       32.0
-                      ],
-                      "anchoredPosition": [
-                       0.0,
-                       -8.0
-                      ],
-                      "children": [
-                       {
-                        "name": "Icon_PublicParametersBooleanValueCheck",
+                      {
+                        "name": "Btn_PublicParametersChange",
                         "active": true,
                         "anchorMin": [
-                         0.0,
-                         0.0
+                          0.0,
+                          1.0
                         ],
                         "anchorMax": [
-                         1.0,
-                         1.0
+                          0.0,
+                          1.0
                         ],
                         "pivot": [
-                         0.5,
-                         0.5
+                          0.0,
+                          1.0
                         ],
                         "sizeDelta": [
-                         0.0,
-                         0.0
+                          183.0,
+                          48.0
                         ],
                         "anchoredPosition": [
-                         0.0,
-                         0.0
+                          0.0,
+                          0.0
                         ],
-                        "children": []
-                       }
-                      ]
-                     },
-                     {
-                      "name": "Txt_PublicParametersBooleanValueLabel",
-                      "active": true,
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       1.0,
-                       1.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.5
-                      ],
-                      "sizeDelta": [
-                       -48.0,
-                       0.0
-                      ],
-                      "anchoredPosition": [
-                       24.0,
-                       0.0
-                      ],
-                      "children": []
-                     }
+                        "children": [
+                          {
+                            "name": "Txt_PublicParametersChangeLabel",
+                            "active": true,
+                            "anchorMin": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchorMax": [
+                              1.0,
+                              1.0
+                            ],
+                            "pivot": [
+                              0.5,
+                              0.5
+                            ],
+                            "sizeDelta": [
+                              -24.0,
+                              -6.0
+                            ],
+                            "anchoredPosition": [
+                              0.0,
+                              0.0
+                            ],
+                            "children": [],
+                            "components": [
+                              {
+                                "type": "TextMeshProUGUI",
+                                "text": "修改参数",
+                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                "raycastTarget": false,
+                                "fontSize": 20.0,
+                                "hAlign": 2,
+                                "vAlign": 512
+                              }
+                            ]
+                          }
+                        ],
+                        "components": [
+                          {
+                            "type": "Image",
+                            "spritePath": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+                            "imageType": 1,
+                            "preserveAspect": false,
+                            "raycastTarget": true,
+                            "color": [
+                              1.0,
+                              1.0,
+                              1.0,
+                              1.0
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Btn_PublicParametersDefault",
+                        "active": true,
+                        "anchorMin": [
+                          0.0,
+                          1.0
+                        ],
+                        "anchorMax": [
+                          0.0,
+                          1.0
+                        ],
+                        "pivot": [
+                          0.0,
+                          1.0
+                        ],
+                        "sizeDelta": [
+                          183.0,
+                          48.0
+                        ],
+                        "anchoredPosition": [
+                          0.0,
+                          0.0
+                        ],
+                        "children": [
+                          {
+                            "name": "Txt_PublicParametersDefaultLabel",
+                            "active": true,
+                            "anchorMin": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchorMax": [
+                              1.0,
+                              1.0
+                            ],
+                            "pivot": [
+                              0.5,
+                              0.5
+                            ],
+                            "sizeDelta": [
+                              -24.0,
+                              -6.0
+                            ],
+                            "anchoredPosition": [
+                              0.0,
+                              0.0
+                            ],
+                            "children": [],
+                            "components": [
+                              {
+                                "type": "TextMeshProUGUI",
+                                "text": "恢复参数默认",
+                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                "raycastTarget": false,
+                                "fontSize": 20.0,
+                                "hAlign": 2,
+                                "vAlign": 512
+                              }
+                            ]
+                          }
+                        ],
+                        "components": [
+                          {
+                            "type": "Image",
+                            "spritePath": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+                            "imageType": 1,
+                            "preserveAspect": false,
+                            "raycastTarget": true,
+                            "color": [
+                              1.0,
+                              1.0,
+                              1.0,
+                              1.0
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Btn_PublicParametersApply",
+                        "active": true,
+                        "anchorMin": [
+                          0.0,
+                          1.0
+                        ],
+                        "anchorMax": [
+                          0.0,
+                          1.0
+                        ],
+                        "pivot": [
+                          0.0,
+                          1.0
+                        ],
+                        "sizeDelta": [
+                          183.0,
+                          48.0
+                        ],
+                        "anchoredPosition": [
+                          0.0,
+                          0.0
+                        ],
+                        "children": [
+                          {
+                            "name": "Txt_PublicParametersApplyLabel",
+                            "active": true,
+                            "anchorMin": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchorMax": [
+                              1.0,
+                              1.0
+                            ],
+                            "pivot": [
+                              0.5,
+                              0.5
+                            ],
+                            "sizeDelta": [
+                              -24.0,
+                              -6.0
+                            ],
+                            "anchoredPosition": [
+                              0.0,
+                              0.0
+                            ],
+                            "children": [],
+                            "components": [
+                              {
+                                "type": "TextMeshProUGUI",
+                                "text": "验证并应用",
+                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                "raycastTarget": false,
+                                "fontSize": 20.0,
+                                "hAlign": 2,
+                                "vAlign": 512
+                              }
+                            ]
+                          }
+                        ],
+                        "components": [
+                          {
+                            "type": "Image",
+                            "spritePath": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+                            "imageType": 1,
+                            "preserveAspect": false,
+                            "raycastTarget": true,
+                            "color": [
+                              1.0,
+                              1.0,
+                              1.0,
+                              1.0
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "components": [
+                      {
+                        "type": "GridLayoutGroup",
+                        "cellSize": [
+                          565.3333,
+                          48.0
+                        ],
+                        "spacing": [
+                          8.0,
+                          8.0
+                        ],
+                        "constraint": 1,
+                        "constraintCount": 3
+                      }
                     ]
-                   }
-                  ]
-                 }
+                  },
+                  {
+                    "name": "Panel_PublicParametersParameters",
+                    "active": true,
+                    "anchorMin": [
+                      0.0,
+                      1.0
+                    ],
+                    "anchorMax": [
+                      0.0,
+                      1.0
+                    ],
+                    "pivot": [
+                      0.0,
+                      1.0
+                    ],
+                    "sizeDelta": [
+                      1000.0,
+                      546.0
+                    ],
+                    "anchoredPosition": [
+                      388.0,
+                      -198.0
+                    ],
+                    "children": [
+                      {
+                        "name": "Img_FormalCardSurface_Panel_PublicParametersParameters",
+                        "children": [],
+                        "components": [
+                          {
+                            "type": "Image",
+                            "spritePath": "",
+                            "imageType": 0,
+                            "preserveAspect": false,
+                            "raycastTarget": false,
+                            "color": [
+                              0.168627456,
+                              0.215686277,
+                              0.270588249,
+                              1.0
+                            ]
+                          }
+                        ],
+                        "anchorMin": [
+                          0.0,
+                          1.0
+                        ],
+                        "anchorMax": [
+                          0.0,
+                          1.0
+                        ],
+                        "pivot": [
+                          0.0,
+                          1.0
+                        ],
+                        "sizeDelta": [
+                          988.0,
+                          534.0
+                        ],
+                        "anchoredPosition": [
+                          6.0,
+                          -6.0
+                        ],
+                        "active": true
+                      },
+                      {
+                        "name": "Txt_PublicParametersParametersHeading",
+                        "active": true,
+                        "anchorMin": [
+                          0.0,
+                          1.0
+                        ],
+                        "anchorMax": [
+                          0.0,
+                          1.0
+                        ],
+                        "pivot": [
+                          0.0,
+                          1.0
+                        ],
+                        "sizeDelta": [
+                          964.0,
+                          30.0
+                        ],
+                        "anchoredPosition": [
+                          18.0,
+                          -10.0
+                        ],
+                        "children": [],
+                        "components": [
+                          {
+                            "type": "TextMeshProUGUI",
+                            "text": "参数列表",
+                            "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                            "raycastTarget": false,
+                            "fontSize": 21.0,
+                            "hAlign": 1,
+                            "vAlign": 256
+                          }
+                        ]
+                      },
+                      {
+                        "name": "List_PublicParametersParameters",
+                        "active": true,
+                        "anchorMin": [
+                          0.0,
+                          0.0
+                        ],
+                        "anchorMax": [
+                          1.0,
+                          1.0
+                        ],
+                        "pivot": [
+                          0.5,
+                          0.5
+                        ],
+                        "sizeDelta": [
+                          -36.0,
+                          -62.0
+                        ],
+                        "anchoredPosition": [
+                          0.0,
+                          -17.0
+                        ],
+                        "children": [
+                          {
+                            "name": "Viewport_PublicParametersParameters",
+                            "active": true,
+                            "anchorMin": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchorMax": [
+                              1.0,
+                              1.0
+                            ],
+                            "pivot": [
+                              0.5,
+                              0.5
+                            ],
+                            "sizeDelta": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchoredPosition": [
+                              0.0,
+                              0.0
+                            ],
+                            "children": [
+                              {
+                                "name": "Content_PublicParametersParameters",
+                                "active": true,
+                                "anchorMin": [
+                                  0.0,
+                                  1.0
+                                ],
+                                "anchorMax": [
+                                  1.0,
+                                  1.0
+                                ],
+                                "pivot": [
+                                  0.5,
+                                  1.0
+                                ],
+                                "sizeDelta": [
+                                  0.0,
+                                  0.0
+                                ],
+                                "anchoredPosition": [
+                                  0.0,
+                                  0.0
+                                ],
+                                "children": [
+                                  {
+                                    "name": "Txt_PublicParametersParametersBody",
+                                    "active": true,
+                                    "anchorMin": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "anchorMax": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "pivot": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "sizeDelta": [
+                                      632.0,
+                                      120.0
+                                    ],
+                                    "anchoredPosition": [
+                                      0.0,
+                                      0.0
+                                    ],
+                                    "children": [],
+                                    "components": [
+                                      {
+                                        "type": "TextMeshProUGUI",
+                                        "text": "名称",
+                                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                        "raycastTarget": false,
+                                        "fontSize": 22.0,
+                                        "hAlign": 1,
+                                        "vAlign": 256
+                                      },
+                                      {
+                                        "type": "LayoutElement",
+                                        "minWidth": -1.0,
+                                        "minHeight": 120.0,
+                                        "preferredWidth": -1.0,
+                                        "preferredHeight": -1.0,
+                                        "flexibleWidth": -1.0,
+                                        "flexibleHeight": -1.0,
+                                        "ignoreLayout": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Item_PublicParametersParametersTemplate",
+                                    "active": false,
+                                    "anchorMin": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "anchorMax": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "pivot": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "sizeDelta": [
+                                      632.0,
+                                      104.0
+                                    ],
+                                    "anchoredPosition": [
+                                      0.0,
+                                      0.0
+                                    ],
+                                    "children": [
+                                      {
+                                        "name": "Btn_PublicParametersParametersRow",
+                                        "active": true,
+                                        "anchorMin": [
+                                          0.0,
+                                          0.0
+                                        ],
+                                        "anchorMax": [
+                                          1.0,
+                                          1.0
+                                        ],
+                                        "pivot": [
+                                          0.5,
+                                          0.5
+                                        ],
+                                        "sizeDelta": [
+                                          0.0,
+                                          0.0
+                                        ],
+                                        "anchoredPosition": [
+                                          0.0,
+                                          0.0
+                                        ],
+                                        "children": [
+                                          {
+                                            "name": "Txt_PublicParametersParametersRowLabel",
+                                            "active": true,
+                                            "anchorMin": [
+                                              0.0,
+                                              1.0
+                                            ],
+                                            "anchorMax": [
+                                              1.0,
+                                              1.0
+                                            ],
+                                            "pivot": [
+                                              0.5,
+                                              1.0
+                                            ],
+                                            "sizeDelta": [
+                                              -24.0,
+                                              32.0
+                                            ],
+                                            "anchoredPosition": [
+                                              0.0,
+                                              -8.0
+                                            ],
+                                            "children": [],
+                                            "components": [
+                                              {
+                                                "type": "TextMeshProUGUI",
+                                                "text": "名称：—",
+                                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                                "raycastTarget": false,
+                                                "fontSize": 22.0,
+                                                "hAlign": 1,
+                                                "vAlign": 256
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "name": "Txt_PublicParametersParametersRowValue",
+                                            "active": true,
+                                            "anchorMin": [
+                                              0.0,
+                                              0.0
+                                            ],
+                                            "anchorMax": [
+                                              1.0,
+                                              0.0
+                                            ],
+                                            "pivot": [
+                                              0.5,
+                                              0.0
+                                            ],
+                                            "sizeDelta": [
+                                              -24.0,
+                                              48.0
+                                            ],
+                                            "anchoredPosition": [
+                                              0.0,
+                                              8.0
+                                            ],
+                                            "children": [],
+                                            "components": [
+                                              {
+                                                "type": "TextMeshProUGUI",
+                                                "text": "值、状态、时间：—",
+                                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                                "raycastTarget": false,
+                                                "fontSize": 20.0,
+                                                "hAlign": 1,
+                                                "vAlign": 256
+                                              }
+                                            ]
+                                          }
+                                        ],
+                                        "components": [
+                                          {
+                                            "type": "Image",
+                                            "spritePath": "Assets/Game/Sprites/UI/Common/07-RowsAndItems/ui-master-005-row-normal@512x128.png",
+                                            "imageType": 1,
+                                            "preserveAspect": false,
+                                            "raycastTarget": true,
+                                            "color": [
+                                              1.0,
+                                              1.0,
+                                              1.0,
+                                              1.0
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "components": [
+                                      {
+                                        "type": "Image",
+                                        "spritePath": "Assets/Game/Sprites/UI/Common/07-RowsAndItems/ui-master-005-row-normal@512x128.png",
+                                        "imageType": 1,
+                                        "preserveAspect": false,
+                                        "raycastTarget": false,
+                                        "color": [
+                                          1.0,
+                                          1.0,
+                                          1.0,
+                                          1.0
+                                        ]
+                                      },
+                                      {
+                                        "type": "LayoutElement",
+                                        "minWidth": -1.0,
+                                        "minHeight": -1.0,
+                                        "preferredWidth": -1.0,
+                                        "preferredHeight": -1.0,
+                                        "flexibleWidth": -1.0,
+                                        "flexibleHeight": -1.0,
+                                        "ignoreLayout": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Panel_PublicParametersControls",
+                                    "active": true,
+                                    "anchorMin": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "anchorMax": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "pivot": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "sizeDelta": [
+                                      632.0,
+                                      160.0
+                                    ],
+                                    "anchoredPosition": [
+                                      0.0,
+                                      0.0
+                                    ],
+                                    "children": [
+                                      {
+                                        "name": "Panel_PublicParametersNumberValue",
+                                        "active": true,
+                                        "anchorMin": [
+                                          0.0,
+                                          1.0
+                                        ],
+                                        "anchorMax": [
+                                          0.0,
+                                          1.0
+                                        ],
+                                        "pivot": [
+                                          0.0,
+                                          1.0
+                                        ],
+                                        "sizeDelta": [
+                                          600.0,
+                                          48.0
+                                        ],
+                                        "anchoredPosition": [
+                                          16.0,
+                                          -8.0
+                                        ],
+                                        "children": [
+                                          {
+                                            "name": "Grp_PublicParametersNumberValueTextViewport",
+                                            "active": true,
+                                            "anchorMin": [
+                                              0.0,
+                                              0.0
+                                            ],
+                                            "anchorMax": [
+                                              1.0,
+                                              1.0
+                                            ],
+                                            "pivot": [
+                                              0.5,
+                                              0.5
+                                            ],
+                                            "sizeDelta": [
+                                              -24.0,
+                                              -8.0
+                                            ],
+                                            "anchoredPosition": [
+                                              0.0,
+                                              0.0
+                                            ],
+                                            "children": [
+                                              {
+                                                "name": "Txt_PublicParametersNumberValueValue",
+                                                "active": true,
+                                                "anchorMin": [
+                                                  0.0,
+                                                  0.0
+                                                ],
+                                                "anchorMax": [
+                                                  1.0,
+                                                  1.0
+                                                ],
+                                                "pivot": [
+                                                  0.5,
+                                                  0.5
+                                                ],
+                                                "sizeDelta": [
+                                                  0.0,
+                                                  0.0
+                                                ],
+                                                "anchoredPosition": [
+                                                  0.0,
+                                                  0.0
+                                                ],
+                                                "children": [],
+                                                "components": [
+                                                  {
+                                                    "type": "TextMeshProUGUI",
+                                                    "text": "—",
+                                                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                                    "raycastTarget": false,
+                                                    "fontSize": 20.0,
+                                                    "hAlign": 1,
+                                                    "vAlign": 256
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "name": "Txt_PublicParametersNumberValuePlaceholder",
+                                                "active": true,
+                                                "anchorMin": [
+                                                  0.0,
+                                                  0.0
+                                                ],
+                                                "anchorMax": [
+                                                  1.0,
+                                                  1.0
+                                                ],
+                                                "pivot": [
+                                                  0.5,
+                                                  0.5
+                                                ],
+                                                "sizeDelta": [
+                                                  0.0,
+                                                  0.0
+                                                ],
+                                                "anchoredPosition": [
+                                                  0.0,
+                                                  0.0
+                                                ],
+                                                "children": [],
+                                                "components": [
+                                                  {
+                                                    "type": "TextMeshProUGUI",
+                                                    "text": "选中数值参数",
+                                                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                                    "raycastTarget": false,
+                                                    "fontSize": 22.0,
+                                                    "hAlign": 1,
+                                                    "vAlign": 256
+                                                  }
+                                                ]
+                                              }
+                                            ],
+                                            "components": []
+                                          }
+                                        ],
+                                        "components": [
+                                          {
+                                            "type": "Image",
+                                            "spritePath": "Assets/Game/Sprites/UI/Common/10-InputsAndChoices/ui-master-008-input-normal@512x64.png",
+                                            "imageType": 1,
+                                            "preserveAspect": false,
+                                            "raycastTarget": true,
+                                            "color": [
+                                              1.0,
+                                              1.0,
+                                              1.0,
+                                              1.0
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "name": "Tgl_PublicParametersBooleanValue",
+                                        "active": true,
+                                        "anchorMin": [
+                                          0.0,
+                                          1.0
+                                        ],
+                                        "anchorMax": [
+                                          0.0,
+                                          1.0
+                                        ],
+                                        "pivot": [
+                                          0.0,
+                                          1.0
+                                        ],
+                                        "sizeDelta": [
+                                          600.0,
+                                          48.0
+                                        ],
+                                        "anchoredPosition": [
+                                          16.0,
+                                          -80.0
+                                        ],
+                                        "children": [
+                                          {
+                                            "name": "Img_PublicParametersBooleanValueBox",
+                                            "active": true,
+                                            "anchorMin": [
+                                              0.0,
+                                              1.0
+                                            ],
+                                            "anchorMax": [
+                                              0.0,
+                                              1.0
+                                            ],
+                                            "pivot": [
+                                              0.0,
+                                              1.0
+                                            ],
+                                            "sizeDelta": [
+                                              32.0,
+                                              32.0
+                                            ],
+                                            "anchoredPosition": [
+                                              0.0,
+                                              -8.0
+                                            ],
+                                            "children": [
+                                              {
+                                                "name": "Icon_PublicParametersBooleanValueCheck",
+                                                "active": true,
+                                                "anchorMin": [
+                                                  0.0,
+                                                  0.0
+                                                ],
+                                                "anchorMax": [
+                                                  1.0,
+                                                  1.0
+                                                ],
+                                                "pivot": [
+                                                  0.5,
+                                                  0.5
+                                                ],
+                                                "sizeDelta": [
+                                                  0.0,
+                                                  0.0
+                                                ],
+                                                "anchoredPosition": [
+                                                  0.0,
+                                                  0.0
+                                                ],
+                                                "children": [],
+                                                "components": [
+                                                  {
+                                                    "type": "Image",
+                                                    "spritePath": "",
+                                                    "imageType": 0,
+                                                    "preserveAspect": true,
+                                                    "raycastTarget": false,
+                                                    "color": [
+                                                      0.003922,
+                                                      0.003922,
+                                                      0.003922,
+                                                      1.0
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ],
+                                            "components": [
+                                              {
+                                                "type": "Image",
+                                                "spritePath": "",
+                                                "imageType": 0,
+                                                "preserveAspect": true,
+                                                "raycastTarget": false,
+                                                "color": [
+                                                  0.003922,
+                                                  0.003922,
+                                                  0.003922,
+                                                  1.0
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "name": "Txt_PublicParametersBooleanValueLabel",
+                                            "active": true,
+                                            "anchorMin": [
+                                              0.0,
+                                              0.0
+                                            ],
+                                            "anchorMax": [
+                                              1.0,
+                                              1.0
+                                            ],
+                                            "pivot": [
+                                              0.5,
+                                              0.5
+                                            ],
+                                            "sizeDelta": [
+                                              -48.0,
+                                              0.0
+                                            ],
+                                            "anchoredPosition": [
+                                              24.0,
+                                              0.0
+                                            ],
+                                            "children": [],
+                                            "components": [
+                                              {
+                                                "type": "TextMeshProUGUI",
+                                                "text": "选中布尔参数",
+                                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                                "raycastTarget": false,
+                                                "fontSize": 22.0,
+                                                "hAlign": 1,
+                                                "vAlign": 256
+                                              }
+                                            ]
+                                          }
+                                        ],
+                                        "components": []
+                                      }
+                                    ],
+                                    "components": [
+                                      {
+                                        "type": "Image",
+                                        "spritePath": "Assets/Game/Sprites/UI/Common/13-CardsAndSlots/ui-master-011-card-normal@512x256.png",
+                                        "imageType": 1,
+                                        "preserveAspect": false,
+                                        "raycastTarget": false,
+                                        "color": [
+                                          1.0,
+                                          1.0,
+                                          1.0,
+                                          1.0
+                                        ]
+                                      },
+                                      {
+                                        "type": "LayoutElement",
+                                        "minWidth": -1.0,
+                                        "minHeight": -1.0,
+                                        "preferredWidth": -1.0,
+                                        "preferredHeight": -1.0,
+                                        "flexibleWidth": -1.0,
+                                        "flexibleHeight": -1.0,
+                                        "ignoreLayout": false
+                                      }
+                                    ]
+                                  }
+                                ],
+                                "components": []
+                              }
+                            ],
+                            "components": []
+                          }
+                        ],
+                        "components": []
+                      }
+                    ],
+                    "components": [
+                      {
+                        "type": "Image",
+                        "spritePath": "Assets/Game/Sprites/UI/Common/13-CardsAndSlots/ui-master-011-card-normal@512x256.png",
+                        "imageType": 1,
+                        "preserveAspect": false,
+                        "raycastTarget": false,
+                        "color": [
+                          1.0,
+                          1.0,
+                          1.0,
+                          1.0
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Panel_PublicParametersImpact",
+                    "active": true,
+                    "anchorMin": [
+                      0.0,
+                      1.0
+                    ],
+                    "anchorMax": [
+                      0.0,
+                      1.0
+                    ],
+                    "pivot": [
+                      0.0,
+                      1.0
+                    ],
+                    "sizeDelta": [
+                      404.0,
+                      674.0
+                    ],
+                    "anchoredPosition": [
+                      1412.0,
+                      -198.0
+                    ],
+                    "children": [
+                      {
+                        "name": "Img_FormalCardSurface_Panel_PublicParametersImpact",
+                        "children": [],
+                        "components": [
+                          {
+                            "type": "Image",
+                            "spritePath": "",
+                            "imageType": 0,
+                            "preserveAspect": false,
+                            "raycastTarget": false,
+                            "color": [
+                              0.168627456,
+                              0.215686277,
+                              0.270588249,
+                              1.0
+                            ]
+                          }
+                        ],
+                        "anchorMin": [
+                          0.0,
+                          1.0
+                        ],
+                        "anchorMax": [
+                          0.0,
+                          1.0
+                        ],
+                        "pivot": [
+                          0.0,
+                          1.0
+                        ],
+                        "sizeDelta": [
+                          392.0,
+                          662.0
+                        ],
+                        "anchoredPosition": [
+                          6.0,
+                          -6.0
+                        ],
+                        "active": true
+                      },
+                      {
+                        "name": "Txt_PublicParametersImpactHeading",
+                        "active": true,
+                        "anchorMin": [
+                          0.0,
+                          1.0
+                        ],
+                        "anchorMax": [
+                          0.0,
+                          1.0
+                        ],
+                        "pivot": [
+                          0.0,
+                          1.0
+                        ],
+                        "sizeDelta": [
+                          368.0,
+                          30.0
+                        ],
+                        "anchoredPosition": [
+                          18.0,
+                          -10.0
+                        ],
+                        "children": [],
+                        "components": [
+                          {
+                            "type": "TextMeshProUGUI",
+                            "text": "参数校验",
+                            "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                            "raycastTarget": false,
+                            "fontSize": 21.0,
+                            "hAlign": 1,
+                            "vAlign": 256
+                          }
+                        ]
+                      },
+                      {
+                        "name": "List_PublicParametersImpact",
+                        "active": true,
+                        "anchorMin": [
+                          0.0,
+                          0.0
+                        ],
+                        "anchorMax": [
+                          1.0,
+                          1.0
+                        ],
+                        "pivot": [
+                          0.5,
+                          0.5
+                        ],
+                        "sizeDelta": [
+                          -36.0,
+                          -62.0
+                        ],
+                        "anchoredPosition": [
+                          0.0,
+                          -17.0
+                        ],
+                        "children": [
+                          {
+                            "name": "Viewport_PublicParametersImpact",
+                            "active": true,
+                            "anchorMin": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchorMax": [
+                              1.0,
+                              1.0
+                            ],
+                            "pivot": [
+                              0.5,
+                              0.5
+                            ],
+                            "sizeDelta": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchoredPosition": [
+                              0.0,
+                              0.0
+                            ],
+                            "children": [
+                              {
+                                "name": "Content_PublicParametersImpact",
+                                "active": true,
+                                "anchorMin": [
+                                  0.0,
+                                  1.0
+                                ],
+                                "anchorMax": [
+                                  1.0,
+                                  1.0
+                                ],
+                                "pivot": [
+                                  0.5,
+                                  1.0
+                                ],
+                                "sizeDelta": [
+                                  0.0,
+                                  0.0
+                                ],
+                                "anchoredPosition": [
+                                  0.0,
+                                  0.0
+                                ],
+                                "children": [
+                                  {
+                                    "name": "Txt_PublicParametersImpactBody",
+                                    "active": true,
+                                    "anchorMin": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "anchorMax": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "pivot": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "sizeDelta": [
+                                      1032.0,
+                                      120.0
+                                    ],
+                                    "anchoredPosition": [
+                                      0.0,
+                                      0.0
+                                    ],
+                                    "children": [],
+                                    "components": [
+                                      {
+                                        "type": "TextMeshProUGUI",
+                                        "text": "变更前后值",
+                                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                        "raycastTarget": false,
+                                        "fontSize": 22.0,
+                                        "hAlign": 1,
+                                        "vAlign": 256
+                                      },
+                                      {
+                                        "type": "LayoutElement",
+                                        "minWidth": -1.0,
+                                        "minHeight": 120.0,
+                                        "preferredWidth": -1.0,
+                                        "preferredHeight": -1.0,
+                                        "flexibleWidth": -1.0,
+                                        "flexibleHeight": -1.0,
+                                        "ignoreLayout": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Item_PublicParametersImpactTemplate",
+                                    "active": false,
+                                    "anchorMin": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "anchorMax": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "pivot": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "sizeDelta": [
+                                      1032.0,
+                                      104.0
+                                    ],
+                                    "anchoredPosition": [
+                                      0.0,
+                                      0.0
+                                    ],
+                                    "children": [
+                                      {
+                                        "name": "Btn_PublicParametersImpactRow",
+                                        "active": true,
+                                        "anchorMin": [
+                                          0.0,
+                                          0.0
+                                        ],
+                                        "anchorMax": [
+                                          1.0,
+                                          1.0
+                                        ],
+                                        "pivot": [
+                                          0.5,
+                                          0.5
+                                        ],
+                                        "sizeDelta": [
+                                          0.0,
+                                          0.0
+                                        ],
+                                        "anchoredPosition": [
+                                          0.0,
+                                          0.0
+                                        ],
+                                        "children": [
+                                          {
+                                            "name": "Txt_PublicParametersImpactRowLabel",
+                                            "active": true,
+                                            "anchorMin": [
+                                              0.0,
+                                              1.0
+                                            ],
+                                            "anchorMax": [
+                                              1.0,
+                                              1.0
+                                            ],
+                                            "pivot": [
+                                              0.5,
+                                              1.0
+                                            ],
+                                            "sizeDelta": [
+                                              -24.0,
+                                              32.0
+                                            ],
+                                            "anchoredPosition": [
+                                              0.0,
+                                              -8.0
+                                            ],
+                                            "children": [],
+                                            "components": [
+                                              {
+                                                "type": "TextMeshProUGUI",
+                                                "text": "名称：—",
+                                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                                "raycastTarget": false,
+                                                "fontSize": 22.0,
+                                                "hAlign": 1,
+                                                "vAlign": 256
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "name": "Txt_PublicParametersImpactRowValue",
+                                            "active": true,
+                                            "anchorMin": [
+                                              0.0,
+                                              0.0
+                                            ],
+                                            "anchorMax": [
+                                              1.0,
+                                              0.0
+                                            ],
+                                            "pivot": [
+                                              0.5,
+                                              0.0
+                                            ],
+                                            "sizeDelta": [
+                                              -24.0,
+                                              48.0
+                                            ],
+                                            "anchoredPosition": [
+                                              0.0,
+                                              8.0
+                                            ],
+                                            "children": [],
+                                            "components": [
+                                              {
+                                                "type": "TextMeshProUGUI",
+                                                "text": "值、状态、时间：—",
+                                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                                "raycastTarget": false,
+                                                "fontSize": 20.0,
+                                                "hAlign": 1,
+                                                "vAlign": 256
+                                              }
+                                            ]
+                                          }
+                                        ],
+                                        "components": [
+                                          {
+                                            "type": "Image",
+                                            "spritePath": "Assets/Game/Sprites/UI/Common/07-RowsAndItems/ui-master-005-row-normal@512x128.png",
+                                            "imageType": 1,
+                                            "preserveAspect": false,
+                                            "raycastTarget": true,
+                                            "color": [
+                                              1.0,
+                                              1.0,
+                                              1.0,
+                                              1.0
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "components": [
+                                      {
+                                        "type": "Image",
+                                        "spritePath": "Assets/Game/Sprites/UI/Common/07-RowsAndItems/ui-master-005-row-normal@512x128.png",
+                                        "imageType": 1,
+                                        "preserveAspect": false,
+                                        "raycastTarget": false,
+                                        "color": [
+                                          1.0,
+                                          1.0,
+                                          1.0,
+                                          1.0
+                                        ]
+                                      },
+                                      {
+                                        "type": "LayoutElement",
+                                        "minWidth": -1.0,
+                                        "minHeight": -1.0,
+                                        "preferredWidth": -1.0,
+                                        "preferredHeight": -1.0,
+                                        "flexibleWidth": -1.0,
+                                        "flexibleHeight": -1.0,
+                                        "ignoreLayout": false
+                                      }
+                                    ]
+                                  }
+                                ],
+                                "components": []
+                              }
+                            ],
+                            "components": []
+                          }
+                        ],
+                        "components": []
+                      }
+                    ],
+                    "components": [
+                      {
+                        "type": "Image",
+                        "spritePath": "Assets/Game/Sprites/UI/Common/13-CardsAndSlots/ui-master-011-card-normal@512x256.png",
+                        "imageType": 1,
+                        "preserveAspect": false,
+                        "raycastTarget": false,
+                        "color": [
+                          1.0,
+                          1.0,
+                          1.0,
+                          1.0
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Grp_PublicParametersLoadingState",
+                    "active": false,
+                    "anchorMin": [
+                      0.0,
+                      1.0
+                    ],
+                    "anchorMax": [
+                      0.0,
+                      1.0
+                    ],
+                    "pivot": [
+                      0.0,
+                      1.0
+                    ],
+                    "sizeDelta": [
+                      1744.0,
+                      680.0
+                    ],
+                    "anchoredPosition": [
+                      88.0,
+                      -204.0
+                    ],
+                    "children": [
+                      {
+                        "name": "Panel_PublicParametersLoadingMessage",
+                        "active": true,
+                        "anchorMin": [
+                          0.5,
+                          0.5
+                        ],
+                        "anchorMax": [
+                          0.5,
+                          0.5
+                        ],
+                        "pivot": [
+                          0.5,
+                          0.5
+                        ],
+                        "sizeDelta": [
+                          520.0,
+                          120.0
+                        ],
+                        "anchoredPosition": [
+                          0.0,
+                          0.0
+                        ],
+                        "children": [
+                          {
+                            "name": "Txt_PublicParametersLoadingMessage",
+                            "active": true,
+                            "anchorMin": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchorMax": [
+                              1.0,
+                              1.0
+                            ],
+                            "pivot": [
+                              0.5,
+                              0.5
+                            ],
+                            "sizeDelta": [
+                              -24.0,
+                              -24.0
+                            ],
+                            "anchoredPosition": [
+                              0.0,
+                              0.0
+                            ],
+                            "children": [],
+                            "components": [
+                              {
+                                "type": "TextMeshProUGUI",
+                                "text": "正在加载",
+                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                "raycastTarget": false,
+                                "fontSize": 20.0,
+                                "hAlign": 1,
+                                "vAlign": 256
+                              }
+                            ]
+                          }
+                        ],
+                        "components": [
+                          {
+                            "type": "Image",
+                            "spritePath": "Assets/Game/Sprites/UI/Common/08-MessagesAndStates/ui-master-006-loading@512x160.png",
+                            "imageType": 1,
+                            "preserveAspect": false,
+                            "raycastTarget": false,
+                            "color": [
+                              1.0,
+                              1.0,
+                              1.0,
+                              1.0
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "components": []
+                  },
+                  {
+                    "name": "Grp_PublicParametersEmptyState",
+                    "active": false,
+                    "anchorMin": [
+                      0.0,
+                      1.0
+                    ],
+                    "anchorMax": [
+                      0.0,
+                      1.0
+                    ],
+                    "pivot": [
+                      0.0,
+                      1.0
+                    ],
+                    "sizeDelta": [
+                      1744.0,
+                      680.0
+                    ],
+                    "anchoredPosition": [
+                      88.0,
+                      -204.0
+                    ],
+                    "children": [
+                      {
+                        "name": "Panel_PublicParametersEmptyMessage",
+                        "active": true,
+                        "anchorMin": [
+                          0.5,
+                          0.5
+                        ],
+                        "anchorMax": [
+                          0.5,
+                          0.5
+                        ],
+                        "pivot": [
+                          0.5,
+                          0.5
+                        ],
+                        "sizeDelta": [
+                          520.0,
+                          120.0
+                        ],
+                        "anchoredPosition": [
+                          0.0,
+                          0.0
+                        ],
+                        "children": [
+                          {
+                            "name": "Txt_PublicParametersEmptyMessage",
+                            "active": true,
+                            "anchorMin": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchorMax": [
+                              1.0,
+                              1.0
+                            ],
+                            "pivot": [
+                              0.5,
+                              0.5
+                            ],
+                            "sizeDelta": [
+                              -24.0,
+                              -24.0
+                            ],
+                            "anchoredPosition": [
+                              0.0,
+                              0.0
+                            ],
+                            "children": [],
+                            "components": [
+                              {
+                                "type": "TextMeshProUGUI",
+                                "text": "暂无内容",
+                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                "raycastTarget": false,
+                                "fontSize": 20.0,
+                                "hAlign": 1,
+                                "vAlign": 256
+                              }
+                            ]
+                          }
+                        ],
+                        "components": [
+                          {
+                            "type": "Image",
+                            "spritePath": "Assets/Game/Sprites/UI/Common/08-MessagesAndStates/ui-master-006-empty@512x160.png",
+                            "imageType": 1,
+                            "preserveAspect": false,
+                            "raycastTarget": false,
+                            "color": [
+                              1.0,
+                              1.0,
+                              1.0,
+                              1.0
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "components": []
+                  },
+                  {
+                    "name": "Grp_PublicParametersErrorState",
+                    "active": false,
+                    "anchorMin": [
+                      0.0,
+                      1.0
+                    ],
+                    "anchorMax": [
+                      0.0,
+                      1.0
+                    ],
+                    "pivot": [
+                      0.0,
+                      1.0
+                    ],
+                    "sizeDelta": [
+                      1744.0,
+                      680.0
+                    ],
+                    "anchoredPosition": [
+                      88.0,
+                      -204.0
+                    ],
+                    "children": [
+                      {
+                        "name": "Panel_PublicParametersErrorMessage",
+                        "active": true,
+                        "anchorMin": [
+                          0.5,
+                          0.5
+                        ],
+                        "anchorMax": [
+                          0.5,
+                          0.5
+                        ],
+                        "pivot": [
+                          0.5,
+                          0.5
+                        ],
+                        "sizeDelta": [
+                          520.0,
+                          120.0
+                        ],
+                        "anchoredPosition": [
+                          0.0,
+                          0.0
+                        ],
+                        "children": [
+                          {
+                            "name": "Txt_PublicParametersErrorMessage",
+                            "active": true,
+                            "anchorMin": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchorMax": [
+                              1.0,
+                              1.0
+                            ],
+                            "pivot": [
+                              0.5,
+                              0.5
+                            ],
+                            "sizeDelta": [
+                              -24.0,
+                              -24.0
+                            ],
+                            "anchoredPosition": [
+                              0.0,
+                              0.0
+                            ],
+                            "children": [],
+                            "components": [
+                              {
+                                "type": "TextMeshProUGUI",
+                                "text": "发生错误",
+                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                "raycastTarget": false,
+                                "fontSize": 20.0,
+                                "hAlign": 1,
+                                "vAlign": 256
+                              }
+                            ]
+                          }
+                        ],
+                        "components": [
+                          {
+                            "type": "Image",
+                            "spritePath": "Assets/Game/Sprites/UI/Common/08-MessagesAndStates/ui-master-006-error@512x160.png",
+                            "imageType": 1,
+                            "preserveAspect": false,
+                            "raycastTarget": false,
+                            "color": [
+                              1.0,
+                              1.0,
+                              1.0,
+                              1.0
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "components": []
+                  },
+                  {
+                    "name": "Grp_PublicParametersSuccessState",
+                    "active": false,
+                    "anchorMin": [
+                      0.0,
+                      1.0
+                    ],
+                    "anchorMax": [
+                      0.0,
+                      1.0
+                    ],
+                    "pivot": [
+                      0.0,
+                      1.0
+                    ],
+                    "sizeDelta": [
+                      1744.0,
+                      680.0
+                    ],
+                    "anchoredPosition": [
+                      88.0,
+                      -204.0
+                    ],
+                    "children": [
+                      {
+                        "name": "Panel_PublicParametersSuccessMessage",
+                        "active": true,
+                        "anchorMin": [
+                          0.5,
+                          0.5
+                        ],
+                        "anchorMax": [
+                          0.5,
+                          0.5
+                        ],
+                        "pivot": [
+                          0.5,
+                          0.5
+                        ],
+                        "sizeDelta": [
+                          520.0,
+                          120.0
+                        ],
+                        "anchoredPosition": [
+                          0.0,
+                          0.0
+                        ],
+                        "children": [
+                          {
+                            "name": "Txt_PublicParametersSuccessMessage",
+                            "active": true,
+                            "anchorMin": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchorMax": [
+                              1.0,
+                              1.0
+                            ],
+                            "pivot": [
+                              0.5,
+                              0.5
+                            ],
+                            "sizeDelta": [
+                              -24.0,
+                              -24.0
+                            ],
+                            "anchoredPosition": [
+                              0.0,
+                              0.0
+                            ],
+                            "children": [],
+                            "components": [
+                              {
+                                "type": "TextMeshProUGUI",
+                                "text": "操作成功",
+                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                "raycastTarget": false,
+                                "fontSize": 20.0,
+                                "hAlign": 1,
+                                "vAlign": 256
+                              }
+                            ]
+                          }
+                        ],
+                        "components": [
+                          {
+                            "type": "Image",
+                            "spritePath": "Assets/Game/Sprites/UI/Common/08-MessagesAndStates/ui-master-006-success@512x160.png",
+                            "imageType": 1,
+                            "preserveAspect": false,
+                            "raycastTarget": false,
+                            "color": [
+                              1.0,
+                              1.0,
+                              1.0,
+                              1.0
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "components": []
+                  },
+                  {
+                    "name": "Grp_PublicParametersDisabledState",
+                    "active": false,
+                    "anchorMin": [
+                      0.0,
+                      1.0
+                    ],
+                    "anchorMax": [
+                      0.0,
+                      1.0
+                    ],
+                    "pivot": [
+                      0.0,
+                      1.0
+                    ],
+                    "sizeDelta": [
+                      1744.0,
+                      680.0
+                    ],
+                    "anchoredPosition": [
+                      88.0,
+                      -204.0
+                    ],
+                    "children": [
+                      {
+                        "name": "Panel_PublicParametersDisabledMessage",
+                        "active": true,
+                        "anchorMin": [
+                          0.5,
+                          0.5
+                        ],
+                        "anchorMax": [
+                          0.5,
+                          0.5
+                        ],
+                        "pivot": [
+                          0.5,
+                          0.5
+                        ],
+                        "sizeDelta": [
+                          520.0,
+                          120.0
+                        ],
+                        "anchoredPosition": [
+                          0.0,
+                          0.0
+                        ],
+                        "children": [
+                          {
+                            "name": "Txt_PublicParametersDisabledMessage",
+                            "active": true,
+                            "anchorMin": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchorMax": [
+                              1.0,
+                              1.0
+                            ],
+                            "pivot": [
+                              0.5,
+                              0.5
+                            ],
+                            "sizeDelta": [
+                              -24.0,
+                              -24.0
+                            ],
+                            "anchoredPosition": [
+                              0.0,
+                              0.0
+                            ],
+                            "children": [],
+                            "components": [
+                              {
+                                "type": "TextMeshProUGUI",
+                                "text": "当前不可用",
+                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                "raycastTarget": false,
+                                "fontSize": 20.0,
+                                "hAlign": 1,
+                                "vAlign": 256
+                              }
+                            ]
+                          }
+                        ],
+                        "components": [
+                          {
+                            "type": "Image",
+                            "spritePath": "Assets/Game/Sprites/UI/Common/08-MessagesAndStates/ui-master-006-disabled@512x160.png",
+                            "imageType": 1,
+                            "preserveAspect": false,
+                            "raycastTarget": false,
+                            "color": [
+                              1.0,
+                              1.0,
+                              1.0,
+                              1.0
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "components": []
+                  }
+                ],
+                "components": [
+                  {
+                    "type": "Image",
+                    "spritePath": "",
+                    "imageType": 1,
+                    "preserveAspect": false,
+                    "raycastTarget": false,
+                    "color": [
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  }
                 ]
-               }
-              ]
-             }
-            ]
-           }
-          ],
-          "components": []
-         },
-         {
-          "name": "Panel_PublicParametersImpact",
-          "active": true,
-          "anchorMin": [
-           0.0,
-           1.0
-          ],
-          "anchorMax": [
-           0.0,
-           1.0
-          ],
-          "pivot": [
-           0.0,
-           1.0
-          ],
-          "sizeDelta": [
-           1056.0,
-           734.0
-          ],
-          "anchoredPosition": [
-           672.0,
-           -36.0
-          ],
-          "children": [
-           {
-            "name": "Txt_PublicParametersImpactHeading",
+              }
+            ],
+            "components": []
+          },
+          {
+            "name": "Btn_FormBack",
             "active": true,
             "anchorMin": [
-             0.0,
-             1.0
+              0.0,
+              1.0
             ],
             "anchorMax": [
-             0.0,
-             1.0
+              0.0,
+              1.0
             ],
             "pivot": [
-             0.0,
-             1.0
+              0.0,
+              1.0
             ],
             "sizeDelta": [
-             1032.0,
-             32.0
+              112.0,
+              40.0
             ],
             "anchoredPosition": [
-             12.0,
-             -8.0
-            ],
-            "children": []
-           },
-           {
-            "name": "List_PublicParametersImpact",
-            "active": true,
-            "anchorMin": [
-             0.0,
-             0.0
-            ],
-            "anchorMax": [
-             1.0,
-             1.0
-            ],
-            "pivot": [
-             0.5,
-             0.5
-            ],
-            "sizeDelta": [
-             -24.0,
-             -52.0
-            ],
-            "anchoredPosition": [
-             0.0,
-             -18.0
+              1592.0,
+              -88.0
             ],
             "children": [
-             {
-              "name": "Viewport_PublicParametersImpact",
-              "active": true,
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               0.0,
-               0.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ],
-              "children": [
-               {
-                "name": "Content_PublicParametersImpact",
+              {
+                "name": "Txt_FormBackLabel",
                 "active": true,
                 "anchorMin": [
-                 0.0,
-                 1.0
+                  0.0,
+                  0.0
                 ],
                 "anchorMax": [
-                 1.0,
-                 1.0
+                  1.0,
+                  1.0
                 ],
                 "pivot": [
-                 0.5,
-                 1.0
+                  0.5,
+                  0.5
                 ],
                 "sizeDelta": [
-                 0.0,
-                 0.0
+                  -24.0,
+                  -6.0
                 ],
                 "anchoredPosition": [
-                 0.0,
-                 0.0
+                  0.0,
+                  0.0
                 ],
-                "children": [
-                 {
-                  "name": "Txt_PublicParametersImpactBody",
-                  "active": true,
-                  "anchorMin": [
-                   0.0,
-                   1.0
-                  ],
-                  "anchorMax": [
-                   0.0,
-                   1.0
-                  ],
-                  "pivot": [
-                   0.0,
-                   1.0
-                  ],
-                  "sizeDelta": [
-                   1032.0,
-                   120.0
-                  ],
-                  "anchoredPosition": [
-                   0.0,
-                   0.0
-                  ],
-                  "children": []
-                 },
-                 {
-                  "name": "Item_PublicParametersImpactTemplate",
-                  "active": false,
-                  "anchorMin": [
-                   0.0,
-                   1.0
-                  ],
-                  "anchorMax": [
-                   0.0,
-                   1.0
-                  ],
-                  "pivot": [
-                   0.0,
-                   1.0
-                  ],
-                  "sizeDelta": [
-                   1032.0,
-                   104.0
-                  ],
-                  "anchoredPosition": [
-                   0.0,
-                   0.0
-                  ],
-                  "children": [
-                   {
-                    "name": "Btn_PublicParametersImpactRow",
-                    "active": true,
-                    "anchorMin": [
-                     0.0,
-                     0.0
-                    ],
-                    "anchorMax": [
-                     1.0,
-                     1.0
-                    ],
-                    "pivot": [
-                     0.5,
-                     0.5
-                    ],
-                    "sizeDelta": [
-                     0.0,
-                     0.0
-                    ],
-                    "anchoredPosition": [
-                     0.0,
-                     0.0
-                    ],
-                    "children": [
-                     {
-                      "name": "Txt_PublicParametersImpactRowLabel",
-                      "active": true,
-                      "anchorMin": [
-                       0.0,
-                       1.0
-                      ],
-                      "anchorMax": [
-                       1.0,
-                       1.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       1.0
-                      ],
-                      "sizeDelta": [
-                       -24.0,
-                       32.0
-                      ],
-                      "anchoredPosition": [
-                       0.0,
-                       -8.0
-                      ],
-                      "children": []
-                     },
-                     {
-                      "name": "Txt_PublicParametersImpactRowValue",
-                      "active": true,
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       1.0,
-                       0.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.0
-                      ],
-                      "sizeDelta": [
-                       -24.0,
-                       48.0
-                      ],
-                      "anchoredPosition": [
-                       0.0,
-                       8.0
-                      ],
-                      "children": []
-                     }
-                    ]
-                   }
-                  ]
-                 }
+                "children": [],
+                "components": [
+                  {
+                    "type": "TextMeshProUGUI",
+                    "text": "返回",
+                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                    "raycastTarget": false,
+                    "fontSize": 20.0,
+                    "hAlign": 2,
+                    "vAlign": 512
+                  }
                 ]
-               }
-              ]
-             }
+              }
+            ],
+            "components": [
+              {
+                "type": "Image",
+                "spritePath": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+                "imageType": 1,
+                "preserveAspect": false,
+                "raycastTarget": true,
+                "color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              }
             ]
-           }
-          ],
-          "components": []
-         },
-         {
-          "name": "Grp_PublicParametersLoadingState",
-          "active": false,
-          "anchorMin": [
-           0.0,
-           1.0
-          ],
-          "anchorMax": [
-           0.0,
-           1.0
-          ],
-          "pivot": [
-           0.0,
-           1.0
-          ],
-          "sizeDelta": [
-           1728.0,
-           734.0
-          ],
-          "anchoredPosition": [
-           0.0,
-           -36.0
-          ],
-          "children": [
-           {
-            "name": "Panel_PublicParametersLoadingMessage",
+          },
+          {
+            "name": "Btn_FormClose",
             "active": true,
             "anchorMin": [
-             0.5,
-             0.5
+              0.0,
+              1.0
             ],
             "anchorMax": [
-             0.5,
-             0.5
+              0.0,
+              1.0
             ],
             "pivot": [
-             0.5,
-             0.5
+              0.0,
+              1.0
             ],
             "sizeDelta": [
-             520.0,
-             120.0
+              112.0,
+              40.0
             ],
             "anchoredPosition": [
-             0.0,
-             0.0
+              1716.0,
+              -88.0
             ],
             "children": [
-             {
-              "name": "Txt_PublicParametersLoadingMessage",
-              "active": true,
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               -24.0,
-               -24.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ],
-              "children": []
-             }
+              {
+                "name": "Txt_FormCloseLabel",
+                "active": true,
+                "anchorMin": [
+                  0.0,
+                  0.0
+                ],
+                "anchorMax": [
+                  1.0,
+                  1.0
+                ],
+                "pivot": [
+                  0.5,
+                  0.5
+                ],
+                "sizeDelta": [
+                  -24.0,
+                  -6.0
+                ],
+                "anchoredPosition": [
+                  0.0,
+                  0.0
+                ],
+                "children": [],
+                "components": [
+                  {
+                    "type": "TextMeshProUGUI",
+                    "text": "关闭",
+                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                    "raycastTarget": false,
+                    "fontSize": 20.0,
+                    "hAlign": 2,
+                    "vAlign": 512
+                  }
+                ]
+              }
+            ],
+            "components": [
+              {
+                "type": "Image",
+                "spritePath": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png",
+                "imageType": 1,
+                "preserveAspect": false,
+                "raycastTarget": true,
+                "color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              }
             ]
-           }
-          ]
-         },
-         {
-          "name": "Grp_PublicParametersEmptyState",
-          "active": false,
-          "anchorMin": [
-           0.0,
-           1.0
-          ],
-          "anchorMax": [
-           0.0,
-           1.0
-          ],
-          "pivot": [
-           0.0,
-           1.0
-          ],
-          "sizeDelta": [
-           1728.0,
-           734.0
-          ],
-          "anchoredPosition": [
-           0.0,
-           -36.0
-          ],
-          "children": [
-           {
-            "name": "Panel_PublicParametersEmptyMessage",
-            "active": true,
-            "anchorMin": [
-             0.5,
-             0.5
-            ],
-            "anchorMax": [
-             0.5,
-             0.5
-            ],
-            "pivot": [
-             0.5,
-             0.5
-            ],
-            "sizeDelta": [
-             520.0,
-             120.0
-            ],
-            "anchoredPosition": [
-             0.0,
-             0.0
-            ],
-            "children": [
-             {
-              "name": "Txt_PublicParametersEmptyMessage",
-              "active": true,
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               -24.0,
-               -24.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ],
-              "children": []
-             }
+          }
+        ],
+        "components": [
+          {
+            "type": "Image",
+            "spritePath": "",
+            "imageType": 1,
+            "preserveAspect": false,
+            "raycastTarget": false,
+            "color": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
             ]
-           }
-          ]
-         },
-         {
-          "name": "Grp_PublicParametersErrorState",
-          "active": false,
-          "anchorMin": [
-           0.0,
-           1.0
-          ],
-          "anchorMax": [
-           0.0,
-           1.0
-          ],
-          "pivot": [
-           0.0,
-           1.0
-          ],
-          "sizeDelta": [
-           1728.0,
-           734.0
-          ],
-          "anchoredPosition": [
-           0.0,
-           -36.0
-          ],
-          "children": [
-           {
-            "name": "Panel_PublicParametersErrorMessage",
-            "active": true,
-            "anchorMin": [
-             0.5,
-             0.5
-            ],
-            "anchorMax": [
-             0.5,
-             0.5
-            ],
-            "pivot": [
-             0.5,
-             0.5
-            ],
-            "sizeDelta": [
-             520.0,
-             120.0
-            ],
-            "anchoredPosition": [
-             0.0,
-             0.0
-            ],
-            "children": [
-             {
-              "name": "Txt_PublicParametersErrorMessage",
-              "active": true,
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               -24.0,
-               -24.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ],
-              "children": []
-             }
-            ]
-           }
-          ]
-         },
-         {
-          "name": "Grp_PublicParametersSuccessState",
-          "active": false,
-          "anchorMin": [
-           0.0,
-           1.0
-          ],
-          "anchorMax": [
-           0.0,
-           1.0
-          ],
-          "pivot": [
-           0.0,
-           1.0
-          ],
-          "sizeDelta": [
-           1728.0,
-           734.0
-          ],
-          "anchoredPosition": [
-           0.0,
-           -36.0
-          ],
-          "children": [
-           {
-            "name": "Panel_PublicParametersSuccessMessage",
-            "active": true,
-            "anchorMin": [
-             0.5,
-             0.5
-            ],
-            "anchorMax": [
-             0.5,
-             0.5
-            ],
-            "pivot": [
-             0.5,
-             0.5
-            ],
-            "sizeDelta": [
-             520.0,
-             120.0
-            ],
-            "anchoredPosition": [
-             0.0,
-             0.0
-            ],
-            "children": [
-             {
-              "name": "Txt_PublicParametersSuccessMessage",
-              "active": true,
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               -24.0,
-               -24.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ],
-              "children": []
-             }
-            ]
-           }
-          ]
-         },
-         {
-          "name": "Grp_PublicParametersDisabledState",
-          "active": false,
-          "anchorMin": [
-           0.0,
-           1.0
-          ],
-          "anchorMax": [
-           0.0,
-           1.0
-          ],
-          "pivot": [
-           0.0,
-           1.0
-          ],
-          "sizeDelta": [
-           1728.0,
-           734.0
-          ],
-          "anchoredPosition": [
-           0.0,
-           -36.0
-          ],
-          "children": [
-           {
-            "name": "Panel_PublicParametersDisabledMessage",
-            "active": true,
-            "anchorMin": [
-             0.5,
-             0.5
-            ],
-            "anchorMax": [
-             0.5,
-             0.5
-            ],
-            "pivot": [
-             0.5,
-             0.5
-            ],
-            "sizeDelta": [
-             520.0,
-             120.0
-            ],
-            "anchoredPosition": [
-             0.0,
-             0.0
-            ],
-            "children": [
-             {
-              "name": "Txt_PublicParametersDisabledMessage",
-              "active": true,
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               -24.0,
-               -24.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ],
-              "children": []
-             }
-            ]
-           }
-          ]
-         }
+          }
         ]
-       }
-      ]
-     },
-     {
-      "name": "Btn_FormBack",
-      "active": true,
-      "anchorMin": [
-       1.0,
-       1.0
-      ],
-      "anchorMax": [
-       1.0,
-       1.0
-      ],
-      "pivot": [
-       1.0,
-       1.0
-      ],
-      "sizeDelta": [
-       88.0,
-       48.0
-      ],
-      "anchoredPosition": [
-       -112.0,
-       -20.0
-      ],
-      "children": [
-       {
-        "name": "Txt_FormBackLabel",
-        "active": true,
-        "anchorMin": [
-         0.0,
-         0.0
-        ],
-        "anchorMax": [
-         1.0,
-         1.0
-        ],
-        "pivot": [
-         0.5,
-         0.5
-        ],
-        "sizeDelta": [
-         -8.0,
-         -8.0
-        ],
-        "anchoredPosition": [
-         0.0,
-         0.0
-        ],
-        "children": []
-       }
-      ]
-     },
-     {
-      "name": "Btn_FormClose",
-      "active": true,
-      "anchorMin": [
-       1.0,
-       1.0
-      ],
-      "anchorMax": [
-       1.0,
-       1.0
-      ],
-      "pivot": [
-       1.0,
-       1.0
-      ],
-      "sizeDelta": [
-       80.0,
-       48.0
-      ],
-      "anchoredPosition": [
-       -24.0,
-       -20.0
-      ],
-      "children": [
-       {
-        "name": "Txt_FormCloseLabel",
-        "active": true,
-        "anchorMin": [
-         0.0,
-         0.0
-        ],
-        "anchorMax": [
-         1.0,
-         1.0
-        ],
-        "pivot": [
-         0.5,
-         0.5
-        ],
-        "sizeDelta": [
-         -8.0,
-         -8.0
-        ],
-        "anchoredPosition": [
-         0.0,
-         0.0
-        ],
-        "children": []
-       }
-      ]
-     }
+      }
+    ],
+    "components": [
+      {
+        "type": "CanvasGroup",
+        "alpha": 1.0,
+        "blocksRaycasts": true,
+        "interactable": true
+      }
     ]
-   }
-  ]
- },
- "bindings": [
-  {
-   "path": "_backButton",
-   "node": "AlgorithmPublicParametersForm/Panel_Frame/Btn_FormBack"
   },
-  {
-   "path": "_closeButton",
-   "node": "AlgorithmPublicParametersForm/Panel_Frame/Btn_FormClose"
-  },
-  {
-   "path": "_parametersContent",
-   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersParameters/List_PublicParametersParameters/Viewport_PublicParametersParameters/Content_PublicParametersParameters"
-  },
-  {
-   "path": "_parametersBody",
-   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersParameters/List_PublicParametersParameters/Viewport_PublicParametersParameters/Content_PublicParametersParameters/Txt_PublicParametersParametersBody"
-  },
-  {
-   "path": "_parametersTemplate",
-   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersParameters/List_PublicParametersParameters/Viewport_PublicParametersParameters/Content_PublicParametersParameters/Item_PublicParametersParametersTemplate"
-  },
-  {
-   "path": "_impactContent",
-   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersImpact/List_PublicParametersImpact/Viewport_PublicParametersImpact/Content_PublicParametersImpact"
-  },
-  {
-   "path": "_impactBody",
-   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersImpact/List_PublicParametersImpact/Viewport_PublicParametersImpact/Content_PublicParametersImpact/Txt_PublicParametersImpactBody"
-  },
-  {
-   "path": "_impactTemplate",
-   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersImpact/List_PublicParametersImpact/Viewport_PublicParametersImpact/Content_PublicParametersImpact/Item_PublicParametersImpactTemplate"
-  },
-  {
-   "path": "_loadingState",
-   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersLoadingState"
-  },
-  {
-   "path": "_emptyState",
-   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersEmptyState"
-  },
-  {
-   "path": "_errorState",
-   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersErrorState"
-  },
-  {
-   "path": "_successState",
-   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersSuccessState"
-  },
-  {
-   "path": "_disabledState",
-   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersDisabledState"
-  },
-  {
-   "path": "_changeButton",
-   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersActions/Btn_PublicParametersChange"
-  },
-  {
-   "path": "_defaultButton",
-   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersActions/Btn_PublicParametersDefault"
-  },
-  {
-   "path": "_applyButton",
-   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersActions/Btn_PublicParametersApply"
-  },
-  {
-   "path": "_numberValue",
-   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersParameters/List_PublicParametersParameters/Viewport_PublicParametersParameters/Content_PublicParametersParameters/Panel_PublicParametersControls/Panel_PublicParametersNumberValue"
-  },
-  {
-   "path": "_booleanValue",
-   "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersParameters/List_PublicParametersParameters/Viewport_PublicParametersParameters/Content_PublicParametersParameters/Panel_PublicParametersControls/Tgl_PublicParametersBooleanValue"
-  }
- ],
- "scalars": [],
- "scriptFields": [],
- "generatedFrom": "AlgorithmPublicParametersForm prefab split",
- "formArrays": {},
- "navigationPageIndex": 0,
- "layoutMigration": "b52: family-specific structure rollout; preserve serialized bindings and functional page routes"
+  "bindings": [
+    {
+      "path": "_backButton",
+      "node": "AlgorithmPublicParametersForm/Panel_Frame/Btn_FormBack"
+    },
+    {
+      "path": "_closeButton",
+      "node": "AlgorithmPublicParametersForm/Panel_Frame/Btn_FormClose"
+    },
+    {
+      "path": "_parametersContent",
+      "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersParameters/List_PublicParametersParameters/Viewport_PublicParametersParameters/Content_PublicParametersParameters"
+    },
+    {
+      "path": "_parametersBody",
+      "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersParameters/List_PublicParametersParameters/Viewport_PublicParametersParameters/Content_PublicParametersParameters/Txt_PublicParametersParametersBody"
+    },
+    {
+      "path": "_parametersTemplate",
+      "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersParameters/List_PublicParametersParameters/Viewport_PublicParametersParameters/Content_PublicParametersParameters/Item_PublicParametersParametersTemplate"
+    },
+    {
+      "path": "_impactContent",
+      "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersImpact/List_PublicParametersImpact/Viewport_PublicParametersImpact/Content_PublicParametersImpact"
+    },
+    {
+      "path": "_impactBody",
+      "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersImpact/List_PublicParametersImpact/Viewport_PublicParametersImpact/Content_PublicParametersImpact/Txt_PublicParametersImpactBody"
+    },
+    {
+      "path": "_impactTemplate",
+      "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersImpact/List_PublicParametersImpact/Viewport_PublicParametersImpact/Content_PublicParametersImpact/Item_PublicParametersImpactTemplate"
+    },
+    {
+      "path": "_loadingState",
+      "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersLoadingState"
+    },
+    {
+      "path": "_emptyState",
+      "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersEmptyState"
+    },
+    {
+      "path": "_errorState",
+      "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersErrorState"
+    },
+    {
+      "path": "_successState",
+      "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersSuccessState"
+    },
+    {
+      "path": "_disabledState",
+      "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersDisabledState"
+    },
+    {
+      "path": "_changeButton",
+      "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersActions/Btn_PublicParametersChange"
+    },
+    {
+      "path": "_defaultButton",
+      "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersActions/Btn_PublicParametersDefault"
+    },
+    {
+      "path": "_applyButton",
+      "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Grp_PublicParametersActions/Btn_PublicParametersApply"
+    },
+    {
+      "path": "_numberValue",
+      "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersParameters/List_PublicParametersParameters/Viewport_PublicParametersParameters/Content_PublicParametersParameters/Panel_PublicParametersControls/Panel_PublicParametersNumberValue"
+    },
+    {
+      "path": "_booleanValue",
+      "node": "AlgorithmPublicParametersForm/Panel_Frame/Grp_PageHost/Panel_PagePublicParameters/Panel_PublicParametersParameters/List_PublicParametersParameters/Viewport_PublicParametersParameters/Content_PublicParametersParameters/Panel_PublicParametersControls/Tgl_PublicParametersBooleanValue"
+    }
+  ],
+  "scalars": [],
+  "scriptFields": [],
+  "generatedFrom": "AlgorithmPublicParametersForm prefab split",
+  "formArrays": {},
+  "navigationPageIndex": 0,
+  "layoutMigration": "b52: family-specific structure rollout; preserve serialized bindings and functional page routes",
+  "formalArtSource": "openspec/changes/b54-formal-ui-art-integration/art/page-plan.json"
 }

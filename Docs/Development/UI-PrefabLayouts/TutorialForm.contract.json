@@ -1,2189 +1,2573 @@
 {
- "schemaVersion": 3,
- "form": "TutorialForm",
- "namespace": "AutoEra.UI",
- "prefabPath": "Assets/Game/Prefabs/UI/Operations/TutorialForm.prefab",
- "scriptPath": "Assets/Game/Scripts/AutoEra/UI/TutorialForm.cs",
- "referenceResolution": [
-  1920,
-  1080
- ],
- "root": {
-  "name": "TutorialForm",
-  "components": [
-   {
-    "type": "TutorialForm"
-   },
-   {
-    "type": "CanvasGroup",
-    "alpha": 1.0,
-    "interactable": true,
-    "blocksRaycasts": true
-   }
+  "schemaVersion": 3,
+  "form": "TutorialForm",
+  "namespace": "AutoEra.UI",
+  "prefabPath": "Assets/Game/Prefabs/UI/Operations/TutorialForm.prefab",
+  "scriptPath": "Assets/Game/Scripts/AutoEra/UI/TutorialForm.cs",
+  "referenceResolution": [
+    1920,
+    1080
   ],
-  "anchorMin": [
-   0.0,
-   0.0
-  ],
-  "anchorMax": [
-   1.0,
-   1.0
-  ],
-  "pivot": [
-   0.5,
-   0.5
-  ],
-  "sizeDelta": [
-   0.0,
-   0.0
-  ],
-  "anchoredPosition": [
-   0.0,
-   0.0
-  ],
-  "children": [
-   {
-    "name": "Bg_InputBlocker",
+  "root": {
+    "name": "TutorialForm",
     "components": [
-     {
-      "type": "Image",
-      "color": [
-       0.0,
-       0.0,
-       0.0,
-       0.65
-      ],
-      "imageType": 1,
-      "raycastTarget": true,
-      "preserveAspect": false
-     }
+      {
+        "type": "TutorialForm"
+      },
+      {
+        "type": "CanvasGroup",
+        "alpha": 1.0,
+        "interactable": true,
+        "blocksRaycasts": true
+      }
     ],
     "anchorMin": [
-     0.0,
-     0.0
+      0.0,
+      0.0
     ],
     "anchorMax": [
-     1.0,
-     1.0
+      1.0,
+      1.0
     ],
     "pivot": [
-     0.5,
-     0.5
+      0.5,
+      0.5
     ],
     "sizeDelta": [
-     0.0,
-     0.0
+      0.0,
+      0.0
     ],
     "anchoredPosition": [
-     0.0,
-     0.0
-    ]
-   },
-   {
-    "name": "Panel_Frame",
-    "components": [
-     {
-      "type": "Image",
-      "color": [
-       0.12549,
-       0.141176,
-       0.164706,
-       1.0
-      ],
-      "imageType": 1,
-      "raycastTarget": false,
-      "preserveAspect": false
-     }
-    ],
-    "anchorMin": [
-     0.5,
-     0.5
-    ],
-    "anchorMax": [
-     0.5,
-     0.5
-    ],
-    "pivot": [
-     0.5,
-     0.5
-    ],
-    "sizeDelta": [
-     1720,
-     900
-    ],
-    "anchoredPosition": [
-     0,
-     0
+      0.0,
+      0.0
     ],
     "children": [
-     {
-      "name": "Deco_Frame",
-      "components": [
-       {
-        "type": "Image",
-        "color": [
-         0.001961,
-         0.001961,
-         0.001961,
-         0.25
-        ],
-        "imageType": 1,
-        "raycastTarget": false,
-        "preserveAspect": false
-       }
-      ],
-      "anchorMin": [
-       0.0,
-       0.0
-      ],
-      "anchorMax": [
-       1.0,
-       1.0
-      ],
-      "pivot": [
-       0.5,
-       0.5
-      ],
-      "sizeDelta": [
-       0.0,
-       0.0
-      ],
-      "anchoredPosition": [
-       0.0,
-       0.0
-      ]
-     },
-     {
-      "name": "Txt_FormTitle",
-      "components": [
-       {
-        "type": "TextMeshProUGUI",
-        "text": "基础引导",
-        "fontSize": 28.0,
-        "color": [
-         0.941176,
-         0.94902,
-         0.956863,
-         1.0
-        ],
-        "raycastTarget": false,
-        "wordWrap": true,
-        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-       }
-      ],
-      "anchorMin": [
-       0.0,
-       1.0
-      ],
-      "anchorMax": [
-       0.0,
-       1.0
-      ],
-      "pivot": [
-       0.0,
-       1.0
-      ],
-      "sizeDelta": [
-       1300.0,
-       40.0
-      ],
-      "anchoredPosition": [
-       56.0,
-       -20.0
-      ]
-     },
-     {
-      "name": "Grp_Navigation",
-      "components": [
-       {
-        "type": "HorizontalLayoutGroup",
-        "spacing": 8.0,
-        "padding": [
-         0,
-         0,
-         0,
-         0
-        ],
-        "ChildForceExpandWidth": false,
-        "ChildForceExpandHeight": false
-       }
-      ],
-      "anchorMin": [
-       0.0,
-       1.0
-      ],
-      "anchorMax": [
-       1.0,
-       1.0
-      ],
-      "pivot": [
-       0.5,
-       1.0
-      ],
-      "sizeDelta": [
-       -200.0,
-       52.0
-      ],
-      "anchoredPosition": [
-       -44.0,
-       -68.0
-      ],
-      "children": [],
-      "active": false
-     },
-     {
-      "name": "Grp_PageHost",
-      "components": [],
-      "anchorMin": [
-       0.0,
-       1.0
-      ],
-      "anchorMax": [
-       0.0,
-       1.0
-      ],
-      "pivot": [
-       0.0,
-       1.0
-      ],
-      "sizeDelta": [
-       1488.0,
-       730.0
-      ],
-      "anchoredPosition": [
-       56.0,
-       -140.0
-      ],
-      "children": [
-       {
-        "name": "Panel_PageTutorial",
+      {
+        "name": "Bg_InputBlocker",
         "components": [
-         {
-          "type": "Image",
-          "color": [
-           0.12549,
-           0.141176,
-           0.164706,
-           1.0
-          ],
-          "imageType": 1,
-          "raycastTarget": false,
-          "preserveAspect": false
-         }
+          {
+            "type": "Image",
+            "color": [
+              0.066667,
+              0.098039,
+              0.137255,
+              0.65
+            ],
+            "imageType": 1,
+            "raycastTarget": true,
+            "preserveAspect": false,
+            "spritePath": ""
+          }
         ],
         "anchorMin": [
-         0,
-         0
+          0.0,
+          0.0
         ],
         "anchorMax": [
-         1,
-         1
+          1.0,
+          1.0
         ],
         "pivot": [
-         0.5,
-         0.5
+          0.5,
+          0.5
         ],
         "sizeDelta": [
-         0,
-         0
+          0.0,
+          0.0
         ],
         "anchoredPosition": [
-         0,
-         0
+          0.0,
+          0.0
+        ],
+        "active": true,
+        "children": []
+      },
+      {
+        "name": "Panel_Frame",
+        "components": [
+          {
+            "type": "Image",
+            "color": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "imageType": 1,
+            "raycastTarget": false,
+            "preserveAspect": false,
+            "spritePath": ""
+          }
+        ],
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          0.0,
+          0.0
+        ],
+        "anchoredPosition": [
+          0.0,
+          0.0
         ],
         "children": [
-         {
-          "name": "Txt_TutorialTitle",
-          "components": [
-           {
-            "type": "TextMeshProUGUI",
-            "text": "基础引导",
-            "fontSize": 28.0,
-            "color": [
-             0.941176,
-             0.94902,
-             0.956863,
-             1.0
-            ],
-            "raycastTarget": false,
-            "wordWrap": true,
-            "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-           }
-          ],
-          "anchorMin": [
-           0.0,
-           1.0
-          ],
-          "anchorMax": [
-           0.0,
-           1.0
-          ],
-          "pivot": [
-           0.0,
-           1.0
-          ],
-          "sizeDelta": [
-           1472.0,
-           32.0
-          ],
-          "anchoredPosition": [
-           8.0,
-           0.0
-          ]
-         },
-         {
-          "name": "Grp_TutorialActions",
-          "components": [
-           {
-            "type": "GridLayoutGroup",
-            "constraint": 1,
-            "ChildForceExpandWidth": false,
-            "ChildForceExpandHeight": false,
-            "constraintCount": 8,
-            "cellSize": [
-             177.0,
-             48.0
-            ],
-            "spacing": [
-             8.0,
-             8.0
-            ]
-           }
-          ],
-          "anchorMin": [
-           0.0,
-           0.0
-          ],
-          "anchorMax": [
-           1.0,
-           0.0
-          ],
-          "pivot": [
-           0.5,
-           0.0
-          ],
-          "sizeDelta": [
-           -16.0,
-           48.0
-          ],
-          "anchoredPosition": [
-           0.0,
-           0.0
-          ],
-          "children": [
-           {
-            "name": "Btn_TutorialGo",
+          {
+            "name": "Deco_Frame",
             "components": [
-             {
-              "type": "Image",
-              "color": [
-               0.321569,
-               0.498039,
-               0.639216,
-               1.0
-              ],
-              "imageType": 1,
-              "raycastTarget": true,
-              "preserveAspect": false
-             },
-             {
-              "type": "Button",
-              "transition": 1,
-              "interactable": true
-             }
+              {
+                "type": "Image",
+                "color": [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "imageType": 1,
+                "raycastTarget": false,
+                "preserveAspect": false,
+                "spritePath": ""
+              }
             ],
-            "controlledBy": "group",
             "anchorMin": [
-             0.0,
-             1.0
+              0.0,
+              0.0
             ],
             "anchorMax": [
-             0.0,
-             1.0
+              1.0,
+              1.0
             ],
             "pivot": [
-             0.0,
-             1.0
+              0.5,
+              0.5
             ],
             "sizeDelta": [
-             177.0,
-             48.0
+              0.0,
+              0.0
             ],
             "anchoredPosition": [
-             0.0,
-             0.0
+              0.0,
+              0.0
             ],
-            "children": [
-             {
-              "name": "Txt_TutorialGoLabel",
-              "components": [
-               {
+            "active": true,
+            "children": []
+          },
+          {
+            "name": "Txt_FormTitle",
+            "components": [
+              {
                 "type": "TextMeshProUGUI",
-                "text": "前往相关功能",
-                "fontSize": 22.0,
+                "text": "基础引导",
+                "fontSize": 28.0,
                 "color": [
-                 0.941176,
-                 0.94902,
-                 0.956863,
-                 1.0
+                  0.941176,
+                  0.94902,
+                  0.956863,
+                  1.0
                 ],
                 "raycastTarget": false,
                 "wordWrap": true,
-                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-               }
-              ],
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               -16.0,
-               -8.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ]
-             }
-            ]
-           },
-           {
-            "name": "Btn_TutorialRule",
-            "components": [
-             {
-              "type": "Image",
-              "color": [
-               0.321569,
-               0.498039,
-               0.639216,
-               1.0
-              ],
-              "imageType": 1,
-              "raycastTarget": true,
-              "preserveAspect": false
-             },
-             {
-              "type": "Button",
-              "transition": 1,
-              "interactable": true
-             }
+                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                "hAlign": 1,
+                "vAlign": 256
+              }
             ],
-            "controlledBy": "group",
             "anchorMin": [
-             0.0,
-             1.0
+              0.0,
+              1.0
             ],
             "anchorMax": [
-             0.0,
-             1.0
+              0.0,
+              1.0
             ],
             "pivot": [
-             0.0,
-             1.0
+              0.0,
+              1.0
             ],
             "sizeDelta": [
-             177.0,
-             48.0
+              1290.0,
+              42.0
             ],
             "anchoredPosition": [
-             0.0,
-             0.0
+              222.0,
+              -128.0
+            ],
+            "active": true,
+            "children": []
+          },
+          {
+            "name": "Grp_PageHost",
+            "components": [],
+            "anchorMin": [
+              0.0,
+              0.0
+            ],
+            "anchorMax": [
+              1.0,
+              1.0
+            ],
+            "pivot": [
+              0.5,
+              0.5
+            ],
+            "sizeDelta": [
+              0.0,
+              0.0
+            ],
+            "anchoredPosition": [
+              0.0,
+              0.0
             ],
             "children": [
-             {
-              "name": "Txt_TutorialRuleLabel",
-              "components": [
-               {
-                "type": "TextMeshProUGUI",
-                "text": "查看规则",
-                "fontSize": 22.0,
-                "color": [
-                 0.941176,
-                 0.94902,
-                 0.956863,
-                 1.0
-                ],
-                "raycastTarget": false,
-                "wordWrap": true,
-                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-               }
-              ],
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               -16.0,
-               -8.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ]
-             }
-            ]
-           },
-           {
-            "name": "Btn_TutorialClose",
-            "components": [
-             {
-              "type": "Image",
-              "color": [
-               0.321569,
-               0.498039,
-               0.639216,
-               1.0
-              ],
-              "imageType": 1,
-              "raycastTarget": true,
-              "preserveAspect": false
-             },
-             {
-              "type": "Button",
-              "transition": 1,
-              "interactable": true
-             }
-            ],
-            "controlledBy": "group",
-            "anchorMin": [
-             0.0,
-             1.0
-            ],
-            "anchorMax": [
-             0.0,
-             1.0
-            ],
-            "pivot": [
-             0.0,
-             1.0
-            ],
-            "sizeDelta": [
-             177.0,
-             48.0
-            ],
-            "anchoredPosition": [
-             0.0,
-             0.0
-            ],
-            "children": [
-             {
-              "name": "Txt_TutorialCloseLabel",
-              "components": [
-               {
-                "type": "TextMeshProUGUI",
-                "text": "暂时关闭",
-                "fontSize": 22.0,
-                "color": [
-                 0.941176,
-                 0.94902,
-                 0.956863,
-                 1.0
-                ],
-                "raycastTarget": false,
-                "wordWrap": true,
-                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-               }
-              ],
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               -16.0,
-               -8.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ]
-             }
-            ]
-           }
-          ]
-         },
-         {
-          "name": "Panel_TutorialLesson",
-          "components": [
-           {
-            "type": "Image",
-            "color": [
-             0.16,
-             0.13,
-             0.09,
-             1
-            ],
-            "imageType": 1,
-            "raycastTarget": true,
-            "preserveAspect": false
-           }
-          ],
-          "anchorMin": [
-           0,
-           1
-          ],
-          "anchorMax": [
-           0,
-           1
-          ],
-          "pivot": [
-           0,
-           1
-          ],
-          "sizeDelta": [
-           460,
-           570
-          ],
-          "anchoredPosition": [
-           0,
-           -42
-          ],
-          "children": [
-           {
-            "name": "Txt_TutorialLessonHeading",
-            "components": [
-             {
-              "type": "TextMeshProUGUI",
-              "text": "当前步骤",
-              "fontSize": 24.0,
-              "color": [
-               0.941176,
-               0.94902,
-               0.956863,
-               1.0
-              ],
-              "raycastTarget": false,
-              "wordWrap": true,
-              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-             }
-            ],
-            "anchorMin": [
-             0.0,
-             1.0
-            ],
-            "anchorMax": [
-             0.0,
-             1.0
-            ],
-            "pivot": [
-             0.0,
-             1.0
-            ],
-            "sizeDelta": [
-             712.0,
-             32.0
-            ],
-            "anchoredPosition": [
-             12.0,
-             -8.0
-            ]
-           },
-           {
-            "name": "List_TutorialLesson",
-            "components": [
-             {
-              "type": "ScrollRect",
-              "horizontal": false,
-              "vertical": true,
-              "movementType": 2
-             }
-            ],
-            "anchorMin": [
-             0.0,
-             0.0
-            ],
-            "anchorMax": [
-             1.0,
-             1.0
-            ],
-            "pivot": [
-             0.5,
-             0.5
-            ],
-            "sizeDelta": [
-             -24.0,
-             -52.0
-            ],
-            "anchoredPosition": [
-             0.0,
-             -18.0
-            ],
-            "children": [
-             {
-              "name": "Viewport_TutorialLesson",
-              "components": [
-               {
-                "type": "RectMask2D"
-               }
-              ],
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               0.0,
-               0.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ],
-              "children": [
-               {
-                "name": "Content_TutorialLesson",
+              {
+                "name": "Panel_PageTutorial",
                 "components": [
-                 {
-                  "type": "VerticalLayoutGroup",
-                  "spacing": 8.0,
-                  "ChildForceExpandWidth": true,
-                  "ChildForceExpandHeight": false
-                 },
-                 {
-                  "type": "ContentSizeFitter",
-                  "verticalFit": 2,
-                  "horizontalFit": 0
-                 }
-                ],
-                "anchorMin": [
-                 0.0,
-                 1.0
-                ],
-                "anchorMax": [
-                 1.0,
-                 1.0
-                ],
-                "pivot": [
-                 0.5,
-                 1.0
-                ],
-                "sizeDelta": [
-                 0.0,
-                 0.0
-                ],
-                "anchoredPosition": [
-                 0.0,
-                 0.0
-                ],
-                "children": [
-                 {
-                  "name": "Txt_TutorialLessonBody",
-                  "components": [
-                   {
-                    "type": "TextMeshProUGUI",
-                    "text": "目的",
-                    "fontSize": 22.0,
-                    "color": [
-                     0.941176,
-                     0.94902,
-                     0.956863,
-                     1.0
-                    ],
-                    "raycastTarget": false,
-                    "wordWrap": true,
-                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-                   },
-                   {
-                    "type": "LayoutElement",
-                    "minHeight": 120.0
-                   }
-                  ],
-                  "controlledBy": "group",
-                  "anchorMin": [
-                   0.0,
-                   1.0
-                  ],
-                  "anchorMax": [
-                   0.0,
-                   1.0
-                  ],
-                  "pivot": [
-                   0.0,
-                   1.0
-                  ],
-                  "sizeDelta": [
-                   712.0,
-                   120.0
-                  ],
-                  "anchoredPosition": [
-                   0.0,
-                   0.0
-                  ]
-                 },
-                 {
-                  "name": "Item_TutorialLessonTemplate",
-                  "components": [
-                   {
+                  {
                     "type": "Image",
                     "color": [
-                     0.12549,
-                     0.141176,
-                     0.164706,
-                     1.0
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0
                     ],
                     "imageType": 1,
                     "raycastTarget": false,
-                    "preserveAspect": false
-                   },
-                   {
-                    "type": "LayoutElement"
-                   }
-                  ],
-                  "controlledBy": "group",
-                  "anchorMin": [
-                   0.0,
-                   1.0
-                  ],
-                  "anchorMax": [
-                   0.0,
-                   1.0
-                  ],
-                  "pivot": [
-                   0.0,
-                   1.0
-                  ],
-                  "sizeDelta": [
-                   712.0,
-                   104.0
-                  ],
-                  "anchoredPosition": [
-                   0.0,
-                   0.0
-                  ],
-                  "active": false,
-                  "children": [
-                   {
-                    "name": "Btn_TutorialLessonRow",
-                    "components": [
-                     {
-                      "type": "Image",
-                      "color": [
-                       0.321569,
-                       0.498039,
-                       0.639216,
-                       1.0
-                      ],
-                      "imageType": 1,
-                      "raycastTarget": true,
-                      "preserveAspect": false
-                     },
-                     {
-                      "type": "Button",
-                      "transition": 1,
-                      "interactable": true
-                     }
-                    ],
-                    "anchorMin": [
-                     0.0,
-                     0.0
-                    ],
-                    "anchorMax": [
-                     1.0,
-                     1.0
-                    ],
-                    "pivot": [
-                     0.5,
-                     0.5
-                    ],
-                    "sizeDelta": [
-                     0.0,
-                     0.0
-                    ],
-                    "anchoredPosition": [
-                     0.0,
-                     0.0
-                    ],
-                    "children": [
-                     {
-                      "name": "Txt_TutorialLessonRowLabel",
-                      "components": [
-                       {
-                        "type": "TextMeshProUGUI",
-                        "text": "名称：—",
-                        "fontSize": 22.0,
-                        "color": [
-                         0.941176,
-                         0.94902,
-                         0.956863,
-                         1.0
-                        ],
-                        "raycastTarget": false,
-                        "wordWrap": true,
-                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       1.0
-                      ],
-                      "anchorMax": [
-                       1.0,
-                       1.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       1.0
-                      ],
-                      "sizeDelta": [
-                       -24.0,
-                       32.0
-                      ],
-                      "anchoredPosition": [
-                       0.0,
-                       -8.0
-                      ]
-                     },
-                     {
-                      "name": "Txt_TutorialLessonRowValue",
-                      "components": [
-                       {
-                        "type": "TextMeshProUGUI",
-                        "text": "值、状态、时间：—",
-                        "fontSize": 20.0,
-                        "color": [
-                         0.941176,
-                         0.94902,
-                         0.956863,
-                         1.0
-                        ],
-                        "raycastTarget": false,
-                        "wordWrap": true,
-                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       1.0,
-                       0.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.0
-                      ],
-                      "sizeDelta": [
-                       -24.0,
-                       48.0
-                      ],
-                      "anchoredPosition": [
-                       0.0,
-                       8.0
-                      ]
-                     }
-                    ]
-                   }
-                  ]
-                 }
-                ]
-               }
-              ]
-             }
-            ]
-           }
-          ]
-         },
-         {
-          "name": "Panel_TutorialLinks",
-          "components": [
-           {
-            "type": "Image",
-            "color": [
-             0.17200000000000001,
-             0.14200000000000002,
-             0.102,
-             1
-            ],
-            "imageType": 1,
-            "raycastTarget": true,
-            "preserveAspect": false
-           }
-          ],
-          "anchorMin": [
-           0,
-           1
-          ],
-          "anchorMax": [
-           0,
-           1
-          ],
-          "pivot": [
-           0,
-           1
-          ],
-          "sizeDelta": [
-           1000,
-           570
-          ],
-          "anchoredPosition": [
-           484,
-           -42
-          ],
-          "children": [
-           {
-            "name": "Txt_TutorialLinksHeading",
-            "components": [
-             {
-              "type": "TextMeshProUGUI",
-              "text": "实际操作入口",
-              "fontSize": 24.0,
-              "color": [
-               0.941176,
-               0.94902,
-               0.956863,
-               1.0
-              ],
-              "raycastTarget": false,
-              "wordWrap": true,
-              "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-             }
-            ],
-            "anchorMin": [
-             0.0,
-             1.0
-            ],
-            "anchorMax": [
-             0.0,
-             1.0
-            ],
-            "pivot": [
-             0.0,
-             1.0
-            ],
-            "sizeDelta": [
-             712.0,
-             32.0
-            ],
-            "anchoredPosition": [
-             12.0,
-             -8.0
-            ]
-           },
-           {
-            "name": "List_TutorialLinks",
-            "components": [
-             {
-              "type": "ScrollRect",
-              "horizontal": false,
-              "vertical": true,
-              "movementType": 2
-             }
-            ],
-            "anchorMin": [
-             0.0,
-             0.0
-            ],
-            "anchorMax": [
-             1.0,
-             1.0
-            ],
-            "pivot": [
-             0.5,
-             0.5
-            ],
-            "sizeDelta": [
-             -24.0,
-             -52.0
-            ],
-            "anchoredPosition": [
-             0.0,
-             -18.0
-            ],
-            "children": [
-             {
-              "name": "Viewport_TutorialLinks",
-              "components": [
-               {
-                "type": "RectMask2D"
-               }
-              ],
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               0.0,
-               0.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ],
-              "children": [
-               {
-                "name": "Content_TutorialLinks",
-                "components": [
-                 {
-                  "type": "VerticalLayoutGroup",
-                  "spacing": 8.0,
-                  "ChildForceExpandWidth": true,
-                  "ChildForceExpandHeight": false
-                 },
-                 {
-                  "type": "ContentSizeFitter",
-                  "verticalFit": 2,
-                  "horizontalFit": 0
-                 }
+                    "preserveAspect": false,
+                    "spritePath": ""
+                  }
                 ],
                 "anchorMin": [
-                 0.0,
-                 1.0
+                  0.0,
+                  0.0
                 ],
                 "anchorMax": [
-                 1.0,
-                 1.0
+                  1.0,
+                  1.0
                 ],
                 "pivot": [
-                 0.5,
-                 1.0
+                  0.5,
+                  0.5
                 ],
                 "sizeDelta": [
-                 0.0,
-                 0.0
+                  0.0,
+                  0.0
                 ],
                 "anchoredPosition": [
-                 0.0,
-                 0.0
+                  0.0,
+                  0.0
                 ],
                 "children": [
-                 {
-                  "name": "Txt_TutorialLinksBody",
-                  "components": [
-                   {
+                  {
+                    "name": "Grp_FormalArtwork_Tutorial",
+                    "children": [
+                      {
+                        "name": "Img_FormalSurface_Tutorial",
+                        "children": [],
+                        "components": [
+                          {
+                            "type": "Image",
+                            "spritePath": "",
+                            "imageType": 0,
+                            "preserveAspect": false,
+                            "raycastTarget": false,
+                            "color": [
+                              0.105882354,
+                              0.149019614,
+                              0.2,
+                              1.0
+                            ]
+                          }
+                        ],
+                        "anchorMin": [
+                          0.0,
+                          1.0
+                        ],
+                        "anchorMax": [
+                          0.0,
+                          1.0
+                        ],
+                        "pivot": [
+                          0.0,
+                          1.0
+                        ],
+                        "sizeDelta": [
+                          1672.0,
+                          852.0
+                        ],
+                        "anchoredPosition": [
+                          124.0,
+                          -114.0
+                        ],
+                        "active": true
+                      },
+                      {
+                        "name": "Bg_FormalFrame_Tutorial",
+                        "children": [],
+                        "components": [
+                          {
+                            "type": "Image",
+                            "spritePath": "Assets/Game/Sprites/UI/Common/01-Containers/ui-master-001-normal@512x512.png",
+                            "imageType": 1,
+                            "preserveAspect": false,
+                            "raycastTarget": true,
+                            "color": [
+                              1.0,
+                              1.0,
+                              1.0,
+                              1.0
+                            ]
+                          }
+                        ],
+                        "anchorMin": [
+                          0.0,
+                          1.0
+                        ],
+                        "anchorMax": [
+                          0.0,
+                          1.0
+                        ],
+                        "pivot": [
+                          0.0,
+                          1.0
+                        ],
+                        "sizeDelta": [
+                          1720.0,
+                          900.0
+                        ],
+                        "anchoredPosition": [
+                          100.0,
+                          -90.0
+                        ],
+                        "active": true
+                      }
+                    ],
+                    "components": [],
+                    "anchorMin": [
+                      0.0,
+                      0.0
+                    ],
+                    "anchorMax": [
+                      1.0,
+                      1.0
+                    ],
+                    "pivot": [
+                      0.5,
+                      0.5
+                    ],
+                    "sizeDelta": [
+                      0.0,
+                      0.0
+                    ],
+                    "anchoredPosition": [
+                      0.0,
+                      0.0
+                    ],
+                    "active": true
+                  },
+                  {
+                    "name": "Txt_TutorialTitle",
+                    "components": [
+                      {
+                        "type": "TextMeshProUGUI",
+                        "text": "基础引导",
+                        "fontSize": 28.0,
+                        "color": [
+                          0.941176,
+                          0.94902,
+                          0.956863,
+                          1.0
+                        ],
+                        "raycastTarget": false,
+                        "wordWrap": true,
+                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                        "hAlign": 1,
+                        "vAlign": 256
+                      }
+                    ],
+                    "anchorMin": [
+                      0.0,
+                      1.0
+                    ],
+                    "anchorMax": [
+                      0.0,
+                      1.0
+                    ],
+                    "pivot": [
+                      0.0,
+                      1.0
+                    ],
+                    "sizeDelta": [
+                      1360.0,
+                      40.0
+                    ],
+                    "anchoredPosition": [
+                      222.0,
+                      -130.0
+                    ],
+                    "active": true,
+                    "children": []
+                  },
+                  {
+                    "name": "Grp_TutorialActions",
+                    "components": [
+                      {
+                        "type": "GridLayoutGroup",
+                        "constraint": 1,
+                        "ChildForceExpandWidth": false,
+                        "ChildForceExpandHeight": false,
+                        "constraintCount": 3,
+                        "cellSize": [
+                          525.3333,
+                          48.0
+                        ],
+                        "spacing": [
+                          8.0,
+                          8.0
+                        ]
+                      }
+                    ],
+                    "anchorMin": [
+                      0.0,
+                      1.0
+                    ],
+                    "anchorMax": [
+                      0.0,
+                      1.0
+                    ],
+                    "pivot": [
+                      0.0,
+                      1.0
+                    ],
+                    "sizeDelta": [
+                      1592.0,
+                      48.0
+                    ],
+                    "anchoredPosition": [
+                      164.0,
+                      -886.0
+                    ],
+                    "children": [
+                      {
+                        "name": "Btn_TutorialGo",
+                        "components": [
+                          {
+                            "type": "Image",
+                            "color": [
+                              1.0,
+                              1.0,
+                              1.0,
+                              1.0
+                            ],
+                            "imageType": 1,
+                            "raycastTarget": true,
+                            "preserveAspect": false,
+                            "spritePath": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png"
+                          },
+                          {
+                            "type": "Button",
+                            "transition": 2,
+                            "interactable": true
+                          }
+                        ],
+                        "controlledBy": "group",
+                        "anchorMin": [
+                          0.0,
+                          1.0
+                        ],
+                        "anchorMax": [
+                          0.0,
+                          1.0
+                        ],
+                        "pivot": [
+                          0.0,
+                          1.0
+                        ],
+                        "sizeDelta": [
+                          177.0,
+                          48.0
+                        ],
+                        "anchoredPosition": [
+                          0.0,
+                          0.0
+                        ],
+                        "children": [
+                          {
+                            "name": "Txt_TutorialGoLabel",
+                            "components": [
+                              {
+                                "type": "TextMeshProUGUI",
+                                "text": "前往相关功能",
+                                "fontSize": 20.0,
+                                "color": [
+                                  0.941176,
+                                  0.94902,
+                                  0.956863,
+                                  1.0
+                                ],
+                                "raycastTarget": false,
+                                "wordWrap": true,
+                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                "hAlign": 2,
+                                "vAlign": 512
+                              }
+                            ],
+                            "anchorMin": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchorMax": [
+                              1.0,
+                              1.0
+                            ],
+                            "pivot": [
+                              0.5,
+                              0.5
+                            ],
+                            "sizeDelta": [
+                              -24.0,
+                              -6.0
+                            ],
+                            "anchoredPosition": [
+                              0.0,
+                              0.0
+                            ],
+                            "active": true,
+                            "children": []
+                          }
+                        ],
+                        "active": true
+                      },
+                      {
+                        "name": "Btn_TutorialRule",
+                        "components": [
+                          {
+                            "type": "Image",
+                            "color": [
+                              1.0,
+                              1.0,
+                              1.0,
+                              1.0
+                            ],
+                            "imageType": 1,
+                            "raycastTarget": true,
+                            "preserveAspect": false,
+                            "spritePath": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png"
+                          },
+                          {
+                            "type": "Button",
+                            "transition": 2,
+                            "interactable": true
+                          }
+                        ],
+                        "controlledBy": "group",
+                        "anchorMin": [
+                          0.0,
+                          1.0
+                        ],
+                        "anchorMax": [
+                          0.0,
+                          1.0
+                        ],
+                        "pivot": [
+                          0.0,
+                          1.0
+                        ],
+                        "sizeDelta": [
+                          177.0,
+                          48.0
+                        ],
+                        "anchoredPosition": [
+                          0.0,
+                          0.0
+                        ],
+                        "children": [
+                          {
+                            "name": "Txt_TutorialRuleLabel",
+                            "components": [
+                              {
+                                "type": "TextMeshProUGUI",
+                                "text": "查看规则",
+                                "fontSize": 20.0,
+                                "color": [
+                                  0.941176,
+                                  0.94902,
+                                  0.956863,
+                                  1.0
+                                ],
+                                "raycastTarget": false,
+                                "wordWrap": true,
+                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                "hAlign": 2,
+                                "vAlign": 512
+                              }
+                            ],
+                            "anchorMin": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchorMax": [
+                              1.0,
+                              1.0
+                            ],
+                            "pivot": [
+                              0.5,
+                              0.5
+                            ],
+                            "sizeDelta": [
+                              -24.0,
+                              -6.0
+                            ],
+                            "anchoredPosition": [
+                              0.0,
+                              0.0
+                            ],
+                            "active": true,
+                            "children": []
+                          }
+                        ],
+                        "active": true
+                      },
+                      {
+                        "name": "Btn_TutorialClose",
+                        "components": [
+                          {
+                            "type": "Image",
+                            "color": [
+                              1.0,
+                              1.0,
+                              1.0,
+                              1.0
+                            ],
+                            "imageType": 1,
+                            "raycastTarget": true,
+                            "preserveAspect": false,
+                            "spritePath": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png"
+                          },
+                          {
+                            "type": "Button",
+                            "transition": 2,
+                            "interactable": true
+                          }
+                        ],
+                        "controlledBy": "group",
+                        "anchorMin": [
+                          0.0,
+                          1.0
+                        ],
+                        "anchorMax": [
+                          0.0,
+                          1.0
+                        ],
+                        "pivot": [
+                          0.0,
+                          1.0
+                        ],
+                        "sizeDelta": [
+                          177.0,
+                          48.0
+                        ],
+                        "anchoredPosition": [
+                          0.0,
+                          0.0
+                        ],
+                        "children": [
+                          {
+                            "name": "Txt_TutorialCloseLabel",
+                            "components": [
+                              {
+                                "type": "TextMeshProUGUI",
+                                "text": "暂时关闭",
+                                "fontSize": 20.0,
+                                "color": [
+                                  0.941176,
+                                  0.94902,
+                                  0.956863,
+                                  1.0
+                                ],
+                                "raycastTarget": false,
+                                "wordWrap": true,
+                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                "hAlign": 2,
+                                "vAlign": 512
+                              }
+                            ],
+                            "anchorMin": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchorMax": [
+                              1.0,
+                              1.0
+                            ],
+                            "pivot": [
+                              0.5,
+                              0.5
+                            ],
+                            "sizeDelta": [
+                              -24.0,
+                              -6.0
+                            ],
+                            "anchoredPosition": [
+                              0.0,
+                              0.0
+                            ],
+                            "active": true,
+                            "children": []
+                          }
+                        ],
+                        "active": true
+                      }
+                    ],
+                    "active": true
+                  },
+                  {
+                    "name": "Panel_TutorialLesson",
+                    "components": [
+                      {
+                        "type": "Image",
+                        "color": [
+                          1.0,
+                          1.0,
+                          1.0,
+                          1.0
+                        ],
+                        "imageType": 1,
+                        "raycastTarget": false,
+                        "preserveAspect": false,
+                        "spritePath": "Assets/Game/Sprites/UI/Common/13-CardsAndSlots/ui-master-011-card-normal@512x256.png"
+                      }
+                    ],
+                    "anchorMin": [
+                      0.0,
+                      1.0
+                    ],
+                    "anchorMax": [
+                      0.0,
+                      1.0
+                    ],
+                    "pivot": [
+                      0.0,
+                      1.0
+                    ],
+                    "sizeDelta": [
+                      782.0,
+                      584.0
+                    ],
+                    "anchoredPosition": [
+                      418.0,
+                      -248.0
+                    ],
+                    "children": [
+                      {
+                        "name": "Img_FormalCardSurface_Panel_TutorialLesson",
+                        "children": [],
+                        "components": [
+                          {
+                            "type": "Image",
+                            "spritePath": "",
+                            "imageType": 0,
+                            "preserveAspect": false,
+                            "raycastTarget": false,
+                            "color": [
+                              0.168627456,
+                              0.215686277,
+                              0.270588249,
+                              1.0
+                            ]
+                          }
+                        ],
+                        "anchorMin": [
+                          0.0,
+                          1.0
+                        ],
+                        "anchorMax": [
+                          0.0,
+                          1.0
+                        ],
+                        "pivot": [
+                          0.0,
+                          1.0
+                        ],
+                        "sizeDelta": [
+                          770.0,
+                          572.0
+                        ],
+                        "anchoredPosition": [
+                          6.0,
+                          -6.0
+                        ],
+                        "active": true
+                      },
+                      {
+                        "name": "Img_FormalTutorial_Art00",
+                        "children": [],
+                        "components": [
+                          {
+                            "type": "Image",
+                            "spritePath": "Assets/Game/Sprites/UI/Pages/16-教学规则与知识/scr-16-001-guide-illustration@640x480.png",
+                            "imageType": 0,
+                            "preserveAspect": true,
+                            "raycastTarget": false,
+                            "color": [
+                              1.0,
+                              1.0,
+                              1.0,
+                              1.0
+                            ]
+                          }
+                        ],
+                        "anchorMin": [
+                          0.0,
+                          1.0
+                        ],
+                        "anchorMax": [
+                          0.0,
+                          1.0
+                        ],
+                        "pivot": [
+                          0.0,
+                          1.0
+                        ],
+                        "sizeDelta": [
+                          746.0,
+                          320.0
+                        ],
+                        "anchoredPosition": [
+                          18.0,
+                          -48.0
+                        ],
+                        "active": true
+                      },
+                      {
+                        "name": "Txt_TutorialLessonHeading",
+                        "components": [
+                          {
+                            "type": "TextMeshProUGUI",
+                            "text": "当前步骤",
+                            "fontSize": 21.0,
+                            "color": [
+                              0.941176,
+                              0.94902,
+                              0.956863,
+                              1.0
+                            ],
+                            "raycastTarget": false,
+                            "wordWrap": true,
+                            "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                            "hAlign": 1,
+                            "vAlign": 256
+                          }
+                        ],
+                        "anchorMin": [
+                          0.0,
+                          1.0
+                        ],
+                        "anchorMax": [
+                          0.0,
+                          1.0
+                        ],
+                        "pivot": [
+                          0.0,
+                          1.0
+                        ],
+                        "sizeDelta": [
+                          746.0,
+                          30.0
+                        ],
+                        "anchoredPosition": [
+                          18.0,
+                          -10.0
+                        ],
+                        "active": true,
+                        "children": []
+                      },
+                      {
+                        "name": "List_TutorialLesson",
+                        "components": [
+                          {
+                            "type": "ScrollRect",
+                            "horizontal": false,
+                            "vertical": true,
+                            "movementType": 2
+                          }
+                        ],
+                        "anchorMin": [
+                          0.0,
+                          0.0
+                        ],
+                        "anchorMax": [
+                          1.0,
+                          1.0
+                        ],
+                        "pivot": [
+                          0.5,
+                          0.5
+                        ],
+                        "sizeDelta": [
+                          -36.0,
+                          -394.0
+                        ],
+                        "anchoredPosition": [
+                          0.0,
+                          -183.0
+                        ],
+                        "children": [
+                          {
+                            "name": "Viewport_TutorialLesson",
+                            "components": [
+                              {
+                                "type": "RectMask2D"
+                              }
+                            ],
+                            "anchorMin": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchorMax": [
+                              1.0,
+                              1.0
+                            ],
+                            "pivot": [
+                              0.5,
+                              0.5
+                            ],
+                            "sizeDelta": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchoredPosition": [
+                              0.0,
+                              0.0
+                            ],
+                            "children": [
+                              {
+                                "name": "Content_TutorialLesson",
+                                "components": [
+                                  {
+                                    "type": "VerticalLayoutGroup",
+                                    "spacing": 8.0,
+                                    "ChildForceExpandWidth": true,
+                                    "ChildForceExpandHeight": false
+                                  },
+                                  {
+                                    "type": "ContentSizeFitter",
+                                    "verticalFit": 2,
+                                    "horizontalFit": 0
+                                  }
+                                ],
+                                "anchorMin": [
+                                  0.0,
+                                  1.0
+                                ],
+                                "anchorMax": [
+                                  1.0,
+                                  1.0
+                                ],
+                                "pivot": [
+                                  0.5,
+                                  1.0
+                                ],
+                                "sizeDelta": [
+                                  0.0,
+                                  0.0
+                                ],
+                                "anchoredPosition": [
+                                  0.0,
+                                  0.0
+                                ],
+                                "children": [
+                                  {
+                                    "name": "Txt_TutorialLessonBody",
+                                    "components": [
+                                      {
+                                        "type": "TextMeshProUGUI",
+                                        "text": "目的",
+                                        "fontSize": 22.0,
+                                        "color": [
+                                          0.941176,
+                                          0.94902,
+                                          0.956863,
+                                          1.0
+                                        ],
+                                        "raycastTarget": false,
+                                        "wordWrap": true,
+                                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                        "hAlign": 1,
+                                        "vAlign": 256
+                                      },
+                                      {
+                                        "type": "LayoutElement",
+                                        "minHeight": 120.0,
+                                        "minWidth": -1.0,
+                                        "preferredWidth": -1.0,
+                                        "preferredHeight": -1.0,
+                                        "flexibleWidth": -1.0,
+                                        "flexibleHeight": -1.0,
+                                        "ignoreLayout": false
+                                      }
+                                    ],
+                                    "controlledBy": "group",
+                                    "anchorMin": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "anchorMax": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "pivot": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "sizeDelta": [
+                                      712.0,
+                                      120.0
+                                    ],
+                                    "anchoredPosition": [
+                                      0.0,
+                                      0.0
+                                    ],
+                                    "active": true,
+                                    "children": []
+                                  },
+                                  {
+                                    "name": "Item_TutorialLessonTemplate",
+                                    "components": [
+                                      {
+                                        "type": "Image",
+                                        "color": [
+                                          1.0,
+                                          1.0,
+                                          1.0,
+                                          1.0
+                                        ],
+                                        "imageType": 1,
+                                        "raycastTarget": false,
+                                        "preserveAspect": false,
+                                        "spritePath": "Assets/Game/Sprites/UI/Common/07-RowsAndItems/ui-master-005-row-normal@512x128.png"
+                                      },
+                                      {
+                                        "type": "LayoutElement",
+                                        "minWidth": -1.0,
+                                        "minHeight": -1.0,
+                                        "preferredWidth": -1.0,
+                                        "preferredHeight": -1.0,
+                                        "flexibleWidth": -1.0,
+                                        "flexibleHeight": -1.0,
+                                        "ignoreLayout": false
+                                      }
+                                    ],
+                                    "controlledBy": "group",
+                                    "anchorMin": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "anchorMax": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "pivot": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "sizeDelta": [
+                                      712.0,
+                                      104.0
+                                    ],
+                                    "anchoredPosition": [
+                                      0.0,
+                                      0.0
+                                    ],
+                                    "active": false,
+                                    "children": [
+                                      {
+                                        "name": "Btn_TutorialLessonRow",
+                                        "components": [
+                                          {
+                                            "type": "Image",
+                                            "color": [
+                                              1.0,
+                                              1.0,
+                                              1.0,
+                                              1.0
+                                            ],
+                                            "imageType": 1,
+                                            "raycastTarget": true,
+                                            "preserveAspect": false,
+                                            "spritePath": "Assets/Game/Sprites/UI/Common/07-RowsAndItems/ui-master-005-row-normal@512x128.png"
+                                          },
+                                          {
+                                            "type": "Button",
+                                            "transition": 2,
+                                            "interactable": true
+                                          }
+                                        ],
+                                        "anchorMin": [
+                                          0.0,
+                                          0.0
+                                        ],
+                                        "anchorMax": [
+                                          1.0,
+                                          1.0
+                                        ],
+                                        "pivot": [
+                                          0.5,
+                                          0.5
+                                        ],
+                                        "sizeDelta": [
+                                          0.0,
+                                          0.0
+                                        ],
+                                        "anchoredPosition": [
+                                          0.0,
+                                          0.0
+                                        ],
+                                        "children": [
+                                          {
+                                            "name": "Txt_TutorialLessonRowLabel",
+                                            "components": [
+                                              {
+                                                "type": "TextMeshProUGUI",
+                                                "text": "名称：—",
+                                                "fontSize": 22.0,
+                                                "color": [
+                                                  0.941176,
+                                                  0.94902,
+                                                  0.956863,
+                                                  1.0
+                                                ],
+                                                "raycastTarget": false,
+                                                "wordWrap": true,
+                                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                                "hAlign": 1,
+                                                "vAlign": 256
+                                              }
+                                            ],
+                                            "anchorMin": [
+                                              0.0,
+                                              1.0
+                                            ],
+                                            "anchorMax": [
+                                              1.0,
+                                              1.0
+                                            ],
+                                            "pivot": [
+                                              0.5,
+                                              1.0
+                                            ],
+                                            "sizeDelta": [
+                                              -24.0,
+                                              32.0
+                                            ],
+                                            "anchoredPosition": [
+                                              0.0,
+                                              -8.0
+                                            ],
+                                            "active": true,
+                                            "children": []
+                                          },
+                                          {
+                                            "name": "Txt_TutorialLessonRowValue",
+                                            "components": [
+                                              {
+                                                "type": "TextMeshProUGUI",
+                                                "text": "值、状态、时间：—",
+                                                "fontSize": 20.0,
+                                                "color": [
+                                                  0.941176,
+                                                  0.94902,
+                                                  0.956863,
+                                                  1.0
+                                                ],
+                                                "raycastTarget": false,
+                                                "wordWrap": true,
+                                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                                "hAlign": 1,
+                                                "vAlign": 256
+                                              }
+                                            ],
+                                            "anchorMin": [
+                                              0.0,
+                                              0.0
+                                            ],
+                                            "anchorMax": [
+                                              1.0,
+                                              0.0
+                                            ],
+                                            "pivot": [
+                                              0.5,
+                                              0.0
+                                            ],
+                                            "sizeDelta": [
+                                              -24.0,
+                                              48.0
+                                            ],
+                                            "anchoredPosition": [
+                                              0.0,
+                                              8.0
+                                            ],
+                                            "active": true,
+                                            "children": []
+                                          }
+                                        ],
+                                        "active": true
+                                      }
+                                    ]
+                                  }
+                                ],
+                                "active": true
+                              }
+                            ],
+                            "active": true
+                          }
+                        ],
+                        "active": true
+                      }
+                    ],
+                    "active": true
+                  },
+                  {
+                    "name": "Panel_TutorialLinks",
+                    "components": [
+                      {
+                        "type": "Image",
+                        "color": [
+                          1.0,
+                          1.0,
+                          1.0,
+                          1.0
+                        ],
+                        "imageType": 1,
+                        "raycastTarget": false,
+                        "preserveAspect": false,
+                        "spritePath": "Assets/Game/Sprites/UI/Common/13-CardsAndSlots/ui-master-011-card-normal@512x256.png"
+                      }
+                    ],
+                    "anchorMin": [
+                      0.0,
+                      1.0
+                    ],
+                    "anchorMax": [
+                      0.0,
+                      1.0
+                    ],
+                    "pivot": [
+                      0.0,
+                      1.0
+                    ],
+                    "sizeDelta": [
+                      528.0,
+                      584.0
+                    ],
+                    "anchoredPosition": [
+                      1228.0,
+                      -248.0
+                    ],
+                    "children": [
+                      {
+                        "name": "Img_FormalCardSurface_Panel_TutorialLinks",
+                        "children": [],
+                        "components": [
+                          {
+                            "type": "Image",
+                            "spritePath": "",
+                            "imageType": 0,
+                            "preserveAspect": false,
+                            "raycastTarget": false,
+                            "color": [
+                              0.168627456,
+                              0.215686277,
+                              0.270588249,
+                              1.0
+                            ]
+                          }
+                        ],
+                        "anchorMin": [
+                          0.0,
+                          1.0
+                        ],
+                        "anchorMax": [
+                          0.0,
+                          1.0
+                        ],
+                        "pivot": [
+                          0.0,
+                          1.0
+                        ],
+                        "sizeDelta": [
+                          516.0,
+                          572.0
+                        ],
+                        "anchoredPosition": [
+                          6.0,
+                          -6.0
+                        ],
+                        "active": true
+                      },
+                      {
+                        "name": "Txt_TutorialLinksHeading",
+                        "components": [
+                          {
+                            "type": "TextMeshProUGUI",
+                            "text": "实际操作入口",
+                            "fontSize": 21.0,
+                            "color": [
+                              0.941176,
+                              0.94902,
+                              0.956863,
+                              1.0
+                            ],
+                            "raycastTarget": false,
+                            "wordWrap": true,
+                            "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                            "hAlign": 1,
+                            "vAlign": 256
+                          }
+                        ],
+                        "anchorMin": [
+                          0.0,
+                          1.0
+                        ],
+                        "anchorMax": [
+                          0.0,
+                          1.0
+                        ],
+                        "pivot": [
+                          0.0,
+                          1.0
+                        ],
+                        "sizeDelta": [
+                          492.0,
+                          30.0
+                        ],
+                        "anchoredPosition": [
+                          18.0,
+                          -10.0
+                        ],
+                        "active": true,
+                        "children": []
+                      },
+                      {
+                        "name": "List_TutorialLinks",
+                        "components": [
+                          {
+                            "type": "ScrollRect",
+                            "horizontal": false,
+                            "vertical": true,
+                            "movementType": 2
+                          }
+                        ],
+                        "anchorMin": [
+                          0.0,
+                          0.0
+                        ],
+                        "anchorMax": [
+                          1.0,
+                          1.0
+                        ],
+                        "pivot": [
+                          0.5,
+                          0.5
+                        ],
+                        "sizeDelta": [
+                          -36.0,
+                          -62.0
+                        ],
+                        "anchoredPosition": [
+                          0.0,
+                          -17.0
+                        ],
+                        "children": [
+                          {
+                            "name": "Viewport_TutorialLinks",
+                            "components": [
+                              {
+                                "type": "RectMask2D"
+                              }
+                            ],
+                            "anchorMin": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchorMax": [
+                              1.0,
+                              1.0
+                            ],
+                            "pivot": [
+                              0.5,
+                              0.5
+                            ],
+                            "sizeDelta": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchoredPosition": [
+                              0.0,
+                              0.0
+                            ],
+                            "children": [
+                              {
+                                "name": "Content_TutorialLinks",
+                                "components": [
+                                  {
+                                    "type": "VerticalLayoutGroup",
+                                    "spacing": 8.0,
+                                    "ChildForceExpandWidth": true,
+                                    "ChildForceExpandHeight": false
+                                  },
+                                  {
+                                    "type": "ContentSizeFitter",
+                                    "verticalFit": 2,
+                                    "horizontalFit": 0
+                                  }
+                                ],
+                                "anchorMin": [
+                                  0.0,
+                                  1.0
+                                ],
+                                "anchorMax": [
+                                  1.0,
+                                  1.0
+                                ],
+                                "pivot": [
+                                  0.5,
+                                  1.0
+                                ],
+                                "sizeDelta": [
+                                  0.0,
+                                  0.0
+                                ],
+                                "anchoredPosition": [
+                                  0.0,
+                                  0.0
+                                ],
+                                "children": [
+                                  {
+                                    "name": "Txt_TutorialLinksBody",
+                                    "components": [
+                                      {
+                                        "type": "TextMeshProUGUI",
+                                        "text": "关联界面",
+                                        "fontSize": 22.0,
+                                        "color": [
+                                          0.941176,
+                                          0.94902,
+                                          0.956863,
+                                          1.0
+                                        ],
+                                        "raycastTarget": false,
+                                        "wordWrap": true,
+                                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                        "hAlign": 1,
+                                        "vAlign": 256
+                                      },
+                                      {
+                                        "type": "LayoutElement",
+                                        "minHeight": 120.0,
+                                        "minWidth": -1.0,
+                                        "preferredWidth": -1.0,
+                                        "preferredHeight": -1.0,
+                                        "flexibleWidth": -1.0,
+                                        "flexibleHeight": -1.0,
+                                        "ignoreLayout": false
+                                      }
+                                    ],
+                                    "controlledBy": "group",
+                                    "anchorMin": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "anchorMax": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "pivot": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "sizeDelta": [
+                                      712.0,
+                                      120.0
+                                    ],
+                                    "anchoredPosition": [
+                                      0.0,
+                                      0.0
+                                    ],
+                                    "active": true,
+                                    "children": []
+                                  },
+                                  {
+                                    "name": "Item_TutorialLinksTemplate",
+                                    "components": [
+                                      {
+                                        "type": "Image",
+                                        "color": [
+                                          1.0,
+                                          1.0,
+                                          1.0,
+                                          1.0
+                                        ],
+                                        "imageType": 1,
+                                        "raycastTarget": false,
+                                        "preserveAspect": false,
+                                        "spritePath": "Assets/Game/Sprites/UI/Common/07-RowsAndItems/ui-master-005-row-normal@512x128.png"
+                                      },
+                                      {
+                                        "type": "LayoutElement",
+                                        "minWidth": -1.0,
+                                        "minHeight": -1.0,
+                                        "preferredWidth": -1.0,
+                                        "preferredHeight": -1.0,
+                                        "flexibleWidth": -1.0,
+                                        "flexibleHeight": -1.0,
+                                        "ignoreLayout": false
+                                      }
+                                    ],
+                                    "controlledBy": "group",
+                                    "anchorMin": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "anchorMax": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "pivot": [
+                                      0.0,
+                                      1.0
+                                    ],
+                                    "sizeDelta": [
+                                      712.0,
+                                      104.0
+                                    ],
+                                    "anchoredPosition": [
+                                      0.0,
+                                      0.0
+                                    ],
+                                    "active": false,
+                                    "children": [
+                                      {
+                                        "name": "Btn_TutorialLinksRow",
+                                        "components": [
+                                          {
+                                            "type": "Image",
+                                            "color": [
+                                              1.0,
+                                              1.0,
+                                              1.0,
+                                              1.0
+                                            ],
+                                            "imageType": 1,
+                                            "raycastTarget": true,
+                                            "preserveAspect": false,
+                                            "spritePath": "Assets/Game/Sprites/UI/Common/07-RowsAndItems/ui-master-005-row-normal@512x128.png"
+                                          },
+                                          {
+                                            "type": "Button",
+                                            "transition": 2,
+                                            "interactable": true
+                                          }
+                                        ],
+                                        "anchorMin": [
+                                          0.0,
+                                          0.0
+                                        ],
+                                        "anchorMax": [
+                                          1.0,
+                                          1.0
+                                        ],
+                                        "pivot": [
+                                          0.5,
+                                          0.5
+                                        ],
+                                        "sizeDelta": [
+                                          0.0,
+                                          0.0
+                                        ],
+                                        "anchoredPosition": [
+                                          0.0,
+                                          0.0
+                                        ],
+                                        "children": [
+                                          {
+                                            "name": "Txt_TutorialLinksRowLabel",
+                                            "components": [
+                                              {
+                                                "type": "TextMeshProUGUI",
+                                                "text": "名称：—",
+                                                "fontSize": 22.0,
+                                                "color": [
+                                                  0.941176,
+                                                  0.94902,
+                                                  0.956863,
+                                                  1.0
+                                                ],
+                                                "raycastTarget": false,
+                                                "wordWrap": true,
+                                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                                "hAlign": 1,
+                                                "vAlign": 256
+                                              }
+                                            ],
+                                            "anchorMin": [
+                                              0.0,
+                                              1.0
+                                            ],
+                                            "anchorMax": [
+                                              1.0,
+                                              1.0
+                                            ],
+                                            "pivot": [
+                                              0.5,
+                                              1.0
+                                            ],
+                                            "sizeDelta": [
+                                              -24.0,
+                                              32.0
+                                            ],
+                                            "anchoredPosition": [
+                                              0.0,
+                                              -8.0
+                                            ],
+                                            "active": true,
+                                            "children": []
+                                          },
+                                          {
+                                            "name": "Txt_TutorialLinksRowValue",
+                                            "components": [
+                                              {
+                                                "type": "TextMeshProUGUI",
+                                                "text": "值、状态、时间：—",
+                                                "fontSize": 20.0,
+                                                "color": [
+                                                  0.941176,
+                                                  0.94902,
+                                                  0.956863,
+                                                  1.0
+                                                ],
+                                                "raycastTarget": false,
+                                                "wordWrap": true,
+                                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                                "hAlign": 1,
+                                                "vAlign": 256
+                                              }
+                                            ],
+                                            "anchorMin": [
+                                              0.0,
+                                              0.0
+                                            ],
+                                            "anchorMax": [
+                                              1.0,
+                                              0.0
+                                            ],
+                                            "pivot": [
+                                              0.5,
+                                              0.0
+                                            ],
+                                            "sizeDelta": [
+                                              -24.0,
+                                              48.0
+                                            ],
+                                            "anchoredPosition": [
+                                              0.0,
+                                              8.0
+                                            ],
+                                            "active": true,
+                                            "children": []
+                                          }
+                                        ],
+                                        "active": true
+                                      }
+                                    ]
+                                  }
+                                ],
+                                "active": true
+                              }
+                            ],
+                            "active": true
+                          }
+                        ],
+                        "active": true
+                      }
+                    ],
+                    "active": true
+                  },
+                  {
+                    "name": "Grp_TutorialLoadingState",
+                    "components": [],
+                    "anchorMin": [
+                      0.0,
+                      1.0
+                    ],
+                    "anchorMax": [
+                      0.0,
+                      1.0
+                    ],
+                    "pivot": [
+                      0.0,
+                      1.0
+                    ],
+                    "sizeDelta": [
+                      1624.0,
+                      600.0
+                    ],
+                    "anchoredPosition": [
+                      148.0,
+                      -244.0
+                    ],
+                    "active": false,
+                    "children": [
+                      {
+                        "name": "Panel_TutorialLoadingMessage",
+                        "components": [
+                          {
+                            "type": "Image",
+                            "color": [
+                              1.0,
+                              1.0,
+                              1.0,
+                              1.0
+                            ],
+                            "imageType": 1,
+                            "raycastTarget": false,
+                            "preserveAspect": false,
+                            "spritePath": "Assets/Game/Sprites/UI/Common/08-MessagesAndStates/ui-master-006-loading@512x160.png"
+                          }
+                        ],
+                        "anchorMin": [
+                          0.5,
+                          0.5
+                        ],
+                        "anchorMax": [
+                          0.5,
+                          0.5
+                        ],
+                        "pivot": [
+                          0.5,
+                          0.5
+                        ],
+                        "sizeDelta": [
+                          520.0,
+                          120.0
+                        ],
+                        "anchoredPosition": [
+                          0.0,
+                          0.0
+                        ],
+                        "children": [
+                          {
+                            "name": "Txt_TutorialLoadingMessage",
+                            "components": [
+                              {
+                                "type": "TextMeshProUGUI",
+                                "text": "正在加载",
+                                "fontSize": 20.0,
+                                "color": [
+                                  0.941176,
+                                  0.94902,
+                                  0.956863,
+                                  1.0
+                                ],
+                                "raycastTarget": false,
+                                "wordWrap": true,
+                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                "hAlign": 1,
+                                "vAlign": 256
+                              }
+                            ],
+                            "anchorMin": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchorMax": [
+                              1.0,
+                              1.0
+                            ],
+                            "pivot": [
+                              0.5,
+                              0.5
+                            ],
+                            "sizeDelta": [
+                              -24.0,
+                              -24.0
+                            ],
+                            "anchoredPosition": [
+                              0.0,
+                              0.0
+                            ],
+                            "active": true,
+                            "children": []
+                          }
+                        ],
+                        "active": true
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Grp_TutorialEmptyState",
+                    "components": [],
+                    "anchorMin": [
+                      0.0,
+                      1.0
+                    ],
+                    "anchorMax": [
+                      0.0,
+                      1.0
+                    ],
+                    "pivot": [
+                      0.0,
+                      1.0
+                    ],
+                    "sizeDelta": [
+                      1624.0,
+                      600.0
+                    ],
+                    "anchoredPosition": [
+                      148.0,
+                      -244.0
+                    ],
+                    "active": false,
+                    "children": [
+                      {
+                        "name": "Panel_TutorialEmptyMessage",
+                        "components": [
+                          {
+                            "type": "Image",
+                            "color": [
+                              1.0,
+                              1.0,
+                              1.0,
+                              1.0
+                            ],
+                            "imageType": 1,
+                            "raycastTarget": false,
+                            "preserveAspect": false,
+                            "spritePath": "Assets/Game/Sprites/UI/Common/08-MessagesAndStates/ui-master-006-empty@512x160.png"
+                          }
+                        ],
+                        "anchorMin": [
+                          0.5,
+                          0.5
+                        ],
+                        "anchorMax": [
+                          0.5,
+                          0.5
+                        ],
+                        "pivot": [
+                          0.5,
+                          0.5
+                        ],
+                        "sizeDelta": [
+                          520.0,
+                          120.0
+                        ],
+                        "anchoredPosition": [
+                          0.0,
+                          0.0
+                        ],
+                        "children": [
+                          {
+                            "name": "Txt_TutorialEmptyMessage",
+                            "components": [
+                              {
+                                "type": "TextMeshProUGUI",
+                                "text": "暂无内容",
+                                "fontSize": 20.0,
+                                "color": [
+                                  0.941176,
+                                  0.94902,
+                                  0.956863,
+                                  1.0
+                                ],
+                                "raycastTarget": false,
+                                "wordWrap": true,
+                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                "hAlign": 1,
+                                "vAlign": 256
+                              }
+                            ],
+                            "anchorMin": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchorMax": [
+                              1.0,
+                              1.0
+                            ],
+                            "pivot": [
+                              0.5,
+                              0.5
+                            ],
+                            "sizeDelta": [
+                              -24.0,
+                              -24.0
+                            ],
+                            "anchoredPosition": [
+                              0.0,
+                              0.0
+                            ],
+                            "active": true,
+                            "children": []
+                          }
+                        ],
+                        "active": true
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Grp_TutorialErrorState",
+                    "components": [],
+                    "anchorMin": [
+                      0.0,
+                      1.0
+                    ],
+                    "anchorMax": [
+                      0.0,
+                      1.0
+                    ],
+                    "pivot": [
+                      0.0,
+                      1.0
+                    ],
+                    "sizeDelta": [
+                      1624.0,
+                      600.0
+                    ],
+                    "anchoredPosition": [
+                      148.0,
+                      -244.0
+                    ],
+                    "active": false,
+                    "children": [
+                      {
+                        "name": "Panel_TutorialErrorMessage",
+                        "components": [
+                          {
+                            "type": "Image",
+                            "color": [
+                              1.0,
+                              1.0,
+                              1.0,
+                              1.0
+                            ],
+                            "imageType": 1,
+                            "raycastTarget": false,
+                            "preserveAspect": false,
+                            "spritePath": "Assets/Game/Sprites/UI/Common/08-MessagesAndStates/ui-master-006-error@512x160.png"
+                          }
+                        ],
+                        "anchorMin": [
+                          0.5,
+                          0.5
+                        ],
+                        "anchorMax": [
+                          0.5,
+                          0.5
+                        ],
+                        "pivot": [
+                          0.5,
+                          0.5
+                        ],
+                        "sizeDelta": [
+                          520.0,
+                          120.0
+                        ],
+                        "anchoredPosition": [
+                          0.0,
+                          0.0
+                        ],
+                        "children": [
+                          {
+                            "name": "Txt_TutorialErrorMessage",
+                            "components": [
+                              {
+                                "type": "TextMeshProUGUI",
+                                "text": "发生错误",
+                                "fontSize": 20.0,
+                                "color": [
+                                  0.941176,
+                                  0.94902,
+                                  0.956863,
+                                  1.0
+                                ],
+                                "raycastTarget": false,
+                                "wordWrap": true,
+                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                "hAlign": 1,
+                                "vAlign": 256
+                              }
+                            ],
+                            "anchorMin": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchorMax": [
+                              1.0,
+                              1.0
+                            ],
+                            "pivot": [
+                              0.5,
+                              0.5
+                            ],
+                            "sizeDelta": [
+                              -24.0,
+                              -24.0
+                            ],
+                            "anchoredPosition": [
+                              0.0,
+                              0.0
+                            ],
+                            "active": true,
+                            "children": []
+                          }
+                        ],
+                        "active": true
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Grp_TutorialSuccessState",
+                    "components": [],
+                    "anchorMin": [
+                      0.0,
+                      1.0
+                    ],
+                    "anchorMax": [
+                      0.0,
+                      1.0
+                    ],
+                    "pivot": [
+                      0.0,
+                      1.0
+                    ],
+                    "sizeDelta": [
+                      1624.0,
+                      600.0
+                    ],
+                    "anchoredPosition": [
+                      148.0,
+                      -244.0
+                    ],
+                    "active": false,
+                    "children": [
+                      {
+                        "name": "Panel_TutorialSuccessMessage",
+                        "components": [
+                          {
+                            "type": "Image",
+                            "color": [
+                              1.0,
+                              1.0,
+                              1.0,
+                              1.0
+                            ],
+                            "imageType": 1,
+                            "raycastTarget": false,
+                            "preserveAspect": false,
+                            "spritePath": "Assets/Game/Sprites/UI/Common/08-MessagesAndStates/ui-master-006-success@512x160.png"
+                          }
+                        ],
+                        "anchorMin": [
+                          0.5,
+                          0.5
+                        ],
+                        "anchorMax": [
+                          0.5,
+                          0.5
+                        ],
+                        "pivot": [
+                          0.5,
+                          0.5
+                        ],
+                        "sizeDelta": [
+                          520.0,
+                          120.0
+                        ],
+                        "anchoredPosition": [
+                          0.0,
+                          0.0
+                        ],
+                        "children": [
+                          {
+                            "name": "Txt_TutorialSuccessMessage",
+                            "components": [
+                              {
+                                "type": "TextMeshProUGUI",
+                                "text": "操作成功",
+                                "fontSize": 20.0,
+                                "color": [
+                                  0.941176,
+                                  0.94902,
+                                  0.956863,
+                                  1.0
+                                ],
+                                "raycastTarget": false,
+                                "wordWrap": true,
+                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                "hAlign": 1,
+                                "vAlign": 256
+                              }
+                            ],
+                            "anchorMin": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchorMax": [
+                              1.0,
+                              1.0
+                            ],
+                            "pivot": [
+                              0.5,
+                              0.5
+                            ],
+                            "sizeDelta": [
+                              -24.0,
+                              -24.0
+                            ],
+                            "anchoredPosition": [
+                              0.0,
+                              0.0
+                            ],
+                            "active": true,
+                            "children": []
+                          }
+                        ],
+                        "active": true
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Grp_TutorialDisabledState",
+                    "components": [],
+                    "anchorMin": [
+                      0.0,
+                      1.0
+                    ],
+                    "anchorMax": [
+                      0.0,
+                      1.0
+                    ],
+                    "pivot": [
+                      0.0,
+                      1.0
+                    ],
+                    "sizeDelta": [
+                      1624.0,
+                      600.0
+                    ],
+                    "anchoredPosition": [
+                      148.0,
+                      -244.0
+                    ],
+                    "active": false,
+                    "children": [
+                      {
+                        "name": "Panel_TutorialDisabledMessage",
+                        "components": [
+                          {
+                            "type": "Image",
+                            "color": [
+                              1.0,
+                              1.0,
+                              1.0,
+                              1.0
+                            ],
+                            "imageType": 1,
+                            "raycastTarget": false,
+                            "preserveAspect": false,
+                            "spritePath": "Assets/Game/Sprites/UI/Common/08-MessagesAndStates/ui-master-006-disabled@512x160.png"
+                          }
+                        ],
+                        "anchorMin": [
+                          0.5,
+                          0.5
+                        ],
+                        "anchorMax": [
+                          0.5,
+                          0.5
+                        ],
+                        "pivot": [
+                          0.5,
+                          0.5
+                        ],
+                        "sizeDelta": [
+                          520.0,
+                          120.0
+                        ],
+                        "anchoredPosition": [
+                          0.0,
+                          0.0
+                        ],
+                        "children": [
+                          {
+                            "name": "Txt_TutorialDisabledMessage",
+                            "components": [
+                              {
+                                "type": "TextMeshProUGUI",
+                                "text": "当前不可用",
+                                "fontSize": 20.0,
+                                "color": [
+                                  0.941176,
+                                  0.94902,
+                                  0.956863,
+                                  1.0
+                                ],
+                                "raycastTarget": false,
+                                "wordWrap": true,
+                                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                                "hAlign": 1,
+                                "vAlign": 256
+                              }
+                            ],
+                            "anchorMin": [
+                              0.0,
+                              0.0
+                            ],
+                            "anchorMax": [
+                              1.0,
+                              1.0
+                            ],
+                            "pivot": [
+                              0.5,
+                              0.5
+                            ],
+                            "sizeDelta": [
+                              -24.0,
+                              -24.0
+                            ],
+                            "anchoredPosition": [
+                              0.0,
+                              0.0
+                            ],
+                            "active": true,
+                            "children": []
+                          }
+                        ],
+                        "active": true
+                      }
+                    ]
+                  }
+                ],
+                "active": true
+              }
+            ],
+            "active": true
+          },
+          {
+            "name": "Btn_FormBack",
+            "components": [
+              {
+                "type": "Image",
+                "color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "imageType": 1,
+                "raycastTarget": true,
+                "preserveAspect": false,
+                "spritePath": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png"
+              },
+              {
+                "type": "Button",
+                "transition": 2,
+                "interactable": true
+              }
+            ],
+            "anchorMin": [
+              0.0,
+              1.0
+            ],
+            "anchorMax": [
+              0.0,
+              1.0
+            ],
+            "pivot": [
+              0.0,
+              1.0
+            ],
+            "sizeDelta": [
+              112.0,
+              40.0
+            ],
+            "anchoredPosition": [
+              1532.0,
+              -128.0
+            ],
+            "children": [
+              {
+                "name": "Txt_FormBackLabel",
+                "components": [
+                  {
                     "type": "TextMeshProUGUI",
-                    "text": "关联界面",
-                    "fontSize": 22.0,
+                    "text": "返回",
+                    "fontSize": 20.0,
                     "color": [
-                     0.941176,
-                     0.94902,
-                     0.956863,
-                     1.0
+                      0.941176,
+                      0.94902,
+                      0.956863,
+                      1.0
                     ],
                     "raycastTarget": false,
                     "wordWrap": true,
-                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-                   },
-                   {
-                    "type": "LayoutElement",
-                    "minHeight": 120.0
-                   }
-                  ],
-                  "controlledBy": "group",
-                  "anchorMin": [
-                   0.0,
-                   1.0
-                  ],
-                  "anchorMax": [
-                   0.0,
-                   1.0
-                  ],
-                  "pivot": [
-                   0.0,
-                   1.0
-                  ],
-                  "sizeDelta": [
-                   712.0,
-                   120.0
-                  ],
-                  "anchoredPosition": [
-                   0.0,
-                   0.0
-                  ]
-                 },
-                 {
-                  "name": "Item_TutorialLinksTemplate",
-                  "components": [
-                   {
-                    "type": "Image",
+                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                    "hAlign": 2,
+                    "vAlign": 512
+                  }
+                ],
+                "anchorMin": [
+                  0.0,
+                  0.0
+                ],
+                "anchorMax": [
+                  1.0,
+                  1.0
+                ],
+                "pivot": [
+                  0.5,
+                  0.5
+                ],
+                "sizeDelta": [
+                  -24.0,
+                  -6.0
+                ],
+                "anchoredPosition": [
+                  0.0,
+                  0.0
+                ],
+                "active": true,
+                "children": []
+              }
+            ],
+            "active": true
+          },
+          {
+            "name": "Btn_FormClose",
+            "components": [
+              {
+                "type": "Image",
+                "color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "imageType": 1,
+                "raycastTarget": true,
+                "preserveAspect": false,
+                "spritePath": "Assets/Game/Sprites/UI/Common/02-ButtonsAndTabs/ui-master-002-normal@512x256.png"
+              },
+              {
+                "type": "Button",
+                "transition": 2,
+                "interactable": true
+              }
+            ],
+            "anchorMin": [
+              0.0,
+              1.0
+            ],
+            "anchorMax": [
+              0.0,
+              1.0
+            ],
+            "pivot": [
+              0.0,
+              1.0
+            ],
+            "sizeDelta": [
+              112.0,
+              40.0
+            ],
+            "anchoredPosition": [
+              1656.0,
+              -128.0
+            ],
+            "children": [
+              {
+                "name": "Txt_FormCloseLabel",
+                "components": [
+                  {
+                    "type": "TextMeshProUGUI",
+                    "text": "关闭",
+                    "fontSize": 20.0,
                     "color": [
-                     0.12549,
-                     0.141176,
-                     0.164706,
-                     1.0
+                      0.941176,
+                      0.94902,
+                      0.956863,
+                      1.0
                     ],
-                    "imageType": 1,
                     "raycastTarget": false,
-                    "preserveAspect": false
-                   },
-                   {
-                    "type": "LayoutElement"
-                   }
-                  ],
-                  "controlledBy": "group",
-                  "anchorMin": [
-                   0.0,
-                   1.0
-                  ],
-                  "anchorMax": [
-                   0.0,
-                   1.0
-                  ],
-                  "pivot": [
-                   0.0,
-                   1.0
-                  ],
-                  "sizeDelta": [
-                   712.0,
-                   104.0
-                  ],
-                  "anchoredPosition": [
-                   0.0,
-                   0.0
-                  ],
-                  "active": false,
-                  "children": [
-                   {
-                    "name": "Btn_TutorialLinksRow",
-                    "components": [
-                     {
-                      "type": "Image",
-                      "color": [
-                       0.321569,
-                       0.498039,
-                       0.639216,
-                       1.0
-                      ],
-                      "imageType": 1,
-                      "raycastTarget": true,
-                      "preserveAspect": false
-                     },
-                     {
-                      "type": "Button",
-                      "transition": 1,
-                      "interactable": true
-                     }
-                    ],
-                    "anchorMin": [
-                     0.0,
-                     0.0
-                    ],
-                    "anchorMax": [
-                     1.0,
-                     1.0
-                    ],
-                    "pivot": [
-                     0.5,
-                     0.5
-                    ],
-                    "sizeDelta": [
-                     0.0,
-                     0.0
-                    ],
-                    "anchoredPosition": [
-                     0.0,
-                     0.0
-                    ],
-                    "children": [
-                     {
-                      "name": "Txt_TutorialLinksRowLabel",
-                      "components": [
-                       {
-                        "type": "TextMeshProUGUI",
-                        "text": "名称：—",
-                        "fontSize": 22.0,
-                        "color": [
-                         0.941176,
-                         0.94902,
-                         0.956863,
-                         1.0
-                        ],
-                        "raycastTarget": false,
-                        "wordWrap": true,
-                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       1.0
-                      ],
-                      "anchorMax": [
-                       1.0,
-                       1.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       1.0
-                      ],
-                      "sizeDelta": [
-                       -24.0,
-                       32.0
-                      ],
-                      "anchoredPosition": [
-                       0.0,
-                       -8.0
-                      ]
-                     },
-                     {
-                      "name": "Txt_TutorialLinksRowValue",
-                      "components": [
-                       {
-                        "type": "TextMeshProUGUI",
-                        "text": "值、状态、时间：—",
-                        "fontSize": 20.0,
-                        "color": [
-                         0.941176,
-                         0.94902,
-                         0.956863,
-                         1.0
-                        ],
-                        "raycastTarget": false,
-                        "wordWrap": true,
-                        "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-                       }
-                      ],
-                      "anchorMin": [
-                       0.0,
-                       0.0
-                      ],
-                      "anchorMax": [
-                       1.0,
-                       0.0
-                      ],
-                      "pivot": [
-                       0.5,
-                       0.0
-                      ],
-                      "sizeDelta": [
-                       -24.0,
-                       48.0
-                      ],
-                      "anchoredPosition": [
-                       0.0,
-                       8.0
-                      ]
-                     }
-                    ]
-                   }
-                  ]
-                 }
-                ]
-               }
-              ]
-             }
-            ]
-           }
-          ]
-         },
-         {
-          "name": "Grp_TutorialLoadingState",
-          "components": [],
-          "anchorMin": [
-           0.0,
-           1.0
-          ],
-          "anchorMax": [
-           0.0,
-           1.0
-          ],
-          "pivot": [
-           0.0,
-           1.0
-          ],
-          "sizeDelta": [
-           1488.0,
-           634.0
-          ],
-          "anchoredPosition": [
-           0.0,
-           -36.0
-          ],
-          "active": false,
-          "children": [
-           {
-            "name": "Panel_TutorialLoadingMessage",
+                    "wordWrap": true,
+                    "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset",
+                    "hAlign": 2,
+                    "vAlign": 512
+                  }
+                ],
+                "anchorMin": [
+                  0.0,
+                  0.0
+                ],
+                "anchorMax": [
+                  1.0,
+                  1.0
+                ],
+                "pivot": [
+                  0.5,
+                  0.5
+                ],
+                "sizeDelta": [
+                  -24.0,
+                  -6.0
+                ],
+                "anchoredPosition": [
+                  0.0,
+                  0.0
+                ],
+                "active": true,
+                "children": []
+              }
+            ],
+            "active": true
+          },
+          {
+            "name": "Grp_Navigation",
             "components": [
-             {
-              "type": "Image",
-              "color": [
-               0.12549,
-               0.141176,
-               0.164706,
-               1.0
-              ],
-              "imageType": 1,
-              "raycastTarget": false,
-              "preserveAspect": false
-             }
+              {
+                "type": "GridLayoutGroup",
+                "cellSize": [
+                  252.0,
+                  60.0
+                ],
+                "spacing": [
+                  10.0,
+                  8.0
+                ],
+                "constraint": 1,
+                "constraintCount": 1
+              }
             ],
             "anchorMin": [
-             0.5,
-             0.5
+              0.0,
+              1.0
             ],
             "anchorMax": [
-             0.5,
-             0.5
+              0.0,
+              1.0
             ],
             "pivot": [
-             0.5,
-             0.5
+              0.0,
+              1.0
             ],
             "sizeDelta": [
-             520.0,
-             120.0
+              252.0,
+              570.0
             ],
             "anchoredPosition": [
-             0.0,
-             0.0
+              164.0,
+              -246.0
             ],
-            "children": [
-             {
-              "name": "Txt_TutorialLoadingMessage",
-              "components": [
-               {
-                "type": "TextMeshProUGUI",
-                "text": "Loading：—",
-                "fontSize": 20.0,
-                "color": [
-                 0.941176,
-                 0.94902,
-                 0.956863,
-                 1.0
-                ],
-                "raycastTarget": false,
-                "wordWrap": true,
-                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-               }
-              ],
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               -24.0,
-               -24.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ]
-             }
-            ]
-           }
-          ]
-         },
-         {
-          "name": "Grp_TutorialEmptyState",
-          "components": [],
-          "anchorMin": [
-           0.0,
-           1.0
-          ],
-          "anchorMax": [
-           0.0,
-           1.0
-          ],
-          "pivot": [
-           0.0,
-           1.0
-          ],
-          "sizeDelta": [
-           1488.0,
-           634.0
-          ],
-          "anchoredPosition": [
-           0.0,
-           -36.0
-          ],
-          "active": false,
-          "children": [
-           {
-            "name": "Panel_TutorialEmptyMessage",
-            "components": [
-             {
-              "type": "Image",
-              "color": [
-               0.12549,
-               0.141176,
-               0.164706,
-               1.0
-              ],
-              "imageType": 1,
-              "raycastTarget": false,
-              "preserveAspect": false
-             }
-            ],
-            "anchorMin": [
-             0.5,
-             0.5
-            ],
-            "anchorMax": [
-             0.5,
-             0.5
-            ],
-            "pivot": [
-             0.5,
-             0.5
-            ],
-            "sizeDelta": [
-             520.0,
-             120.0
-            ],
-            "anchoredPosition": [
-             0.0,
-             0.0
-            ],
-            "children": [
-             {
-              "name": "Txt_TutorialEmptyMessage",
-              "components": [
-               {
-                "type": "TextMeshProUGUI",
-                "text": "Empty：—",
-                "fontSize": 20.0,
-                "color": [
-                 0.941176,
-                 0.94902,
-                 0.956863,
-                 1.0
-                ],
-                "raycastTarget": false,
-                "wordWrap": true,
-                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-               }
-              ],
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               -24.0,
-               -24.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ]
-             }
-            ]
-           }
-          ]
-         },
-         {
-          "name": "Grp_TutorialErrorState",
-          "components": [],
-          "anchorMin": [
-           0.0,
-           1.0
-          ],
-          "anchorMax": [
-           0.0,
-           1.0
-          ],
-          "pivot": [
-           0.0,
-           1.0
-          ],
-          "sizeDelta": [
-           1488.0,
-           634.0
-          ],
-          "anchoredPosition": [
-           0.0,
-           -36.0
-          ],
-          "active": false,
-          "children": [
-           {
-            "name": "Panel_TutorialErrorMessage",
-            "components": [
-             {
-              "type": "Image",
-              "color": [
-               0.12549,
-               0.141176,
-               0.164706,
-               1.0
-              ],
-              "imageType": 1,
-              "raycastTarget": false,
-              "preserveAspect": false
-             }
-            ],
-            "anchorMin": [
-             0.5,
-             0.5
-            ],
-            "anchorMax": [
-             0.5,
-             0.5
-            ],
-            "pivot": [
-             0.5,
-             0.5
-            ],
-            "sizeDelta": [
-             520.0,
-             120.0
-            ],
-            "anchoredPosition": [
-             0.0,
-             0.0
-            ],
-            "children": [
-             {
-              "name": "Txt_TutorialErrorMessage",
-              "components": [
-               {
-                "type": "TextMeshProUGUI",
-                "text": "Error：—",
-                "fontSize": 20.0,
-                "color": [
-                 0.941176,
-                 0.94902,
-                 0.956863,
-                 1.0
-                ],
-                "raycastTarget": false,
-                "wordWrap": true,
-                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-               }
-              ],
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               -24.0,
-               -24.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ]
-             }
-            ]
-           }
-          ]
-         },
-         {
-          "name": "Grp_TutorialSuccessState",
-          "components": [],
-          "anchorMin": [
-           0.0,
-           1.0
-          ],
-          "anchorMax": [
-           0.0,
-           1.0
-          ],
-          "pivot": [
-           0.0,
-           1.0
-          ],
-          "sizeDelta": [
-           1488.0,
-           634.0
-          ],
-          "anchoredPosition": [
-           0.0,
-           -36.0
-          ],
-          "active": false,
-          "children": [
-           {
-            "name": "Panel_TutorialSuccessMessage",
-            "components": [
-             {
-              "type": "Image",
-              "color": [
-               0.12549,
-               0.141176,
-               0.164706,
-               1.0
-              ],
-              "imageType": 1,
-              "raycastTarget": false,
-              "preserveAspect": false
-             }
-            ],
-            "anchorMin": [
-             0.5,
-             0.5
-            ],
-            "anchorMax": [
-             0.5,
-             0.5
-            ],
-            "pivot": [
-             0.5,
-             0.5
-            ],
-            "sizeDelta": [
-             520.0,
-             120.0
-            ],
-            "anchoredPosition": [
-             0.0,
-             0.0
-            ],
-            "children": [
-             {
-              "name": "Txt_TutorialSuccessMessage",
-              "components": [
-               {
-                "type": "TextMeshProUGUI",
-                "text": "Success：—",
-                "fontSize": 20.0,
-                "color": [
-                 0.941176,
-                 0.94902,
-                 0.956863,
-                 1.0
-                ],
-                "raycastTarget": false,
-                "wordWrap": true,
-                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-               }
-              ],
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               -24.0,
-               -24.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ]
-             }
-            ]
-           }
-          ]
-         },
-         {
-          "name": "Grp_TutorialDisabledState",
-          "components": [],
-          "anchorMin": [
-           0.0,
-           1.0
-          ],
-          "anchorMax": [
-           0.0,
-           1.0
-          ],
-          "pivot": [
-           0.0,
-           1.0
-          ],
-          "sizeDelta": [
-           1488.0,
-           634.0
-          ],
-          "anchoredPosition": [
-           0.0,
-           -36.0
-          ],
-          "active": false,
-          "children": [
-           {
-            "name": "Panel_TutorialDisabledMessage",
-            "components": [
-             {
-              "type": "Image",
-              "color": [
-               0.12549,
-               0.141176,
-               0.164706,
-               1.0
-              ],
-              "imageType": 1,
-              "raycastTarget": false,
-              "preserveAspect": false
-             }
-            ],
-            "anchorMin": [
-             0.5,
-             0.5
-            ],
-            "anchorMax": [
-             0.5,
-             0.5
-            ],
-            "pivot": [
-             0.5,
-             0.5
-            ],
-            "sizeDelta": [
-             520.0,
-             120.0
-            ],
-            "anchoredPosition": [
-             0.0,
-             0.0
-            ],
-            "children": [
-             {
-              "name": "Txt_TutorialDisabledMessage",
-              "components": [
-               {
-                "type": "TextMeshProUGUI",
-                "text": "Disabled：—",
-                "fontSize": 20.0,
-                "color": [
-                 0.941176,
-                 0.94902,
-                 0.956863,
-                 1.0
-                ],
-                "raycastTarget": false,
-                "wordWrap": true,
-                "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-               }
-              ],
-              "anchorMin": [
-               0.0,
-               0.0
-              ],
-              "anchorMax": [
-               1.0,
-               1.0
-              ],
-              "pivot": [
-               0.5,
-               0.5
-              ],
-              "sizeDelta": [
-               -24.0,
-               -24.0
-              ],
-              "anchoredPosition": [
-               0.0,
-               0.0
-              ]
-             }
-            ]
-           }
-          ]
-         }
-        ]
-       }
-      ]
-     },
-     {
-      "name": "Btn_FormBack",
-      "components": [
-       {
-        "type": "Image",
-        "color": [
-         0.321569,
-         0.498039,
-         0.639216,
-         1.0
+            "children": [],
+            "active": false
+          }
         ],
-        "imageType": 1,
-        "raycastTarget": true,
-        "preserveAspect": false
-       },
-       {
-        "type": "Button",
-        "transition": 1,
-        "interactable": true
-       }
-      ],
-      "anchorMin": [
-       1.0,
-       1.0
-      ],
-      "anchorMax": [
-       1.0,
-       1.0
-      ],
-      "pivot": [
-       1.0,
-       1.0
-      ],
-      "sizeDelta": [
-       88.0,
-       48.0
-      ],
-      "anchoredPosition": [
-       -112.0,
-       -20.0
-      ],
-      "children": [
-       {
-        "name": "Txt_FormBackLabel",
-        "components": [
-         {
-          "type": "TextMeshProUGUI",
-          "text": "返回",
-          "fontSize": 22.0,
-          "color": [
-           0.941176,
-           0.94902,
-           0.956863,
-           1.0
-          ],
-          "raycastTarget": false,
-          "wordWrap": true,
-          "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-         }
-        ],
-        "anchorMin": [
-         0,
-         0
-        ],
-        "anchorMax": [
-         1,
-         1
-        ],
-        "pivot": [
-         0.5,
-         0.5
-        ],
-        "sizeDelta": [
-         -8.0,
-         -8.0
-        ],
-        "anchoredPosition": [
-         0.0,
-         0.0
-        ]
-       }
-      ]
-     },
-     {
-      "name": "Btn_FormClose",
-      "components": [
-       {
-        "type": "Image",
-        "color": [
-         0.321569,
-         0.498039,
-         0.639216,
-         1.0
-        ],
-        "imageType": 1,
-        "raycastTarget": true,
-        "preserveAspect": false
-       },
-       {
-        "type": "Button",
-        "transition": 1,
-        "interactable": true
-       }
-      ],
-      "anchorMin": [
-       1.0,
-       1.0
-      ],
-      "anchorMax": [
-       1.0,
-       1.0
-      ],
-      "pivot": [
-       1.0,
-       1.0
-      ],
-      "sizeDelta": [
-       80.0,
-       48.0
-      ],
-      "anchoredPosition": [
-       -24.0,
-       -20.0
-      ],
-      "children": [
-       {
-        "name": "Txt_FormCloseLabel",
-        "components": [
-         {
-          "type": "TextMeshProUGUI",
-          "text": "关闭",
-          "fontSize": 22.0,
-          "color": [
-           0.941176,
-           0.94902,
-           0.956863,
-           1.0
-          ],
-          "raycastTarget": false,
-          "wordWrap": true,
-          "fontPath": "Assets/Game/Fonts/UI/SIMHEI SDF.asset"
-         }
-        ],
-        "anchorMin": [
-         0,
-         0
-        ],
-        "anchorMax": [
-         1,
-         1
-        ],
-        "pivot": [
-         0.5,
-         0.5
-        ],
-        "sizeDelta": [
-         -8.0,
-         -8.0
-        ],
-        "anchoredPosition": [
-         0.0,
-         0.0
-        ]
-       }
-      ]
-     }
+        "active": true
+      }
+    ],
+    "active": true
+  },
+  "bindings": [
+    {
+      "path": "_pageHost",
+      "node": "TutorialForm/Panel_Frame/Grp_PageHost",
+      "kind": "RectTransform"
+    },
+    {
+      "path": "_backButton",
+      "node": "TutorialForm/Panel_Frame/Btn_FormBack",
+      "kind": "Button"
+    },
+    {
+      "path": "_closeButton",
+      "node": "TutorialForm/Panel_Frame/Btn_FormClose",
+      "kind": "Button"
+    },
+    {
+      "path": "_tutorialLessonContent",
+      "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial/Panel_TutorialLesson/List_TutorialLesson/Viewport_TutorialLesson/Content_TutorialLesson",
+      "kind": "RectTransform"
+    },
+    {
+      "path": "_tutorialLessonBody",
+      "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial/Panel_TutorialLesson/List_TutorialLesson/Viewport_TutorialLesson/Content_TutorialLesson/Txt_TutorialLessonBody",
+      "kind": "TextMeshProUGUI"
+    },
+    {
+      "path": "_tutorialLessonTemplate",
+      "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial/Panel_TutorialLesson/List_TutorialLesson/Viewport_TutorialLesson/Content_TutorialLesson/Item_TutorialLessonTemplate",
+      "kind": "GameObject"
+    },
+    {
+      "path": "_tutorialLinksContent",
+      "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial/Panel_TutorialLinks/List_TutorialLinks/Viewport_TutorialLinks/Content_TutorialLinks",
+      "kind": "RectTransform"
+    },
+    {
+      "path": "_tutorialLinksBody",
+      "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial/Panel_TutorialLinks/List_TutorialLinks/Viewport_TutorialLinks/Content_TutorialLinks/Txt_TutorialLinksBody",
+      "kind": "TextMeshProUGUI"
+    },
+    {
+      "path": "_tutorialLinksTemplate",
+      "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial/Panel_TutorialLinks/List_TutorialLinks/Viewport_TutorialLinks/Content_TutorialLinks/Item_TutorialLinksTemplate",
+      "kind": "GameObject"
+    },
+    {
+      "path": "_tutorialLoadingState",
+      "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial/Grp_TutorialLoadingState",
+      "kind": "GameObject"
+    },
+    {
+      "path": "_tutorialEmptyState",
+      "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial/Grp_TutorialEmptyState",
+      "kind": "GameObject"
+    },
+    {
+      "path": "_tutorialErrorState",
+      "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial/Grp_TutorialErrorState",
+      "kind": "GameObject"
+    },
+    {
+      "path": "_tutorialSuccessState",
+      "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial/Grp_TutorialSuccessState",
+      "kind": "GameObject"
+    },
+    {
+      "path": "_tutorialDisabledState",
+      "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial/Grp_TutorialDisabledState",
+      "kind": "GameObject"
+    }
+  ],
+  "scalars": [],
+  "scriptFields": [],
+  "generatedFrom": "界面规格/prefab-layout.md（tools/ui_spec_to_contract.py）",
+  "formArrays": {
+    "_pageRoots": [
+      {
+        "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial",
+        "kind": "GameObject"
+      }
     ]
-   }
-  ]
- },
- "bindings": [
-  {
-   "path": "_pageHost",
-   "node": "TutorialForm/Panel_Frame/Grp_PageHost",
-   "kind": "RectTransform"
   },
-  {
-   "path": "_backButton",
-   "node": "TutorialForm/Panel_Frame/Btn_FormBack",
-   "kind": "Button"
-  },
-  {
-   "path": "_closeButton",
-   "node": "TutorialForm/Panel_Frame/Btn_FormClose",
-   "kind": "Button"
-  },
-  {
-   "path": "_tutorialLessonContent",
-   "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial/Panel_TutorialLesson/List_TutorialLesson/Viewport_TutorialLesson/Content_TutorialLesson",
-   "kind": "RectTransform"
-  },
-  {
-   "path": "_tutorialLessonBody",
-   "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial/Panel_TutorialLesson/List_TutorialLesson/Viewport_TutorialLesson/Content_TutorialLesson/Txt_TutorialLessonBody",
-   "kind": "TextMeshProUGUI"
-  },
-  {
-   "path": "_tutorialLessonTemplate",
-   "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial/Panel_TutorialLesson/List_TutorialLesson/Viewport_TutorialLesson/Content_TutorialLesson/Item_TutorialLessonTemplate",
-   "kind": "GameObject"
-  },
-  {
-   "path": "_tutorialLinksContent",
-   "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial/Panel_TutorialLinks/List_TutorialLinks/Viewport_TutorialLinks/Content_TutorialLinks",
-   "kind": "RectTransform"
-  },
-  {
-   "path": "_tutorialLinksBody",
-   "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial/Panel_TutorialLinks/List_TutorialLinks/Viewport_TutorialLinks/Content_TutorialLinks/Txt_TutorialLinksBody",
-   "kind": "TextMeshProUGUI"
-  },
-  {
-   "path": "_tutorialLinksTemplate",
-   "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial/Panel_TutorialLinks/List_TutorialLinks/Viewport_TutorialLinks/Content_TutorialLinks/Item_TutorialLinksTemplate",
-   "kind": "GameObject"
-  },
-  {
-   "path": "_tutorialLoadingState",
-   "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial/Grp_TutorialLoadingState",
-   "kind": "GameObject"
-  },
-  {
-   "path": "_tutorialEmptyState",
-   "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial/Grp_TutorialEmptyState",
-   "kind": "GameObject"
-  },
-  {
-   "path": "_tutorialErrorState",
-   "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial/Grp_TutorialErrorState",
-   "kind": "GameObject"
-  },
-  {
-   "path": "_tutorialSuccessState",
-   "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial/Grp_TutorialSuccessState",
-   "kind": "GameObject"
-  },
-  {
-   "path": "_tutorialDisabledState",
-   "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial/Grp_TutorialDisabledState",
-   "kind": "GameObject"
-  }
- ],
- "scalars": [],
- "scriptFields": [],
- "generatedFrom": "界面规格/prefab-layout.md（tools/ui_spec_to_contract.py）",
- "formArrays": {
-  "_pageRoots": [
-   {
-    "node": "TutorialForm/Panel_Frame/Grp_PageHost/Panel_PageTutorial",
-    "kind": "GameObject"
-   }
-  ]
- },
- "layoutMigration": "b52: family-specific structure rollout; preserve serialized bindings and functional page routes"
+  "layoutMigration": "b52: family-specific structure rollout; preserve serialized bindings and functional page routes",
+  "formalArtSource": "openspec/changes/b54-formal-ui-art-integration/art/page-plan.json"
 }
